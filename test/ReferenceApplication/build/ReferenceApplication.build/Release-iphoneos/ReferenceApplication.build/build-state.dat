@@ -1,0 +1,296 @@
+TReferenceApplication
+v4
+r1
+cCheck dependencies
+cCpResource /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist
+cProcessInfoPlistFile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/Info.plist ReferenceApplication/ReferenceApplication-Info.plist
+cProcessPCH /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.pth ReferenceApplication/ReferenceApplication-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cCompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+cLd /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication normal armv7
+cGenerateDSYMFile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYM /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication
+cCopyStringsFile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/en.lproj/InfoPlist.strings ReferenceApplication/en.lproj/InfoPlist.strings
+cProcessProductPackaging "/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision" /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision
+cProcessProductPackaging "/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision" /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision
+cTouch /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+cProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent
+cCodeSign /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+cValidate /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+
+N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk
+c000000004E7840290000000000000110
+t1316503593
+s272
+
+N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist
+c000000004E5C595800000000000001A7
+t1314675032
+s423
+
+N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist
+c000000004E5C595800000000000001E5
+t1314675032
+s485
+
+N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
+c000000004E72F28700000000003AB0A0
+t1316156039
+s3846304
+
+N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
+c000000004E72F3440000000000529540
+t1316156228
+s5412160
+
+N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
+c000000004E7808C7000000000078BE50
+t1316489415
+s7913040
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m
+c000000004F5B28E400000000000008C7
+t1331374308
+s2247
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/ReferenceApplication-Prefix.pch
+c000000004F5B28E40000000000000151
+t1331374308
+s337
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m
+c000000004F5B422E000000000000021F
+t1331380782
+s543
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/en.lproj/InfoPlist.strings
+c000000004F5B28E4000000000000002D
+t1331374308
+s45
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m
+c000000004F5B28E40000000000000161
+t1331374308
+s353
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.o
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/ReferenceApplication.LinkFileList
+c000000004F5B441A00000000000001FC
+t1331381274
+s508
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.o
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.o
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/com.apple.build-tools.platform.validate
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYM
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/Info.plist
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/PkgInfo
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision
+t2
+s0
+
+N/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/en.lproj/InfoPlist.strings
+t2
+s0
+
+N/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision
+c000000004F4E77420000000000001CFB
+t1330542402
+s7419
+
+N/var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.pth
+t2
+s0
+
+NReferenceApplication/ReferenceApplication-Info.plist
+c000000004F5B28E400000000000005D8
+t1331374308
+s1496
+
+CCheck dependencies
+r0
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies645abb987b0bb541^f9ba109a7b0bb541^---0#1#0#--18"Check dependencies36"A57D5B35-5325-483F-ACA9-BFE7D0619A69-
+
+CCodeSign /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+s353074077.693454
+e353074078.222086
+r1
+xCodeSign
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"CodeSign build/Release-iphoneos/ReferenceApplication.app3196b19d7b0bb541^7bdb389e7b0bb541^---0#0#0#-19%DVTDocumentLocation2@126"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/0000000000000000^906"CodeSign build/Release-iphoneos/ReferenceApplication.app    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv CODESIGN_ALLOCATE /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /usr/bin/codesign --force --sign "iPhone Developer: Baluta Cristian (53NTS244G5)" --resource-rules=/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist --entitlements /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app36"1C240A5D-93D3-452E-96E8-CEE24AEBCEBB-
+
+CCompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353074076.363301
+e353074076.688831
+r1
+xCompileC
+xbuild/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.o
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection104"Compile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m05195d9c7b0bb541^2a57b09c7b0bb541^---0#0#0#-19%DVTDocumentLocation2@112"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m0000000000000000^3155"CompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.o ReferenceApplication/AppDelegate.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -gdwarf-2 -fvisibility=hidden -Wno-sign-conversion -mthumb "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=5.0 -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-generated-files.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-own-target-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-all-target-headers.hmap -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-project-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/include -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources/armv7 -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources -F/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch -MMD -MT dependencies -MF /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.d -c /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/AppDelegate.m -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/AppDelegate.o36"2AC26BEE-482B-4637-A9CD-13D83509FF22-
+
+CCompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353074076.363317
+e353074076.687945
+r1
+xCompileC
+xbuild/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.o
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection97"Compile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m761a5d9c7b0bb541^2a1db09c7b0bb541^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m0000000000000000^3120"CompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.o ReferenceApplication/Test.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -gdwarf-2 -fvisibility=hidden -Wno-sign-conversion -mthumb "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=5.0 -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-generated-files.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-own-target-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-all-target-headers.hmap -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-project-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/include -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources/armv7 -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources -F/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch -MMD -MT dependencies -MF /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.d -c /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/Test.m -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/Test.o36"F08F0A4B-7552-4661-B25C-3ED1971AB171-
+
+CCompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353074076.363141
+e353074076.685111
+r1
+xCompileC
+xbuild/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.o
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection97"Compile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m0f0f5d9c7b0bb541^3d63af9c7b0bb541^---0#0#0#-19%DVTDocumentLocation2@105"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m0000000000000000^3120"CompileC build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.o ReferenceApplication/main.m normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang -x objective-c -arch armv7 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -gdwarf-2 -fvisibility=hidden -Wno-sign-conversion -mthumb "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=5.0 -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-generated-files.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-own-target-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-all-target-headers.hmap -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-project-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/include -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources/armv7 -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources -F/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch -MMD -MT dependencies -MF /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.d -c /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/main.m -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/main.o36"92CDF0C5-1276-43B0-962B-BFA44EB1A3E3-
+
+CCopyStringsFile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/en.lproj/InfoPlist.strings ReferenceApplication/en.lproj/InfoPlist.strings
+s353074077.601946
+e353074077.605656
+r1
+xCopyStringsFile
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/en.lproj/InfoPlist.strings
+xReferenceApplication/en.lproj/InfoPlist.strings
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection52"Copy ReferenceApplication/en.lproj/InfoPlist.strings5e2a9a9d7b0bb541^cc0c9b9d7b0bb541^---0#0#0#-19%DVTDocumentLocation2@125"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/en.lproj/InfoPlist.strings0000000000000000^620"CopyStringsFile build/Release-iphoneos/ReferenceApplication.app/en.lproj/InfoPlist.strings ReferenceApplication/en.lproj/InfoPlist.strings    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/en.lproj -- ReferenceApplication/en.lproj/InfoPlist.strings36"9E5BC09B-3C2C-493B-973B-0D4632AABAAD-
+
+CCpResource /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist
+s353074074.086194
+e353074074.117864
+r1
+xCpResource
+x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist
+xbuild/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Copy build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist71ad169a7b0bb541^672c1e9a7b0bb541^---0#0#0#-19%DVTDocumentLocation2@145"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist000080bbb4031042^723"CpResource /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -strip-debug-symbols -resolve-src-symlinks /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/ResourceRules.plist /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app36"76BE5224-3365-4EED-BD97-B21CFEDF0554-
+
+CGenerateDSYMFile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYM /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication
+s353074077.535222
+e353074077.593133
+r1
+xGenerateDSYMFile
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYM
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection125"Generating /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYMa114899d7b0bb541^6bd8979d7b0bb541^---0#0#0#-19%DVTDocumentLocation2@130"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYM00f4a0f9ddffdf42^641"GenerateDSYMFile build/Release-iphoneos/ReferenceApplication.app.dSYM build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /Developer/usr/bin/dsymutil /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app.dSYM36"076DFE69-544C-4784-A004-B5F9DF71A052-
+
+CLd /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication normal armv7
+s353074076.696511
+e353074077.528076
+r1
+xLd
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication
+xnormal
+xarmv7
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection135"Link /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication0761b29c7b0bb541^4832879d7b0bb541^---0#0#0#--1132"Ld build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication normal armv7    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv IPHONEOS_DEPLOYMENT_TARGET 5.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -L/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos -F/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos -filelist /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/Objects-normal/armv7/ReferenceApplication.LinkFileList -dead_strip -fobjc-arc -miphoneos-version-min=5.0 -framework UIKit -framework Foundation -framework CoreGraphics -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ReferenceApplication36"F8AA8CF9-0302-47A2-B09B-51EBE118AC38-
+
+CProcessInfoPlistFile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/Info.plist ReferenceApplication/ReferenceApplication-Info.plist
+s353074074.086223
+e353074074.092627
+r1
+xProcessInfoPlistFile
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/Info.plist
+xReferenceApplication/ReferenceApplication-Info.plist
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection60"Process ReferenceApplication/ReferenceApplication-Info.plist82ad169a7b0bb541^67b6179a7b0bb541^---0#0#0#-19%DVTDocumentLocation2@130"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/ReferenceApplication-Info.plist0000000000000000^894"ProcessInfoPlistFile build/Release-iphoneos/ReferenceApplication.app/Info.plist ReferenceApplication/ReferenceApplication-Info.plist    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    builtin-infoPlistUtility ReferenceApplication/ReferenceApplication-Info.plist -genpkginfo /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/ResourceRules.plist -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/Info.plist36"A7206BE6-68B8-413D-87E7-1DB1F49AD16B-
+
+CProcessPCH /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.pth ReferenceApplication/ReferenceApplication-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler
+s353074074.127581
+e353074076.355434
+r1
+xProcessPCH
+x/var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.pth
+xReferenceApplication/ReferenceApplication-Prefix.pch
+xnormal
+xarmv7
+xobjective-c
+xcom.apple.compilers.llvm.clang.1_0.compiler
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection63"Precompile ReferenceApplication/ReferenceApplication-Prefix.pchbe15219a7b0bb541^61fe5a9c7b0bb541^---0#0#0#-19%DVTDocumentLocation2@130"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/ReferenceApplication-Prefix.pch0000000000000000^3107"ProcessPCH /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.pth ReferenceApplication/ReferenceApplication-Prefix.pch normal armv7 objective-c com.apple.compilers.llvm.clang.1_0.compiler    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/clang -x objective-c-header -arch armv7 -fmessage-length=0 -fdiagnostics-print-source-range-info -fdiagnostics-show-category=id -fdiagnostics-parseable-fixits -std=gnu99 -fobjc-arc -Wno-trigraphs -fpascal-strings -Os -Wmissing-prototypes -Wreturn-type -Wparentheses -Wswitch -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-shorten-64-to-32 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk -gdwarf-2 -fvisibility=hidden -Wno-sign-conversion -mthumb "-DIBOutlet=__attribute__((iboutlet))" "-DIBOutletCollection(ClassName)=__attribute__((iboutletcollection(ClassName)))" "-DIBAction=void)__attribute__((ibaction)" -miphoneos-version-min=5.0 -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-generated-files.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-own-target-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-all-target-headers.hmap -iquote /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication-project-headers.hmap -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/include -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources/armv7 -I/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/DerivedSources -F/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos -DNS_BLOCK_ASSERTIONS=1 -c /Users/Cristi/Documents/haxesources/test/ReferenceApplication/ReferenceApplication/ReferenceApplication-Prefix.pch -o /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.pth -MMD -MT dependencies -MF /var/folders/yq/cnf2tlq128s6ljs092g476040000gn/C/com.apple.Xcode.501/SharedPrecompiledHeaders/ReferenceApplication-Prefix-clltwiudqffmeraogextdegwdomz/ReferenceApplication-Prefix.pch.d36"F9176C39-54F9-4F55-A133-710E1DB8E6DF-
+
+CProcessProductPackaging "/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision" /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision
+s353074077.625279
+e353074077.628529
+r1
+xProcessProductPackaging
+x/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection208"ProcessProductPackaging "/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision" build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision4622a09d7b0bb541^f3e6a09d7b0bb541^---0#0#0#-19%DVTDocumentLocation2@150"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision0000000000000000^716"ProcessProductPackaging "/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision" build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    builtin-productPackagingUtility "/Users/Cristi/Library/MobileDevice/Provisioning Profiles/14030B6D-12A6-450F-87E9-3F5285257C4F.mobileprovision" -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/embedded.mobileprovision36"933273C7-F4C5-4AF9-A95F-24B56EF44CF1-
+
+CProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent
+s353074077.664135
+e353074077.684635
+r1
+xProcessProductPackaging
+x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection216"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcentf31faa9d7b0bb541^2c44af9d7b0bb541^---0#0#0#-19%DVTDocumentLocation2@181"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent00f4a0f9ddffdf42^758"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    builtin-productPackagingUtility /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/Entitlements.plist -entitlements -format xml -o /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/ReferenceApplication.build/Release-iphoneos/ReferenceApplication.build/ReferenceApplication.xcent36"6D41A29F-2C3A-40E5-9800-F6A41B49634E-
+
+CTouch /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+s353074077.636472
+e353074077.655827
+r1
+xTouch
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection115"Touch /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.appdffca29d7b0bb541^29e7a79d7b0bb541^---0#0#0#--407"Touch build/Release-iphoneos/ReferenceApplication.app    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    /usr/bin/touch -c /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app36"3007700C-CCB9-45CF-A83D-2C96481EC802-
+
+CValidate /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+s353074078.230282
+e353074080.065127
+r1
+xValidate
+x/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app
+owarning: iPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon.png that is 57x57 (-19013)
+oUnable to validate your application. - (null)
+o
+owarning: iPad: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon-72.png that is 72x72 (-19013)
+oUnable to validate your application. - (null)
+o
+lSLF04#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection56"Validate build/Release-iphoneos/ReferenceApplication.app9f033b9e7b0bb541^d2ac10a07b0bb541^-506"warning: iPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon.png that is 57x57 (-19013)Unable to validate your application. - (null)warning: iPad: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon-72.png that is 72x72 (-19013)Unable to validate your application. - (null)2(21%IDEActivityLogMessage2@202" iPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon.png that is 57x57 (-19013)192"IPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon.png that is 57x57353074080#18446744073709551615#0#-1#-23%DVTTextDocumentLocation3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#---2@192" iPad: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon-72.png that is 72x72 (-19013)182"IPad: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIcons, CFBundleIconFiles, CFBundleIconFile, or provide a default Icon-72.png that is 72x72353074080#18446744073709551615#0#-1#-3@-0000000000000000^18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#18446744073709551615#0#---0#0#0#-19%DVTDocumentLocation4@126"file://localhost/Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app/0000000000000000^519"Validate build/Release-iphoneos/ReferenceApplication.app    cd /Users/Cristi/Documents/haxesources/test/ReferenceApplication    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin"    setenv PRODUCT_TYPE com.apple.product-type.application    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/Validation /Users/Cristi/Documents/haxesources/test/ReferenceApplication/build/Release-iphoneos/ReferenceApplication.app36"F029F200-1295-4FD8-B741-18BD5C75A5D5-
+

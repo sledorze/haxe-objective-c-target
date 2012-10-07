@@ -1,0 +1,12 @@
+# This will compile the Test.hx with the stable release of haxe
+#-cmd haxe -main Test -swf test/TestStable.swf -cp test
+
+# This will compile the Test.hx with the svn release of haxe
+#-cmd bin/haxe -main Text -swf test/Test.swf -cp test
+#-cmd open test/Test.swf
+
+# Test the new target, Objective-C
+-cmd bin/haxe -main Test -cp test -objc test/objc
+	
+# Test the cpp target
+#-cmd bin/haxe -main Test -cp test -cpp test/cpp
