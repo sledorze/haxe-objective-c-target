@@ -1,0 +1,16 @@
+.svn
+.DS_Store
+*.pdf
+*.cmi
+*.cmx
+*.o
+libs
+haxedoc
+haxelib
+flash
+flash8
+php
+neko
+java
+cs
+cpp
