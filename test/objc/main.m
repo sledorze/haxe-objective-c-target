@@ -1,4 +1,4 @@
-// File generated with the new haXe objc target.
+// File generated with the new Haxe objective-c target.
 //
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"

@@ -1,10 +1,9 @@
-// File generated with the new haXe objc target.
+// File generated with the new Haxe objective-c target.
 //
-
-@implementation Log;
-		Function *trace  = (void)v:(**)v infos:(**)infos = nil{
+	public class Log {
+		static public var _trace : Function = (void)v:(**)v infos:(**)infos = nil{
 		}
-		Function *clear  = (void){
+		static public var clear : Function = (void){
 		}
-	@end
-
+	}
+}

@@ -16,8 +16,108 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *)
+open Ast
 open Type
 open Common
+
+let join_class_path path separator =
+	let result = match fst path, snd path with
+	| [], s -> s
+	| el, s -> String.concat separator el ^ separator ^ s in
+	if (String.contains result '+') then begin
+		let idx = String.index result '+' in
+		(String.sub result 0 idx) ^ (String.sub result (idx+1) ((String.length result) - idx -1 ) )
+	end else
+		result;;
+
+class source_writer write_func close_func=
+	object(this)
+	val indent_str = "\t"
+	val mutable indent = ""
+	val mutable indents = []
+	val mutable just_finished_block = false
+	method close = close_func(); ()
+	method write x = write_func x; just_finished_block <- false
+	method indent_one = this#write indent_str
+
+	method push_indent = indents <- indent_str::indents; indent <- String.concat "" indents
+	method pop_indent = match indents with
+							| h::tail -> indents <- tail; indent <- String.concat "" indents
+							| [] -> indent <- "/*?*/";
+	method write_i x = this#write (indent ^ x)
+	method get_indent = indent
+	method begin_block = this#write ("{\n"); this#push_indent
+	method end_block = this#pop_indent; this#write_i "}\n"; just_finished_block <- true
+	method end_block_line = this#pop_indent; this#write_i "}"; just_finished_block <- true
+	method terminate_line = this#write (if just_finished_block then "" else ";\n")
+
+
+	method add_include class_path =
+		(* this#write ("#ifndef INCLUDED_" ^ (join_class_path class_path "_") ^ "\n"); *)
+		this#write ("#import <" ^ (join_class_path class_path "/") ^ ".h>\n");
+		(* this#write ("#endif\n") *)
+end;;
+
+let file_source_writer filename =
+	let out_file = open_out filename in
+	new source_writer (output_string out_file) (fun ()-> close_out out_file);;
+
+
+let read_whole_file chan =
+	Std.input_all chan;;
+
+(* The cached_source_writer will not write to the file if it has not changed,
+	thus allowing the makefile dependencies to work correctly *)
+let cached_source_writer filename =
+	try
+		let in_file = open_in filename in
+		let old_contents = read_whole_file in_file in
+		close_in in_file;
+		let buffer = Buffer.create 0 in
+		let add_buf str = Buffer.add_string buffer str in
+		let close = fun () ->
+			let contents = Buffer.contents buffer in
+			if (not (contents=old_contents) ) then begin
+				let out_file = open_out filename in
+				output_string out_file contents;
+				close_out out_file;
+			end;
+		in
+		new source_writer (add_buf) (close);
+	with _ ->
+		file_source_writer filename;;
+
+let rec make_class_directories base dir_list =
+	( match dir_list with
+	| [] -> ()
+	| dir :: remaining ->
+		let path = match base with
+                   | "" ->  dir
+                   | "/" -> "/" ^ dir
+                   | _ -> base ^ "/" ^ dir  in
+         if ( not ( (path="") ||
+           ( ((String.length path)=2) && ((String.sub path 1 1)=":") ) ) ) then
+		         if not (Sys.file_exists path) then
+			          Unix.mkdir path 0o755;
+		make_class_directories (if (path="") then "/" else path) remaining
+	);;
+
+
+let new_source_file base_dir sub_dir extension class_path =
+	make_class_directories base_dir ( sub_dir :: (fst class_path));
+	cached_source_writer
+		( base_dir ^ "/" ^ sub_dir ^ "/" ^ ( String.concat "/" (fst class_path) ) ^ "/" ^
+		(snd class_path) ^ extension);;
+
+
+let new_objc_file base_dir = new_source_file base_dir "" ".m";;
+let new_header_file base_dir = new_source_file base_dir "" ".h";;
+let make_base_directory file = make_class_directories "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );
+
+
+
+
+(* Objective-C code generation context *)
 
 type context_infos = {
 	com : Common.context;
@@ -68,27 +168,21 @@ let s_path ctx stat path p =
 	match path with
 	| ([],name) ->
 		(match name with
-		| "Int" -> "int"
-		| "Float" -> "Number"
-		| "Dynamic" -> "Object"
-		| "Bool" -> "Boolean"
-		| "Enum" -> "Class"
-		| "EnumValue" -> "enum"
+		| "Int" -> "NSNumber"
+		| "Float" -> "NSNumber"
+		| "Dynamic" -> "NSDictionary"
+		| "Bool" -> "BOOL"
+		| "String" -> "NSString"
+		| "Array" -> "NSMutableArray"
 		| _ -> name)
-	| (["flash"],"FlashXml__") ->
+	| (["objc"],"FlashXml__") ->
 		"Xml"
 	| (["flash";"errors"],"Error") ->
 		"Error"
 	| (["flash"],"Vector") ->
 		"Vector"
-	| (["flash";"xml"],"XML") ->
+	| (["objc";"ios"],"XML") ->
 		"XML"
-	| (["flash";"xml"],"XMLList") ->
-		"XMLList"
-	| ["flash";"utils"],"QName" ->
-		"QName"
-	| ["flash";"utils"],"Namespace" ->
-		"Namespace"
 	| (["haxe"],"Int32") when not stat ->
 		"int"
 	| (pack,name) ->
@@ -128,7 +222,7 @@ let rec create_dir acc = function
 let init infos path =
 	let dir = infos.com.file :: fst path in
 	create_dir [] dir;
-	let ch = open_out (String.concat "/" dir ^ "/" ^ snd path ^ ".as") in
+	let ch = open_out (String.concat "/" dir ^ "/" ^ snd path ^ ".m") in
 	let imports = Hashtbl.create 0 in
 	Hashtbl.add imports (snd path) [fst path];
 	{
@@ -150,16 +244,19 @@ let init infos path =
 	}
 
 let close ctx =
-	output_string ctx.ch (Printf.sprintf "package %s {\n" (String.concat "." (fst ctx.path)));
+	output_string ctx.ch (Printf.sprintf "// File generated with the new Haxe objective-c target.\n//\n");
 	Hashtbl.iter (fun name paths ->
 		List.iter (fun pack ->
 			let path = pack, name in
-			if path <> ctx.path then output_string ctx.ch ("\timport " ^ Ast.s_type_path path ^ ";\n");
+			if path <> ctx.path then output_string ctx.ch ("#import " ^ Ast.s_type_path path ^ "\n");
 		) paths
 	) ctx.imports;
 	output_string ctx.ch (Buffer.contents ctx.buf);
 	close_out ctx.ch
 
+let save_locals ctx =
+	(fun() -> ())
+		
 let gen_local ctx l =
 	ctx.gen_uid <- ctx.gen_uid + 1;
 	if ctx.gen_uid = 1 then l else l ^ string_of_int ctx.gen_uid
@@ -167,7 +264,7 @@ let gen_local ctx l =
 let spr ctx s = Buffer.add_string ctx.buf s
 let print ctx = Printf.kprintf (fun s -> Buffer.add_string ctx.buf s)
 
-let unsupported p = error "This expression cannot be generated to AS3" p
+let unsupported p = error "This expression cannot be generated to Objective-C" p
 
 let newline ctx =
 	let rec loop p =
@@ -198,10 +295,8 @@ let parent e =
 
 let default_value tstr =
 	match tstr with
-	| "int" | "uint" -> "0"
-	| "Number" -> "NaN"
-	| "Boolean" -> "false"
-	| _ -> "null"
+	| "Boolean" -> "NO"
+	| _ -> "nil"
 
 let rec type_str ctx t p =
 	match t with
@@ -210,15 +305,15 @@ let rec type_str ctx t p =
 	| TAbstract (a,_) ->
 		(match a.a_path with
 		| [], "Void" -> "void"
-		| [], "UInt" -> "uint"
-		| [], "Int" -> "int"
-		| [], "Float" -> "Number"
-		| [], "Bool" -> "Boolean"
+		| [], "UInt" -> "NSNumber"
+		| [], "Int" -> "NSNumber"
+		| [], "Float" -> "NSNumber"
+		| [], "Bool" -> "BOOL"
 		| _ -> s_path ctx true a.a_path p)
 	| TEnum (e,_) ->
 		if e.e_extern then (match e.e_path with
 			| [], "Void" -> "void"
-			| [], "Bool" -> "Boolean"
+			| [], "Bool" -> "BOOL"
 			| _ ->
 				let rec loop = function
 					| [] -> "Object"
@@ -338,43 +433,35 @@ let generate_resources infos =
 	end
 
 let gen_constant ctx p = function
-	| TInt i -> print ctx "%ld" i
-	| TFloat s -> spr ctx s
-	| TString s -> print ctx "\"%s\"" (escape_bin (Ast.s_escape s))
-	| TBool b -> spr ctx (if b then "true" else "false")
-	| TNull -> spr ctx "null"
-	| TThis -> spr ctx (this ctx)
+	| TInt i -> print ctx "[NSNumber numberWithInt:%ld]" i(* %ld = int32 *)
+	(* | TFloat s -> print ctx "[NSNumber numberWithFloat:%f]" s *)
+	| TFloat f -> spr ctx f
+	| TString s -> print ctx "@\"%s\"" (escape_bin (Ast.s_escape s))
+	| TBool b -> spr ctx (if b then "YES" else "NO")
+	| TNull -> spr ctx "nil"
+	| TThis -> spr ctx "self"
+	(* | TThis -> spr ctx (this ctx) *)
 	| TSuper -> spr ctx "super"
 
+
+(* A function header in objc is a message *)
 let gen_function_header ctx name f params p =
 	let old = ctx.in_value in
+	let locals = save_locals ctx in
 	let old_t = ctx.local_types in
-	let old_bi = ctx.block_inits in
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
-	let init () = 
- 		List.iter (fun (v,o) -> match o with
-			| Some c when is_nullable v.v_type && c <> TNull ->
-				newline ctx;
-				print ctx "if(%s==null) %s=" v.v_name v.v_name;
-				gen_constant ctx p c;
-			| _ -> ()
-		) f.tf_args;
-		ctx.block_inits <- None;
-	in
-	ctx.block_inits <- Some init;
-	print ctx "function%s(" (match name with None -> "" | Some (n,meta) ->
+	print ctx "(%s)" (type_str ctx f.tf_type p);(* Print the return type of the function *)
+	print ctx "%s" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
 			| [] -> n
-			| (":getter",[Ast.EConst (Ast.Ident i),_],_) :: _ -> "get " ^ i
-			| (":setter",[Ast.EConst (Ast.Ident i),_],_) :: _ -> "set " ^ i
 			| _ :: l -> loop l
 		in
 		" " ^ loop meta
 	);
-	concat ctx "," (fun (v,c) ->
+	concat ctx " " (fun (v,c) ->
 		let tstr = type_str ctx v.v_type p in
-		print ctx "%s : %s" (s_ident v.v_name) tstr;
+		print ctx "%s:(%s%s)%s" (s_ident v.v_name) tstr "*" (s_ident v.v_name);
 		match c with
 		| None ->
 			if ctx.constructor_block then print ctx " = %s" (default_value tstr);
@@ -382,12 +469,12 @@ let gen_function_header ctx name f params p =
 			spr ctx " = ";
 			gen_constant ctx p c
 	) f.tf_args;
-	print ctx ") : %s " (type_str ctx f.tf_type p);
 	(fun () ->
 		ctx.in_value <- old;
+		locals();
 		ctx.local_types <- old_t;
-		ctx.block_inits <- old_bi;
 	)
+
 
 let rec gen_call ctx e el r =
 	match e.eexpr , el with
@@ -419,33 +506,33 @@ let rec gen_call ctx e el r =
 		gen_value ctx e;
 	| TLocal { v_name = "__keys__" }, [e] ->
 		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
-		print ctx "%s = new Array()" ret.v_name;
+		print ctx "%s = [[NSMutableArray alloc] init]" ret.v_name;
 		newline ctx;
 		let tmp = gen_local ctx "$k" in
-		print ctx "for(var %s : String in " tmp;
+		print ctx "for (NSString *%s in " tmp;
 		gen_value ctx e;
-		print ctx ") %s.push(%s)" ret.v_name tmp;
+		print ctx " %s addObject ( %s )" ret.v_name tmp;
 	| TLocal { v_name = "__hkeys__" }, [e] ->
 		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
-		print ctx "%s = new Array()" ret.v_name;
+		print ctx "%s = [[NSMutableArray alloc] init]" ret.v_name;
 		newline ctx;
 		let tmp = gen_local ctx "$k" in
-		print ctx "for(var %s : String in " tmp;
+		print ctx "for (NSString *%s in " tmp;
 		gen_value ctx e;
-		print ctx ") %s.push(%s.substr(1))" ret.v_name tmp;
+		print ctx ") %s addObject (%s.substr(1))" ret.v_name tmp;
 	| TLocal { v_name = "__foreach__" }, [e] ->
 		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
-		print ctx "%s = new Array()" ret.v_name;
+		print ctx "%s = [[NSMutableArray alloc] init]" ret.v_name;
 		newline ctx;
 		let tmp = gen_local ctx "$k" in
 		print ctx "for each(var %s : * in " tmp;
 		gen_value ctx e;
 		print ctx ") %s.push(%s)" ret.v_name tmp;
 	| TLocal { v_name = "__new__" }, e :: args ->
-		spr ctx "new ";
+		spr ctx "[[";
 		gen_value ctx e;
-		spr ctx "(";
-		concat ctx "," (gen_value ctx) args;
+		spr ctx " alloc] init]";
+		concat ctx "," (gen_value ctx) args;(* Generate an expression from parameters *)
 		spr ctx ")";
 	| TLocal { v_name = "__delete__" }, [e;f] ->
 		spr ctx "delete(";
@@ -461,27 +548,6 @@ let rec gen_call ctx e el r =
 		spr ctx "(";
 		gen_value ctx e;
 		spr ctx ")"
-	| TField ({ eexpr = TTypeExpr (TClassDecl { cl_path = (["flash"],"Lib") }) },f), args ->
-		(match f, args with
-		| "as", [e1;e2] ->
-			gen_value ctx e1;
-			spr ctx " as ";
-			gen_value ctx e2
-		| _ ->
-			gen_value ctx e;
-			spr ctx "(";
-			concat ctx "," (gen_value ctx) el;
-			spr ctx ")")
-	| TField ({ eexpr = TTypeExpr (TClassDecl { cl_path = (["flash"],"Vector") }) },f), args ->
-		(match f, args with
-		| "ofArray", [e] | "convert", [e] ->
-			(match follow r with
-			| TInst ({ cl_path = (["flash"],"Vector") },[t]) ->
-				print ctx "Vector.<%s>(" (type_str ctx t e.epos);
-				gen_value ctx e;
-				print ctx ")";
-			| _ -> assert false)
-		| _ -> assert false)
 	| TField(ee,v),args when is_var_field ee v ->
 		spr ctx "(";
 		gen_value ctx e;
@@ -1103,30 +1169,124 @@ let generate_class ctx c =
 	print ctx "}";
 	newline ctx
 
-let generate_main ctx inits =
-	ctx.curclass <- { null_class with cl_path = [],"__main__" };
+let new_placed_cpp_file common_ctx class_path =
+	let base_dir = common_ctx.file in
+	if (Common.defined common_ctx "vcproj" ) then begin
+		make_class_directories base_dir ("src"::[]);
+		cached_source_writer
+			( base_dir ^ "/src/" ^ ( String.concat "-" (fst class_path) ) ^ "-" ^
+			(snd class_path) ^ ".mm")
+	end else
+		new_objc_file common_ctx.file class_path;;
+
+
+(* Generate a header and an implementation file *)
+(* let generate_class_files common_ctx class_def =
+	let class_path = class_def.cl_path in
+	let cpp_file = new_placed_cpp_file common_ctx class_path in
+	let ctx = new_context common_ctx cpp_file debug in
+	ctx.ctx_class_name <- "/" ^ (join_class_path class_path "/"); *)
+	
+	
+	
+let generate_header ctx c =
+	ctx.curclass <- c;
+	define_getset ctx true c;
+	define_getset ctx false c;
+	ctx.local_types <- List.map snd c.cl_types;
 	let pack = open_block ctx in
-	print ctx "\timport flash.Lib";
-	newline ctx;
-	print ctx "public class __main__ extends %s {" (s_path ctx true (["flash"],"Boot") Ast.null_pos);
+	print ctx "@interface %s : %s <%s> " (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path);
+	(match c.cl_super with
+	| None -> ()
+	| Some (csup,_) -> print ctx ": %s " (s_path ctx true csup.cl_path c.cl_pos));
+	(match c.cl_implements with
+	| [] -> ()
+	| l ->
+		spr ctx (if c.cl_interface then ": " else "< ");
+		concat ctx ", " (fun (i,_) -> print ctx "%s" (s_path ctx true i.cl_path c.cl_pos)) l);
+	spr ctx (if c.cl_interface then "" else ">");
 	let cl = open_block ctx in
-	newline ctx;
-	spr ctx "public function __main__() {";
-	let fl = open_block ctx in
-	newline ctx;
-	spr ctx "super()";
-	newline ctx;
-	spr ctx "flash.Lib.current = this";
-	List.iter (fun e -> newline ctx; gen_expr ctx e) inits;
-	fl();
-	newline ctx;
-	print ctx "}";
+	(match c.cl_constructor with
+	| None -> ()
+	| Some f ->
+		let f = { f with
+			cf_name = snd c.cl_path;
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		ctx.constructor_block <- true;
+		generate_field ctx false f;
+	);
+	List.iter (generate_field ctx false) c.cl_ordered_fields;
+	List.iter (generate_field ctx true) c.cl_ordered_statics;
 	cl();
 	newline ctx;
 	print ctx "}";
 	pack();
 	newline ctx;
-	print ctx "}";
+	print ctx "@end";
+	newline ctx
+
+let generate_implementation ctx c =
+	ctx.curclass <- c;
+	define_getset ctx true c;
+	define_getset ctx false c;
+	ctx.local_types <- List.map snd c.cl_types;
+	let pack = open_block ctx in
+	print ctx "\n@implementation %s" (snd c.cl_path);
+	let cl = open_block ctx in
+	(match c.cl_constructor with
+	| None -> ()
+	| Some f ->
+		let f = { f with
+			cf_name = snd c.cl_path;
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		ctx.constructor_block <- true;
+		generate_field ctx false f;
+	);
+	List.iter (generate_field ctx false) c.cl_ordered_fields;
+	List.iter (generate_field ctx true) c.cl_ordered_statics;
+	cl();
+	newline ctx;
+	pack();
+	(* newline ctx; *)
+	print ctx "@end\n";
+	newline ctx
+	
+let generate_main ctx inits =
+	ctx.curclass <- { null_class with cl_path = [],"main" };
+	let pack = open_block ctx in
+	spr ctx "#import <UIKit/UIKit.h>
+#import \"AppDelegate.h\"
+
+int main(int argc, char *argv[]) {
+	@autoreleasepool {
+		return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+	}
+}";
+	pack();
+	newline ctx
+	
+let generate_pch ctx inits =
+	ctx.curclass <- { null_class with cl_path = [],"App-Prefix" };
+	let pack = open_block ctx in
+	spr ctx "//
+// Prefix header for all source files of the 'ReferenceApplication' target in the 'ReferenceApplication' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning \"This project uses features only available in iOS SDK 3.0 and later.\"
+#endif
+
+#ifdef __OBJC__
+	#import <UIKit/UIKit.h>
+	#import <Foundation/Foundation.h>
+#endif";
+	pack();
 	newline ctx
 
 let generate_enum ctx e =
@@ -1233,6 +1393,6 @@ let generate com =
 	(match com.main with
 	| None -> ()
 	| Some e -> inits := e :: !inits);
-	let ctx = init infos ([],"__main__") in
+	let ctx = init infos ([],"main") in
 	generate_main ctx (List.rev !inits);
 	close ctx

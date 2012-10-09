@@ -6,7 +6,7 @@ class Test {
 	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
 	public static function main(){
-		trace("Hello world from haxe sources");
+		trace("Hello world from Haxe sources");
 		
 /*		var x = "xyz";
 		trace(Std.format("Hello with variable $x"));*/
