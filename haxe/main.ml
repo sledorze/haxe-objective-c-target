@@ -91,7 +91,7 @@ let htmlescape s =
 	s
 
 let reserved_flags = [
-	"cross";"flash8";"js";"neko";"flash";"php";"cpp";"cs";"java";
+	"cross";"flash8";"js";"neko";"flash";"php";"cpp";"cs";"java";"objc";
 	"as3";"swc";"macro";"sys"
 	]
 
@@ -715,7 +715,7 @@ try
 	with
 		Not_found ->
 			if Sys.os_type = "Unix" then
-				com.class_path <- ["/usr/lib/haxe/std/";"/usr/local/lib/haxe/std/";"/usr/lib/haxe/std/libs/";"/usr/local/lib/haxe/std/libs/";"";"/"]
+				com.class_path <- ["/Users/Cristi/Documents/haxecompiler/haxe/std/";"/usr/lib/haxe/std/";"/usr/local/lib/haxe/std/";"/usr/lib/haxe/std/libs/";"/usr/local/lib/haxe/std/libs/";"";"/"]
 			else
 				let base_path = normalize_path (Extc.get_real_path (try executable_path() with _ -> "./")) in
 				com.class_path <- [base_path ^ "std/";base_path ^ "std/libs/";""]);
@@ -756,6 +756,9 @@ try
 		("-java",Arg.String (fun dir ->
 			set_platform Java dir;
 		),"<directory> : generate Java code into target directory");
+		("-objc",Arg.String (fun dir ->
+			set_platform ObjC dir;
+		),"<directory> : generate Xcode Objective-C project into target directory");
 		("-xml",Arg.String (fun file ->
 			Parser.use_doc := true;
 			xml_out := Some file
@@ -1002,6 +1005,9 @@ try
 		| Java ->
 			Genjava.before_generate com;
 			add_std "java"; "java"
+		| ObjC ->
+			add_std "objc";
+			"m"
 	) in
 	(* if we are at the last compilation step, allow all packages accesses - in case of macros or opening another project file *)
 	if com.display && not ctx.has_next then com.package_rules <- PMap.foldi (fun p r acc -> match r with Forbidden -> acc | _ -> PMap.add p r acc) com.package_rules PMap.empty;
@@ -1064,7 +1070,7 @@ try
 		| Some file ->
 			Common.log com ("Generating xml : " ^ file);
 			Genxml.generate com file);
-		if com.platform = Flash || com.platform = Cpp || com.platform = Cs then List.iter (Codegen.fix_overrides com) com.types;
+		if com.platform = Flash || com.platform = Cpp || com.platform = Cs || com.platform = ObjC then List.iter (Codegen.fix_overrides com) com.types;
 		if Common.defined com "dump" then Codegen.dump_types com;
 		if Common.defined com "dump_dependencies" then Codegen.dump_dependencies com;
 		t();
@@ -1103,6 +1109,9 @@ try
 		| Java ->
 			if com.verbose then print_endline ("Generating Java in : " ^ com.file);
 			Genjava.generate com;
+		| ObjC ->
+			if com.verbose then print_endline ("Generating Xcode project in : " ^ com.file);
+			Genobjc.generate com;
 		);
 	end;
 	Sys.catch_break false;
