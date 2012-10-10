@@ -1,4 +1,0 @@
-cpp
-haxe_208
-true
-/Users/Cristi/Documents/NME/hxcpp/
