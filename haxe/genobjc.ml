@@ -30,7 +30,7 @@ let join_class_path path separator =
 	end else
 		result;;
 
-class source_writer write_func close_func=
+(* class source_writer write_func close_func=
 	object(this)
 	val indent_str = "\t"
 	val mutable indent = ""
@@ -60,7 +60,7 @@ end;;
 
 let file_source_writer filename =
 	let out_file = open_out filename in
-	new source_writer (output_string out_file) (fun ()-> close_out out_file);;
+	new source_writer (output_string out_file) (fun ()-> close_out out_file);; *)
 
 
 let read_whole_file chan =
@@ -68,7 +68,7 @@ let read_whole_file chan =
 
 (* The cached_source_writer will not write to the file if it has not changed,
 	thus allowing the makefile dependencies to work correctly *)
-let cached_source_writer filename =
+(* let cached_source_writer filename =
 	try
 		let in_file = open_in filename in
 		let old_contents = read_whole_file in_file in
@@ -85,7 +85,7 @@ let cached_source_writer filename =
 		in
 		new source_writer (add_buf) (close);
 	with _ ->
-		file_source_writer filename;;
+		file_source_writer filename;; *)
 
 let rec make_class_directories base dir_list =
 	( match dir_list with
@@ -103,15 +103,14 @@ let rec make_class_directories base dir_list =
 	);;
 
 
-let new_source_file base_dir sub_dir extension class_path =
+(* let new_source_file base_dir sub_dir extension class_path =
 	make_class_directories base_dir ( sub_dir :: (fst class_path));
 	cached_source_writer
 		( base_dir ^ "/" ^ sub_dir ^ "/" ^ ( String.concat "/" (fst class_path) ) ^ "/" ^
-		(snd class_path) ^ extension);;
+		(snd class_path) ^ extension);; *)
 
-
-let new_objc_file base_dir = new_source_file base_dir "" ".m";;
-let new_header_file base_dir = new_source_file base_dir "" ".h";;
+(* let new_objc_file base_dir = new_source_file base_dir "" ".m";;
+let new_header_file base_dir = new_source_file base_dir "" ".h";; *)
 let make_base_directory file = make_class_directories "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );
 
 
@@ -125,7 +124,8 @@ type context_infos = {
 
 type context = {
 	inf : context_infos;
-	ch : out_channel;
+	ch_implementation : out_channel;
+	ch_header : out_channel;
 	buf : Buffer.t;
 	path : path;
 	mutable get_sets : (string * bool,string) Hashtbl.t;
@@ -219,16 +219,21 @@ let rec create_dir acc = function
 		if not (Sys.file_exists dir) then Unix.mkdir dir 0o755;
 		create_dir (d :: acc) l
 
+(* When you create a file init this first *)
 let init infos path =
-	let dir = infos.com.file :: fst path in
-	create_dir [] dir;
-	let ch = open_out (String.concat "/" dir ^ "/" ^ snd path ^ ".m") in
-	let imports = Hashtbl.create 0 in
-	Hashtbl.add imports (snd path) [fst path];
+	let dir = infos.com.file :: fst path in create_dir [] dir;
+	(* Create the implementation file *)
+	let implementation_file = open_out (String.concat "/" dir ^ "/" ^ snd path ^ ".m") in
+	let imports = Hashtbl.create 0 in Hashtbl.add imports (snd path) [fst path];
+	(* Create the header file *)
+	let header_file = open_out (String.concat "/" dir ^ "/" ^ snd path ^ ".h") in
+	let imports = Hashtbl.create 0 in Hashtbl.add imports (snd path) [fst path];
+	
 	{
 		inf = infos;
 		tabs = "";
-		ch = ch;
+		ch_implementation = implementation_file;
+		ch_header = header_file;
 		path = path;
 		buf = Buffer.create (1 lsl 14);
 		in_value = None;
@@ -243,16 +248,20 @@ let init infos path =
 		block_inits = None;
 	}
 
-let close ctx =
-	output_string ctx.ch (Printf.sprintf "// File generated with the new Haxe objective-c target.\n//\n");
+(* let close ctx =
+	output_string ctx.ch_implementation (Printf.sprintf "//\n// File generated with the Haxe Objective-C target.\n//\n");
+	output_string ctx.ch_header (Printf.sprintf "//\n// File generated with the Haxe Objective-C target.\n//\n");
+	
 	Hashtbl.iter (fun name paths ->
 		List.iter (fun pack ->
 			let path = pack, name in
-			if path <> ctx.path then output_string ctx.ch ("#import " ^ Ast.s_type_path path ^ "\n");
+			if path <> ctx.path then output_string ctx.ch_implementation ("#import " ^ Ast.s_type_path path ^ "\n");
 		) paths
 	) ctx.imports;
-	output_string ctx.ch (Buffer.contents ctx.buf);
-	close_out ctx.ch
+	
+	output_string ctx.ch_implementation (Buffer.contents ctx.buf);
+	close_out ctx.ch_implementation
+	close_out ctx.ch_header *)
 
 let save_locals ctx =
 	(fun() -> ())
@@ -398,6 +407,8 @@ let escape_bin s =
 	done;
 	Buffer.contents b
 
+
+(* TODO: Generate resources that objective-c can understand *)
 let generate_resources infos =
 	if Hashtbl.length infos.com.resources <> 0 then begin
 		let dir = (infos.com.file :: ["__res"]) in
@@ -429,7 +440,7 @@ let generate_resources infos =
 		spr ctx "\t\t}\n";
 		spr ctx "\t}\n";
 		spr ctx "}";
-		close ctx;
+		(* close ctx; *)
 	end
 
 let gen_constant ctx p = function
@@ -445,6 +456,7 @@ let gen_constant ctx p = function
 
 
 (* A function header in objc is a message *)
+(* Get the parameters and write a proposition from them *)
 let gen_function_header ctx name f params p =
 	let old = ctx.in_value in
 	let locals = save_locals ctx in
@@ -1021,8 +1033,8 @@ let generate_field ctx static f =
 			print ctx "]";
 		| _ -> ()
 	) f.cf_meta;
-	let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in
-	let rights = (if static then "static " else "") ^ (if public then "public" else "protected") in
+	(* let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
+	let rights = (if static then "+ " else "- ") in
 	let p = ctx.curclass.cl_pos in
 	match f.cf_expr, f.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
@@ -1131,6 +1143,11 @@ let rec define_getset ctx stat c =
 	| Some (c,_) when not stat -> define_getset ctx stat c
 	| _ -> ()
 
+
+
+
+
+(* Generate a class, header + implementation *)
 let generate_class ctx c =
 	ctx.curclass <- c;
 	define_getset ctx true c;
@@ -1138,14 +1155,16 @@ let generate_class ctx c =
 	ctx.local_types <- List.map snd c.cl_types;
 	let pack = open_block ctx in
 	print ctx "\tpublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path);
+	
 	(match c.cl_super with
-	| None -> ()
-	| Some (csup,_) -> print ctx "extends %s " (s_path ctx true csup.cl_path c.cl_pos));
+		| None -> ()
+		| Some (csup,_) -> print ctx "extends %s " (s_path ctx true csup.cl_path c.cl_pos));
+	
 	(match c.cl_implements with
-	| [] -> ()
-	| l ->
-		spr ctx (if c.cl_interface then "extends " else "implements ");
-		concat ctx ", " (fun (i,_) -> print ctx "%s" (s_path ctx true i.cl_path c.cl_pos)) l);
+		| [] -> ()
+		| l ->
+			spr ctx (if c.cl_interface then "extends " else "implements ");
+			concat ctx ", " (fun (i,_) -> print ctx "%s" (s_path ctx true i.cl_path c.cl_pos)) l);
 	spr ctx "{";
 	let cl = open_block ctx in
 	(match c.cl_constructor with
@@ -1168,28 +1187,9 @@ let generate_class ctx c =
 	newline ctx;
 	print ctx "}";
 	newline ctx
-
-let new_placed_cpp_file common_ctx class_path =
-	let base_dir = common_ctx.file in
-	if (Common.defined common_ctx "vcproj" ) then begin
-		make_class_directories base_dir ("src"::[]);
-		cached_source_writer
-			( base_dir ^ "/src/" ^ ( String.concat "-" (fst class_path) ) ^ "-" ^
-			(snd class_path) ^ ".mm")
-	end else
-		new_objc_file common_ctx.file class_path;;
-
-
-(* Generate a header and an implementation file *)
-(* let generate_class_files common_ctx class_def =
-	let class_path = class_def.cl_path in
-	let cpp_file = new_placed_cpp_file common_ctx class_path in
-	let ctx = new_context common_ctx cpp_file debug in
-	ctx.ctx_class_name <- "/" ^ (join_class_path class_path "/"); *)
 	
 	
-	
-let generate_header ctx c =
+(* let generate_header ctx c =
 	ctx.curclass <- c;
 	define_getset ctx true c;
 	define_getset ctx false c;
@@ -1225,35 +1225,9 @@ let generate_header ctx c =
 	pack();
 	newline ctx;
 	print ctx "@end";
-	newline ctx
+	newline ctx *)
 
-let generate_implementation ctx c =
-	ctx.curclass <- c;
-	define_getset ctx true c;
-	define_getset ctx false c;
-	ctx.local_types <- List.map snd c.cl_types;
-	let pack = open_block ctx in
-	print ctx "\n@implementation %s" (snd c.cl_path);
-	let cl = open_block ctx in
-	(match c.cl_constructor with
-	| None -> ()
-	| Some f ->
-		let f = { f with
-			cf_name = snd c.cl_path;
-			cf_public = true;
-			cf_kind = Method MethNormal;
-		} in
-		ctx.constructor_block <- true;
-		generate_field ctx false f;
-	);
-	List.iter (generate_field ctx false) c.cl_ordered_fields;
-	List.iter (generate_field ctx true) c.cl_ordered_statics;
-	cl();
-	newline ctx;
-	pack();
-	(* newline ctx; *)
-	print ctx "@end\n";
-	newline ctx
+
 	
 let generate_main ctx inits =
 	ctx.curclass <- { null_class with cl_path = [],"main" };
@@ -1331,37 +1305,19 @@ let generate_enum ctx e =
 	print ctx "}";
 	newline ctx
 
-let generate_base_enum ctx =
-	let pack = open_block ctx in
-	spr ctx "\timport flash.Boot";
-	newline ctx;
-	spr ctx "public class enum {";
-	let cl = open_block ctx in
-	newline ctx;
-	spr ctx "public var tag : String";
-	newline ctx;
-	spr ctx "public var index : int";
-	newline ctx;
-	spr ctx "public var params : Array";
-	newline ctx;
-	spr ctx "public function toString() : String { return flash.Boot.enum_to_string(this); }";
-	cl();
-	newline ctx;
-	print ctx "}";
-	pack();
-	newline ctx;
-	print ctx "}";
-	newline ctx
 
+	(* The main entry of this generator *)
 let generate com =
 	let infos = {
 		com = com;
 	} in
 	generate_resources infos;
-	let ctx = init infos ([],"enum") in
+	
+	(* let ctx = init infos ([],"enum") in
 	generate_base_enum ctx;
-	close ctx;
-	let inits = ref [] in
+	close ctx; *)
+	
+	let inits = ref [] in (*  ref means reference cell, editable *)
 	List.iter (fun t ->
 		match t with
 		| TClassDecl c ->
@@ -1375,9 +1331,9 @@ let generate com =
 			if c.cl_extern then
 				()
 			else
-				let ctx = init infos c.cl_path in
-				generate_class ctx c;
-				close ctx
+				let ctx = init infos c.cl_path in generate_class ctx c;
+				(* generate_implementation ctx c; *)
+				(* close ctx *)
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
 			let e = { e with e_path = (pack,protect name) } in
@@ -1386,13 +1342,14 @@ let generate com =
 			else
 				let ctx = init infos e.e_path in
 				generate_enum ctx e;
-				close ctx
+				(* close ctx *)
 		| TTypeDecl _ | TAbstractDecl _ ->
 			()
 	) com.types;
 	(match com.main with
 	| None -> ()
 	| Some e -> inits := e :: !inits);
+	
 	let ctx = init infos ([],"main") in
 	generate_main ctx (List.rev !inits);
-	close ctx
+	(* close ctx *)
