@@ -11,7 +11,7 @@ class Test {
 /*		var x = "xyz";
 		trace(Std.format("Hello with variable $x"));*/
 		
-		var a = gnew Array<String>();
+		var a = new Array<String>();
 		var aa = [1, 2, 3, 4, 5];
 		var b :Int = 5;
 		var c :Float = 5.0;
