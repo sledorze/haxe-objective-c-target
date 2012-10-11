@@ -1,7 +1,11 @@
 //
 // File generated with the Haxe Objective-C target.
 //
-	public class Std {
+
+#import "Std.h"
+
+@implementation Std
+;
 		+  (BOOL) _isv:(**)v t:(**)t{
 			return __global__.__instanceof(v,t);
 		}
@@ -26,5 +30,4 @@
 			return __global__.rand() % x;
 		}
 		
-	}
-}
+@end;

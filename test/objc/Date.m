@@ -2,48 +2,15 @@
 // File generated with the Haxe Objective-C target.
 //
 #import flash.Boot
-	public class Date {
+
+#import "Date.h"
+
+@implementation Date
+;
 		-  (void) Dateyear:(NSNumber*)year = nil month:(NSNumber*)month = nil day:(NSNumber*)day = nil hour:(NSNumber*)hour = nil min:(NSNumber*)min = nil sec:(NSNumber*)sec = nil{ if( !flash.Boot.skip_constructor ) {
 			self.mSeconds = __global__.__hxcpp_new_date(year,month,day,hour,min,sec);
 		}}
 		
-		-  (NSString) toString{
-			return __global__.__hxcpp_to_string(self.mSeconds);
-		}
-		
-		-  (NSNumber) getDay{
-			return __global__.__hxcpp_get_day(self.mSeconds);
-		}
-		
-		-  (NSNumber) getDate{
-			return __global__.__hxcpp_get_date(self.mSeconds);
-		}
-		
-		-  (NSNumber) getMonth{
-			return __global__.__hxcpp_get_month(self.mSeconds);
-		}
-		
-		-  (NSNumber) getFullYear{
-			return __global__.__hxcpp_get_year(self.mSeconds);
-		}
-		
-		-  (NSNumber) getSeconds{
-			return __global__.__hxcpp_get_seconds(self.mSeconds);
-		}
-		
-		-  (NSNumber) getMinutes{
-			return __global__.__hxcpp_get_minutes(self.mSeconds);
-		}
-		
-		-  (NSNumber) getHours{
-			return __global__.__hxcpp_get_hours(self.mSeconds);
-		}
-		
-		-  (NSNumber) getTime{
-			return self.mSeconds * 1000.0;
-		}
-		
-		-  var mSeconds : NSNumber;
 		+  (Date) now{
 			return Date["fromTime"](__global__.__hxcpp_date_now() * 1000.0);
 		}
@@ -84,5 +51,41 @@
 			return nil;
 		}
 		
-	}
-}
+		-  (NSString) toString{
+			return __global__.__hxcpp_to_string(self.mSeconds);
+		}
+		
+		-  (NSNumber) getDay{
+			return __global__.__hxcpp_get_day(self.mSeconds);
+		}
+		
+		-  (NSNumber) getDate{
+			return __global__.__hxcpp_get_date(self.mSeconds);
+		}
+		
+		-  (NSNumber) getMonth{
+			return __global__.__hxcpp_get_month(self.mSeconds);
+		}
+		
+		-  (NSNumber) getFullYear{
+			return __global__.__hxcpp_get_year(self.mSeconds);
+		}
+		
+		-  (NSNumber) getSeconds{
+			return __global__.__hxcpp_get_seconds(self.mSeconds);
+		}
+		
+		-  (NSNumber) getMinutes{
+			return __global__.__hxcpp_get_minutes(self.mSeconds);
+		}
+		
+		-  (NSNumber) getHours{
+			return __global__.__hxcpp_get_hours(self.mSeconds);
+		}
+		
+		-  (NSNumber) getTime{
+			return self.mSeconds * 1000.0;
+		}
+		
+		-  var mSeconds : NSNumber;
+@end;
