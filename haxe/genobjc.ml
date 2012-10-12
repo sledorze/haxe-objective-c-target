@@ -102,9 +102,8 @@ let cached_source_writer filename =
 	with _ ->
 		file_source_writer filename;;
 	
-let new_m_file base_dir = new_source_file base_dir ".m";;
-let new_h_file base_dir = new_source_file base_dir ".h";;
-
+let new_m_file base_dir class_path = new_source_file base_dir class_path ".m";;
+let new_h_file base_dir class_path = new_source_file base_dir class_path ".h";;
 let make_base_directory file = make_class_directories "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );
 
 let new_placed_m_file common_ctx class_path =
@@ -114,7 +113,7 @@ let new_placed_m_file common_ctx class_path =
 		cached_source_writer
 			( base_dir ^ "/" ^ ( String.concat "-" (fst class_path) ) ^ "-" ^ (snd class_path) ^ ".m")
 	end else
-		new_m_file (* common_ctx.file  *)class_path
+		new_m_file common_ctx.file class_path;;
 
 
 
@@ -137,24 +136,24 @@ type context = {
 	mutable constructor_block : bool;
 	mutable block_inits : (unit -> unit) option;
 }
-let new_context common_ctx writer file_info =
-{
+let new_context common_ctx writer file_info = {
 	inf = infos;
 	path = path;
+	com = common_ctx;
 	writer = writer;
+	get_sets = Hashtbl.create 0;
 	curclass = null_class;
+	tabs = "";
 	in_value = None;
 	in_static = false;
 	handle_break = false;
 	imports = imports;
-	tabs = "";
 	gen_uid = 0;
 	local_types = [];
-	get_sets = Hashtbl.create 0;
 	constructor_block = false;
 	block_inits = None;
 }
-	
+
 let is_var_field e v =
 	match e.eexpr, follow e.etype with
 	| TTypeExpr (TClassDecl c),_
@@ -1128,7 +1127,7 @@ let rec define_getset ctx stat c =
 
 
 (* Generate a class, header + implementation *)
-let generate_class common_ctx class_def =
+let generate_class common_ctx class_def file_info =
 	
 	(* let dir = infos.com.file :: fst path in create_dir [] dir; *)
 	
@@ -1138,7 +1137,7 @@ let generate_class common_ctx class_def =
 	let class_name = (snd class_def.cl_path) in
 	let m_file = new_placed_m_file common_ctx class_path in
 	let output_m = (m_file#write) in
-	let ctx = new_context common_ctx output_m m_file
+	let ctx = new_context common_ctx output_m file_info
 	
 	ctx.curclass <- class_def;
 	define_getset common_ctx true class_def;
@@ -1148,7 +1147,8 @@ let generate_class common_ctx class_def =
 	output_m "#include <hxcpp.h>\n\n";
 	
 	let pack = open_block ctx in
-	output_m ("#import \""^(snd c.cl_path)^".h\"\n\n@implementation "^(snd c.cl_path)^"\n");(* (snd c.cl_path) returns the class name *)
+	output_m ("#import \""^(snd c.cl_path)^".h\"\n\n@implementation "^(snd c.cl_path)^"\n")
+	(* (snd c.cl_path) returns the class name *)
 	(* output_h "#import <UIKit/UIKit.h>\n\n";
 	output_h ("@interface "^(snd c.cl_path)^"\n");
 	(* ctx.writer.write_format "\npublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
@@ -1237,6 +1237,21 @@ let generate common_ctx =
 	generate_base_enum ctx;
 	close ctx; *)
 	
+	make_base_directory common_ctx.file;
+
+	let debug = false in
+	let exe_classes = ref [] in
+	let boot_classes = ref [] in
+	let init_classes = ref [] in
+	let file_info = ref PMap.empty in
+	let class_text path = join_class_path path "/";
+	(* let member_types = create_member_types common_ctx in *)
+	(* let super_deps = create_super_dependencies common_ctx in *)
+	(* let constructor_deps = create_constructor_dependencies common_ctx in *)
+	(* let main_deps = ref [] in *)
+	(* let build_xml = ref ""; *)
+	
+	
 	let inits = ref [] in (*  ref means reference cell, editable *)
 	List.iter (fun object_def ->
 		match object_def with
@@ -1253,7 +1268,7 @@ let generate common_ctx =
 				()
 			else
 				(* let ctx = (* init infos class_def.cl_path in  *) *)
-				generate_class common_ctx class_def;
+				generate_class common_ctx class_def file_info;
 				
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
