@@ -1,9 +1,9 @@
 //
 //  main.m
-//  ReferenceApplication
+//  MyApplication
 //
-//  Created by Baluta Cristian on 10/03/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Baluta Cristian on 12/10/2012.
+//  Copyright (c) 2012 Baluta Cristian. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
