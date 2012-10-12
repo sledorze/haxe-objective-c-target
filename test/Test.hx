@@ -24,7 +24,7 @@ class Test extends objc.ios.UIWebView, implements TestInterface {
 			a.push (Std.string(i));
 		}
 		
-		var x = add (1, 1);
+		var x = new Test().add (1, 1);
 		
 		var webView = new objc.ios.UIWebView();
 			webView.initWithFrame();
