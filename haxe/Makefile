@@ -47,11 +47,6 @@ libs:
 
 haxe: $(MODULES:=.cmx)
 	$(OCAMLOPT) -o $(OUTPUT) $(NATIVE_LIBS) $(LIBS) $(MODULES:=.cmx)
-	echo " "
-	echo "Build the test..."
-	echo " "
-	./haxe -main Test -cp ../test -objc ../test/objc
-	
 
 haxelib:
 	$(CURDIR)/$(OUTPUT) --cwd "$(CURDIR)/std/tools/haxelib" haxelib.hxml

@@ -1,6 +1,7 @@
 (*
- *  Haxe Compiler
- *  Copyright (c)2005-2007 Nicolas Cannasse
+ *  haXe/Objective-C Compiler
+ *  Copyright (c)2012 Băluță Cristian
+ *  based on and including code by (c)2005-2008 Nicolas Cannasse and Hugh Sanderson
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -28,7 +29,8 @@ let join_class_path path separator =
 		let idx = String.index result '+' in
 		(String.sub result 0 idx) ^ (String.sub result (idx+1) ((String.length result) - idx -1 ) )
 	end else
-		result;;
+		result
+;;
 
 class source_writer write_func close_func =
 	object(this)
@@ -58,11 +60,11 @@ end;;
 
 let file_source_writer filename =
 	let out_file = open_out filename in
-	new source_writer (output_string out_file) (fun ()-> close_out out_file);;
+	new source_writer (output_string out_file) (fun ()-> close_out out_file)
 	(* output_string (channel) (string) *)
+;;
 
-let read_whole_file chan =
-	Std.input_all chan;;
+let read_whole_file chan = Std.input_all chan;;
 
 let rec make_class_directories base dir_list =
 	( match dir_list with
@@ -77,7 +79,8 @@ let rec make_class_directories base dir_list =
 		         if not (Sys.file_exists path) then
 			          Unix.mkdir path 0o755;
 		make_class_directories (if (path="") then "/" else path) remaining
-	);;
+	)
+;;
 
 let cached_source_writer filename =
 	try
@@ -96,7 +99,8 @@ let cached_source_writer filename =
 		in
 		new source_writer (add_buf) (close);
 	with _ ->
-		file_source_writer filename;;
+		file_source_writer filename
+;;
 
 let new_source_file base_dir class_path extension =
 	make_class_directories base_dir ("" :: (fst class_path));
@@ -151,6 +155,7 @@ let is_var_field e v =
 			(match f.cf_kind with Var _ -> true | _ -> false)
 		with Not_found -> false)
 	| _ -> false
+;;
 
 let is_special_compare e1 e2 =
 	match e1.eexpr, e2.eexpr with
@@ -159,11 +164,13 @@ let is_special_compare e1 e2 =
 	match follow e1.etype, follow e2.etype with
 	| TInst ({ cl_path = [],"Xml" } as c,_) , _ | _ , TInst ({ cl_path = [],"Xml" } as c,_) -> Some c
 	| _ -> None
+;;
 
 let protect name =
 	match name with
 	| "Error" | "Namespace" -> "_" ^ name
 	| _ -> name
+;;
 
 	(* This is generating a special path ? *)
 let s_path ctx stat path p =
@@ -187,7 +194,8 @@ let s_path ctx stat path p =
 		let packs = (try Hashtbl.find ctx.imports name with Not_found -> []) in
 		if not (List.mem pack packs) then Hashtbl.replace ctx.imports name (pack :: packs);
 		Ast.s_type_path (pack,name)
-
+;;
+	
 let reserved =
 	let h = Hashtbl.create 0 in
 	List.iter (fun l -> Hashtbl.add h l ())
@@ -205,6 +213,7 @@ let reserved =
 	h
 
 	(* "each", "label" : removed (actually allowed in locals and fields accesses) *)
+;;
 
 let s_ident n =
 	if Hashtbl.mem reserved n then "_" ^ n else n
@@ -215,6 +224,7 @@ let rec create_dir acc = function
 		let dir = String.concat "/" (List.rev (d :: acc)) in
 		if not (Sys.file_exists dir) then Unix.mkdir dir 0o755;
 		create_dir (d :: acc) l
+;;
 
 
 (* let close ctx =
@@ -231,6 +241,7 @@ let save_locals ctx =
 let gen_local ctx l =
 	ctx.gen_uid <- ctx.gen_uid + 1;
 	if ctx.gen_uid = 1 then l else l ^ string_of_int ctx.gen_uid
+;;
 
 let unsupported p = error "This expression cannot be generated to Objective-C" p
 
@@ -248,7 +259,7 @@ let rec concat ctx s f = function
 	| [x] -> f x
 	| x :: l ->
 		f x;
-		(* ctx.writer#write s; *)
+		ctx.writer#write s;
 		concat ctx s f l
 
 let open_block ctx =
@@ -354,7 +365,8 @@ let handle_break ctx e =
 				(* newline ctx; *)
 				ctx.writer#write "} catch( e : * ) { if( e != \"__break__\" ) throw e; }";
 			)
-
+;;
+		
 let this ctx = if ctx.in_value <> None then "$this" else "this"
 
 let escape_bin s =
@@ -365,7 +377,7 @@ let escape_bin s =
 		| c -> Buffer.add_char b (Char.chr c)
 	done;
 	Buffer.contents b
-
+;;
 
 (* TODO: Generate resources that Objective-C can understand *)
 (* Put texts in a .plist file
@@ -408,6 +420,7 @@ let generate_resources common_ctx =
 		ctx.writer#write "}"; *)
 		(* close ctx; *)
 	end
+;;
 
 let gen_constant ctx p = function
 	| TInt i -> ctx.writer#write (Printf.sprintf "[NSNumber numberWithInt:%ld]" i) (* %ld = int32 *)(* (Int32.to_string i) *)
@@ -419,7 +432,7 @@ let gen_constant ctx p = function
 	| TThis -> ctx.writer#write "self"
 	(* | TThis -> ctx.writer#write (Printf.sprintf this ctx) *)
 	| TSuper -> ctx.writer#write "super"
-
+;;
 
 (* A function header in objc is a message *)
 (* Get the parameters and make a human readable phrase from them *)
@@ -452,7 +465,7 @@ let gen_function_header ctx name f params p =
 		locals();
 		ctx.local_types <- old_t;
 	)
-
+;;
 
 let rec gen_call ctx e el r =
 	match e.eexpr , el with
@@ -538,7 +551,7 @@ let rec gen_call ctx e el r =
 		ctx.writer#write "[";
 		concat ctx " " (gen_value ctx) el;
 		ctx.writer#write "]"
-
+	
 and gen_value_op ctx e =
 	match e.eexpr with
 	| TBinop (op,_,_) when op = Ast.OpAnd || op = Ast.OpOr || op = Ast.OpXor ->
@@ -573,7 +586,7 @@ and gen_field_access ctx t s =
 		| _ -> ctx.writer#write (Printf.sprintf ".%s" (s_ident s)))
 	| _ ->
 		ctx.writer#write (Printf.sprintf ".%s" (s_ident s))
-
+	
 and gen_expr ctx e =
 	match e.eexpr with
 	| TConst c ->
@@ -832,7 +845,7 @@ and gen_block ctx e =
 	| TBlock [] -> ()
 	| _ -> gen_expr ctx e
 		(* newline ctx *)
-
+	
 and gen_value ctx e =
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
@@ -961,8 +974,7 @@ and gen_value ctx e =
 		)) e.etype e.epos);
 		v()
 
-let final m =
-	if has_meta ":final" m then "final " else ""
+let final m = if has_meta ":final" m then "final " else ""
 
 let generate_field ctx static f =
 	(* newline ctx; *)
@@ -1100,7 +1112,7 @@ let rec define_getset ctx stat c =
 	match c.cl_super with
 	| Some (c,_) when not stat -> define_getset ctx stat c
 	| _ -> ()
-
+;;
 
 
 
@@ -1172,45 +1184,44 @@ let rec define_getset ctx stat c =
 	newline ctx *)
 
 
-(* let generate_main common_ctx member_types super_deps class_def file_info =
-	(* main routine should be a single static function *)
-	let main_expression =
-		(match class_def.cl_ordered_statics with
-		| [{ cf_expr = Some expression }] -> expression;
-		| _ -> assert false ) in
-	let referenced = find_referenced_types common_ctx (TClassDecl class_def) super_deps (Hashtbl.create 0) false false false in
-	let depend_referenced = find_referenced_types common_ctx (TClassDecl class_def) super_deps (Hashtbl.create 0) false true false in
-	let generate_startup filename is_main =
-		(*make_class_directories base_dir ( "src" :: []);*)
-		let cpp_file = new_cpp_file common_ctx.file ([],filename) in
-		let output_main = (cpp_file#write) in
 
-		output_main "#include <hxcpp.h>\n\n";
-		output_main "#include <stdio.h>\n\n";
 
-		List.iter ( add_include cpp_file ) depend_referenced;
-		output_main "\n\n";
+(* GENERATE THE PROJECT DEFAULT FILES AND DIRECTORIES *)
 
-		output_main ( if is_main then "HX_BEGIN_MAIN\n\n" else "HX_BEGIN_LIB_MAIN\n\n" );
-		gen_expression (new_context common_ctx cpp_file false file_info) false main_expression;
-		output_main ";\n";
-		output_main ( if is_main then "HX_END_MAIN\n\n" else "HX_END_LIB_MAIN\n\n" );
-		cpp_file#close;
-	in
-	generate_startup "__main__" true;
-	generate_startup "__lib__" false
-;; *)
-   
+let generate_project common_ctx = 
+	let base_dir = common_ctx.file in
+	let sub_dir = match common_ctx.main_class with
+		| Some path -> (snd path)
+		| _ -> "Application" in
+	(* Create classes directory *)
+	make_class_directories base_dir ( sub_dir :: []);
+	make_class_directories base_dir ( sub_dir :: ["en.lproj"]);
+	(* Create tests directory *)
+	make_class_directories base_dir ( (sub_dir^"Tests") :: []);
+	(* Create project file *)
+	make_class_directories base_dir ( (sub_dir^".xcodeproj") :: [])
+;;
+
 let generate_main common_ctx class_def =
 
 	let base_dir = common_ctx.file in
+	let sub_dir = match common_ctx.main_class with
+		| Some path -> (snd path)
+		| _ -> "Application" in
 	let class_path = class_def.cl_path in
 	let class_name = (snd class_def.cl_path) in
 	let generate_file filename =
-		let m_file = new_m_file base_dir ([],filename) in
+		let m_file = new_m_file base_dir ([sub_dir],filename) in
 		let output_main = (m_file#write) in
 		
-		output_main ("#import <UIKit/UIKit.h>
+		output_main ("//
+//  main.m
+//  " ^ class_name ^ "
+//
+//  Source generated by Haxe Objective-C target
+//
+
+#import <UIKit/UIKit.h>
 #import \"" ^ class_name ^ ".h\"
 
 int main(int argc, char *argv[]) {
@@ -1223,25 +1234,88 @@ int main(int argc, char *argv[]) {
 	generate_file "main"
 ;;
 	
-(*let generate_pch ctx inits =
-	ctx.curclass <- { null_class with cl_path = [],"App-Prefix" };
-	let pack = open_block ctx in
-	ctx.writer#write "//
-// Prefix header for all source files of the 'ReferenceApplication' target in the 'ReferenceApplication' project
+let generate_pch common_ctx class_def  =
+
+	let base_dir = common_ctx.file in
+	let sub_dir = match common_ctx.main_class with
+		| Some path -> (snd path)
+		| _ -> "Application" in
+	let generate_file =
+		let file = new_source_file base_dir ([sub_dir],sub_dir^"-Prefix") ".pch" in
+		let output_pch = (file#write) in
+		
+		output_pch "//
+// Prefix header for all source files in the project
 //
 
 #import <Availability.h>
 
-#ifndef __IPHONE_3_0
-#warning \"This project uses features only available in iOS SDK 3.0 and later.\"
+#ifndef __IPHONE_4_0
+#warning \"This project uses features only available in iOS SDK 4.0 and later.\"
 #endif
 
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
-#endif"
-	 pack();
-	newline ctx *)
+#endif";
+		file#close;
+	in
+	generate_file
+;;
+
+let generate_plist common_ctx class_def  =
+
+	let base_dir = common_ctx.file in
+	let sub_dir = match common_ctx.main_class with
+		| Some path -> (snd path)
+		| _ -> "Application" in
+	let generate_file =
+		let identifier = "ralcr.com" in
+		let file = new_source_file base_dir ([sub_dir],sub_dir^"-Info") ".plist" in
+		let output_pch = (file#write) in
+		
+		output_pch ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIdentifier</key>
+	<string>" ^ identifier ^ ".${PRODUCT_NAME:rfc1034identifier}</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>");
+		file#close;
+	in
+	generate_file
+;;
 
 let generate_enum ctx e =
 	()
@@ -1250,9 +1324,7 @@ let generate_enum ctx e =
 (* The main entry of the generator *)
 let generate common_ctx =
 	
-	(* let infos = {
-		com = common_ctx;
-	} in *)
+	generate_project common_ctx;
 	generate_resources common_ctx;
 	
 	(* let ctx = init infos ([],"enum") in
@@ -1314,8 +1386,10 @@ let generate common_ctx =
 	| None -> ()
 	| Some e ->
 		let main_field = { cf_name = "main"; cf_type = t_dynamic; cf_expr = Some e; cf_pos = e.epos; cf_public = true; cf_meta = []; cf_overloads = []; cf_doc = None; cf_kind = Var { v_read = AccNormal; v_write = AccNormal; }; cf_params = [] } in
-		let class_def = { null_class with cl_path = ([],"@Main"); cl_ordered_statics = [main_field] } in
+		let class_def = { null_class with cl_path = ([],"AppDelegate"); cl_ordered_statics = [main_field] } in
 		(* main_deps := find_referenced_types common_ctx (TClassDecl class_def) super_deps constructor_deps false true false; *)
-		generate_main common_ctx class_def
+		generate_main common_ctx class_def;
+		generate_pch common_ctx class_def;
+		generate_plist common_ctx class_def
 	)
 ;;
