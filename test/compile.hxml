@@ -6,7 +6,7 @@
 #-cmd open test/Test.swf
 
 # Test the new target, Objective-C
--cmd ./../haxe/haxe -main Test -cp test -objc test/objc
+-cmd ./haxe/haxe -main Test -cp test -objc test/objc
 
 # Test the cpp target
 #-cmd haxe/haxe -main Test -cp test -cpp test/cpp

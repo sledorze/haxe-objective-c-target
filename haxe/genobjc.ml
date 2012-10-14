@@ -226,15 +226,6 @@ let rec createDirectory acc = function
 		createDirectory (d :: acc) l
 ;;
 
-
-(* let close ctx =
-	Hashtbl.iter (fun name paths ->
-		List.iter (fun pack ->
-			let path = pack, name in
-			if path <> ctx.path then output_string ctx.ch_m ("#import " ^ Ast.s_type_path path ^ "\n");
-		) paths
-	) ctx.imports; *)
-
 let saveLocals ctx =
 	(fun() -> ())
 		
@@ -245,7 +236,8 @@ let genLocal ctx l =
 
 let unsupported p = error "This expression cannot be generated to Objective-C" p
 
-let newLine ctx = ()
+let newLine ctx =
+	ctx.writer#write "\n"
 	(* let rec loop p =
 		match Buffer.nth ctx.buf_m p with
 		| '}' | '{' | ':' -> ctx.writer#write ("\n" ^ tabs)
@@ -265,9 +257,10 @@ let rec concat ctx s f = function
 ;;
 
 let openBlock ctx =
-	let oldt = ctx.tabs in
+	(fun() -> ctx.writer#begin_block)
+	(* let oldt = ctx.tabs in
 	ctx.tabs <- "\t" ^ ctx.tabs;
-	(fun() -> ctx.tabs <- oldt)
+	(fun() -> ctx.tabs <- oldt) *)
 ;;
 
 let parent e =
@@ -364,12 +357,12 @@ let handleBreak ctx e =
 		Exit ->
 			ctx.writer#write "try {";
 			let b = openBlock ctx in
-			(* newLine ctx; *)
+			newLine ctx;
 			ctx.handleBreak <- true;
 			(fun() ->
 				b();
 				ctx.handleBreak <- old_handle;
-				(* newLine ctx; *)
+				newLine ctx;
 				ctx.writer#write "} catch( e : * ) { if( e != \"__break__\" ) throw e; }";
 			)
 ;;
@@ -449,7 +442,7 @@ let generateFunctionHeader ctx name f params p =
 	let old_t = ctx.local_types in
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
-	ctx.writer#write (Printf.sprintf "(%s)" (typeStr ctx f.tf_type p));(* Print the return type of the function *)
+	ctx.writer#write (Printf.sprintf "(%s*)" (typeStr ctx f.tf_type p));(* Print the return type of the function *)
 	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
 			| [] -> n
@@ -521,7 +514,7 @@ let rec generateCall ctx e el r =
 	| TLocal { v_name = "__foreach__" }, [e] ->
 		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
 		ctx.writer#write (Printf.sprintf "%s = [[NSMutableArray alloc] init]" ret.v_name);
-		(* newLine ctx; *)
+		newLine ctx;
 		let tmp = genLocal ctx "$k" in
 		ctx.writer#write (Printf.sprintf "for ( %s : * in " tmp);
 		generateValue ctx e;
@@ -648,13 +641,13 @@ and generateExpression ctx e =
 		| Some e when (match follow e.etype with TEnum({ e_path = [],"Void" },[]) | TAbstract ({ a_path = [],"Void" },[]) -> true | _ -> false) ->
 			ctx.writer#write "{";
 			let bend = openBlock ctx in
-			(* newLine ctx; *)
+			newLine ctx;
 			generateValue ctx e;
-			(* newLine ctx; *)
+			newLine ctx;
 			ctx.writer#write "return";
 			bend();
-			(* newLine ctx; *)
-			ctx.writer#write "}";			
+			newLine ctx;
+			ctx.writer#write "}";
 		| Some e ->
 			ctx.writer#write "return ";
 			generateValue ctx e);
@@ -664,25 +657,13 @@ and generateExpression ctx e =
 	| TContinue ->
 		if ctx.in_value <> None then unsupported e.epos;
 		ctx.writer#write "continue"
-	| TBlock el ->
-		ctx.writer#write "{";
-		let bend = openBlock ctx in
-		let cb = (if not ctx.constructor_block then
-			(fun () -> ())
-		else if not (Codegen.constructor_side_effects e) then begin
-			ctx.constructor_block <- false;
-			(fun () -> ())
-		end else begin
-			ctx.constructor_block <- false;
-			ctx.writer#write (Printf.sprintf " if( !%s.skip_constructor ) {" (s_path ctx true (["flash"],"Boot") e.epos));
-            (fun() -> ctx.writer#write "}")
-		end) in
-		(match ctx.block_inits with None -> () | Some i -> i());
-		List.iter (fun e -> (* newLine ctx; *) generateExpression ctx e) el;
-		bend();
-		(* newLine ctx; *)
-		cb();
-		ctx.writer#write "}";
+	| TBlock expr_list ->
+		ctx.writer#begin_block;
+		List.iter (fun e ->
+			generateExpression ctx e;
+			ctx.writer#terminate_line
+		) expr_list;
+		ctx.writer#end_block;
 	| TFunction f ->
 		let h = generateFunctionHeader ctx None f [] e.epos in
 		let old = ctx.in_static in
@@ -702,9 +683,9 @@ and generateExpression ctx e =
 	| TVars [] ->
 		()
 	| TVars vl ->
-		ctx.writer#write "var ";
-		concat ctx ", " (fun (v,eo) ->
-			ctx.writer#write (Printf.sprintf "%s : %s" (s_ident v.v_name) (typeStr ctx v.v_type e.epos));
+		(* ctx.writer#write "var "; *)
+		concat ctx "; " (fun (v,eo) ->
+			ctx.writer#write (Printf.sprintf "%s* %s" (typeStr ctx v.v_type e.epos) (s_ident v.v_name));
 			match eo with
 			| None -> ()
 			| Some e ->
@@ -714,9 +695,8 @@ and generateExpression ctx e =
 	| TNew (c,params,el) ->
 		(match c.cl_path, params with
 		| (["flash"],"Vector"), [pt] -> ctx.writer#write (Printf.sprintf "new Vector.<%s>(" (typeStr ctx pt e.epos))
-		| _ -> ctx.writer#write (Printf.sprintf "new %s(" (s_path ctx true c.cl_path e.epos));
-		concat ctx "," (generateValue ctx) el;
-		ctx.writer#write ")")
+		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (s_path ctx true c.cl_path e.epos));
+		concat ctx "," (generateValue ctx) el)
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write "if";
 		generateValue ctx (parent cond);
@@ -725,7 +705,7 @@ and generateExpression ctx e =
 		(match eelse with
 		| None -> ()
 		| Some e ->
-			(* newLine ctx; *)
+			newLine ctx;
 			ctx.writer#write "else ";
 			generateExpression ctx e);
 	| TUnop (op,Ast.Prefix,e) ->
@@ -753,37 +733,38 @@ and generateExpression ctx e =
 		concat ctx ", " (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s : " (s_ident f)); generateValue ctx e) fields;
 		ctx.writer#write "}"
 	| TFor (v,it,e) ->
+		ctx.writer#begin_block;
 		let handleBreak = handleBreak ctx e in
 		let tmp = genLocal ctx "$it" in
 		ctx.writer#write (Printf.sprintf "{ var %s : * = " tmp);
 		generateValue ctx it;
-		(* newLine ctx; *)
-		ctx.writer#write (Printf.sprintf "while( %s.hasNext() ) { var %s : %s = %s.next()" tmp (s_ident v.v_name) (typeStr ctx v.v_type e.epos) tmp);
-		(* newLine ctx; *)
+		newLine ctx;
+		ctx.writer#write (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (s_ident v.v_name) (typeStr ctx v.v_type e.epos) tmp);
+		newLine ctx;
 		generateExpression ctx e;
-		(* newLine ctx; *)
-		ctx.writer#write "}}";
+		newLine ctx;
+		ctx.writer#end_block;(* write "}}"; *)
 		handleBreak();
 	| TTry (e,catchs) ->
 		ctx.writer#write "try ";
 		generateExpression ctx e;
 		List.iter (fun (v,e) ->
-			(* newLine ctx; *)
+			newLine ctx;
 			ctx.writer#write (Printf.sprintf "catch( %s : %s )" (s_ident v.v_name) (typeStr ctx v.v_type e.epos));
 			generateExpression ctx e;
 		) catchs;
 	| TMatch (e,_,cases,def) ->
 		ctx.writer#write "{";
 		let bend = openBlock ctx in
-		(* newLine ctx; *)
+		newLine ctx;
 		let tmp = genLocal ctx "$e" in
 		ctx.writer#write (Printf.sprintf "var %s : enum = " tmp);
 		generateValue ctx e;
-		(* newLine ctx; *)
+		newLine ctx;
 		ctx.writer#write (Printf.sprintf "switch( %s.index ) {" tmp);
 		List.iter (fun (cl,params,e) ->
 			List.iter (fun c ->
-				(* newLine ctx; *)
+				newLine ctx;
 				ctx.writer#write (Printf.sprintf "case %d:" c);
 			) cl;
 			(match params with
@@ -794,7 +775,7 @@ and generateExpression ctx e =
 				match l with
 				| [] -> ()
 				| l ->
-					(* newLine ctx; *)
+					newLine ctx;
 					ctx.writer#write "var ";
 					concat ctx ", " (fun (v,n) ->
 						ctx.writer#write (Printf.sprintf "%s : %s = %s.params[%d]" (s_ident v.v_name) (typeStr ctx v.v_type e.epos) tmp n);
@@ -805,30 +786,26 @@ and generateExpression ctx e =
 		(match def with
 		| None -> ()
 		| Some e ->
-			(* newLine ctx; *)
+			newLine ctx;
 			ctx.writer#write "default:";
 			generateBlock ctx e;
 			ctx.writer#write "break";
 		);
-		(* newLine ctx; *)
+		newLine ctx;
 		ctx.writer#write "}";
 		bend();
-		(* newLine ctx; *)
+		newLine ctx;
 		ctx.writer#write "}";
 	| TSwitch (e,cases,def) ->
-		ctx.writer#write "switch";
-		generateValue ctx (parent e);
-		ctx.writer#write " {";
-		(* newLine ctx; *)
+		ctx.writer#write "switch"; generateValue ctx (parent e); ctx.writer#write " {";
+		newLine ctx;
 		List.iter (fun (el,e2) ->
 			List.iter (fun e ->
-				ctx.writer#write "case ";
-				generateValue ctx e;
-				ctx.writer#write ":";
+				ctx.writer#write "case "; generateValue ctx e; ctx.writer#write ":";
 			) el;
 			generateBlock ctx e2;
-			ctx.writer#write "break";
-			(* newLine ctx; *)
+			ctx.writer#write "break;";
+			newLine ctx;
 		) cases;
 		(match def with
 		| None -> ()
@@ -836,7 +813,7 @@ and generateExpression ctx e =
 			ctx.writer#write "default:";
 			generateBlock ctx e;
 			ctx.writer#write "break";
-			(* newLine ctx; *)
+			newLine ctx;
 		);
 		ctx.writer#write "}"
 	| TCast (e1,None) ->
@@ -847,11 +824,11 @@ and generateExpression ctx e =
 		generateExpression ctx (Codegen.default_cast ctx.com e1 t e.etype e.epos)
 
 and generateBlock ctx e =
-	(* newLine ctx; *)
+	newLine ctx;
 	match e.eexpr with
 	| TBlock [] -> ()
-	| _ -> generateExpression ctx e
-		(* newLine ctx *)
+	| _ -> generateExpression ctx e;
+		newLine ctx
 	
 and generateValue ctx e =
 	let assign e =
@@ -869,27 +846,27 @@ and generateValue ctx e =
 		let r = alloc_var (genLocal ctx "$r") e.etype in
 		ctx.in_value <- Some r;
 		if ctx.in_static then
-			ctx.writer#write (Printf.sprintf "function() : %s " t)
+			ctx.writer#write (Printf.sprintf "- (%s*) " t)
 		else
-			ctx.writer#write (Printf.sprintf "(function($this:%s) : %s " "(snd ctx.path)" t);
+			ctx.writer#write (Printf.sprintf "((%s)($this:%s) " t "(snd ctx.path)");
 		let b = if block then begin
 			(* ctx.writer#write "{"; *)
 			ctx.writer#begin_block;
 			let b = openBlock ctx in
-			(* newLine ctx; *)
-			ctx.writer#write (Printf.sprintf "var %s : %s" r.v_name t);
+			newLine ctx;
+			ctx.writer#write (Printf.sprintf "%s* %s" t r.v_name);
 			ctx.writer#end_block;
-			(* newLine ctx; *)
+			newLine ctx;
 			b
 		end else
 			(fun() -> ())
 		in
 		(fun() ->
 			if block then begin
-				(* newLine ctx; *)
+				newLine ctx;
 				ctx.writer#write (Printf.sprintf "return %s" r.v_name);
 				b();
-				(* newLine ctx; *)
+				newLine ctx;
 				ctx.writer#write "}";
 			end;
 			ctx.in_value <- old;
@@ -935,19 +912,19 @@ and generateValue ctx e =
 		generateExpression ctx e;
 		v()
 	| TBlock [] ->
-		ctx.writer#write "null"
+		ctx.writer#write "nil"
 	| TBlock [e] ->
 		generateValue ctx e
 	| TBlock el ->
 		let v = value true in
 		let rec loop = function
 			| [] ->
-				ctx.writer#write "return null";
+				ctx.writer#write "return nil";
 			| [e] ->
 				generateExpression ctx (assign e);
 			| e :: l ->
 				generateExpression ctx e;
-				(* newLine ctx; *)
+				newLine ctx;
 				loop l
 		in
 		loop el;
@@ -959,7 +936,7 @@ and generateValue ctx e =
 		generateValue ctx e;
 		ctx.writer#write ":";
 		(match eo with
-		| None -> ctx.writer#write "null"
+		| None -> ctx.writer#write "nil"
 		| Some e -> generateValue ctx e);
 		ctx.writer#write ")"
 	| TSwitch (cond,cases,def) ->
@@ -986,10 +963,10 @@ and generateValue ctx e =
 let final m = if has_meta ":final" m then "final " else ""
 
 let generateField ctx static f =
-	(* newLine ctx; *)
+	newLine ctx;
 	ctx.in_static <- static;
 	ctx.gen_uid <- 0;
-	(* List.iter (fun(m,pl,_) ->
+	List.iter (fun(m,pl,_) ->
 		match m,pl with
 		| ":meta", [Ast.ECall ((Ast.EConst (Ast.Ident n),_),args),_] ->
 			let mk_arg (a,p) =
@@ -1002,18 +979,19 @@ let generateField ctx static f =
 			(match args with
 			| [] -> ()
 			| _ ->
-				ctx.writer#write "(";
+				ctx.writer#write "---";
 				concat ctx "," (fun a ->
 					match mk_arg a with
 					| None, s -> generateConstant ctx (snd a) (TString s)
-					| Some s, e -> ctx.writer#write (Printf.sprintf "%s=" s); generateConstant ctx (snd a) (TString e))
+					| Some s, e -> ctx.writer#write (Printf.sprintf "%s=" s); generateConstant ctx (snd a) (TString e)
 				) args;
 				ctx.writer#write ")");
 			ctx.writer#write "]";
 		| _ -> ()
-	) f.cf_meta; *)
-	(* let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
-	let rights = (if static then "+ " else "- ") in
+	) f.cf_meta;
+	
+	let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in
+	let rights = (if static then "+" else "-") in
 	let p = ctx.curclass.cl_pos in
 	match f.cf_expr, f.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
@@ -1030,8 +1008,9 @@ let generateField ctx static f =
 		if not static then loop ctx.curclass;
 		let h = generateFunctionHeader ctx (Some (s_ident f.cf_name, f.cf_meta)) fd f.cf_params p in
 		generateExpression ctx fd.tf_expr;
-		h()
-		(* newLine ctx *)
+		h();
+		newLine ctx;
+		ctx.writer#write "\n"
 	| _ ->
 		let is_getset = (match f.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		if ctx.curclass.cl_interface then
@@ -1043,25 +1022,26 @@ let generateField ctx static f =
 					| (":setter",[Ast.EConst (Ast.String name),_],_) :: _ -> "set " ^ name
 					| _ :: l -> loop l
 				in
-				ctx.writer#write (Printf.sprintf "function %s(" (loop f.cf_meta));
-				concat ctx "," (fun (arg,o,t) ->
+				ctx.writer#write (Printf.sprintf "(%s*) %s_" (typeStr ctx r p) (loop f.cf_meta));
+				concat ctx " " (fun (arg,o,t) ->
 					let tstr = typeStr ctx t p in
-					ctx.writer#write (Printf.sprintf "%s : %s" arg tstr);
-					if o then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr));
+					ctx.writer#write (Printf.sprintf "%s:(%s*)%s" arg tstr arg);
+					(* if o then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr)); *)
 				) args;
-				ctx.writer#write (Printf.sprintf ") : %s " (typeStr ctx r p));
+				ctx.writer#write ";";
+				
 			| _ when is_getset ->
 				let t = typeStr ctx f.cf_type p in
 				let id = s_ident f.cf_name in
 				(match f.cf_kind with
 				| Var v ->
 					(match v.v_read with
-					| AccNormal -> ctx.writer#write (Printf.sprintf "function get %s() : %s;" id t);
-					| AccCall s -> ctx.writer#write (Printf.sprintf "function %s() : %s;" s t);
+					| AccNormal -> ctx.writer#write (Printf.sprintf "- get_%s() : %s;" id t);
+					| AccCall s -> ctx.writer#write (Printf.sprintf "- %s() : %s;" s t);
 					| _ -> ());
 					(match v.v_write with
-					| AccNormal -> ctx.writer#write (Printf.sprintf "function set %s( __v : %s ) : void;" id t);
-					| AccCall s -> ctx.writer#write (Printf.sprintf "function %s( __v : %s ) : %s;" s t t);
+					| AccNormal -> ctx.writer#write (Printf.sprintf "- set_%s( __v : %s ) : void;" id t);
+					| AccCall s -> ctx.writer#write (Printf.sprintf "- %s( __v : %s ) : %s;" s t t);
 					| _ -> ());
 				| _ -> assert false)
 			| _ -> ()
@@ -1078,26 +1058,26 @@ let generateField ctx static f =
 			let v = (match f.cf_kind with Var v -> v | _ -> assert false) in
 			(match v.v_read with
 			| AccNormal ->
-				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return $%s; }" rights id t id)
-				(* newLine ctx *)
+				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return $%s; }" rights id t id);
+				newLine ctx
 			| AccCall m ->
-				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return %s(); }" rights id t m)
-				(* newLine ctx *)
+				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return %s(); }" rights id t m);
+				newLine ctx
 			| AccNo | AccNever ->
-				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return $%s; }" (if v.v_read = AccNo then "protected" else "private") id t id)
-				(* newLine ctx *)
+				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return $%s; }" (if v.v_read = AccNo then "protected" else "private") id t id);
+				newLine ctx
 			| _ ->
 				());
 			(match v.v_write with
 			| AccNormal ->
-				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { $%s = __v; }" rights id t id)
-				(* newLine ctx *)
+				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { $%s = __v; }" rights id t id);
+				newLine ctx
 			| AccCall m ->
-				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { %s(__v); }" rights id t m)
-				(* newLine ctx *)
+				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { %s(__v); }" rights id t m);
+				newLine ctx
 			| AccNo | AccNever ->
-				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { $%s = __v; }" (if v.v_write = AccNo then "protected" else "private") id t id)
-				(* newLine ctx *)
+				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { $%s = __v; }" (if v.v_write = AccNo then "protected" else "private") id t id);
+				newLine ctx
 			| _ -> ());
 			ctx.writer#write (Printf.sprintf "%sprotected var $%s : %s" (if static then "static " else "") (s_ident f.cf_name) (typeStr ctx f.cf_type p));
 			gen_init()
@@ -1105,6 +1085,11 @@ let generateField ctx static f =
 			ctx.writer#write (Printf.sprintf "%s var %s : %s" rights (s_ident f.cf_name) (typeStr ctx f.cf_type p));
 			gen_init()
 		end
+;;
+
+let generateProperty ctx static f =
+	
+	()
 ;;
 
 let rec defineGetSet ctx is_static c =
@@ -1131,7 +1116,7 @@ let rec defineGetSet ctx is_static c =
 
 let generateClassFiles common_ctx class_def file_info =
 	
-	(* let dir = infos.com.file :: fst path in createDirectory [] dir; *)
+	if not class_def.cl_interface then begin
 	
 	(* Create the implementation file *)
 	let base_dir = common_ctx.file in
@@ -1149,26 +1134,9 @@ let generateClassFiles common_ctx class_def file_info =
 	defineGetSet ctx false class_def;
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
-	(* output_m "#include <hxcpp.h>\n\n" *)
-	
 	let pack = openBlock ctx in
 	output_m ("#import \"" ^ (snd class_def.cl_path) ^ ".h\"\n\n");
-	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n");
-	(* newLine ctx *)
-	(* (snd c.cl_path) returns the class name *)
-	(* output_h "#import <UIKit/UIKit.h>\n\n"; *)
-	(* output_h ("@interface "^(snd c.cl_path)^"\n"); *)
-	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
-	
-	(match class_def.cl_super with
-		| None -> ()
-		| Some (csup,_) -> output_m (Printf.sprintf ": %s " (s_path ctx true csup.cl_path class_def.cl_pos)));
-	
-	(match class_def.cl_implements with
-		| [] -> ()
-		| l ->
-			output_m (if class_def.cl_interface then "extends " else "<implement something here> ");
-			concat ctx ", " (fun (i,_) -> output_m (Printf.sprintf "%s" (s_path ctx true i.cl_path class_def.cl_pos))) l);
+	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
 	
 	let cl = openBlock ctx in
 	(match class_def.cl_constructor with
@@ -1183,20 +1151,64 @@ let generateClassFiles common_ctx class_def file_info =
 		generateField ctx false f;
 	);
 	
-	(* List.iter (generateField ctx true) c.cl_ordered_statics;
-	List.iter (generateField ctx false) c.cl_ordered_fields; *)
+	List.iter (generateField ctx true) class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) class_def.cl_ordered_fields;
 	
 	cl();
 	pack();
-	(* newLine ctx; *)
-	output_m "@end";
+	newLine ctx;
+	output_m "@end\n";
 	m_file#close
 	
+	end;
 	
 	
 	(* Create the header file *)
 	
+	let base_dir = common_ctx.file in
+	let sub_dir = match common_ctx.main_class with
+		| Some path -> (snd path)
+		| _ -> "Application" in
+	let class_path = class_def.cl_path in
+	let class_name = (snd class_def.cl_path) in
+	let h_file = newHeaderFile (base_dir ^ "/" ^ sub_dir) class_path in
+	let output_h = (h_file#write) in
+	let ctx = newContext common_ctx h_file file_info in
+	ctx.curclass <- class_def;
 	
+	defineGetSet ctx true class_def;
+	defineGetSet ctx false class_def;
+	newLine ctx;
+	(* (snd c.cl_path) returns the class name *)
+	output_h "#import <UIKit/UIKit.h>\n\n";
+	Hashtbl.iter (fun name paths ->
+		List.iter (fun pack ->
+			let path = pack, name in
+			(* if path <> ctx.path then  *)output_h ("#import " ^ (Ast.s_type_path path) ^ "\n")
+		) paths
+	) ctx.imports;
+	output_h ("\n@interface " ^ (snd class_def.cl_path));
+	(* Add the super class *)
+	(match class_def.cl_super with
+		| None -> ()
+		(* | Some (csup,_) -> output_h (Printf.sprintf " : %s " (s_path ctx true csup.cl_path class_def.cl_pos))); *)
+		| Some (csup,_) -> output_h (Printf.sprintf " : %s " (snd csup.cl_path)));
+	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
+	output_h "<";
+	(match class_def.cl_implements with
+		| [] -> ()
+		| l ->
+			(* output_h (if class_def.cl_interface then "extends " else "<implement something here> "); *)
+			(* concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "<%s>" (s_path ctx true i.cl_path class_def.cl_pos))) l); *)
+			concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "%s" (snd i.cl_path))) l);
+	output_h ">";
+	output_h "\n\n";
+	
+	List.iter (generateProperty ctx true) class_def.cl_ordered_statics;
+	List.iter (generateProperty ctx false) class_def.cl_ordered_fields;
+	
+	output_h "\n\n@end\n";
+	h_file#close
 ;;
 
 
