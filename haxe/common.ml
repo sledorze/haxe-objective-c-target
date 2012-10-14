@@ -126,6 +126,8 @@ type context = {
 	mutable swf_libs : (string * (unit -> Swf.swf) * (unit -> ((string list * string),As3hl.hl_class) Hashtbl.t)) list;
 	mutable java_libs : (string * (unit -> unit)) list;
 	mutable js_gen : (unit -> unit) option;
+	mutable objc_ios : bool;(* If true (by default is true) it uses ios packages, if false it uses osx *)
+	mutable objc_libs : string list;(* A list of Xcode projects that you wish to link with the new project *)
 	(* typing *)
 	mutable basic : basic_types;
 }
@@ -318,6 +320,8 @@ let create v args =
 		neko_libs = [];
 		php_prefix = None;
 		js_gen = None;
+		objc_ios = true;
+		objc_libs = [];
 		load_extern_type = [];
 		defines_signature = None;
 		get_macros = (fun() -> None);

@@ -3,38 +3,38 @@
 @implementation Std
 
 
-+ (BOOL*) _isv:(**)v t:(**)t{
-return __global__.__instanceof[v t];
++ (BOOL) _is_v:(**)v t:(**)t{
+	return __global__.__instanceof[v t];
 }
 
 
 
-+ (NSString*) strings:(**)s{
-return ((s == nil)?@"null":s.toString[]);
++ (NSString*) string_s:(**)s{
+	return ((s == nil)?@"null":s.toString[]);
 }
 
 
 
-+ (NSNumber*) _intx:(NSNumber*)x{
-return __global__.__int__[x];
++ (NSNumber*) _int_x:(NSNumber*)x{
+	return __global__.__int__[x];
 }
 
 
 
-+ (**) _parseIntx:(NSString*)x{
-return __global__.__hxcpp_parse_int[x];
++ (**) _parseInt_x:(NSString*)x{
+	return __global__.__hxcpp_parse_int[x];
 }
 
 
 
-+ (NSNumber*) _parseFloatx:(NSString*)x{
-return __global__.__hxcpp_parse_float[x];
++ (NSNumber*) _parseFloat_x:(NSString*)x{
+	return __global__.__hxcpp_parse_float[x];
 }
 
 
 
-+ (NSNumber*) randomx:(NSNumber*)x{
-return __global__.rand[] % x;
++ (NSNumber*) random_x:(NSNumber*)x{
+	return __global__.rand[] % x;
 }
 
 

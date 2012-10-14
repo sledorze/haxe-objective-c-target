@@ -172,6 +172,12 @@ let protect name =
 	| _ -> name
 ;;
 
+let typeNeedsReferenceCell name =
+	match name with
+	| "void" | "id" | "BOOL" | "int" | "float" -> ""
+	| _ -> "*"
+;;
+
 (* This is generating a special path ? *)
 let s_path ctx stat path p =
 	match path with
@@ -442,8 +448,9 @@ let generateFunctionHeader ctx name f params p =
 	let old_t = ctx.local_types in
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
-	ctx.writer#write (Printf.sprintf "(%s*)" (typeStr ctx f.tf_type p));(* Print the return type of the function *)
-	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
+	let return_type = typeStr ctx f.tf_type p in
+	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (typeNeedsReferenceCell return_type));(* Print the return type of the function *)
+	ctx.writer#write (Printf.sprintf "%s_" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
 			| [] -> n
 			| _ :: l -> loop l
@@ -452,13 +459,14 @@ let generateFunctionHeader ctx name f params p =
 	));
 	concat ctx " " (fun (v,c) ->
 		let tstr = typeStr ctx v.v_type p in
-		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" (s_ident v.v_name) tstr "*" (s_ident v.v_name));
-		match c with
+		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" (s_ident v.v_name) tstr ("*") (s_ident v.v_name))
+		(* Match default values *)
+		(* match c with
 		| None ->
 			if ctx.constructor_block then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr));
 		| Some c ->
 			ctx.writer#write " = ";
-			generateConstant ctx p c
+			generateConstant ctx p c *)
 	) f.tf_args;
 	(fun () ->
 		ctx.in_value <- old;
@@ -637,19 +645,19 @@ and generateExpression ctx e =
 		if ctx.in_value <> None then unsupported e.epos;
 		(match eo with
 		| None ->
-			ctx.writer#write "return"
+			ctx.writer#write_i "return"
 		| Some e when (match follow e.etype with TEnum({ e_path = [],"Void" },[]) | TAbstract ({ a_path = [],"Void" },[]) -> true | _ -> false) ->
 			ctx.writer#write "{";
 			let bend = openBlock ctx in
 			newLine ctx;
 			generateValue ctx e;
 			newLine ctx;
-			ctx.writer#write "return";
+			ctx.writer#write_i "return";
 			bend();
 			newLine ctx;
-			ctx.writer#write "}";
+			ctx.writer#write_i "}";
 		| Some e ->
-			ctx.writer#write "return ";
+			ctx.writer#write_i "return ";
 			generateValue ctx e);
 	| TBreak ->
 		if ctx.in_value <> None then unsupported e.epos;
@@ -685,7 +693,7 @@ and generateExpression ctx e =
 	| TVars vl ->
 		(* ctx.writer#write "var "; *)
 		concat ctx "; " (fun (v,eo) ->
-			ctx.writer#write (Printf.sprintf "%s* %s" (typeStr ctx v.v_type e.epos) (s_ident v.v_name));
+			ctx.writer#write_i (Printf.sprintf "%s* %s" (typeStr ctx v.v_type e.epos) (s_ident v.v_name));
 			match eo with
 			| None -> ()
 			| Some e ->
@@ -695,10 +703,10 @@ and generateExpression ctx e =
 	| TNew (c,params,el) ->
 		(match c.cl_path, params with
 		| (["flash"],"Vector"), [pt] -> ctx.writer#write (Printf.sprintf "new Vector.<%s>(" (typeStr ctx pt e.epos))
-		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (s_path ctx true c.cl_path e.epos));
+		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*s_path ctx true c.cl_path e.epos) *));
 		concat ctx "," (generateValue ctx) el)
 	| TIf (cond,e,eelse) ->
-		ctx.writer#write "if";
+		ctx.writer#write_i "if";
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
@@ -706,7 +714,7 @@ and generateExpression ctx e =
 		| None -> ()
 		| Some e ->
 			newLine ctx;
-			ctx.writer#write "else ";
+			ctx.writer#write_i "else ";
 			generateExpression ctx e);
 	| TUnop (op,Ast.Prefix,e) ->
 		ctx.writer#write (Ast.s_unop op);
@@ -716,16 +724,16 @@ and generateExpression ctx e =
 		ctx.writer#write (Ast.s_unop op)
 	| TWhile (cond,e,Ast.NormalWhile) ->
 		let handleBreak = handleBreak ctx e in
-		ctx.writer#write "while";
+		ctx.writer#write_i "while";
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
 		handleBreak();
 	| TWhile (cond,e,Ast.DoWhile) ->
 		let handleBreak = handleBreak ctx e in
-		ctx.writer#write "do ";
+		ctx.writer#write_i "do ";
 		generateExpression ctx e;
-		ctx.writer#write " while";
+		ctx.writer#write_i " while";
 		generateValue ctx (parent cond);
 		handleBreak();
 	| TObjectDecl fields ->
@@ -743,7 +751,7 @@ and generateExpression ctx e =
 		newLine ctx;
 		generateExpression ctx e;
 		newLine ctx;
-		ctx.writer#end_block;(* write "}}"; *)
+		ctx.writer#end_block;
 		handleBreak();
 	| TTry (e,catchs) ->
 		ctx.writer#write "try ";
@@ -801,18 +809,18 @@ and generateExpression ctx e =
 		newLine ctx;
 		List.iter (fun (el,e2) ->
 			List.iter (fun e ->
-				ctx.writer#write "case "; generateValue ctx e; ctx.writer#write ":";
+				ctx.writer#write_i "case "; generateValue ctx e; ctx.writer#write ":";
 			) el;
 			generateBlock ctx e2;
-			ctx.writer#write "break;";
+			ctx.writer#write_i "break;";
 			newLine ctx;
 		) cases;
 		(match def with
 		| None -> ()
 		| Some e ->
-			ctx.writer#write "default:";
+			ctx.writer#write_i "default:";
 			generateBlock ctx e;
-			ctx.writer#write "break";
+			ctx.writer#write_i "break";
 			newLine ctx;
 		);
 		ctx.writer#write "}"
@@ -824,11 +832,13 @@ and generateExpression ctx e =
 		generateExpression ctx (Codegen.default_cast ctx.com e1 t e.etype e.epos)
 
 and generateBlock ctx e =
-	newLine ctx;
+	(* newLine ctx; *)
+	ctx.writer#begin_block;
 	match e.eexpr with
 	| TBlock [] -> ()
 	| _ -> generateExpression ctx e;
-		newLine ctx
+		(* newLine ctx *)
+		ctx.writer#end_block
 	
 and generateValue ctx e =
 	let assign e =
@@ -1198,8 +1208,6 @@ let generateClassFiles common_ctx class_def file_info =
 	(match class_def.cl_implements with
 		| [] -> ()
 		| l ->
-			(* output_h (if class_def.cl_interface then "extends " else "<implement something here> "); *)
-			(* concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "<%s>" (s_path ctx true i.cl_path class_def.cl_pos))) l); *)
 			concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "%s" (snd i.cl_path))) l);
 	output_h ">";
 	output_h "\n\n";
@@ -1355,12 +1363,6 @@ let generate common_ctx =
 	(* Generate folder structure and basic files *)
 	generateProjectStructure common_ctx;
 	generateResources common_ctx;
-	
-	(* let ctx = init infos ([],"enum") in
-	generate_base_enum ctx;
-	close ctx; *)
-	
-	(* makeBaseDirectory common_ctx.file; *)
 	
 	let debug = false in
 	let exe_classes = ref [] in
