@@ -291,7 +291,7 @@ let defaultValue tstr =
 	| _ -> "nil"
 ;;
 
-let rec typeStr ctx t p =
+let rec typeToString ctx t p =
 	match t with
 	| TEnum _ | TInst _ when List.memq t ctx.local_types ->
 		"*"
@@ -323,7 +323,7 @@ let rec typeStr ctx t p =
 	| TInst ({ cl_path = ["flash"],"Vector" },[pt]) ->
 		(match pt with
 		| TInst({cl_kind = KTypeParameter _},_) -> "*"
-		| _ -> "Vector.<" ^ typeStr ctx pt p ^ ">")
+		| _ -> "Vector.<" ^ typeToString ctx pt p ^ ">")
 	| TInst (c,_) ->
 		(match c.cl_kind with
 		| KNormal | KGeneric | KGenericInstance _ -> s_path ctx false c.cl_path p
@@ -331,9 +331,9 @@ let rec typeStr ctx t p =
 	| TFun _ ->
 		"Function"
 	| TMono r ->
-		(match !r with None -> "*" | Some t -> typeStr ctx t p)
+		(match !r with None -> "*" | Some t -> typeToString ctx t p)
 	| TAnon _ | TDynamic _ ->
-		"*"
+		"id"
 	| TType (t,args) ->
 		(match t.t_path with
 		| [], "UInt" -> "uint"
@@ -348,11 +348,11 @@ let rec typeStr ctx t p =
 				| TInst ({ cl_path = [],"Int" },_)
 				| TInst ({ cl_path = [],"Float" },_)
 				| TEnum ({ e_path = [],"Bool" },_) -> "*"
-				| _ -> typeStr ctx t p)
+				| _ -> typeToString ctx t p)
 			| _ -> assert false);
-		| _ -> typeStr ctx (apply_params t.t_types args t.t_type) p)
+		| _ -> typeToString ctx (apply_params t.t_types args t.t_type) p)
 	| TLazy f ->
-		typeStr ctx ((!f)()) p
+		typeToString ctx ((!f)()) p
 ;;
 
 let rec iterSwitchBreak in_switch e =
@@ -440,7 +440,6 @@ let generateResources common_ctx =
 
 let generateConstant ctx p = function
 	| TInt i -> ctx.writer#write (Printf.sprintf "[NSNumber numberWithInt:%ld]" i) (* %ld = int32 *)(* (Int32.to_string i) *)
-	(* | TFloat s -> ctx.writer#write (Printf.sprintf "[NSNumber numberWithFloat:%s]" s *)
 	| TFloat f -> ctx.writer#write f
 	| TString s -> ctx.writer#write (Printf.sprintf "@\"%s\"" (Ast.s_escape s)) (* "@\"" ^ (escapeBin (Ast.s_escape s)) ^ "\"" *)
 	| TBool b -> ctx.writer#write (if b then "YES" else "NO")
@@ -458,9 +457,9 @@ let generateFunctionHeader ctx name f params p =
 	let old_t = ctx.local_types in
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
-	let return_type = typeStr ctx f.tf_type p in
+	let return_type = typeToString ctx f.tf_type p in
 	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
-	ctx.writer#write (Printf.sprintf "%s_" (match name with None -> "" | Some (n,meta) ->
+	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
 			| [] -> n
 			| _ :: l -> loop l
@@ -468,7 +467,7 @@ let generateFunctionHeader ctx name f params p =
 		" " ^ loop meta
 	));
 	concat ctx " " (fun (v,c) ->
-		let tstr = typeStr ctx v.v_type p in
+		let tstr = typeToString ctx v.v_type p in
 		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" (s_ident v.v_name) tstr (addPointerIfNeeded tstr) (s_ident v.v_name))
 		(* Match default values *)
 		(* match c with
@@ -494,66 +493,16 @@ let rec generateCall ctx e el r =
 		ctx.writer#write "(";
 		concat ctx "," (generateValue ctx) el;
 		ctx.writer#write ")";
-	| TLocal { v_name = "__is__" } , [e1;e2] ->
-		generateValue ctx e1;
-		ctx.writer#write " is ";
-		generateValue ctx e2;
-	| TLocal { v_name = "__as__" }, [e1;e2] ->
-		generateValue ctx e1;
-		ctx.writer#write " as ";
-		generateValue ctx e2;
-	| TLocal { v_name = "__int__" }, [e] ->
-		ctx.writer#write "int(";
-		generateValue ctx e;
-		ctx.writer#write ")";
-	| TLocal { v_name = "__float__" }, [e] ->
-		ctx.writer#write "Number(";
-		generateValue ctx e;
-		ctx.writer#write ")";
-	| TLocal { v_name = "__typeof__" }, [e] ->
-		ctx.writer#write "typeof ";
-		generateValue ctx e;
-	| TLocal { v_name = "__keys__" }, [e] ->
-		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
-		ctx.writer#write (Printf.sprintf "%s = [[NSMutableArray alloc] init]" ret.v_name);
-		newLine ctx;
-		let tmp = genLocal ctx "$k" in
-		ctx.writer#write (Printf.sprintf "for (NSString *%s in " tmp);
-		generateValue ctx e;
-		ctx.writer#write (Printf.sprintf "[%s addObject : %s ]" ret.v_name tmp);
-	| TLocal { v_name = "__hkeys__" }, [e] ->
-		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
-		ctx.writer#write (Printf.sprintf "%s = [[NSMutableArray alloc] init]" ret.v_name);
-		newLine ctx;
-		let tmp = genLocal ctx "$k" in
-		ctx.writer#write (Printf.sprintf "for (NSString *%s in " tmp);
-		generateValue ctx e;
-		ctx.writer#write (Printf.sprintf ") [%s addObject : %s.substr(1)]" ret.v_name tmp);
-	| TLocal { v_name = "__foreach__" }, [e] ->
-		let ret = (match ctx.in_value with None -> assert false | Some r -> r) in
-		ctx.writer#write (Printf.sprintf "%s = [[NSMutableArray alloc] init]" ret.v_name);
-		newLine ctx;
-		let tmp = genLocal ctx "$k" in
-		ctx.writer#write (Printf.sprintf "for ( %s : * in " tmp);
-		generateValue ctx e;
-		ctx.writer#write (Printf.sprintf ") [%s addObject : %s]" ret.v_name tmp);
-	| TLocal { v_name = "__new__" }, e :: args ->
-		ctx.writer#write "[[";
-		generateValue ctx e;
-		ctx.writer#write " alloc] init]";
-		concat ctx "," (generateValue ctx) args;(* Generate an expression from parameters *)
-		ctx.writer#write ")";
-	| TLocal { v_name = "__delete__" }, [e;f] ->
-		ctx.writer#write "delete(";
-		generateValue ctx e;
-		ctx.writer#write "[";
-		generateValue ctx f;
-		ctx.writer#write "]";
-		ctx.writer#write ")";
+	| TLocal { v_name = "__objc__" }, [e] ->
+		(* ( match x with
+		| [{ e.eexpr = TConst (TString code) }] -> ctx.writer#write code;
+		| _ -> error "__cpp__ accepts only one string as an argument" func.epos;
+		) *)
+		ctx.writer#write "include __objc__"
 	| TLocal { v_name = "__unprotect__" }, [e] ->
 		generateValue ctx e
 	| TLocal { v_name = "__vector__" }, [e] ->
-		ctx.writer#write (typeStr ctx r e.epos);
+		ctx.writer#write (typeToString ctx r e.epos);
 		ctx.writer#write "(";
 		generateValue ctx e;
 		ctx.writer#write ")"
@@ -641,7 +590,7 @@ and generateExpression ctx e =
 		ctx.writer#write "(";
 		generateValue ctx e;
 		ctx.writer#write (Printf.sprintf "[\"%s\"]" s);
-		ctx.writer#write (Printf.sprintf " as %s)" (typeStr ctx e.etype e.epos));		
+		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos));		
 	| TField (e,s) | TClosure (e,s) ->
    		generateValue ctx e;
 		generateFieldAccess ctx e.etype s
@@ -689,11 +638,17 @@ and generateExpression ctx e =
 		generateExpression ctx f.tf_expr;
 		ctx.in_static <- old;
 		h();
+	| TCall (func, arg_list) when (match func.eexpr with
+		| TLocal { v_name = "__objc__" } -> true
+		| _ -> false) ->
+			( match arg_list with
+			| [{ eexpr = TConst (TString code) }] -> ctx.writer#write code;
+			| _ -> error "__objc__ accepts only one string as an argument" func.epos;)
 	| TCall (v,el) ->
 		generateCall ctx v el e.etype
 	| TArrayDecl el ->
 		ctx.writer#write "[";
-		concat ctx "," (generateValue ctx) el;
+		concat ctx ", " (generateValue ctx) el;
 		ctx.writer#write "]"
 	| TThrow e ->
 		ctx.writer#write "throw ";
@@ -701,9 +656,8 @@ and generateExpression ctx e =
 	| TVars [] ->
 		()
 	| TVars vl ->
-		(* ctx.writer#write "var "; *)
 		concat ctx "; " (fun (v,eo) ->
-			ctx.writer#write_i (Printf.sprintf "%s* %s" (typeStr ctx v.v_type e.epos) (s_ident v.v_name));
+			ctx.writer#write_i (Printf.sprintf "%s %s%s" (typeToString ctx v.v_type e.epos) (addPointerIfNeeded (typeToString ctx v.v_type e.epos)) (s_ident v.v_name));
 			match eo with
 			| None -> ()
 			| Some e ->
@@ -712,7 +666,7 @@ and generateExpression ctx e =
 		) vl;
 	| TNew (c,params,el) ->
 		(match c.cl_path, params with
-		| (["flash"],"Vector"), [pt] -> ctx.writer#write (Printf.sprintf "new Vector.<%s>(" (typeStr ctx pt e.epos))
+		| (["flash"],"Vector"), [pt] -> ctx.writer#write (Printf.sprintf "new Vector.<%s>(" (typeToString ctx pt e.epos))
 		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*s_path ctx true c.cl_path e.epos) *));
 		concat ctx "," (generateValue ctx) el)
 	| TIf (cond,e,eelse) ->
@@ -757,7 +711,7 @@ and generateExpression ctx e =
 		ctx.writer#write (Printf.sprintf "{ var %s : * = " tmp);
 		generateValue ctx it;
 		newLine ctx;
-		ctx.writer#write (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (s_ident v.v_name) (typeStr ctx v.v_type e.epos) tmp);
+		ctx.writer#write (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (s_ident v.v_name) (typeToString ctx v.v_type e.epos) tmp);
 		newLine ctx;
 		generateExpression ctx e;
 		newLine ctx;
@@ -768,7 +722,7 @@ and generateExpression ctx e =
 		generateExpression ctx e;
 		List.iter (fun (v,e) ->
 			newLine ctx;
-			ctx.writer#write (Printf.sprintf "catch( %s : %s )" (s_ident v.v_name) (typeStr ctx v.v_type e.epos));
+			ctx.writer#write (Printf.sprintf "catch( %s : %s )" (s_ident v.v_name) (typeToString ctx v.v_type e.epos));
 			generateExpression ctx e;
 		) catchs;
 	| TMatch (e,_,cases,def) ->
@@ -796,7 +750,7 @@ and generateExpression ctx e =
 					newLine ctx;
 					ctx.writer#write "var ";
 					concat ctx ", " (fun (v,n) ->
-						ctx.writer#write (Printf.sprintf "%s : %s = %s.params[%d]" (s_ident v.v_name) (typeStr ctx v.v_type e.epos) tmp n);
+						ctx.writer#write (Printf.sprintf "%s : %s = %s.params[%d]" (s_ident v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
 					) l);
 			generateBlock ctx e;
 			ctx.writer#write "break";
@@ -837,7 +791,7 @@ and generateExpression ctx e =
 	| TCast (e1,None) ->
 		ctx.writer#write "((";
 		generateExpression ctx e1;
-		ctx.writer#write (Printf.sprintf ") as %s)" (typeStr ctx e.etype e.epos));
+		ctx.writer#write (Printf.sprintf ") as %s)" (typeToString ctx e.etype e.epos));
 	| TCast (e1,Some t) ->
 		generateExpression ctx (Codegen.default_cast ctx.com e1 t e.etype e.epos)
 
@@ -846,8 +800,8 @@ and generateBlock ctx e =
 	ctx.writer#begin_block;
 	match e.eexpr with
 	| TBlock [] -> ()
-	| _ -> generateExpression ctx e;
-		(* newLine ctx *)
+	| _ ->
+		generateExpression ctx e;
 		ctx.writer#end_block
 	
 and generateValue ctx e =
@@ -862,7 +816,7 @@ and generateValue ctx e =
 	in
 	let value block =
 		let old = ctx.in_value in
-		let t = typeStr ctx e.etype e.epos in
+		let t = typeToString ctx e.etype e.epos in
 		let r = alloc_var (genLocal ctx "$r") e.etype in
 		ctx.in_value <- Some r;
 		if ctx.in_static then
@@ -1014,8 +968,8 @@ let generateField ctx static f =
 	let p = ctx.class_def.cl_pos in
 	match f.cf_expr, f.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
-		ctx.writer#write (Printf.sprintf "%s%s " rights (if static then "" else final f.cf_meta));
-		let rec loop c =
+		ctx.writer#write (Printf.sprintf "%s " rights (* (if static then "" else final f.cf_meta) *));
+		(* let rec loop c =
 			match c.cl_super with
 			| None -> ()
 			| Some (c,_) ->
@@ -1024,7 +978,7 @@ let generateField ctx static f =
 				else
 					loop c
 		in
-		if not static then loop ctx.class_def;
+		if not static then loop ctx.class_def; *)
 		(* Generate header function *)
 		let h = generateFunctionHeader ctx (Some (s_ident f.cf_name, f.cf_meta)) fd f.cf_params p in
 		(* Generate expressions in the function if is not the header file *)
@@ -1044,16 +998,16 @@ let generateField ctx static f =
 					| (":setter",[Ast.EConst (Ast.String name),_],_) :: _ -> "set " ^ name
 					| _ :: l -> loop l
 				in
-				ctx.writer#write (Printf.sprintf "(%s*) %s_" (typeStr ctx r p) (loop f.cf_meta));
+				ctx.writer#write (Printf.sprintf "(%s*) %s_" (typeToString ctx r p) (loop f.cf_meta));
 				concat ctx " " (fun (arg,o,t) ->
-					let tstr = typeStr ctx t p in
+					let tstr = typeToString ctx t p in
 					ctx.writer#write (Printf.sprintf "%s:(%s*)%s" arg tstr arg);
 					(* if o then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr)); *)
 				) args;
 				ctx.writer#write ";";
 				
 			| _ when is_getset ->
-				let t = typeStr ctx f.cf_type p in
+				let t = typeToString ctx f.cf_type p in
 				let id = s_ident f.cf_name in
 				ctx.writer#write (Printf.sprintf "@property (nonatomic, strong) %s %s%s;" t "*" id);
 				newLine ctx
@@ -1079,7 +1033,7 @@ let generateField ctx static f =
 				generateValue ctx e
 		in
 		if is_getset then begin
-			(* let t = typeStr ctx f.cf_type p in *)
+			(* let t = typeToString ctx f.cf_type p in *)
 			let id = s_ident f.cf_name in
 			(* let v = (match f.cf_kind with Var v -> v | _ -> assert false) in *)
 			ctx.writer#write (Printf.sprintf "@synthesize %s = _%s;\n" id id);
@@ -1106,10 +1060,10 @@ let generateField ctx static f =
 				ctx.writer#write (Printf.sprintf "%s function set %s( __v : %s ) : void { $%s = __v; }" (if v.v_write = AccNo then "protected" else "private") id t id);
 				newLine ctx
 			| _ -> ()); *)
-			(* ctx.writer#write (Printf.sprintf "%sprotected var $%s : %s" (if static then "static " else "") (s_ident f.cf_name) (typeStr ctx f.cf_type p)); *)
+			(* ctx.writer#write (Printf.sprintf "%sprotected var $%s : %s" (if static then "static " else "") (s_ident f.cf_name) (typeToString ctx f.cf_type p)); *)
 			gen_init()
 		end else begin
-			ctx.writer#write (Printf.sprintf "%s%s %s" (typeStr ctx f.cf_type p) "*" (s_ident f.cf_name));
+			ctx.writer#write (Printf.sprintf "%s%s %s" (typeToString ctx f.cf_type p) "*" (s_ident f.cf_name));
 			gen_init()
 		end
 ;;
@@ -1158,11 +1112,9 @@ let generateClassFiles common_ctx class_def file_info =
 	defineGetSet ctx false class_def;
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
-	let pack = openBlock ctx in
 	output_m ("#import \"" ^ (snd class_def.cl_path) ^ ".h\"\n\n");
 	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
 	
-	let cl = openBlock ctx in
 	(match class_def.cl_constructor with
 	| None -> ()
 	| Some f ->
@@ -1178,10 +1130,7 @@ let generateClassFiles common_ctx class_def file_info =
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
 	List.iter (generateField ctx false) class_def.cl_ordered_fields;
 	
-	cl();
-	pack();
-	newLine ctx;
-	output_m "@end\n";
+	output_m "\n\n@end\n";
 	m_file#close
 	
 	end;
@@ -1202,7 +1151,7 @@ let generateClassFiles common_ctx class_def file_info =
 	defineGetSet ctx false class_def;
 	newLine ctx;
 	(* (snd c.cl_path) returns the class name *)
-	let pack = openBlock ctx in
+	
 	output_h "#import <UIKit/UIKit.h>\n\n";
 	Hashtbl.iter (fun name paths ->
 		List.iter (fun pack ->
@@ -1212,7 +1161,6 @@ let generateClassFiles common_ctx class_def file_info =
 	) ctx.imports;
 	output_h ("\n@interface " ^ (snd class_def.cl_path));
 	(* Add the super class *)
-	let cl = openBlock ctx in
 	(match class_def.cl_super with
 		| None -> ()
 		(* | Some (csup,_) -> output_h (Printf.sprintf " : %s " (s_path ctx true csup.cl_path class_def.cl_pos))); *)
@@ -1229,8 +1177,6 @@ let generateClassFiles common_ctx class_def file_info =
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
 	List.iter (generateField ctx false) class_def.cl_ordered_fields;
 	
-	cl();
-	pack();
 	output_h "\n\n@end\n";
 	h_file#close
 ;;

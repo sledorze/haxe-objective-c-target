@@ -5,19 +5,17 @@
 @interface Std<>
 
 
-+ (BOOL) _is_v:(**)v t:(**)t;
++ (BOOL) _isv:(id)v t:(id)t;
 
-+ (NSString*) string_s:(**)s;
++ (NSString*) strings:(id)s;
 
-+ (NSNumber*) _int_x:(NSNumber*)x;
++ (NSNumber*) _intx:(NSNumber*)x;
 
-+ (**) _parseInt_x:(NSString*)x;
++ (**) _parseIntx:(NSString*)x;
 
-+ (NSNumber*) _parseFloat_x:(NSString*)x;
++ (NSNumber*) _parseFloatx:(NSString*)x;
 
-+ (NSNumber*) random_x:(NSNumber*)x;
-{
-{
++ (NSNumber*) randomx:(NSNumber*)x;
 
 
 @end

@@ -3,12 +3,11 @@
 @implementation Log
 
 
-Function* _trace = (void)_v:(**)v infos:(**)infos{
+Function* _trace = (void)v:(id)v infos:(id)infos{
 }
 
-Function* clear = (void)_{
+Function* clear = (void){
 }
-{
-{
+
 
 @end

@@ -5,32 +5,30 @@
 @interface Date<>
 
 
-+ (Date*) now_;
++ (Date*) now;
 
-+ (Date*) fromTime_t:(NSNumber*)t;
++ (Date*) fromTimet:(NSNumber*)t;
 
-+ (Date*) fromString_s:(NSString*)s;
++ (Date*) fromStrings:(NSString*)s;
 
-- (NSString*) toString_;
+- (NSString*) toString;
 
-- (NSNumber*) getDay_;
+- (NSNumber*) getDay;
 
-- (NSNumber*) getDate_;
+- (NSNumber*) getDate;
 
-- (NSNumber*) getMonth_;
+- (NSNumber*) getMonth;
 
-- (NSNumber*) getFullYear_;
+- (NSNumber*) getFullYear;
 
-- (NSNumber*) getSeconds_;
+- (NSNumber*) getSeconds;
 
-- (NSNumber*) getMinutes_;
+- (NSNumber*) getMinutes;
 
-- (NSNumber*) getHours_;
+- (NSNumber*) getHours;
 
-- (NSNumber*) getTime_;
+- (NSNumber*) getTime;
 
-{
-{
 
 
 @end

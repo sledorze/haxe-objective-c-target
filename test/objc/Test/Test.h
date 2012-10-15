@@ -5,23 +5,21 @@
 @interface Test : UIWebView <Interface2, TestInterface>
 
 
-+ (void) main_;
++ (void) main;
 
-- (void) printHello_;
+- (void) printHello;
 
-- (NSNumber*) minus_a:(NSNumber*)a b:(NSNumber*)b;
+- (NSNumber*) minusa:(NSNumber*)a b:(NSNumber*)b;
 
-- (NSNumber*) add_a:(NSNumber*)a b:(NSNumber*)b;
+- (NSNumber*) adda:(NSNumber*)a b:(NSNumber*)b;
 
-- (NSNumber*) setWidth_v:(NSNumber*)v;
+- (NSNumber*) setWidthv:(NSNumber*)v;
 
-- (NSNumber*) getWidth_;
+- (NSNumber*) getWidth;
 
 @property (nonatomic, strong) NSNumber *width;
 
 
-{
-{
 
 
 @end

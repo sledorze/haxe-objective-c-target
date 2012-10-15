@@ -3,23 +3,23 @@
 @implementation Test
 
 
-- (void) Test_{
+- (void) Test{
 super[];
 }
 
 
-+ (void) main_{
-	NSMutableArray* a = [[Array alloc] init];
-	NSMutableArray* aa = [[NSNumber numberWithInt:1],[NSNumber numberWithInt:2],[NSNumber numberWithInt:3],[NSNumber numberWithInt:4],[NSNumber numberWithInt:5]];
-	NSNumber* b = [NSNumber numberWithInt:5];
-	NSNumber* c = 5.0;
-	NSString* d = @"xyz";
-	BOOL* e = YES;
-	NSNumber* f;
++ (void) main{
+	NSMutableArray *a = [[Array alloc] init];
+	NSMutableArray *aa = [[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5]];
+	NSNumber *b = [NSNumber numberWithInt:5];
+	NSNumber *c = 5.0;
+	NSString *d = @"xyz";
+	BOOL e = YES;
+	NSNumber *f;
 {
-		NSNumber* _g = [NSNumber numberWithInt:0];
+		NSNumber *_g = [NSNumber numberWithInt:0];
 		while(_g < aa.length) {
-			NSNumber* i = aa[_g];
+			NSNumber *i = aa[_g];
 ++_g;
 a.push[Std.string[i]];
 		}
@@ -34,33 +34,34 @@ nil	}
 };
 	if(a.length > [NSNumber numberWithInt:3]) f = [NSNumber numberWithInt:3]
 	else f = a.length;
-	NSNumber* x = [[Test alloc] init].add[[NSNumber numberWithInt:1] [NSNumber numberWithInt:1]];
-	objc.ios.UIWebView* webView = [[UIWebView alloc] init];
+	NSNumber *x = [[Test alloc] init].add[[NSNumber numberWithInt:1] [NSNumber numberWithInt:1]];
+	objc.ios.UIWebView *webView = [[UIWebView alloc] init];
 webView.initWithFrame[];
 }
 
 
-- (void) printHello_{
-haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumber : [NSNumber numberWithInt:58], className : @"Test", methodName : @"printHello"}];
+- (void) printHello{
+NSLog(@"testing __objc__");
+haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumber : [NSNumber numberWithInt:60], className : @"Test", methodName : @"printHello"}];
 }
 
 
-- (NSNumber*) minus_a:(NSNumber*)a b:(NSNumber*)b{
+- (NSNumber*) minusa:(NSNumber*)a b:(NSNumber*)b{
 	return a - b;
 }
 
 
-- (NSNumber*) add_a:(NSNumber*)a b:(NSNumber*)b{
+- (NSNumber*) adda:(NSNumber*)a b:(NSNumber*)b{
 	return a + b;
 }
 
 
-- (NSNumber*) setWidth_v:(NSNumber*)v{
+- (NSNumber*) setWidthv:(NSNumber*)v{
 	return [NSNumber numberWithInt:0];
 }
 
 
-- (NSNumber*) getWidth_{
+- (NSNumber*) getWidth{
 	return [NSNumber numberWithInt:0];
 }
 
@@ -68,7 +69,6 @@ haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumb
 @synthesize width = _width;
 
 NSNumber* interfaceVar2
-NSNumber* interfaceVar1{
-{
+NSNumber* interfaceVar1
 
 @end

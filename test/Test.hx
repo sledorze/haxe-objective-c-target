@@ -1,5 +1,6 @@
 import Date;
 import objc.ios.UIWebView;
+/*import objc.ios.UILabel;*/
 
 class Test extends objc.ios.UIWebView, implements TestInterface, implements Interface2 {
 	
@@ -55,6 +56,7 @@ class Test extends objc.ios.UIWebView, implements TestInterface, implements Inte
 		return a-b;
 	}
 	public function printHello () :Void {
+		untyped __objc__("NSLog(@\"testing __objc__\")");
 		trace("Hello from Haxe Objective-C");
 	}
 }

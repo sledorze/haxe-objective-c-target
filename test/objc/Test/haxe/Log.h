@@ -5,9 +5,7 @@
 @interface Log<>
 
 
-(void*) trace_v:(**)v infos:(**)infos;
-(void*) clear_;{
-{
-
+(void*) trace_v:(id*)v infos:(id*)infos;
+(void*) clear_;
 
 @end
