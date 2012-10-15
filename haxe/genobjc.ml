@@ -487,25 +487,12 @@ let generateFunctionHeader ctx name f params p =
 let rec generateCall ctx e el r =
 	match e.eexpr , el with
 	| TCall (x,_) , el ->
-		ctx.writer#write "(";
+		ctx.writer#write "[";
 		generateValue ctx e;
 		ctx.writer#write ")";
-		ctx.writer#write "(";
-		concat ctx "," (generateValue ctx) el;
-		ctx.writer#write ")";
-	| TLocal { v_name = "__objc__" }, [e] ->
-		(* ( match x with
-		| [{ e.eexpr = TConst (TString code) }] -> ctx.writer#write code;
-		| _ -> error "__cpp__ accepts only one string as an argument" func.epos;
-		) *)
-		ctx.writer#write "include __objc__"
-	| TLocal { v_name = "__unprotect__" }, [e] ->
-		generateValue ctx e
-	| TLocal { v_name = "__vector__" }, [e] ->
-		ctx.writer#write (typeToString ctx r e.epos);
-		ctx.writer#write "(";
-		generateValue ctx e;
-		ctx.writer#write ")"
+		ctx.writer#write " ";
+		concat ctx " " (generateValue ctx) el;
+		ctx.writer#write "]";
 	| TField(ee,v),args when isVarField ee v ->
 		ctx.writer#write "(";
 		generateValue ctx e;

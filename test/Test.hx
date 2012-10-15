@@ -57,6 +57,6 @@ class Test extends objc.ios.UIWebView, implements TestInterface, implements Inte
 	}
 	public function printHello () :Void {
 		untyped __objc__("NSLog(@\"testing __objc__\")");
-		trace("Hello from Haxe Objective-C");
+		trace("Hello from Haxe "+"Objective-C");
 	}
 }

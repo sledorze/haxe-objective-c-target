@@ -23,10 +23,22 @@
  * DAMAGE.
  */
 
-enum XmlType {
+@:native("_Xml.RealXmlType")
+extern enum XmlType {
+}
+
+private enum RealXmlType {
+        Element;
+        PCData;
+        CData;
+        Comment;
+        DocType;
+        Prolog;
+        Document;
 }
 
 @:core_api class Xml {
+
 	public static var Element(default,null) : XmlType;
 	public static var PCData(default,null) : XmlType;
 	public static var CData(default,null) : XmlType;
@@ -35,123 +47,65 @@ enum XmlType {
 	public static var Prolog(default,null) : XmlType;
 	public static var Document(default,null) : XmlType;
 
+	public var nodeType(default,null) : XmlType;
+	public var nodeName(get_nodeName,set_nodeName) : String;
+	public var nodeValue(get_nodeValue,set_nodeValue) : String;
+	public var parent(getParent,null) : Xml;
 
-	private var _nodeName : String;
-	private var _nodeValue : String;
-	private var _attributes : Dynamic<String>;
-	private var _children : Array<Dynamic>;
-	private var _parent : Xml;
-
-	function new() : Void {
-	}
-
-	private static var _parse = cpp.Lib.load("std","parse_xml",2);
+	var _nodeName : String;
+	var _nodeValue : String;
+	var _attributes : Hash<String>;
+	var _children : Array<Xml>;
+	var _parent : Xml;
 
 	public static function parse( str : String ) : Xml {
-		var x = new Xml();
-		x._children = new Array();
-		var parser = {
-			cur : x,
-			xml : function(name,att) {
-				var x : Dynamic = new Xml();
-				x._parent = untyped __this__.cur;
-				x.nodeType = Xml.Element;
-				x._nodeName = new String(name);
-				x._attributes = att;
-				x._children = new Array();
-				untyped {
-					var i = 0;
-					__this__.cur.addChild(x);
-					__this__.cur = x;
-				}
-			},
-			cdata : function(text) {
-				var x = new Xml();
-				x._parent = untyped __this__.cur;
-				x.nodeType = Xml.CData;
-				x._nodeValue = new String(text);
-				untyped __this__.cur.addChild(x);
-			},
-			pcdata : function(text) {
-				var x = new Xml();
-				x._parent = untyped __this__.cur;
-				x.nodeType = Xml.PCData;
-				x._nodeValue = new String(text);
-				untyped __this__.cur.addChild(x);
-			},
-			comment : function(text:String) {
-				var x = new Xml();
-				x._parent = untyped __this__.cur;
-				if( untyped text.cca(0) == 63 ) {
-					x.nodeType = Xml.Prolog;
-					text = new String(text);
-					text = text.substr(1, text.length - 2);
-				} else {
-					x.nodeType = Xml.Comment;
-					text = new String(text);
-				}
-				x._nodeValue = text;
-				untyped __this__.cur.addChild(x);
-			},
-			doctype : function(text) {
-				var x = new Xml();
-				x._parent = untyped __this__.cur;
-				x.nodeType = Xml.DocType;
-				x._nodeValue = (new String(text)).substr(1);
-				var p : Xml = untyped __this__.cur;
-				p.addChild(x);
-			},
-			done : function() {
-				untyped __this__.cur = __this__.cur._parent;
-			}
-		};
-		untyped _parse(str,parser);
-		x.nodeType = Xml.Document;
-		return x;
+		return haxe.xml.Parser.parse(str);
 	}
 
+	private function new() : Void {
+	}
 
 	public static function createElement( name : String ) : Xml {
 		var r = new Xml();
 		r.nodeType = Xml.Element;
-		r._nodeName = name;
-		r._attributes = null;
 		r._children = new Array();
+		r._attributes = new Hash();
+		r.set_nodeName( name );
 		return r;
 	}
 
 	public static function createPCData( data : String ) : Xml {
 		var r = new Xml();
 		r.nodeType = Xml.PCData;
-		r._nodeValue = data;
+		r.set_nodeValue( data );
 		return r;
 	}
 
 	public static function createCData( data : String ) : Xml {
 		var r = new Xml();
 		r.nodeType = Xml.CData;
-		r._nodeValue = data;
+		r.set_nodeValue( data );
 		return r;
 	}
 
 	public static function createComment( data : String ) : Xml {
 		var r = new Xml();
 		r.nodeType = Xml.Comment;
-		r._nodeValue = data;
+		r.set_nodeValue( data );
 		return r;
 	}
 
 	public static function createDocType( data : String ) : Xml {
 		var r = new Xml();
 		r.nodeType = Xml.DocType;
-		r._nodeValue = data;
+		r.set_nodeValue( data );
 		return r;
 	}
 
 	public static function createProlog( data : String ) : Xml {
 		var r = new Xml();
 		r.nodeType = Xml.Prolog;
-		r._nodeValue = data;
+		r.set_nodeValue( data );
 		return r;
 	}
 
@@ -162,38 +116,30 @@ enum XmlType {
 		return r;
 	}
 
-	public var nodeType(default,null) : XmlType;
-
-	public var nodeName(getNodeName,setNodeName) : String;
-
-	public var nodeValue(getNodeValue,setNodeValue) : String;
-
-
-	private function getNodeName() : String {
+	private function get_nodeName() : String {
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
 		return _nodeName;
 	}
 
-	private function setNodeName( n : String ) : String {
+	private function set_nodeName( n : String ) : String {
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
 		return _nodeName = n;
 	}
 
-	private function getNodeValue() : String {
+	private function get_nodeValue() : String {
 		if( nodeType == Xml.Element || nodeType == Xml.Document )
 			throw "bad nodeType";
 		return _nodeValue;
 	}
 
-	private function setNodeValue( v : String ) : String {
+	private function set_nodeValue( v : String ) : String {
 		if( nodeType == Xml.Element || nodeType == Xml.Document )
 			throw "bad nodeType";
 		return _nodeValue = v;
 	}
 
-	public var parent(getParent,null) : Xml;
 	private function getParent() : Xml {
 		return _parent;
 	}
@@ -201,69 +147,71 @@ enum XmlType {
 	public function get( att : String ) : String {
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
-		return Reflect.field( _attributes, att );
+		return _attributes.get( att );
 	}
 
 	public function set( att : String, value : String ) : Void {
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
-		if (_attributes==null)
-			_attributes = {};
-		Reflect.setField (_attributes, att, value );
-		return null;
+		_attributes.set( att, value );
 	}
 
 	public function remove( att : String ) : Void{
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
-		Reflect.deleteField( _attributes, att );
-		return null;
+		_attributes.remove( att );
 	}
 
 	public function exists( att : String ) : Bool {
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
-		return Reflect.hasField( _attributes, att );
+		return _attributes.exists( att );
 	}
 
 	public function attributes() : Iterator<String> {
 		if( nodeType != Xml.Element )
 			throw "bad nodeType";
-		return Reflect.fields( _attributes ).iterator();
+		return _attributes.keys();
 	}
 
 	public function iterator() : Iterator<Xml> {
-		if( _children == null )
-			throw "bad nodetype";
-      return untyped _children.iterator();
+		if ( _children == null ) throw "bad nodetype";
+		var cur = 0;
+		var x = this._children;
+		return {
+			hasNext : function(){
+				return cur < x.length;
+			},
+			next : function(){
+				return x[cur++];
+			}
+		}
 	}
 
-
-	public function elements(): Iterator<Xml> {
-		if( _children == null )
-			throw "bad nodetype";
-      var children = _children;
+	public function elements() : Iterator<Xml> {
+		if ( _children == null ) throw "bad nodetype";
+		var cur = 0;
+		var x = _children;
 		return untyped {
-			cur: 0,
 			hasNext : function() {
-				var k:Int = __this__.cur;
-				var l = children.length;
+				var k = cur;
+				var l = x.length;
 				while( k < l ) {
-					if( children[k].nodeType == Xml.Element )
+					if( x[k].nodeType == Xml.Element )
 						break;
 					k += 1;
 				}
-				__this__.cur = k;
+				cur = k;
 				return k < l;
 			},
 			next : function() {
-				var k = __this__.cur;
-				var l = children.length;
+				var k = cur;
+				var l = x.length;
 				while( k < l ) {
-					var n = children[k];
+					var n = x[k];
 					k += 1;
 					if( n.nodeType == Xml.Element ) {
-						__this__.cur = k;
+						cur = k;
 						return n;
 					}
 				}
@@ -273,31 +221,32 @@ enum XmlType {
 	}
 
 	public function elementsNamed( name : String ) : Iterator<Xml> {
-		if( _children == null )
-			throw "bad nodetype";
-      var children = _children;
+		if ( _children == null ) throw "bad nodetype";
+		var x = _children;
+		var cur = 0;
 		return untyped {
 			cur: 0,
+			x: this._children,
 			hasNext : function() {
-				var k = __this__.cur;
-				var l = children.length;
+				var k = cur;
+				var l = x.length;
 				while( k < l ) {
-					var n = children[k];
+					var n = x[k];
 					if( n.nodeType == Xml.Element && n._nodeName == name )
 						break;
 					k++;
 				}
-				__this__.cur = k;
+				cur = k;
 				return k < l;
 			},
 			next : function() {
-				var k = __this__.cur;
-				var l = children.length;
+				var k = cur;
+				var l = x.length;
 				while( k < l ) {
-					var n = children[k];
+					var n = x[k];
 					k++;
 					if( n.nodeType == Xml.Element && n._nodeName == name ) {
-						__this__.cur = k;
+						cur = k;
 						return n;
 					}
 				}
@@ -307,119 +256,94 @@ enum XmlType {
 	}
 
 	public function firstChild() : Xml {
-		if( _children == null )
-			throw "bad nodetype";
+		if( _children == null ) throw "bad nodetype";
 		return _children[0];
 	}
 
 	public function firstElement() : Xml {
-		if( _children == null )
-			throw "bad nodetype";
-		for( cur in 0..._children.length ) {
-			var n:Xml = _children[cur];
+		if( _children == null ) throw "bad nodetype";
+		var cur = 0;
+		var l = _children.length;
+		while( cur < l ) {
+			var n = _children[cur];
 			if( n.nodeType == Xml.Element )
 				return n;
+			cur++;
 		}
 		return null;
 	}
 
-   public function addChild( x : Xml ) : Void {
-		if( _children == null )
-			throw "bad nodetype";
+	public function addChild( x : Xml ) : Void {
+		if( _children == null ) throw "bad nodetype";
 		if( x._parent != null ) x._parent._children.remove(x);
 		x._parent = this;
 		_children.push( x );
-		return null;
 	}
 
-   public function removeChild( x : Xml ) : Bool {
-		if( _children == null )
-			throw "bad nodetype";
+	public function removeChild( x : Xml ) : Bool {
+		if( _children == null ) throw "bad nodetype";
 		var b = _children.remove( x );
-		if( b ) x._parent = null;
+		if( b )
+			x._parent = null;
 		return b;
 	}
 
 	public function insertChild( x : Xml, pos : Int ) : Void {
-		if( _children == null )
-			throw "bad nodetype";
+		if( _children == null ) throw "bad nodetype";
 		if( x._parent != null ) x._parent._children.remove(x);
 		x._parent = this;
 		_children.insert( pos, x );
-		return null;
 	}
 
 	public function toString() : String {
+		if( nodeType == Xml.PCData )
+			return _nodeValue;
+		if( nodeType == Xml.CData )
+			return "<![CDATA["+_nodeValue+"]]>";
+		if( nodeType == Xml.Comment )
+			return "<!--"+_nodeValue+"-->";
+		if( nodeType == Xml.DocType )
+			return "<!DOCTYPE "+_nodeValue+">";
+		if( nodeType == Xml.Prolog )
+			return "<?"+_nodeValue+"?>";
 		var s = new StringBuf();
-		toStringRec(s);
+
+		if( nodeType == Xml.Element ) {
+			s.add("<");
+			s.add(_nodeName);
+			for( k in _attributes.keys() ){
+				s.add(" ");
+				s.add(k);
+				s.add("=\"");
+				s.add(_attributes.get(k));
+				s.add("\"");
+			}
+			if( _children.length == 0 ) {
+				s.add("/>");
+				return s.toString();
+			}
+			s.add(">");
+		}
+
+		for( x in iterator() )
+			s.add(x.toString());
+
+		if( nodeType == Xml.Element ) {
+			s.add("</");
+			s.add(_nodeName);
+			s.add(">");
+		}
 		return s.toString();
 	}
 
-	private function toStringRec(s: StringBuf) : Void {
-		switch( nodeType ) {
-		case Xml.Document:
-			for( x in _children )
-				x.toStringRec(s);
-		case Xml.Element:
-			s.addChar("<".code);
-			s.add(_nodeName);
-			for( k in Reflect.fields(_attributes) ) {
-				s.addChar(" ".code);
-				s.add(k);
-				s.addChar("=".code);
-				s.addChar("\"".code);
-				s.add(Reflect.field(_attributes,k));
-				s.addChar("\"".code);
-			}
-			if( _children.length == 0 ) {
-				s.addChar("/".code);
-				s.addChar(">".code);
-				return;
-			}
-			s.addChar(">".code);
-			for( x in _children )
-				x.toStringRec(s);
-			s.addChar("<".code);
-			s.addChar("/".code);
-			s.add(_nodeName);
-			s.addChar(">".code);
-		case Xml.PCData:
-			s.add(_nodeValue);
-		case Xml.CData:
-			s.add("<![CDATA[");
-			s.add(_nodeValue);
-			s.add("]]>");
-		case Xml.Comment:
-			s.add("<!--");
-			s.add(_nodeValue);
-			s.add("-->");
-		case Xml.DocType:
-			s.add("<!DOCTYPE ");
-			s.add(_nodeValue);
-			s.add(">");
-		case Xml.Prolog:
-			s.add("<?");
-			s.add(_nodeValue);
-			s.add("?>");
-		}
-	}
-
 	static function __init__() : Void untyped {
-		PCData = Type.createEnum(XmlType,"__");
-		Element = Type.createEnum(XmlType,"__");
-		CData =  Type.createEnum(XmlType,"__");
-		Comment = Type.createEnum(XmlType,"__");
-		DocType = Type.createEnum(XmlType,"__");
-		Prolog =  Type.createEnum(XmlType,"__");
-		Document = Type.createEnum(XmlType,"__");
-		__global__.__hxcpp_enum_force(PCData , "pcdata", 0);
-		__global__.__hxcpp_enum_force(Element , "element", 1);
-		__global__.__hxcpp_enum_force(CData , "cdata", 2);
-		__global__.__hxcpp_enum_force(Comment , "comment", 3);
-		__global__.__hxcpp_enum_force(DocType , "doctype", 4);
-		__global__.__hxcpp_enum_force(Prolog , "prolog", 5);
-		__global__.__hxcpp_enum_force(Document , "document", 6);
+		Xml.Element = cast RealXmlType.Element;
+		Xml.PCData = cast RealXmlType.PCData;
+		Xml.CData = cast RealXmlType.CData;
+		Xml.Comment = cast RealXmlType.Comment;
+		Xml.DocType = cast RealXmlType.DocType;
+		Xml.Prolog = cast RealXmlType.Prolog;
+		Xml.Document = cast RealXmlType.Document;
 	}
 
 }
-
