@@ -3,10 +3,10 @@
 @implementation Log
 
 
-+ var _trace : Function = (void)_v:(**)v infos:(**)infos{
+Function* _trace = (void)_v:(**)v infos:(**)infos{
 }
 
-+ var clear : Function = (void)_{
+Function* clear = (void)_{
 }
 {
 {

@@ -8,7 +8,6 @@ super[];
 }
 
 
-
 + (void) main_{
 	NSMutableArray* a = [[Array alloc] init];
 	NSMutableArray* aa = [[NSNumber numberWithInt:1],[NSNumber numberWithInt:2],[NSNumber numberWithInt:3],[NSNumber numberWithInt:4],[NSNumber numberWithInt:5]];
@@ -41,11 +40,9 @@ webView.initWithFrame[];
 }
 
 
-
 - (void) printHello_{
 haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumber : [NSNumber numberWithInt:58], className : @"Test", methodName : @"printHello"}];
 }
-
 
 
 - (NSNumber*) minus_a:(NSNumber*)a b:(NSNumber*)b{
@@ -53,11 +50,9 @@ haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumb
 }
 
 
-
 - (NSNumber*) add_a:(NSNumber*)a b:(NSNumber*)b{
 	return a + b;
 }
-
 
 
 - (NSNumber*) setWidth_v:(NSNumber*)v{
@@ -65,18 +60,15 @@ haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumb
 }
 
 
-
 - (NSNumber*) getWidth_{
 	return [NSNumber numberWithInt:0];
 }
 
 
+@synthesize width = _width;
 
-- function get width() : NSNumber { return getWidth(); }
-- function set width( __v : NSNumber ) : void { setWidth(__v); }
-protected var $width : NSNumber
-- var interfaceVar2 : NSNumber
-- var interfaceVar1 : NSNumber{
+NSNumber* interfaceVar2
+NSNumber* interfaceVar1{
 {
 
 @end

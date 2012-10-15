@@ -8,11 +8,9 @@ self.mSeconds = __global__.__hxcpp_new_date[year month day hour min sec];
 }
 
 
-
 + (Date*) now_{
 	return Date["fromTime"][__global__.__hxcpp_date_now[] * 1000.0];
 }
-
 
 
 + (Date*) fromTime_t:(NSNumber*)t{
@@ -20,7 +18,6 @@ self.mSeconds = __global__.__hxcpp_new_date[year month day hour min sec];
 result.mSeconds = t * 0.001;
 	return result;
 }
-
 
 
 + (Date*) fromString_s:(NSString*)s{
@@ -57,11 +54,9 @@ throw @"Invalid date format : " + s	}
 }
 
 
-
 - (NSString*) toString_{
 	return __global__.__hxcpp_to_string[self.mSeconds];
 }
-
 
 
 - (NSNumber*) getDay_{
@@ -69,11 +64,9 @@ throw @"Invalid date format : " + s	}
 }
 
 
-
 - (NSNumber*) getDate_{
 	return __global__.__hxcpp_get_date[self.mSeconds];
 }
-
 
 
 - (NSNumber*) getMonth_{
@@ -81,11 +74,9 @@ throw @"Invalid date format : " + s	}
 }
 
 
-
 - (NSNumber*) getFullYear_{
 	return __global__.__hxcpp_get_year[self.mSeconds];
 }
-
 
 
 - (NSNumber*) getSeconds_{
@@ -93,11 +84,9 @@ throw @"Invalid date format : " + s	}
 }
 
 
-
 - (NSNumber*) getMinutes_{
 	return __global__.__hxcpp_get_minutes[self.mSeconds];
 }
-
 
 
 - (NSNumber*) getHours_{
@@ -105,14 +94,12 @@ throw @"Invalid date format : " + s	}
 }
 
 
-
 - (NSNumber*) getTime_{
 	return self.mSeconds * 1000.0;
 }
 
 
-
-- var mSeconds : NSNumber{
+NSNumber* mSeconds{
 {
 
 @end
