@@ -40,8 +40,8 @@ class Test extends UIWebView, implements TestInterface, implements Interface2 {
 		
 		var x = new Test().add (1, 1);
 		
-/*		var webView = new UIWebView();
-			webView.initWithFrame();*/
+		var webView = new UIWebView();
+/*			webView.initWithFrame();*/
 	}
 	
 	function getWidth():Int{return 0;}

@@ -1,6 +1,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "haxe/Log.h"
+#import "objc/ios/ui/UIWebView.h"
 
 @interface Test : UIWebView <Interface2, TestInterface>
 

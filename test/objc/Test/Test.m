@@ -19,13 +19,13 @@ super[];
 	int g = (int*);
 {
 		int _g = 0;
-		while(_g < aa.length) {
+		while695(_g < aa generateFieldAccess1 .length) {
 			int i = [aa objectAtIndex: _g];
 ++_g;
-a.push[Std.string[i]];
+a generateFieldAccess1 .push[Std generateFieldAccess1 .string[i]];
 		}
 	}
-switch(e) {
+	switch(e) {
 	case YES:{
 nil	}
 	break;
@@ -33,15 +33,16 @@ nil	}
 nil	}
 	break;
 };
-	if(a.length > 3) f = 3
-	else f = a.length;
-	int x = [[Test alloc] init].add[1 1];
+	if(a generateFieldAccess1 .length > 3) f = 3
+	else f = a generateFieldAccess1 .length;
+	int x = [[Test alloc] init] generateFieldAccess1 .add[1 1];
+	objc.ios.ui.UIWebView *webView = [[UIWebView alloc] init];
 }
 
 
 - (void) printHello{
-NSLog(@"testing __objc__");
-haxe.Log._trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 60, 	className : @"Test", 	methodName : @"printHello"	}];
+	NSLog(@"testing __objc__");
+haxe.Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 60, 	className : @"Test", 	methodName : @"printHello"	}];
 }
 
 
