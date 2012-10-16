@@ -459,6 +459,7 @@ let generateFunctionHeader ctx name f params p =
 	ctx.local_types <- List.map snd params @ ctx.local_types;
 	let return_type = typeToString ctx f.tf_type p in
 	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
+	(* Generate function name *)
 	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
 			| [] -> n
@@ -466,9 +467,16 @@ let generateFunctionHeader ctx name f params p =
 		in
 		" " ^ loop meta
 	));
+	(* Generate the arguments of the function. Ignore the message name of the first arg *)
+	let first_arg = ref true in
 	concat ctx " " (fun (v,c) ->
-		let tstr = typeToString ctx v.v_type p in
-		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" (s_ident v.v_name) tstr (addPointerIfNeeded tstr) (s_ident v.v_name))
+		let type_name = typeToString ctx v.v_type p in
+		let arg_name = s_ident v.v_name in
+		let message_name = if !first_arg then "" else arg_name in
+		(* let message_name = if List.length f.tf_args > 1 then arg_name else "" in *)
+		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
+		first_arg := false;
+		(* TODO: init args that have default values in the body of the function *)
 		(* Match default values *)
 		(* match c with
 		| None ->
@@ -486,7 +494,7 @@ let generateFunctionHeader ctx name f params p =
 
 let rec generateCall ctx e el r =
 	match e.eexpr , el with
-	| TLocal { v_name = "`trace" }, [e;infos] ->
+	| TLocal { v_name = "_trace" }, [e;infos] ->
 		ctx.writer#write ".trace(";
 		generateValue ctx e;
 		ctx.writer#write ",";
@@ -966,9 +974,9 @@ let generateField ctx is_static field =
 	match field.cf_expr, field.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
 		ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
-		(* Generate header function *)
+		(* Generate function header *)
 		let h = generateFunctionHeader ctx (Some (s_ident field.cf_name, field.cf_meta)) fd field.cf_params p in
-		(* Generate expressions in the function if is not the header file *)
+		(* Generate function content if is not a header file *)
 		if not ctx.ctx_generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
 		h();
 		newLine ctx
@@ -1004,10 +1012,7 @@ let generateField ctx is_static field =
 						| AccCall s -> Printf.sprintf ", setter=%s" s;
 						| _ -> "")
 					| _ -> "" in
-				
 				ctx.writer#write (Printf.sprintf "@property (nonatomic, strong%s%s) %s %s%s;" getter setter t (addPointerIfNeeded t) id);
-			
-			(* | _ -> assert false) *)
 			end
 		| _ -> ();
 		

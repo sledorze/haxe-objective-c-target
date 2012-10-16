@@ -45,17 +45,17 @@ haxe.Log._trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineN
 }
 
 
-- (int) minusa:(int)a b:(int)b{
+- (int) minus:(int)a b:(int)b{
 	return a - b;
 }
 
 
-- (int) adda:(int)a b:(int)b{
+- (int) add:(int)a b:(int)b{
 	return a + b;
 }
 
 
-- (int) setWidthv:(int)v{
+- (int) setWidth:(int)v{
 	return 0;
 }
 

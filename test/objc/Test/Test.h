@@ -9,11 +9,11 @@
 
 - (void) printHello;
 
-- (int) minusa:(int)a b:(int)b;
+- (int) minus:(int)a b:(int)b;
 
-- (int) adda:(int)a b:(int)b;
+- (int) add:(int)a b:(int)b;
 
-- (int) setWidthv:(int)v;
+- (int) setWidth:(int)v;
 
 - (int) getWidth;
 
