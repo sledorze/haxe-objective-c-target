@@ -26,27 +26,26 @@
 @:core_api
 class StringBuf {
 
-	private var b : cs.StringBuilder;
+	private var b : Array<Dynamic>;
 
 	public function new() : Void {
-		b = new cs.StringBuilder();
+		b = new Array();
 	}
 
 	public inline function add( x : Dynamic ) : Void {
-		b.Append(Std.string(x));
+		b[b.length] = x;
 	}
 
-	public function addSub( s : String, pos : Int, ?len : Int ) : Void {
-		var l:Int = (len == null) ? (s.length - pos) : len;
-		b.Append(s, pos, l);
+	public inline function addSub( s : String, pos : Int, ?len : Int ) : Void {
+		b[b.length] = s.substr(pos,len);
 	}
 
 	public inline function addChar( c : Int ) : Void untyped {
-		b.Append(cast(c, cs.StdTypes.Char16));
+		b[b.length] = String.fromCharCode(c);
 	}
 
-	public function toString() : String {
-		return b.ToString();
+	public inline function toString() : String {
+		return b.join("");
 	}
 
 }

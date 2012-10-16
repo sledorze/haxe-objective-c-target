@@ -9,17 +9,16 @@
 
 - (void) printHello;
 
-- (NSNumber*) minusa:(NSNumber*)a b:(NSNumber*)b;
+- (int) minusa:(int)a b:(int)b;
 
-- (NSNumber*) adda:(NSNumber*)a b:(NSNumber*)b;
+- (int) adda:(int)a b:(int)b;
 
-- (NSNumber*) setWidthv:(NSNumber*)v;
+- (int) setWidthv:(int)v;
 
-- (NSNumber*) getWidth;
+- (int) getWidth;
 
-@property (nonatomic, strong) NSNumber *width;
-
-
-
+@property (nonatomic, strong, getter=getWidth, setter=setWidth) int width;
+@property (nonatomic, strong) float interfaceVar2;
+@property (nonatomic, strong) int interfaceVar1;
 
 @end

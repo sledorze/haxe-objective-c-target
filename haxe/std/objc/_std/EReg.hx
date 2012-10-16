@@ -23,77 +23,128 @@
  * DAMAGE.
  */
 
-import cs.system.text.regularExpressions.Regex;
-
 @:core_api class EReg {
 
-	private var regex : Regex;
-	private var m : Match;
-	private var isGlobal : Bool;
-	private var cur : String;
-	
+	var r : Dynamic;
+	var last : String;
+	var global : Bool;
+
 	public function new( r : String, opt : String ) : Void {
-		var opts:Int = cast CultureInvariant;
-		for (i in 0...opt.length) untyped {
-			switch(cast(opt[i], Int))
-			{
-				case 'i'.code:
-					opts |= cast(IgnoreCase, Int);
-				case 'g'.code:
-					isGlobal = true;
-				case 'm'.code:
-					opts |= cast(Multiline, Int);
-				case 'c'.code:
-					opts |= cast(Compiled, Int);
-			}
-		}
-		
-		this.regex = new Regex(r, cast(opts, RegexOptions));
+			var a = opt.split("g");
+			global = a.length > 1;
+			if( global )
+				opt = a.join("");
+			this.r = regexp_new_options(r, opt);
 	}
 
 	public function match( s : String ) : Bool {
-		m = regex.Match(s);
-		cur = s;
-		return m.Success;
+			var p = regexp_match(r,s,0,s.length);
+			if( p )
+				last = s;
+			else
+				last = null;
+			return p;
 	}
 
 	public function matched( n : Int ) : String {
-		if (m == null || cast(n, UInt) > m.Groups.Count)
-			throw "EReg::matched";
-		return m.Groups[n].Value;
+			var m = regexp_matched(r,n);
+			return m;
 	}
 
 	public function matchedLeft() : String {
-		return untyped cur.Substring(0, m.Index);
+			var p = regexp_matched_pos(r,0);
+			return last.substr(0,p.pos);
 	}
 
 	public function matchedRight() : String {
-		return untyped cur.Substring(m.Index + m.Length);
+			var p = regexp_matched_pos(r,0);
+			var sz = p.pos+p.len;
+			return last.substr(sz,last.length-sz);
 	}
 
 	public function matchedPos() : { pos : Int, len : Int } {
-		return { pos : m.Index, len : m.Length };
+			return regexp_matched_pos(r,0);
 	}
 
 	public function split( s : String ) : Array<String> {
-		if (isGlobal)
-			return cs.Lib.array(regex.Split(s));
-		var m = regex.Match(s);
-		return untyped [s.Substring(0, m.Index), s.Substring(m.Index + m.Length)];
+			var pos = 0;
+			var len = s.length;
+			var a = new Array();
+			var first = true;
+			do {
+				if( !regexp_match(r,s,pos,len) )
+					break;
+				var p = regexp_matched_pos(r,0);
+				if( p.len == 0 && !first ) {
+					if( p.pos == s.length )
+						break;
+					p.pos += 1;
+				}
+				a.push(s.substr(pos,p.pos - pos));
+				var tot = p.pos + p.len - pos;
+				pos += tot;
+				len -= tot;
+				first = false;
+			} while( global );
+			a.push(s.substr(pos,len));
+			return a;
 	}
 
 	public function replace( s : String, by : String ) : String {
-		if (isGlobal)
-			return regex.Replace(s, by);
-		var m = regex.Match(s);
-		return untyped (s.Substring(0, m.Index) + by + s.Substring(m.Index + m.Length));
+			var b = new StringBuf();
+			var pos = 0;
+			var len = s.length;
+			var a = by.split("$");
+			var first = true;
+			do {
+				if( !regexp_match(r,s,pos,len) )
+					break;
+				var p = regexp_matched_pos(r,0);
+				if( p.len == 0 && !first ) {
+					if( p.pos == s.length )
+						break;
+					p.pos += 1;
+				}
+				b.addSub(s,pos,p.pos-pos);
+				if( a.length > 0 )
+					b.add(a[0]);
+				var i = 1;
+				while( i < a.length ) {
+					var k = a[i];
+					var c = k.charCodeAt(0);
+					// 1...9
+					if( c >= 49 && c <= 57 ) {
+						var p = try regexp_matched_pos(r,Std.int(c)-48) catch( e : String ) null;
+						if( p == null ){
+							b.add("$");
+							b.add(k);
+						}else{
+						b.addSub(s,p.pos,p.len);
+						b.addSub(k,1,k.length - 1);
+						}
+					} else if( c == null ) {
+						b.add("$");
+						i++;
+						var k2 = a[i];
+						if( k2 != null && k2.length > 0 )
+							b.add(k2);
+					} else
+						b.add("$"+k);
+					i++;
+				}
+				var tot = p.pos + p.len - pos;
+				pos += tot;
+				len -= tot;
+				first = false;
+			} while( global );
+			b.addSub(s,pos,len);
+			return b.toString();
 	}
 
 	public function customReplace( s : String, f : EReg -> String ) : String {
 		var buf = new StringBuf();
-		while (true)
-		{
-			if (!match(s))
+		while( true ) {
+			if( !match(s) )
 				break;
 			buf.add(matchedLeft());
 			buf.add(f(this));
@@ -102,5 +153,10 @@ import cs.system.text.regularExpressions.Regex;
 		buf.add(s);
 		return buf.toString();
 	}
+
+	static var regexp_new_options : String -> String -> Dynamic = cpp.Lib.load("regexp","regexp_new_options",2);
+	static var regexp_match : Dynamic -> String -> Int -> Int -> Dynamic = cpp.Lib.load("regexp","regexp_match",4);
+	static var regexp_matched : Dynamic -> Int -> Dynamic = cpp.Lib.load("regexp","regexp_matched",2);
+	static var regexp_matched_pos : Dynamic -> Int -> { pos : Int, len : Int } = cpp.Lib.load("regexp","regexp_matched_pos",2);
 
 }

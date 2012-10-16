@@ -13,7 +13,7 @@
 }
 
 
-+ (NSNumber*) _intx:(NSNumber*)x{
++ (int) _intx:(float)x{
 	return __global__.__int__[x];
 }
 
@@ -23,13 +23,14 @@
 }
 
 
-+ (NSNumber*) _parseFloatx:(NSString*)x{
++ (float) _parseFloatx:(NSString*)x{
 	return __global__.__hxcpp_parse_float[x];
 }
 
 
-+ (NSNumber*) randomx:(NSNumber*)x{
-	return __global__.rand[] % x;
++ (int) randomx:(int)x{
+	if(x <= 0) 	return 0;
+	return __global__.__hxcpp_irand[x];
 }
 
 

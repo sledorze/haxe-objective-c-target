@@ -10,16 +10,17 @@ super[];
 
 + (void) main{
 	NSMutableArray *a = [[Array alloc] init];
-	NSMutableArray *aa = [[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5]];
-	NSNumber *b = [NSNumber numberWithInt:5];
-	NSNumber *c = 5.0;
+	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects: 1, 2, 3, 4, 5, nil];
+	int b = 5;
+	float c = 5.0;
 	NSString *d = @"xyz";
 	BOOL e = YES;
-	NSNumber *f;
+	int f;
+	int g = (int*);
 {
-		NSNumber *_g = [NSNumber numberWithInt:0];
+		int _g = 0;
 		while(_g < aa.length) {
-			NSNumber *i = aa[_g];
+			int i = [aa objectAtIndex: _g];
 ++_g;
 a.push[Std.string[i]];
 		}
@@ -32,43 +33,40 @@ nil	}
 nil	}
 	break;
 };
-	if(a.length > [NSNumber numberWithInt:3]) f = [NSNumber numberWithInt:3]
+	if(a.length > 3) f = 3
 	else f = a.length;
-	NSNumber *x = [[Test alloc] init].add[[NSNumber numberWithInt:1] [NSNumber numberWithInt:1]];
-	objc.ios.UIWebView *webView = [[UIWebView alloc] init];
-webView.initWithFrame[];
+	int x = [[Test alloc] init].add[1 1];
 }
 
 
 - (void) printHello{
 NSLog(@"testing __objc__");
-haxe.Log._trace[@"Hello from Haxe Objective-C" { fileName : @"Test.hx", lineNumber : [NSNumber numberWithInt:60], className : @"Test", methodName : @"printHello"}];
+haxe.Log._trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 60, 	className : @"Test", 	methodName : @"printHello"	}];
 }
 
 
-- (NSNumber*) minusa:(NSNumber*)a b:(NSNumber*)b{
+- (int) minusa:(int)a b:(int)b{
 	return a - b;
 }
 
 
-- (NSNumber*) adda:(NSNumber*)a b:(NSNumber*)b{
+- (int) adda:(int)a b:(int)b{
 	return a + b;
 }
 
 
-- (NSNumber*) setWidthv:(NSNumber*)v{
-	return [NSNumber numberWithInt:0];
+- (int) setWidthv:(int)v{
+	return 0;
 }
 
 
-- (NSNumber*) getWidth{
-	return [NSNumber numberWithInt:0];
+- (int) getWidth{
+	return 0;
 }
 
 
-@synthesize width = _width;
 
-NSNumber* interfaceVar2
-NSNumber* interfaceVar1
+@synthesize interfaceVar2 = _interfaceVar2;
+@synthesize interfaceVar1 = _interfaceVar1;
 
 @end

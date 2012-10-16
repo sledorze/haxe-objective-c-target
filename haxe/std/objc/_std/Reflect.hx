@@ -1,4 +1,3 @@
-import cs.internal.Function;
 /*
  * Copyright (c) 2005, The haXe Project Contributors
  * All rights reserved.
@@ -24,199 +23,85 @@ import cs.internal.Function;
  * DAMAGE.
  */
 
-/**
-	The Reflect API is a way to manipulate values dynamicly through an
-	abstract interface in an untyped manner. Use with care.
-**/
-@:keep @:core_api class Reflect {
 
-	/**
-		Tells if an object has a field set. This doesn't take into account the object prototype (class methods).
-	**/
-	@:functionBody('
-		if (o is haxe.lang.IHxObject)
-			return ((haxe.lang.IHxObject) o).__hx_getField(field, haxe.lang.FieldLookup.hash(field), false, true, false) != haxe.lang.Runtime.undefined;
-		
-		return haxe.lang.Runtime.slowHasField(o, field);
-	')
-	public static function hasField( o : Dynamic, field : String ) : Bool
-	{
-		return false;
+@:core_api class Reflect {
+
+	public  static function hasField( o : Dynamic, field : String ) : Bool untyped {
+		return o!=null && o.__HasField(field);
 	}
 
-	/**
-		Returns the field of an object, or null if [o] is not an object or doesn't have this field.
-	**/
-	@:functionBody('
-		if (o is haxe.lang.IHxObject)
-			return ((haxe.lang.IHxObject) o).__hx_getField(field, haxe.lang.FieldLookup.hash(field), false, false, false);
-		
-		return haxe.lang.Runtime.slowGetField(o, field, false);
-	')
-	public static function field( o : Dynamic, field : String ) : Dynamic
-	{
-		return null;
+	public static function field( o : Dynamic, field : String ) : Dynamic untyped {
+		return (o==null) ? null : o.__Field(field,false);
 	}
 
-
-	/**
-		Set an object field value.
-	**/
-	@:functionBody('
-		if (o is haxe.lang.IHxObject)
-			((haxe.lang.IHxObject) o).__hx_setField(field, haxe.lang.FieldLookup.hash(field), value, false);
-		else
-			haxe.lang.Runtime.slowSetField(o, field, value);
-	')
-	public static function setField( o : Dynamic, field : String, value : Dynamic ) : Void
-	{
-		
-	}
-	
-	/**
-		Similar to field but also supports property (might be slower).
-	**/
-	@:functionBody('
-		if (o is haxe.lang.IHxObject)
-			return ((haxe.lang.IHxObject) o).__hx_getField(field, haxe.lang.FieldLookup.hash(field), false, false, true);
-		
-		return haxe.lang.Runtime.slowGetField(o, field, false);
-	')
-	public static function getProperty( o : Dynamic, field : String ) : Dynamic
-	{
-		return null;
+	public inline static function setField( o : Dynamic, field : String, value : Dynamic ) : Void untyped {
+		if (o!=null)
+			o.__SetField(field,value,false);
 	}
 
-	/**
-		Similar to setField but also supports property (might be slower).
-	**/
-	@:functionBody('
-		if (o is haxe.lang.IHxObject)
-			((haxe.lang.IHxObject) o).__hx_setField(field, haxe.lang.FieldLookup.hash(field), value, true);
-		else
-			haxe.lang.Runtime.slowSetField(o, field, value);
-	')
-	public static function setProperty( o : Dynamic, field : String, value : Dynamic ) : Void
-	{
-		
+	public static inline function getProperty( o : Dynamic, field : String ) : Dynamic {
+		return (o==null) ? null : o.__Field(field,true);
 	}
 
-	/**
-		Call a method with the given object and arguments.
-	**/
-	@:functionBody('
-		return ((haxe.lang.Function) func).__hx_invokeDynamic(args);
-	')
-	public static function callMethod( o : Dynamic, func : Dynamic, args : Array<Dynamic> ) : Dynamic
-	{
-		return null;
+	public static inline function setProperty( o : Dynamic, field : String, value : Dynamic ) : Void {
+		if (o!=null)
+			o.__SetField(field,value,true);
 	}
 
-	/**
-		Returns the list of fields of an object, excluding its prototype (class methods).
-	**/
-	@:functionBody('
-		if (o is haxe.lang.IHxObject)
-		{
-			Array<object> ret = new Array<object>();
-				((haxe.lang.IHxObject) o).__hx_getFields(ret);
-			return ret;
-		} else if (o is System.Type) {
-			return Type.getClassFields( (System.Type) o);
-		} else {
-			return new Array<object>();
-		}
-	')
-	public static function fields( o : Dynamic ) : Array<String>
-	{
-		return null;
+	public static function callMethod( o : Dynamic, func : Dynamic, args : Array<Dynamic> ) : Dynamic untyped {
+			if (func!=null && func.__GetType()==__global__.vtString)
+				func = o.__Field(func,true);
+			untyped func.__SetThis(o);
+         return untyped func.__Run(args);
 	}
 
-	/**
-		Tells if a value is a function or not.
-	**/
-	@:functionBody('
-		return f is haxe.lang.Function;
-	')
-	public static function isFunction( f : Dynamic ) : Bool
-	{
-		return false;
+	public static function fields( o : Dynamic ) : Array<String> untyped {
+		if( o == null ) return new Array();
+		var a : Array<String> = [];
+		o.__GetFields(a);
+		return a;
 	}
 
-	/**
-		Generic comparison function, does not work for methods, see [compareMethods]
-	**/
-	@:functionBody('
-		return haxe.lang.Runtime.compare(a, b);
-	')
-	public static function compare<T>( a : T, b : T ) : Int
-	{
-		return 0;
+	public static function isFunction( f : Dynamic ) : Bool untyped {
+		return f!=null && f.__GetType() ==  __global__.vtFunction;
 	}
 
-	/**
-		Compare two methods closures. Returns true if it's the same method of the same instance.
-	**/
-	@:functionBody('
-		if (f1 == f2) 
+	public static function compare<T>( a : T, b : T ) : Int {
+		return ( a == b ) ? 0 : (((cast a) > (cast b)) ? 1 : -1);
+	}
+
+	public static function compareMethods( f1 : Dynamic, f2 : Dynamic ) : Bool {
+		if( f1 == f2 )
 			return true;
-		
-		if (f1 is haxe.lang.Closure && f2 is haxe.lang.Closure)
-		{
-			haxe.lang.Closure f1c = (haxe.lang.Closure) f1;
-			haxe.lang.Closure f2c = (haxe.lang.Closure) f2;
-			
-			return haxe.lang.Runtime.refEq(f1c.obj, f2c.obj) && f1c.field.Equals(f2c.field);
-		}
-		
-		return false;
-	')
-	public static function compareMethods( f1 : Dynamic, f2 : Dynamic ) : Bool
-	{
-		return false;
+		if( !isFunction(f1) || !isFunction(f2) )
+			return false;
+		return untyped __global__.__hxcpp_same_closure(f1,f2);
 	}
 
-	/**
-		Tells if a value is an object or not.
-
-	**/
-	@:functionBody('
-		return v is haxe.lang.DynamicObject;
-	')
-	public static function isObject( v : Dynamic ) : Bool
-	{
-		return false;
+	public static function isObject( v : Dynamic ) : Bool untyped {
+		if (v==null) return false;
+		var t:Int = v.__GetType();
+		return t ==  __global__.vtObject || t==__global__.vtClass || t==__global__.vtString ||
+				t==__global__.vtArray;
 	}
 
-	/**
-		Delete an object field.
-	**/
-	@:functionBody('
-		return (o is haxe.lang.DynamicObject && ((haxe.lang.DynamicObject) o).__hx_deleteField(f, haxe.lang.FieldLookup.hash(f)));
-	')
-	public static function deleteField( o : Dynamic, f : String ) : Bool
-	{
-		return false;
+	public static function deleteField( o : Dynamic, f : String ) : Bool untyped {
+		if (o==null) return false;
+		return untyped __global__.__hxcpp_anon_remove(o,f);
 	}
 
-	/**
-		Make a copy of the fields of an object.
-	**/
-	public static function copy<T>( o : T ) : T
-	{
+	public static function copy<T>( o : T ) : T {
+		if (o==null) return null;
+		if(untyped o.__GetType()==__global__.vtString ) return o;
+		if(untyped o.__GetType()==__global__.vtArray )
+			return untyped o.__Field("copy",true)();
 		var o2 : Dynamic = {};
 		for( f in Reflect.fields(o) )
 			Reflect.setField(o2,f,Reflect.field(o,f));
-		return cast o2;
+		return o2;
 	}
 
-	/**
-		Transform a function taking an array of arguments into a function that can
-		be called with any number of arguments.
-	**/
-	public static function makeVarArgs( f : Array<Dynamic> -> Dynamic ) : Dynamic
-	{
-		return new VarArgsFunction(f);
+	public static function makeVarArgs( f : Array<Dynamic> -> Dynamic ) : Dynamic {
+		return untyped __global__.__hxcpp_create_var_args(f);
 	}
-
 }

@@ -2,9 +2,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface Interface2<>
+@interface Interface2
 
 
-(NSNumber*) minus_a:(NSNumber*)a b:(NSNumber*)b;
+(int*) minus_a:(int*)a b:(int*)b;
 
 @end

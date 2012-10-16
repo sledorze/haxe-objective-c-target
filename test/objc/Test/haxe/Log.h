@@ -2,7 +2,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface Log<>
+@interface Log
 
 
 (void*) trace_v:(id*)v infos:(id*)infos;

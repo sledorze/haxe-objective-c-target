@@ -1,17 +1,16 @@
-import Date;
-import objc.ios.UIWebView;
-/*import objc.ios.UILabel;*/
+//import Date;
+import objc.ios.ui.UIWebView;
+//import objc.ios.ui.UILabel;
 
-class Test extends objc.ios.UIWebView, implements TestInterface, implements Interface2 {
+@:orientation("portrait")
+
+class Test extends UIWebView, implements TestInterface, implements Interface2 {
 	
 	public var interfaceVar1 :Int;// Generate a @property (nonatomic, strong) NSNumber *float1; + a @synthesizer
 	public var interfaceVar2 :Float;
 	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
 	public static function main(){
-		
-/*		var x = "xyz";
-		trace(Std.format("Hello with variable $x"));*/
 		
 		// declare some random variables
 		var a = new Array<String>();
@@ -21,6 +20,7 @@ class Test extends objc.ios.UIWebView, implements TestInterface, implements Inte
 		var d = "xyz";
 		var e = true;
 		var f :Int;
+		var g :Int = cast (5.3, Int);
 		
 		for (i in aa) {
 			a.push (Std.string(i));
@@ -40,8 +40,8 @@ class Test extends objc.ios.UIWebView, implements TestInterface, implements Inte
 		
 		var x = new Test().add (1, 1);
 		
-		var webView = new UIWebView();
-			webView.initWithFrame();
+/*		var webView = new UIWebView();
+			webView.initWithFrame();*/
 	}
 	
 	function getWidth():Int{return 0;}
@@ -57,6 +57,6 @@ class Test extends objc.ios.UIWebView, implements TestInterface, implements Inte
 	}
 	public function printHello () :Void {
 		untyped __objc__("NSLog(@\"testing __objc__\")");
-		trace("Hello from Haxe "+"Objective-C");
+		trace("Hello from Haxe Objective-C");
 	}
 }

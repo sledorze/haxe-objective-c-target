@@ -8,7 +8,7 @@ extern class UIView {
 	public static function setAnimationDuration (delay:Float) :Void;
 	
 	function new() : Void;
-	public function initWithFrame (frame:CGRect) : Void;
+	//public function initWithFrame (frame:CGRect) : Void;
 }
 /*
 extern class UIView {

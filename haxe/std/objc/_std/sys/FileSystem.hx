@@ -23,137 +23,79 @@
  * DAMAGE.
  */
 package sys;
-import cs.system.io.DirectoryInfo;
-import cs.system.io.File;
-import cs.system.io.Directory;
-import cs.system.io.FileInfo;
 
-/**
-	This class allows you to get informations about the files and directories.
-**/
+private enum FileKind {
+	kdir;
+	kfile;
+	kother( k : String );
+}
+
+@:core_api
 class FileSystem {
 
-	/**
-		Tells if the given file or directory exists.
-	**/
-	public static function exists( path : String ) : Bool
-	{
-		return (File.Exists(path) || Directory.Exists(path));
+	public static function exists( path : String ) : Bool {
+		return sys_exists(path);
 	}
 
-	/**
-		Rename the corresponding file or directory, allow to move it accross directories as well.
-	**/
-	public static function rename( path : String, newpath : String ) : Void
-	{
-		Directory.Move(path, newpath);
+	public static function rename( path : String, newpath : String ) : Void {
+		if (sys_rename(path,newpath)==null)
+         throw "Could not rename:" + path + " to " + newpath;
 	}
 
-	/**
-		Returns informations for the given file/directory.
-	**/
-	public static function stat( path : String ) : FileStat
-	{
-		if (File.Exists(path))
-		{
-			var fi = new FileInfo(path);
-			return {
-				gid: 0, //C# doesn't let you get this info
-				uid: 0, //same
-				atime: untyped Date.fromNative(fi.LastAccessTime),
-				mtime: untyped Date.fromNative(fi.LastWriteTime),
-				ctime: untyped Date.fromNative(fi.CreationTime),
-				size: cast(fi.Length, Int), //TODO: maybe change to Int64 for Haxe 3?
-				dev: 0, //FIXME: not sure what that is
-				ino: 0, //FIXME: not sure what that is
-				nlink: 0, //FIXME: not sure what that is
-				rdev: 0, //FIXME: not sure what that is
-				mode: 0 //FIXME: not sure what that is
-			};
-		} else if (Directory.Exists(path)) {
-			var fi = new DirectoryInfo(path);
-			return {
-				gid: 0, //C# doesn't let you get this info
-				uid: 0, //same
-				atime: untyped Date.fromNative(fi.LastAccessTime),
-				mtime: untyped Date.fromNative(fi.LastWriteTime),
-				ctime: untyped Date.fromNative(fi.CreationTime),
-				size: 0, //TODO: maybe change to Int64 for Haxe 3?
-				dev: 0, //FIXME: not sure what that is
-				ino: 0, //FIXME: not sure what that is
-				nlink: 0, //FIXME: not sure what that is
-				rdev: 0, //FIXME: not sure what that is
-				mode: 0 //FIXME: not sure what that is
-			};
-		} else {
-			throw "Path '" + path + "' doesn't exist";
+	public static function stat( path : String ) : FileStat {
+		var s : FileStat = sys_stat(path);
+		if (s==null)
+			return { gid:0, uid:0, atime:Date.fromTime(0), mtime:Date.fromTime(0), ctime:Date.fromTime(0), dev:0, ino:0, nlink:0, rdev:0, size:0, mode:0 };
+		s.atime = Date.fromTime(1000.0*(untyped s.atime));
+		s.mtime = Date.fromTime(1000.0*(untyped s.mtime));
+		s.ctime = Date.fromTime(1000.0*(untyped s.ctime));
+		return s;
+	}
+
+	public static function fullPath( relpath : String ) : String {
+		return new String(file_full_path(relpath));
+	}
+
+	static function kind( path : String ) : FileKind {
+		var k:String = sys_file_type(path);
+		return switch(k) {
+		case "file": kfile;
+		case "dir": kdir;
+		default: kother(k);
 		}
-		
 	}
 
-	/**
-		Returns the full path for the given path which is relative to the current working directory.
-	**/
-	public static function fullPath( relpath : String ) : String
-	{
-		return new FileInfo(relpath).FullName;
+	public static function isDirectory( path : String ) : Bool {
+		return kind(path) == kdir;
 	}
 
-	/**
-		Tells if the given path is a directory. Throw an exception if it does not exists or is not accesible.
-	**/
-	public static function isDirectory( path : String ) : Bool
-	{
-		var isdir = Directory.Exists(path);
-		if (isdir != File.Exists(path))
-			return isdir;
-		throw "Path '" + path + "' doesn't exist";
+	public static function createDirectory( path : String ) : Void {
+		if (sys_create_dir( path, 493 )==null)
+         throw "Could not create directory:" + path;
 	}
 
-	/**
-		Create the given directory. Not recursive : the parent directory must exists.
-	**/
-	public static function createDirectory( path : String ) : Void
-	{
-		Directory.CreateDirectory(path);
+	public static function deleteFile( path : String ) : Void {
+		if (file_delete(path)==null)
+         throw "Could not delete file:" + path;
 	}
 
-	/**
-		Delete a given file.
-	**/
-	public static function deleteFile( path : String ) : Void
-	{
-		File.Delete(path);
-	}
-	
-	/**
-		Delete a given directory.
-	**/
-	public static function deleteDirectory( path : String ) : Void
-	{
-		Directory.Delete(path);
+	public static function deleteDirectory( path : String ) : Void {
+		if (sys_remove_dir(path)==null)
+         throw "Could not delete directory:" + path;
 	}
 
-	/**
-		Read all the files/directories stored into the given directory.
-	**/
-	public static function readDirectory( path : String ) : Array<String>
-	{
-		var ret = Directory.GetFileSystemEntries(path);
-		if (ret.Length > 0)
-		{
-			var fst = ret[0];
-			var sep = "/";
-			if (fst.lastIndexOf(sep) < fst.lastIndexOf("\\"))
-				sep = "\\";
-			for (i in 0...ret.Length)
-			{
-				var path = ret[i];
-				ret[i] = path.substr(path.lastIndexOf(sep) + 1);
-			}
-		}
-		
-		return cs.Lib.array( ret );
+	public static function readDirectory( path : String ) : Array<String> {
+		return sys_read_dir(path);
 	}
+
+	private static var sys_exists = cpp.Lib.load("std","sys_exists",1);
+	private static var file_delete = cpp.Lib.load("std","file_delete",1);
+	private static var sys_rename = cpp.Lib.load("std","sys_rename",2);
+	private static var sys_stat = cpp.Lib.load("std","sys_stat",1);
+	private static var sys_file_type = cpp.Lib.load("std","sys_file_type",1);
+	private static var sys_create_dir = cpp.Lib.load("std","sys_create_dir",2);
+	private static var sys_remove_dir = cpp.Lib.load("std","sys_remove_dir",1);
+	private static var sys_read_dir = cpp.Lib.load("std","sys_read_dir",1);
+	private static var file_full_path = cpp.Lib.load("std","file_full_path",1);
 
 }

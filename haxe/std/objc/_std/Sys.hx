@@ -1,6 +1,3 @@
-import sys.io.Process;
-import cs.system.Environment;
-import cs.system.threading.Thread;
 /*
  * Copyright (c) 2005-2012, The haXe Project Contributors
  * All rights reserved.
@@ -26,227 +23,135 @@ import cs.system.threading.Thread;
  * DAMAGE.
  */
 
-/**
-	This class gives you access to many base functionalities of system platforms. Looks in [sys] sub packages for more system APIs.
-**/
-@:core_api
-class Sys {
-	private static var _env:Hash<String>;
-	private static var _args:Array<String>;
+@:core_api class Sys {
 
-	/**
-		Print any value on the standard output.
-	**/
-	public static function print( v : Dynamic ) : Void
-	{
-		cs.system.Console.Write(v);
+	public static function print( v : Dynamic ) : Void {
+		untyped __global__.__hxcpp_print(v);
 	}
 
-	/**
-		Print any value on the standard output, followed by a newline
-	**/
-	public static function println( v : Dynamic ) : Void
-	{
-		cs.system.Console.WriteLine(v);
+	public static function println( v : Dynamic ) : Void {
+		print(v);
+		print("\n");
 	}
 
-	/**
-		Returns all the arguments that were passed by the commandline.
-	**/
-	public static function args() : Array<String>
-	{
-		if (_args == null)
-		{
-			var ret = cs.Lib.array(Environment.GetCommandLineArgs());
-			ret.shift();
-			_args = ret;
-		}
-		return _args.copy();
+	public static function stdin() : haxe.io.Input {
+		return untyped new sys.io.FileInput(file_stdin());
 	}
 
-	/**
-		Returns the value of the given environment variable.
-	**/
-	public static function getEnv( s : String ) : String
-	{
-		return Environment.GetEnvironmentVariable(s);
+	public static function stdout() : haxe.io.Output {
+		return untyped new sys.io.FileOutput(file_stdout());
 	}
 
-	/**
-		Set the value of the given environment variable.
-	**/
-	public static function putEnv( s : String, v : String ) : Void
-	{
-		Environment.SetEnvironmentVariable(s, v);
-		if (_env != null)
-			_env.set(s, v);
+	public static function stderr() : haxe.io.Output {
+		return untyped new sys.io.FileOutput(file_stderr());
 	}
 
-	/**
-		Returns the whole environement variables.
-	**/
-	public static function environment() : Hash<String>
-	{
-		if (_env == null)
-		{
-			var e = _env = new Hash();
-			var nenv = Environment.GetEnvironmentVariables().GetEnumerator();
-			while (nenv.MoveNext())
-			{
-				e.set(nenv.Key, nenv.Value);
+	public static function getChar( echo : Bool ) : Int {
+		return getch(echo);
+	}
+
+	public static function args() : Array<String> untyped {
+		return __global__.__get_args();
+	}
+
+	public static function getEnv( s : String ):String {
+		var v = get_env(s);
+		if( v == null )
+			return null;
+		return v;
+	}
+
+	public static function putEnv( s : String, v : String ) : Void {
+		put_env(s,v);
+	}
+
+	public static function sleep( seconds : Float ) : Void {
+		_sleep(seconds);
+	}
+
+	public static function setTimeLocale( loc : String ) : Bool {
+		return set_time_locale(loc);
+	}
+
+	public static function getCwd() : String {
+		return new String(get_cwd());
+	}
+
+	public static function setCwd( s : String ) : Void {
+		set_cwd(s);
+	}
+
+	public static function systemName() : String {
+		return sys_string();
+	}
+
+	static function escapeArgument( arg : String ) : String {
+		var ok = true;
+		for( i in 0...arg.length )
+			switch( arg.charCodeAt(i) ) {
+			case 32, 34: // [space] "
+				ok = false;
+			case 0, 13, 10: // [eof] [cr] [lf]
+				arg = arg.substr(0,i);
 			}
+		if( ok )
+			return arg;
+		return '"'+arg.split('"').join('\\"')+'"';
+	}
+
+	public static function command( cmd : String, ?args : Array<String> ) : Int {
+		if( args != null ) {
+			cmd = escapeArgument(cmd);
+			for( a in args )
+				cmd += " "+escapeArgument(a);
 		}
-
-		return _env;
+		return sys_command(cmd);
 	}
 
-	/**
-		Suspend the current execution for the given time (in seconds).
-	**/
-	public static function sleep( seconds : Float ) : Void
-	{
-		Thread.Sleep( Std.int(seconds * 1000) );
+	public static function exit( code : Int ) : Void {
+		sys_exit(code);
 	}
 
-	/**
-		Change the current time locale, which will affect [DateTools.format] date formating.
-		Returns true if the locale was successfully changed
-	**/
-	public static function setTimeLocale( loc : String ) : Bool
-	{
-		//TODO C#
-		return false;
+	public static function time() : Float {
+		return sys_time();
 	}
 
-	/**
-		Get the current working directory (usually the one in which the program was started)
-	**/
-	public static function getCwd() : String
-	{
-		return cs.system.io.Directory.GetCurrentDirectory();
+	public static function cpuTime() : Float {
+		return sys_cpu_time();
 	}
 
-	/**
-		Change the current working directory.
-	**/
-	public static function setCwd( s : String ) : Void
-	{
-		cs.system.io.Directory.SetCurrentDirectory(s);
+	public static function executablePath() : String {
+		return new String(sys_exe_path());
 	}
 
-	/**
-		Returns the name of the system you are running on. For instance :
-			"Windows", "Linux", "BSD" and "Mac" depending on your desktop OS.
-	**/
-	public static function systemName() : String
-	{
-		//doing a switch with strings since MacOS might not be available
-		switch(Environment.OSVersion.Platform + "")
-		{
-			case "Unix": return "Linux";
-			case "Xbox": return "Xbox";
-			case "MacOSX": return "Mac";
-			default:
-				var ver = cast(Environment.OSVersion.Platform, Int);
-				if (ver == 4 || ver == 6 || ver == 128)
-					return "Linux";
-				return "Windows";
+	public static function environment() : Hash<String> {
+		var vars:Array<String> = sys_env();
+		var result = new Hash<String>();
+		var i = 0;
+		while(i<vars.length) {
+			result.set( vars[i], vars[i+1] );
+			i+=2;
 		}
+		return result;
 	}
 
-	/**
-		Run the given command with the list of arguments. The command output will be printed on the same output as the current process.
-		The current process will block until the command terminates and it will return the command result (0 if there was no error).
-		Read the [sys.io.Process] api for a more complete way to start background processes.
-	**/
-	public static function command( cmd : String, ?args : Array<String> ) : Int
-	{
-		var proc:Process = new Process(cmd, args == null ? [] : args);
-		var ret = proc.exitCode();
-		proc.close();
+	private static var get_env = cpp.Lib.load("std","get_env",1);
+	private static var put_env = cpp.Lib.load("std","put_env",2);
+	private static var _sleep = cpp.Lib.load("std","sys_sleep",1);
+	private static var set_time_locale = cpp.Lib.load("std","set_time_locale",1);
+	private static var get_cwd = cpp.Lib.load("std","get_cwd",0);
+	private static var set_cwd = cpp.Lib.load("std","set_cwd",1);
+	private static var sys_string = cpp.Lib.load("std","sys_string",0);
+	private static var sys_command = cpp.Lib.load("std","sys_command",1);
+	private static var sys_exit = cpp.Lib.load("std","sys_exit",1);
+	private static var sys_time = cpp.Lib.load("std","sys_time",0);
+	private static var sys_cpu_time = cpp.Lib.load("std","sys_cpu_time",0);
+	private static var sys_exe_path = cpp.Lib.load("std","sys_exe_path",0);
+	private static var sys_env = cpp.Lib.load("std","sys_env",0);
 
-		return ret;
-	}
+	private static var file_stdin = cpp.Lib.load("std","file_stdin",0);
+	private static var file_stdout = cpp.Lib.load("std","file_stdout",0);
+	private static var file_stderr = cpp.Lib.load("std","file_stderr",0);
 
-	/**
-		Exit the current process with the given error code.
-	**/
-	public static function exit( code : Int ) : Void
-	{
-		Environment.Exit(code);
-	}
-
-	/**
-		Gives the most precise timestamp value (in seconds).
-	**/
-	public static function time() : Float
-	{
-		return Date.now().getTime();
-	}
-
-	/**
-		Gives the most precise timestamp value (in seconds) but only account for the actual time spent running on the CPU for the current thread/process.
-	**/
-	public static function cpuTime() : Float
-	{
-		return Environment.TickCount / 1000;
-	}
-
-	/**
-		Returns the path to the current executable that we are running.
-	**/
-	public static function executablePath() : String
-	{
-		//TODO: add extern references
-		return untyped __cs__('System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase');
-	}
-
-	/**
-		Read a single input character from the standard input (without blocking) and returns it. Setting [echo] to true will also display it on the output.
-	**/
-	public static function getChar( echo : Bool ) : Int
-	{
-		#if !(Xbox || CF || MF) //Xbox, Compact Framework, Micro Framework
-		return untyped __cs__('((int) System.Console.ReadKey(!echo).KeyChar)');
-		#else
-		return -1;
-		#end
-	}
-
-	/**
-		Returns the process standard input, from which you can read what user enters. Usually it will block until the user send a full input line. See [getChar] for an alternative.
-	**/
-	public static function stdin() : haxe.io.Input
-	{
-#if !(Xbox || CF || MF)
-		return new cs.io.NativeInput(cs.system.Console.OpenStandardInput());
-#else
-		return null;
-#end
-	}
-
-	/**
-		Returns the process standard output on which you can write.
-	**/
-	public static function stdout() : haxe.io.Output
-	{
-#if !(Xbox || CF || MF)
-		return new cs.io.NativeOutput(cs.system.Console.OpenStandardOutput());
-#else
-		return null;
-#end
-	}
-
-	/**
-		Returns the process standard error on which you can write.
-	**/
-	public static function stderr() : haxe.io.Output
-	{
-#if !(Xbox || CF || MF)
-		return new cs.io.NativeOutput(cs.system.Console.OpenStandardError());
-#else
-		return null;
-#end
-	}
-
+	private static var getch = cpp.Lib.load("std","sys_getch",1);
 }
