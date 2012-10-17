@@ -32,6 +32,15 @@ let join_class_path path separator =
 		result
 ;;
 
+class applicationFrameworksManager =
+	object(this)
+	val mutable frameworks : (string,string list list) Hashtbl.t = Hashtbl.create 0
+	(* method add_framework name = 
+		let packs = (try Hashtbl.find frameworks name with Not_found -> []) in
+		if not (List.mem pack packs) then Hashtbl.replace frameworks name (pack :: packs);
+		Ast.s_type_path (pack,name) *)
+end;;
+
 class sourceWriter write_func close_func =
 	object(this)
 	val indent_str = "\t"
@@ -53,8 +62,8 @@ class sourceWriter write_func close_func =
 	method end_block = this#pop_indent; this#write_i "}\n"; just_finished_block <- true
 	method end_block_line = this#pop_indent; this#write_i "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";\n")
-	method add_include class_path = this#write ("#import \"" ^ (join_class_path class_path "/") ^ ".h\"\n")
-	(* TODO: import only the name of the class, not the entire path *)
+	method import_class class_path = this#write ("#import \"" ^ (join_class_path class_path "/") ^ ".h\"\n")
+	method import_framework f_name = this#write ("#import <"^f_name^"/"^f_name^".h>\n")
 end;;
 
 
@@ -106,8 +115,6 @@ let newSourceFile base_dir class_path extension =
 	makeClassDirectories base_dir ("" :: (fst class_path));
 	cachedSourceWriter (base_dir ^ "/" ^ ( String.concat "/" (fst class_path) ) ^ "/" ^ (snd class_path) ^ extension);;
 
-let newImplementationFile base_dir class_path = newSourceFile base_dir class_path ".m";;
-let newHeaderFile base_dir class_path = newSourceFile base_dir class_path ".h";;
 let makeBaseDirectory file = makeClassDirectories "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );;
 
 
@@ -117,18 +124,17 @@ type context = {
 	com : Common.context;
 	mutable ctx_file_info : (string,string) PMap.t ref;
 	mutable writer : sourceWriter;
+	(* mutable application : applicationFrameworksManager; *)
 	mutable get_sets : (string * bool,string) Hashtbl.t;
 	mutable class_def : tclass;
-	mutable tabs : string;
 	mutable in_value : tvar option;
 	mutable in_static : bool;
 	mutable handleBreak : bool;
-	mutable ctx_generating_header : bool;
+	mutable generating_header : bool;
 	mutable imports : (string,string list list) Hashtbl.t;
+	mutable frameworks : (string,string list list) Hashtbl.t;
 	mutable gen_uid : int;
 	mutable local_types : t list;
-	mutable constructor_block : bool;
-	mutable block_inits : (unit -> unit) option;
 }
 let newContext common_ctx writer file_info = {
 	com = common_ctx;
@@ -136,16 +142,14 @@ let newContext common_ctx writer file_info = {
 	writer = writer;
 	get_sets = Hashtbl.create 0;
 	class_def = null_class;
-	tabs = "";
 	in_value = None;
 	in_static = false;
 	handleBreak = false;
-	ctx_generating_header = false;
+	generating_header = false;
 	imports = Hashtbl.create 0;
+	frameworks = Hashtbl.create 0;
 	gen_uid = 0;
 	local_types = [];
-	constructor_block = false;
-	block_inits = None;
 }
 
 let isVarField e v =
@@ -202,7 +206,7 @@ let s_path ctx stat path p =
 		let name = protect name in
 		let packs = (try Hashtbl.find ctx.imports name with Not_found -> []) in
 		if not (List.mem pack packs) then Hashtbl.replace ctx.imports name (pack :: packs);
-		Ast.s_type_path (pack,name)
+		name
 ;;
 	
 let srcDir ctx =
@@ -228,8 +232,38 @@ let reserved =
 	"override";"package";"null";"true";"false";"void"
 	];
 	h
+;;
 
-	(* "each", "label" : removed (actually allowed in locals and fields accesses) *)
+(* let isNativeClass class_name = 
+	match class_name
+	| "NS" | "UI" | ""
+;; *)
+
+let getFrameworkOfPackage package = 
+	match package with
+	| "accelerate" -> "Accelerate"
+	| "addressbook" -> "AddressBook"
+	| "assets" -> "AssetsLibrary"
+	| "av" -> "AVFoundation"
+	| "network" -> "CFNetwork"
+	| "coredata" -> "CoreData"
+	| "coregraphics" -> "CoreGraphics"
+	| "coreimage" -> "CoreImage"
+	| "corelocation" -> "CoreLocation"
+	| "gamekit" -> "GameKit"
+	| "iad" -> "iAd"
+	| "io" -> "IOKit"
+	| "map" -> "MapKit"
+	| "media" -> "MediaPlayer"
+	| "message" -> "MessageUI"
+	| "openal" -> "OpenAL"
+	| "opengles" -> "OpenGLES"
+	| "quartz" -> "QuartzCore"
+	| "social" -> "Social"
+	| "store" -> "StoreKit"
+	| "twitter" -> "Twitter"
+	| "ui" -> "UIKit"
+	| _ -> "Foundation"
 ;;
 
 let s_ident n =
@@ -253,16 +287,7 @@ let genLocal ctx l =
 
 let unsupported p = error "This expression cannot be generated to Objective-C" p
 
-let newLine ctx =
-	ctx.writer#write "\n"
-	(* let rec loop p =
-		match Buffer.nth ctx.buf_m p with
-		| '}' | '{' | ':' -> ctx.writer#write ("\n" ^ tabs)
-		| '\n' | '\t' -> loop (p - 1)
-		| _ -> ctx.writer#write (";\n" ^ ctx.tabs)
-	in
-	loop (Buffer.length ctx.buf_m - 1) *)
-;;
+let newLine ctx = ctx.writer#write_i "\n"
 
 let rec concat ctx s f = function
 	| [] -> ()
@@ -273,23 +298,10 @@ let rec concat ctx s f = function
 		concat ctx s f l
 ;;
 
-let openBlock ctx =
-	(fun() -> ctx.writer#begin_block)
-	(* let oldt = ctx.tabs in
-	ctx.tabs <- "\t" ^ ctx.tabs;
-	(fun() -> ctx.tabs <- oldt) *)
-;;
-
 let parent e =
 	match e.eexpr with
 	| TParenthesis _ -> e
 	| _ -> mk (TParenthesis e) e.etype e.epos
-;;
-
-let defaultValue tstr =
-	match tstr with
-	| "Boolean" -> "NO"
-	| _ -> "nil"
 ;;
 
 let rec typeToString ctx t p =
@@ -321,10 +333,6 @@ let rec typeToString ctx t p =
 				loop e.e_meta
 		) else
 			s_path ctx true e.e_path p
-	| TInst ({ cl_path = ["flash"],"Vector" },[pt]) ->
-		(match pt with
-		| TInst({cl_kind = KTypeParameter _},_) -> "*"
-		| _ -> "Vector.<" ^ typeToString ctx pt p ^ ">")
 	| TInst (c,_) ->
 		(match c.cl_kind with
 		| KNormal | KGeneric | KGenericInstance _ -> s_path ctx false c.cl_path p
@@ -373,11 +381,10 @@ let handleBreak ctx e =
 	with
 		Exit ->
 			ctx.writer#write "try {";
-			let b = openBlock ctx in
 			newLine ctx;
 			ctx.handleBreak <- true;
 			(fun() ->
-				b();
+				ctx.writer#begin_block;
 				ctx.handleBreak <- old_handle;
 				newLine ctx;
 				ctx.writer#write "} catch( e : * ) { if( e != \"__break__\" ) throw e; }";
@@ -405,7 +412,7 @@ let generateResources common_ctx =
 		let dir = (common_ctx.file :: ["Resources"]) in
 		createDirectory [] dir;
 		
-		let resource_file = newImplementationFile common_ctx.file ([],"__resources__") in
+		let resource_file = newSourceFile common_ctx.file ([],"__resources__") ".h" in
 		resource_file#write "#include <xxx.h>\n\n";
 		
 		(* let add_resource name data =
@@ -611,12 +618,11 @@ and generateExpression ctx e =
 			ctx.writer#write_i "return"
 		| Some e when (match follow e.etype with TEnum({ e_path = [],"Void" },[]) | TAbstract ({ a_path = [],"Void" },[]) -> true | _ -> false) ->
 			ctx.writer#write_i "{";
-			let bend = openBlock ctx in
 			newLine ctx;
 			generateValue ctx e;
 			newLine ctx;
 			ctx.writer#write_i "return";
-			bend();
+			ctx.writer#begin_block;
 			newLine ctx;
 			ctx.writer#write_i "}";
 		| Some e ->
@@ -731,8 +737,7 @@ and generateExpression ctx e =
 			generateExpression ctx e;
 		) catchs;
 	| TMatch (e,_,cases,def) ->
-		ctx.writer#write_i "{";
-		let bend = openBlock ctx in
+		ctx.writer#begin_block;
 		newLine ctx;
 		let tmp = genLocal ctx "$e" in
 		ctx.writer#write_i (Printf.sprintf "var %s : enum = " tmp);
@@ -770,7 +775,7 @@ and generateExpression ctx e =
 		);
 		newLine ctx;
 		ctx.writer#write_i "}";
-		bend();
+		(* bend(); *)
 		newLine ctx;
 		ctx.writer#write_i "}";
 	| TSwitch (e,cases,def) ->
@@ -828,22 +833,16 @@ and generateValue ctx e =
 			ctx.writer#write (Printf.sprintf "- (%s*) " t)
 		else
 			ctx.writer#write (Printf.sprintf "((%s)($this:%s) " t "(snd ctx.path)");
-		let b = if block then begin
-			ctx.writer#begin_block;
-				let b = openBlock ctx in
-				newLine ctx;
-				ctx.writer#write (Printf.sprintf "%s* %s" t r.v_name);
-			ctx.writer#end_block;
-			newLine ctx;
-			b
-		end else
-			(fun() -> ())
-		in
 		(fun() ->
 			if block then begin
 				newLine ctx;
 				ctx.writer#write_i (Printf.sprintf "return %s" r.v_name);
-				b();
+				
+				ctx.writer#begin_block;
+				newLine ctx;
+				ctx.writer#write (Printf.sprintf "%s* %s" t r.v_name);
+				ctx.writer#end_block;
+						
 				newLine ctx;
 				ctx.writer#write_i "}";
 			end;
@@ -946,7 +945,7 @@ let generateField ctx is_static field =
 	ctx.in_static <- is_static;
 	ctx.gen_uid <- 0;
 	
-	List.iter (fun(m,pl,_) ->
+	(* List.iter (fun(m,pl,_) ->
 		match m,pl with
 		| ":meta", [Ast.ECall ((Ast.EConst (Ast.Ident n),_),args),_] ->
 			let mk_arg (a,p) =
@@ -968,7 +967,7 @@ let generateField ctx is_static field =
 				ctx.writer#write ")");
 			ctx.writer#write "]";
 		| _ -> ()
-	) field.cf_meta;
+	) field.cf_meta; *)
 	
 	(* let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
 	let p = ctx.class_def.cl_pos in
@@ -978,7 +977,7 @@ let generateField ctx is_static field =
 		(* Generate function header *)
 		let h = generateFunctionHeader ctx (Some (s_ident field.cf_name, field.cf_meta)) fd field.cf_params p in
 		(* Generate function content if is not a header file *)
-		if not ctx.ctx_generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
+		if not ctx.generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
 		h();
 		newLine ctx
 	| _ ->
@@ -1020,7 +1019,7 @@ let generateField ctx is_static field =
 			) args; *)
 				
 		| _ when is_getset ->
-			if ctx.ctx_generating_header then begin
+			if ctx.generating_header then begin
 				let t = typeToString ctx field.cf_type p in
 				let id = s_ident field.cf_name in
 				let getter = match field.cf_kind with
@@ -1033,7 +1032,9 @@ let generateField ctx is_static field =
 						| AccCall s -> Printf.sprintf ", setter=%s" s;
 						| _ -> "")
 					| _ -> "" in
-				ctx.writer#write (Printf.sprintf "@property (nonatomic, strong%s%s) %s %s%s;" getter setter t (addPointerIfNeeded t) id);
+				let strong = ", strong" in
+				let readonly = if false then ", readonly" else "" in
+				ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id);
 			end
 		| _ -> ();
 		
@@ -1064,11 +1065,11 @@ let generateField ctx is_static field =
 			| _ -> ()); *)
 			gen_init()
 		end
-		else if ctx.ctx_generating_header then begin
+		else if ctx.generating_header then begin
 			(* This is generating implementation class properties declarations *)
 			let t = (typeToString ctx field.cf_type p) in
 			let id = s_ident field.cf_name in
-			let v = (match field.cf_kind with Var v -> v | _ -> assert false) in
+			(* let v = (match field.cf_kind with Var v -> v | _ -> assert false) in *)
 			ctx.writer#write (Printf.sprintf "@property (nonatomic, strong) %s %s%s;" t (addPointerIfNeeded t) id);
 			gen_init()
 		end
@@ -1116,7 +1117,7 @@ let generateClassFiles common_ctx class_def file_info =
 	let src_dir = srcDir common_ctx in
 	let class_path = class_def.cl_path in
 	(* let class_name = (snd class_def.cl_path) in *)
-	let m_file = newImplementationFile src_dir class_path in
+	let m_file = newSourceFile src_dir class_path ".m" in
 	let output_m = (m_file#write) in
 	let ctx = newContext common_ctx m_file file_info in
 	ctx.class_def <- class_def;
@@ -1125,7 +1126,7 @@ let generateClassFiles common_ctx class_def file_info =
 	defineGetSet ctx false class_def;
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
-	output_m ("#import \"" ^ (snd class_def.cl_path) ^ ".h\"\n\n");
+	ctx.writer#import_class class_def.cl_path;
 	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
 	
 	(match class_def.cl_constructor with
@@ -1136,7 +1137,6 @@ let generateClassFiles common_ctx class_def file_info =
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in
-		ctx.constructor_block <- true;
 		generateField ctx false f;
 	);
 	
@@ -1155,11 +1155,11 @@ let generateClassFiles common_ctx class_def file_info =
 	let src_dir = srcDir common_ctx in
 	let class_path = class_def.cl_path in
 	(* let class_name = (snd class_def.cl_path) in *)
-	let h_file = newHeaderFile src_dir class_path in
+	let h_file = newSourceFile src_dir class_path ".h" in
 	let output_h = (h_file#write) in
 	let ctx = newContext common_ctx h_file file_info in
 	ctx.class_def <- class_def;
-	ctx.ctx_generating_header <- true;
+	ctx.generating_header <- true;
 	Hashtbl.add ctx.imports (snd class_path) [fst class_path];
 	
 	defineGetSet ctx true class_def;
@@ -1167,12 +1167,14 @@ let generateClassFiles common_ctx class_def file_info =
 	newLine ctx;
 	(* (snd c.cl_path) returns the class name *)
 	
-	output_h "#import <UIKit/UIKit.h>\n\n";
+	(* Import frameworks *)
+	ctx.writer#import_framework "UIKit";
 	
+	(* Import classes *)
 	Hashtbl.iter (fun name paths ->
 		List.iter (fun pack ->
 			let path = pack, name in
-			if path <> ctx.class_def.cl_path then output_h ("#import \"" ^ (makeImportPath path) ^ ".h\"\n")
+			if path <> ctx.class_def.cl_path then ctx.writer#import_class path
 		) paths
 	) !imports;
 	
@@ -1184,13 +1186,13 @@ let generateClassFiles common_ctx class_def file_info =
 		| Some (csup,_) -> output_h (Printf.sprintf " : %s " (snd csup.cl_path)));
 	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
 	if class_def.cl_implements != [] then begin
-	(* Add implement *)
-	output_h "<";
-	(match class_def.cl_implements with
+		(* Add implement *)
+		output_h "<";
+		(match class_def.cl_implements with
 		| [] -> ()
 		| l -> concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "%s" (snd i.cl_path))) l
-	);
-	output_h ">";
+		);
+		output_h ">";
 	end;
 	output_h "\n\n";
 	
@@ -1229,7 +1231,7 @@ let generateMain common_ctx class_def =
 	(* let class_path = class_def.cl_path in *)
 	let class_name = (snd class_def.cl_path) in
 	let generate_file filename =
-		let m_file = newImplementationFile base_dir ([sub_dir],filename) in
+		let m_file = newSourceFile base_dir ([sub_dir],filename) ".m" in
 		let output_main = (m_file#write) in
 		
 		output_main ("//
@@ -1344,21 +1346,12 @@ let generate common_ctx =
 	
 	(* Generate folder structure and basic files *)
 	generateProjectStructure common_ctx;
-	generateResources common_ctx;
 	
 	(* let debug = false in *)
 	(* let exe_classes = ref [] in *)
 	(* let boot_classes = ref [] in *)
 	(* let init_classes = ref [] in *)
 	let file_info = ref PMap.empty in
-	(* let class_text path = join_class_path path "/" in *)
-	(* let member_types = create_member_types common_ctx in *)
-	(* let super_deps = create_super_dependencies common_ctx in *)
-	(* let constructor_deps = create_constructor_dependencies common_ctx in *)
-	(* let main_deps = ref [] in *)
-	(* let build_xml = ref ""; *)
-	
-	
 	let inits = ref [] in (*  ref means reference cell, editable *)
 	List.iter (fun object_def ->
 		match object_def with
@@ -1400,6 +1393,7 @@ let generate common_ctx =
 		(* main_deps := find_referenced_types common_ctx (TClassDecl class_def) super_deps constructor_deps false true false; *)
 		generateMain common_ctx class_def;
 		generatePch common_ctx class_def;
-		generatePlist common_ctx class_def
+		generatePlist common_ctx class_def;
+		generateResources common_ctx
 	)
 ;;

@@ -1,6 +1,7 @@
 //import Date;
 import objc.ios.ui.UIWebView;
 //import objc.ios.ui.UILabel;
+import objc.ios.map.MKMapView;
 
 @:orientation("portrait")
 
@@ -41,6 +42,7 @@ class Test extends UIWebView, implements TestInterface, implements Interface2 {
 		var x = new Test().add (1, 1);
 		
 		var webView = new UIWebView();
+		var map = new MKMapView();
 /*			webView.initWithFrame();*/
 	}
 	

@@ -1,5 +1,4 @@
 #import "Test.h"
-
 @implementation Test
 
 
@@ -25,24 +24,25 @@ super[];
 a generateFieldAccess1 .push[Std generateFieldAccess1 .string[i]];
 		}
 	}
-	switch(e) {
+	switch(e) {	
 	case YES:{
 nil	}
-	break;
+	break;	
 	case NO:{
 nil	}
-	break;
+	break;	
 };
-	if(a generateFieldAccess1 .length > 3) f = 3
+	if(a generateFieldAccess1 .length > 3) f = 3	
 	else f = a generateFieldAccess1 .length;
 	int x = [[Test alloc] init] generateFieldAccess1 .add[1 1];
-	objc.ios.ui.UIWebView *webView = [[UIWebView alloc] init];
+	UIWebView *webView = [[UIWebView alloc] init];
+	MKMapView *map = [[MKMapView alloc] init];
 }
 
 
 - (void) printHello{
 	NSLog(@"testing __objc__");
-haxe.Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 60, 	className : @"Test", 	methodName : @"printHello"	}];
+Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 62, 	className : @"Test", 	methodName : @"printHello"	}];
 }
 
 

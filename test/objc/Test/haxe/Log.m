@@ -1,5 +1,4 @@
-#import "Log.h"
-
+#import "haxe/Log.h"
 @implementation Log
 
 
