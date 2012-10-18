@@ -37,9 +37,8 @@ let getFrameworkOfPath class_path =
 	let pack = fst class_path in
 	if List.length pack < 1 then "" else
 	match List.nth pack ((List.length pack) -1) with
-	| "accelerate" -> "Accelerate"
 	| "addressbook" -> "AddressBook"
-	| "assets" -> "AssetsLibrary"
+	(* | "assets" -> "AssetsLibrary" *)
 	| "av" -> "AVFoundation"
 	| "network" -> "CFNetwork"
 	| "coredata" -> "CoreData"
@@ -48,9 +47,8 @@ let getFrameworkOfPath class_path =
 	| "corelocation" -> "CoreLocation"
 	| "gamekit" -> "GameKit"
 	| "iad" -> "iAd"
-	| "io" -> "IOKit"
 	| "map" -> "MapKit"
-	| "media" -> "MediaPlayer"
+	| "mediaplayer" -> "MediaPlayer"
 	| "message" -> "MessageUI"
 	| "openal" -> "OpenAL"
 	| "opengles" -> "OpenGLES"
@@ -1132,8 +1130,9 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	defineGetSet ctx false class_def;
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
-	imports_manager#add_class_path class_def.cl_path;
+	(* imports_manager#add_class_path class_def.cl_path; *)
 	ctx.writer#import_header class_def.cl_path;
+	newLine ctx;
 	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
 	
 	(match class_def.cl_constructor with
@@ -1179,8 +1178,9 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	
 	(* Import classes *)
 	ctx.writer#import_headers imports_manager#get_imports;
+	newLine ctx;
 	
-	output_h ("\n@interface " ^ (snd class_path));
+	output_h ("@interface " ^ (snd class_path));
 	(* Add the super class *)
 	(match class_def.cl_super with
 		| None -> ()
@@ -1279,7 +1279,6 @@ let generatePch common_ctx class_def  =
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
-	@import \"Std.h\"
 #endif";
 		file#close;
 	in

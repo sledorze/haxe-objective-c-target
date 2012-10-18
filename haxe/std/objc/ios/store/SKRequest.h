@@ -8,34 +8,29 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKitDefines.h>
 
-
-
 @protocol SKRequestDelegate;
 
 // Base class used to fetch data from the store.  Should not be used directly.
-NS_CLASS_AVAILABLE(10_7, NA)
-@interface SKRequest : NSObject {
+SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKRequest : NSObject {
 @private
     id _requestInternal;
-    NSValue* _serverConnection; //if request uses sustained connection
 }
 
-@property(assign) id <SKRequestDelegate> delegate;
+@property(nonatomic, assign) id <SKRequestDelegate> delegate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 // Cancel the request if it has started.
-- (void)cancel;
+- (void)cancel __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 // Start the request if it has not already been started.
-- (void)start;
+- (void)start __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 @end
+
 
 @protocol SKRequestDelegate <NSObject>
 
 @optional
-- (void)requestDidFinish:(SKRequest *)request;
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error;
+- (void)requestDidFinish:(SKRequest *)request __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 @end
-
-

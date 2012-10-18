@@ -18,27 +18,31 @@ enum {
 };
 typedef NSInteger SKPaymentTransactionState;
 
-// Model object representing a transaction with the server
-NS_CLASS_AVAILABLE(10_7, NA)
-@interface SKPaymentTransaction : NSObject {
+SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKPaymentTransaction : NSObject {
 @private
     id _internal;
 }
 
 // Only set if state is SKPaymentTransactionFailed
-@property(readonly) NSError *error;
+@property(nonatomic, readonly) NSError *error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 // Only valid if state is SKPaymentTransactionStateRestored.
-@property(readonly) SKPaymentTransaction *originalTransaction;
+@property(nonatomic, readonly) SKPaymentTransaction *originalTransaction __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@property(readonly) SKPayment *payment;
+@property(nonatomic, readonly) SKPayment *payment __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+
+// Available downloads (SKDownload) for this transaction
+@property(nonatomic, readonly) NSArray *downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 // The date when the transaction was added to the server queue.  Only valid if state is SKPaymentTransactionStatePurchased or SKPaymentTransactionStateRestored.
-@property(readonly) NSDate *transactionDate;
+@property(nonatomic, readonly) NSDate *transactionDate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 // The unique server-provided identifier.  Only valid if state is SKPaymentTransactionStatePurchased or SKPaymentTransactionStateRestored.
-@property(readonly) NSString *transactionIdentifier;
+@property(nonatomic, readonly) NSString *transactionIdentifier __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@property(readonly) SKPaymentTransactionState transactionState;
+// Only valid if state is SKPaymentTransactionStatePurchased.
+@property(nonatomic, readonly) NSData *transactionReceipt __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+
+@property(nonatomic, readonly) SKPaymentTransactionState transactionState __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 @end

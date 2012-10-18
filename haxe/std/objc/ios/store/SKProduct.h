@@ -8,20 +8,28 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKitDefines.h>
 
-NS_CLASS_AVAILABLE(10_7, NA)
-@interface SKProduct : NSObject {
+SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKProduct : NSObject {
 @private
     id _internal;
 }
 
-@property(readonly) NSString *localizedDescription;
+@property(nonatomic, readonly) NSString *localizedDescription __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@property(readonly) NSString *localizedTitle;
+@property(nonatomic, readonly) NSString *localizedTitle __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@property(readonly) NSDecimalNumber *price;
+@property(nonatomic, readonly) NSDecimalNumber *price __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@property(readonly) NSLocale *priceLocale;
+@property(nonatomic, readonly) NSLocale *priceLocale __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@property(readonly) NSString *productIdentifier;
+@property(nonatomic, readonly) NSString *productIdentifier __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+
+// YES if this product has content downloadable using SKDownload
+@property(nonatomic, readonly, getter=isDownloadable) BOOL downloadable __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+
+// Sizes in bytes (NSNumber [long long]) of the downloads available for this product
+@property(nonatomic, readonly) NSArray *downloadContentLengths __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+
+// Version of the downloadable content
+@property(nonatomic, readonly) NSString *downloadContentVersion __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 @end

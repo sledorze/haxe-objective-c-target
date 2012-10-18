@@ -16,8 +16,32 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-	self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+	
+	
+	NSLog(@"Creating the app. There's nothing to display at this step");
+	
+	// CODE GENERATED IN THE main METHOD
+	
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
+	float screenWidth = screenRect.size.width;
+	CGFloat screenHeight = screenRect.size.height;
+	
+	UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+	v.autoresizesSubviews = YES;
+	v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+	
+	self.viewController = [[UIViewController alloc] init];
+	self.viewController.view = v;
+	
+	UILabel *l = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, v.frame.size.width, v.frame.size.height)];
+	l.textColor = [UIColor redColor];
+	l.textAlignment = NSTextAlignmentCenter;
+	l.font = [UIFont boldSystemFontOfSize:20];
+	l.text = @"Hello world!";
+	[v addSubview:l];
+	
 	self.window.rootViewController = self.viewController;
+	
     [self.window makeKeyAndVisible];
     return YES;
 }
