@@ -32,14 +32,51 @@ let join_class_path path separator =
 		result
 ;;
 
-class applicationFrameworksManager =
+class importsManager =
 	object(this)
-	val mutable frameworks : (string,string list list) Hashtbl.t = Hashtbl.create 0
-	(* method add_framework name = 
-		let packs = (try Hashtbl.find frameworks name with Not_found -> []) in
-		if not (List.mem pack packs) then Hashtbl.replace frameworks name (pack :: packs);
-		Ast.s_type_path (pack,name) *)
+	val mutable imports : (string,string list list) Hashtbl.t = Hashtbl.create 0;
+	val mutable all_frameworks : string list = ["Foundation"]
+	val mutable class_frameworks : string list = []
+	method add_framework name = 
+		if not (List.mem name all_frameworks) then all_frameworks <- List.append all_frameworks [name];
+		if not (List.mem name class_frameworks) then class_frameworks <- List.append class_frameworks [name];
+	method add_import class_path = 
+		let pack = fst class_path in
+		let name = snd class_path in
+		let packs = (try Hashtbl.find imports name with Not_found -> []) in
+		if not (List.mem pack packs) then Hashtbl.replace imports name (pack :: packs);
+	method get_all_frameworks = all_frameworks
+	method get_class_frameworks = class_frameworks
+	method get_imports = imports
+	method reset = class_frameworks <- []
 end;;
+
+let getFrameworkOfPackage path = 
+	match (try List.nth path ((List.length path) -1) with  Not_found -> "") with
+	| "accelerate" -> "Accelerate"
+	| "addressbook" -> "AddressBook"
+	| "assets" -> "AssetsLibrary"
+	| "av" -> "AVFoundation"
+	| "network" -> "CFNetwork"
+	| "coredata" -> "CoreData"
+	| "coregraphics" -> "CoreGraphics"
+	| "coreimage" -> "CoreImage"
+	| "corelocation" -> "CoreLocation"
+	| "gamekit" -> "GameKit"
+	| "iad" -> "iAd"
+	| "io" -> "IOKit"
+	| "map" -> "MapKit"
+	| "media" -> "MediaPlayer"
+	| "message" -> "MessageUI"
+	| "openal" -> "OpenAL"
+	| "opengles" -> "OpenGLES"
+	| "quartz" -> "QuartzCore"
+	| "social" -> "Social"
+	| "store" -> "StoreKit"
+	| "twitter" -> "Twitter"
+	| "ui" -> "UIKit"
+	| _ -> "Foundation"
+;;
 
 class sourceWriter write_func close_func =
 	object(this)
@@ -48,22 +85,24 @@ class sourceWriter write_func close_func =
 	val mutable indents = []
 	val mutable just_finished_block = false
 	method close = close_func(); ()
-	method write str = write_func str; just_finished_block <- false
-	(* method write (Printf.sprintf str = write_func str; just_finished_block <- false  (* Printf.ksprintf (fun s -> Buffer.add_string ctx.buf_m s) *) *)
+	
 	method indent_one = this#write indent_str
-
 	method push_indent = indents <- indent_str::indents; indent <- String.concat "" indents
 	method pop_indent = match indents with
 							| h::tail -> indents <- tail; indent <- String.concat "" indents
 							| [] -> indent <- "/*?*/";
-	method write_i x = this#write (indent ^ x)
 	method get_indent = indent
+	
+	method write str = write_func str; just_finished_block <- false
+	method write_i x = this#write (indent ^ x)
+	
 	method begin_block = this#write ("{\n"); this#push_indent
 	method end_block = this#pop_indent; this#write_i "}\n"; just_finished_block <- true
 	method end_block_line = this#pop_indent; this#write_i "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";\n")
+	
 	method import_class class_path = this#write ("#import \"" ^ (join_class_path class_path "/") ^ ".h\"\n")
-	method import_framework f_name = this#write ("#import <"^f_name^"/"^f_name^".h>\n")
+	method import_framework f_name = this#write ("#import <" ^ f_name ^ "/" ^ f_name ^ ".h>\n")
 end;;
 
 
@@ -124,30 +163,27 @@ type context = {
 	com : Common.context;
 	mutable ctx_file_info : (string,string) PMap.t ref;
 	mutable writer : sourceWriter;
-	(* mutable application : applicationFrameworksManager; *)
+	mutable imports_manager : importsManager;
 	mutable get_sets : (string * bool,string) Hashtbl.t;
 	mutable class_def : tclass;
 	mutable in_value : tvar option;
 	mutable in_static : bool;
 	mutable handleBreak : bool;
 	mutable generating_header : bool;
-	mutable imports : (string,string list list) Hashtbl.t;
-	mutable frameworks : (string,string list list) Hashtbl.t;
 	mutable gen_uid : int;
 	mutable local_types : t list;
 }
-let newContext common_ctx writer file_info = {
+let newContext common_ctx writer imports_manager file_info = {
 	com = common_ctx;
 	ctx_file_info = file_info;
 	writer = writer;
+	imports_manager = imports_manager;
 	get_sets = Hashtbl.create 0;
 	class_def = null_class;
 	in_value = None;
 	in_static = false;
 	handleBreak = false;
 	generating_header = false;
-	imports = Hashtbl.create 0;
-	frameworks = Hashtbl.create 0;
 	gen_uid = 0;
 	local_types = [];
 }
@@ -203,9 +239,8 @@ let s_path ctx stat path p =
 	| (["haxe"],"Int32") when not stat -> "int"
 	(* Keep unimported classes in the hash, they'll be imported at the end *)
 	| (pack,name) ->
-		let name = protect name in
-		let packs = (try Hashtbl.find ctx.imports name with Not_found -> []) in
-		if not (List.mem pack packs) then Hashtbl.replace ctx.imports name (pack :: packs);
+		let name = protect name in ctx.imports_manager#add_import path;
+		ctx.imports_manager#add_framework (getFrameworkOfPackage (fst path));
 		name
 ;;
 	
@@ -237,34 +272,7 @@ let reserved =
 (* let isNativeClass class_name = 
 	match class_name
 	| "NS" | "UI" | ""
-;; *)
-
-let getFrameworkOfPackage package = 
-	match package with
-	| "accelerate" -> "Accelerate"
-	| "addressbook" -> "AddressBook"
-	| "assets" -> "AssetsLibrary"
-	| "av" -> "AVFoundation"
-	| "network" -> "CFNetwork"
-	| "coredata" -> "CoreData"
-	| "coregraphics" -> "CoreGraphics"
-	| "coreimage" -> "CoreImage"
-	| "corelocation" -> "CoreLocation"
-	| "gamekit" -> "GameKit"
-	| "iad" -> "iAd"
-	| "io" -> "IOKit"
-	| "map" -> "MapKit"
-	| "media" -> "MediaPlayer"
-	| "message" -> "MessageUI"
-	| "openal" -> "OpenAL"
-	| "opengles" -> "OpenGLES"
-	| "quartz" -> "QuartzCore"
-	| "social" -> "Social"
-	| "store" -> "StoreKit"
-	| "twitter" -> "Twitter"
-	| "ui" -> "UIKit"
-	| _ -> "Foundation"
-;;
+	;; *)
 
 let s_ident n =
 	if Hashtbl.mem reserved n then "_" ^ n else n
@@ -1108,9 +1116,11 @@ let makeImportPath (p,s) = match p with [] -> s | _ -> String.concat "/" p ^ "/"
 
 (* Generate header + implementation *)
 
-let generateClassFiles common_ctx class_def file_info =
+let generateClassFiles common_ctx class_def file_info imports_manager =
+	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
+	(* The frameworks are kept in a non-resetable variable also *)
+	imports_manager#reset;
 	
-	let imports = ref (Hashtbl.create 0) in
 	if not class_def.cl_interface then begin
 	
 	(* Create the implementation file *)
@@ -1119,7 +1129,7 @@ let generateClassFiles common_ctx class_def file_info =
 	(* let class_name = (snd class_def.cl_path) in *)
 	let m_file = newSourceFile src_dir class_path ".m" in
 	let output_m = (m_file#write) in
-	let ctx = newContext common_ctx m_file file_info in
+	let ctx = newContext common_ctx m_file imports_manager file_info in
 	ctx.class_def <- class_def;
 	
 	defineGetSet ctx true class_def;
@@ -1144,7 +1154,6 @@ let generateClassFiles common_ctx class_def file_info =
 	List.iter (generateField ctx false) class_def.cl_ordered_fields;
 	
 	output_m "\n\n@end\n";
-	imports := ctx.imports;
 	m_file#close
 	
 	end;
@@ -1157,10 +1166,10 @@ let generateClassFiles common_ctx class_def file_info =
 	(* let class_name = (snd class_def.cl_path) in *)
 	let h_file = newSourceFile src_dir class_path ".h" in
 	let output_h = (h_file#write) in
-	let ctx = newContext common_ctx h_file file_info in
+	let ctx = newContext common_ctx h_file imports_manager file_info in
 	ctx.class_def <- class_def;
 	ctx.generating_header <- true;
-	Hashtbl.add ctx.imports (snd class_path) [fst class_path];
+	ctx.imports_manager#add_import class_path;
 	
 	defineGetSet ctx true class_def;
 	defineGetSet ctx false class_def;
@@ -1168,7 +1177,9 @@ let generateClassFiles common_ctx class_def file_info =
 	(* (snd c.cl_path) returns the class name *)
 	
 	(* Import frameworks *)
-	ctx.writer#import_framework "UIKit";
+	List.iter (fun name ->
+		ctx.writer#import_framework name
+	) imports_manager#get_class_frameworks;
 	
 	(* Import classes *)
 	Hashtbl.iter (fun name paths ->
@@ -1176,7 +1187,7 @@ let generateClassFiles common_ctx class_def file_info =
 			let path = pack, name in
 			if path <> ctx.class_def.cl_path then ctx.writer#import_class path
 		) paths
-	) !imports;
+	) imports_manager#get_imports;
 	
 	output_h ("\n@interface " ^ (snd class_path));
 	(* Add the super class *)
@@ -1351,6 +1362,7 @@ let generate common_ctx =
 	(* let exe_classes = ref [] in *)
 	(* let boot_classes = ref [] in *)
 	(* let init_classes = ref [] in *)
+	let imports_manager = new importsManager in
 	let file_info = ref PMap.empty in
 	let inits = ref [] in (*  ref means reference cell, editable *)
 	List.iter (fun object_def ->
@@ -1367,7 +1379,7 @@ let generate common_ctx =
 			if class_def.cl_extern then
 				()
 			else
-				generateClassFiles common_ctx class_def file_info
+				generateClassFiles common_ctx class_def file_info imports_manager
 					
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
@@ -1380,10 +1392,6 @@ let generate common_ctx =
 		| TTypeDecl _ | TAbstractDecl _ ->
 			()
 	) common_ctx.types;
-		
-	(* (match common_ctx.main with
-		| None -> ()
-		| Some e -> inits := e :: !inits); *)
 	
 	(match common_ctx.main with
 	| None -> ()
@@ -1394,6 +1402,10 @@ let generate common_ctx =
 		generateMain common_ctx class_def;
 		generatePch common_ctx class_def;
 		generatePlist common_ctx class_def;
-		generateResources common_ctx
+		generateResources common_ctx;
+		
+		List.iter (fun name ->
+			print_endline name
+		) imports_manager#get_all_frameworks
 	)
 ;;

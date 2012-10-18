@@ -1,5 +1,5 @@
 
-#import <UIKit/UIKit.h>
+#import "Interface2.h"
 
 @interface Std
 
