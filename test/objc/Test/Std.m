@@ -2,7 +2,7 @@
 @implementation Std
 
 
-+ (BOOL) _is:(id)v t:(id)t{
++ (BOOL) is:(id)v t:(id)t{
 	return __global__ generateFieldAccess2 .__instanceof[v t];
 }
 
@@ -12,17 +12,17 @@
 }
 
 
-+ (int) _int:(float)x{
++ (int) int:(float)x{
 	return __global__ generateFieldAccess2 .__int__[x];
 }
 
 
-+ (**) _parseInt:(NSString*)x{
++ (**) parseInt:(NSString*)x{
 	return __global__ generateFieldAccess2 .__hxcpp_parse_int[x];
 }
 
 
-+ (float) _parseFloat:(NSString*)x{
++ (float) parseFloat:(NSString*)x{
 	return __global__ generateFieldAccess2 .__hxcpp_parse_float[x];
 }
 

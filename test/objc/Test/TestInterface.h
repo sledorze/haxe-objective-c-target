@@ -1,4 +1,6 @@
 
+
+#import "TestInterface.h"
 #import "Std.h"
 #import "Interface2.h"
 

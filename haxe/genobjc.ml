@@ -32,27 +32,11 @@ let join_class_path path separator =
 		result
 ;;
 
-class importsManager =
-	object(this)
-	val mutable imports : (string,string list list) Hashtbl.t = Hashtbl.create 0;
-	val mutable all_frameworks : string list = ["Foundation"]
-	val mutable class_frameworks : string list = []
-	method add_framework name = 
-		if not (List.mem name all_frameworks) then all_frameworks <- List.append all_frameworks [name];
-		if not (List.mem name class_frameworks) then class_frameworks <- List.append class_frameworks [name];
-	method add_import class_path = 
-		let pack = fst class_path in
-		let name = snd class_path in
-		let packs = (try Hashtbl.find imports name with Not_found -> []) in
-		if not (List.mem pack packs) then Hashtbl.replace imports name (pack :: packs);
-	method get_all_frameworks = all_frameworks
-	method get_class_frameworks = class_frameworks
-	method get_imports = imports
-	method reset = class_frameworks <- []
-end;;
-
-let getFrameworkOfPackage path = 
-	match (try List.nth path ((List.length path) -1) with  Not_found -> "") with
+(* This packages are cocoa frameworks, do not include this classes but include the framework *)
+let getFrameworkOfPath class_path = 
+	let pack = fst class_path in
+	if List.length pack < 1 then "" else
+	match List.nth pack ((List.length pack) -1) with
 	| "accelerate" -> "Accelerate"
 	| "addressbook" -> "AddressBook"
 	| "assets" -> "AssetsLibrary"
@@ -75,8 +59,30 @@ let getFrameworkOfPackage path =
 	| "store" -> "StoreKit"
 	| "twitter" -> "Twitter"
 	| "ui" -> "UIKit"
-	| _ -> "Foundation"
+	| _ -> ""
 ;;
+
+class importsManager =
+	object(this)
+	val mutable imports : (string,string list list) Hashtbl.t = Hashtbl.create 0;
+	val mutable all_frameworks : string list = []
+	val mutable class_frameworks : string list = []
+	method add_class_path class_path =
+		let f_name = getFrameworkOfPath class_path in
+		if f_name <> "" then begin
+			if not (List.mem f_name all_frameworks) then all_frameworks <- List.append all_frameworks [f_name];
+			if not (List.mem f_name class_frameworks) then class_frameworks <- List.append class_frameworks [f_name];
+		end else begin
+			let pack = fst class_path in
+			let name = snd class_path in
+			let packs = (try Hashtbl.find imports name with Not_found -> []) in
+			if not (List.mem pack packs) then Hashtbl.replace imports name (pack :: packs);
+		end
+	method get_all_frameworks = all_frameworks
+	method get_class_frameworks = class_frameworks
+	method get_imports = imports
+	method reset = class_frameworks <- []
+end;;
 
 class sourceWriter write_func close_func =
 	object(this)
@@ -101,9 +107,21 @@ class sourceWriter write_func close_func =
 	method end_block_line = this#pop_indent; this#write_i "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";\n")
 	
-	method import_class class_path = this#write ("#import \"" ^ (join_class_path class_path "/") ^ ".h\"\n")
-	method import_framework f_name = this#write ("#import <" ^ f_name ^ "/" ^ f_name ^ ".h>\n")
-end;;
+	method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")
+	method import_headers class_paths = 
+		Hashtbl.iter (fun name paths ->
+			List.iter (fun pack ->
+				let path = pack, name in
+				this#import_header path
+				(* if path <> ctx.class_def.cl_path then  *)
+			) paths
+		) class_paths
+	method import_frameworks f_list = 
+		List.iter (fun name ->
+			this#write ("#import <" ^ name ^ "/" ^ name ^ ".h>\n")
+		) f_list;
+	end
+;;
 
 
 let fileSourceWriter filename =
@@ -221,7 +239,7 @@ let addPointerIfNeeded t =
 ;;
 
 (* Generating correct type *)
-let s_path ctx stat path p =
+let processClassPath ctx is_static path pos =
 	match path with
 	| ([],name) ->
 		(match name with
@@ -236,11 +254,9 @@ let s_path ctx stat path p =
 	| (["flash";"errors"],"Error") -> "Error"
 	| (["flash"],"Vector") -> "Vector"
 	| (["objc";"ios"],"XML") -> "XML"
-	| (["haxe"],"Int32") when not stat -> "int"
-	(* Keep unimported classes in the hash, they'll be imported at the end *)
+	| (["haxe"],"Int32") when not is_static -> "int"
 	| (pack,name) ->
-		let name = protect name in ctx.imports_manager#add_import path;
-		ctx.imports_manager#add_framework (getFrameworkOfPackage (fst path));
+		ctx.imports_manager#add_class_path path;
 		name
 ;;
 	
@@ -252,30 +268,10 @@ let srcDir ctx =
 	(base_dir ^ "/" ^ sub_dir)
 ;;
 
-let reserved =
-	let h = Hashtbl.create 0 in
-	List.iter (fun l -> Hashtbl.add h l ())
-	(* these ones are defined in order to prevent recursion in some Std functions *)
-	["is";"as";"int";"uint";"const";"getTimer";"typeof";"parseInt";"parseFloat";
-	(* AS3 keywords which are not Haxe ones *)
-	"finally";"with";"final";"internal";"native";"namespace";"include";"delete";
-	(* some globals give some errors with Flex SDK as well *)
-	"print";
-	(* we don't include get+set since they are not 'real' keywords, but they can't be used as method names *)
-	"function";"class";"var";"if";"else";"while";"do";"for";"break";"continue";"return";"extends";"implements";
-	"import";"switch";"case";"default";"static";"public";"private";"try";"catch";"new";"this";"throw";"interface";
-	"override";"package";"null";"true";"false";"void"
-	];
-	h
-;;
-
 (* let isNativeClass class_name = 
 	match class_name
 	| "NS" | "UI" | ""
 	;; *)
-
-let s_ident n =
-	if Hashtbl.mem reserved n then "_" ^ n else n
 
 let rec createDirectory acc = function
 	| [] -> ()
@@ -323,7 +319,7 @@ let rec typeToString ctx t p =
 		| [], "Int" -> "int"(* "NSNumber" *)
 		| [], "Float" -> "float"(* "NSNumber" *)
 		| [], "Bool" -> "BOOL"
-		| _ -> s_path ctx true a.a_path p)
+		| _ -> processClassPath ctx true a.a_path p)
 	| TEnum (e,_) ->
 		if e.e_extern then (match e.e_path with
 			| [], "Void" -> "void"
@@ -340,10 +336,10 @@ let rec typeToString ctx t p =
 				in
 				loop e.e_meta
 		) else
-			s_path ctx true e.e_path p
+			processClassPath ctx true e.e_path p
 	| TInst (c,_) ->
 		(match c.cl_kind with
-		| KNormal | KGeneric | KGenericInstance _ -> s_path ctx false c.cl_path p
+		| KNormal | KGeneric | KGenericInstance _ -> processClassPath ctx false c.cl_path p
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "*")
 	| TFun _ ->
 		"Function"
@@ -420,7 +416,7 @@ let generateResources common_ctx =
 		let dir = (common_ctx.file :: ["Resources"]) in
 		createDirectory [] dir;
 		
-		let resource_file = newSourceFile common_ctx.file ([],"__resources__") ".h" in
+		let resource_file = newSourceFile common_ctx.file ([],"Resources") ".plist" in
 		resource_file#write "#include <xxx.h>\n\n";
 		
 		(* let add_resource name data =
@@ -487,7 +483,7 @@ let generateFunctionHeader ctx name f params p =
 	let first_arg = ref true in
 	concat ctx " " (fun (v,c) ->
 		let type_name = typeToString ctx v.v_type p in
-		let arg_name = s_ident v.v_name in
+		let arg_name = v.v_name in
 		let message_name = if !first_arg then "" else arg_name in
 		(* let message_name = if List.length f.tf_args > 1 then arg_name else "" in *)
 		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
@@ -560,28 +556,28 @@ and generateFieldAccess ctx t s =
 		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
-		| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess1 .%s" (s_ident s))
+		| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess1 .%s" (s))
 	in
 	match follow t with
 	| TInst (c,_) -> field c
 	| TAnon a ->
 		(match !(a.a_status) with
 		| Statics c -> field c
-		| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess2 .%s" (s_ident s)))
+		| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess2 .%s" (s)))
 	| _ ->
-		ctx.writer#write (Printf.sprintf " generateFieldAccess3 .%s" (s_ident s))
+		ctx.writer#write (Printf.sprintf " generateFieldAccess3 .%s" (s))
 	
 and generateExpression ctx e =
 	match e.eexpr with
 	| TConst c ->
 		generateConstant ctx e.epos c
 	| TLocal v ->
-		ctx.writer#write (s_ident v.v_name)
+		ctx.writer#write (v.v_name)
 	| TEnumField (en,s) ->
-		ctx.writer#write (Printf.sprintf "%s.%s" (s_path ctx true en.e_path e.epos) (s_ident s))
+		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
 	| TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
 		let path = Ast.parse_path s in
-		ctx.writer#write (s_path ctx false path e.epos)
+		ctx.writer#write (processClassPath ctx false path e.epos)
 	| TArray (e1,e2) ->
 		(* Accesing an array element *)
 		ctx.writer#write "[";
@@ -614,7 +610,7 @@ and generateExpression ctx e =
    		generateValue ctx e;
 		generateFieldAccess ctx e.etype s
 	| TTypeExpr t ->
-		ctx.writer#write (s_path ctx true (t_path t) e.epos)
+		ctx.writer#write (processClassPath ctx true (t_path t) e.epos)
 	| TParenthesis e ->
 		ctx.writer#write "(";
 		generateValue ctx e;
@@ -676,7 +672,7 @@ and generateExpression ctx e =
 	| TVars vl ->
 		(* Vars inside methods only *)
 		concat ctx "; " (fun (v,eo) ->
-			ctx.writer#write_i (Printf.sprintf "%s %s%s" (typeToString ctx v.v_type e.epos) (addPointerIfNeeded (typeToString ctx v.v_type e.epos)) (s_ident v.v_name));
+			ctx.writer#write_i (Printf.sprintf "%s %s%s" (typeToString ctx v.v_type e.epos) (addPointerIfNeeded (typeToString ctx v.v_type e.epos)) (v.v_name));
 			match eo with
 			| None -> ()
 			| Some e ->
@@ -686,7 +682,7 @@ and generateExpression ctx e =
 	| TNew (c,params,el) ->
 		(match c.cl_path, params with
 		| (["flash"],"Vector"), [pt] -> ctx.writer#write (Printf.sprintf "new Vector.<%s>(" (typeToString ctx pt e.epos))
-		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*s_path ctx true c.cl_path e.epos) *));
+		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*processClassPath ctx true c.cl_path e.epos) *));
 		concat ctx "," (generateValue ctx) el)
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write_i "if";
@@ -721,7 +717,7 @@ and generateExpression ctx e =
 		handleBreak();
 	| TObjectDecl fields ->
 		ctx.writer#write_i "{ ";
-		concat ctx ", " (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s : " (s_ident f)); generateValue ctx e) fields;
+		concat ctx ", " (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s : " (f)); generateValue ctx e) fields;
 		ctx.writer#write_i "}"
 	| TFor (v,it,e) ->
 		ctx.writer#begin_block;
@@ -730,7 +726,7 @@ and generateExpression ctx e =
 		ctx.writer#write (Printf.sprintf "{ var %s : * = " tmp);
 		generateValue ctx it;
 		newLine ctx;
-		ctx.writer#write_i (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (s_ident v.v_name) (typeToString ctx v.v_type e.epos) tmp);
+		ctx.writer#write_i (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (v.v_name) (typeToString ctx v.v_type e.epos) tmp);
 		newLine ctx;
 		generateExpression ctx e;
 		newLine ctx;
@@ -741,7 +737,7 @@ and generateExpression ctx e =
 		generateExpression ctx e;
 		List.iter (fun (v,e) ->
 			newLine ctx;
-			ctx.writer#write_i (Printf.sprintf "catch( %s : %s )" (s_ident v.v_name) (typeToString ctx v.v_type e.epos));
+			ctx.writer#write_i (Printf.sprintf "catch( %s : %s )" (v.v_name) (typeToString ctx v.v_type e.epos));
 			generateExpression ctx e;
 		) catchs;
 	| TMatch (e,_,cases,def) ->
@@ -768,7 +764,7 @@ and generateExpression ctx e =
 					newLine ctx;
 					ctx.writer#write "var ";
 					concat ctx ", " (fun (v,n) ->
-						ctx.writer#write (Printf.sprintf "%s : %s = %s.params[%d]" (s_ident v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
+						ctx.writer#write (Printf.sprintf "%s : %s = %s.params[%d]" (v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
 					) l);
 			generateBlock ctx e;
 			ctx.writer#write_i "break";
@@ -983,7 +979,7 @@ let generateField ctx is_static field =
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
 		ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
 		(* Generate function header *)
-		let h = generateFunctionHeader ctx (Some (s_ident field.cf_name, field.cf_meta)) fd field.cf_params p in
+		let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params p in
 		(* Generate function content if is not a header file *)
 		if not ctx.generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
 		h();
@@ -1020,7 +1016,7 @@ let generateField ctx is_static field =
 			let first_arg = ref true in
 			concat ctx " " (fun (v,c) ->
 				let type_name = typeToString ctx v.v_type p in
-				let arg_name = s_ident v.v_name in
+				let arg_name = v.v_name in
 				let message_name = if !first_arg then "" else arg_name in
 				ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
 				first_arg := false;
@@ -1029,7 +1025,7 @@ let generateField ctx is_static field =
 		| _ when is_getset ->
 			if ctx.generating_header then begin
 				let t = typeToString ctx field.cf_type p in
-				let id = s_ident field.cf_name in
+				let id = field.cf_name in
 				let getter = match field.cf_kind with
 					| Var v -> (match v.v_read with
 						| AccCall s -> Printf.sprintf ", getter=%s" s;
@@ -1054,7 +1050,7 @@ let generateField ctx is_static field =
 		in
 		if is_getset then begin
 			(* let t = typeToString ctx f.cf_type p in *)
-			let id = s_ident field.cf_name in
+			let id = field.cf_name in
 			(* let v = (match f.cf_kind with Var v -> v | _ -> assert false) in *)
 			ctx.writer#write (Printf.sprintf "@synthesize %s = _%s;\n" id id);
 			(* (match v.v_read with
@@ -1076,14 +1072,14 @@ let generateField ctx is_static field =
 		else if ctx.generating_header then begin
 			(* This is generating implementation class properties declarations *)
 			let t = (typeToString ctx field.cf_type p) in
-			let id = s_ident field.cf_name in
+			let id = field.cf_name in
 			(* let v = (match field.cf_kind with Var v -> v | _ -> assert false) in *)
 			ctx.writer#write (Printf.sprintf "@property (nonatomic, strong) %s %s%s;" t (addPointerIfNeeded t) id);
 			gen_init()
 		end
 		else begin
 			(* let t = (typeToString ctx f.cf_type p) in *)
-			let id = s_ident field.cf_name in
+			let id = field.cf_name in
 			ctx.writer#write (Printf.sprintf "@synthesize %s = _%s;" id id);
 			gen_init()
 		end
@@ -1136,7 +1132,8 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	defineGetSet ctx false class_def;
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
-	ctx.writer#import_class class_def.cl_path;
+	imports_manager#add_class_path class_def.cl_path;
+	ctx.writer#import_header class_def.cl_path;
 	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
 	
 	(match class_def.cl_constructor with
@@ -1169,7 +1166,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	let ctx = newContext common_ctx h_file imports_manager file_info in
 	ctx.class_def <- class_def;
 	ctx.generating_header <- true;
-	ctx.imports_manager#add_import class_path;
+	ctx.imports_manager#add_class_path class_path;
 	
 	defineGetSet ctx true class_def;
 	defineGetSet ctx false class_def;
@@ -1177,17 +1174,11 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	(* (snd c.cl_path) returns the class name *)
 	
 	(* Import frameworks *)
-	List.iter (fun name ->
-		ctx.writer#import_framework name
-	) imports_manager#get_class_frameworks;
+	ctx.writer#import_frameworks imports_manager#get_class_frameworks;
+	newLine ctx;
 	
 	(* Import classes *)
-	Hashtbl.iter (fun name paths ->
-		List.iter (fun pack ->
-			let path = pack, name in
-			if path <> ctx.class_def.cl_path then ctx.writer#import_class path
-		) paths
-	) imports_manager#get_imports;
+	ctx.writer#import_headers imports_manager#get_imports;
 	
 	output_h ("\n@interface " ^ (snd class_path));
 	(* Add the super class *)
@@ -1266,13 +1257,13 @@ int main(int argc, char *argv[]) {
 ;;
 	
 let generatePch common_ctx class_def  =
-
+	(* This class imports will be available in the entire Xcode project, we add here Std classes *)
 	let base_dir = common_ctx.file in
 	let sub_dir = match common_ctx.main_class with
 		| Some path -> (snd path)
 		| _ -> "Application" in
 	let generate_file =
-		let file = newSourceFile base_dir ([sub_dir],sub_dir^"-Prefix") ".pch" in
+		let file = newSourceFile base_dir ([sub_dir], sub_dir ^ "-Prefix") ".pch" in
 		let output_pch = (file#write) in
 		
 		output_pch "//
@@ -1288,6 +1279,7 @@ let generatePch common_ctx class_def  =
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
+	@import \"Std.h\"
 #endif";
 		file#close;
 	in
@@ -1358,36 +1350,26 @@ let generate common_ctx =
 	(* Generate folder structure and basic files *)
 	generateProjectStructure common_ctx;
 	
-	(* let debug = false in *)
-	(* let exe_classes = ref [] in *)
-	(* let boot_classes = ref [] in *)
-	(* let init_classes = ref [] in *)
 	let imports_manager = new importsManager in
 	let file_info = ref PMap.empty in
-	let inits = ref [] in (*  ref means reference cell, editable *)
+	let inits = ref [] in
 	List.iter (fun object_def ->
 		match object_def with
 		| TClassDecl class_def ->
 			let class_def = (match class_def.cl_path with
 				| ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" }
-				| (pack,name) -> { class_def with cl_path = (pack,protect name) }
+				| (pack,name) -> { class_def with cl_path = (pack, name) }
 			) in
 			(match class_def.cl_init with
 			| None -> ()
 			| Some e -> inits := e :: !inits);
-				
-			if class_def.cl_extern then
-				()
-			else
-				generateClassFiles common_ctx class_def file_info imports_manager
-					
+			
+			if not class_def.cl_extern then generateClassFiles common_ctx class_def file_info imports_manager
+		
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
 			let e = { e with e_path = (pack,protect name) } in
-			if e.e_extern then
-				()
-			else
-				generateEnum common_ctx e
+			if not e.e_extern then generateEnum common_ctx e
 				
 		| TTypeDecl _ | TAbstractDecl _ ->
 			()

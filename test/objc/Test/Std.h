@@ -1,18 +1,20 @@
 
+
+#import "Std.h"
 #import "Interface2.h"
 
 @interface Std
 
 
-+ (BOOL) _is:(id)v t:(id)t;
++ (BOOL) is:(id)v t:(id)t;
 
 + (NSString*) string:(id)s;
 
-+ (int) _int:(float)x;
++ (int) int:(float)x;
 
-+ (**) _parseInt:(NSString*)x;
++ (**) parseInt:(NSString*)x;
 
-+ (float) _parseFloat:(NSString*)x;
++ (float) parseFloat:(NSString*)x;
 
 + (int) random:(int)x;
 
