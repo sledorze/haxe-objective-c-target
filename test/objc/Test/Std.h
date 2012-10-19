@@ -1,7 +1,6 @@
 
 
 #import "Std.h"
-#import "Interface2.h"
 
 @interface Std
 

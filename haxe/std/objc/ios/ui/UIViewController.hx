@@ -1,23 +1,12 @@
-//
-//  UIViewController.h
-//  UIKit
-//
-//  Copyright (c) 2007-2012, Apple Inc. All rights reserved.
-//
+package objc.ios.ui;
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKitDefines.h>
-#import <UIKit/UIApplication.h>
-#import <UIKit/UIStateRestoration.h>
-
+extern class UIViewController extends UIResponder {
+	
+	public function loadView () :Void;
+	public function viewDidLoad () :Void;
+	public function isViewLoaded () :Bool;
+}
 /*
-  UIViewController is a generic controller base class that manages a view.  It has methods that are called
-  when a view appears or disappears.
- 
-  Subclasses can override -loadView to create their custom view hierarchy, or specify a nib name to be loaded
-  automatically.  This class is also a good place for delegate & datasource methods, and other controller
-  stuff.
-*/
 
 @class UIView;
 @class UINavigationItem, UIBarButtonItem, UITabBarItem;
@@ -41,118 +30,14 @@ typedef NS_ENUM(NSInteger, UIModalPresentationStyle) {
     UIModalPresentationFormSheet,
     UIModalPresentationCurrentContext,
 #endif
-};
 
-
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIViewController : UIResponder <NSCoding, UIAppearanceContainer> {
-    @package
-    UIView           *_view;
-    UITabBarItem     *_tabBarItem;
-    UINavigationItem *_navigationItem;
-    NSArray          *_toolbarItems;
-    NSString         *_title;
-    
-    NSString         *_nibName;
-    NSBundle         *_nibBundle;
-    
-    UIViewController *_parentViewController; // Nonretained
-    
-    UIViewController *_childModalViewController;
-    UIViewController *_parentModalViewController; // Nonretained
-    UIViewController *_previousRootViewController; // Nonretained    
-    UIView           *_modalTransitionView;
-    UIResponder	     *_modalPreservedFirstResponder;
-    UIResponder      *_defaultFirstResponder;
-    id               _dimmingView;
-    id               _dropShadowView;
-
-    id                _currentAction;
-    UIStoryboard     *_storyboard;
-    NSArray          *_storyboardSegueTemplates;
-    NSDictionary     *_externalObjectsTableForViewLoading;
-    NSArray          *_topLevelObjectsToKeepAliveFromStoryboard;
-    
-    UIView           *_savedHeaderSuperview;
-    UIView           *_savedFooterSuperview;
-    
-    UIBarButtonItem  *_editButtonItem;
-    
-    UISearchDisplayController *_searchDisplayController;
-    
-    UIModalTransitionStyle _modalTransitionStyle;
-    UIModalPresentationStyle _modalPresentationStyle;
-    
-    UIInterfaceOrientation _lastKnownInterfaceOrientation;
-
-    UIPopoverController*    _popoverController;
-    UIView *_containerViewInSheet;
-    CGSize _contentSizeForViewInPopover;
-    CGSize _formSheetSize;
-
-    void (^_afterAppearance)(void);    
-    NSInteger _explicitAppearanceTransitionLevel;
-
-    struct {
-        unsigned int appearState:2;
-        unsigned int isEditing:1;
-        unsigned int isPerformingModalTransition:1;
-        unsigned int hidesBottomBarWhenPushed:1;
-        unsigned int autoresizesArchivedViewToFullSize:1;
-        unsigned int viewLoadedFromControllerNib:1;
-        unsigned int isRootViewController:1;
-        unsigned int customizesForPresentationInPopover:1;
-        unsigned int isSuspended:1;
-        unsigned int wasApplicationFrameAtSuspend:1;
-        unsigned int wantsFullScreenLayout:1;
-        unsigned int shouldUseFullScreenLayout:1;
-        unsigned int allowsAutorotation:1;
-        unsigned int searchControllerRetained:1;
-        unsigned int oldModalInPopover:1;
-        unsigned int isModalInPopover:1;
-        unsigned int restoreDeepestFirstResponder:1;
-        unsigned int isInWillRotateCallback:1;
-        unsigned int disallowMixedOrientationPresentations:1;
-        unsigned int isFinishingModalTransition:1;
-        unsigned int definesPresentationContext:1;
-        unsigned int providesPresentationContextTransitionStyle:1;        
-        unsigned int containmentSupport:1;
-        unsigned int isSettingAppearState:1;
-        unsigned int isInAnimatedVCTransition:1;
-        unsigned int presentationIsChanging:1;
-        unsigned int isBeingPresented:1;        
-        unsigned int containmentIsChanging:1;
-        unsigned int explicitTransitionIsAppearing:1;
-        unsigned int disableAppearanceTransitions:1;
-        unsigned int needsDidMoveCleanup:1;        
-        unsigned int suppressesBottomBar:1;
-        unsigned int disableRootPromotion:1;
-        unsigned int interfaceOrientationReentranceGuard:1;
-        unsigned int isExecutingAfterAppearance:1;
-        unsigned int rootResignationNeeded:1;
-        unsigned int shouldSynthesizeSupportedOrientations:1;
-        unsigned int viewConstraintsNeedUpdateOnAppearance:1;
-    } _viewControllerFlags;
-}
-
-/*
-  The designated initializer. If you subclass UIViewController, you must call the super implementation of this
-  method, even if you aren't using a NIB.  (As a convenience, the default init method will do this for you,
-  and specify nil for both of this methods arguments.) In the specified NIB, the File's Owner proxy should
-  have its class set to your view controller subclass, with the view outlet connected to the main view. If you
-  invoke this method with a nil nib name, then this class' -loadView method will attempt to load a NIB whose
-  name is the same as your view controller's class. If no such NIB in fact exists then you must either call
-  -setView: before -view is invoked, or override the -loadView method to set up your views programatically.
-*/
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 @property(nonatomic,retain) UIView *view; // The getter first invokes [self loadView] if the view hasn't been set yet. Subclasses must call super if they override the setter or getter.
-- (void)loadView; // This is where subclasses should create their custom view hierarchy if they aren't using a nib. Should never be called directly.
+- (void); // This is where subclasses should create their custom view hierarchy if they aren't using a nib. Should never be called directly.
 
-- (void)viewWillUnload NS_DEPRECATED_IOS(5_0,6_0);
-- (void)viewDidUnload NS_DEPRECATED_IOS(3_0,6_0); // Called after the view controller's view is released and set to nil. For example, a memory warning which causes the view to be purged. Not invoked as a result of -dealloc.
-
-- (void)viewDidLoad; // Called after the view has been loaded. For view controllers created in code, this is after -loadView. For view controllers unarchived from a nib, this is after the view is set.
-- (BOOL)isViewLoaded NS_AVAILABLE_IOS(3_0);
+- (void); // Called after the view has been loaded. For view controllers created in code, this is after -loadView. For view controllers unarchived from a nib, this is after the view is set.
+- (BOOL) NS_AVAILABLE_IOS(3_0);
 
 @property(nonatomic, readonly, copy) NSString *nibName;     // The name of the nib to be loaded to instantiate the view.
 @property(nonatomic, readonly, retain) NSBundle *nibBundle; // The bundle from which to load the nib.
@@ -185,11 +70,7 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIViewController : UIResponder <NSCoding,
 
 - (void)didReceiveMemoryWarning; // Called when the parent application receives a memory warning. On iOS 6.0 it will no longer clear the view by default.
 
-/*
-  If this view controller is a child of a containing view controller (e.g. a navigation controller or tab bar
-  controller,) this is the containing view controller.  Note that as of 5.0 this no longer will return the
-  presenting view controller.
-*/
+
 @property(nonatomic,readonly) UIViewController *parentViewController;
 
 // This property has been replaced by presentedViewController.
@@ -201,22 +82,11 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIViewController : UIResponder <NSCoding,
 // The view controller that presented this view controller (or its farthest ancestor.)
 @property(nonatomic,readonly) UIViewController *presentingViewController NS_AVAILABLE_IOS(5_0);
 
-/*
-  Determines which parent view controller's view should be presented over for presentations of type
-  UIModalPresentationCurrentContext.  If no ancestor view controller has this flag set, then the presenter
-  will be the root view controller.
-*/
 @property(nonatomic,assign) BOOL definesPresentationContext NS_AVAILABLE_IOS(5_0);
 
 // A controller that defines the presentation context can also specify the modal transition style if this property is true.
 @property(nonatomic,assign) BOOL providesPresentationContextTransitionStyle NS_AVAILABLE_IOS(5_0);
 
-/*
-  These four methods can be used in a view controller's appearance callbacks to determine if it is being
-  presented, dismissed, or added or removed as a child view controller. For example, a view controller can
-  check if it is disappearing because it was dismissed or popped by asking itself in its viewWillDisappear:
-  method by checking the expression ([self isDismissing] || [self isMovingFromParentViewController]).
-*/
 
 - (BOOL)isBeingPresented NS_AVAILABLE_IOS(5_0);
 - (BOOL)isBeingDismissed NS_AVAILABLE_IOS(5_0);
@@ -224,11 +94,7 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIViewController : UIResponder <NSCoding,
 - (BOOL)isMovingToParentViewController NS_AVAILABLE_IOS(5_0);
 - (BOOL)isMovingFromParentViewController NS_AVAILABLE_IOS(5_0);
 
-/*
-  The next two methods are replacements for presentModalViewController:animated and
-  dismissModalViewControllerAnimated: The completion handler, if provided, will be invoked after the presented
-  controllers viewDidAppear: callback is invoked.
-*/
+
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated: (BOOL)flag completion:(void (^)(void))completion NS_AVAILABLE_IOS(5_0);
 // The completion handler, if provided, will be invoked after the dismissed controller's viewDidDisappear: callback is invoked.
 - (void)dismissViewControllerAnimated: (BOOL)flag completion: (void (^)(void))completion NS_AVAILABLE_IOS(5_0);
@@ -239,11 +105,7 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIViewController : UIResponder <NSCoding,
 // Dismiss the current modal child. Uses a vertical sheet transition if animated. This method has been replaced by dismissViewControllerAnimated:completion:
 - (void)dismissModalViewControllerAnimated:(BOOL)animated NS_DEPRECATED_IOS(2_0, 6_0);
 
-/*
-  Defines the transition style that will be used for this view controller when it is presented modally. Set
-  this property on the view controller to be presented, not the presenter.  Defaults to
-  UIModalTransitionStyleCoverVertical.
-*/
+
 @property(nonatomic,assign) UIModalTransitionStyle modalTransitionStyle NS_AVAILABLE_IOS(3_0);
 @property(nonatomic,assign) UIModalPresentationStyle modalPresentationStyle NS_AVAILABLE_IOS(3_2);
 
@@ -310,49 +172,21 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIViewController : UIResponder <NSCoding,
 @end
 
 
-/*
-  This exception is raised when a child view controller's view is added into the view hierarchy and the first
-  superview of the child view controller's view that has a view controller is NOT the child view controller's
-  parent.
-*/
 UIKIT_EXTERN NSString *const UIViewControllerHierarchyInconsistencyException NS_AVAILABLE_IOS(5_0);
 
-/*
-  The methods in the UIContainerViewControllerProtectedMethods and the UIContainerViewControllerCallbacks
-  categories typically should only be called by subclasses which are implementing new container view
-  controllers. They may be overridden but must call super.
-*/
+
 @interface UIViewController (UIContainerViewControllerProtectedMethods)
 
 // An array of children view controllers. This array does not include any presented view controllers.
 @property(nonatomic,readonly) NSArray *childViewControllers NS_AVAILABLE_IOS(5_0);
 
-/*
-  If the child controller has a different parent controller, it will first be removed from its current parent
-  by calling removeFromParentViewController. If this method is overridden then the super implementation must
-  be called.
-*/
+
 - (void)addChildViewController:(UIViewController *)childController NS_AVAILABLE_IOS(5_0);
 
-/*
-  Removes the the receiver from its parent's children controllers array. If this method is overridden then
-  the super implementation must be called.
-*/
+
 - (void) removeFromParentViewController NS_AVAILABLE_IOS(5_0);
 
-/*
-  This method can be used to transition between sibling child view controllers. The receiver of this method is
-  their common parent view controller. (Use [UIViewController addChildViewController:] to create the
-  parent/child relationship.) This method will add the toViewController's view to the superview of the
-  fromViewController's view and the fromViewController's view will be removed from its superview after the
-  transition completes. It is important to allow this method to add and remove the views. The arguments to
-  this method are the same as those defined by UIView's block animation API. This method will fail with an
-  NSInvalidArgumentException if the parent view controllers are not the same as the receiver, or if the
-  receiver explicitly forwards its appearance and rotation callbacks to its children. Finally, the receiver
-  should not be a subclass of an iOS container view controller. Note also that it is possible to use the
-  UIView APIs directly. If they are used it is important to ensure that the toViewController's view is added
-  to the visible view hierarchy while the fromViewController's view is removed.
-*/
+
 - (void)transitionFromViewController:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController duration:(NSTimeInterval)duration options:(UIViewAnimationOptions)options animations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion NS_AVAILABLE_IOS(5_0);
 
 // If a custom container controller manually forwards its appearance callbacks, then rather than calling
@@ -367,14 +201,6 @@ UIKIT_EXTERN NSString *const UIViewControllerHierarchyInconsistencyException NS_
 
 @interface UIViewController (UIContainerViewControllerCallbacks)
 
-/*
-  This method is consulted to determine if a view controller manually forwards its containment callbacks to
-  any children view controllers. Subclasses of UIViewController that implement containment logic may override
-  this method. The default implementation returns YES. If it is overridden and returns NO, then the subclass is
-  responsible for forwarding the following methods as appropriate - viewWillAppear: viewDidAppear: viewWillDisappear:
-  viewDidDisappear: willRotateToInterfaceOrientation:duration:
-  willAnimateRotationToInterfaceOrientation:duration: didRotateFromInterfaceOrientation:
-*/
 
 // This soon to be deprecated method
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers NS_DEPRECATED_IOS(5_0,6_0);
@@ -383,23 +209,7 @@ UIKIT_EXTERN NSString *const UIViewControllerHierarchyInconsistencyException NS_
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods NS_AVAILABLE_IOS(6_0);
 
 
-/*
-  These two methods are public for container subclasses to call when transitioning between child
-  controllers. If they are overridden, the overrides should ensure to call the super. The parent argument in
-  both of these methods is nil when a child is being removed from its parent; otherwise it is equal to the new
-  parent view controller.
 
-  addChildViewController: will call [child willMoveToParentViewController:self] before adding the
-  child. However, it will not call didMoveToParentViewController:. It is expected that a container view
-  controller subclass will make this call after a transition to the new child has completed or, in the
-  case of no transition, immediately after the call to addChildViewController:. Similarly
-  removeFromParentViewController: does not call [self willMoveToParentViewController:nil] before removing the
-  child. This is also the responsibilty of the container subclass. Container subclasses will typically define
-  a method that transitions to a new child by first calling addChildViewController:, then executing a
-  transition which will add the new child's view into the view hierarchy of its parent, and finally will call
-  didMoveToParentViewController:. Similarly, subclasses will typically define a method that removes a child in
-  the reverse manner by first calling [child willMoveToParentViewController:nil].
-*/
 - (void)willMoveToParentViewController:(UIViewController *)parent NS_AVAILABLE_IOS(5_0);
 - (void)didMoveToParentViewController:(UIViewController *)parent NS_AVAILABLE_IOS(5_0);
 
@@ -413,13 +223,7 @@ UIKIT_EXTERN NSString *const UIViewControllerHierarchyInconsistencyException NS_
 @end
 
 @interface UIViewController (UIConstraintBasedLayoutCoreMethods)
-/* Base implementation sends -updateConstraints to the view.
-    When a view has a view controller, this message is sent to the view controller during 
-     the autolayout updateConstraints pass in lieu of sending updateConstraints directly
-     to the view.
-    You may override this method in a UIViewController subclass for updating custom 
-     constraints instead of subclassing your view and overriding -[UIView updateConstraints].
-    Overrides must call super or send -updateConstraints to the view.
- */
+
 - (void)updateViewConstraints NS_AVAILABLE_IOS(6_0);
 @end
+*/

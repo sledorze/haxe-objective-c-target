@@ -5,19 +5,19 @@ extern class NSObject {
 	static function load () : Void;
 	
 	// Creating, Copying, and Deallocating Objects
-	static function new () : Void;
+	public function new () : Void;
 	static function alloc () : Void;
 	static function allocWithZone () : Void;
-	function init() :Void;
-	function copy () : Void;
+	public function init() :Void;
+	public function copy () : Void;
 	static function copyWithZone () : Void;
 	function mutableCopy () : Void;
-	static function mutableCopyWithZone () : Void;
+	public static function mutableCopyWithZone () : Void;
 	function dealloc () : Void;
 	function finalize () : Void;
 	
 	// Identifying Classes
-	static function class () : Void;
+	static function class_ () : Void;
 	static function superclass () : Void;
 	static function isSubclassOfClass () : Void;
 	
@@ -40,7 +40,7 @@ extern class NSObject {
 	function autoContentAccessingProxy () : Void;
 	
 	// Sending Messages
-	function performSelector:withObject:afterDelay:
+/*	function performSelector:withObject:afterDelay:
 	function performSelector:withObject:afterDelay:inModes:
 	function performSelectorOnMainThread:withObject:waitUntilDone:
 	function performSelectorOnMainThread:withObject:waitUntilDone:modes:
@@ -48,27 +48,27 @@ extern class NSObject {
 	function performSelector:onThread:withObject:waitUntilDone:modes:
 	function performSelectorInBackground:withObject:
 	static function cancelPreviousPerformRequestsWithTarget:
-	static function cancelPreviousPerformRequestsWithTarget:selector:object:
+	static function cancelPreviousPerformRequestsWithTarget:selector:object:*/
 	
 	// Forwarding Messages
-	function forwardingTargetForSelector:
-	function forwardInvocation:
+/*	function forwardingTargetForSelector:*/
+/*	function forwardInvocation:*/
 	
 	// Dynamically Resolving Methods
-	static function resolveClassMethod:
-	static function resolveInstanceMethod:
+/*	static function resolveClassMethod:*/
+/*	static function resolveInstanceMethod:*/
 	
 	// Error Handling
-	function doesNotRecognizeSelector:
+/*	function doesNotRecognizeSelector:*/
 	
 	// Archiving
-	function awakeAfterUsingCoder:
+/*	function awakeAfterUsingCoder:*/
 	function classForCoder () : Void;
 	function classForKeyedArchiver () : Void;
 	static function classFallbacksForKeyedArchiver () : Void;
 	static function classForKeyedUnarchiver () : Void;
-	function replacementObjectForCoder:
-	function replacementObjectForKeyedArchiver:
-	static function setVersion:
+/*	function replacementObjectForCoder:*/
+/*	function replacementObjectForKeyedArchiver:*/
+/*	static function setVersion:*/
 	static function version () : Void;
 }

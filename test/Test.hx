@@ -1,18 +1,36 @@
-//import Date;
+
+import objc.ios.ui.UIApplicationDelegate;
+import objc.ios.ui.UIResponder;
 import objc.ios.ui.UIWebView;
-//import objc.ios.ui.UILabel;
+import objc.ios.ui.UILabel;
+import objc.ios.ui.UIWindow;
+import objc.ios.ui.UIApplication;
 import objc.ios.map.MKMapView;
 
-@:orientation("portrait")
 
-class Test extends UIWebView, implements TestInterface, implements Interface2 {
+class Test extends UIResponder, implements UIApplicationDelegate {
 	
+	public var window :UIWindow;
 	public var interfaceVar1 :Int;// Generate a @property (nonatomic, strong) NSNumber *float1; + a @synthesizer
 	public var interfaceVar2 :Float;
 	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
-	public static function main(){
+	public function new () {
 		
+	}
+	
+	public function applicationDidFinishLaunchingWithOptions (application:UIApplication, didFinishLaunchingWithOptions:NSDictionary) :Bool {
+		trace ("Application launched");
+		
+		return true;
+	}
+	public function applicationDidBecomeActive (application:UIApplication) :Void {}
+	public function applicationWillResignActive (application:UIApplication) :Void {}
+	public function applicationHandleOpenURL (application:UIApplication, handleOpenURL:NSURL) :Bool {
+		return true;
+	}
+		
+	function tests () :Void {
 		// declare some random variables
 		var a = new Array<String>();
 		var aa = [1, 2, 3, 4, 5];

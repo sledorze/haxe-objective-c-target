@@ -1,11 +1,12 @@
+
 extern class NSDictionary extends NSObject {
-
-- (NSUInteger)count;
-- (id)objectForKey:(id)aKey;
-- (NSEnumerator *)keyEnumerator;
-
-@end
-
+	
+	public function count () :Int;
+	public function objectForKey (aKey:Dynamic) :Dynamic;
+/*	public keyEnumerator () :NSEnumerator;*/
+	
+}
+/*
 @interface NSDictionary (NSExtendedDictionary)
 
 - (NSArray *)allKeys;
@@ -46,7 +47,6 @@ extern class NSDictionary extends NSObject {
 
 @end
 
-/****************	Mutable Dictionary	****************/
 
 @interface NSMutableDictionary : NSDictionary
 
@@ -70,3 +70,4 @@ extern class NSDictionary extends NSObject {
 - (id)initWithCapacity:(NSUInteger)numItems;
 
 }
+*/

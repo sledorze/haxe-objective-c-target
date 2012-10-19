@@ -1,35 +1,38 @@
+
+package objc.ios.ui;
+
 extern class UIResponder {
 	
 	// Managing the Responder Chain
-	– nextResponder
-	– isFirstResponder
-	– canBecomeFirstResponder
-	– becomeFirstResponder
-	– canResignFirstResponder
-	– resignFirstResponder
+	public function nextResponder () :UIResponder;
+	public function isFirstResponder () :Bool;
+	public function canBecomeFirstResponder () :Bool;
+	public function becomeFirstResponder () :Bool;
+	public function canResignFirstResponder () :Bool;
+	public function resignFirstResponder () :Bool;
 	
 	// Managing Input Views
-	  inputView  property
-	  inputAccessoryView  property
-	– reloadInputViews
-	
+	public var inputView :UIView;
+	public var inputAccessoryView :UIView;
+	public function reloadInputViews () :Void;
+/*	
 	// Responding to Touch Events
-	– touchesBegan:withEvent:
-	– touchesMoved:withEvent:
-	– touchesEnded:withEvent:
-	– touchesCancelled:withEvent:
+	public function touchesBegan (touches:NSSet, withEvent:UIEvent) :Void;
+	public function touchesMoved (touches:NSSet, withEvent:UIEvent) :Void;
+	public function touchesEnded (touches:NSSet, withEvent:UIEvent) :Void;
+	public function touchesCancelled (touches:NSSet, withEvent:UIEvent) :Void;
 	
 	// Responding to Motion Events
-	– motionBegan:withEvent:
-	– motionEnded:withEvent:
-	– motionCancelled:withEvent:
+	public function motionBegan (motion:UIEventSubtype, withEvent:UIEvent) :Void;
+	public function motionEnded (motion:UIEventSubtype, withEvent:UIEvent) :Void;
+	public function motionCancelled (motion:UIEventSubtype, withEvent:UIEvent) :Void;
 	
 	// Responding to Remote-Control Events
-	– remoteControlReceivedWithEvent:
+	public function remoteControlReceivedWithEvent (event:UIEvent) :Void;
 	
 	// Getting the Undo Manager
-	  undoManager  property
+	public var undoManager :NSUndoManager;*/
 	
 	// Validating Commands
-	– canPerformAction:withSender:
+	public function canPerformAction (action:Dynamic, withSender:Dynamic) :Bool;
 }

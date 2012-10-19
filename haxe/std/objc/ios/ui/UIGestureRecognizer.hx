@@ -1,4 +1,10 @@
-//
+package objc.ios.ui;
+
+extern class UIGestureRecognizer extends NSObject {
+	
+	
+}
+/*//
 //  UIGestureRecognizer.h
 //  UIKit
 //
@@ -122,3 +128,4 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIGestureRecognizer : NSObject {
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch;
 
 @end
+*/

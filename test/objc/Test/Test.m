@@ -4,11 +4,41 @@
 
 
 - (void) Test{
-super[];
 }
 
 
-+ (void) main{
++ (UIApplicationMain*) main{
+	return [[UIApplicationMain alloc] init]Test;
+}
+
+
+- (void) printHello{
+	NSLog(@"testing __objc__");
+Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 87, 	className : @"Test", 	methodName : @"printHello"	}];
+}
+
+
+- (int) minus:(int)a b:(int)b{
+	return a - b;
+}
+
+
+- (int) add:(int)a b:(int)b{
+	return a + b;
+}
+
+
+- (int) setWidth:(int)v{
+	return 0;
+}
+
+
+- (int) getWidth{
+	return 0;
+}
+
+
+- (void) tests{
 	NSMutableArray *a = [[Array alloc] init];
 	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects: 1, 2, 3, 4, 5, nil];
 	int b = 5;
@@ -41,34 +71,28 @@ nil	}
 }
 
 
-- (void) printHello{
-	NSLog(@"testing __objc__");
-Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 62, 	className : @"Test", 	methodName : @"printHello"	}];
+- (BOOL) applicationHandleOpenURL:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL{
+	return YES;
 }
 
 
-- (int) minus:(int)a b:(int)b{
-	return a - b;
+- (void) applicationWillResignActive:(UIApplication*)application{
 }
 
 
-- (int) add:(int)a b:(int)b{
-	return a + b;
+- (void) applicationDidBecomeActive:(UIApplication*)application{
 }
 
 
-- (int) setWidth:(int)v{
-	return 0;
-}
-
-
-- (int) getWidth{
-	return 0;
+- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
+Log generateFieldAccess1 .trace[@"Application launched" 	{ 	fileName : @"Test.hx", 	lineNumber : 30, 	className : @"Test", 	methodName : @"applicationDidFinishLaunchingWithOptions"	}];
+	return YES;
 }
 
 
 
 @synthesize interfaceVar2 = _interfaceVar2;
 @synthesize interfaceVar1 = _interfaceVar1;
+@synthesize window = _window;
 
 @end

@@ -1,24 +1,12 @@
-//
-//  UIColor.h
-//  UIKit
-//
-//  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
-//
+package objc.ios.ui;
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import <CoreImage/CoreImage.h>
-#import <UIKit/UIKitDefines.h>
-
-@class UIImage;
-
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIColor : NSObject <NSCoding, NSCopying> {
-  @private
+extern class UIColor extends NSObject {
+	
+	public static function colorWithWhite (white:Float, alpha:Float) :UIColor;
+	public static function colorWithHue (hue:Float, saturation:Float, brightness:Float, alpha:Float) :UIColor;
 }
 
-// Convenience methods for creating autoreleased colors
-+ (UIColor *)colorWithWhite:(CGFloat)white alpha:(CGFloat)alpha;
-+ (UIColor *)colorWithHue:(CGFloat)hue saturation:(CGFloat)saturation brightness:(CGFloat)brightness alpha:(CGFloat)alpha;
+/*
 + (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 + (UIColor *)colorWithCGColor:(CGColorRef)cgColor;
 + (UIColor *)colorWithPatternImage:(UIImage *)image;
@@ -77,3 +65,4 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIColor : NSObject <NSCoding, NSCopying> 
 - (id)initWithColor:(UIColor *)color NS_AVAILABLE_IOS(5_0);
 
 @end
+*/
