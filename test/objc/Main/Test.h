@@ -5,11 +5,10 @@
 #import "Test.h"
 #import "haxe/Log.h"
 #import "Std.h"
+#import "Main.h"
 
 @interface Test : UIResponder <UIApplicationDelegate>
 
-
-+ (UIApplicationMain*) main;
 
 - (void) printHello;
 
@@ -23,13 +22,13 @@
 
 - (void) tests;
 
-- (BOOL) applicationHandleOpenURL:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL;
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL;
 
 - (void) applicationWillResignActive:(UIApplication*)application;
 
 - (void) applicationDidBecomeActive:(UIApplication*)application;
 
-- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
 
 @property (nonatomic, strong, getter=getWidth, setter=setWidth) int width;
 @property (nonatomic, strong) float interfaceVar2;

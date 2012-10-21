@@ -38,7 +38,6 @@ let getFrameworkOfPath class_path =
 	if List.length pack < 1 then "" else
 	match List.nth pack ((List.length pack) -1) with
 	| "addressbook" -> "AddressBook"
-	(* | "assets" -> "AssetsLibrary" *)
 	| "av" -> "AVFoundation"
 	| "network" -> "CFNetwork"
 	| "coredata" -> "CoreData"
@@ -58,6 +57,14 @@ let getFrameworkOfPath class_path =
 	| "twitter" -> "Twitter"
 	| "ui" -> "UIKit"
 	| _ -> ""
+;;
+
+let processFunctionName name = 
+	match name with
+	| "applicationWillFinishLaunchingWithOptions" -> "application"
+	| "applicationDidFinishLaunchingWithOptions" -> "application"
+	| "applicationHandleOpenURL" -> "application"
+	| _ -> name
 ;;
 
 class importsManager =
@@ -168,7 +175,8 @@ let cachedSourceWriter filename =
 
 let newSourceFile base_dir class_path extension =
 	makeClassDirectories base_dir ("" :: (fst class_path));
-	cachedSourceWriter (base_dir ^ "/" ^ ( String.concat "/" (fst class_path) ) ^ "/" ^ (snd class_path) ^ extension);;
+	cachedSourceWriter (base_dir ^ "/" ^ ( String.concat "/" (fst class_path) ) ^ "/" ^ (snd class_path) ^ extension)
+;;
 
 let makeBaseDirectory file = makeClassDirectories "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );;
 
@@ -230,10 +238,13 @@ let protect name =
 	| _ -> name
 ;;
 
-let addPointerIfNeeded t =
+let isPointer t =
 	match t with
-	| "void" | "id" | "BOOL" | "int" | "uint" | "float" -> ""
-	| _ -> "*"
+	| "void" | "id" | "BOOL" | "int" | "uint" | "float" -> false
+	| _ -> true
+;;
+let addPointerIfNeeded t =
+	if (isPointer t) then "*" else ""
 ;;
 
 (* Generating correct type *)
@@ -469,10 +480,10 @@ let generateFunctionHeader ctx name f params p =
 	ctx.local_types <- List.map snd params @ ctx.local_types;
 	let return_type = typeToString ctx f.tf_type p in
 	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
-	(* Generate function name *)
+	(* Generate function name. Some of them will need a rename, check with the database *)
 	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
-			| [] -> n
+			| [] -> processFunctionName n
 			| _ :: l -> loop l
 		in
 		" " ^ loop meta
@@ -539,9 +550,9 @@ and generateValueOp ctx e =
 	| _ ->
 		generateValue ctx e
 
-and generateFieldAccess ctx t s =
-	let field c =
-		match fst c.cl_path, snd c.cl_path, s with
+and generateFieldAccess ctx etype s =
+	(* ctx.writer#write (Printf.sprintf ">%s<" t); *)
+	let field c = match fst c.cl_path, snd c.cl_path, s with
 		| [], "Math", "NaN"
 		| [], "Math", "NEGATIVE_INFINITY"
 		| [], "Math", "POSITIVE_INFINITY"
@@ -554,14 +565,15 @@ and generateFieldAccess ctx t s =
 		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
-		| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess1 .%s" (s))
+		| _ -> ctx.writer#write (Printf.sprintf " %s " s)
 	in
-	match follow t with
+	match follow etype with
 	| TInst (c,_) -> field c
 	| TAnon a ->
 		(match !(a.a_status) with
-		| Statics c -> field c
-		| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess2 .%s" (s)))
+			(* Generate a static field access *)
+			| Statics c -> field c
+			| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess2 .%s" (s)))
 	| _ ->
 		ctx.writer#write (Printf.sprintf " generateFieldAccess3 .%s" (s))
 	
@@ -604,7 +616,14 @@ and generateExpression ctx e =
 		generateValue ctx e;
 		ctx.writer#write (Printf.sprintf "[\"%s\"]" s);
 		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos));		
-	| TField (e,s) | TClosure (e,s) ->
+	| TField (e,s) ->
+		(* This is important, is generating a field access . *)
+		ctx.writer#write "[";
+   		generateValue ctx e;
+		generateFieldAccess ctx e.etype s;
+		(* ctx.writer#write "]"; *)
+	| TClosure (e,s) ->
+		ctx.writer#write "TClosure(e,s) ";
    		generateValue ctx e;
 		generateFieldAccess ctx e.etype s
 	| TTypeExpr t ->
@@ -1034,7 +1053,7 @@ let generateField ctx is_static field =
 						| AccCall s -> Printf.sprintf ", setter=%s" s;
 						| _ -> "")
 					| _ -> "" in
-				let strong = ", strong" in
+				let strong = if (isPointer t) then ", strong" else "" in
 				let readonly = if false then ", readonly" else "" in
 				ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id);
 			end
@@ -1050,7 +1069,7 @@ let generateField ctx is_static field =
 			(* let t = typeToString ctx f.cf_type p in *)
 			let id = field.cf_name in
 			(* let v = (match f.cf_kind with Var v -> v | _ -> assert false) in *)
-			ctx.writer#write (Printf.sprintf "@synthesize %s = _%s;\n" id id);
+			ctx.writer#write (Printf.sprintf "@synthesize %s;\n" id);
 			(* (match v.v_read with
 			| AccNormal -> ""
 			| AccCall m ->
@@ -1167,8 +1186,8 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	ctx.generating_header <- true;
 	ctx.imports_manager#add_class_path class_path;
 	
-	defineGetSet ctx true class_def;
-	defineGetSet ctx false class_def;
+	(* defineGetSet ctx true class_def;
+	defineGetSet ctx false class_def; *)
 	newLine ctx;
 	(* (snd c.cl_path) returns the class name *)
 	
@@ -1226,6 +1245,9 @@ let generateProjectStructure common_ctx =
 
 let generateMain common_ctx class_def =
 
+	let main_expression = (match class_def.cl_ordered_statics with
+		| [{ cf_expr = Some expression }] -> expression;
+		| _ -> assert false ) in
 	let base_dir = common_ctx.file in
 	let sub_dir = match common_ctx.main_class with
 		| Some path -> (snd path)
@@ -1236,6 +1258,39 @@ let generateMain common_ctx class_def =
 		let m_file = newSourceFile base_dir ([sub_dir],filename) ".m" in
 		let output_main = (m_file#write) in
 		
+		print_endline (Type.s_expr_kind main_expression);
+		(* print_endline (Type.s_expr main_expression (Type.s_expr_kind main_expression) ); *)
+		
+		match main_expression.eexpr with
+		| TCall (eo,el) -> 
+			print_endline (Type.s_expr_kind eo);
+			(* print_endline (Type.s_expr_kind (fst el)); *)
+			
+			List.iter (
+			
+			fun object_def -> print_endline (Type.s_expr_kind object_def);
+			
+			) el;
+			
+			(* match el.e_expr, el.e_kind with
+			| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
+				print_endline "1111111111" *)
+			(* let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params p in
+						(* Generate function content if is not a header file *)
+						if not ctx.generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
+						h();
+						newLine ctx *)
+			(* | _ -> print_endline "NOTHING" *)
+		(* print_endline (Type.s_expr_kind el) *)
+			(* (match eo with
+			(* | Some e when (match follow e.etype with TEnum({ e_path = [],"Void" },[]) | TAbstract ({ a_path = [],"Void" },[]) -> true | _ -> false) -> *)
+			| Some e -> print_endline "Generating the return";
+			| None | _ -> print_endline "You must provide a return UIApplicationMain ()"
+				(* ctx.writer#write_i "return "; *)
+				(* generateValue ctx e); *)
+			) *)
+		| _ -> print_endline "The static main method should contain only a return UIApplicationMain and nothing else";
+		Type.print_context();
 		output_main ("//
 //  main.m
 //  " ^ class_name ^ "
@@ -1385,8 +1440,8 @@ let generate common_ctx =
 		generatePlist common_ctx class_def;
 		generateResources common_ctx;
 		
-		List.iter (fun name ->
+		(* List.iter (fun name ->
 			print_endline name
-		) imports_manager#get_all_frameworks
+		) imports_manager#get_all_frameworks *)
 	)
 ;;

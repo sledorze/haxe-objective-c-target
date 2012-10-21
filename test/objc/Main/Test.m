@@ -7,14 +7,9 @@
 }
 
 
-+ (UIApplicationMain*) main{
-	return [[UIApplicationMain alloc] init]Test;
-}
-
-
 - (void) printHello{
 	NSLog(@"testing __objc__");
-Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 87, 	className : @"Test", 	methodName : @"printHello"	}];
+[Log trace [@"Hello from Haxe Objective-C" 	{ 	fileName : @"Test.hx", 	lineNumber : 80, 	className : @"Test", 	methodName : @"printHello"	}];
 }
 
 
@@ -49,10 +44,10 @@ Log generateFieldAccess1 .trace[@"Hello from Haxe Objective-C" 	{ 	fileName : @"
 	int g = (int*);
 {
 		int _g = 0;
-		while695(_g < aa generateFieldAccess1 .length) {
+		while695(_g < [aa length ) {
 			int i = [aa objectAtIndex: _g];
 ++_g;
-a generateFieldAccess1 .push[Std generateFieldAccess1 .string[i]];
+[a push [[Std string [i]];
 		}
 	}
 	switch(e) {	
@@ -63,15 +58,15 @@ nil	}
 nil	}
 	break;	
 };
-	if(a generateFieldAccess1 .length > 3) f = 3	
-	else f = a generateFieldAccess1 .length;
-	int x = [[Test alloc] init] generateFieldAccess1 .add[1 1];
+	if([a length  > 3) f = 3	
+	else f = [a length ;
+	int x = [[[Test alloc] init] add [1 1];
 	UIWebView *webView = [[UIWebView alloc] init];
 	MKMapView *map = [[MKMapView alloc] init];
 }
 
 
-- (BOOL) applicationHandleOpenURL:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL{
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL{
 	return YES;
 }
 
@@ -84,8 +79,8 @@ nil	}
 }
 
 
-- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
-Log generateFieldAccess1 .trace[@"Application launched" 	{ 	fileName : @"Test.hx", 	lineNumber : 30, 	className : @"Test", 	methodName : @"applicationDidFinishLaunchingWithOptions"	}];
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
+[Log trace [@"Application launched" 	{ 	fileName : @"Test.hx", 	lineNumber : 23, 	className : @"Test", 	methodName : @"applicationDidFinishLaunchingWithOptions"	}];
 	return YES;
 }
 
