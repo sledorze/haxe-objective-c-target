@@ -515,7 +515,7 @@ let generateFunctionHeader ctx name f params p =
 	)
 ;;
 
-let rec generateMethodCall ctx e el r =
+let rec generateMethodSignature ctx e el r =
 	(* ctx.writer#write ("GEN_M_CALL>"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr , el with
 	| TCall (x,_) , el ->
@@ -533,11 +533,9 @@ let rec generateMethodCall ctx e el r =
 		concat ctx "," (generateValue ctx) el;
 		ctx.writer#write ")"
 	| _ ->
-		(* Generate a call to a method *)
 		generateValue ctx e;
 		ctx.writer#write ":";
 		concat ctx " otherArgName:" (generateValue ctx) el
-		(* ctx.writer#write "]" *)
 	
 and generateValueOp ctx e =
 	match e.eexpr with
@@ -563,7 +561,9 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
-		| _ -> ctx.writer#write (Printf.sprintf "%s%s" (if to_method or ctx.generating_call then " " else ".") s)
+		| _ ->
+			let accesor = if to_method or ctx.generating_call then " " else "." in
+			ctx.writer#write (Printf.sprintf "%s%s" accesor s)
 		(* Generating dot notation for property and space for methods *)
 	in
 	match follow etype with
@@ -679,7 +679,7 @@ and generateExpression ctx e =
 	| TCall (func, arg_list) ->
 		ctx.writer#write_i "[";
 		ctx.generating_call <- true;
-		generateMethodCall ctx func arg_list e.etype;
+		generateMethodSignature ctx func arg_list e.etype;
 		ctx.generating_call <- false;
 		ctx.writer#write "]"
 	| TArrayDecl el ->
@@ -970,7 +970,29 @@ and generateValue ctx e =
 
 let final m = if has_meta ":final" m then "final " else ""
 
+let generateProperty ctx field pos =
+	let id = field.cf_name in
+	if ctx.generating_header then begin
+	let t = typeToString ctx field.cf_type pos in
+	let getter = match field.cf_kind with
+		| Var v -> (match v.v_read with
+			| AccCall s -> Printf.sprintf ", getter=%s" s;
+			| _ -> "")
+		| _ -> "" in
+	let setter = match field.cf_kind with
+		| Var v -> (match v.v_write with
+			| AccCall s -> Printf.sprintf ", setter=%s" s;
+			| _ -> "")
+		| _ -> "" in
+	let strong = if (isPointer t) then ", strong" else "" in
+	let readonly = if false then ", readonly" else "" in
+	ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id)
+	end else
+	ctx.writer#write (Printf.sprintf "@synthesize %s;\n" id)
+;;
+
 let generateField ctx is_static field =
+	(* ctx.writer#write "GEN_FIELD>"; *)
 	newLine ctx;
 	ctx.in_static <- is_static;
 	ctx.gen_uid <- 0;
@@ -1000,14 +1022,17 @@ let generateField ctx is_static field =
 	) field.cf_meta; *)
 	
 	(* let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
-	let p = ctx.class_def.cl_pos in
+	let pos = ctx.class_def.cl_pos in
 	match field.cf_expr, field.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
 		ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
 		(* Generate function header *)
-		let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params p in
+		let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos in
 		(* Generate function content if is not a header file *)
-		if not ctx.generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
+		if not ctx.generating_header then
+			generateExpression ctx fd.tf_expr
+		else
+			ctx.writer#write ";";
 		h();
 		newLine ctx
 	| _ ->
@@ -1047,25 +1072,10 @@ let generateField ctx is_static field =
 				ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
 				first_arg := false;
 			) args; *)
-				
+			
 		| _ when is_getset ->
-			if ctx.generating_header then begin
-				let t = typeToString ctx field.cf_type p in
-				let id = field.cf_name in
-				let getter = match field.cf_kind with
-					| Var v -> (match v.v_read with
-						| AccCall s -> Printf.sprintf ", getter=%s" s;
-						| _ -> "")
-					| _ -> "" in
-				let setter = match field.cf_kind with
-					| Var v -> (match v.v_write with
-						| AccCall s -> Printf.sprintf ", setter=%s" s;
-						| _ -> "")
-					| _ -> "" in
-				let strong = if (isPointer t) then ", strong" else "" in
-				let readonly = if false then ", readonly" else "" in
-				ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id);
-			end
+			if ctx.generating_header then
+				generateProperty ctx field pos
 		| _ -> ();
 		
 		let gen_init () = match field.cf_expr with
@@ -1076,9 +1086,9 @@ let generateField ctx is_static field =
 		in
 		if is_getset then begin
 			(* let t = typeToString ctx f.cf_type p in *)
-			let id = field.cf_name in
+			(* Generate a synthesizer *)
+			generateProperty ctx field pos;
 			(* let v = (match f.cf_kind with Var v -> v | _ -> assert false) in *)
-			ctx.writer#write (Printf.sprintf "@synthesize %s;\n" id);
 			(* (match v.v_read with
 			| AccNormal -> ""
 			| AccCall m ->
@@ -1095,25 +1105,15 @@ let generateField ctx is_static field =
 			| _ -> ()); *)
 			gen_init()
 		end
-		else if ctx.generating_header then begin
-			(* This is generating implementation class properties declarations *)
-			let t = (typeToString ctx field.cf_type p) in
-			let id = field.cf_name in
-			(* let v = (match field.cf_kind with Var v -> v | _ -> assert false) in *)
-			ctx.writer#write (Printf.sprintf "@property (nonatomic, strong) %s %s%s;" t (addPointerIfNeeded t) id);
-			gen_init()
-		end
 		else begin
-			(* let t = (typeToString ctx f.cf_type p) in *)
-			let id = field.cf_name in
-			ctx.writer#write (Printf.sprintf "@synthesize %s;" id);
+			(* This is generating implementation class properties declarations *)
+			generateProperty ctx field pos;
+			(* let t = (typeToString ctx field.cf_type pos) in *)
+			(* let id = field.cf_name in *)
+			(* let v = (match field.cf_kind with Var v -> v | _ -> assert false) in *)
+			(* ctx.writer#write (Printf.sprintf "@property (nonatomic, strong) %s %s%s;" t (addPointerIfNeeded t) id); *)
 			gen_init()
 		end
-;;
-
-let generateProperty ctx static f =
-	
-	()
 ;;
 
 let rec defineGetSet ctx is_static c =
@@ -1167,7 +1167,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	| None -> ()
 	| Some f ->
 		let f = { f with
-			cf_name = snd class_def.cl_path;
+			cf_name = "init"(* snd class_def.cl_path *);
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in
@@ -1175,7 +1175,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	);
 	
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) class_def.cl_ordered_fields;
+	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
 	
 	output_m "\n\n@end\n";
 	m_file#close

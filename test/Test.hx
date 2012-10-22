@@ -34,12 +34,14 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 		// declare some random variables
 		var a = new Array<String>();
 		var aa = [1, 2, 3, 4, 5];
-/*		var b :Int = 5;
+		var b :Int = 5;
 		var c :Float = 5.0;
 		var d = "xyz";
 		var e = true;
 		var f :Int;
 		var g :Int = cast (5.3, Int);
+		var xy = a.length;
+		a.push ( "6" );
 		
 		for (i in aa) {
 			a.push (Std.string(i));
@@ -56,14 +58,13 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 		else {
 			f = a.length;
 		}
+		f = a.length > 3 ? 3 : a.length;
 		
 		var x = new Test().add (1, 1);
 		
 		var webView = new UIWebView();
 		var map = new MKMapView();
-			webView.initWithFrame();*/
-		var xy = a.length;
-		a.push ( "6" );
+			//webView.initWithFrame();
 	}
 	
 	function getWidth():Int{return 0;}

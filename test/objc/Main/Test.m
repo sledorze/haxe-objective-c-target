@@ -3,56 +3,15 @@
 @implementation Test
 
 
-- (void) Test{
+- (void) init{
 }
 
 
-- (void) printHello{
-	NSLog(@"testing __objc__");
-	[Log trace:@"" andPos:@""];;
-	[Log trace:@"Hello from Haxe Objective-C" otherArgName:	{	fileName:@"Test.hx" ,	lineNumber:83 ,	className:@"Test" ,	methodName:@"printHello"	}];
-}
+@synthesize window;
 
+@synthesize interfaceVar1;
 
-- (int) minus:(int)a b:(int)b{
-	return a - b;
-}
-
-
-- (int) add:(int)a b:(int)b{
-	return a + b;
-}
-
-
-- (int) setWidth:(int)v{
-	return 0;
-}
-
-
-- (int) getWidth{
-	return 0;
-}
-
-
-- (void) tests{
-	NSMutableArray *a = [[Array alloc] init];
-	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects: 1, 2, 3, 4, 5, nil];
-	int xy = a.length;
-	[a push:@"6"];
-}
-
-
-- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL{
-	return YES;
-}
-
-
-- (void) applicationWillResignActive:(UIApplication*)application{
-}
-
-
-- (void) applicationDidBecomeActive:(UIApplication*)application{
-}
+@synthesize interfaceVar2;
 
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
@@ -61,9 +20,81 @@
 }
 
 
+- (void) applicationDidBecomeActive:(UIApplication*)application{
+}
 
-@synthesize interfaceVar2;
-@synthesize interfaceVar1;
-@synthesize window;
+
+- (void) applicationWillResignActive:(UIApplication*)application{
+}
+
+
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL{
+	return YES;
+}
+
+
+- (void) tests{
+	NSMutableArray *a = [[Array alloc] init];
+	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects: 1, 2, 3, 4, 5, nil];
+	int b = 5;
+	float c = 5.0;
+	NSString *d = @"xyz";
+	BOOL e = YES;
+	int f;
+	int g = (int*);
+	int xy = a.length;
+	[a push:@"6"];
+{
+		int _g = 0;
+		while695(_g < aa.length) {
+			int i = [aa objectAtIndex:_g];
+++_g;
+			[a push:			[Std string:i]];
+		}
+	}
+	switch(e) {	
+	case YES:{
+nil	}
+	break;	
+	case NO:{
+nil	}
+	break;	
+};
+	if(a.length > 3) f = 3	
+	else f = a.length;
+f = ((a.length > 3)?3:a.length);
+	int x = 	[[[Test alloc] init] add:1 otherArgName:1];
+	UIWebView *webView = [[UIWebView alloc] init];
+	MKMapView *map = [[MKMapView alloc] init];
+}
+
+
+- (int) getWidth{
+	return 0;
+}
+
+
+- (int) setWidth:(int)v{
+	return 0;
+}
+
+
+- (int) add:(int)a b:(int)b{
+	return a + b;
+}
+
+
+- (int) minus:(int)a b:(int)b{
+	return a - b;
+}
+
+
+- (void) printHello{
+	NSLog(@"testing __objc__");
+	[Log trace:@"" andPos:@""];;
+	[Log trace:@"Hello from Haxe Objective-C" otherArgName:	{	fileName:@"Test.hx" ,	lineNumber:84 ,	className:@"Test" ,	methodName:@"printHello"	}];
+}
+
+
 
 @end
