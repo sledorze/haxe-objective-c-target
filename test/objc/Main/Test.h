@@ -1,6 +1,5 @@
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
 
 #import "Test.h"
 #import "haxe/Log.h"
@@ -30,7 +29,7 @@
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
 
-@property (nonatomic, strong, getter=getWidth, setter=setWidth) int width;
+@property (nonatomic, getter=getWidth, setter=setWidth) int width;
 @property (nonatomic, strong) float interfaceVar2;
 @property (nonatomic, strong) int interfaceVar1;
 @property (nonatomic, strong) UIWindow *window;

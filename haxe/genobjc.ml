@@ -194,6 +194,7 @@ type context = {
 	mutable in_static : bool;
 	mutable handleBreak : bool;
 	mutable generating_header : bool;
+	mutable generating_call : bool;
 	mutable gen_uid : int;
 	mutable local_types : t list;
 }
@@ -208,6 +209,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	in_static = false;
 	handleBreak = false;
 	generating_header = false;
+	generating_call = false;
 	gen_uid = 0;
 	local_types = [];
 }
@@ -513,33 +515,29 @@ let generateFunctionHeader ctx name f params p =
 	)
 ;;
 
-let rec generateCall ctx e el r =
+let rec generateMethodCall ctx e el r =
+	(* ctx.writer#write ("GEN_M_CALL>"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr , el with
-	| TLocal { v_name = "trace" }, [e;infos] ->
-		ctx.writer#write "NSLog(";
-		generateValue ctx e;
-		ctx.writer#write ",";
-		generateValue ctx infos;
-		ctx.writer#write ")"
 	| TCall (x,_) , el ->
-		ctx.writer#write "[";
+		ctx.writer#write "generateCall TCAll";
 		generateValue ctx e;
-		ctx.writer#write "]";
+		ctx.writer#write "-GCE-";
 		ctx.writer#write " ";
 		concat ctx " " (generateValue ctx) el;
-		ctx.writer#write "]"
+		ctx.writer#write "-GCE2-"
 	| TField(ee,v),args when isVarField ee v ->
-		ctx.writer#write "(";
+		ctx.writer#write "generateCall TField (";
 		generateValue ctx e;
 		ctx.writer#write ")";
 		ctx.writer#write "(";
 		concat ctx "," (generateValue ctx) el;
 		ctx.writer#write ")"
 	| _ ->
+		(* Generate a call to a method *)
 		generateValue ctx e;
-		ctx.writer#write "[";
-		concat ctx " " (generateValue ctx) el;
-		ctx.writer#write "]"
+		ctx.writer#write ":";
+		concat ctx " otherArgName:" (generateValue ctx) el
+		(* ctx.writer#write "]" *)
 	
 and generateValueOp ctx e =
 	match e.eexpr with
@@ -550,7 +548,7 @@ and generateValueOp ctx e =
 	| _ ->
 		generateValue ctx e
 
-and generateFieldAccess ctx etype s =
+and generateFieldAccess ctx etype s to_method =
 	(* ctx.writer#write (Printf.sprintf ">%s<" t); *)
 	let field c = match fst c.cl_path, snd c.cl_path, s with
 		| [], "Math", "NaN"
@@ -565,7 +563,8 @@ and generateFieldAccess ctx etype s =
 		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
-		| _ -> ctx.writer#write (Printf.sprintf " %s " s)
+		| _ -> ctx.writer#write (Printf.sprintf "%s%s" (if to_method or ctx.generating_call then " " else ".") s)
+		(* Generating dot notation for property and space for methods *)
 	in
 	match follow etype with
 	| TInst (c,_) -> field c
@@ -573,18 +572,19 @@ and generateFieldAccess ctx etype s =
 		(match !(a.a_status) with
 			(* Generate a static field access *)
 			| Statics c -> field c
-			| _ -> ctx.writer#write (Printf.sprintf " generateFieldAccess2 .%s" (s)))
+			| _ -> ctx.writer#write (Printf.sprintf " GFA2 .%s" (s)))
 	| _ ->
-		ctx.writer#write (Printf.sprintf " generateFieldAccess3 .%s" (s))
+		ctx.writer#write (Printf.sprintf " GFA3 .%s" (s))
 	
 and generateExpression ctx e =
+	(* ctx.writer#write ("GEN_EXPR>"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
 		generateConstant ctx e.epos c
 	| TLocal v ->
 		ctx.writer#write (v.v_name)
 	| TEnumField (en,s) ->
-		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
+		ctx.writer#write_i (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
 	| TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
 		let path = Ast.parse_path s in
 		ctx.writer#write (processClassPath ctx false path e.epos)
@@ -592,7 +592,7 @@ and generateExpression ctx e =
 		(* Accesing an array element *)
 		ctx.writer#write "[";
 		generateValue ctx e1;
-		ctx.writer#write " objectAtIndex: ";
+		ctx.writer#write " objectAtIndex:";
 		generateValue ctx e2;
 		ctx.writer#write "]";
 	| TBinop (Ast.OpEq,e1,e2) when (match isSpecialCompare e1 e2 with Some c -> true | None -> false) ->
@@ -618,14 +618,12 @@ and generateExpression ctx e =
 		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos));		
 	| TField (e,s) ->
 		(* This is important, is generating a field access . *)
-		ctx.writer#write "[";
    		generateValue ctx e;
-		generateFieldAccess ctx e.etype s;
-		(* ctx.writer#write "]"; *)
+		generateFieldAccess ctx e.etype s false;
 	| TClosure (e,s) ->
 		ctx.writer#write "TClosure(e,s) ";
    		generateValue ctx e;
-		generateFieldAccess ctx e.etype s
+		generateFieldAccess ctx e.etype s true
 	| TTypeExpr t ->
 		ctx.writer#write (processClassPath ctx true (t_path t) e.epos)
 	| TParenthesis e ->
@@ -669,14 +667,21 @@ and generateExpression ctx e =
 		generateExpression ctx f.tf_expr;
 		ctx.in_static <- old;
 		h();
+	(* Generate a call to a function *)
+	(* | TCall (func, arg_list) -> ctx.writer#write "GENERATE call (func, arg_list)"; *)
 	| TCall (func, arg_list) when (match func.eexpr with
 		| TLocal { v_name = "__objc__" } -> true
 		| _ -> false) ->
 			( match arg_list with
 			| [{ eexpr = TConst (TString code) }] -> ctx.writer#write_i code;
 			| _ -> error "__objc__ accepts only one string as an argument" func.epos;)
-	| TCall (v,el) ->
-		generateCall ctx v el e.etype
+			(* TODO: this is generating a method aceess. We need to add indentation before the first call *)
+	| TCall (func, arg_list) ->
+		ctx.writer#write_i "[";
+		ctx.generating_call <- true;
+		generateMethodCall ctx func arg_list e.etype;
+		ctx.generating_call <- false;
+		ctx.writer#write "]"
 	| TArrayDecl el ->
 		ctx.writer#write "[[NSMutableArray alloc] initWithObjects: ";
 		concat ctx ", " (generateValue ctx) el;
@@ -733,8 +738,8 @@ and generateExpression ctx e =
 		generateValue ctx (parent cond);
 		handleBreak();
 	| TObjectDecl fields ->
-		ctx.writer#write_i "{ ";
-		concat ctx ", " (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s : " (f)); generateValue ctx e) fields;
+		ctx.writer#write_i "{";
+		concat ctx " ," (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
 		ctx.writer#write_i "}"
 	| TFor (v,it,e) ->
 		ctx.writer#begin_block;
@@ -836,6 +841,7 @@ and generateBlock ctx e =
 		ctx.writer#end_block
 	
 and generateValue ctx e =
+	(* ctx.writer#write ("GEN_VAL>"^(Type.s_expr_kind e)^">"); *)
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,
@@ -875,10 +881,14 @@ and generateValue ctx e =
 		)
 	in
 	match e.eexpr with
-	| TCall ({ eexpr = TLocal { v_name = "__keys__" } },_) | TCall ({ eexpr = TLocal { v_name = "__hkeys__" } },_) ->
+	| TCall ({ eexpr = TLocal { v_name = "__keys__" } },_) 
+	| TCall ({ eexpr = TLocal { v_name = "__hkeys__" } },_) ->
+		ctx.writer#write "GENERATE_CALL_0 ";
 		let v = value true in
 		generateExpression ctx e;
 		v()
+	| TTypeExpr _ ->
+		generateExpression ctx e
 	| TConst _
 	| TLocal _
 	| TEnumField _
@@ -886,7 +896,6 @@ and generateValue ctx e =
 	| TBinop _
 	| TField _
 	| TClosure _
-	| TTypeExpr _
 	| TParenthesis _
 	| TObjectDecl _
 	| TArrayDecl _
@@ -1097,7 +1106,7 @@ let generateField ctx is_static field =
 		else begin
 			(* let t = (typeToString ctx f.cf_type p) in *)
 			let id = field.cf_name in
-			ctx.writer#write (Printf.sprintf "@synthesize %s = _%s;" id id);
+			ctx.writer#write (Printf.sprintf "@synthesize %s;" id);
 			gen_init()
 		end
 ;;

@@ -34,7 +34,7 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 		// declare some random variables
 		var a = new Array<String>();
 		var aa = [1, 2, 3, 4, 5];
-		var b :Int = 5;
+/*		var b :Int = 5;
 		var c :Float = 5.0;
 		var d = "xyz";
 		var e = true;
@@ -61,7 +61,9 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 		
 		var webView = new UIWebView();
 		var map = new MKMapView();
-/*			webView.initWithFrame();*/
+			webView.initWithFrame();*/
+		var xy = a.length;
+		a.push ( "6" );
 	}
 	
 	function getWidth():Int{return 0;}
@@ -77,6 +79,7 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 	}
 	public function printHello () :Void {
 		untyped __objc__("NSLog(@\"testing __objc__\")");
+		untyped __objc__("[Log trace:@\"\" andPos:@\"\"];");
 		trace("Hello from Haxe Objective-C");
 	}
 }
