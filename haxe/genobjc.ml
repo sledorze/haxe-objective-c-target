@@ -1058,7 +1058,7 @@ let generateProperty ctx field pos =
 	let readonly = if false then ", readonly" else "" in
 	ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id)
 	end else
-	ctx.writer#write (Printf.sprintf "@synthesize %s;\n" id)
+	ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
 ;;
 
 let generateField ctx is_static field =
@@ -1264,11 +1264,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	ctx.class_def <- class_def;
 	ctx.generating_header <- true;
 	ctx.imports_manager#add_class_path class_path;
-	
-	(* defineGetSet ctx true class_def;
-	defineGetSet ctx false class_def; *)
 	newLine ctx;
-	(* (snd c.cl_path) returns the class name *)
 	
 	(* Import frameworks *)
 	ctx.writer#import_frameworks imports_manager#get_class_frameworks;
@@ -1282,7 +1278,6 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	(* Add the super class *)
 	(match class_def.cl_super with
 		| None -> ()
-		(* | Some (csup,_) -> output_h (Printf.sprintf " : %s " (s_path ctx true csup.cl_path class_def.cl_pos))); *)
 		| Some (csup,_) -> output_h (Printf.sprintf " : %s " (snd csup.cl_path)));
 	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
 	if class_def.cl_implements != [] then begin

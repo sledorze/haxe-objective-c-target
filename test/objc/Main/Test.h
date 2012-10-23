@@ -2,6 +2,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
+#import "Array.h"
 #import "Test.h"
 #import "haxe/Log.h"
 #import "Std.h"

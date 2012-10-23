@@ -8,11 +8,8 @@
 
 
 @synthesize window;
-
 @synthesize interfaceVar1;
-
 @synthesize interfaceVar2;
-
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
 	[GEN_M_CALL>Field>Log trace:2Const>ObjectDecl>>>TEnum>>0Void];
