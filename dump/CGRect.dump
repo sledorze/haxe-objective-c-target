@@ -1,0 +1,8 @@
+extern class CGRect{
+	public new(method) : x : Float -> y : Float -> w : Float -> h : Float -> Void;
+
+	public size(var) : CGSize;
+
+	public origin(var) : CGPoint;
+
+}

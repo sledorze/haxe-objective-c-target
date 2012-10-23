@@ -1,0 +1,6 @@
+extern class objc.ios.map.MKMapView extends objc.ios.ui.UIView{
+	public new(method) : Void -> Void;
+
+	public delegate(var) : objc.ios.map.MKMapViewDelegate;
+
+}

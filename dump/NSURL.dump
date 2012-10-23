@@ -1,0 +1,12 @@
+extern class NSURL extends NSObject{
+	public initFileURLWithPath(method) : path : String -> Dynamic;
+
+	public initFileURLWithPathIsDirectory(method) : path : String -> isDirectory : Bool -> Dynamic;
+
+	public initWithScheme(method) : scheme : String -> host : String -> path : String -> Dynamic;
+
+	static public fileURLWithPathIsDirectory(method) : path : String -> isDirectory : Bool -> Dynamic;
+
+	static public fileURLWithPath(method) : path : String -> Dynamic;
+
+}

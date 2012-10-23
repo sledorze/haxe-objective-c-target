@@ -1,0 +1,6 @@
+extern class NSSet extends NSObject{
+	public member(method) : object : Dynamic -> Void;
+
+	public count(method) : Void -> Int;
+
+}

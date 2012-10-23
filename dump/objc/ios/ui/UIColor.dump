@@ -1,0 +1,6 @@
+extern class objc.ios.ui.UIColor extends NSObject{
+	static public colorWithWhite(method) : white : Float -> alpha : Float -> objc.ios.ui.UIColor;
+
+	static public colorWithHue(method) : hue : Float -> saturation : Float -> brightness : Float -> alpha : Float -> objc.ios.ui.UIColor;
+
+}

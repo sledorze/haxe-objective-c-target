@@ -15,7 +15,8 @@
 
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
-	[Log trace:@"Application launched" otherArgName:	{	fileName:@"Test.hx" ,	lineNumber:23 ,	className:@"Test" ,	methodName:@"applicationDidFinishLaunchingWithOptions"	}];
+	[GEN_M_CALL>Field>Log trace:2Const>ObjectDecl>>>TEnum>>0Void];
+	[GEN_M_CALL>Field>self lotsOfArguments:4Const>Const>Const>Const>>>TEnum>>0Void];
 	return YES;
 }
 
@@ -34,8 +35,8 @@
 
 
 - (void) tests{
-	NSMutableArray *a = [[Array alloc] init];
-	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects: 1, 2, 3, 4, 5, nil];
+	Array *a = [[Array alloc] init];
+	Array *aa = [[NSMutableArray alloc] initWithObjects: 1, 2, 3, 4, 5, nil];
 	int b = 5;
 	float c = 5.0;
 	NSString *d = @"xyz";
@@ -43,29 +44,30 @@
 	int f;
 	int g = (int*);
 	int xy = a.length;
-	[a push:@"6"];
+	[GEN_M_CALL>Field>a push:1Const>TInst];
 {
 		int _g = 0;
-		while695(_g < aa.length) {
+		while695 (_g < aa.length) {
 			int i = [aa objectAtIndex:_g];
 ++_g;
-			[a push:			[Std string:i]];
+			[GEN_M_CALL>Field>a push:1Call>TInst];
 		}
 	}
-	switch(e) {	
-	case YES:{
-nil	}
-	break;	
-	case NO:{
-nil	}
-	break;	
-};
-	if(a.length > 3) f = 3	
+	switch (e){
+		case YES:{
+nil		}
+		break;		
+		case NO:{
+nil		}
+		break;		
+	}
+	if (a.length > 3) f = 3	
 	else f = a.length;
-f = ((a.length > 3)?3:a.length);
-	int x = 	[[[Test alloc] init] add:1 otherArgName:1];
+f = ( (a.length > 3)?3:a.length);
+	int x = 	[GEN_M_CALL>Field>[[Test alloc] init] add:2Const>Const>TInst];
 	UIWebView *webView = [[UIWebView alloc] init];
 	MKMapView *map = [[MKMapView alloc] init];
+map.frame = CGRectMake (10,10,200,200);
 }
 
 
@@ -89,10 +91,13 @@ f = ((a.length > 3)?3:a.length);
 }
 
 
+- (void) lotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+}
+
+
 - (void) printHello{
 	NSLog(@"testing __objc__");
-	[Log trace:@"" andPos:@""];;
-	[Log trace:@"Hello from Haxe Objective-C" otherArgName:	{	fileName:@"Test.hx" ,	lineNumber:84 ,	className:@"Test" ,	methodName:@"printHello"	}];
+	[GEN_M_CALL>Field>Log trace:2Const>ObjectDecl>>>TEnum>>0Void];
 }
 
 

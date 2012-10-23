@@ -1,0 +1,4 @@
+extern class objc.ios.ui.UIApplicationMain{
+	public new(method) : startupClass : Class<objc.ios.ui.UIApplicationDelegate> -> Void;
+
+}

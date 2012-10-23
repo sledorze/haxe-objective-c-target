@@ -1,0 +1,2 @@
+extern interface objc.ios.ui.UIWebViewDelegate{
+}

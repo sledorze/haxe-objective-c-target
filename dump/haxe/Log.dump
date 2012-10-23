@@ -1,0 +1,12 @@
+class haxe.Log{
+	static public trace(dynamic method) : v : Dynamic -> ?infos : haxe.PosInfos -> Void
+
+	 = (Function(v:16 : Dynamic,infos:17 : haxe.PosInfos = null) : Void = (Block {
+} : Void) : v : Dynamic -> ?infos : haxe.PosInfos -> Void);
+
+	static public clear(dynamic method) : Void -> Void
+
+	 = (Function() : Void = (Block {
+} : Void) : Void -> Void);
+
+}

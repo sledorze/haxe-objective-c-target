@@ -4,7 +4,7 @@
 
 
 + (UIApplicationMain*) main{
-	return [[UIApplicationMain alloc] init]Test;
+	return [[UIApplicationMain alloc] init];
 }
 
 

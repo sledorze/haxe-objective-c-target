@@ -7,6 +7,8 @@ extern class UIView {
 	public static function commitAnimations () :Void;
 	public static function setAnimationDuration (delay:Float) :Void;
 	
+	public var frame :CGRect;
+	
 	function new() : Void;
 	//public function initWithFrame (frame:CGRect) : Void;
 }

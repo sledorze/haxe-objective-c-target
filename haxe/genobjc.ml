@@ -242,7 +242,7 @@ let protect name =
 
 let isPointer t =
 	match t with
-	| "void" | "id" | "BOOL" | "int" | "uint" | "float" -> false
+	| "void" | "id" | "BOOL" | "int" | "uint" | "float" | "CGRect" | "CGPoint" | "CGSize" -> false
 	| _ -> true
 ;;
 let addPointerIfNeeded t =
@@ -259,7 +259,7 @@ let processClassPath ctx is_static path pos =
 		| "Dynamic" -> "NSDictionary"
 		| "Bool" -> "BOOL"
 		| "String" -> "NSString"
-		| "Array" -> "NSMutableArray"
+		| "Array" -> "Array"
 		| _ -> name)
 	| (["objc"],"FlashXml__") -> "Xml"
 	| (["flash";"errors"],"Error") -> "Error"
@@ -515,9 +515,9 @@ let generateFunctionHeader ctx name f params p =
 	)
 ;;
 
-let rec generateMethodSignature ctx e el r =
-	(* ctx.writer#write ("GEN_M_CALL>"^(Type.s_expr_kind e)^">"); *)
-	match e.eexpr , el with
+let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
+	ctx.writer#write ("GEN_M_CALL>"^(Type.s_expr_kind func)^">");
+	(* match func.eexpr , el with
 	| TCall (x,_) , el ->
 		ctx.writer#write "generateCall TCAll";
 		generateValue ctx e;
@@ -535,7 +535,65 @@ let rec generateMethodSignature ctx e el r =
 	| _ ->
 		generateValue ctx e;
 		ctx.writer#write ":";
-		concat ctx " otherArgName:" (generateValue ctx) el
+		concat ctx " otherArgName:" (generateValue ctx) el *)
+	generateValue ctx func;
+	ctx.writer#write ":";
+	ctx.writer#write (string_of_int (List.length arg_list));
+	(* concat ctx " otherArgName:" (generateValue ctx) arg_list; *)
+	
+	(* ctx.writer#write ((Type.s_expr_kind etype)^">") *)
+	
+	List.iter (fun arg_def ->
+		ctx.writer#write ((Type.s_expr_kind arg_def)^">");
+		(* ctx.writer#write (generateValue ctx arg_def);() *)
+		(* match arg_def with
+		| TClassDecl class_def ->
+			let class_def = (match class_def.cl_path with
+				| ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" }
+				| (pack,name) -> { class_def with cl_path = (pack, name) }
+			) in
+			(match class_def.cl_init with
+			| None -> ()
+			| Some e -> inits := e :: !inits);
+			
+			if not class_def.cl_extern then generateClassFiles common_ctx class_def file_info imports_manager
+		
+		| TEnumDecl e ->
+			let pack,name = e.e_path in
+			let e = { e with e_path = (pack,protect name) } in
+			if not e.e_extern then generateEnum common_ctx e
+				
+		| TTypeDecl _ | TAbstractDecl _ ->
+			() *)
+	) arg_list;
+	match etype with
+	| TMono (x) -> ctx.writer#write "TMono";
+	| TEnum (enum, params)->
+		ctx.writer#write ">>TEnum>>";
+		ctx.writer#write (string_of_int (List.length params));
+		ctx.writer#write (snd enum.e_path);
+		List.iter (fun en -> ctx.writer#write en)enum.e_names;
+		List.iter (fun t_ ->
+			
+			match t_ with
+			| TMono (x) -> ctx.writer#write "TMono";
+			| TEnum (enum, params)-> ctx.writer#write "TEnum"; 
+			| TInst (cls, params) -> ctx.writer#write "TInst";
+			| TType (x, y) -> ctx.writer#write "TType";
+			| TFun (x, y) -> ctx.writer#write "TFun";
+			| TAnon (x)-> ctx.writer#write "TAnon";
+			| TDynamic (x)-> ctx.writer#write "TDynamic";
+			| TLazy (x)-> ctx.writer#write "TLazy";
+			| TAbstract (x, y) -> ctx.writer#write "TAbstract"
+		) params;
+	| TInst (cls, params) -> ctx.writer#write "TInst";
+	| TType (x, y) -> ctx.writer#write "TType";
+	| TFun (x, y) -> ctx.writer#write "TFun";
+	| TAnon (x)-> ctx.writer#write "TAnon";
+	| TDynamic (x)-> ctx.writer#write "TDynamic";
+	| TLazy (x)-> ctx.writer#write "TLazy";
+	| TAbstract (x, y) -> ctx.writer#write "TAbstract"
+	
 	
 and generateValueOp ctx e =
 	match e.eexpr with
@@ -627,7 +685,7 @@ and generateExpression ctx e =
 	| TTypeExpr t ->
 		ctx.writer#write (processClassPath ctx true (t_path t) e.epos)
 	| TParenthesis e ->
-		ctx.writer#write "(";
+		ctx.writer#write " (";
 		generateValue ctx e;
 		ctx.writer#write ")";
 	| TReturn eo ->
@@ -679,7 +737,7 @@ and generateExpression ctx e =
 	| TCall (func, arg_list) ->
 		ctx.writer#write_i "[";
 		ctx.generating_call <- true;
-		generateMethodSignature ctx func arg_list e.etype;
+		generateMethodCall ctx func arg_list e.etype;
 		ctx.generating_call <- false;
 		ctx.writer#write "]"
 	| TArrayDecl el ->
@@ -702,10 +760,23 @@ and generateExpression ctx e =
 				generateValue ctx e
 		) vl;
 	| TNew (c,params,el) ->
-		(match c.cl_path, params with
-		| (["flash"],"Vector"), [pt] -> ctx.writer#write (Printf.sprintf "new Vector.<%s>(" (typeToString ctx pt e.epos))
-		| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*processClassPath ctx true c.cl_path e.epos) *));
-		concat ctx "," (generateValue ctx) el)
+		(* ctx.writer#write ("GEN_NEW>"^(snd c.cl_path)^(string_of_int (List.length params))); *)
+		(* (match c.cl_path with
+			| ([],"CGRect") -> ctx.writer#write (Printf.sprintf "CGRectMake ()")
+			| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*processClassPath ctx true c.cl_path e.epos) *));
+		concat ctx "," (generateValue ctx) el); *)
+		(match c.cl_path with
+			| ([],"CGRect")
+			| ([],"CGPoint")
+			| ([],"CGSize") ->
+				ctx.writer#write ((snd c.cl_path)^"Make (");
+				concat ctx "," (generateValue ctx) el;
+				ctx.writer#write ")"
+			| _ ->
+				ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path))
+		) (*processClassPath ctx true c.cl_path e.epos) *)
+		
+		
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write_i "if";
 		generateValue ctx (parent cond);
@@ -805,8 +876,7 @@ and generateExpression ctx e =
 		newLine ctx;
 		ctx.writer#write_i "}";
 	| TSwitch (e,cases,def) ->
-		ctx.writer#write_i "switch"; generateValue ctx (parent e); ctx.writer#write " {";
-		newLine ctx;
+		ctx.writer#write_i "switch"; generateValue ctx (parent e); ctx.writer#begin_block;
 		List.iter (fun (el,e2) ->
 			List.iter (fun e ->
 				ctx.writer#write_i "case "; generateValue ctx e; ctx.writer#write ":";
@@ -823,7 +893,8 @@ and generateExpression ctx e =
 			ctx.writer#write_i "break";
 			newLine ctx;
 		);
-		ctx.writer#write "}"
+		(* ctx.writer#write_i "}" *)
+		ctx.writer#end_block
 	| TCast (e1,None) ->
 		ctx.writer#write "((";
 		generateExpression ctx e1;
@@ -836,9 +907,8 @@ and generateBlock ctx e =
 	ctx.writer#begin_block;
 	match e.eexpr with
 	| TBlock [] -> ()
-	| _ ->
-		generateExpression ctx e;
-		ctx.writer#end_block
+	| _ -> generateExpression ctx e;
+	ctx.writer#end_block
 	
 and generateValue ctx e =
 	(* ctx.writer#write ("GEN_VAL>"^(Type.s_expr_kind e)^">"); *)
@@ -1227,7 +1297,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	output_h "\n\n";
 	
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) class_def.cl_ordered_fields;
+	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
 	
 	output_h "\n\n@end\n";
 	h_file#close

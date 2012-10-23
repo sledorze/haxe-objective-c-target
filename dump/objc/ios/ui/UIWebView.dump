@@ -1,0 +1,38 @@
+extern class objc.ios.ui.UIWebView extends objc.ios.ui.UIView{
+	public new(method) : Void -> Void;
+
+	public keyboardDisplayRequiresUserAction(var) : Bool;
+
+	public suppressesIncrementalRendering(var) : Bool;
+
+	public mediaPlaybackAllowsAirPlay(var) : Bool;
+
+	public mediaPlaybackRequiresUserAction(var) : Bool;
+
+	public allowsInlineMediaPlayback(var) : Bool;
+
+	public detectsPhoneNumbers(var) : Bool;
+
+	public scalesPageToFit(var) : Bool;
+
+	public stringByEvaluatingJavaScriptFromString(method) : script : String -> String;
+
+	public isLoading(var) : Bool;
+
+	public canGoForward(var) : Bool;
+
+	public canGoBack(var) : Bool;
+
+	public goForward(method) : Void -> Void;
+
+	public goBack(method) : Void -> Void;
+
+	public stopLoading(method) : Void -> Void;
+
+	public reload(method) : Void -> Void;
+
+	public scrollView(var) : objc.ios.ui.UIScrollView;
+
+	public delegate(var) : objc.ios.ui.UIWebViewDelegate;
+
+}

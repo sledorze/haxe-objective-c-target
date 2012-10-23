@@ -1,0 +1,10 @@
+extern class objc.ios.ui.UIView{
+	public new(method) : Void -> Void;
+
+	public clipsToBounds(var) : Bool;
+
+	static public commitAnimations(method) : Void -> Void;
+
+	static public setAnimationDuration(method) : delay : Float -> Void;
+
+}

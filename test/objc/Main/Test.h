@@ -10,29 +10,31 @@
 @interface Test : UIResponder <UIApplicationDelegate>
 
 
-- (void) printHello;
-
-- (int) minus:(int)a b:(int)b;
-
-- (int) add:(int)a b:(int)b;
-
-- (int) setWidth:(int)v;
-
-- (int) getWidth;
-
-- (void) tests;
-
-- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL;
-
-- (void) applicationWillResignActive:(UIApplication*)application;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic) int interfaceVar1;
+@property (nonatomic) float interfaceVar2;
+@property (nonatomic, getter=getWidth, setter=setWidth) int width;
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
 
 - (void) applicationDidBecomeActive:(UIApplication*)application;
 
-- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
+- (void) applicationWillResignActive:(UIApplication*)application;
 
-@property (nonatomic, getter=getWidth, setter=setWidth) int width;
-@property (nonatomic) float interfaceVar2;
-@property (nonatomic) int interfaceVar1;
-@property (nonatomic, strong) UIWindow *window;
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL;
+
+- (void) tests;
+
+- (int) getWidth;
+
+- (int) setWidth:(int)v;
+
+- (int) add:(int)a b:(int)b;
+
+- (int) minus:(int)a b:(int)b;
+
+- (void) lotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
+
+- (void) printHello;
+
 
 @end

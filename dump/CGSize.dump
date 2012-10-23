@@ -1,0 +1,8 @@
+extern class CGSize{
+	public new(method) : w : Float -> h : Float -> Void;
+
+	public height(var) : Float;
+
+	public width(var) : Float;
+
+}

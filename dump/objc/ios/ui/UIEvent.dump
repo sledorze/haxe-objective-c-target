@@ -1,0 +1,16 @@
+extern class objc.ios.ui.UIEvent extends NSObject{
+	public touchesForGestureRecognizer(method) : gesture : objc.ios.ui.UIGestureRecognizer -> NSSet;
+
+	public touchesForView(method) : view : objc.ios.ui.UIView -> NSSet;
+
+	public touchesForWindow(method) : window : objc.ios.ui.UIWindow -> NSSet;
+
+	public allTouches(method) : Void -> NSSet;
+
+	public timestamp(var) : Int;
+
+	public subtype(var) : objc.ios.ui.UIEventSubtype;
+
+	public type(var) : objc.ios.ui.UIEventType;
+
+}

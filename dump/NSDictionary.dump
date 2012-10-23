@@ -1,0 +1,6 @@
+extern class NSDictionary extends NSObject{
+	public objectForKey(method) : aKey : Dynamic -> Dynamic;
+
+	public count(method) : Void -> Int;
+
+}

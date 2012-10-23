@@ -1,0 +1,8 @@
+extern class objc.ios.ui.UIViewController extends objc.ios.ui.UIResponder{
+	public isViewLoaded(method) : Void -> Bool;
+
+	public viewDidLoad(method) : Void -> Void;
+
+	public loadView(method) : Void -> Void;
+
+}

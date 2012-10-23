@@ -21,7 +21,7 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 	
 	public function applicationDidFinishLaunchingWithOptions (application:UIApplication, didFinishLaunchingWithOptions:NSDictionary) :Bool {
 		trace ("Application launched");
-		
+		lotsOfArguments (1, 2, 3, 4);
 		return true;
 	}
 	public function applicationDidBecomeActive (application:UIApplication) :Void {}
@@ -64,6 +64,7 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 		
 		var webView = new UIWebView();
 		var map = new MKMapView();
+			map.frame = new CGRect (10, 10, 200, 200);
 			//webView.initWithFrame();
 	}
 	
@@ -78,9 +79,9 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 	public function minus (a:Int, b:Int) :Int {
 		return a-b;
 	}
+	public function lotsOfArguments (arg1:Int, arg2:Int, arg3:Int, arg4:Int) :Void {}
 	public function printHello () :Void {
 		untyped __objc__("NSLog(@\"testing __objc__\")");
-		untyped __objc__("[Log trace:@\"\" andPos:@\"\"];");
 		trace("Hello from Haxe Objective-C");
 	}
 }

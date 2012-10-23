@@ -1,0 +1,18 @@
+extern class objc.ios.ui.UIScreen extends NSObject{
+	public wantsSoftwareDimming(var) : Bool;
+
+	public brightness(var) : Float;
+
+	public mirroredScreen(var) : objc.ios.ui.UIScreen;
+
+	public scale(var) : Float;
+
+	public applicationFrame(var) : CGRect;
+
+	public bounds(var) : CGRect;
+
+	static public screens(method) : Void -> Array<objc.ios.ui.UIScreen>;
+
+	static public mainScreen(method) : Void -> objc.ios.ui.UIScreen;
+
+}

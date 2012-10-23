@@ -1,0 +1,58 @@
+extern class NSObject{
+	public new(method) : Void -> Void;
+
+	public classForKeyedArchiver(method) : Void -> Void;
+
+	public classForCoder(method) : Void -> Void;
+
+	public autoContentAccessingProxy(method) : Void -> Void;
+
+	public methodSignatureForSelector(method) : Void -> Void;
+
+	public methodForSelector(method) : Void -> Void;
+
+	public finalize(method) : Void -> Void;
+
+	public dealloc(method) : Void -> Void;
+
+	public mutableCopy(method) : Void -> Void;
+
+	public copy(method) : Void -> Void;
+
+	public init(method) : Void -> Void;
+
+	static public initialize(method) : Void -> Void;
+
+	static public load(method) : Void -> Void;
+
+	static public alloc(method) : Void -> Void;
+
+	static public allocWithZone(method) : Void -> Void;
+
+	static public copyWithZone(method) : Void -> Void;
+
+	static public mutableCopyWithZone(method) : Void -> Void;
+
+	static public class_(method) : Void -> Void;
+
+	static public superclass(method) : Void -> Void;
+
+	static public isSubclassOfClass(method) : Void -> Void;
+
+	static public instancesRespondToSelector(method) : Void -> Void;
+
+	static public conformsToProtocol(method) : Void -> Void;
+
+	static public instanceMethodForSelector(method) : Void -> Void;
+
+	static public instanceMethodSignatureForSelector(method) : Void -> Void;
+
+	static public description(method) : Void -> Void;
+
+	static public classFallbacksForKeyedArchiver(method) : Void -> Void;
+
+	static public classForKeyedUnarchiver(method) : Void -> Void;
+
+	static public version(method) : Void -> Void;
+
+}
