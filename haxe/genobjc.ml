@@ -270,14 +270,14 @@ let processClassPath ctx is_static path pos =
 		ctx.imports_manager#add_class_path path;
 		name
 ;;
-	
-let srcDir ctx =
-	let base_dir = ctx.file in
-	let sub_dir = match ctx.main_class with
-		| Some path -> (snd path)
-		| _ -> "Application" in
-	(base_dir ^ "/" ^ sub_dir)
+
+let appName ctx =
+	(* The name of the main class is the name of the app.  *)
+	match ctx.main_class with
+	| Some path -> (snd path)
+	| _ -> "HaxeCocoaApp"
 ;;
+let srcDir ctx = (ctx.file ^ "/" ^ (appName ctx))
 
 (* let isNativeClass class_name = 
 	match class_name
@@ -1202,8 +1202,138 @@ let rec defineGetSet ctx is_static c =
 let makeImportPath (p,s) = match p with [] -> s | _ -> String.concat "/" p ^ "/" ^ s
 
 
+
 (* GENERATE THE PROJECT DEFAULT FILES AND DIRECTORIES *)
 
+let xcworkspacedata common_ctx = 
+	let src_dir = srcDir common_ctx in
+	let app_name = appName common_ctx in
+	let file = newSourceFile (src_dir^".xcodeproj/project.xcworkspace") ([],"contents") ".xcworkspacedata" in
+	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<Workspace
+   version = \"1.0\">
+   <FileRef
+      location = \"self:" ^ app_name ^ ".xcodeproj\">
+   </FileRef>
+</Workspace>
+");
+	file#close
+;;
+let xcscheme common_ctx =
+	let src_dir = srcDir common_ctx in
+	let app_name = appName common_ctx in
+	let file = newSourceFile (src_dir^".xcodeproj/xcuserdata/Cristi.xcuserdatad/xcschemes") ([],app_name) ".xcscheme" in
+	let buildable_reference = ("<BuildableReference
+               BuildableIdentifier = \"primary\"
+               BlueprintIdentifier = \"28BFD9D41628A95900882B34\"
+               BuildableName = \""^app_name^".app\"
+               BlueprintName = \""^app_name^"\"
+               ReferencedContainer = \"container:"^app_name^".xcodeproj\">
+            </BuildableReference>") in
+			
+	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<Scheme
+   LastUpgradeVersion = \"0450\"
+   version = \"1.3\">
+   <BuildAction
+      parallelizeBuildables = \"YES\"
+      buildImplicitDependencies = \"YES\">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = \"YES\"
+            buildForRunning = \"YES\"
+            buildForProfiling = \"YES\"
+            buildForArchiving = \"YES\"
+            buildForAnalyzing = \"YES\">
+			"^buildable_reference^"
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction> 
+   <TestAction
+      selectedDebuggerIdentifier = \"Xcode.DebuggerFoundation.Debugger.LLDB\"
+      selectedLauncherIdentifier = \"Xcode.DebuggerFoundation.Launcher.LLDB\"
+      shouldUseLaunchSchemeArgsEnv = \"YES\"
+      buildConfiguration = \"Debug\">
+      <Testables>
+         <TestableReference
+            skipped = \"NO\">
+            "^buildable_reference^"
+         </TestableReference>
+      </Testables>
+      <MacroExpansion>
+         "^buildable_reference^"
+      </MacroExpansion>
+   </TestAction>
+   <LaunchAction
+      selectedDebuggerIdentifier = \"Xcode.DebuggerFoundation.Debugger.LLDB\"
+      selectedLauncherIdentifier = \"Xcode.DebuggerFoundation.Launcher.LLDB\"
+      launchStyle = \"0\"
+      useCustomWorkingDirectory = \"NO\"
+      buildConfiguration = \"Debug\"
+      ignoresPersistentStateOnLaunch = \"NO\"
+      debugDocumentVersioning = \"YES\"
+      allowLocationSimulation = \"YES\">
+      <BuildableProductRunnable>
+         "^buildable_reference^"
+      </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      shouldUseLaunchSchemeArgsEnv = \"YES\"
+      savedToolIdentifier = \"\"
+      useCustomWorkingDirectory = \"NO\"
+      buildConfiguration = \"Release\"
+      debugDocumentVersioning = \"YES\">
+      <BuildableProductRunnable>
+         "^buildable_reference^"
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = \"Debug\">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = \"Release\"
+      revealArchiveInOrganizer = \"YES\">
+   </ArchiveAction>
+</Scheme>
+");
+	file#close
+;;
+let xcschememanagement common_ctx = 
+	let src_dir = srcDir common_ctx in
+	let app_name = appName common_ctx in
+	let file = newSourceFile (src_dir^".xcodeproj/xcuserdata/Cristi.xcuserdatad/xcschemes") ([],"xcschememanagement") ".plist" in
+	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>"^app_name^".xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>28BFD9D41628A95900882B34</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>28BFD9FB1628A95900882B34</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
+");
+	file#close
+;;
 let generateProjectStructure common_ctx = 
 	let base_dir = common_ctx.file in
 	let sub_dir = match common_ctx.main_class with
@@ -1221,8 +1351,11 @@ let generateProjectStructure common_ctx =
 		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["project.pbxproj"]);
 		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["project.xcworkspace"]);
 			makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: "project.xcworkspace" :: ["Cristi.xcuserdatad"]);
+			xcworkspacedata common_ctx;
 		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["xcuserdata"]);
 			makeClassDirectories base_dir ((sub_dir^".xcodeproj") :: "xcuserdata" :: "Cristi.xcuserdatad" :: ["xcschemes"]);
+			xcscheme common_ctx;
+			xcschememanagement common_ctx
 ;;
 
 let generateMain ctx field =
