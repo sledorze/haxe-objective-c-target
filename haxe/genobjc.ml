@@ -516,7 +516,7 @@ let generateFunctionHeader ctx name f params p =
 ;;
 
 let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
-	ctx.writer#write ("-CALL-"^(Type.s_expr_kind func)^">");
+	(* ctx.writer#write ("-CALL-"^(Type.s_expr_kind func)^">"); *)
 	(* match func.eexpr , el with
 	| TCall (x,_) , el ->
 		ctx.writer#write "generateCall TCAll";
@@ -635,7 +635,7 @@ and generateFieldAccess ctx etype s to_method =
 		ctx.writer#write (Printf.sprintf " GFA3 .%s" (s))
 	
 and generateExpression ctx e =
-	ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">");
+	(* ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
 		generateConstant ctx e.epos c
@@ -741,12 +741,12 @@ and generateExpression ctx e =
 		ctx.generating_call <- false;
 		ctx.writer#write "]"
 	| TArrayDecl el ->
-		ctx.writer#write "[[NSMutableArray alloc] initWithObjects: ";
+		ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
 		concat ctx ", " (generateValue ctx) el;
-		ctx.writer#write ", nil]"
+		ctx.writer#write ", nil]]"
 	| TThrow e ->
 		ctx.writer#write "throw ";
-		generateValue ctx e;
+		generateValue ctx e
 	| TVars [] ->
 		()
 	| TVars vl ->
@@ -761,10 +761,6 @@ and generateExpression ctx e =
 		) vl;
 	| TNew (c,params,el) ->
 		(* ctx.writer#write ("GEN_NEW>"^(snd c.cl_path)^(string_of_int (List.length params))); *)
-		(* (match c.cl_path with
-			| ([],"CGRect") -> ctx.writer#write (Printf.sprintf "CGRectMake ()")
-			| _ -> ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path) (*processClassPath ctx true c.cl_path e.epos) *));
-		concat ctx "," (generateValue ctx) el); *)
 		(match c.cl_path with
 			| ([],"CGRect")
 			| ([],"CGPoint")
@@ -774,10 +770,8 @@ and generateExpression ctx e =
 				ctx.writer#write ")"
 			| _ ->
 				ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path));
-				concat ctx "," (generateValue ctx) el;
+				concat ctx "," (generateValue ctx) el
 		) (*processClassPath ctx true c.cl_path e.epos) *)
-		
-		
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write_i "if";
 		generateValue ctx (parent cond);
@@ -912,7 +906,7 @@ and generateBlock ctx e =
 	ctx.writer#end_block
 	
 and generateValue ctx e =
-	ctx.writer#write ("-V-"^(Type.s_expr_kind e)^">");
+	(* ctx.writer#write ("-V-"^(Type.s_expr_kind e)^">"); *)
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,
@@ -1063,7 +1057,7 @@ let generateProperty ctx field pos =
 ;;
 
 let generateField ctx is_static field =
-	ctx.writer#write "-F-";
+	(* ctx.writer#write "-F-"; *)
 	newLine ctx;
 	ctx.in_static <- is_static;
 	ctx.gen_uid <- 0;
@@ -1217,11 +1211,18 @@ let generateProjectStructure common_ctx =
 		| _ -> "Application" in
 	(* Create classes directory *)
 	makeClassDirectories base_dir ( sub_dir :: []);
-	makeClassDirectories base_dir ( sub_dir :: ["en.lproj"]);
+		makeClassDirectories base_dir ( sub_dir :: ["en.lproj"]);
+		
 	(* Create tests directory *)
 	makeClassDirectories base_dir ( (sub_dir^"Tests") :: []);
-	(* Create project file *)
-	makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: [])
+	
+	(* Create Main Xcode bundle *)
+	makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: []);
+		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["project.pbxproj"]);
+		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["project.xcworkspace"]);
+			makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: "project.xcworkspace" :: ["Cristi.xcuserdatad"]);
+		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["xcuserdata"]);
+			makeClassDirectories base_dir ((sub_dir^".xcodeproj") :: "xcuserdata" :: "Cristi.xcuserdatad" :: ["xcschemes"]);
 ;;
 
 let generateMain ctx field =
@@ -1231,45 +1232,41 @@ let generateMain ctx field =
 	let gen = (match field.cf_expr, field.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
 		if field.cf_name = "main" then begin
-			print_endline "- Found main";
-			print_endline ((Type.s_expr_kind fd.tf_expr)^">");
-			(match fd.tf_expr.eexpr with
-			| TBlock [] -> print_endline "Empty main method"
-			(* | TBlock [e] -> print_endline "Not sure what kind of main is this" *)
-			| TBlock expr_list -> print_endline "- found block with expr_list";
+		print_endline "- Found main";
+		(match fd.tf_expr.eexpr with
+		| TBlock [] -> print_endline "The main method should have a return"
+		| TBlock expr_list ->
 			(* Iterate over the expressions in the main block *)
 			List.iter (fun e -> print_endline ("> iterating: "^(Type.s_expr_kind e));
 			(match e.eexpr with
-				| TReturn eo -> print_endline "- found return";
+				| TReturn eo ->
 					(match eo with
 						| None -> print_endline "The static main method should return a: new UIApplicationMain()";
 						| Some e ->
 							(match e.eexpr with
 							| TNew (c,params,el) ->
-								print_endline ("- found platform_class: "^ (snd c.cl_path));
 								platform_class := (snd c.cl_path);
 								List.iter ( fun e ->
 								(match e.eexpr with
 									| TTypeExpr t ->
 										let path = t_path t in
 										app_delegate_class := snd path;
-										print_endline ("- found app_delegate_class: "^ !app_delegate_class);
 									| _ -> print_endline "No AppDelegate found";
 								)) el
 							| _ -> print_endline "No 'new' keyword found")
 					);
 				| _ -> print_endline "The static main method should contain a return");
 			) expr_list
-			| _ -> print_endline "No block found");
+		| _ -> print_endline "No block found");
 		end
 	| _ -> print_endline "- Did not found a main function.") in
-	print_endline ("- app_delegate_class: "^ (!app_delegate_class));
+	(* print_endline ("- app_delegate_class: "^ (!app_delegate_class)); *)
 	let src_dir = srcDir ctx.com in
 	let m_file = newSourceFile src_dir ([],"_main_") ".m" in
 	(match !platform_class with
 	| "UIApplicationMain" | "NSApplicationMain" ->
 		print_endline "GENERATING MAIN";
-	m_file#write ("//
+		m_file#write ("//
 //  main.m
 //  " ^ !app_delegate_class ^ "
 //
@@ -1285,22 +1282,20 @@ int main(int argc, char *argv[]) {
 	}
 }
 ");
-	m_file#close;
-	| _ -> print_endline "Supported returns are UIApplicationMain (for CocoaTouch apps) or NSApplicationMain (for Cocoa apps)"
+		m_file#close;
+	| _ -> ()(* "Supported returns are UIApplicationMain (for CocoaTouch apps) or NSApplicationMain (for Cocoa apps)" *)
 	)
 ;;
 	
 let generatePch common_ctx class_def  =
 	(* This class imports will be available in the entire Xcode project, we add here Std classes *)
-	let base_dir = common_ctx.file in
 	let sub_dir = match common_ctx.main_class with
 		| Some path -> (snd path)
 		| _ -> "Application" in
-	let generate_file =
-		let file = newSourceFile base_dir ([sub_dir], sub_dir ^ "-Prefix") ".pch" in
-		let output_pch = (file#write) in
-		
-		output_pch "//
+	let src_dir = srcDir common_ctx in
+	let file = newSourceFile src_dir ([], sub_dir ^ "-Prefix") ".pch" in
+	let output_pch = (file#write) in
+	output_pch "//
 // Prefix header for all source files in the project
 //
 
@@ -1314,9 +1309,7 @@ let generatePch common_ctx class_def  =
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
 #endif";
-		file#close;
-	in
-	generate_file
+	file#close
 ;;
 
 let generatePlist common_ctx class_def  =
@@ -1423,7 +1416,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	m_file#close;
 	
 	
-	(* Find the static main method and generate a main.m file from it. Ignore it later *)
+	(* Find the static main method and generate a main.m file from it. *)
 	List.iter (generateMain ctx) class_def.cl_ordered_statics;
 	
 	end;
@@ -1484,7 +1477,7 @@ let generate common_ctx =
 	generateProjectStructure common_ctx;
 	
 	let imports_manager = new importsManager in
-	let file_info = ref PMap.empty in
+	let app_info = ref PMap.empty in
 	(* Generate files for each class.
 	When we reach the static main method generate a main.m file *)
 	List.iter (fun object_def ->
@@ -1495,7 +1488,7 @@ let generate common_ctx =
 				| (pack,name) -> { class_def with cl_path = (pack, name) }
 			) in
 			if not class_def.cl_extern then
-				generateClassFiles common_ctx class_def file_info imports_manager
+				generateClassFiles common_ctx class_def app_info imports_manager
 		
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
@@ -1506,27 +1499,7 @@ let generate common_ctx =
 			()
 	) common_ctx.types;
 	
-	(* (match common_ctx.main with
-	| None -> ()
-	| Some e ->
-		print_endline (Type.s_expr (s_type (print_context())) e);
-		let main_field = {
-			cf_name = "main";
-			cf_type = t_dynamic;
-			cf_expr = Some e;
-			cf_pos = e.epos;
-			cf_public = true;
-			cf_meta = [];
-			cf_overloads = [];
-			cf_doc = None;
-			cf_kind = Var { v_read = AccNormal; v_write = AccNormal; };
-			cf_params = [] } in
-		let class_def = {
-			null_class with cl_path = ([],"");
-			cl_ordered_statics = [main_field] } in
-		generateMain common_ctx class_def;
-		generatePch common_ctx class_def;
-		generatePlist common_ctx class_def;
-		generateResources common_ctx;
-	) *)
+	generatePch common_ctx app_info;
+	generatePlist common_ctx app_info;
+	generateResources common_ctx;
 ;;

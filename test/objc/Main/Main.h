@@ -6,8 +6,8 @@
 
 @interface Main
 
--F-
-+ (UIApplicationMain*) main;-F-
+
++ (UIApplicationMain*) main;
 + (void) unusedMain;
 
 @end
