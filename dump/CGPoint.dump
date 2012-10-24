@@ -1,8 +1,0 @@
-extern class CGPoint{
-	public new(method) : ?x : Float -> ?y : Float -> Void;
-
-	public y(var) : Float;
-
-	public x(var) : Float;
-
-}

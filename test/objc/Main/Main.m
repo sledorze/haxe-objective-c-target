@@ -2,11 +2,13 @@
 
 @implementation Main
 
-
-+ (UIApplicationMain*) main{
-	return [[UIApplicationMain alloc] init];
+-F-
++ (UIApplicationMain*) main-E-Block>{
+-E-Return>	return -V-New>-E-New>[[UIApplicationMain alloc] init]-V-TypeExpr>-E-TypeExpr>Test;
 }
-
+-F-
++ (void) unusedMain-E-Block>{
+}
 
 
 @end

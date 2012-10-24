@@ -10,32 +10,21 @@
 
 @interface Test : UIResponder <UIApplicationDelegate>
 
-
-@property (nonatomic, strong) UIWindow *window;
-@property (nonatomic) int interfaceVar1;
-@property (nonatomic) float interfaceVar2;
-@property (nonatomic, getter=getWidth, setter=setWidth) int width;
-- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
-
-- (void) applicationDidBecomeActive:(UIApplication*)application;
-
-- (void) applicationWillResignActive:(UIApplication*)application;
-
-- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL;
-
-- (void) tests;
-
-- (int) getWidth;
-
-- (int) setWidth:(int)v;
-
-- (int) add:(int)a b:(int)b;
-
-- (int) minus:(int)a b:(int)b;
-
-- (void) lotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
-
+-F-
+@property (nonatomic, strong) UIWindow *window;-F-
+@property (nonatomic) int interfaceVar1;-F-
+@property (nonatomic) float interfaceVar2;-F-
+@property (nonatomic, getter=getWidth, setter=setWidth) int width;-F-
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;-F-
+- (void) applicationDidBecomeActive:(UIApplication*)application;-F-
+- (void) applicationWillResignActive:(UIApplication*)application;-F-
+- (BOOL) application:(UIApplication*)application handleOpenURL:(NSURL*)handleOpenURL;-F-
+- (void) tests;-F-
+- (int) getWidth;-F-
+- (int) setWidth:(int)v;-F-
+- (int) add:(int)a b:(int)b;-F-
+- (int) minus:(int)a b:(int)b;-F-
+- (void) lotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;-F-
 - (void) printHello;
-
 
 @end

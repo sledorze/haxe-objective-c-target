@@ -1,8 +1,0 @@
-class Main{
-	static public main(method) : Void -> objc.ios.ui.UIApplicationMain
-
-	 = (Function() : objc.ios.ui.UIApplicationMain = (Block {
-(Return (New objc.ios.ui.UIApplicationMain((TypeExpr Test : #Test)) : objc.ios.ui.UIApplicationMain) : Dynamic);
-} : Dynamic) : Void -> objc.ios.ui.UIApplicationMain);
-
-}

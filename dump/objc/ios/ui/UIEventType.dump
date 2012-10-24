@@ -1,5 +1,0 @@
-enum objc.ios.ui.UIEventType {
-	UIEventTypeTouches : objc.ios.ui.UIEventType;
-	UIEventTypeMotion : objc.ios.ui.UIEventType;
-	UIEventTypeRemoteControl : objc.ios.ui.UIEventType;
-}

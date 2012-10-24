@@ -1,4 +1,0 @@
-extern enum Bool {
-	true : Bool;
-	false : Bool;
-}

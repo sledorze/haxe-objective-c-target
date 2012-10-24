@@ -6,18 +6,12 @@
 
 @interface Std
 
-
-+ (BOOL) is:(id)v t:(id)t;
-
-+ (NSString*) string:(id)s;
-
-+ (int) int:(float)x;
-
-+ (**) parseInt:(NSString*)x;
-
-+ (float) parseFloat:(NSString*)x;
-
+-F-
++ (BOOL) is:(id)v t:(id)t;-F-
++ (NSString*) string:(id)s;-F-
++ (int) int:(float)x;-F-
++ (**) parseInt:(NSString*)x;-F-
++ (float) parseFloat:(NSString*)x;-F-
 + (int) random:(int)x;
-
 
 @end

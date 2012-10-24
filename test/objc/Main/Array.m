@@ -2,99 +2,81 @@
 
 @implementation Array
 
-
-- (void) init{
-self.__a = 	[[NSMutableArray alloc] init];
+-F-
+- (void) init-E-Block>{
+-E-Binop>-V-Field>-E-Field>-V-Const>-E-Const>self.__a = -V-Call>-E-Call>	[[NSMutableArray alloc] init];
 }
-
-
-@synthesize __a;
-@synthesize length;
-- (Array*) fromNativeArray:(NSMutableArray*)array{
-self.__a = array;
-	return self;
+-F-
+@synthesize __a;-F-
+@synthesize length;-F-
+- (Array*) fromNativeArray:(NSMutableArray*)array-E-Block>{
+-E-Binop>-V-Field>-E-Field>-V-Const>-E-Const>self.__a = -V-Local>-E-Local>array;
+-E-Return>	return -V-Const>-E-Const>self;
 }
-
-
-- (Array*) concat:(Array*)a{
-	return a;
+-F-
+- (Array*) concat:(Array*)a-E-Block>{
+-E-Return>	return -V-Local>-E-Local>a;
 }
-
-
-- (Array*) copy{
-	return 	[GEN_M_CALL>Field>[[Array alloc] init] fromNativeArray:1Field>TInst];
+-F-
+- (Array*) copy-E-Block>{
+-E-Return>	return -V-Call>-E-Call>	[-CALL-Field>-V-Field>-E-Field>-V-New>-E-New>[[Array alloc] init] fromNativeArray:1Field>TInst];
 }
-
-
-- (id) iterator{
-	return nil;
+-F-
+- (id) iterator-E-Block>{
+-E-Return>	return -V-Const>-E-Const>nil;
 }
-
-
-- (void) insert:(int)pos x:(**)x{
-	[__a insertObject:x atIndex:pos];
+-F-
+- (void) insert:(int)pos x:(**)x-E-Block>{
+-E-Call>	[__a insertObject:x atIndex:pos];
 }
-
-
-- (NSString*) join:(NSString*)sep{
-	return 	[__a componentsJoinedByString:sep];
+-F-
+- (NSString*) join:(NSString*)sep-E-Block>{
+-E-Return>	return -V-Call>-E-Call>	[__a componentsJoinedByString:sep];
 }
-
-
-- (NSString*) toString{
-	return @"[" + 	[__a componentsJoinedByString:@","] + @"]";
+-F-
+- (NSString*) toString-E-Block>{
+-E-Return>	return -V-Binop>-E-Binop>-V-Binop>-E-Binop>-V-Const>-E-Const>@"[" + -V-Call>-E-Call>	[__a componentsJoinedByString:@","] + -V-Const>-E-Const>@"]";
 }
-
-
-- (**) pop{
-	return nil;
+-F-
+- (**) pop-E-Block>{
+-E-Return>	return -V-Const>-E-Const>nil;
 }
-
-
-- (int) push:(**)x{
-	[__a addObject:x];
-	return 	[GEN_M_CALL>Field>self getLength:0TInst];
+-F-
+- (int) push:(**)x-E-Block>{
+-E-Call>	[__a addObject:x];
+-E-Return>	return -V-Call>-E-Call>	[-CALL-Field>-V-Field>-E-Field>-V-Const>-E-Const>self getLength:0TInst];
 }
-
-
-- (void) unshift:(**)x{
-	[__a insertObject:x atIndex:pos];
+-F-
+- (void) unshift:(**)x-E-Block>{
+-E-Call>	[__a insertObject:x atIndex:pos];
 }
-
-
-- (BOOL) remove:(**)x{
-	[__a removeObject:x];
-	return YES;
+-F-
+- (BOOL) remove:(**)x-E-Block>{
+-E-Call>	[__a removeObject:x];
+-E-Return>	return -V-Const>-E-Const>YES;
 }
-
-
-- (void) reverse{
+-F-
+- (void) reverse-E-Block>{
 }
-
-
-- (**) shift{
-	return nil;
+-F-
+- (**) shift-E-Block>{
+-E-Return>	return -V-Const>-E-Const>nil;
 }
-
-
-- (Array*) slice:(int)pos end:(**)end{
-	return nil;
+-F-
+- (Array*) slice:(int)pos end:(**)end-E-Block>{
+-E-Return>	return -V-Const>-E-Const>nil;
 }
-
-
-- (void) sort:(Function*)f{
+-F-
+- (void) sort:(Function*)f-E-Block>{
 }
-
-
-- (Array*) splice:(int)pos len:(int)len{
-	return nil;
+-F-
+- (Array*) splice:(int)pos len:(int)len-E-Block>{
+-E-Return>	return -V-Const>-E-Const>nil;
 }
-
-
-- (int) getLength{
-	return 	[__a count];
+-F-
+- (int) getLength-E-Block>{
+-E-Return>	return -V-Call>-E-Call>	[__a count];
 }
-
 
 
 @end

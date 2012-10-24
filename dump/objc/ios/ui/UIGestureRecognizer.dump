@@ -1,2 +1,0 @@
-extern class objc.ios.ui.UIGestureRecognizer extends NSObject{
-}

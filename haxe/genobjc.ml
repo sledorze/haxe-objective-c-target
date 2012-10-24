@@ -516,7 +516,7 @@ let generateFunctionHeader ctx name f params p =
 ;;
 
 let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
-	ctx.writer#write ("GEN_M_CALL>"^(Type.s_expr_kind func)^">");
+	ctx.writer#write ("-CALL-"^(Type.s_expr_kind func)^">");
 	(* match func.eexpr , el with
 	| TCall (x,_) , el ->
 		ctx.writer#write "generateCall TCAll";
@@ -635,7 +635,7 @@ and generateFieldAccess ctx etype s to_method =
 		ctx.writer#write (Printf.sprintf " GFA3 .%s" (s))
 	
 and generateExpression ctx e =
-	(* ctx.writer#write ("GEN_EXPR>"^(Type.s_expr_kind e)^">"); *)
+	ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">");
 	match e.eexpr with
 	| TConst c ->
 		generateConstant ctx e.epos c
@@ -773,7 +773,8 @@ and generateExpression ctx e =
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
 			| _ ->
-				ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path))
+				ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path));
+				concat ctx "," (generateValue ctx) el;
 		) (*processClassPath ctx true c.cl_path e.epos) *)
 		
 		
@@ -911,7 +912,7 @@ and generateBlock ctx e =
 	ctx.writer#end_block
 	
 and generateValue ctx e =
-	(* ctx.writer#write ("GEN_VAL>"^(Type.s_expr_kind e)^">"); *)
+	ctx.writer#write ("-V-"^(Type.s_expr_kind e)^">");
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,
@@ -1062,7 +1063,7 @@ let generateProperty ctx field pos =
 ;;
 
 let generateField ctx is_static field =
-	(* ctx.writer#write "GEN_FIELD>"; *)
+	ctx.writer#write "-F-";
 	newLine ctx;
 	ctx.in_static <- is_static;
 	ctx.gen_uid <- 0;
@@ -1091,7 +1092,8 @@ let generateField ctx is_static field =
 		| _ -> ()
 	) field.cf_meta; *)
 	
-	(* let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || (f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
+	(* let public = f.cf_public || Hashtbl.mem ctx.get_sets (f.cf_name,static) || 
+	(f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
 	let pos = ctx.class_def.cl_pos in
 	match field.cf_expr, field.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
@@ -1103,8 +1105,7 @@ let generateField ctx is_static field =
 			generateExpression ctx fd.tf_expr
 		else
 			ctx.writer#write ";";
-		h();
-		newLine ctx
+		h()
 	| _ ->
 		let is_getset = (match field.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		match follow field.cf_type with
@@ -1206,100 +1207,6 @@ let rec defineGetSet ctx is_static c =
 
 let makeImportPath (p,s) = match p with [] -> s | _ -> String.concat "/" p ^ "/" ^ s
 
-(* Generate header + implementation *)
-
-let generateClassFiles common_ctx class_def file_info imports_manager =
-	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
-	(* The frameworks are kept in a non-resetable variable also *)
-	imports_manager#reset;
-	
-	if not class_def.cl_interface then begin
-	
-	(* Create the implementation file *)
-	let src_dir = srcDir common_ctx in
-	let class_path = class_def.cl_path in
-	(* let class_name = (snd class_def.cl_path) in *)
-	let m_file = newSourceFile src_dir class_path ".m" in
-	let output_m = (m_file#write) in
-	let ctx = newContext common_ctx m_file imports_manager file_info in
-	ctx.class_def <- class_def;
-	
-	defineGetSet ctx true class_def;
-	defineGetSet ctx false class_def;
-	(* common_ctx.local_types <- List.map snd c.cl_types; *)
-	
-	(* imports_manager#add_class_path class_def.cl_path; *)
-	ctx.writer#import_header class_def.cl_path;
-	newLine ctx;
-	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
-	
-	(match class_def.cl_constructor with
-	| None -> ()
-	| Some f ->
-		let f = { f with
-			cf_name = "init"(* snd class_def.cl_path *);
-			cf_public = true;
-			cf_kind = Method MethNormal;
-		} in
-		generateField ctx false f;
-	);
-	
-	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
-	
-	output_m "\n\n@end\n";
-	m_file#close
-	
-	end;
-	
-	
-	(* Create the header file *)
-	
-	let src_dir = srcDir common_ctx in
-	let class_path = class_def.cl_path in
-	(* let class_name = (snd class_def.cl_path) in *)
-	let h_file = newSourceFile src_dir class_path ".h" in
-	let output_h = (h_file#write) in
-	let ctx = newContext common_ctx h_file imports_manager file_info in
-	ctx.class_def <- class_def;
-	ctx.generating_header <- true;
-	ctx.imports_manager#add_class_path class_path;
-	newLine ctx;
-	
-	(* Import frameworks *)
-	ctx.writer#import_frameworks imports_manager#get_class_frameworks;
-	newLine ctx;
-	
-	(* Import classes *)
-	ctx.writer#import_headers imports_manager#get_imports;
-	newLine ctx;
-	
-	output_h ("@interface " ^ (snd class_path));
-	(* Add the super class *)
-	(match class_def.cl_super with
-		| None -> ()
-		| Some (csup,_) -> output_h (Printf.sprintf " : %s " (snd csup.cl_path)));
-	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) (match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") (if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
-	if class_def.cl_implements != [] then begin
-		(* Add implement *)
-		output_h "<";
-		(match class_def.cl_implements with
-		| [] -> ()
-		| l -> concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "%s" (snd i.cl_path))) l
-		);
-		output_h ">";
-	end;
-	output_h "\n\n";
-	
-	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
-	
-	output_h "\n\n@end\n";
-	h_file#close
-;;
-
-
-
 
 (* GENERATE THE PROJECT DEFAULT FILES AND DIRECTORIES *)
 
@@ -1317,72 +1224,70 @@ let generateProjectStructure common_ctx =
 	makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: [])
 ;;
 
-let generateMain common_ctx class_def =
-
-	let main_expression = (match class_def.cl_ordered_statics with
-		| [{ cf_expr = Some expression }] -> expression;
-		| _ -> assert false ) in
-	let base_dir = common_ctx.file in
-	let sub_dir = match common_ctx.main_class with
-		| Some path -> (snd path)
-		| _ -> "Application" in
-	(* let class_path = class_def.cl_path in *)
-	let class_name = (snd class_def.cl_path) in
-	let generate_file filename =
-		let m_file = newSourceFile base_dir ([sub_dir],filename) ".m" in
-		let output_main = (m_file#write) in
-		
-		print_endline (Type.s_expr_kind main_expression);
-		(* print_endline (Type.s_expr main_expression (Type.s_expr_kind main_expression) ); *)
-		
-		match main_expression.eexpr with
-		| TCall (eo,el) -> 
-			print_endline (Type.s_expr_kind eo);
-			(* print_endline (Type.s_expr_kind (fst el)); *)
-			
-			List.iter (
-			
-			fun object_def -> print_endline (Type.s_expr_kind object_def);
-			
-			) el;
-			
-			(* match el.e_expr, el.e_kind with
-			| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
-				print_endline "1111111111" *)
-			(* let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params p in
-						(* Generate function content if is not a header file *)
-						if not ctx.generating_header then generateExpression ctx fd.tf_expr else ctx.writer#write ";";
-						h();
-						newLine ctx *)
-			(* | _ -> print_endline "NOTHING" *)
-		(* print_endline (Type.s_expr_kind el) *)
-			(* (match eo with
-			(* | Some e when (match follow e.etype with TEnum({ e_path = [],"Void" },[]) | TAbstract ({ a_path = [],"Void" },[]) -> true | _ -> false) -> *)
-			| Some e -> print_endline "Generating the return";
-			| None | _ -> print_endline "You must provide a return UIApplicationMain ()"
-				(* ctx.writer#write_i "return "; *)
-				(* generateValue ctx e); *)
-			) *)
-		| _ -> print_endline "The static main method should contain only a return UIApplicationMain and nothing else";
-		Type.print_context();
-		output_main ("//
+let generateMain ctx field =
+	
+	let platform_class = ref "" in
+	let app_delegate_class = ref "" in
+	let gen = (match field.cf_expr, field.cf_kind with
+	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
+		if field.cf_name = "main" then begin
+			print_endline "- Found main";
+			print_endline ((Type.s_expr_kind fd.tf_expr)^">");
+			(match fd.tf_expr.eexpr with
+			| TBlock [] -> print_endline "Empty main method"
+			(* | TBlock [e] -> print_endline "Not sure what kind of main is this" *)
+			| TBlock expr_list -> print_endline "- found block with expr_list";
+			(* Iterate over the expressions in the main block *)
+			List.iter (fun e -> print_endline ("> iterating: "^(Type.s_expr_kind e));
+			(match e.eexpr with
+				| TReturn eo -> print_endline "- found return";
+					(match eo with
+						| None -> print_endline "The static main method should return a: new UIApplicationMain()";
+						| Some e ->
+							(match e.eexpr with
+							| TNew (c,params,el) ->
+								print_endline ("- found platform_class: "^ (snd c.cl_path));
+								platform_class := (snd c.cl_path);
+								List.iter ( fun e ->
+								(match e.eexpr with
+									| TTypeExpr t ->
+										let path = t_path t in
+										app_delegate_class := snd path;
+										print_endline ("- found app_delegate_class: "^ !app_delegate_class);
+									| _ -> print_endline "No AppDelegate found";
+								)) el
+							| _ -> print_endline "No 'new' keyword found")
+					);
+				| _ -> print_endline "The static main method should contain a return");
+			) expr_list
+			| _ -> print_endline "No block found");
+		end
+	| _ -> print_endline "- Did not found a main function.") in
+	print_endline ("- app_delegate_class: "^ (!app_delegate_class));
+	let src_dir = srcDir ctx.com in
+	let m_file = newSourceFile src_dir ([],"_main_") ".m" in
+	(match !platform_class with
+	| "UIApplicationMain" | "NSApplicationMain" ->
+		print_endline "GENERATING MAIN";
+	m_file#write ("//
 //  main.m
-//  " ^ class_name ^ "
+//  " ^ !app_delegate_class ^ "
 //
 //  Source generated by Haxe Objective-C target
 //
 
 #import <UIKit/UIKit.h>
-#import \"" ^ class_name ^ ".h\"
+#import \"" ^ !app_delegate_class ^ ".h\"
 
 int main(int argc, char *argv[]) {
 	@autoreleasepool {
-		return UIApplicationMain(argc, argv, nil, NSStringFromClass([" ^ class_name ^ " class]));
+		return " ^ !platform_class ^ "(argc, argv, nil, NSStringFromClass([" ^ !app_delegate_class ^ " class]));
 	}
-}");
-		m_file#close;
-	in
-	generate_file "main"
+}
+");
+	m_file#close;
+	| _ -> print_endline "Supported returns are UIApplicationMain (for CocoaTouch apps) or NSApplicationMain (for Cocoa apps)"
+	)
 ;;
 	
 let generatePch common_ctx class_def  =
@@ -1472,27 +1377,125 @@ let generateEnum ctx e =
 	()
 ;;
 
+(* Generate header + implementation *)
+
+let generateClassFiles common_ctx class_def file_info imports_manager =
+	print_endline ("> Generating class files: "^(snd class_def.cl_path));
+	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
+	(* The frameworks are kept in a non-resetable variable also *)
+	imports_manager#reset;
+	
+	if not class_def.cl_interface then begin
+	
+	(* Create the implementation file *)
+	let src_dir = srcDir common_ctx in
+	let class_path = class_def.cl_path in
+	(* let class_name = (snd class_def.cl_path) in *)
+	let m_file = newSourceFile src_dir class_path ".m" in
+	let output_m = (m_file#write) in
+	let ctx = newContext common_ctx m_file imports_manager file_info in
+	ctx.class_def <- class_def;
+	
+	defineGetSet ctx true class_def;
+	defineGetSet ctx false class_def;
+	(* common_ctx.local_types <- List.map snd c.cl_types; *)
+	
+	(* imports_manager#add_class_path class_def.cl_path; *)
+	ctx.writer#import_header class_def.cl_path;
+	newLine ctx;
+	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
+	
+	(match class_def.cl_constructor with
+	| None -> ()
+	| Some f ->
+		let f = { f with
+			cf_name = "init"(* snd class_def.cl_path *);
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		generateField ctx false f;
+	);
+	
+	List.iter (generateField ctx true) class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
+	
+	output_m "\n\n@end\n";
+	m_file#close;
+	
+	
+	(* Find the static main method and generate a main.m file from it. Ignore it later *)
+	List.iter (generateMain ctx) class_def.cl_ordered_statics;
+	
+	end;
+	
+	
+	(* Create the header file *)
+	
+	let src_dir = srcDir common_ctx in
+	let class_path = class_def.cl_path in
+	(* let class_name = (snd class_def.cl_path) in *)
+	let h_file = newSourceFile src_dir class_path ".h" in
+	let output_h = (h_file#write) in
+	let ctx = newContext common_ctx h_file imports_manager file_info in
+	ctx.class_def <- class_def;
+	ctx.generating_header <- true;
+	ctx.imports_manager#add_class_path class_path;
+	newLine ctx;
+	
+	(* Import frameworks *)
+	ctx.writer#import_frameworks imports_manager#get_class_frameworks;
+	newLine ctx;
+	
+	(* Import classes *)
+	ctx.writer#import_headers imports_manager#get_imports;
+	newLine ctx;
+	
+	output_h ("@interface " ^ (snd class_path));
+	(* Add the super class *)
+	(match class_def.cl_super with
+		| None -> ()
+		| Some (csup,_) -> output_h (Printf.sprintf " : %s " (snd csup.cl_path)));
+	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
+	(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
+	(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
+	if class_def.cl_implements != [] then begin
+		(* Add implement *)
+		output_h "<";
+		(match class_def.cl_implements with
+		| [] -> ()
+		| l -> concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "%s" (snd i.cl_path))) l
+		);
+		output_h ">";
+	end;
+	output_h "\n\n";
+	
+	List.iter (generateField ctx true) class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
+	
+	output_h "\n\n@end\n";
+	h_file#close
+;;
+
+
 (* The main entry of the generator *)
 let generate common_ctx =
 	
-	(* Generate folder structure and basic files *)
+	(* Generate XCode folders structure *)
 	generateProjectStructure common_ctx;
 	
 	let imports_manager = new importsManager in
 	let file_info = ref PMap.empty in
-	let inits = ref [] in
+	(* Generate files for each class.
+	When we reach the static main method generate a main.m file *)
 	List.iter (fun object_def ->
 		match object_def with
 		| TClassDecl class_def ->
 			let class_def = (match class_def.cl_path with
-				| ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" }
+				(* | ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
 				| (pack,name) -> { class_def with cl_path = (pack, name) }
 			) in
-			(match class_def.cl_init with
-			| None -> ()
-			| Some e -> inits := e :: !inits);
-			
-			if not class_def.cl_extern then generateClassFiles common_ctx class_def file_info imports_manager
+			if not class_def.cl_extern then
+				generateClassFiles common_ctx class_def file_info imports_manager
 		
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
@@ -1503,19 +1506,27 @@ let generate common_ctx =
 			()
 	) common_ctx.types;
 	
-	(match common_ctx.main with
+	(* (match common_ctx.main with
 	| None -> ()
 	| Some e ->
-		let main_field = { cf_name = "main"; cf_type = t_dynamic; cf_expr = Some e; cf_pos = e.epos; cf_public = true; cf_meta = []; cf_overloads = []; cf_doc = None; cf_kind = Var { v_read = AccNormal; v_write = AccNormal; }; cf_params = [] } in
-		let class_def = { null_class with cl_path = ([],"AppDelegate"); cl_ordered_statics = [main_field] } in
-		(* main_deps := find_referenced_types common_ctx (TClassDecl class_def) super_deps constructor_deps false true false; *)
+		print_endline (Type.s_expr (s_type (print_context())) e);
+		let main_field = {
+			cf_name = "main";
+			cf_type = t_dynamic;
+			cf_expr = Some e;
+			cf_pos = e.epos;
+			cf_public = true;
+			cf_meta = [];
+			cf_overloads = [];
+			cf_doc = None;
+			cf_kind = Var { v_read = AccNormal; v_write = AccNormal; };
+			cf_params = [] } in
+		let class_def = {
+			null_class with cl_path = ([],"");
+			cl_ordered_statics = [main_field] } in
 		generateMain common_ctx class_def;
 		generatePch common_ctx class_def;
 		generatePlist common_ctx class_def;
 		generateResources common_ctx;
-		
-		(* List.iter (fun name ->
-			print_endline name
-		) imports_manager#get_all_frameworks *)
-	)
+	) *)
 ;;
