@@ -8,9 +8,13 @@ extern class UIView {
 	public static function setAnimationDuration (delay:Float) :Void;
 	
 	public var frame :CGRect;
+	public var bounds :CGRect;
+	public var autoresizesSubviews :Bool;
+	public var backgroundColor :UIColor;
 	
 	function new() : Void;
 	//public function initWithFrame (frame:CGRect) : Void;
+	public function addSubview (subview:UIView) : Void;
 }
 /*
 extern class UIView {

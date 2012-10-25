@@ -5,6 +5,8 @@ extern class UIViewController extends UIResponder {
 	public function loadView () :Void;
 	public function viewDidLoad () :Void;
 	public function isViewLoaded () :Bool;
+	
+	public var view :UIView;
 }
 /*
 

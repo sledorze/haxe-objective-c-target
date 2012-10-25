@@ -26,4 +26,11 @@ package objc;
 
 class Lib {
 	
+	static function log (v : Dynamic) : Void {}
+	static function getURL (url :String, ?target : String) : Bool {
+		return untyped __objc__ ("AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:NSURL]");
+	}
+	static function attach (name : String) :UIImageView {
+		return untyped __objc__ ("[UIImageView ]");
+	}
 }

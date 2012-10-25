@@ -2,6 +2,13 @@ package objc.ios.map;
 
 import objc.ios.ui.UIView;
 
+enum MKMapType {
+    MKMapTypeStandard;
+    MKMapTypeSatellite;
+    MKMapTypeHybrid;
+}
+
+
 extern interface MKMapViewDelegate {
 	
 	
@@ -11,10 +18,10 @@ extern class MKMapView extends UIView {
 	
 	public function new () :Void;
 	public var delegate :MKMapViewDelegate;
-/*	public var mapType :MKMapType;
-	public var region :MKCoordinateRegion;
-	public function setRegion (region:MKCoordinateRegion, animated:Bool) :Void;
-	public var centerCoordinate :CLLocationCoordinate2D;
+	public var mapType :MKMapType;
+	//public var region :MKCoordinateRegion;
+	//public function setRegion (region:MKCoordinateRegion, animated:Bool) :Void;
+/*	public var centerCoordinate :CLLocationCoordinate2D;
 	public function setCenterCoordinate (coordinate:CLLocationCoordinate2D, animated:Bool) :Void;
 	public function regionThatFits (region:MKCoordinateRegion) :MKCoordinateRegion;*/
 	

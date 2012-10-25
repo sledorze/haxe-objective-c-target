@@ -3,14 +3,11 @@
 @implementation Array
 
 
-- (void) init{
-self.__a = 	[[NSMutableArray alloc] init];
-}
 
 @synthesize __a;
 @synthesize length;
 - (Array*) initWithNSMutableArray:(NSMutableArray*)array{
-self.__a = 	[NSMutableArray arrayWithArray:array];
+	self.__a = 	[NSMutableArray arrayWithArray:array];
 	return self;
 }
 
@@ -19,7 +16,7 @@ self.__a = 	[NSMutableArray arrayWithArray:array];
 }
 
 - (Array*) copy{
-	return 	[[[Array alloc] init] initWithNSMutableArray:1Field>TInst];
+	return 	[[[Array alloc] init].initWithNSMutableArray:self.__a];
 }
 
 - (id) iterator{
@@ -35,7 +32,7 @@ self.__a = 	[NSMutableArray arrayWithArray:array];
 }
 
 - (NSString*) toString{
-	return @"[" + 	[__a componentsJoinedByString:@","] + @"]";
+	return 		@"[" + 	[__a componentsJoinedByString:@","] + @"]";
 }
 
 - (**) pop{
@@ -44,7 +41,7 @@ self.__a = 	[NSMutableArray arrayWithArray:array];
 
 - (int) push:(**)x{
 	[__a addObject:x];
-	return 	[self getLength:0TInst];
+	return 	[self.getLength];
 }
 
 - (void) unshift:(**)x{

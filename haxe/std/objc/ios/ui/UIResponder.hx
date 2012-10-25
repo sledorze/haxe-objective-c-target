@@ -1,7 +1,7 @@
 
 package objc.ios.ui;
 
-extern class UIResponder {
+extern class UIResponder extends NSObject {
 	
 	// Managing the Responder Chain
 	public function nextResponder () :UIResponder;

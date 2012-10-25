@@ -73,6 +73,7 @@ class importsManager =
 	val mutable all_frameworks : string list = []
 	val mutable class_frameworks : string list = []
 	method add_class_path class_path =
+		print_endline ("---add classpath:"^(getFrameworkOfPath class_path)^" - "^(snd class_path));
 		let f_name = getFrameworkOfPath class_path in
 		if f_name <> "" then begin
 			if not (List.mem f_name all_frameworks) then all_frameworks <- List.append all_frameworks [f_name];
@@ -137,7 +138,7 @@ let fileSourceWriter filename =
 
 let readWholeFile chan = Std.input_all chan;;
 
-let rec makeClassDirectories base dir_list =
+let rec mkdir base dir_list =
 	( match dir_list with
 	| [] -> ()
 	| dir :: remaining ->
@@ -149,7 +150,7 @@ let rec makeClassDirectories base dir_list =
            ( ((String.length path)=2) && ((String.sub path 1 1)=":") ) ) ) then
 		         if not (Sys.file_exists path) then
 			          Unix.mkdir path 0o755;
-		makeClassDirectories (if (path="") then "/" else path) remaining
+		mkdir (if (path="") then "/" else path) remaining
 	)
 ;;
 
@@ -174,11 +175,11 @@ let cachedSourceWriter filename =
 ;;
 
 let newSourceFile base_dir class_path extension =
-	makeClassDirectories base_dir ("" :: (fst class_path));
+	mkdir base_dir ("" :: (fst class_path));
 	cachedSourceWriter (base_dir ^ "/" ^ ( String.concat "/" (fst class_path) ) ^ "/" ^ (snd class_path) ^ extension)
 ;;
 
-let makeBaseDirectory file = makeClassDirectories "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );;
+let makeBaseDirectory file = mkdir "" ( ( Str.split_delim (Str.regexp "[\\/]+") file ) );;
 
 
 (* Objective-C code generation context *)
@@ -195,6 +196,7 @@ type context = {
 	mutable handleBreak : bool;
 	mutable generating_header : bool;
 	mutable generating_call : bool;
+	mutable generating_self_access : bool;
 	mutable gen_uid : int;
 	mutable local_types : t list;
 }
@@ -210,9 +212,14 @@ let newContext common_ctx writer imports_manager file_info = {
 	handleBreak = false;
 	generating_header = false;
 	generating_call = false;
+	generating_self_access = false;
 	gen_uid = 0;
 	local_types = [];
 }
+
+let debug ctx str =
+	if false then ctx.writer#write str
+;;
 
 let isVarField e v =
 	match e.eexpr, follow e.etype with
@@ -323,7 +330,7 @@ let rec typeToString ctx t p =
 	match t with
 	| TEnum _ | TInst _ when List.memq t ctx.local_types ->
 		"*"
-	| TAbstract (a,_) ->
+	| TAbstract (a,_) ->(* ctx.writer#write "TAbstract?"; *)
 		(match a.a_path with
 		| [], "Void" -> "void"
 		| [], "UInt" -> "int"(* "NSNumber" *)
@@ -331,7 +338,7 @@ let rec typeToString ctx t p =
 		| [], "Float" -> "float"(* "NSNumber" *)
 		| [], "Bool" -> "BOOL"
 		| _ -> processClassPath ctx true a.a_path p)
-	| TEnum (e,_) ->
+	| TEnum (e,_) ->(* ctx.writer#write "TEnum?"; *)
 		if e.e_extern then (match e.e_path with
 			| [], "Void" -> "void"
 			| [], "Bool" -> "BOOL"
@@ -348,17 +355,19 @@ let rec typeToString ctx t p =
 				loop e.e_meta
 		) else
 			processClassPath ctx true e.e_path p
-	| TInst (c,_) ->
+	| TInst (c,_) ->(* ctx.writer#write "TInst?"; *)
 		(match c.cl_kind with
 		| KNormal | KGeneric | KGenericInstance _ -> processClassPath ctx false c.cl_path p
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "*")
 	| TFun _ ->
 		"Function"
 	| TMono r ->
-		(match !r with None -> "*" | Some t -> typeToString ctx t p)
+		(* ctx.writer#write "TMono?"; *)
+		(match !r with None -> "id" | Some t -> typeToString ctx t p)
 	| TAnon _ | TDynamic _ ->
 		"id"
 	| TType (t,args) ->
+		(* ctx.writer#write "TType?"; *)
 		(match t.t_path with
 		| [], "UInt" -> "uint"
 		| [] , "Null" ->
@@ -405,7 +414,7 @@ let handleBreak ctx e =
 				ctx.writer#write "} catch( e : * ) { if( e != \"__break__\" ) throw e; }";
 			)
 ;;
-		
+
 let this ctx = if ctx.in_value <> None then "$this" else "self"
 
 let escapeBin s =
@@ -467,7 +476,7 @@ let generateConstant ctx p = function
 	| TString s -> ctx.writer#write (Printf.sprintf "@\"%s\"" (Ast.s_escape s)) (* "@\"" ^ (escapeBin (Ast.s_escape s)) ^ "\"" *)
 	| TBool b -> ctx.writer#write (if b then "YES" else "NO")
 	| TNull -> ctx.writer#write "nil"
-	| TThis -> ctx.writer#write "self"
+	| TThis -> ctx.writer#write "self"; ctx.generating_self_access <- true
 	(* | TThis -> ctx.writer#write (Printf.sprintf this ctx) *)
 	| TSuper -> ctx.writer#write "super"
 ;;
@@ -516,7 +525,7 @@ let generateFunctionHeader ctx name f params p =
 ;;
 
 let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
-	(* ctx.writer#write ("-CALL-"^(Type.s_expr_kind func)^">"); *)
+	(* debug ctx ("-CALL-"^(Type.s_expr_kind func)^">"); *)
 	(* match func.eexpr , el with
 	| TCall (x,_) , el ->
 		ctx.writer#write "generateCall TCAll";
@@ -536,14 +545,13 @@ let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
 		generateValue ctx e;
 		ctx.writer#write ":";
 		concat ctx " otherArgName:" (generateValue ctx) el *)
-	generateValue ctx func;
-	ctx.writer#write ":";
-	ctx.writer#write (string_of_int (List.length arg_list));
-	(* concat ctx " otherArgName:" (generateValue ctx) arg_list; *)
+	generateValue ctx func;	
+	if List.length arg_list > 0 then ctx.writer#write ":";
+	concat ctx " otherArgName:" (generateValue ctx) arg_list
 	
 	(* ctx.writer#write ((Type.s_expr_kind etype)^">") *)
 	
-	List.iter (fun arg_def ->
+	(* List.iter (fun arg_def ->
 		ctx.writer#write ((Type.s_expr_kind arg_def)^">");
 		(* ctx.writer#write (generateValue ctx arg_def);() *)
 		(* match arg_def with
@@ -565,8 +573,8 @@ let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
 				
 		| TTypeDecl _ | TAbstractDecl _ ->
 			() *)
-	) arg_list;
-	match etype with
+	) arg_list; *)
+	(* match etype with
 	| TMono (x) -> ctx.writer#write "TMono";
 	| TEnum (enum, params)->
 		ctx.writer#write ">>TEnum>>";
@@ -592,10 +600,11 @@ let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
 	| TAnon (x)-> ctx.writer#write "TAnon";
 	| TDynamic (x)-> ctx.writer#write "TDynamic";
 	| TLazy (x)-> ctx.writer#write "TLazy";
-	| TAbstract (x, y) -> ctx.writer#write "TAbstract"
+	| TAbstract (x, y) -> ctx.writer#write "TAbstract" *)
 	
 	
 and generateValueOp ctx e =
+	debug ctx "-gen_val_op-";
 	match e.eexpr with
 	| TBinop (op,_,_) when op = Ast.OpAnd || op = Ast.OpOr || op = Ast.OpXor ->
 		ctx.writer#write "(";
@@ -620,8 +629,12 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
 		| _ ->
-			let accesor = if to_method or ctx.generating_call then " " else "." in
-			ctx.writer#write (Printf.sprintf "%s%s" accesor s)
+			let accesor = if to_method or ctx.generating_call then
+				(if ctx.generating_self_access then "." else " ")
+			else
+				"." in
+			ctx.writer#write (Printf.sprintf "%s%s" accesor s);
+			ctx.generating_self_access <- false
 		(* Generating dot notation for property and space for methods *)
 	in
 	match follow etype with
@@ -635,12 +648,14 @@ and generateFieldAccess ctx etype s to_method =
 		ctx.writer#write (Printf.sprintf " GFA3 .%s" (s))
 	
 and generateExpression ctx e =
+	debug ctx ("-E-"^(Type.s_expr_kind e)^">");
 	(* ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
+		(* TODO: if the constant is begining of the line write with write_i. samples: TThis *)
 		generateConstant ctx e.epos c
 	| TLocal v ->
-		ctx.writer#write (v.v_name)
+		ctx.writer#write v.v_name
 	| TEnumField (en,s) ->
 		ctx.writer#write_i (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
 	| TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
@@ -654,8 +669,10 @@ and generateExpression ctx e =
 		generateValue ctx e2;
 		ctx.writer#write "]";
 	| TBinop (Ast.OpEq,e1,e2) when (match isSpecialCompare e1 e2 with Some c -> true | None -> false) ->
+		ctx.writer#write_i "binop";
 		let c = match isSpecialCompare e1 e2 with Some c -> c | None -> assert false in
 		generateExpression ctx (mk (TCall (mk (TField (mk (TTypeExpr (TClassDecl c)) t_dynamic e.epos,"compare")) t_dynamic e.epos,[e1;e2])) ctx.com.basic.tbool e.epos);
+		
 	(* what is this used for? *)
 (* 	| TBinop (op,{ eexpr = TField (e1,s) },e2) ->
 		generateValueOp ctx e1;
@@ -663,6 +680,8 @@ and generateExpression ctx e =
 		ctx.writer#write (Printf.sprintf " %s " (Ast.s_binop op);
 		generateValueOp ctx e2; *)
 	| TBinop (op,e1,e2) ->
+		(* Generating a new line, an assign to a property usually *)
+		ctx.writer#write_i "";
 		generateValueOp ctx e1;
 		ctx.writer#write (Printf.sprintf " %s " (Ast.s_binop op));
 		generateValueOp ctx e2;
@@ -750,9 +769,17 @@ and generateExpression ctx e =
 	| TVars [] ->
 		()
 	| TVars vl ->
-		(* Vars inside methods only *)
+		(* Vars inside method only *)
 		concat ctx "; " (fun (v,eo) ->
-			ctx.writer#write_i (Printf.sprintf "%s %s%s" (typeToString ctx v.v_type e.epos) (addPointerIfNeeded (typeToString ctx v.v_type e.epos)) (v.v_name));
+			let t = (typeToString ctx v.v_type e.epos) in
+			ctx.writer#write_i (Printf.sprintf "%s %s%s" t (addPointerIfNeeded t) (v.v_name));
+			(* Check if this Type is a class and is not imported *)
+			(match v.v_type with
+			| TMono r -> (match !r with None -> () | Some t -> 
+				match t with
+				| TInst (c,_) -> ctx.imports_manager#add_class_path c.cl_path
+				| _ -> ())
+			| _ -> ());
 			match eo with
 			| None -> ()
 			| Some e ->
@@ -791,7 +818,7 @@ and generateExpression ctx e =
 		ctx.writer#write (Ast.s_unop op)
 	| TWhile (cond,e,Ast.NormalWhile) ->
 		let handleBreak = handleBreak ctx e in
-		ctx.writer#write_i "while695";
+		ctx.writer#write_i "while794";
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
@@ -800,7 +827,7 @@ and generateExpression ctx e =
 		let handleBreak = handleBreak ctx e in
 		ctx.writer#write_i "do ";
 		generateExpression ctx e;
-		ctx.writer#write_i " while704";
+		ctx.writer#write_i " while803";
 		generateValue ctx (parent cond);
 		handleBreak();
 	| TObjectDecl fields ->
@@ -906,7 +933,7 @@ and generateBlock ctx e =
 	ctx.writer#end_block
 	
 and generateValue ctx e =
-	(* ctx.writer#write ("-V-"^(Type.s_expr_kind e)^">"); *)
+	debug ctx ("-V-"^(Type.s_expr_kind e)^">");
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,
@@ -977,7 +1004,7 @@ and generateValue ctx e =
 	| TContinue ->
 		unsupported e.epos
 	| TVars _
-	| TFor _ -> ctx.writer#write "generate for"
+	| TFor _ -> ctx.writer#write "generate TFor"
 	| TWhile _
 	| TThrow _ ->
 		(* value is discarded anyway *)
@@ -1057,7 +1084,7 @@ let generateProperty ctx field pos =
 ;;
 
 let generateField ctx is_static field =
-	(* ctx.writer#write "-F-"; *)
+	debug ctx "-F-";
 	newLine ctx;
 	ctx.in_static <- is_static;
 	ctx.gen_uid <- 0;
@@ -1091,6 +1118,8 @@ let generateField ctx is_static field =
 	let pos = ctx.class_def.cl_pos in
 	match field.cf_expr, field.cf_kind with
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
+		(* Do not generate init methods, for now *)
+		if field.cf_name <> "init" then begin
 		ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
 		(* Generate function header *)
 		let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos in
@@ -1099,7 +1128,8 @@ let generateField ctx is_static field =
 			generateExpression ctx fd.tf_expr
 		else
 			ctx.writer#write ";";
-		h()
+		h();
+		end
 	| _ ->
 		let is_getset = (match field.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		match follow field.cf_type with
@@ -1197,7 +1227,6 @@ let rec defineGetSet ctx is_static c =
 	| Some (c,_) when not is_static -> defineGetSet ctx is_static c
 	| _ -> ()
 ;;
-
 
 let makeImportPath (p,s) = match p with [] -> s | _ -> String.concat "/" p ^ "/" ^ s
 
@@ -1334,32 +1363,36 @@ let xcschememanagement common_ctx =
 ");
 	file#close
 ;;
-let generateProjectStructure common_ctx = 
+let pbxproj common_ctx = 
+	let src_dir = srcDir common_ctx in
+	let app_name = appName common_ctx in
+	let file = newSourceFile (src_dir^".xcodeproj") ([],"project") ".pbxproj" in
+	file#write ("");
+	file#close
+;;
+let generateXcodeProject common_ctx =
+	let app_name = appName common_ctx in
 	let base_dir = common_ctx.file in
-	let sub_dir = match common_ctx.main_class with
-		| Some path -> (snd path)
-		| _ -> "Application" in
 	(* Create classes directory *)
-	makeClassDirectories base_dir ( sub_dir :: []);
-		makeClassDirectories base_dir ( sub_dir :: ["en.lproj"]);
+	mkdir base_dir ( app_name :: []);
+		mkdir base_dir ( app_name :: ["en.lproj"]);
 		
 	(* Create tests directory *)
-	makeClassDirectories base_dir ( (sub_dir^"Tests") :: []);
+	mkdir base_dir ( (app_name^"Tests") :: []);
 	
 	(* Create Main Xcode bundle *)
-	makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: []);
-		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["project.pbxproj"]);
-		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["project.xcworkspace"]);
-			makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: "project.xcworkspace" :: ["Cristi.xcuserdatad"]);
+	mkdir base_dir ( (app_name^".xcodeproj") :: []);
+		pbxproj common_ctx;
+		mkdir base_dir ( (app_name^".xcodeproj") :: ["project.xcworkspace"]);
+			mkdir base_dir ( (app_name^".xcodeproj") :: "project.xcworkspace" :: ["Cristi.xcuserdatad"]);
 			xcworkspacedata common_ctx;
-		makeClassDirectories base_dir ( (sub_dir^".xcodeproj") :: ["xcuserdata"]);
-			makeClassDirectories base_dir ((sub_dir^".xcodeproj") :: "xcuserdata" :: "Cristi.xcuserdatad" :: ["xcschemes"]);
+		mkdir base_dir ( (app_name^".xcodeproj") :: ["xcuserdata"]);
+			mkdir base_dir ((app_name^".xcodeproj") :: "xcuserdata" :: "Cristi.xcuserdatad" :: ["xcschemes"]);
 			xcscheme common_ctx;
 			xcschememanagement common_ctx
 ;;
 
 let generateMain ctx field =
-	
 	let platform_class = ref "" in
 	let app_delegate_class = ref "" in
 	let gen = (match field.cf_expr, field.cf_kind with
@@ -1395,7 +1428,7 @@ let generateMain ctx field =
 	| _ -> print_endline "- Did not found a main function.") in
 	(* print_endline ("- app_delegate_class: "^ (!app_delegate_class)); *)
 	let src_dir = srcDir ctx.com in
-	let m_file = newSourceFile src_dir ([],"_main_") ".m" in
+	let m_file = newSourceFile src_dir ([],"main") ".m" in
 	(match !platform_class with
 	| "UIApplicationMain" | "NSApplicationMain" ->
 		print_endline "GENERATING MAIN";
@@ -1420,15 +1453,12 @@ int main(int argc, char *argv[]) {
 	)
 ;;
 	
-let generatePch common_ctx class_def  =
+let generatePch common_ctx class_def =
 	(* This class imports will be available in the entire Xcode project, we add here Std classes *)
-	let sub_dir = match common_ctx.main_class with
-		| Some path -> (snd path)
-		| _ -> "Application" in
+	let app_name = appName common_ctx in
 	let src_dir = srcDir common_ctx in
-	let file = newSourceFile src_dir ([], sub_dir ^ "-Prefix") ".pch" in
-	let output_pch = (file#write) in
-	output_pch "//
+	let file = newSourceFile src_dir ([], app_name ^ "-Prefix") ".pch" in
+	file#write "//
 // Prefix header for all source files in the project
 //
 
@@ -1447,16 +1477,12 @@ let generatePch common_ctx class_def  =
 
 let generatePlist common_ctx class_def  =
 
-	let base_dir = common_ctx.file in
-	let sub_dir = match common_ctx.main_class with
-		| Some path -> (snd path)
-		| _ -> "Application" in
-	let generate_file =
-		let identifier = "ralcr.com" in
-		let file = newSourceFile base_dir ([sub_dir],sub_dir^"-Info") ".plist" in
-		let output_pch = (file#write) in
-		
-		output_pch ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+	let app_name = appName common_ctx in
+	let src_dir = srcDir common_ctx in
+	let identifier = ("org.haxe."^app_name) in
+	let version = "1.0" in
+	let file = newSourceFile src_dir ([],app_name^"-Info") ".plist" in
+	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
 <dict>
@@ -1467,7 +1493,7 @@ let generatePlist common_ctx class_def  =
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>" ^ identifier ^ ".${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>" ^ identifier ^ "</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -1475,11 +1501,11 @@ let generatePlist common_ctx class_def  =
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>" ^ version ^ "</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>" ^ version ^ "</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -1494,9 +1520,7 @@ let generatePlist common_ctx class_def  =
 	</array>
 </dict>
 </plist>");
-		file#close;
-	in
-	generate_file
+	file#close
 ;;
 
 let generateEnum ctx e =
@@ -1506,7 +1530,7 @@ let generateEnum ctx e =
 (* Generate header + implementation *)
 
 let generateClassFiles common_ctx class_def file_info imports_manager =
-	print_endline ("> Generating class files: "^(snd class_def.cl_path));
+	print_endline ("> Generating class files for : "^(snd class_def.cl_path));
 	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
 	(* The frameworks are kept in a non-resetable variable also *)
 	imports_manager#reset;
@@ -1535,7 +1559,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	| None -> ()
 	| Some f ->
 		let f = { f with
-			cf_name = "init"(* snd class_def.cl_path *);
+			cf_name = "init"(* Rename the class constructor to 'init' snd class_def.cl_path *);
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in
@@ -1550,6 +1574,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	
 	
 	(* Find the static main method and generate a main.m file from it. *)
+	(* TODO: move this verification in the generateField *)
 	List.iter (generateMain ctx) class_def.cl_ordered_statics;
 	
 	end;
@@ -1561,11 +1586,12 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	let class_path = class_def.cl_path in
 	(* let class_name = (snd class_def.cl_path) in *)
 	let h_file = newSourceFile src_dir class_path ".h" in
-	let output_h = (h_file#write) in
 	let ctx = newContext common_ctx h_file imports_manager file_info in
 	ctx.class_def <- class_def;
 	ctx.generating_header <- true;
-	ctx.imports_manager#add_class_path class_path;
+	(match class_def.cl_super with
+		| None -> ()
+		| Some (csup,_) -> ctx.imports_manager#add_class_path csup.cl_path);
 	newLine ctx;
 	
 	(* Import frameworks *)
@@ -1576,29 +1602,29 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	ctx.writer#import_headers imports_manager#get_imports;
 	newLine ctx;
 	
-	output_h ("@interface " ^ (snd class_path));
+	h_file#write ("@interface " ^ (snd class_path));
 	(* Add the super class *)
 	(match class_def.cl_super with
 		| None -> ()
-		| Some (csup,_) -> output_h (Printf.sprintf " : %s " (snd csup.cl_path)));
+		| Some (csup,_) -> h_file#write (Printf.sprintf " : %s " (snd csup.cl_path)));
 	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
 	(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
 	(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
 	if class_def.cl_implements != [] then begin
 		(* Add implement *)
-		output_h "<";
+		h_file#write "<";
 		(match class_def.cl_implements with
 		| [] -> ()
-		| l -> concat ctx ", " (fun (i,_) -> output_h (Printf.sprintf "%s" (snd i.cl_path))) l
+		| l -> concat ctx ", " (fun (i,_) -> h_file#write (Printf.sprintf "%s" (snd i.cl_path))) l
 		);
-		output_h ">";
+		h_file#write ">";
 	end;
-	output_h "\n\n";
+	h_file#write "\n\n";
 	
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
 	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
 	
-	output_h "\n\n@end\n";
+	h_file#write "\n\n@end\n";
 	h_file#close
 ;;
 
@@ -1607,7 +1633,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 let generate common_ctx =
 	
 	(* Generate XCode folders structure *)
-	generateProjectStructure common_ctx;
+	generateXcodeProject common_ctx;
 	
 	let imports_manager = new importsManager in
 	let app_info = ref PMap.empty in

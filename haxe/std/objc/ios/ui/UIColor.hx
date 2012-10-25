@@ -4,6 +4,10 @@ extern class UIColor extends NSObject {
 	
 	public static function colorWithWhite (white:Float, alpha:Float) :UIColor;
 	public static function colorWithHue (hue:Float, saturation:Float, brightness:Float, alpha:Float) :UIColor;
+	public static function clearColor () : UIColor;
+	public static function redColor () : UIColor;
+	public static function darkGrayColor () : UIColor;
+	public static function yellowColor () : UIColor;
 }
 
 /*

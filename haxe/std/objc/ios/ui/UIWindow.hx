@@ -14,7 +14,7 @@ extern class UIWindow extends UIView {
 	public function makeKeyAndVisible () :Void;
 	// convenience. most apps call this to show the main window and also make it key. otherwise use view hidden property
 
-	public function rootViewController () :UIViewController;
+	public var rootViewController :UIViewController;
 
 	public function sendEvent (event:UIEvent) :Void;
 

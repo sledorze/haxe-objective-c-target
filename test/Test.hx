@@ -43,14 +43,17 @@ class Test extends UIResponder, implements UIApplicationDelegate {
 		var xy = a.length;
 		a.push ( "6" );
 		
-		for (i in aa) {
+/*		for (i in aa) {
 			a.push (Std.string(i));
+		}*/
+		for (i in 0...5) {
+			aa.push ( i );
 		}
 		
-		switch (e) {
+/*		switch (e) {
 			case true : null;
 			case false : null;
-		}
+		}*/
 		
 		if (a.length > 3) {
 			f = 3;
