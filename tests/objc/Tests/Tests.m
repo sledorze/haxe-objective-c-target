@@ -4,8 +4,6 @@
 
 
 
-+ (void) main{
-}
 
 @synthesize interfaceVar1;
 @synthesize interfaceVar2;
@@ -50,11 +48,11 @@
 	return 	a - b;
 }
 
-- (void) callLotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+- (void) callLotsOfArguments:(int)arg1 _:(int)_ _1:(int)_1 arg4:(int)arg4{
 }
 
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:	{	fileName:@"Tests.hx" ,	lineNumber:61 ,	className:@"Tests" ,	methodName:@"printHello"	}];
+	[Log trace:@"Hello from Haxe Objective-C" infos:	{	fileName:@"Tests.hx" ,	lineNumber:66 ,	className:@"Tests" ,	methodName:@"printHello"	}];
 }
 
 

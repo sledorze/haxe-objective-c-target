@@ -1,3 +1,8 @@
+@:orientation("portrait")
+@:identifier("com.ralcr.HelloWorld")
+@:owner("Baluta Cristian")
+@:bundle_name("HelloWorld")
+
 
 class Tests implements Interface1, implements Interface2 {
 	
@@ -56,7 +61,7 @@ class Tests implements Interface1, implements Interface2 {
 	public function minus (a:Int, b:Int) :Int {
 		return a-b;
 	}
-	public function callLotsOfArguments (arg1:Int, arg2:Int, arg3:Int, arg4:Int) :Void {}
+	public function callLotsOfArguments (arg1:Int, _:Int, _:Int, arg4:Int) :Void {}
 	public function printHello () :Void {
 		trace("Hello from Haxe Objective-C");
 	}
