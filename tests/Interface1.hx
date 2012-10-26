@@ -1,4 +1,4 @@
-interface TestInterface {
+interface Interface1 {
 	
 	var interfaceVar1 :Int;
 	public var interfaceVar2 :Float;

@@ -1,14 +1,44 @@
-Getting started
-===============
-Objective-C target is still in it's early stages of development, so is not even generating valid code, but here is how to get started:
+## Overview
 
-1. Checkout the oficial Haxe svn on googlecode
-2. Make a git in the same directory and pull this project:
-	* `git init`
-	* `git pull git@github.com:ralcr/haxe-objective-c-target.git`
-3. Navigate to haxe directory: `#cd haxe`
-4. Build Haxe with
-	 * `#make clean`; `#make haxe`
-	 * or `#./build.sh` (for Mac) to automatically run the new Haxe with the Test project provided
+Objective-C target can build Xcode projects with pure objective-c code from a Haxe project. The target can use Cocoa and CocoaTouch frameworks to build iPhone and Mac applications
+
+> NOTE:  is still in it's early stages of development, so is not safe to use, but if you want to help you can do tests and report errors:
+
+## Installation
+
+Checkout the oficial Haxe sources from googlecode
+
+Clone the ObjC target from git somewhere in your computer:
+
+	git clone git@github.com:ralcr/haxe-objective-c-target.git
+
+Navigate to haxe directory:
+
+	cd haxe
+
+Build Haxe with:
+
+	make clean
+	make haxe
+
+or:
+
+	./build.sh
+
+(for Mac to automatically compile and run Haxe with the demos provided)
 	 
-**At request i can provide the Mac executable**
+> At request i can provide the Mac executable
+
+## Getting started
+
+The main class should be of this form, everything else is ignored
+
+	public static function main() {
+		return new UIApplicationMain ( AppDelegate );
+	}
+
+And the AppDelegate.hx should conform with the UIApplicationDelegate. The main entry point is:
+
+	public function applicationDidFinishLaunchingWithOptions (application:UIApplication, didFinishLaunchingWithOptions:NSDictionary) :Bool
+	
+You should start building your app from this point up

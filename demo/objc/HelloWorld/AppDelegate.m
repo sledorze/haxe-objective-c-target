@@ -33,7 +33,6 @@
 	self.viewController.view = self.view;
 	self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];
-	int x = 3;
 	return YES;
 }
 

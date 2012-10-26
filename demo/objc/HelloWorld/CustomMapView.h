@@ -1,7 +1,6 @@
 
 #import <MapKit/MapKit.h>
 
-#import "Int.h"
 #import "CustomMapView.h"
 
 @interface CustomMapView : MKMapView 

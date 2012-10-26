@@ -2,7 +2,17 @@ clear
 make haxe
 cd ..
 echo " "
-echo "Build the HelloWorld project..."
+echo "Build CocoaTouch demo..."
 echo " "
-./haxe/haxe -main HelloWorld -cp test -objc test/objc
-# haxe compile.hxml
+./haxe/haxe -main HelloWorld -cp demo -objc demo/objc
+
+echo " "
+echo "Build ObjC tests..."
+echo " "
+./haxe/haxe -main Tests -cp tests -objc tests/objc
+# echo "Build Cpp tests..."
+# ./haxe/haxe -main Tests -cp tests -cpp tests/cpp
+# echo "Build CS tests..."
+# ./haxe/haxe -main Tests -cp tests -cs tests/cs
+# echo "Build Java tests..."
+# ./haxe/haxe -main Tests -cp tests -java tests/java
