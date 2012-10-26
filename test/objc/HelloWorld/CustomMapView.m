@@ -5,7 +5,7 @@
 
 
 - (void) locateLondon{
-	[self.locate:50.8 long:50.8 zoom:50.8];
+	[self.locate:50.8 long:-0.5 zoom:1.2];
 }
 
 - (void) locate:(float)lat long:(float)long zoom:(float)zoom{

@@ -10,6 +10,7 @@ import objc.ios.ui.UIViewController;
 import objc.ios.ui.UIApplication;
 import objc.ios.ui.UIColor;
 import objc.ios.ui.UIFont;
+import objc.ios.ui.UIViewAutoresizing;
 
 
 class AppDelegate extends UIResponder, implements UIApplicationDelegate {
@@ -29,7 +30,7 @@ class AppDelegate extends UIResponder, implements UIApplicationDelegate {
 		view = new UIView();
 		view.frame = new CGRect(0, 0, window.frame.size.width, window.frame.size.height);
 		view.autoresizesSubviews = true;
-		untyped __objc__ ("view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin");
+		view.autoresizingMask = UIViewAutoresizing.flexibleWidth | UIViewAutoresizing.flexibleHeight;
 		view.backgroundColor = UIColor.darkGrayColor();
 
 		label = new UILabel();
@@ -51,8 +52,6 @@ class AppDelegate extends UIResponder, implements UIApplicationDelegate {
 		viewController.view = view;
 		window.rootViewController = viewController;
 		window.makeKeyAndVisible();
-		
-		var x = 1 | 2 | 3;
 		
 		return true;
 	}

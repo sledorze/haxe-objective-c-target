@@ -10,6 +10,7 @@ extern class UIView {
 	public var frame :CGRect;
 	public var bounds :CGRect;
 	public var autoresizesSubviews :Bool;
+	public var autoresizingMask :Int;
 	public var backgroundColor :UIColor;
 	
 	function new() : Void;

@@ -568,7 +568,7 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 		List.iter (
 			fun (name, b, t) ->
 				ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
-				generateValue ctx args_array_e.(0);
+				generateValue ctx args_array_e.(!index);
 				index := !index + 1;
 		) args;
 	| _ -> ctx.writer#write "non-");
