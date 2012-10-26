@@ -42,14 +42,17 @@ class AppDelegate extends UIResponder, implements UIApplicationDelegate {
 		view.addSubview(label);
 
 		var map = new CustomMapView();
-			map.frame = new CGRect(10, 10, 300, 300);
-			map.locateLondon();
+		map.frame = new CGRect(10, 10, 300, 300);
+		map.locateLondon();
+		map.locate (50.8, -0.5, 1.2);
 		view.addSubview(map);
 
 		viewController = new UIViewController();
 		viewController.view = view;
 		window.rootViewController = viewController;
 		window.makeKeyAndVisible();
+		
+		var x = 1 | 2 | 3;
 		
 		return true;
 	}

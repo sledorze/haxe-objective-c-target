@@ -27,11 +27,13 @@
 	CustomMapView *map = [[CustomMapView alloc] init];
 	map.frame = CGRectMake (10,10,300,300);
 	[map locateLondon];
+	[map locate:50.8 long:50.8 zoom:50.8];
 	[self.view addSubview:map];
 	self.viewController = [[UIViewController alloc] init];
 	self.viewController.view = self.view;
 	self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];
+	int x = 3;
 	return YES;
 }
 

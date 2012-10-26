@@ -73,7 +73,7 @@ class importsManager =
 	val mutable all_frameworks : string list = []
 	val mutable class_frameworks : string list = []
 	method add_class_path class_path =
-		print_endline ("---add classpath:"^(getFrameworkOfPath class_path)^" - "^(snd class_path));
+		(* print_endline ("---add classpath:"^(getFrameworkOfPath class_path)^" - "^(snd class_path)); *)
 		let f_name = getFrameworkOfPath class_path in
 		if f_name <> "" then begin
 			if not (List.mem f_name all_frameworks) then all_frameworks <- List.append all_frameworks [f_name];
@@ -309,7 +309,7 @@ let genLocal ctx l =
 
 let unsupported p = error "This expression cannot be generated to Objective-C" p
 
-let newLine ctx = ctx.writer#write_i "\n"
+let newLine ctx = ctx.writer#write "\n"
 
 let rec concat ctx s f = function
 	| [] -> ()
@@ -524,9 +524,10 @@ let generateFunctionHeader ctx name f params p =
 	)
 ;;
 
-let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
+(* arg_list is of type Type.texpr list *)
+let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 	(* debug ctx ("-CALL-"^(Type.s_expr_kind func)^">"); *)
-	(* match func.eexpr , el with
+	(* match func.eexpr, arg_list with
 	| TCall (x,_) , el ->
 		ctx.writer#write "generateCall TCAll";
 		generateValue ctx e;
@@ -546,62 +547,33 @@ let rec generateMethodCall ctx func arg_list etype (* ctx e el r *) =
 		ctx.writer#write ":";
 		concat ctx " otherArgName:" (generateValue ctx) el *)
 	generateValue ctx func;	
-	if List.length arg_list > 0 then ctx.writer#write ":";
-	concat ctx " otherArgName:" (generateValue ctx) arg_list
+	(* if List.length arg_list > 0 then ctx.writer#write ":"; *)
+	(* concat ctx " otherArgName:" (generateValue ctx) arg_list *)
 	
-	(* ctx.writer#write ((Type.s_expr_kind etype)^">") *)
+	(* In the general case, if e is TCall(func, call_args): 
+	func.etype == TFun(args, ret) 
+	args is of (string * bool * t) list, with string being the name 
+	e.etype == ret, i.e. what you get by calling the function, i.e. the return type  *)
 	
-	(* List.iter (fun arg_def ->
-		ctx.writer#write ((Type.s_expr_kind arg_def)^">");
-		(* ctx.writer#write (generateValue ctx arg_def);() *)
-		(* match arg_def with
-		| TClassDecl class_def ->
-			let class_def = (match class_def.cl_path with
-				| ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" }
-				| (pack,name) -> { class_def with cl_path = (pack, name) }
-			) in
-			(match class_def.cl_init with
-			| None -> ()
-			| Some e -> inits := e :: !inits);
-			
-			if not class_def.cl_extern then generateClassFiles common_ctx class_def file_info imports_manager
-		
-		| TEnumDecl e ->
-			let pack,name = e.e_path in
-			let e = { e with e_path = (pack,protect name) } in
-			if not e.e_extern then generateEnum common_ctx e
-				
-		| TTypeDecl _ | TAbstractDecl _ ->
-			() *)
+	(* List.iter (
+		fun (e) -> ctx.writer#write ":"; generateValue ctx e
 	) arg_list; *)
-	(* match etype with
-	| TMono (x) -> ctx.writer#write "TMono";
-	| TEnum (enum, params)->
-		ctx.writer#write ">>TEnum>>";
-		ctx.writer#write (string_of_int (List.length params));
-		ctx.writer#write (snd enum.e_path);
-		List.iter (fun en -> ctx.writer#write en)enum.e_names;
-		List.iter (fun t_ ->
-			
-			match t_ with
-			| TMono (x) -> ctx.writer#write "TMono";
-			| TEnum (enum, params)-> ctx.writer#write "TEnum"; 
-			| TInst (cls, params) -> ctx.writer#write "TInst";
-			| TType (x, y) -> ctx.writer#write "TType";
-			| TFun (x, y) -> ctx.writer#write "TFun";
-			| TAnon (x)-> ctx.writer#write "TAnon";
-			| TDynamic (x)-> ctx.writer#write "TDynamic";
-			| TLazy (x)-> ctx.writer#write "TLazy";
-			| TAbstract (x, y) -> ctx.writer#write "TAbstract"
-		) params;
-	| TInst (cls, params) -> ctx.writer#write "TInst";
-	| TType (x, y) -> ctx.writer#write "TType";
-	| TFun (x, y) -> ctx.writer#write "TFun";
-	| TAnon (x)-> ctx.writer#write "TAnon";
-	| TDynamic (x)-> ctx.writer#write "TDynamic";
-	| TLazy (x)-> ctx.writer#write "TLazy";
-	| TAbstract (x, y) -> ctx.writer#write "TAbstract" *)
 	
+	if List.length arg_list > 0 then begin
+	
+	let args_array_e = Array.of_list arg_list in
+	let index = ref 0 in
+	(match func.etype with
+	| TFun(args, ret) ->
+		List.iter (
+			fun (name, b, t) ->
+				ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
+				generateValue ctx args_array_e.(0);
+				index := !index + 1;
+		) args;
+	| _ -> ctx.writer#write "non-");
+	
+	end
 	
 and generateValueOp ctx e =
 	debug ctx "-gen_val_op-";
@@ -756,7 +728,7 @@ and generateExpression ctx e =
 	| TCall (func, arg_list) ->
 		ctx.writer#write_i "[";
 		ctx.generating_call <- true;
-		generateMethodCall ctx func arg_list e.etype;
+		generateCall ctx func arg_list e.etype;
 		ctx.generating_call <- false;
 		ctx.writer#write "]"
 	| TArrayDecl el ->
@@ -1365,7 +1337,7 @@ let xcschememanagement common_ctx =
 ;;
 let pbxproj common_ctx = 
 	let src_dir = srcDir common_ctx in
-	let app_name = appName common_ctx in
+	(* let app_name = appName common_ctx in *)
 	let file = newSourceFile (src_dir^".xcodeproj") ([],"project") ".pbxproj" in
 	file#write ("");
 	file#close

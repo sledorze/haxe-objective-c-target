@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Int.h"
 #import "CustomMapView.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
