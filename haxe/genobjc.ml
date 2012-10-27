@@ -1143,6 +1143,7 @@ int main(int argc, char *argv[]) {
 
 let generateField ctx is_static field =
 	debug ctx "-F-";
+	(* ctx.writer#write ("\n-F-"^field.cf_name); *)
 	newLine ctx;
 	ctx.in_static <- is_static;
 	ctx.gen_uid <- 0;
@@ -1175,7 +1176,8 @@ let generateField ctx is_static field =
 	(f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
 	let pos = ctx.class_def.cl_pos in
 	match field.cf_expr, field.cf_kind with
-	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
+	(* MethDynamic not sure if must be here *)
+	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline | MethDynamic) ->
 		(* Do not generate init methods, for now *)
 		if field.cf_name <> "init" then begin
 			(* Find the static main method and generate a main.m file from it. *)
@@ -1440,7 +1442,7 @@ let localizations common_ctx =
 	file#write ("/* Localized versions of Info.plist keys */");
 	file#close
 ;;
-let generateXcodeProject common_ctx =
+let generateXcodeStructure common_ctx =
 	let app_name = appName common_ctx in
 	let base_dir = common_ctx.file in
 	(* Create classes directory *)
@@ -1633,7 +1635,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 let generate common_ctx =
 	
 	(* Generate XCode folders structure *)
-	generateXcodeProject common_ctx;
+	generateXcodeStructure common_ctx;
 	
 	let imports_manager = new importsManager in
 	let app_info = ref PMap.empty in
@@ -1643,7 +1645,7 @@ let generate common_ctx =
 		match object_def with
 		| TClassDecl class_def ->
 			let class_def = (match class_def.cl_path with
-				(* | ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
+				(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
 				| (pack,name) -> { class_def with cl_path = (pack, name) }
 			) in
 			if not class_def.cl_extern then
