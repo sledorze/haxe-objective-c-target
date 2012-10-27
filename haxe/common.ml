@@ -389,7 +389,7 @@ let platform_name = function
 	| Cpp -> "cpp"
 	| Cs -> "cs"
 	| Java -> "java"
-	| ObjC -> "objective-c"
+	| ObjC -> "objc"
 
 let flash_versions = List.map (fun v ->
 	let maj = int_of_float v in
