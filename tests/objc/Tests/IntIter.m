@@ -6,11 +6,13 @@
 
 @synthesize min;
 @synthesize max;
-- (BOOL) hasNext{
+- (BOOL) hasNext
+{
 	return 	self.min < self.max;
 }
 
-- (int) next{
+- (int) next
+{
 	return self.min++;
 }
 

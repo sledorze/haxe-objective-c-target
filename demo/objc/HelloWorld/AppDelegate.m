@@ -7,8 +7,10 @@
 @synthesize viewController;
 @synthesize view;
 @synthesize label;
-- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions
+{
 	self.window = [[UIWindow alloc] init];
+
 	UIScreen *screen = 	[UIScreen mainScreen];
 	self.window.frame = screen.bounds;
 	self.view = [[UIView alloc] init];
@@ -24,6 +26,7 @@
 	self.label.font = 	[UIFont boldSystemFontOfSize:30];
 	self.label.text = @"Hello world!";
 	[self.view addSubview:self.label];
+
 	CustomMapView *map = [[CustomMapView alloc] init];
 	map.frame = CGRectMake (10,10,300,300);
 	[map locateLondon];
@@ -36,10 +39,12 @@
 	return YES;
 }
 
-- (void) applicationDidBecomeActive:(UIApplication*)application{
+- (void) applicationDidBecomeActive:(UIApplication*)application
+{
 }
 
-- (void) applicationWillResignActive:(UIApplication*)application{
+- (void) applicationWillResignActive:(UIApplication*)application
+{
 }
 
 

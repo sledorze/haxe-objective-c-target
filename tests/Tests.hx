@@ -13,7 +13,7 @@ class Tests implements Interface1, implements Interface2 {
 	public function new () {
 		
 	}
-		
+	
 	function tests () :Void {
 		// declare some random variables
 		var a = new Array<String>();
@@ -64,6 +64,7 @@ class Tests implements Interface1, implements Interface2 {
 	public function callLotsOfArguments (arg1:Int, _:Int, _:Int, arg4:Int) :Void {}
 	public function printHello () :Void {
 		trace("Hello from Haxe Objective-C");
+		haxe.Log.trace("blah blah");
 	}
 	public static function main() {
 		//return new UIApplicationMain ( Tests );

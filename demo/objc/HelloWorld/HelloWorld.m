@@ -4,7 +4,8 @@
 
 
 
-+ (void) unusedMain{
++ (void) unusedMain
+{
 }
 
 

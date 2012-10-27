@@ -108,7 +108,7 @@ class sourceWriter write_func close_func =
 	method write str = write_func str; just_finished_block <- false
 	method write_i x = this#write (indent ^ x)
 	
-	method begin_block = this#write ("{\n"); this#push_indent
+	method begin_block = this#write ("\n{\n"); this#push_indent
 	method end_block = this#pop_indent; this#write_i "}\n"; just_finished_block <- true
 	method end_block_line = this#pop_indent; this#write_i "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";\n")
@@ -602,6 +602,8 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
 		| _ ->
+			(* TODO : methods called with self use the dot notation, which is not good *)
+			(* ctx.writer#write ((if to_method then "1" else "0")^(if ctx.generating_call then "2" else "0")^(if ctx.generating_self_access then "3" else "0")); *)
 			let accesor = if to_method or ctx.generating_call then
 				(if ctx.generating_self_access then "." else " ")
 			else
@@ -725,28 +727,60 @@ and generateExpression ctx e =
 			( match arg_list with
 			| [{ eexpr = TConst (TString code) }] -> ctx.writer#write_i code;
 			| _ -> error "__objc__ accepts only one string as an argument" func.epos;)
-			(* TODO: this is generating a method aceess. We need to add indentation before the first call *)
 	| TCall (func, arg_list) ->
 		ctx.writer#write_i "[";
 		ctx.generating_call <- true;
 		generateCall ctx func arg_list e.etype;
 		ctx.generating_call <- false;
 		ctx.writer#write "]"
+	| TObjectDecl (
+		("fileName" , { eexpr = (TConst (TString file)) }) ::
+		("lineNumber" , { eexpr = (TConst (TInt line)) }) ::
+		("className" , { eexpr = (TConst (TString class_name)) }) ::
+		("methodName", { eexpr = (TConst (TString meth)) }) :: [] ) ->
+			ctx.writer#write ("[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@\""^file^"\",@\""^(Printf.sprintf "%ld" line)^"\",@\""^class_name^"\",@\""^meth^"\",nil] forKeys:[NSArray arrayWithObjects:@\"fileName\",@\"lineNumber\",@\"className\",@\"methodName\",nil]]");
+			
+			
+			(* ("hx::SourceInfo(" ^ (str file) ^ "," ^ (Printf.sprintf "%ld" line) ^ "," ^
+          (str class_name) ^ "," ^ (str meth) ^ ")" ) *)
+	(* | TObjectDecl decl_list ->
+		let func_name = use_anon_function_name ctx in
+		(try output ( func_name ^ "::Block(" ^
+					(Hashtbl.find ctx.ctx_local_return_block_args func_name) ^ ")" )
+		with Not_found ->
+			output ("/* TObjectDecl block " ^ func_name ^ " not found */" ); )
+	| TArrayDecl decl_list ->
+		(* gen_type output expression.etype; *)
+      let tstr = (type_string_suff "_obj" expression.etype) in
+      if tstr="Dynamic" then
+		   output "Dynamic( Array_obj<Dynamic>::__new()"
+      else
+		   output ( (type_string_suff "_obj" expression.etype) ^ "::__new()");
+		List.iter ( fun elem -> output ".Add(";
+							gen_expression ctx true elem;
+							output ")" ) decl_list;
+      if tstr="Dynamic" then output ")"; *)
+
+  	(* | TObjectDecl fields ->
+  		ctx.writer#write_i "{";
+  		concat ctx " ," (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
+  		ctx.writer#write_i "}" *)
 	| TArrayDecl el ->
-		ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
-		concat ctx ", " (generateValue ctx) el;
-		ctx.writer#write ", nil]]"
+			ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
+			concat ctx ", " (generateValue ctx) el;
+			ctx.writer#write ", nil]]"
 	| TThrow e ->
 		ctx.writer#write "throw ";
 		generateValue ctx e
 	| TVars [] ->
 		()
 	| TVars vl ->
+		newLine ctx;
 		(* Vars inside method only *)
 		concat ctx "; " (fun (v,eo) ->
 			let t = (typeToString ctx v.v_type e.epos) in
 			ctx.writer#write_i (Printf.sprintf "%s %s%s" t (addPointerIfNeeded t) (v.v_name));
-			(* Check if this Type is a class and is not imported *)
+			(* Check if this Type is a Class and if is imported *)
 			(match v.v_type with
 			| TMono r -> (match !r with None -> () | Some t -> 
 				match t with
@@ -803,10 +837,6 @@ and generateExpression ctx e =
 		ctx.writer#write_i " while803";
 		generateValue ctx (parent cond);
 		handleBreak();
-	| TObjectDecl fields ->
-		ctx.writer#write_i "{";
-		concat ctx " ," (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
-		ctx.writer#write_i "}"
 	| TFor (v,it,e) ->
 		ctx.writer#begin_block;
 		let handleBreak = handleBreak ctx e in
@@ -1203,8 +1233,7 @@ let generateField ctx is_static field =
 			) args; *)
 			
 		| _ when is_getset ->
-			if ctx.generating_header then
-				generateProperty ctx field pos
+			if ctx.generating_header then generateProperty ctx field pos
 		| _ -> ();
 		
 		let gen_init () = match field.cf_expr with
