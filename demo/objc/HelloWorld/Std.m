@@ -10,7 +10,7 @@
 
 + (NSString*) string:(id)s
 {
-	return ( (	s == nil)?@"null":	[s GFA3 .toString]);
+	return ( (	s == nil) ? @"null" : 	[s GFA3 .toString]);
 }
 
 + (int) int:(float)x
@@ -18,7 +18,7 @@
 	return 	[__global__ GFA2 .__int__non-];
 }
 
-+ (**) parseInt:(NSString*)x
++ (id) parseInt:(NSString*)x
 {
 	return 	[__global__ GFA2 .__hxcpp_parse_intnon-];
 }
@@ -30,7 +30,7 @@
 
 + (int) random:(int)x
 {
-	if (	x <= 0) 	return 0;
+	if (	x <= 0) 	return 0;;
 	return 	[__global__ GFA2 .__hxcpp_irandnon-];
 }
 

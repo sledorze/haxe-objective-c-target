@@ -11,6 +11,8 @@ import objc.ios.ui.UIApplication;
 import objc.ios.ui.UIColor;
 import objc.ios.ui.UIFont;
 import objc.ios.ui.UIViewAutoresizing;
+import objc.foundation.NSDictionary;
+
 
 
 class AppDelegate extends UIResponder, implements UIApplicationDelegate {

@@ -8,7 +8,7 @@
 @synthesize max;
 - (BOOL) hasNext
 {
-	return 	self.min < self.max;
+	return self.min < self.max;
 }
 
 - (int) next

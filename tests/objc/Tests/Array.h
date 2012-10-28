@@ -1,4 +1,5 @@
 
+#import <Foundation/Foundation.h>
 
 
 @interface Array
@@ -10,16 +11,17 @@
 - (Array*) concat:(Array*)a;
 - (Array*) copy;
 - (id) iterator;
-- (void) insert:(int)pos x:(**)x;
+- (void) insert:(int)pos x:(id)x;
 - (NSString*) join:(NSString*)sep;
 - (NSString*) toString;
-- (**) pop;
-- (int) push:(**)x;
-- (void) unshift:(**)x;
-- (BOOL) remove:(**)x;
+- (id) pop;
+- (int) push:(id)x;
+- (Array*) add:(id)x;
+- (void) unshift:(id)x;
+- (BOOL) remove:(id)x;
 - (void) reverse;
-- (**) shift;
-- (Array*) slice:(int)pos end:(**)end;
+- (id) shift;
+- (Array*) slice:(int)pos end:(id)end;
 - (void) sort:(Function*)f;
 - (Array*) splice:(int)pos len:(int)len;
 - (int) getLength;

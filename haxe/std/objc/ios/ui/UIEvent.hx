@@ -1,4 +1,6 @@
 package objc.ios.ui;
+import objc.foundation.NSObject;
+import objc.foundation.NSSet;
 
 enum UIEventType {
     UIEventTypeTouches;

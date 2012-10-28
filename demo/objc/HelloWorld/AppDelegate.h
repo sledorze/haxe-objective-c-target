@@ -2,6 +2,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CustomMapView.h"
+#import "objc/foundation/NSDictionary.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

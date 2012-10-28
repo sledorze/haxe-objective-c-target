@@ -1,3 +1,4 @@
+package objc.foundation;
 
 extern class NSDictionary extends NSObject {
 	

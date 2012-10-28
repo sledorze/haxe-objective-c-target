@@ -1,5 +1,7 @@
 package objc.ios.ui;
 
+import objc.foundation.NSDictionary;
+
 extern interface UIApplicationDelegate {
 
 	//@optional

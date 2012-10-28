@@ -1,3 +1,4 @@
+package objc.foundation;
 
 extern class NSSet extends NSObject {
 

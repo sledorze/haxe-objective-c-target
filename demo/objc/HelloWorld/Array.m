@@ -27,38 +27,44 @@
 	return nil;
 }
 
-- (void) insert:(int)pos x:(**)x
+- (void) insert:(int)pos x:(id)x
 {
-	[__a insertObject:x atIndex:pos];
+	[self.__a insertObject:x atIndex:pos];
 }
 
 - (NSString*) join:(NSString*)sep
 {
-	return 	[__a componentsJoinedByString:sep];
+	return 	[self.__a componentsJoinedByString:sep];
 }
 
 - (NSString*) toString
 {
-	return 		@"[" + 	[__a componentsJoinedByString:@","] + @"]";
+	return 		@"[" + 	[self.__a componentsJoinedByString:@","] + @"]";
 }
 
-- (**) pop
+- (id) pop
 {
 	return nil;
 }
 
-- (int) push:(**)x
+- (int) push:(id)x
 {
-	[__a addObject:x];
-	return 	[self.getLength];
+	[self.add:x];
+	return 	[self.__a count];
 }
 
-- (void) unshift:(**)x
+- (Array*) add:(id)x
 {
-	[__a insertObject:x atIndex:pos];
+	[self.__a addObject:x];
+	return self;
 }
 
-- (BOOL) remove:(**)x
+- (void) unshift:(id)x
+{
+	[self.__a insertObject:x atIndex:0];
+}
+
+- (BOOL) remove:(id)x
 {
 	[__a removeObject:x];
 	return YES;
@@ -68,12 +74,12 @@
 {
 }
 
-- (**) shift
+- (id) shift
 {
 	return nil;
 }
 
-- (Array*) slice:(int)pos end:(**)end
+- (Array*) slice:(int)pos end:(id)end
 {
 	return nil;
 }
@@ -89,7 +95,7 @@
 
 - (int) getLength
 {
-	return 	[__a count];
+	return 	[self.__a count];
 }
 
 

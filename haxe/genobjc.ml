@@ -37,6 +37,7 @@ let getFrameworkOfPath class_path =
 	let pack = fst class_path in
 	if List.length pack < 1 then "" else
 	match List.nth pack ((List.length pack) -1) with
+	| "foundation" -> "Foundation"
 	| "addressbook" -> "AddressBook"
 	| "av" -> "AVFoundation"
 	| "network" -> "CFNetwork"
@@ -96,24 +97,26 @@ class sourceWriter write_func close_func =
 	val mutable indent = ""
 	val mutable indents = []
 	val mutable just_finished_block = false
+	val mutable can_indent = true
 	method close = close_func(); ()
 	
 	method indent_one = this#write indent_str
 	method push_indent = indents <- indent_str::indents; indent <- String.concat "" indents
 	method pop_indent = match indents with
-							| h::tail -> indents <- tail; indent <- String.concat "" indents
-							| [] -> indent <- "/*?*/";
+						| h::tail -> indents <- tail; indent <- String.concat "" indents
+						| [] -> indent <- "/*?*/";
 	method get_indent = indent
 	
-	method write str = write_func str; just_finished_block <- false
-	method write_i x = this#write (indent ^ x)
+	method new_line = this#write "\n"; can_indent <- true;
+	method write str = write_func (if can_indent then (indent^str) else str); just_finished_block <- false; can_indent <- false
+	method write_i str = this#write str
 	
-	method begin_block = this#write ("\n{\n"); this#push_indent
-	method end_block = this#pop_indent; this#write_i "}\n"; just_finished_block <- true
-	method end_block_line = this#pop_indent; this#write_i "}"; just_finished_block <- true
-	method terminate_line = this#write (if just_finished_block then "" else ";\n")
+	method begin_block = this#write_i ("{"); this#push_indent; this#new_line
+	method end_block = this#pop_indent; this#write_i "}"; just_finished_block <- true; this#new_line
+	(* method end_block_line = this#pop_indent; this#write "}"; just_finished_block <- true *)
+	method terminate_line = this#write (if just_finished_block then "" else ";"); this#new_line
 	
-	method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")
+	method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")(* (join_class_path path "/") *)
 	method import_headers class_paths = 
 		Hashtbl.iter (fun name paths ->
 			List.iter (fun pack ->
@@ -310,7 +313,7 @@ let genLocal ctx l =
 
 let unsupported p = error "This expression cannot be generated to Objective-C" p
 
-let newLine ctx = ctx.writer#write "\n"
+let newLine ctx = ctx.writer#new_line
 
 let rec concat ctx s f = function
 	| [] -> ()
@@ -330,7 +333,7 @@ let parent e =
 let rec typeToString ctx t p =
 	match t with
 	| TEnum _ | TInst _ when List.memq t ctx.local_types ->
-		"*"
+		"id"
 	| TAbstract (a,_) ->(* ctx.writer#write "TAbstract?"; *)
 		(match a.a_path with
 		| [], "Void" -> "void"
@@ -359,7 +362,7 @@ let rec typeToString ctx t p =
 	| TInst (c,_) ->(* ctx.writer#write "TInst?"; *)
 		(match c.cl_kind with
 		| KNormal | KGeneric | KGenericInstance _ -> processClassPath ctx false c.cl_path p
-		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "*")
+		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
 	| TFun _ ->
 		"Function"
 	| TMono r ->
@@ -381,7 +384,7 @@ let rec typeToString ctx t p =
 				| TAbstract ({ a_path = [],"Bool" },_)
 				| TInst ({ cl_path = [],"Int" },_)
 				| TInst ({ cl_path = [],"Float" },_)
-				| TEnum ({ e_path = [],"Bool" },_) -> "*"
+				| TEnum ({ e_path = [],"Bool" },_) -> "id"
 				| _ -> typeToString ctx t p)
 			| _ -> assert false);
 		| _ -> typeToString ctx (apply_params t.t_types args t.t_type) p)
@@ -638,6 +641,7 @@ and generateExpression ctx e =
 		ctx.writer#write (processClassPath ctx false path e.epos)
 	| TArray (e1,e2) ->
 		(* Accesing an array element *)
+		(* TODO: access objects and primitives in a different way *)
 		ctx.writer#write "[";
 		generateValue ctx e1;
 		ctx.writer#write " objectAtIndex:";
@@ -706,6 +710,7 @@ and generateExpression ctx e =
 		if ctx.in_value <> None then unsupported e.epos;
 		ctx.writer#write_i "continue"
 	| TBlock expr_list ->
+		newLine ctx;
 		ctx.writer#begin_block;
 		List.iter (fun e ->
 			generateExpression ctx e;
@@ -739,46 +744,39 @@ and generateExpression ctx e =
 		("className" , { eexpr = (TConst (TString class_name)) }) ::
 		("methodName", { eexpr = (TConst (TString meth)) }) :: [] ) ->
 			ctx.writer#write ("[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@\""^file^"\",@\""^(Printf.sprintf "%ld" line)^"\",@\""^class_name^"\",@\""^meth^"\",nil] forKeys:[NSArray arrayWithObjects:@\"fileName\",@\"lineNumber\",@\"className\",@\"methodName\",nil]]");
-			
-			
-			(* ("hx::SourceInfo(" ^ (str file) ^ "," ^ (Printf.sprintf "%ld" line) ^ "," ^
-          (str class_name) ^ "," ^ (str meth) ^ ")" ) *)
 	(* | TObjectDecl decl_list ->
 		let func_name = use_anon_function_name ctx in
 		(try output ( func_name ^ "::Block(" ^
 					(Hashtbl.find ctx.ctx_local_return_block_args func_name) ^ ")" )
 		with Not_found ->
-			output ("/* TObjectDecl block " ^ func_name ^ " not found */" ); )
-	| TArrayDecl decl_list ->
+			output ("/* TObjectDecl block " ^ func_name ^ " not found */" ); ) *)
+	| TArrayDecl el ->
 		(* gen_type output expression.etype; *)
-      let tstr = (type_string_suff "_obj" expression.etype) in
-      if tstr="Dynamic" then
-		   output "Dynamic( Array_obj<Dynamic>::__new()"
-      else
-		   output ( (type_string_suff "_obj" expression.etype) ^ "::__new()");
-		List.iter ( fun elem -> output ".Add(";
-							gen_expression ctx true elem;
-							output ")" ) decl_list;
-      if tstr="Dynamic" then output ")"; *)
+		(* TODO: If the elements are pointers init the array with a NSMutableArray, faster and cleaner *)
+		List.iter ( fun elem -> ctx.writer#write "[" ) el;
+		ctx.writer#write "[[Array alloc] init]";
+		List.iter (
+			fun elem -> ctx.writer#write " add:"; generateValue ctx elem; ctx.writer#write "]";
+		) el;
 
   	(* | TObjectDecl fields ->
   		ctx.writer#write_i "{";
   		concat ctx " ," (fun (f,e) -> ctx.writer#write_i (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
   		ctx.writer#write_i "}" *)
-	| TArrayDecl el ->
+	(* | TArrayDecl el ->
 			ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
 			concat ctx ", " (generateValue ctx) el;
-			ctx.writer#write ", nil]]"
+			ctx.writer#write ", nil]]" *)
 	| TThrow e ->
 		ctx.writer#write "throw ";
 		generateValue ctx e
 	| TVars [] ->
 		()
 	| TVars vl ->
-		newLine ctx;
 		(* Vars inside method only *)
 		concat ctx "; " (fun (v,eo) ->
 			let t = (typeToString ctx v.v_type e.epos) in
+			if isPointer t then newLine ctx;
 			ctx.writer#write_i (Printf.sprintf "%s %s%s" t (addPointerIfNeeded t) (v.v_name));
 			(* Check if this Type is a Class and if is imported *)
 			(match v.v_type with
@@ -811,6 +809,7 @@ and generateExpression ctx e =
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
+		ctx.writer#write ";";
 		(match eelse with
 		| None -> ()
 		| Some e ->
@@ -824,20 +823,23 @@ and generateExpression ctx e =
 		generateValue ctx e;
 		ctx.writer#write (Ast.s_unop op)
 	| TWhile (cond,e,Ast.NormalWhile) ->
+		(* This is the redefinition of a for loop *)
 		let handleBreak = handleBreak ctx e in
-		ctx.writer#write_i "while794";
+		ctx.writer#write_i "while";
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
 		handleBreak();
 	| TWhile (cond,e,Ast.DoWhile) ->
+		(* do while *)
 		let handleBreak = handleBreak ctx e in
 		ctx.writer#write_i "do ";
 		generateExpression ctx e;
-		ctx.writer#write_i " while803";
+		ctx.writer#write_i "while";
 		generateValue ctx (parent cond);
 		handleBreak();
 	| TFor (v,it,e) ->
+		(* When is this generated? *)
 		ctx.writer#begin_block;
 		let handleBreak = handleBreak ctx e in
 		let tmp = genLocal ctx "$it" in
@@ -1000,7 +1002,13 @@ and generateValue ctx e =
 	| TFunction _ ->
 		generateExpression ctx e
 	| TCast (e1,t) ->
-		ctx.writer#write (Printf.sprintf "(%s*)" (typeToString ctx e.etype e.epos))
+		let t = typeToString ctx e.etype e.epos in
+		ctx.writer#write (Printf.sprintf "(%s%s)" t (addPointerIfNeeded t));
+		generateValue ctx e1;
+		(* match t with
+		| None ->
+		generateValue ctx e1
+		| Some t -> () *)
 		(* generateValue ctx (match t with None -> e1 | Some t -> Codegen.default_cast ctx.com e1 t e.etype e.epos) *)
 	| TReturn _
 	| TBreak
@@ -1035,9 +1043,9 @@ and generateValue ctx e =
 	| TIf (cond,e,eo) ->
 		ctx.writer#write "(";
 		generateValue ctx cond;
-		ctx.writer#write "?";
+		ctx.writer#write " ? ";
 		generateValue ctx e;
-		ctx.writer#write ":";
+		ctx.writer#write " : ";
 		(match eo with
 		| None -> ctx.writer#write "nil"
 		| Some e -> generateValue ctx e);
@@ -1430,9 +1438,457 @@ let xcschememanagement common_ctx =
 ;;
 let pbxproj common_ctx = 
 	let src_dir = srcDir common_ctx in
-	(* let app_name = appName common_ctx in *)
+	let app_name = appName common_ctx in
+	let owner = "Baluta Cristian" in
 	let file = newSourceFile (src_dir^".xcodeproj") ([],"project") ".pbxproj" in
-	file#write ("");
+	file#write ("{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {");
+	
+	(* Begin PBXBuildFile section *)
+	file#write ("/* Begin PBXBuildFile section */
+		28BFD9DA1628A95900882B34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9D91628A95900882B34 /* UIKit.framework */; };
+		28BFD9DC1628A95900882B34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DB1628A95900882B34 /* Foundation.framework */; };
+		28BFD9DE1628A95900882B34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DD1628A95900882B34 /* CoreGraphics.framework */; };
+		28BFD9E41628A95900882B34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28BFD9E21628A95900882B34 /* InfoPlist.strings */; };
+		28BFD9E61628A95900882B34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD9E51628A95900882B34 /* main.m */; };
+		28BFD9EA1628A95900882B34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD9E91628A95900882B34 /* AppDelegate.m */; };
+		28BFD9FE1628A95900882B34 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9FD1628A95900882B34 /* SenTestingKit.framework */; };
+		28BFD9FF1628A95900882B34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9D91628A95900882B34 /* UIKit.framework */; };
+		28BFDA001628A95900882B34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DB1628A95900882B34 /* Foundation.framework */; };
+		28BFDA081628A95900882B34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28BFDA061628A95900882B34 /* InfoPlist.strings */; };
+		28BFDA0B1628A95900882B34 /* "^app_name^"Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */; };
+		28BFDA231638866C00882B34 /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFDA221638866C00882B34 /* CustomMapView.m */; };
+		28BFDA25163954F800882B34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFDA24163954F800882B34 /* MapKit.framework */; };
+/* End PBXBuildFile section */");
+	
+	(* Begin PBXContainerItemProxy section *)
+	file#write ("/* Begin PBXContainerItemProxy section */
+		28BFDA011628A95900882B34 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28BFD9CC1628A95900882000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 28BFD9D41628A95900882B34;
+			remoteInfo = "^app_name^";
+		};
+/* End PBXContainerItemProxy section */");
+	(* Begin PBXFileReference section *)
+	file#write ("/* Begin PBXFileReference section */
+		28BFD9D51628A95900882B34 /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28BFD9D91628A95900882B34 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		28BFD9DB1628A95900882B34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		28BFD9DD1628A95900882B34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28BFD9E11628A95900882B34 /* "^app_name^"-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = \""^app_name^"-Info.plist\"; sourceTree = \"<group>\"; };
+		28BFD9E31628A95900882B34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = \"<group>\"; };
+		28BFD9E51628A95900882B34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = \"<group>\"; };
+		28BFD9E71628A95900882B34 /* "^app_name^"-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = \""^app_name^"-Prefix.pch\"; sourceTree = \"<group>\"; };
+		28BFD9E81628A95900882B34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = \"<group>\"; };
+		28BFD9E91628A95900882B34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = \"<group>\"; };
+		28BFD9FC1628A95900882B34 /* "^app_name^"Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "^app_name^"Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		28BFD9FD1628A95900882B34 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		28BFDA051628A95900882B34 /* "^app_name^"Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = \""^app_name^"Tests-Info.plist\"; sourceTree = \"<group>\"; };
+		28BFDA071628A95900882B34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = \"<group>\"; };
+		28BFDA091628A95900882B34 /* "^app_name^"Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "^app_name^"Tests.h; sourceTree = \"<group>\"; };
+		28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "^app_name^"Tests.m; sourceTree = \"<group>\"; };
+		28BFDA211638866C00882B34 /* CustomMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMapView.h; sourceTree = \"<group>\"; };
+		28BFDA221638866C00882B34 /* CustomMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMapView.m; sourceTree = \"<group>\"; };
+		28BFDA24163954F800882B34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */");
+	(* Begin PBXFrameworksBuildPhase section *)
+	file#write ("/* Begin PBXFrameworksBuildPhase section */
+		28BFD9D21628A95900882B34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28BFDA25163954F800882B34 /* MapKit.framework in Frameworks */,
+				28BFD9DA1628A95900882B34 /* UIKit.framework in Frameworks */,
+				28BFD9DC1628A95900882B34 /* Foundation.framework in Frameworks */,
+				28BFD9DE1628A95900882B34 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28BFD9F81628A95900882B34 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28BFD9FE1628A95900882B34 /* SenTestingKit.framework in Frameworks */,
+				28BFD9FF1628A95900882B34 /* UIKit.framework in Frameworks */,
+				28BFDA001628A95900882B34 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */");
+	(* Begin PBXGroup section *)
+	file#write ("/* Begin PBXGroup section */
+		28BFD9CA1628A95900882B34 = {
+			isa = PBXGroup;
+			children = (
+				28BFD9DF1628A95900882B34 /* "^app_name^" */,
+				28BFDA031628A95900882B34 /* "^app_name^"Tests */,
+				28BFD9D81628A95900882B34 /* Frameworks */,
+				28BFD9D61628A95900882B34 /* Products */,
+			);
+			sourceTree = \"<group>\";
+		};
+		28BFD9D61628A95900882B34 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				28BFD9D51628A95900882B34 /* "^app_name^".app */,
+				28BFD9FC1628A95900882B34 /* "^app_name^"Tests.octest */,
+			);
+			name = Products;
+			sourceTree = \"<group>\";
+		};
+		28BFD9D81628A95900882B34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				28BFDA24163954F800882B34 /* MapKit.framework */,
+				28BFD9D91628A95900882B34 /* UIKit.framework */,
+				28BFD9DB1628A95900882B34 /* Foundation.framework */,
+				28BFD9DD1628A95900882B34 /* CoreGraphics.framework */,
+				28BFD9FD1628A95900882B34 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = \"<group>\";
+		};
+		28BFD9DF1628A95900882B34 /* "^app_name^" */ = {
+			isa = PBXGroup;
+			children = (
+				28BFD9E81628A95900882B34 /* AppDelegate.h */,
+				28BFD9E91628A95900882B34 /* AppDelegate.m */,
+				28BFDA211638866C00882B34 /* CustomMapView.h */,
+				28BFDA221638866C00882B34 /* CustomMapView.m */,
+				28BFD9E01628A95900882B34 /* Supporting Files */,
+			);
+			path = "^app_name^";
+			sourceTree = \"<group>\";
+		};
+		28BFD9E01628A95900882B34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				28BFD9E11628A95900882B34 /* "^app_name^"-Info.plist */,
+				28BFD9E21628A95900882B34 /* InfoPlist.strings */,
+				28BFD9E51628A95900882B34 /* main.m */,
+				28BFD9E71628A95900882B34 /* "^app_name^"-Prefix.pch */,
+			);
+			name = \"Supporting Files\";
+			sourceTree = \"<group>\";
+		};
+		28BFDA031628A95900882B34 /* "^app_name^"Tests */ = {
+			isa = PBXGroup;
+			children = (
+				28BFDA091628A95900882B34 /* "^app_name^"Tests.h */,
+				28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */,
+				28BFDA041628A95900882B34 /* Supporting Files */,
+			);
+			path = "^app_name^"Tests;
+			sourceTree = \"<group>\";
+		};
+		28BFDA041628A95900882B34 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				28BFDA051628A95900882B34 /* "^app_name^"Tests-Info.plist */,
+				28BFDA061628A95900882B34 /* InfoPlist.strings */,
+			);
+			name = \"Supporting Files\";
+			sourceTree = \"<group>\";
+		};
+/* End PBXGroup section */");
+	(* Begin PBXNativeTarget section *)
+	file#write ("/* Begin PBXNativeTarget section */
+		28BFD9D41628A95900882B34 /* "^app_name^" */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28BFDA0E1628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"\" */;
+			buildPhases = (
+				28BFD9D11628A95900882B34 /* Sources */,
+				28BFD9D21628A95900882B34 /* Frameworks */,
+				28BFD9D31628A95900882B34 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "^app_name^";
+			productName = "^app_name^";
+			productReference = 28BFD9D51628A95900882B34 /* "^app_name^".app */;
+			productType = \"com.apple.product-type.application\";
+		};
+		28BFD9FB1628A95900882B34 /* "^app_name^"Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 28BFDA111628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"Tests\" */;
+			buildPhases = (
+				28BFD9F71628A95900882B34 /* Sources */,
+				28BFD9F81628A95900882B34 /* Frameworks */,
+				28BFD9F91628A95900882B34 /* Resources */,
+				28BFD9FA1628A95900882B34 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				28BFDA021628A95900882B34 /* PBXTargetDependency */,
+			);
+			name = "^app_name^"Tests;
+			productName = "^app_name^"Tests;
+			productReference = 28BFD9FC1628A95900882B34 /* "^app_name^"Tests.octest */;
+			productType = \"com.apple.product-type.bundle\";
+		};
+/* End PBXNativeTarget section */");
+	(* Begin PBXProject section *)
+	file#write ("/* Begin PBXProject section */
+		28BFD9CC1628A95900882000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = \""^owner^"\";
+			};
+			buildConfigurationList = 28BFD9CF1628A95900882B34 /* Build configuration list for PBXProject \""^app_name^"\" */;
+			compatibilityVersion = \"Xcode 3.2\";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 28BFD9CA1628A95900882B34;
+			productRefGroup = 28BFD9D61628A95900882B34 /* Products */;
+			projectDirPath = \"\";
+			projectRoot = \"\";
+			targets = (
+				28BFD9D41628A95900882B34 /* "^app_name^" */,
+				28BFD9FB1628A95900882B34 /* "^app_name^"Tests */,
+			);
+		};
+/* End PBXProject section */");
+	(* Begin PBXResourcesBuildPhase section *)
+	file#write ("/* Begin PBXResourcesBuildPhase section */
+		28BFD9D31628A95900882B34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28BFD9E41628A95900882B34 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28BFD9F91628A95900882B34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28BFDA081628A95900882B34 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */");
+	(* Begin PBXShellScriptBuildPhase section *)
+	file#write ("/* Begin PBXShellScriptBuildPhase section */
+		28BFD9FA1628A95900882B34 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = \"# Run the unit tests in this test bundle.\\\n\\\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\\\"\\\n\";
+		};
+/* End PBXShellScriptBuildPhase section */");
+	(* Begin PBXSourcesBuildPhase section *)
+	file#write ("/* Begin PBXSourcesBuildPhase section */
+		28BFD9D11628A95900882B34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28BFD9E61628A95900882B34 /* main.m in Sources */,
+				28BFD9EA1628A95900882B34 /* AppDelegate.m in Sources */,
+				28BFDA231638866C00882B34 /* CustomMapView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28BFD9F71628A95900882B34 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28BFDA0B1628A95900882B34 /* "^app_name^"Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */");
+	(* Begin PBXTargetDependency section *)
+	file#write ("/* Begin PBXTargetDependency section */
+		28BFDA021628A95900882B34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 28BFD9D41628A95900882B34 /* "^app_name^" */;
+			targetProxy = 28BFDA011628A95900882B34 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */");
+	(* Begin PBXVariantGroup section *)
+	file#write ("/* Begin PBXVariantGroup section */
+		28BFD9E21628A95900882B34 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28BFD9E31628A95900882B34 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = \"<group>\";
+		};
+		28BFDA061628A95900882B34 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28BFDA071628A95900882B34 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = \"<group>\";
+		};
+/* End PBXVariantGroup section */");
+	(* Begin XCBuildConfiguration section *)
+	file#write ("/* Begin XCBuildConfiguration section */
+		28BFDA0C1628A95900882B34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = \"gnu++0x\";
+				CLANG_CXX_LIBRARY = \"libc++\";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				\"CODE_SIGN_IDENTITY[sdk=iphoneos*]\" = \"iPhone Developer\";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					\"DEBUG=1\",
+					\"$(inherited)\",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		28BFDA0D1628A95900882B34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = \"gnu++0x\";
+				CLANG_CXX_LIBRARY = \"libc++\";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				\"CODE_SIGN_IDENTITY[sdk=iphoneos*]\" = \"iPhone Developer\";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = \"-DNS_BLOCK_ASSERTIONS=1\";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		28BFDA0F1628A95900882B34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = \""^app_name^"/"^app_name^"-Prefix.pch\";
+				INFOPLIST_FILE = \""^app_name^"/"^app_name^"-Info.plist\";
+				PRODUCT_NAME = \"$(TARGET_NAME)\";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		28BFDA101628A95900882B34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = \""^app_name^"/"^app_name^"-Prefix.pch\";
+				INFOPLIST_FILE = \""^app_name^"/"^app_name^"-Info.plist\";
+				PRODUCT_NAME = \"$(TARGET_NAME)\";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		28BFDA121628A95900882B34 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = \"$(BUILT_PRODUCTS_DIR)/"^app_name^".app/"^app_name^"\";
+				FRAMEWORK_SEARCH_PATHS = (
+					\"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"\",
+					\"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"\",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = \""^app_name^"/"^app_name^"-Prefix.pch\";
+				INFOPLIST_FILE = \""^app_name^"Tests/"^app_name^"Tests-Info.plist\";
+				PRODUCT_NAME = \"$(TARGET_NAME)\";
+				TEST_HOST = \"$(BUNDLE_LOADER)\";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		28BFDA131628A95900882B34 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = \"$(BUILT_PRODUCTS_DIR)/"^app_name^".app/"^app_name^"\";
+				FRAMEWORK_SEARCH_PATHS = (
+					\"\\\"$(SDKROOT)/Developer/Library/Frameworks\\\"\",
+					\"\\\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\\\"\",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = \""^app_name^"/"^app_name^"-Prefix.pch\";
+				INFOPLIST_FILE = \""^app_name^"Tests/"^app_name^"Tests-Info.plist\";
+				PRODUCT_NAME = \"$(TARGET_NAME)\";
+				TEST_HOST = \"$(BUNDLE_LOADER)\";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */");
+
+	(* Begin XCConfigurationList section *)
+	file#write ("/* Begin XCConfigurationList section */
+		28BFD9CF1628A95900882B34 /* Build configuration list for PBXProject \""^app_name^"\" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28BFDA0C1628A95900882B34 /* Debug */,
+				28BFDA0D1628A95900882B34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28BFDA0E1628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"\" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28BFDA0F1628A95900882B34 /* Debug */,
+				28BFDA101628A95900882B34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		28BFDA111628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"Tests\" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28BFDA121628A95900882B34 /* Debug */,
+				28BFDA131628A95900882B34 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */");
+
+	file#write ("	};
+	rootObject = 28BFD9CC1628A95900882000 /* Project object */;
+}
+");
+
 	file#close
 ;;
 let localizations common_ctx = 
@@ -1482,12 +1938,22 @@ let generatePch common_ctx class_def =
 	file#close
 ;;
 
+let getMetaString meta key =
+	let rec loop = function
+		| [] -> ""
+		| (k,[Ast.EConst (Ast.String name),_],_) :: _  when k=key-> name
+		| _ :: l -> loop l
+		in
+	loop meta
+;;
 let generatePlist common_ctx class_def  =
-
+	(* TODO: Read and parse the Main class for metadata *)
 	let app_name = appName common_ctx in
 	let src_dir = srcDir common_ctx in
-	let identifier = ("org.haxe."^app_name) in
-	let version = "1.0" in
+	let identifier = "" in
+	let version = "" in
+	(* let identifier = getMetaString class_def.cl_meta ":identifier" in
+	let version = getMetaString class_def.cl_meta ":version" in *)
 	let file = newSourceFile src_dir ([],app_name^"-Info") ".plist" in
 	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
@@ -1630,7 +2096,6 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	h_file#close
 ;;
 
-
 (* The main entry of the generator *)
 let generate common_ctx =
 	
@@ -1644,6 +2109,8 @@ let generate common_ctx =
 	List.iter (fun object_def ->
 		match object_def with
 		| TClassDecl class_def ->
+			(* if has_meta ":owner" class_def.cl_meta then 
+				print_endline ("Has meta "^()); *)
 			let class_def = (match class_def.cl_path with
 				(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
 				| (pack,name) -> { class_def with cl_path = (pack, name) }

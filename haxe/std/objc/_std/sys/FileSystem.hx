@@ -24,6 +24,10 @@
  */
 package sys;
 
+import foundation.NSFileManager;
+import foundation.NSFileHandle;
+
+
 private enum FileKind {
 	kdir;
 	kfile;
@@ -87,15 +91,4 @@ class FileSystem {
 	public static function readDirectory( path : String ) : Array<String> {
 		return sys_read_dir(path);
 	}
-
-	private static var sys_exists = cpp.Lib.load("std","sys_exists",1);
-	private static var file_delete = cpp.Lib.load("std","file_delete",1);
-	private static var sys_rename = cpp.Lib.load("std","sys_rename",2);
-	private static var sys_stat = cpp.Lib.load("std","sys_stat",1);
-	private static var sys_file_type = cpp.Lib.load("std","sys_file_type",1);
-	private static var sys_create_dir = cpp.Lib.load("std","sys_create_dir",2);
-	private static var sys_remove_dir = cpp.Lib.load("std","sys_remove_dir",1);
-	private static var sys_read_dir = cpp.Lib.load("std","sys_read_dir",1);
-	private static var file_full_path = cpp.Lib.load("std","file_full_path",1);
-
 }

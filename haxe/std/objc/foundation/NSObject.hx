@@ -1,3 +1,5 @@
+package objc.foundation;
+
 extern class NSObject {
 	
 	// Initializing a Class

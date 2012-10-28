@@ -1,7 +1,9 @@
-@:orientation("portrait")
+@:orientation("UIInterfaceOrientationPortrait")
+@:orientation("UIInterfaceOrientationLandscapeLeft")
 @:identifier("com.ralcr.HelloWorld")
 @:owner("Baluta Cristian")
 @:bundle_name("HelloWorld")
+@:version("1.0")
 
 
 class Tests implements Interface1, implements Interface2 {
@@ -24,15 +26,10 @@ class Tests implements Interface1, implements Interface2 {
 		var e = true;
 		var f :Int;
 		var g :Int = cast (5.3, Int);
+		var g1 = cast (6.3);
+		var g2 = cast (a);
 		var xy = a.length;
 		a.push ( "6" );
-		
-/*		for (i in aa) {
-			a.push (Std.string(i));
-		}*/
-		for (i in 0...5) {
-			aa.push ( i );
-		}
 		
 /*		switch (e) {
 			case true : null;
@@ -49,6 +46,20 @@ class Tests implements Interface1, implements Interface2 {
 		
 		var x = new Tests().add (1, 1);
 	}
+	function testingFor(){
+		var aa = [1, 2, 3, 4, 5];
+		for (i in 0...5) aa.push ( i );
+		for (i in 0...aa.length) aa.push ( i );
+		for (i in aa) aa.push ( i );
+	}
+	function testingWhile(){
+		var aa = 5;
+		do {
+			trace("something");
+			aa ++;
+		}
+		while (aa < 10);
+	}
 	
 	function getWidth():Int{return 0;}
 	function setWidth(v:Int):Int{return 0;}
@@ -61,10 +72,9 @@ class Tests implements Interface1, implements Interface2 {
 	public function minus (a:Int, b:Int) :Int {
 		return a-b;
 	}
-	public function callLotsOfArguments (arg1:Int, _:Int, _:Int, arg4:Int) :Void {}
+	public function callLotsOfArguments (arg1:Int, _:Int, arg3:Int, arg4:Int) :Void {}
 	public function printHello () :Void {
 		trace("Hello from Haxe Objective-C");
-		haxe.Log.trace("blah blah");
 	}
 	public static function main() {
 		//return new UIApplicationMain ( Tests );

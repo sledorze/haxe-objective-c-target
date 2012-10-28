@@ -1,6 +1,8 @@
 
 #import <MapKit/MapKit.h>
 
+#import "objc/foundation/NSDictionary.h"
+#import "objc/foundation/NSMutableArray.h"
 #import "CustomMapView.h"
 
 @interface CustomMapView : MKMapView 

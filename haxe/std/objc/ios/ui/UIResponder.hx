@@ -1,6 +1,9 @@
 
 package objc.ios.ui;
 
+import objc.foundation.NSObject;
+
+
 extern class UIResponder extends NSObject {
 	
 	// Managing the Responder Chain

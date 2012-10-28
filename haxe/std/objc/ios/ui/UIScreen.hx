@@ -1,4 +1,5 @@
 package objc.ios.ui;
+import objc.foundation.NSObject;
 
 extern class UIScreen extends NSObject {
 	
