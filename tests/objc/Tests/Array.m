@@ -6,97 +6,61 @@
 
 @synthesize __a;
 @synthesize length;
-- (Array*) initWithNSMutableArray:(NSMutableArray*)array
-{
+- (Array*) initWithNSMutableArray:(NSMutableArray*)array{
 	self.__a = [NSMutableArray arrayWithArray:array];
 	return self;
 }
-
-- (Array*) concat:(Array*)a
-{
+- (Array*) concat:(Array*)a{
 	return a;
 }
-
-- (Array*) copy
-{
+- (Array*) copy{
 	return [[[Array alloc] init].initWithNSMutableArray:self.__a];
 }
-
-- (id) iterator
-{
+- (id) iterator{
 	return nil;
 }
-
-- (void) insert:(int)pos x:(id)x
-{
+- (void) insert:(int)pos x:(id)x{
 	[self.__a insertObject:x atIndex:pos];
 }
-
-- (NSString*) join:(NSString*)sep
-{
+- (NSString*) join:(NSString*)sep{
 	return [self.__a componentsJoinedByString:sep];
 }
-
-- (NSString*) toString
-{
+- (NSString*) toString{
 	return @"[" + [self.__a componentsJoinedByString:@","] + @"]";
 }
-
-- (id) pop
-{
+- (id) pop{
 	return nil;
 }
-
-- (int) push:(id)x
-{
+- (int) push:(id)x{
 	[self.add:x];
 	return [self.__a count];
 }
-
-- (Array*) add:(id)x
-{
+- (Array*) add:(id)x{
 	[self.__a addObject:x];
 	return self;
 }
-
-- (void) unshift:(id)x
-{
+- (void) unshift:(id)x{
 	[self.__a insertObject:x atIndex:0];
 }
-
-- (BOOL) remove:(id)x
-{
-	[__a removeObject:x];
+- (BOOL) remove:(id)x{
 	return YES;
 }
-
-- (void) reverse
-{
+- (void) reverse{
+	__a = [[__a reverseObjectEnumerator] allObjects];
 }
-
-- (id) shift
-{
+- (id) shift{
 	return nil;
 }
-
-- (Array*) slice:(int)pos end:(id)end
-{
+- (Array*) slice:(int)pos end:(id)end{
 	return nil;
 }
-
-- (void) sort:(Function*)f
-{
+- (void) sort:(Function*)f{
 }
-
-- (Array*) splice:(int)pos len:(int)len
-{
+- (Array*) splice:(int)pos len:(int)len{
 	return nil;
 }
-
-- (int) getLength
-{
+- (int) getLength{
 	return [self.__a count];
 }
-
 
 @end
