@@ -2,8 +2,6 @@
 
 @implementation Array
 
-
-
 @synthesize __a;
 @synthesize length;
 - (Array*) initWithNSMutableArray:(NSMutableArray*)array{

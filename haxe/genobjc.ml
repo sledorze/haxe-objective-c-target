@@ -90,6 +90,31 @@ class importsManager =
 	method get_imports = imports
 	method reset = class_frameworks <- []
 end;;
+class projectManager =
+	object(this)
+	val mutable files : (string * path) list = [](* key*filepath list *)
+	method generate_uuid =
+		let id = String.make 24 'A' in
+		let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" in
+		for i = 0 to 23 do id.[i] <- chars.[Random.int (String.length chars)] done;
+		id
+	method register_file file_path =
+		files <- List.append files [this#generate_uuid, file_path];
+	method get_uuid c_path =
+		let id = ref "" in
+		List.iter (
+			fun (uuid, path) -> if path = c_path then id := uuid
+		) files;
+		!id
+	method get_class_path uuid =
+		let cl_path = ref ([],"") in
+		List.iter (
+			fun (id, path) -> if id = uuid then cl_path := path
+		) files;
+		!cl_path
+	method get_files = files
+	end
+;;
 
 class sourceWriter write_func close_func =
 	object(this)
@@ -132,15 +157,6 @@ class sourceWriter write_func close_func =
 		List.iter (fun name ->
 			this#write ("#import <" ^ name ^ "/" ^ name ^ ".h>\n")
 		) f_list;
-	end
-;;
-class projectManager =
-	object(this)
-	val mutable files : (string*path) list = [](* key*filepath *)
-	method register_file file_path =
-		if not (List.mem file_path files) then files <- List.append files [file_path];
-	method generate_unique_key = 
-		"ABDSFNSDKN$#%#$NJNRJ$BN#JB%"
 	end
 ;;
 
@@ -300,11 +316,6 @@ let appName ctx =
 	| _ -> "HaxeCocoaApp"
 ;;
 let srcDir ctx = (ctx.file ^ "/" ^ (appName ctx))
-
-(* let isNativeClass class_name = 
-	match class_name
-	| "NS" | "UI" | ""
-	;; *)
 
 let rec createDirectory acc = function
 	| [] -> ()
@@ -753,12 +764,10 @@ and generateExpression ctx e =
 		("className" , { eexpr = (TConst (TString class_name)) }) ::
 		("methodName", { eexpr = (TConst (TString meth)) }) :: [] ) ->
 			ctx.writer#write ("[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@\""^file^"\",@\""^(Printf.sprintf "%ld" line)^"\",@\""^class_name^"\",@\""^meth^"\",nil] forKeys:[NSArray arrayWithObjects:@\"fileName\",@\"lineNumber\",@\"className\",@\"methodName\",nil]]");
-	(* | TObjectDecl decl_list ->
-		let func_name = use_anon_function_name ctx in
-		(try output ( func_name ^ "::Block(" ^
-					(Hashtbl.find ctx.ctx_local_return_block_args func_name) ^ ")" )
-		with Not_found ->
-			output ("/* TObjectDecl block " ^ func_name ^ " not found */" ); ) *)
+	| TObjectDecl fields ->
+		ctx.writer#write "{";
+		concat ctx " ," (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
+		ctx.writer#write "}"
 	| TArrayDecl el ->
 		(* gen_type output expression.etype; *)
 		(* TODO: If the elements are pointers init the array with a NSMutableArray, faster and cleaner *)
@@ -766,12 +775,7 @@ and generateExpression ctx e =
 		ctx.writer#write "[[Array alloc] init]";
 		List.iter (
 			fun elem -> ctx.writer#write " add:"; generateValue ctx elem; ctx.writer#write "]";
-		) el;
-
-  	(* | TObjectDecl fields ->
-  		ctx.writer#write "{";
-  		concat ctx " ," (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
-  		ctx.writer#write "}" *)
+		) el
 	(* | TArrayDecl el ->
 			ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
 			concat ctx ", " (generateValue ctx) el;
@@ -840,7 +844,7 @@ and generateExpression ctx e =
 		generateExpression ctx e;
 		handleBreak();
 	| TWhile (cond,e,Ast.DoWhile) ->
-		(* do while *)
+		(* do { } while () *)
 		let handleBreak = handleBreak ctx e in
 		ctx.writer#write "do ";
 		generateExpression ctx e;
@@ -862,13 +866,15 @@ and generateExpression ctx e =
 		ctx.writer#end_block;
 		handleBreak();
 	| TTry (e,catchs) ->
-		ctx.writer#write "try ";
+		(* TODO: objc has only one catch *)
+		ctx.writer#write "@try ";
 		generateExpression ctx e;
 		List.iter (fun (v,e) ->
 			ctx.writer#new_line;
-			ctx.writer#write (Printf.sprintf "catch( %s : %s )" (v.v_name) (typeToString ctx v.v_type e.epos));
+			ctx.writer#write (Printf.sprintf "@catch (NSException *%s) " (v.v_name));
 			generateExpression ctx e;
 		) catchs;
+		(* (typeToString ctx v.v_type e.epos) *)
 	| TMatch (e,_,cases,def) ->
 		ctx.writer#begin_block;
 		ctx.writer#new_line;
@@ -1101,6 +1107,55 @@ let generateProperty ctx field pos =
 	ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id)
 	end else
 	ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
+	(* Generate functions located in the hx interfaces *)
+	(* let rec loop = function
+		| [] -> field.cf_name
+		| (":getter",[Ast.EConst (Ast.String name),_],_) :: _ -> "get " ^ name
+		| (":setter",[Ast.EConst (Ast.String name),_],_) :: _ -> "set " ^ name
+		| _ :: l -> loop l
+	in
+	ctx.writer#write (Printf.sprintf "(%s*) %s_" (typeToString ctx r p) (loop field.cf_meta));
+	concat ctx " " (fun (arg,o,t) ->
+		let tstr = typeToString ctx t p in
+		ctx.writer#write (Printf.sprintf "%s:(%s*)%s" arg tstr arg);
+		(* if o then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr)); *)
+	) args;
+	ctx.writer#write ";"; *)
+	(* let return_type = typeToString ctx r p in
+	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
+	(* Generate function name *)
+	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
+		let rec loop = function
+			| [] -> n
+			| _ :: l -> loop l
+		in
+		" " ^ loop meta
+	));
+	(* Generate the arguments of the function. Ignore the message name of the first arg *)
+	let first_arg = ref true in
+	concat ctx " " (fun (v,c) ->
+		let type_name = typeToString ctx v.v_type p in
+		let arg_name = v.v_name in
+		let message_name = if !first_arg then "" else arg_name in
+		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
+		first_arg := false;
+	) args; *)
+	
+	(* let v = (match f.cf_kind with Var v -> v | _ -> assert false) in *)
+	(* (match v.v_read with
+	| AccNormal -> ""
+	| AccCall m ->
+		ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return %s(); }" rights id t m);
+		ctx.writer#new_line
+	| AccNo | AccNever ->
+		ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return $%s; }" (if v.v_read = AccNo then "protected" else "private") id t id);
+		ctx.writer#new_line
+	| _ ->
+		()); *)
+	(* (match v.v_write with
+	| AccNormal | AccCall m -> ""
+	| AccNo | AccNever -> "readonly"
+	| _ -> ()); *)
 ;;
 
 let generateMain ctx fd =
@@ -1159,7 +1214,7 @@ int main(int argc, char *argv[]) {
 ;;
 
 let generateField ctx is_static field =
-	debug ctx "-F-";
+	debug ctx "\n-F-";
 	(* ctx.writer#write ("\n-F-"^field.cf_name); *)
 	ctx.writer#new_line;
 	ctx.in_static <- is_static;
@@ -1217,80 +1272,19 @@ let generateField ctx is_static field =
 		let is_getset = (match field.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		match follow field.cf_type with
 		| TFun (args,r) -> ()
-			(* Generate functions located in the hx interfaces *)
-			(* let rec loop = function
-				| [] -> field.cf_name
-				| (":getter",[Ast.EConst (Ast.String name),_],_) :: _ -> "get " ^ name
-				| (":setter",[Ast.EConst (Ast.String name),_],_) :: _ -> "set " ^ name
-				| _ :: l -> loop l
-			in
-			ctx.writer#write (Printf.sprintf "(%s*) %s_" (typeToString ctx r p) (loop field.cf_meta));
-			concat ctx " " (fun (arg,o,t) ->
-				let tstr = typeToString ctx t p in
-				ctx.writer#write (Printf.sprintf "%s:(%s*)%s" arg tstr arg);
-				(* if o then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr)); *)
-			) args;
-			ctx.writer#write ";"; *)
-			(* let return_type = typeToString ctx r p in
-			ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
-			(* Generate function name *)
-			ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
-				let rec loop = function
-					| [] -> n
-					| _ :: l -> loop l
-				in
-				" " ^ loop meta
-			));
-			(* Generate the arguments of the function. Ignore the message name of the first arg *)
-			let first_arg = ref true in
-			concat ctx " " (fun (v,c) ->
-				let type_name = typeToString ctx v.v_type p in
-				let arg_name = v.v_name in
-				let message_name = if !first_arg then "" else arg_name in
-				ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
-				first_arg := false;
-			) args; *)
-			
-		| _ when is_getset ->
-			if ctx.generating_header then generateProperty ctx field pos
+		| _ when is_getset -> if ctx.generating_header then generateProperty ctx field pos
 		| _ -> ();
 		
+		(* TODO: Store the default values of properties and use them in the init method in order to assign them to the propety *)
+		(* TODO: Not sure how to solve for statics *)
 		let gen_init () = match field.cf_expr with
 			| None -> ()
 			| Some e ->
 				ctx.writer#write " = ";
 				generateValue ctx e
 		in
-		if is_getset then begin
-			(* let t = typeToString ctx f.cf_type p in *)
-			(* Generate a synthesizer *)
-			generateProperty ctx field pos;
-			(* let v = (match f.cf_kind with Var v -> v | _ -> assert false) in *)
-			(* (match v.v_read with
-			| AccNormal -> ""
-			| AccCall m ->
-				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return %s(); }" rights id t m);
-				ctx.writer#new_line
-			| AccNo | AccNever ->
-				ctx.writer#write (Printf.sprintf "%s function get %s() : %s { return $%s; }" (if v.v_read = AccNo then "protected" else "private") id t id);
-				ctx.writer#new_line
-			| _ ->
-				()); *)
-			(* (match v.v_write with
-			| AccNormal | AccCall m -> ""
-			| AccNo | AccNever -> "readonly"
-			| _ -> ()); *)
-			gen_init()
-		end
-		else begin
-			(* This is generating implementation class properties declarations *)
-			generateProperty ctx field pos;
-			(* let t = (typeToString ctx field.cf_type pos) in *)
-			(* let id = field.cf_name in *)
-			(* let v = (match field.cf_kind with Var v -> v | _ -> assert false) in *)
-			(* ctx.writer#write (Printf.sprintf "@property (nonatomic, strong) %s %s%s;" t (addPointerIfNeeded t) id); *)
-			gen_init()
-		end
+		generateProperty ctx field pos;
+		gen_init()
 ;;
 
 let rec defineGetSet ctx is_static c =
@@ -1445,7 +1439,7 @@ let xcschememanagement common_ctx =
 ");
 	file#close
 ;;
-let pbxproj common_ctx = 
+let pbxproj common_ctx project_manager = 
 	let src_dir = srcDir common_ctx in
 	let app_name = appName common_ctx in
 	let owner = "Baluta Cristian" in
@@ -1458,8 +1452,11 @@ let pbxproj common_ctx =
 	objects = {");
 	
 	(* Begin PBXBuildFile section *)
-	file#write ("/* Begin PBXBuildFile section */
-		28BFD9DA1628A95900882B34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9D91628A95900882B34 /* UIKit.framework */; };
+	file#write ("\n/* Begin PBXBuildFile section */\n");
+	List.iter (
+		fun (uuid, path) -> file#write ("		"^uuid^" /* "^(snd path)^" */ = {isa=PBXBuildFile; fileRef=xxxx; };\n");
+	) project_manager#get_files;
+		(*28BFD9DA1628A95900882B34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9D91628A95900882B34 /* UIKit.framework */; };
 		28BFD9DC1628A95900882B34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DB1628A95900882B34 /* Foundation.framework */; };
 		28BFD9DE1628A95900882B34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DD1628A95900882B34 /* CoreGraphics.framework */; };
 		28BFD9E41628A95900882B34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28BFD9E21628A95900882B34 /* InfoPlist.strings */; };
@@ -1471,11 +1468,11 @@ let pbxproj common_ctx =
 		28BFDA081628A95900882B34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28BFDA061628A95900882B34 /* InfoPlist.strings */; };
 		28BFDA0B1628A95900882B34 /* "^app_name^"Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */; };
 		28BFDA231638866C00882B34 /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFDA221638866C00882B34 /* CustomMapView.m */; };
-		28BFDA25163954F800882B34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFDA24163954F800882B34 /* MapKit.framework */; };
-/* End PBXBuildFile section */");
+		28BFDA25163954F800882B34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFDA24163954F800882B34 /* MapKit.framework */; };*)
+	file#write ("\n/* End PBXBuildFile section */\n");
 	
 	(* Begin PBXContainerItemProxy section *)
-	file#write ("/* Begin PBXContainerItemProxy section */
+	file#write ("\n/* Begin PBXContainerItemProxy section */
 		28BFDA011628A95900882B34 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 28BFD9CC1628A95900882000 /* Project object */;
@@ -1483,9 +1480,9 @@ let pbxproj common_ctx =
 			remoteGlobalIDString = 28BFD9D41628A95900882B34;
 			remoteInfo = "^app_name^";
 		};
-/* End PBXContainerItemProxy section */");
+/* End PBXContainerItemProxy section */\n");
 	(* Begin PBXFileReference section *)
-	file#write ("/* Begin PBXFileReference section */
+	file#write ("\n/* Begin PBXFileReference section */
 		28BFD9D51628A95900882B34 /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28BFD9D91628A95900882B34 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28BFD9DB1628A95900882B34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1507,7 +1504,7 @@ let pbxproj common_ctx =
 		28BFDA24163954F800882B34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */");
 	(* Begin PBXFrameworksBuildPhase section *)
-	file#write ("/* Begin PBXFrameworksBuildPhase section */
+	file#write ("\n/* Begin PBXFrameworksBuildPhase section */
 		28BFD9D21628A95900882B34 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1531,7 +1528,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXFrameworksBuildPhase section */");
 	(* Begin PBXGroup section *)
-	file#write ("/* Begin PBXGroup section */
+	file#write ("\n/* Begin PBXGroup section */
 		28BFD9CA1628A95900882B34 = {
 			isa = PBXGroup;
 			children = (
@@ -1607,7 +1604,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXGroup section */");
 	(* Begin PBXNativeTarget section *)
-	file#write ("/* Begin PBXNativeTarget section */
+	file#write ("\n/* Begin PBXNativeTarget section */
 		28BFD9D41628A95900882B34 /* "^app_name^" */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28BFDA0E1628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"\" */;
@@ -1646,7 +1643,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXNativeTarget section */");
 	(* Begin PBXProject section *)
-	file#write ("/* Begin PBXProject section */
+	file#write ("\n/* Begin PBXProject section */
 		28BFD9CC1628A95900882000 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
@@ -1671,7 +1668,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXProject section */");
 	(* Begin PBXResourcesBuildPhase section *)
-	file#write ("/* Begin PBXResourcesBuildPhase section */
+	file#write ("\n/* Begin PBXResourcesBuildPhase section */
 		28BFD9D31628A95900882B34 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1690,7 +1687,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXResourcesBuildPhase section */");
 	(* Begin PBXShellScriptBuildPhase section *)
-	file#write ("/* Begin PBXShellScriptBuildPhase section */
+	file#write ("\n/* Begin PBXShellScriptBuildPhase section */
 		28BFD9FA1628A95900882B34 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1706,7 +1703,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXShellScriptBuildPhase section */");
 	(* Begin PBXSourcesBuildPhase section *)
-	file#write ("/* Begin PBXSourcesBuildPhase section */
+	file#write ("\n/* Begin PBXSourcesBuildPhase section */
 		28BFD9D11628A95900882B34 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1727,7 +1724,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXSourcesBuildPhase section */");
 	(* Begin PBXTargetDependency section *)
-	file#write ("/* Begin PBXTargetDependency section */
+	file#write ("\n/* Begin PBXTargetDependency section */
 		28BFDA021628A95900882B34 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 28BFD9D41628A95900882B34 /* "^app_name^" */;
@@ -1735,7 +1732,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXTargetDependency section */");
 	(* Begin PBXVariantGroup section *)
-	file#write ("/* Begin PBXVariantGroup section */
+	file#write ("\n/* Begin PBXVariantGroup section */
 		28BFD9E21628A95900882B34 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1754,7 +1751,7 @@ let pbxproj common_ctx =
 		};
 /* End PBXVariantGroup section */");
 	(* Begin XCBuildConfiguration section *)
-	file#write ("/* Begin XCBuildConfiguration section */
+	file#write ("\n/* Begin XCBuildConfiguration section */
 		28BFDA0C1628A95900882B34 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1863,7 +1860,7 @@ let pbxproj common_ctx =
 /* End XCBuildConfiguration section */");
 
 	(* Begin XCConfigurationList section *)
-	file#write ("/* Begin XCConfigurationList section */
+	file#write ("\n/* Begin XCConfigurationList section */
 		28BFD9CF1628A95900882B34 /* Build configuration list for PBXProject \""^app_name^"\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2011,11 +2008,14 @@ let generateEnum ctx e =
 
 (* Generate header + implementation *)
 
-let generateClassFiles common_ctx class_def file_info imports_manager =
+let generateClassFiles common_ctx class_def file_info project_manager imports_manager =
 	print_endline ("> Generating class files for : "^(snd class_def.cl_path));
+	
 	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
 	(* The frameworks are kept in a non-resetable variable also *)
 	imports_manager#reset;
+	project_manager#register_file class_def.cl_path;
+	print_endline (project_manager#get_uuid class_def.cl_path);
 	
 	if not class_def.cl_interface then begin
 	
@@ -2035,7 +2035,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 	(* imports_manager#add_class_path class_def.cl_path; *)
 	ctx.writer#import_header class_def.cl_path;
 	ctx.writer#new_line;
-	output_m ("@implementation " ^ (snd class_def.cl_path) ^ "\n\n");
+	output_m ("@implementation " ^ (snd class_def.cl_path));
 	
 	(match class_def.cl_constructor with
 	| None -> ()
@@ -2096,7 +2096,7 @@ let generateClassFiles common_ctx class_def file_info imports_manager =
 		);
 		h_file#write ">";
 	end;
-	h_file#write "\n\n";
+	h_file#new_line;
 	
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
 	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
@@ -2111,6 +2111,7 @@ let generate common_ctx =
 	(* Generate XCode folders structure *)
 	generateXcodeStructure common_ctx;
 	
+	let project_manager = new projectManager in
 	let imports_manager = new importsManager in
 	let app_info = ref PMap.empty in
 	(* Generate files for each class.
@@ -2125,13 +2126,13 @@ let generate common_ctx =
 				| (pack,name) -> { class_def with cl_path = (pack, name) }
 			) in
 			if not class_def.cl_extern then
-				generateClassFiles common_ctx class_def app_info imports_manager
+				generateClassFiles common_ctx class_def app_info project_manager imports_manager
 		
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
 			let e = { e with e_path = (pack,protect name) } in
 			if not e.e_extern then generateEnum common_ctx e
-				
+		
 		| TTypeDecl _ | TAbstractDecl _ ->
 			()
 	) common_ctx.types;
@@ -2142,7 +2143,7 @@ let generate common_ctx =
 	(*  *)
 	localizations common_ctx;
 	xcworkspacedata common_ctx;
-	pbxproj common_ctx;
+	pbxproj common_ctx project_manager;
 	xcscheme common_ctx;
 	xcschememanagement common_ctx
 ;;

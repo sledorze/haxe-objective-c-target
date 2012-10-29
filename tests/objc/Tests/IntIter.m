@@ -2,8 +2,6 @@
 
 @implementation IntIter
 
-
-
 @synthesize min;
 @synthesize max;
 - (BOOL) hasNext{

@@ -1,8 +1,6 @@
 #import "Std.h"
 
 @implementation Std
-
-
 + (BOOL) is:(id)v t:(id)t{
 	return [__global__ GFA2 .__instanceofnon-];
 }

@@ -3,8 +3,6 @@
 @implementation Tests
 
 
-
-
 @synthesize interfaceVar1;
 @synthesize interfaceVar2;
 
@@ -13,6 +11,8 @@
 	Array *a = [[Array alloc] init];
 	
 	Array *aa = [[[[[[[Array alloc] init] add:1] add:2] add:3] add:4] add:5];
+	int aaa = [aa objectAtIndex:2];
+	[aa objectAtIndex:3];
 	int b = 5;
 	float c = 5.0;
 	
@@ -40,27 +40,35 @@
 		}
 	}
 	{
-		int _g1 = 0; int _g2 = aa.length;
-		while (_g1 < _g2) {
-			int i1 = _g1++;
-			[aa push:i1];
+		int _g1 = 0; int _g = aa.length;
+		while (_g1 < _g) {
+			int i = _g1++;
+			[aa push:i];
 		}
 	}
 	{
-		int _g3 = 0;
-		while (_g3 < aa.length) {
-			int i2 = [aa objectAtIndex:_g3];
-			++_g3;
-			[aa push:i2];
+		int _g = 0;
+		while (_g < aa.length) {
+			int i = [aa objectAtIndex:_g];
+			++_g;
+			[aa push:i];
 		}
 	}
 }
 - (void) testingWhile{
 	int aa = 5;
 	do {
-		[Log trace:@"something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"58",@"Tests",@"testingWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"60",@"Tests",@"testingWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
+}
+- (void) testTry{
+	@try {
+		int a = 3;
+	}
+	@catch (NSException *e) {
+		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"70",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	}
 }
 - (int) getWidth{
 	return 0;
@@ -77,7 +85,7 @@
 - (void) callLotsOfArguments:(int)arg1 _:(int)_ arg3:(int)arg3 arg4:(int)arg4{
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"77",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"90",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 
 @end

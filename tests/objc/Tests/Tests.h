@@ -8,13 +8,13 @@
 @interface Tests<Interface2, Interface1>
 
 
-
 @property (nonatomic) int interfaceVar1;
 @property (nonatomic) float interfaceVar2;
 @property (nonatomic, getter=getWidth, setter=setWidth) int width;
 - (void) tests;
 - (void) testingFor;
 - (void) testingWhile;
+- (void) testTry;
 - (int) getWidth;
 - (int) setWidth:(int)v;
 - (int) add:(int)a b:(int)b;

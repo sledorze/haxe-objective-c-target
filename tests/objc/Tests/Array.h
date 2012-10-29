@@ -4,7 +4,6 @@
 
 @interface Array
 
-
 @property (nonatomic, strong) NSMutableArray *__a;
 @property (nonatomic) int length;
 - (Array*) initWithNSMutableArray:(NSMutableArray*)array;

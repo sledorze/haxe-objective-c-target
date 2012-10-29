@@ -20,6 +20,8 @@ class Tests implements Interface1, implements Interface2 {
 		// declare some random variables
 		var a = new Array<String>();
 		var aa = [1, 2, 3, 4, 5];
+		var aaa = aa[2];
+		aa[3];
 		var b :Int = 5;
 		var c :Float = 5.0;
 		var d = "xyz";
@@ -59,6 +61,17 @@ class Tests implements Interface1, implements Interface2 {
 			aa ++;
 		}
 		while (aa < 10);
+	}
+	function testTry () {
+		try {
+			var a = 1+2;
+		}
+		catch (e:Dynamic) {
+			trace("error");
+		}
+		/*finally {
+					trace("finally");
+				}*/
 	}
 	
 	function getWidth():Int{return 0;}
