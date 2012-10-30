@@ -4,7 +4,7 @@
 
 @interface Array
 
-@property (nonatomic, strong) NSMutableArray *__a;
+@property (nonatomic, strong) NSMutableArray *nativeArray;
 @property (nonatomic) int length;
 - (Array*) initWithNSMutableArray:(NSMutableArray*)array;
 - (Array*) concat:(Array*)a;
@@ -15,7 +15,6 @@
 - (NSString*) toString;
 - (id) pop;
 - (int) push:(id)x;
-- (Array*) add:(id)x;
 - (void) unshift:(id)x;
 - (BOOL) remove:(id)x;
 - (void) reverse;
@@ -23,6 +22,5 @@
 - (Array*) slice:(int)pos end:(id)end;
 - (void) sort:(Function*)f;
 - (Array*) splice:(int)pos len:(int)len;
-- (int) getLength;
 
 @end

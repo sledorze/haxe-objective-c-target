@@ -789,7 +789,7 @@ and generateExpression ctx e =
 			fun elem -> ctx.writer#write " add:"; generateValue ctx elem; ctx.writer#write "]";
 		) el *)
 	| TArrayDecl el ->
-		ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
+		ctx.writer#write "[[Array alloc] initWithNSMutableArray: [[NSMutableArray alloc] initWithObjects:";
 		ctx.require_pointer <- true;
 		concat ctx ", " (generateValue ctx) el;
 		ctx.require_pointer <- false;
@@ -820,6 +820,7 @@ and generateExpression ctx e =
 		) vl;
 	| TNew (c,params,el) ->
 		(* ctx.writer#write ("GEN_NEW>"^(snd c.cl_path)^(string_of_int (List.length params))); *)
+		(*processClassPath ctx true c.cl_path e.epos) *)
 		(match c.cl_path with
 			| ([],"CGRect")
 			| ([],"CGPoint")
@@ -827,10 +828,14 @@ and generateExpression ctx e =
 				ctx.writer#write ((snd c.cl_path)^"Make (");
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
+			| (["objc";"foundation"],"NSRange") ->
+				ctx.writer#write ("NSMakeRange (");
+				concat ctx "," (generateValue ctx) el;
+				ctx.writer#write ")"
 			| _ ->
 				ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path));
 				concat ctx "," (generateValue ctx) el
-		) (*processClassPath ctx true c.cl_path e.epos) *)
+		)
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write "if";
 		generateValue ctx (parent cond);
@@ -880,7 +885,7 @@ and generateExpression ctx e =
 		ctx.writer#end_block;
 		handleBreak();
 	| TTry (e,catchs) ->
-		(* TODO: objc has only one catch *)
+		(* TODO: objc has only one catch? *)
 		ctx.writer#write "@try ";
 		generateExpression ctx e;
 		List.iter (fun (v,e) ->
