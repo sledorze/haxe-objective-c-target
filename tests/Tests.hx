@@ -12,6 +12,8 @@ class Tests implements Interface1, implements Interface2 {
 	public var interfaceVar2 :Float;
 	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
+	public static var staticVar1 :String = "abcd";
+	
 	public function new () {
 		
 	}
@@ -32,11 +34,6 @@ class Tests implements Interface1, implements Interface2 {
 		var g2 = cast (a);
 		var xy = a.length;
 		a.push ( "6" );
-		
-/*		switch (e) {
-			case true : null;
-			case false : null;
-		}*/
 		
 		if (a.length > 3) {
 			f = 3;
@@ -72,6 +69,12 @@ class Tests implements Interface1, implements Interface2 {
 		/*finally {
 					trace("finally");
 				}*/
+	}
+	function testSwitch(){
+		switch (true) {
+			case true : var x = 0;
+			case false : var y = 0;
+		}
 	}
 	function testFrameworksImport(){
 		var m = new objc.ios.map.MKMapView();

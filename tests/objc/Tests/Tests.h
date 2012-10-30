@@ -9,6 +9,7 @@
 
 @interface Tests<Interface2, Interface1>
 
+@property (nonatomic, strong) NSString *staticVar1; = @"abcd"
 
 @property (nonatomic) int interfaceVar1;
 @property (nonatomic) float interfaceVar2;
@@ -17,6 +18,7 @@
 - (void) testingFor;
 - (void) testingWhile;
 - (void) testTry;
+- (void) testSwitch;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;
