@@ -1,4 +1,4 @@
-#import "haxe/Log.h"
+#import "Log.h"
 
 @implementation Log
 + (void) trace:(id)v infos:(id)infos{

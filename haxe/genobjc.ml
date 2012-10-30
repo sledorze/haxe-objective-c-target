@@ -159,8 +159,8 @@ class sourceWriter write_func close_func =
 	method end_block = this#pop_indent; this#write "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";"); this#new_line
 	
-	method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")(* (join_class_path path "/") *)
-	(* method import_header class_path = this#write ("#import \"" ^ (snd class_path) ^ ".h\"\n") *)
+	(* method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")(* (join_class_path path "/") *) *)
+	method import_header (class_path:path) = this#write ("#import \"" ^ (snd class_path) ^ ".h\"\n")
 	method import_headers class_paths =
 		List.iter (fun class_path -> this#import_header class_path ) class_paths;
 	method import_frameworks f_list = 
@@ -1489,19 +1489,18 @@ let pbxproj common_ctx project_manager =
 	file#write ("/* End PBXFileReference section */\n");
 	
 	(* Begin PBXFrameworksBuildPhase section *)
+	let frameworksBuildPhaseApp = project_manager#generate_uuid in
+	let frameworksBuildPhaseTests = project_manager#generate_uuid in
 	file#write ("\n/* Begin PBXFrameworksBuildPhase section */
-		28BFD9D21628A95900882B34 /* Frameworks */ = {
+		"^frameworksBuildPhaseApp^" /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-				28BFDA25163954F800882B34 /* MapKit.framework in Frameworks */,
-				28BFD9DA1628A95900882B34 /* UIKit.framework in Frameworks */,
-				28BFD9DC1628A95900882B34 /* Foundation.framework in Frameworks */,
-				28BFD9DE1628A95900882B34 /* CoreGraphics.framework in Frameworks */,
-			);
+			files = (\n");
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) project_manager#get_frameworks;
+	file#write ("			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		28BFD9F81628A95900882B34 /* Frameworks */ = {
+		"^frameworksBuildPhaseTests^" /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1536,13 +1535,9 @@ let pbxproj common_ctx project_manager =
 		};
 		28BFD9D81628A95900882B34 /* Frameworks */ = {
 			isa = PBXGroup;
-			children = (
-				28BFDA24163954F800882B34 /* MapKit.framework */,
-				28BFD9D91628A95900882B34 /* UIKit.framework */,
-				28BFD9DB1628A95900882B34 /* Foundation.framework */,
-				28BFD9DD1628A95900882B34 /* CoreGraphics.framework */,
-				28BFD9FD1628A95900882B34 /* SenTestingKit.framework */,
-			);
+			children = (\n");
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) project_manager#get_frameworks;
+	file#write ("			);
 			name = Frameworks;
 			sourceTree = \"<group>\";
 		};

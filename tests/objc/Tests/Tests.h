@@ -4,7 +4,7 @@
 #import "Array.h"
 #import "Int.h"
 #import "String.h"
-#import "haxe/Log.h"
+#import "Log.h"
 
 @interface Tests<Interface2, Interface1>
 
