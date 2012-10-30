@@ -73,7 +73,9 @@ class Tests implements Interface1, implements Interface2 {
 					trace("finally");
 				}*/
 	}
-	
+	function testFrameworksImport(){
+		var m = new objc.ios.map.MKMapView();
+	}
 	function getWidth():Int{return 0;}
 	function setWidth(v:Int):Int{return 0;}
 	

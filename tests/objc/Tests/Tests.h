@@ -1,9 +1,10 @@
 
+#import <MapKit/MapKit.h>
 
-#import "String.h"
 #import "Array.h"
-#import "haxe/Log.h"
 #import "Int.h"
+#import "String.h"
+#import "haxe/Log.h"
 
 @interface Tests<Interface2, Interface1>
 
@@ -15,6 +16,7 @@
 - (void) testingFor;
 - (void) testingWhile;
 - (void) testTry;
+- (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;
 - (int) add:(int)a b:(int)b;

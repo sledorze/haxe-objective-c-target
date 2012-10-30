@@ -37,6 +37,7 @@ let getFrameworkOfPath class_path =
 	let pack = fst class_path in
 	if List.length pack < 1 then "" else
 	match List.nth pack ((List.length pack) -1) with
+	(* Commom *)
 	| "foundation" -> "Foundation"
 	| "addressbook" -> "AddressBook"
 	| "av" -> "AVFoundation"
@@ -46,17 +47,19 @@ let getFrameworkOfPath class_path =
 	| "coreimage" -> "CoreImage"
 	| "corelocation" -> "CoreLocation"
 	| "gamekit" -> "GameKit"
-	| "iad" -> "iAd"
-	| "map" -> "MapKit"
-	| "mediaplayer" -> "MediaPlayer"
 	| "message" -> "MessageUI"
 	| "openal" -> "OpenAL"
 	| "opengles" -> "OpenGLES"
 	| "quartz" -> "QuartzCore"
-	| "social" -> "Social"
 	| "store" -> "StoreKit"
-	| "twitter" -> "Twitter"
+	| "SanTestings" -> "SanTestings"
+	(* iOS *)
+	| "iad" -> "iAd"
+	| "map" -> "MapKit"
 	| "ui" -> "UIKit"
+	| "mediaplayer" -> "MediaPlayer"
+	| "twitter" -> "Twitter"
+	(* OSX *)
 	| _ -> ""
 ;;
 
@@ -68,42 +71,49 @@ let processFunctionName name =
 	| _ -> name
 ;;
 
+type fileKind =
+	| PBXSource
+	| PBXResource
+	| PBXFramework
+	
 class importsManager =
 	object(this)
-	val mutable imports : (string,string list list) Hashtbl.t = Hashtbl.create 0;
 	val mutable all_frameworks : string list = []
 	val mutable class_frameworks : string list = []
+	val mutable class_imports : path list = []
 	method add_class_path class_path =
-		(* print_endline ("---add classpath:"^(getFrameworkOfPath class_path)^" - "^(snd class_path)); *)
 		let f_name = getFrameworkOfPath class_path in
 		if f_name <> "" then begin
 			if not (List.mem f_name all_frameworks) then all_frameworks <- List.append all_frameworks [f_name];
 			if not (List.mem f_name class_frameworks) then class_frameworks <- List.append class_frameworks [f_name];
 		end else begin
-			let pack = fst class_path in
-			let name = snd class_path in
-			let packs = (try Hashtbl.find imports name with Not_found -> []) in
-			if not (List.mem pack packs) then Hashtbl.replace imports name (pack :: packs);
+			if not (List.mem class_path class_imports) then class_imports <- List.append class_imports [class_path];
 		end
 	method get_all_frameworks = all_frameworks
 	method get_class_frameworks = class_frameworks
-	method get_imports = imports
-	method reset = class_frameworks <- []
+	method get_imports = class_imports
+	method reset = class_frameworks <- []; class_imports <- []
 end;;
-class projectManager =
+
+class projectManager imports_manager =
 	object(this)
-	val mutable files : (string * path) list = [](* key*filepath list *)
+	val mutable imports = imports_manager
+	val mutable all_frameworks : (string * string * string) list = [](* UUID * fileRef * f_name list *)
+	val mutable source_files : (string * string * path * string) list = [](* UUID * fileRef * filepath * ext list *)
+	val mutable resource_files : (string * string * path * string) list = [](* UUID * fileRef * filepath * ext list *)
 	method generate_uuid =
 		let id = String.make 24 'A' in
 		let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" in
-		for i = 0 to 23 do id.[i] <- chars.[Random.int (String.length chars)] done;
+		for i = 0 to 23 do id.[i] <- chars.[Random.int 36] done;
 		id
-	method register_file file_path =
-		files <- List.append files [this#generate_uuid, file_path];
-	method get_uuid c_path =
+	method register_source_file file_path ext =
+		source_files <- List.append source_files [this#generate_uuid, this#generate_uuid, file_path, ext];
+	method register_resource_file file_path ext =
+		resource_files <- List.append resource_files [this#generate_uuid, this#generate_uuid, file_path, ext];
+	(* method get_uuid c_path =
 		let id = ref "" in
 		List.iter (
-			fun (uuid, path) -> if path = c_path then id := uuid
+			fun (uuid, file_ref, path, ext) -> if path = c_path then id := uuid
 		) files;
 		!id
 	method get_class_path uuid =
@@ -111,8 +121,15 @@ class projectManager =
 		List.iter (
 			fun (id, path) -> if id = uuid then cl_path := path
 		) files;
-		!cl_path
-	method get_files = files
+		!cl_path *)
+	method get_source_files = source_files
+	method get_resource_files = resource_files
+	method get_frameworks =
+		if List.length all_frameworks = 0 then
+			List.iter (
+				fun name -> all_frameworks <- List.append all_frameworks [this#generate_uuid, this#generate_uuid, name]
+			) imports#get_all_frameworks;
+		all_frameworks
 	end
 ;;
 
@@ -143,27 +160,14 @@ class sourceWriter write_func close_func =
 	method terminate_line = this#write (if just_finished_block then "" else ";"); this#new_line
 	
 	method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")(* (join_class_path path "/") *)
-	method import_header_named name = this#write ("#import \"" ^ name ^ ".h\"\n")
-	method import_headers class_paths = 
-		Hashtbl.iter (fun name paths ->
-			List.iter (fun pack ->
-				let path = pack, name in
-				(* this#import_header_named name *)
-				this#import_header path
-				(* if path <> ctx.class_def.cl_path then  *)
-			) paths
-		) class_paths;
+	(* method import_header class_path = this#write ("#import \"" ^ (snd class_path) ^ ".h\"\n") *)
+	method import_headers class_paths =
+		List.iter (fun class_path -> this#import_header class_path ) class_paths;
 	method import_frameworks f_list = 
 		List.iter (fun name ->
 			this#write ("#import <" ^ name ^ "/" ^ name ^ ".h>\n")
 		) f_list;
 	end
-;;
-
-let fileSourceWriter filename =
-	let out_file = open_out filename in
-	new sourceWriter (output_string out_file) (fun ()-> close_out out_file)
-	(* output_string (channel) (string) *)
 ;;
 
 let readWholeFile chan = Std.input_all chan;;
@@ -201,7 +205,10 @@ let cachedSourceWriter filename =
 		in
 		new sourceWriter (add_buf) (close);
 	with _ ->
-		fileSourceWriter filename
+		let out_file = open_out filename in
+		new sourceWriter (output_string out_file) (fun ()-> close_out out_file)
+		
+		(* fileSourceWriter filename *)
 ;;
 
 let newSourceFile base_dir class_path extension =
@@ -325,8 +332,7 @@ let rec createDirectory acc = function
 		createDirectory (d :: acc) l
 ;;
 
-let saveLocals ctx =
-	(fun() -> ())
+let saveLocals ctx = (fun() -> ())
 		
 let genLocal ctx l =
 	ctx.gen_uid <- ctx.gen_uid + 1;
@@ -452,8 +458,8 @@ let escapeBin s =
 ;;
 
 (* TODO: Generate resources that Objective-C can understand *)
-(* Put texts in a .plist file
-Put images in the resources directory *)
+(* Put strings in a .plist file
+Put images in the Resources directory *)
 
 let generateResources common_ctx =
 	if Hashtbl.length common_ctx.resources <> 0 then begin
@@ -1159,6 +1165,7 @@ let generateProperty ctx field pos =
 ;;
 
 let generateMain ctx fd =
+	(* TODO: register the main.m file for pbxproj, but not necessary in this method *)
 	let platform_class = ref "" in
 	let app_delegate_class = ref "" in
 	let gen = (match fd.tf_expr.eexpr with
@@ -1452,57 +1459,35 @@ let pbxproj common_ctx project_manager =
 	objects = {");
 	
 	(* Begin PBXBuildFile section *)
+	(* It holds .m files, resource files, and frameworks *)
 	file#write ("\n/* Begin PBXBuildFile section */\n");
-	List.iter (
-		fun (uuid, path) -> file#write ("		"^uuid^" /* "^(snd path)^" */ = {isa=PBXBuildFile; fileRef=xxxx; };\n");
-	) project_manager#get_files;
-		(*28BFD9DA1628A95900882B34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9D91628A95900882B34 /* UIKit.framework */; };
-		28BFD9DC1628A95900882B34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DB1628A95900882B34 /* Foundation.framework */; };
-		28BFD9DE1628A95900882B34 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DD1628A95900882B34 /* CoreGraphics.framework */; };
-		28BFD9E41628A95900882B34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28BFD9E21628A95900882B34 /* InfoPlist.strings */; };
-		28BFD9E61628A95900882B34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD9E51628A95900882B34 /* main.m */; };
-		28BFD9EA1628A95900882B34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFD9E91628A95900882B34 /* AppDelegate.m */; };
-		28BFD9FE1628A95900882B34 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9FD1628A95900882B34 /* SenTestingKit.framework */; };
-		28BFD9FF1628A95900882B34 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9D91628A95900882B34 /* UIKit.framework */; };
-		28BFDA001628A95900882B34 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFD9DB1628A95900882B34 /* Foundation.framework */; };
-		28BFDA081628A95900882B34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28BFDA061628A95900882B34 /* InfoPlist.strings */; };
-		28BFDA0B1628A95900882B34 /* "^app_name^"Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */; };
-		28BFDA231638866C00882B34 /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BFDA221638866C00882B34 /* CustomMapView.m */; };
-		28BFDA25163954F800882B34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BFDA24163954F800882B34 /* MapKit.framework */; };*)
-	file#write ("\n/* End PBXBuildFile section */\n");
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^uuid^" /* "^name^".framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) project_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, path, ext) -> if ext=".m" then file#write ("		"^uuid^" /* "^(snd path)^ext^" in Sources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) project_manager#get_source_files;
+	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^uuid^" /* "^(snd path)^" in Resources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) project_manager#get_resource_files;
+	file#write ("/* End PBXBuildFile section */\n");
 	
 	(* Begin PBXContainerItemProxy section *)
+	let containerItemProxy = project_manager#generate_uuid in
+	let containerPortal = project_manager#generate_uuid in
+	let remoteGlobalIDString = project_manager#generate_uuid in
 	file#write ("\n/* Begin PBXContainerItemProxy section */
-		28BFDA011628A95900882B34 /* PBXContainerItemProxy */ = {
+		"^containerItemProxy^" /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 28BFD9CC1628A95900882000 /* Project object */;
+			containerPortal = "^containerPortal^" /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 28BFD9D41628A95900882B34;
+			remoteGlobalIDString = "^remoteGlobalIDString^";
 			remoteInfo = "^app_name^";
 		};
 /* End PBXContainerItemProxy section */\n");
+
 	(* Begin PBXFileReference section *)
-	file#write ("\n/* Begin PBXFileReference section */
-		28BFD9D51628A95900882B34 /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };
-		28BFD9D91628A95900882B34 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28BFD9DB1628A95900882B34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		28BFD9DD1628A95900882B34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28BFD9E11628A95900882B34 /* "^app_name^"-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = \""^app_name^"-Info.plist\"; sourceTree = \"<group>\"; };
-		28BFD9E31628A95900882B34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = \"<group>\"; };
-		28BFD9E51628A95900882B34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = \"<group>\"; };
-		28BFD9E71628A95900882B34 /* "^app_name^"-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = \""^app_name^"-Prefix.pch\"; sourceTree = \"<group>\"; };
-		28BFD9E81628A95900882B34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = \"<group>\"; };
-		28BFD9E91628A95900882B34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = \"<group>\"; };
-		28BFD9FC1628A95900882B34 /* "^app_name^"Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "^app_name^"Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		28BFD9FD1628A95900882B34 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		28BFDA051628A95900882B34 /* "^app_name^"Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = \""^app_name^"Tests-Info.plist\"; sourceTree = \"<group>\"; };
-		28BFDA071628A95900882B34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = \"<group>\"; };
-		28BFDA091628A95900882B34 /* "^app_name^"Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "^app_name^"Tests.h; sourceTree = \"<group>\"; };
-		28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "^app_name^"Tests.m; sourceTree = \"<group>\"; };
-		28BFDA211638866C00882B34 /* CustomMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomMapView.h; sourceTree = \"<group>\"; };
-		28BFDA221638866C00882B34 /* CustomMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomMapView.m; sourceTree = \"<group>\"; };
-		28BFDA24163954F800882B34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-/* End PBXFileReference section */");
+	file#write ("\n/* Begin PBXFileReference section */\n");
+	let app_uuid = project_manager#generate_uuid in
+	file#write ("		"^app_uuid^" /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };\n");
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^fileRef^" /* "^name^".framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "^name^".framework; path = System/Library/Frameworks/"^name^".framework; sourceTree = SDKROOT; };\n"); ) project_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^fileRef^" /* "^(snd path)^ext^" */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c."^(if ext=".h" then "h" else "objc")^"; path = "^(snd path)^ext^"; sourceTree = \"<group>\"; };\n"); ) project_manager#get_source_files;
+	file#write ("/* End PBXFileReference section */\n");
+	
 	(* Begin PBXFrameworksBuildPhase section *)
 	file#write ("\n/* Begin PBXFrameworksBuildPhase section */
 		28BFD9D21628A95900882B34 /* Frameworks */ = {
@@ -1527,6 +1512,7 @@ let pbxproj common_ctx project_manager =
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */");
+
 	(* Begin PBXGroup section *)
 	file#write ("\n/* Begin PBXGroup section */
 		28BFD9CA1628A95900882B34 = {
@@ -2014,8 +2000,7 @@ let generateClassFiles common_ctx class_def file_info project_manager imports_ma
 	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
 	(* The frameworks are kept in a non-resetable variable also *)
 	imports_manager#reset;
-	project_manager#register_file class_def.cl_path;
-	print_endline (project_manager#get_uuid class_def.cl_path);
+	project_manager#register_source_file class_def.cl_path ".m";
 	
 	if not class_def.cl_interface then begin
 	
@@ -2058,6 +2043,8 @@ let generateClassFiles common_ctx class_def file_info project_manager imports_ma
 	
 	
 	(* Create the header file *)
+
+	project_manager#register_source_file class_def.cl_path ".h";
 	
 	let src_dir = srcDir common_ctx in
 	let class_path = class_def.cl_path in
@@ -2111,8 +2098,8 @@ let generate common_ctx =
 	(* Generate XCode folders structure *)
 	generateXcodeStructure common_ctx;
 	
-	let project_manager = new projectManager in
 	let imports_manager = new importsManager in
+	let project_manager = new projectManager imports_manager in
 	let app_info = ref PMap.empty in
 	(* Generate files for each class.
 	When we reach the static main method generate a main.m file *)
@@ -2136,6 +2123,9 @@ let generate common_ctx =
 		| TTypeDecl _ | TAbstractDecl _ ->
 			()
 	) common_ctx.types;
+	
+	(* Register some default files *)
+	(* project_manager#register_source_file class_def.cl_path ".m"; *)
 	
 	generatePch common_ctx app_info;
 	generatePlist common_ctx app_info;
