@@ -72,12 +72,12 @@ let processFunctionName name =
 ;;
 
 type fileKind =
-	| PBXSource
-	| PBXResource
-	| PBXFramework
+	| FSource
+	| FResource
+	| FFramework
 	
 class importsManager =
-	object(this)
+	object
 	val mutable all_frameworks : string list = []
 	val mutable class_frameworks : string list = []
 	val mutable class_imports : path list = []
@@ -98,9 +98,9 @@ end;;
 class projectManager imports_manager =
 	object(this)
 	val mutable imports = imports_manager
-	val mutable all_frameworks : (string * string * string) list = [](* UUID * fileRef * f_name list *)
-	val mutable source_files : (string * string * path * string) list = [](* UUID * fileRef * filepath * ext list *)
-	val mutable resource_files : (string * string * path * string) list = [](* UUID * fileRef * filepath * ext list *)
+	val mutable all_frameworks : (string * string * string) list = [](* UUID * fileRef * f_name *)
+	val mutable source_files : (string * string * path * string) list = [](* UUID * fileRef * filepath * ext *)
+	val mutable resource_files : (string * string * path * string) list = [](* UUID * fileRef * filepath * ext *)
 	method generate_uuid =
 		let id = String.make 24 'A' in
 		let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" in
@@ -159,7 +159,6 @@ class sourceWriter write_func close_func =
 	method end_block = this#pop_indent; this#write "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";"); this#new_line
 	
-	(* method import_header path = this#write ("#import \"" ^ (join_class_path path "/") ^ ".h\"\n")(* (join_class_path path "/") *) *)
 	method import_header (class_path:path) = this#write ("#import \"" ^ (snd class_path) ^ ".h\"\n")
 	method import_headers class_paths =
 		List.iter (fun class_path -> this#import_header class_path ) class_paths;
@@ -234,6 +233,7 @@ type context = {
 	mutable generating_header : bool;
 	mutable generating_call : bool;
 	mutable generating_self_access : bool;
+	mutable require_pointer : bool;
 	mutable gen_uid : int;
 	mutable local_types : t list;
 }
@@ -250,6 +250,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	generating_header = false;
 	generating_call = false;
 	generating_self_access = false;
+	require_pointer = false;
 	gen_uid = 0;
 	local_types = [];
 }
@@ -501,13 +502,20 @@ let generateResources common_ctx =
 ;;
 
 let generateConstant ctx p = function
-	| TInt i -> ctx.writer#write (Printf.sprintf "%ld" i)(* "[NSNumber numberWithInt:%ld]" i) *) (* %ld = int32 *)(* (Int32.to_string i) *)
-	| TFloat f -> ctx.writer#write f
-	| TString s -> ctx.writer#write (Printf.sprintf "@\"%s\"" (Ast.s_escape s)) (* "@\"" ^ (escapeBin (Ast.s_escape s)) ^ "\"" *)
+	| TInt i ->
+		if ctx.require_pointer then
+			ctx.writer#write (Printf.sprintf "[NSNumber numberWithInt:%ld]" i) (* %ld = int32 = (Int32.to_string i) *)
+		else
+			ctx.writer#write (Printf.sprintf "%ld" i)
+	| TFloat f ->
+		if ctx.require_pointer then
+			ctx.writer#write (Printf.sprintf "[NSNumber numberWithFloat:%s]" f)
+		else
+			ctx.writer#write f
+	| TString s -> ctx.writer#write (Printf.sprintf "@\"%s\"" (Ast.s_escape s))
 	| TBool b -> ctx.writer#write (if b then "YES" else "NO")
-	| TNull -> ctx.writer#write "nil"
+	| TNull -> ctx.writer#write (if ctx.require_pointer then "[NSNull null]" else "nil")
 	| TThis -> ctx.writer#write "self"; ctx.generating_self_access <- true
-	(* | TThis -> ctx.writer#write (Printf.sprintf this ctx) *)
 	| TSuper -> ctx.writer#write "super"
 ;;
 
@@ -656,7 +664,6 @@ and generateExpression ctx e =
 	(* ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
-		(* TODO: if the constant is begining of the line write with write. samples: TThis *)
 		generateConstant ctx e.epos c
 	| TLocal v ->
 		ctx.writer#write v.v_name
@@ -736,7 +743,6 @@ and generateExpression ctx e =
 		if ctx.in_value <> None then unsupported e.epos;
 		ctx.writer#write "continue"
 	| TBlock expr_list ->
-		(* TODO: Check what kind of block is this. If cames before while loop treat differently *)
 		ctx.writer#begin_block;
 		List.iter (fun e ->
 			generateExpression ctx e;
@@ -774,18 +780,20 @@ and generateExpression ctx e =
 		ctx.writer#write "{";
 		concat ctx " ," (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
 		ctx.writer#write "}"
-	| TArrayDecl el ->
+	(* | TArrayDecl el -> *)
 		(* gen_type output expression.etype; *)
 		(* TODO: If the elements are pointers init the array with a NSMutableArray, faster and cleaner *)
-		List.iter ( fun elem -> ctx.writer#write "[" ) el;
+		(* List.iter ( fun elem -> ctx.writer#write "[" ) el;
 		ctx.writer#write "[[Array alloc] init]";
 		List.iter (
 			fun elem -> ctx.writer#write " add:"; generateValue ctx elem; ctx.writer#write "]";
-		) el
-	(* | TArrayDecl el ->
-			ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
-			concat ctx ", " (generateValue ctx) el;
-			ctx.writer#write ", nil]]" *)
+		) el *)
+	| TArrayDecl el ->
+		ctx.writer#write "[[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: ";
+		ctx.require_pointer <- true;
+		concat ctx ", " (generateValue ctx) el;
+		ctx.require_pointer <- false;
+		ctx.writer#write ", nil]]"
 	| TThrow e ->
 		ctx.writer#write "throw ";
 		generateValue ctx e

@@ -2,8 +2,9 @@
 #import <MapKit/MapKit.h>
 
 #import "Array.h"
-#import "Int.h"
+#import "Float.h"
 #import "String.h"
+#import "Int.h"
 #import "Log.h"
 
 @interface Tests<Interface2, Interface1>

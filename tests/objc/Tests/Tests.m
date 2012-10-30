@@ -10,8 +10,8 @@
 	
 	Array *a = [[Array alloc] init];
 	
-	Array *aa = [[[[[[[Array alloc] init] add:1] add:2] add:3] add:4] add:5];
-	int aaa = [aa objectAtIndex:2];
+	Array *aa = [[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: [NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
+	float aaa = [aa objectAtIndex:2];
 	[aa objectAtIndex:3];
 	int b = 5;
 	float c = 5.0;
@@ -31,7 +31,7 @@
 }
 - (void) testingFor{
 	
-	Array *aa = [[[[[[[Array alloc] init] add:1] add:2] add:3] add:4] add:5];
+	Array *aa = [[Array alloc] initWithNSMutableArray:[[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 	{
 		int _g = 0;
 		while (_g < 5) {

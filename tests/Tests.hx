@@ -19,7 +19,7 @@ class Tests implements Interface1, implements Interface2 {
 	function tests () :Void {
 		// declare some random variables
 		var a = new Array<String>();
-		var aa = [1, 2, 3, 4, 5];
+		var aa = [1.0, 2, 3, 4, 5];
 		var aaa = aa[2];
 		aa[3];
 		var b :Int = 5;

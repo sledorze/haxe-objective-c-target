@@ -5,7 +5,7 @@
 @synthesize __a;
 @synthesize length;
 - (Array*) initWithNSMutableArray:(NSMutableArray*)array{
-	self.__a = [NSMutableArray arrayWithArray:array];
+	self.__a = array;
 	return self;
 }
 - (Array*) concat:(Array*)a{
