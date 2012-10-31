@@ -99,7 +99,7 @@
 - (int) minus:(int)a b:(int)b{
 	return a - b;
 }
-- (void) callLotsOfArguments:(int)arg1 _:(int)_ arg3:(int)arg3 arg4:(int)arg4{
+- (void) callLotsOfArguments:(int)arg1 t:(int)t t1:(int)t1 arg4:(int)arg4{
 }
 - (void) printHello{
 	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"95",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];

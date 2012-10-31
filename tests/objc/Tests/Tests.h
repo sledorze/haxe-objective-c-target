@@ -24,7 +24,7 @@
 - (int) setWidth:(int)v;
 - (int) add:(int)a b:(int)b;
 - (int) minus:(int)a b:(int)b;
-- (void) callLotsOfArguments:(int)arg1 _:(int)_ arg3:(int)arg3 arg4:(int)arg4;
+- (void) callLotsOfArguments:(int)arg1 t:(int)t t1:(int)t1 arg4:(int)arg4;
 - (void) printHello;
 
 @end

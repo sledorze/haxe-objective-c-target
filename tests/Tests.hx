@@ -90,7 +90,7 @@ class Tests implements Interface1, implements Interface2 {
 	public function minus (a:Int, b:Int) :Int {
 		return a-b;
 	}
-	public function callLotsOfArguments (arg1:Int, _:Int, arg3:Int, arg4:Int) :Void {}
+	public function callLotsOfArguments (arg1:Int, t:Int, t:Int, arg4:Int) :Void {}
 	public function printHello () :Void {
 		trace("Hello from Haxe Objective-C");
 	}

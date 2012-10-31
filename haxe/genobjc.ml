@@ -95,7 +95,7 @@ class importsManager =
 	method reset = class_frameworks <- []; class_imports <- []
 end;;
 
-class projectManager imports_manager =
+class filesManager imports_manager =
 	object(this)
 	val mutable imports = imports_manager
 	val mutable all_frameworks : (string * string * string) list = [](* UUID * fileRef * f_name *)
@@ -229,7 +229,7 @@ type context = {
 	mutable class_def : tclass;
 	mutable in_value : tvar option;
 	mutable in_static : bool;
-	mutable handleBreak : bool;
+	mutable handle_break : bool;
 	mutable generating_header : bool;
 	mutable generating_call : bool;
 	mutable generating_self_access : bool;
@@ -246,7 +246,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	class_def = null_class;
 	in_value = None;
 	in_static = false;
-	handleBreak = false;
+	handle_break = false;
 	generating_header = false;
 	generating_call = false;
 	generating_self_access = false;
@@ -428,19 +428,19 @@ let rec iterSwitchBreak in_switch e =
 ;;
 
 let handleBreak ctx e =
-	let old_handle = ctx.handleBreak in
+	let old_handle = ctx.handle_break in
 	try
 		iterSwitchBreak false e;
-		ctx.handleBreak <- false;
-		(fun() -> ctx.handleBreak <- old_handle)
+		ctx.handle_break <- false;
+		(fun() -> ctx.handle_break <- old_handle)
 	with
 		Exit ->
 			ctx.writer#write "try {";
 			ctx.writer#new_line;
-			ctx.handleBreak <- true;
+			ctx.handle_break <- true;
 			(fun() ->
 				ctx.writer#begin_block;
-				ctx.handleBreak <- old_handle;
+				ctx.handle_break <- old_handle;
 				ctx.writer#new_line;
 				ctx.writer#write "} catch( e : * ) { if( e != \"__break__\" ) throw e; }";
 			)
@@ -674,7 +674,7 @@ and generateExpression ctx e =
 		ctx.writer#write (processClassPath ctx false path e.epos)
 	| TArray (e1,e2) ->
 		(* Accesing an array element *)
-		(* TODO: access objects and primitives in a different way *)
+		(* TODO: access pointers and primitives in a different way *)
 		ctx.writer#write "[";
 		generateValue ctx e1;
 		ctx.writer#write " objectAtIndex:";
@@ -738,7 +738,7 @@ and generateExpression ctx e =
 			generateValue ctx e);
 	| TBreak ->
 		if ctx.in_value <> None then unsupported e.epos;
-		if ctx.handleBreak then ctx.writer#write "throw \"__break__\"" else ctx.writer#write "break"
+		if ctx.handle_break then ctx.writer#write "throw \"__break__\"" else ctx.writer#write "break"
 	| TContinue ->
 		if ctx.in_value <> None then unsupported e.epos;
 		ctx.writer#write "continue"
@@ -1428,6 +1428,7 @@ let xcscheme common_ctx =
 let xcschememanagement common_ctx = 
 	let src_dir = srcDir common_ctx in
 	let app_name = appName common_ctx in
+	let remote_global_id_string_tests = "" in 
 	let file = newSourceFile (src_dir^".xcodeproj/xcuserdata/Cristi.xcuserdatad/xcschemes") ([],"xcschememanagement") ".plist" in
 	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
@@ -1448,7 +1449,7 @@ let xcschememanagement common_ctx =
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>28BFD9FB1628A95900882B34</key>
+		<key>"^remote_global_id_string_tests^"</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -1459,7 +1460,7 @@ let xcschememanagement common_ctx =
 ");
 	file#close
 ;;
-let pbxproj common_ctx project_manager = 
+let pbxproj common_ctx files_manager = 
 	let src_dir = srcDir common_ctx in
 	let app_name = appName common_ctx in
 	let owner = "Baluta Cristian" in
@@ -1474,99 +1475,109 @@ let pbxproj common_ctx project_manager =
 	(* Begin PBXBuildFile section *)
 	(* It holds .m files, resource files, and frameworks *)
 	file#write ("\n/* Begin PBXBuildFile section */\n");
-	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^uuid^" /* "^name^".framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) project_manager#get_frameworks;
-	List.iter ( fun (uuid, fileRef, path, ext) -> if ext=".m" then file#write ("		"^uuid^" /* "^(snd path)^ext^" in Sources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) project_manager#get_source_files;
-	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^uuid^" /* "^(snd path)^" in Resources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) project_manager#get_resource_files;
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^uuid^" /* "^name^".framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) files_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, path, ext) -> if ext=".m" then file#write ("		"^uuid^" /* "^(snd path)^ext^" in Sources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) files_manager#get_source_files;
+	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^uuid^" /* "^(snd path)^" in Resources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) files_manager#get_resource_files;
 	file#write ("/* End PBXBuildFile section */\n");
 	
 	(* Begin PBXContainerItemProxy section *)
-	let containerItemProxy = project_manager#generate_uuid in
-	let containerPortal = project_manager#generate_uuid in
-	let remoteGlobalIDString = project_manager#generate_uuid in
+	let container_item_proxy = files_manager#generate_uuid in
+	let remote_global_id_string = appName common_ctx in
+	let root_object = files_manager#generate_uuid in
 	file#write ("\n/* Begin PBXContainerItemProxy section */
-		"^containerItemProxy^" /* PBXContainerItemProxy */ = {
+		"^container_item_proxy^" /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = "^containerPortal^" /* Project object */;
+			containerPortal = "^root_object^" /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "^remoteGlobalIDString^";
+			remoteGlobalIDString = "^remote_global_id_string^";
 			remoteInfo = "^app_name^";
 		};
 /* End PBXContainerItemProxy section */\n");
 
 	(* Begin PBXFileReference section *)
 	file#write ("\n/* Begin PBXFileReference section */\n");
-	let app_uuid = project_manager#generate_uuid in
+	let app_uuid = files_manager#generate_uuid in
 	file#write ("		"^app_uuid^" /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };\n");
-	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^fileRef^" /* "^name^".framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "^name^".framework; path = System/Library/Frameworks/"^name^".framework; sourceTree = SDKROOT; };\n"); ) project_manager#get_frameworks;
-	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^fileRef^" /* "^(snd path)^ext^" */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c."^(if ext=".h" then "h" else "objc")^"; path = "^(snd path)^ext^"; sourceTree = \"<group>\"; };\n"); ) project_manager#get_source_files;
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^fileRef^" /* "^name^".framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "^name^".framework; path = System/Library/Frameworks/"^name^".framework; sourceTree = SDKROOT; };\n"); ) files_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^fileRef^" /* "^(snd path)^ext^" */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c."^(if ext=".h" then "h" else "objc")^"; path = "^(join_class_path path "/")^ext^"; sourceTree = \"<group>\"; };\n"); ) files_manager#get_source_files;
 	file#write ("/* End PBXFileReference section */\n");
 	
 	(* Begin PBXFrameworksBuildPhase section *)
-	let frameworksBuildPhaseApp = project_manager#generate_uuid in
-	let frameworksBuildPhaseTests = project_manager#generate_uuid in
+	let frameworks_build_phase_app = files_manager#generate_uuid in
+	let frameworks_build_phase_tests = files_manager#generate_uuid in
 	file#write ("\n/* Begin PBXFrameworksBuildPhase section */
-		"^frameworksBuildPhaseApp^" /* Frameworks */ = {
+		"^frameworks_build_phase_app^" /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (\n");
-	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) project_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) files_manager#get_frameworks;
 	file#write ("			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		"^frameworksBuildPhaseTests^" /* Frameworks */ = {
+		"^frameworks_build_phase_tests^" /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-				28BFD9FE1628A95900882B34 /* SenTestingKit.framework in Frameworks */,
-				28BFD9FF1628A95900882B34 /* UIKit.framework in Frameworks */,
-				28BFDA001628A95900882B34 /* Foundation.framework in Frameworks */,
-			);
+			files = (\n");
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) files_manager#get_frameworks;
+	(* 28BFD9FE1628A95900882B34 /* SenTestingKit.framework in Frameworks */,
+	28BFD9FF1628A95900882B34 /* UIKit.framework in Frameworks */,
+	28BFDA001628A95900882B34 /* Foundation.framework in Frameworks */, *)
+	file#write ("			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */");
 
 	(* Begin PBXGroup section *)
+	let product_reference = files_manager#generate_uuid in
+	let product_reference_tests = files_manager#generate_uuid in
+	let main_group = files_manager#generate_uuid in
+	let product_ref_group = files_manager#generate_uuid in
+	let frameworks_group = files_manager#generate_uuid in
+	let children_app = files_manager#generate_uuid in
+	let children_tests = files_manager#generate_uuid in
+	let children_supporting_files = files_manager#generate_uuid in
+	let children_supporting_files_tests = files_manager#generate_uuid in
 	file#write ("\n/* Begin PBXGroup section */
-		28BFD9CA1628A95900882B34 = {
+		"^main_group^" = {
 			isa = PBXGroup;
 			children = (
-				28BFD9DF1628A95900882B34 /* "^app_name^" */,
-				28BFDA031628A95900882B34 /* "^app_name^"Tests */,
-				28BFD9D81628A95900882B34 /* Frameworks */,
-				28BFD9D61628A95900882B34 /* Products */,
+				"^children_app^" /* "^app_name^" */,
+				"^children_tests^" /* "^app_name^"Tests */,
+				"^frameworks_group^" /* Frameworks */,
+				"^product_ref_group^" /* Products */,
 			);
 			sourceTree = \"<group>\";
 		};
-		28BFD9D61628A95900882B34 /* Products */ = {
+		"^product_ref_group^" /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28BFD9D51628A95900882B34 /* "^app_name^".app */,
-				28BFD9FC1628A95900882B34 /* "^app_name^"Tests.octest */,
+				"^product_reference^" /* "^app_name^".app */,
+				"^product_reference_tests^" /* "^app_name^"Tests.octest */,
 			);
 			name = Products;
 			sourceTree = \"<group>\";
 		};
-		28BFD9D81628A95900882B34 /* Frameworks */ = {
+		"^frameworks_group^" /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (\n");
-	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) project_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) files_manager#get_frameworks;
 	file#write ("			);
 			name = Frameworks;
 			sourceTree = \"<group>\";
 		};
-		28BFD9DF1628A95900882B34 /* "^app_name^" */ = {
+		"^children_app^" /* "^app_name^" */ = {
 			isa = PBXGroup;
 			children = (
 				28BFD9E81628A95900882B34 /* AppDelegate.h */,
 				28BFD9E91628A95900882B34 /* AppDelegate.m */,
 				28BFDA211638866C00882B34 /* CustomMapView.h */,
 				28BFDA221638866C00882B34 /* CustomMapView.m */,
-				28BFD9E01628A95900882B34 /* Supporting Files */,
+				"^children_supporting_files^" /* Supporting Files */,
 			);
 			path = "^app_name^";
 			sourceTree = \"<group>\";
 		};
-		28BFD9E01628A95900882B34 /* Supporting Files */ = {
+		"^children_supporting_files^" /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				28BFD9E11628A95900882B34 /* "^app_name^"-Info.plist */,
@@ -1577,17 +1588,17 @@ let pbxproj common_ctx project_manager =
 			name = \"Supporting Files\";
 			sourceTree = \"<group>\";
 		};
-		28BFDA031628A95900882B34 /* "^app_name^"Tests */ = {
+		"^children_tests^" /* "^app_name^"Tests */ = {
 			isa = PBXGroup;
 			children = (
 				28BFDA091628A95900882B34 /* "^app_name^"Tests.h */,
 				28BFDA0A1628A95900882B34 /* "^app_name^"Tests.m */,
-				28BFDA041628A95900882B34 /* Supporting Files */,
+				"^children_supporting_files_tests^" /* Supporting Files */,
 			);
 			path = "^app_name^"Tests;
 			sourceTree = \"<group>\";
 		};
-		28BFDA041628A95900882B34 /* Supporting Files */ = {
+		"^children_supporting_files_tests^" /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				28BFDA051628A95900882B34 /* "^app_name^"Tests-Info.plist */,
@@ -1598,14 +1609,24 @@ let pbxproj common_ctx project_manager =
 		};
 /* End PBXGroup section */");
 	(* Begin PBXNativeTarget section *)
+	let sources_build_phase_app = files_manager#generate_uuid in
+	let sources_build_phase_tests = files_manager#generate_uuid in
+	let resources_build_phase_app = files_manager#generate_uuid in
+	let resources_build_phase_tests = files_manager#generate_uuid in
+	let remote_global_id_string_tests = files_manager#generate_uuid in
+	let shell_build_phase_tests = files_manager#generate_uuid in
+	let target_dependency = files_manager#generate_uuid in
+	let build_config_list_app = files_manager#generate_uuid in
+	let build_config_list_tests = files_manager#generate_uuid in
+	let build_config_list_proj = files_manager#generate_uuid in
 	file#write ("\n/* Begin PBXNativeTarget section */
-		28BFD9D41628A95900882B34 /* "^app_name^" */ = {
+		"^remote_global_id_string^" /* "^app_name^" */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 28BFDA0E1628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"\" */;
+			buildConfigurationList = "^build_config_list_app^" /* Build configuration list for PBXNativeTarget \""^app_name^"\" */;
 			buildPhases = (
-				28BFD9D11628A95900882B34 /* Sources */,
-				28BFD9D21628A95900882B34 /* Frameworks */,
-				28BFD9D31628A95900882B34 /* Resources */,
+				"^sources_build_phase_app^" /* Sources */,
+				"^frameworks_build_phase_app^" /* Frameworks */,
+				"^resources_build_phase_app^" /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1613,57 +1634,57 @@ let pbxproj common_ctx project_manager =
 			);
 			name = "^app_name^";
 			productName = "^app_name^";
-			productReference = 28BFD9D51628A95900882B34 /* "^app_name^".app */;
+			productReference = "^product_reference^" /* "^app_name^".app */;
 			productType = \"com.apple.product-type.application\";
 		};
-		28BFD9FB1628A95900882B34 /* "^app_name^"Tests */ = {
+		"^remote_global_id_string_tests^" /* "^app_name^"Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 28BFDA111628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"Tests\" */;
+			buildConfigurationList = "^build_config_list_tests^" /* Build configuration list for PBXNativeTarget \""^app_name^"Tests\" */;
 			buildPhases = (
-				28BFD9F71628A95900882B34 /* Sources */,
-				28BFD9F81628A95900882B34 /* Frameworks */,
-				28BFD9F91628A95900882B34 /* Resources */,
-				28BFD9FA1628A95900882B34 /* ShellScript */,
+				"^sources_build_phase_tests^" /* Sources */,
+				"^frameworks_build_phase_tests^" /* Frameworks */,
+				"^resources_build_phase_tests^" /* Resources */,
+				"^shell_build_phase_tests^" /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				28BFDA021628A95900882B34 /* PBXTargetDependency */,
+				"^target_dependency^" /* PBXTargetDependency */,
 			);
 			name = "^app_name^"Tests;
 			productName = "^app_name^"Tests;
-			productReference = 28BFD9FC1628A95900882B34 /* "^app_name^"Tests.octest */;
+			productReference = "^product_reference_tests^" /* "^app_name^"Tests.octest */;
 			productType = \"com.apple.product-type.bundle\";
 		};
 /* End PBXNativeTarget section */");
 	(* Begin PBXProject section *)
 	file#write ("\n/* Begin PBXProject section */
-		28BFD9CC1628A95900882000 /* Project object */ = {
+		"^root_object^" /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = \""^owner^"\";
 			};
-			buildConfigurationList = 28BFD9CF1628A95900882B34 /* Build configuration list for PBXProject \""^app_name^"\" */;
+			buildConfigurationList = "^build_config_list_proj^" /* Build configuration list for PBXProject \""^app_name^"\" */;
 			compatibilityVersion = \"Xcode 3.2\";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 28BFD9CA1628A95900882B34;
-			productRefGroup = 28BFD9D61628A95900882B34 /* Products */;
+			mainGroup = "^main_group^";
+			productRefGroup = "^product_ref_group^" /* Products */;
 			projectDirPath = \"\";
 			projectRoot = \"\";
 			targets = (
-				28BFD9D41628A95900882B34 /* "^app_name^" */,
-				28BFD9FB1628A95900882B34 /* "^app_name^"Tests */,
+				"^remote_global_id_string^" /* "^app_name^" */,
+				"^remote_global_id_string_tests^" /* "^app_name^"Tests */,
 			);
 		};
 /* End PBXProject section */");
 	(* Begin PBXResourcesBuildPhase section *)
 	file#write ("\n/* Begin PBXResourcesBuildPhase section */
-		28BFD9D31628A95900882B34 /* Resources */ = {
+		"^resources_build_phase_app^" /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1671,7 +1692,7 @@ let pbxproj common_ctx project_manager =
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		28BFD9F91628A95900882B34 /* Resources */ = {
+		"^resources_build_phase_tests^" /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1682,7 +1703,7 @@ let pbxproj common_ctx project_manager =
 /* End PBXResourcesBuildPhase section */");
 	(* Begin PBXShellScriptBuildPhase section *)
 	file#write ("\n/* Begin PBXShellScriptBuildPhase section */
-		28BFD9FA1628A95900882B34 /* ShellScript */ = {
+		"^shell_build_phase_tests^" /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1698,17 +1719,15 @@ let pbxproj common_ctx project_manager =
 /* End PBXShellScriptBuildPhase section */");
 	(* Begin PBXSourcesBuildPhase section *)
 	file#write ("\n/* Begin PBXSourcesBuildPhase section */
-		28BFD9D11628A95900882B34 /* Sources */ = {
+		"^sources_build_phase_app^" /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-				28BFD9E61628A95900882B34 /* main.m in Sources */,
-				28BFD9EA1628A95900882B34 /* AppDelegate.m in Sources */,
-				28BFDA231638866C00882B34 /* CustomMapView.m in Sources */,
-			);
+			files = (\n");
+	List.iter ( fun (uuid, fileRef, path, ext) -> if ext=".m" then file#write ("				"^uuid^" /* "^(snd path)^ext^" in Sources */,\n"); ) files_manager#get_source_files;
+	file#write ("			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		28BFD9F71628A95900882B34 /* Sources */ = {
+		"^sources_build_phase_tests^" /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1719,10 +1738,10 @@ let pbxproj common_ctx project_manager =
 /* End PBXSourcesBuildPhase section */");
 	(* Begin PBXTargetDependency section *)
 	file#write ("\n/* Begin PBXTargetDependency section */
-		28BFDA021628A95900882B34 /* PBXTargetDependency */ = {
+		"^target_dependency^" /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 28BFD9D41628A95900882B34 /* "^app_name^" */;
-			targetProxy = 28BFDA011628A95900882B34 /* PBXContainerItemProxy */;
+			target = "^remote_global_id_string^" /* "^app_name^" */;
+			targetProxy = "^container_item_proxy^" /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */");
 	(* Begin PBXVariantGroup section *)
@@ -1745,8 +1764,14 @@ let pbxproj common_ctx project_manager =
 		};
 /* End PBXVariantGroup section */");
 	(* Begin XCBuildConfiguration section *)
+	let build_config_list_proj_debug = files_manager#generate_uuid in
+	let build_config_list_proj_release = files_manager#generate_uuid in
+	let build_config_list_app_debug = files_manager#generate_uuid in
+	let build_config_list_app_release = files_manager#generate_uuid in
+	let build_config_list_tests_debug = files_manager#generate_uuid in
+	let build_config_list_tests_release = files_manager#generate_uuid in
 	file#write ("\n/* Begin XCBuildConfiguration section */
-		28BFDA0C1628A95900882B34 /* Debug */ = {
+		"^build_config_list_proj_debug^" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1773,7 +1798,7 @@ let pbxproj common_ctx project_manager =
 			};
 			name = Debug;
 		};
-		28BFDA0D1628A95900882B34 /* Release */ = {
+		"^build_config_list_proj_release^" /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1795,7 +1820,7 @@ let pbxproj common_ctx project_manager =
 			};
 			name = Release;
 		};
-		28BFDA0F1628A95900882B34 /* Debug */ = {
+		"^build_config_list_app_debug^" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1806,7 +1831,7 @@ let pbxproj common_ctx project_manager =
 			};
 			name = Debug;
 		};
-		28BFDA101628A95900882B34 /* Release */ = {
+		"^build_config_list_app_release^" /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1817,7 +1842,7 @@ let pbxproj common_ctx project_manager =
 			};
 			name = Release;
 		};
-		28BFDA121628A95900882B34 /* Debug */ = {
+		"^build_config_list_tests_debug^" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = \"$(BUILT_PRODUCTS_DIR)/"^app_name^".app/"^app_name^"\";
@@ -1834,7 +1859,7 @@ let pbxproj common_ctx project_manager =
 			};
 			name = Debug;
 		};
-		28BFDA131628A95900882B34 /* Release */ = {
+		"^build_config_list_tests_release^" /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = \"$(BUILT_PRODUCTS_DIR)/"^app_name^".app/"^app_name^"\";
@@ -1855,29 +1880,29 @@ let pbxproj common_ctx project_manager =
 
 	(* Begin XCConfigurationList section *)
 	file#write ("\n/* Begin XCConfigurationList section */
-		28BFD9CF1628A95900882B34 /* Build configuration list for PBXProject \""^app_name^"\" */ = {
+		"^build_config_list_proj^" /* Build configuration list for PBXProject \""^app_name^"\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				28BFDA0C1628A95900882B34 /* Debug */,
-				28BFDA0D1628A95900882B34 /* Release */,
+				"^build_config_list_proj_debug^" /* Debug */,
+				"^build_config_list_proj_release^" /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		28BFDA0E1628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"\" */ = {
+		"^build_config_list_app^" /* Build configuration list for PBXNativeTarget \""^app_name^"\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				28BFDA0F1628A95900882B34 /* Debug */,
-				28BFDA101628A95900882B34 /* Release */,
+				"^build_config_list_app_debug^" /* Debug */,
+				"^build_config_list_app_release^" /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		28BFDA111628A95900882B34 /* Build configuration list for PBXNativeTarget \""^app_name^"Tests\" */ = {
+		"^build_config_list_tests^" /* Build configuration list for PBXNativeTarget \""^app_name^"Tests\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				28BFDA121628A95900882B34 /* Debug */,
-				28BFDA131628A95900882B34 /* Release */,
+				"^build_config_list_tests_debug^" /* Debug */,
+				"^build_config_list_tests_release^" /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1885,7 +1910,7 @@ let pbxproj common_ctx project_manager =
 /* End XCConfigurationList section */");
 
 	file#write ("	};
-	rootObject = 28BFD9CC1628A95900882000 /* Project object */;
+	rootObject = "^root_object^" /* Project object */;
 }
 ");
 
@@ -2002,13 +2027,13 @@ let generateEnum ctx e =
 
 (* Generate header + implementation *)
 
-let generateClassFiles common_ctx class_def file_info project_manager imports_manager =
+let generateClassFiles common_ctx class_def file_info files_manager imports_manager =
 	print_endline ("> Generating class files for : "^(snd class_def.cl_path));
 	
 	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
 	(* The frameworks are kept in a non-resetable variable also *)
 	imports_manager#reset;
-	project_manager#register_source_file class_def.cl_path ".m";
+	files_manager#register_source_file class_def.cl_path ".m";
 	
 	if not class_def.cl_interface then begin
 	
@@ -2052,7 +2077,7 @@ let generateClassFiles common_ctx class_def file_info project_manager imports_ma
 	
 	(* Create the header file *)
 
-	project_manager#register_source_file class_def.cl_path ".h";
+	files_manager#register_source_file class_def.cl_path ".h";
 	
 	let src_dir = srcDir common_ctx in
 	let class_path = class_def.cl_path in
@@ -2107,7 +2132,7 @@ let generate common_ctx =
 	generateXcodeStructure common_ctx;
 	
 	let imports_manager = new importsManager in
-	let project_manager = new projectManager imports_manager in
+	let files_manager = new filesManager imports_manager in
 	let app_info = ref PMap.empty in
 	(* Generate files for each class.
 	When we reach the static main method generate a main.m file *)
@@ -2121,7 +2146,7 @@ let generate common_ctx =
 				| (pack,name) -> { class_def with cl_path = (pack, name) }
 			) in
 			if not class_def.cl_extern then
-				generateClassFiles common_ctx class_def app_info project_manager imports_manager
+				generateClassFiles common_ctx class_def app_info files_manager imports_manager
 		
 		| TEnumDecl e ->
 			let pack,name = e.e_path in
@@ -2133,7 +2158,7 @@ let generate common_ctx =
 	) common_ctx.types;
 	
 	(* Register some default files *)
-	(* project_manager#register_source_file class_def.cl_path ".m"; *)
+	(* files_manager#register_source_file class_def.cl_path ".m"; *)
 	
 	generatePch common_ctx app_info;
 	generatePlist common_ctx app_info;
@@ -2141,7 +2166,7 @@ let generate common_ctx =
 	(*  *)
 	localizations common_ctx;
 	xcworkspacedata common_ctx;
-	pbxproj common_ctx project_manager;
+	pbxproj common_ctx files_manager;
 	xcscheme common_ctx;
 	xcschememanagement common_ctx
 ;;
