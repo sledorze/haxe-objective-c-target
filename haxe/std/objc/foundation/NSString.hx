@@ -1,33 +1,32 @@
 package objc.foundation;
 
 
-extern class NSString
-{
+extern class NSString extends NSObject {
 
 	//Constants
 
 	//Static Methods
-	public  function pathWithComponents( components:NSArray):String;
+	public static function pathWithComponents (components:NSArray) :String;
 
 	//Properties
 
 	//Methods
-	public  function completePathIntoString( outputName:NSString*,  flag:Bool,  outputArray:NSArray*,  filterTypes:NSArray):Int;
+	public  function completePathIntoString( outputName:NSString,  flag:Bool,  outputArray:NSArray,  filterTypes:NSArray):Int;
 	public  function isAbsolutePath():Bool;
 	public  function stringByDeletingLastPathComponent():String;
-	public  function stringByAppendingPathExtension( str:String):String;
-	public  function getFileSystemRepresentation( cname:char,  max:Int):Bool;
+	public  function stringByAppendingPathExtension (str:String) :String;
+	//public  function getFileSystemRepresentation( cname:String, max:Int):Bool;
 	public  function lastPathComponent():String;
 	public  function stringByAbbreviatingWithTildeInPath():String;
 	public  function stringByResolvingSymlinksInPath():String;
-	public  function stringByAppendingPathComponent( str:String):String;
+	public  function stringByAppendingPathComponent(str:String):String;
 	public  function pathComponents():NSArray;
 	public  function stringsByAppendingPaths( paths:NSArray):NSArray;
 	public  function pathsMatchingExtensions( filterTypes:NSArray):NSArray;
 	public  function pathExtension():String;
 	public  function stringByDeletingPathExtension():String;
 	public  function stringByExpandingTildeInPath():String;
-	public  function fileSystemRepresentation():__strongconstchar;
+	public  function fileSystemRepresentation():String;
 	public  function stringByStandardizingPath():String;
 }
 
@@ -44,7 +43,7 @@ extern enum NSSearchPathDirectory
 	NSDocumentDirectory;
 	NSCoreServiceDirectory;
 	NSAutosavedInformationDirectory;
-	4_0;
+/*	4_0;
 	NSDesktopDirectory;
 	NSCachesDirectory;
 	NSApplicationSupportDirectory;
@@ -71,7 +70,7 @@ extern enum NSSearchPathDirectory
 	NSAllApplicationsDirectory;
 	NSAllLibrariesDirectory;
 	NSTrashDirectory;
-	NA;
+	NA;*/
 }
 
 extern enum NSSearchPathDomainMask

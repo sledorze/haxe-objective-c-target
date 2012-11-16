@@ -28,7 +28,7 @@ import objc.foundation.NSCalendar;
 
 @:core_api  class Date {
 
-	private var _seconds:Float;
+	private var _seconds :Int;
 	private var _date :NSDate;
 	private var _calendar :NSCalendar;
 	private var _components :NSDateComponents;
@@ -37,7 +37,12 @@ import objc.foundation.NSCalendar;
 		
 		_calendar = NSCalendar.currentCalendar();
 		
-		_components = _calendar.components (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit, NSDate.date());
+		_components = _calendar.components (NSCalendar.NSYearCalendarUnit | 
+											NSCalendar.NSMonthCalendarUnit | 
+											NSCalendar.NSDayCalendarUnit | 
+											NSCalendar.NSHourCalendarUnit | 
+											NSCalendar.NSMinuteCalendarUnit | 
+											NSCalendar.NSSecondCalendarUnit, NSDate.date());
 		_components.setYear ( year );
 		_components.setMonth ( month );
 		_components.setDay ( day );
@@ -71,13 +76,19 @@ import objc.foundation.NSCalendar;
 
 	public static function now() : Date {
 		var calendar = NSCalendar.currentCalendar();
-		var components = _calendar.components (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit, NSDate.date());
+		var components = calendar.components (	NSCalendar.NSYearCalendarUnit | 
+												NSCalendar.NSMonthCalendarUnit | 
+												NSCalendar.NSDayCalendarUnit | 
+												NSCalendar.NSHourCalendarUnit | 
+												NSCalendar.NSMinuteCalendarUnit | 
+												NSCalendar.NSSecondCalendarUnit, NSDate.date());
+												
 		return new Date(components.year,components.month,components.day,components.hour,components.min,components.sec);
 	}
 
 	public static function fromTime( t : Float ) : Date {
 		var result = new Date(0,0,0,0,0,0);
-		result.mSeconds = t*0.001;
+		result._seconds = t*0.001;
 		return result;
 	}
 

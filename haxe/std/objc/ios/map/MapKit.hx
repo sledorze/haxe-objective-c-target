@@ -1,32 +1,27 @@
-//
-//  MapKit.h
-//  MapKit
-//
-//  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
-//
+package objc.ios.map;
 
-#import <MapKit/MKFoundation.h>
-#import <MapKit/MKAnnotation.h>
-#import <MapKit/MKAnnotationView.h>
-#import <MapKit/MKDirectionsRequest.h>
-#import <MapKit/MKGeometry.h>
-#import <MapKit/MKMapItem.h>
-#import <MapKit/MKMapView.h>
-#import <MapKit/MKPinAnnotationView.h>
-#import <MapKit/MKPlacemark.h>
-#import <MapKit/MKReverseGeocoder.h>
-#import <MapKit/MKUserLocation.h>
-#import <MapKit/MKTypes.h>
-#import <MapKit/MKOverlay.h>
-#import <MapKit/MKShape.h>
-#import <MapKit/MKPointAnnotation.h>
-#import <MapKit/MKMultiPoint.h>
-#import <MapKit/MKPolyline.h>
-#import <MapKit/MKPolygon.h>
-#import <MapKit/MKCircle.h>
-#import <MapKit/MKOverlayView.h>
-#import <MapKit/MKOverlayPathView.h>
-#import <MapKit/MKPolygonView.h>
-#import <MapKit/MKPolylineView.h>
-#import <MapKit/MKCircleView.h>
-#import <MapKit/MKUserTrackingBarButtonItem.h>
+typedef MKFoundation = objc.ios.map.MKFoundation;
+typedef MKAnnotation = objc.ios.map.MKAnnotation;
+typedef MKAnnotationView = objc.ios.map.MKAnnotationView;
+typedef MKDirectionsRequest = objc.ios.map.MKDirectionsRequest;
+typedef MKGeometry = objc.ios.map.MKGeometry;
+typedef MKMapItem = objc.ios.map.MKMapItem;
+typedef MKMapView = objc.ios.map.MKMapView;
+typedef MKPinAnnotationView = objc.ios.map.MKPinAnnotationView;
+typedef MKPlacemark = objc.ios.map.MKPlacemark;
+typedef MKReverseGeocoder = objc.ios.map.MKReverseGeocoder;
+typedef MKUserLocation = objc.ios.map.MKUserLocation;
+typedef MKTypes = objc.ios.map.MKTypes;
+typedef MKOverlay = objc.ios.map.MKOverlay;
+typedef MKShape = objc.ios.map.MKShape;
+typedef MKPointAnnotation = objc.ios.map.MKPointAnnotation;
+typedef MKMultiPoint = objc.ios.map.MKMultiPoint;
+typedef MKPolyline = objc.ios.map.MKPolyline;
+typedef MKPolygon = objc.ios.map.MKPolygon;
+typedef MKCircle = objc.ios.map.MKCircle;
+typedef MKOverlayView = objc.ios.map.MKOverlayView;
+typedef MKOverlayPathView = objc.ios.map.MKOverlayPathView;
+typedef MKPolygonView = objc.ios.map.MKPolygonView;
+typedef MKPolylineView = objc.ios.map.MKPolylineView;
+typedef MKCircleView = objc.ios.map.MKCircleView;
+typedef MKUserTrackingBarButtonItem = objc.ios.map.MKUserTrackingBarButtonItem;

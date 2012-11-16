@@ -1,8 +1,8 @@
 package objc.foundation;
+import objc.foundation.NSObject;
+typedef NSTimeInterval = Int;
 
-
-extern class NSDate, implements NSCopying, implements NSSecureCoding
-{
+extern class NSDate extends NSObject, implements NSCopying, implements NSSecureCoding {
 
 	//Constants
 
@@ -21,8 +21,8 @@ extern class NSDate, implements NSCopying, implements NSSecureCoding
 	//Methods
 	public  function timeIntervalSinceReferenceDate():NSTimeInterval;
 	public  function timeIntervalSinceNow():NSTimeInterval;
-	public  function initWithTimeInterval( secsToBeAdded:NSTimeInterval,  anotherDate:Date):Dynamic;
-	public  function addTimeInterval( seconds:NSTimeInterval,  null:10_0,10_6,2_0,4_0):Dynamic;
+	public  function initWithTimeInterval( secsToBeAdded:NSTimeInterval, anotherDate:Date) :Dynamic;
+	public  function addTimeInterval( seconds:NSTimeInterval) :Dynamic;
 	public  function laterDate( anotherDate:Date):Date;
 	public  function description():String;
 	public  function initWithTimeIntervalSinceNow( secs:NSTimeInterval):Dynamic;
@@ -35,6 +35,6 @@ extern class NSDate, implements NSCopying, implements NSSecureCoding
 	public  function timeIntervalSinceDate( anotherDate:Date):NSTimeInterval;
 	public  function earlierDate( anotherDate:Date):Date;
 	public  function descriptionWithLocale( locale:Dynamic):String;
-	public  function init():Dynamic;
+	public  function init() :NSDate;
 }
 
