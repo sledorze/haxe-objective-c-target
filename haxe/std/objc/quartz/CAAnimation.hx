@@ -1,32 +1,14 @@
-/* CoreAnimation - CAAnimation.h
+package objc.quartz;
 
-   Copyright (c) 2006-2007 Apple Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
+import objc.foundation.NSArray;
 
-#import <QuartzCore/CALayer.h>
-#import <Foundation/NSObject.h>
 
-@class NSArray, NSString, CAMediaTimingFunction, CAValueFunction;
+extern class CAAnimation extends NSObject/*<NSCoding, NSCopying, CAMediaTiming, CAAction>*/{
 
-/** The base animation class. **/
-
-@interface CAAnimation : NSObject
-    <NSCoding, NSCopying, CAMediaTiming, CAAction>
-{
-@private
-  void *_attr;
-  uint32_t _flags;
-}
-
-/* Creates a new animation object. */
-
-+ (id)animation;
-
-/* Animations implement the same property model as defined by CALayer.
- * See CALayer.h for more details. */
-
-+ (id)defaultValueForKey:(NSString *)key;
-- (BOOL)shouldArchiveValueForKey:(NSString *)key;
+	public static function animation () :CAAnimation;
+	public static function defaultValueForKey(key:String) :CAAnimation;
+	public function shouldArchiveValueForKey (key:String) :Bool;
 
 /* A timing function defining the pacing of the animation. Defaults to
  * nil indicating linear pacing. */
