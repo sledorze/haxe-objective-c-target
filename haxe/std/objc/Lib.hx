@@ -26,6 +26,7 @@ package objc;
 
 typedef ALAssetsGroup = Dynamic;
 typedef ALAsset = Dynamic;
+import objc.location.CLLocation;
  
 class Lib {
 	
@@ -34,7 +35,7 @@ class Lib {
 		return untyped __objc__ ("AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:NSURL]");
 	}
 	static function attach (name : String) :UIImageView {
-		return untyped __objc__ ("[UIImageView ]");
+		return untyped __objc__ ("[[UIImageView alloc] initWithImage:[UIImage imageNamed:@\"name\"]]");
 	}
 	static function enumerateLibraryGroups () :Array<ALAssetsGroup> {
 		//library = [[ALAssetsLibrary alloc] init];
@@ -44,4 +45,5 @@ class Lib {
 	static function fetchCameraItemsInGroup (group:String) :Array<ALAsset> {
 		return null;
 	}
+	static function location () :CLLocation;
 }
