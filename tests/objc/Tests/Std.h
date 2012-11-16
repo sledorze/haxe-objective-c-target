@@ -1,7 +1,7 @@
 
 
 
-@interface Std
+@interface Std : NSObject
 
 + (BOOL) is:(id)v t:(id)t;
 + (NSString*) string:(id)s;

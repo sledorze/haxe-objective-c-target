@@ -4,7 +4,7 @@
 #import "Date.h"
 #import "Array.h"
 
-@interface Date
+@interface Date : NSObject
 
 + (Date*) now;
 + (Date*) fromTime:(float)t;

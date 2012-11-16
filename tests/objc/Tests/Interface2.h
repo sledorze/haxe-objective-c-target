@@ -1,7 +1,7 @@
 
 
 
-@interface Interface2
+@interface Interface2 : NSObject
 
 
 

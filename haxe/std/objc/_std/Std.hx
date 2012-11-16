@@ -25,28 +25,29 @@
 
 @:core_api class Std {
 	public static function is( v : Dynamic, t : Dynamic ) : Bool {
-		return untyped __global__.__instanceof(v,t);
+		return v.isEqual ( t );
+		//[anArchiver isKindOfClass:[NSCoder class]]
 	}
 
 	public static function string( s : Dynamic ) : String {
-		return untyped s==null ? "null" : s.toString();
+		return s.description();
 	}
 
 	public static function int( x : Float ) : Int {
-		return untyped __global__.__int__(x);
+		return cast (x, Int);
 	}
 
 	public static function parseInt( x : String ) : Null<Int> {
-		return untyped __global__.__hxcpp_parse_int(x);
+		return untyped x.intValue();
 	}
 
 	public static function parseFloat( x : String ) : Float {
-		return untyped __global__.__hxcpp_parse_float(x);
+		return untyped x.floatValue();
 	}
 
 	public static function random( x : Int ) : Int {
 		if (x <= 0) return 0;
-		return untyped __global__.__hxcpp_irand(x);
+		return untyped __objc__("rand() % x");
 	}
 
 	@:macro public static function format( fmt : haxe.macro.Expr.ExprOf<String> ) : haxe.macro.Expr.ExprOf<String> {

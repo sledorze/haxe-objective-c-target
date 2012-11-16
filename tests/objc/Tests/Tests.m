@@ -88,6 +88,7 @@
 	Date *d = [[Date alloc] init]2012,11,13,19,30,0;
 	
 	Date *d2 = [Date["now"]];
+	int x = [DateTools getMonthDays:d2];
 }
 - (void) testFrameworksImport{
 	
@@ -108,7 +109,7 @@
 - (void) callLotsOfArguments:(int)arg1 t:(int)t t1:(int)t1 arg4:(int)arg4{
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"99",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"100",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 
 @end

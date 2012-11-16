@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Array
+@interface Array : NSObject
 
 @property (nonatomic, strong) NSMutableArray *nativeArray;
 @property (nonatomic) int length;

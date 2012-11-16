@@ -2,23 +2,23 @@
 
 @implementation Std
 + (BOOL) is:(id)v t:(id)t{
-	return [__global__ GFA2 .__instanceofnon-];
+	return [v isEqual-non-];
 }
 + (NSString*) string:(id)s{
-	return ( (s == nil) ? @"null" : [s GFA3 .toString]);
+	return [s description];
 }
 + (int) int:(float)x{
-	return [__global__ GFA2 .__int__non-];
+	return (int)x;
 }
 + (id) parseInt:(NSString*)x{
-	return [__global__ GFA2 .__hxcpp_parse_intnon-];
+	return [x intValue];
 }
 + (float) parseFloat:(NSString*)x{
-	return [__global__ GFA2 .__hxcpp_parse_floatnon-];
+	return [x floatValue];
 }
 + (int) random:(int)x{
 	if (x <= 0) return 0;;
-	return [__global__ GFA2 .__hxcpp_irandnon-];
+	return rand() % x;
 }
 
 @end

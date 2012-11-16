@@ -28,6 +28,9 @@ extern class NSString extends NSObject {
 	public  function stringByExpandingTildeInPath():String;
 	public  function fileSystemRepresentation():String;
 	public  function stringByStandardizingPath():String;
+	
+	public function intValue () :Int;
+	public function floatValue () :Int;
 }
 
 extern enum NSSearchPathDirectory

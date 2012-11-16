@@ -8,7 +8,7 @@
 #import "Log.h"
 #import "Date.h"
 
-@interface Tests<Interface2, Interface1>
+@interface Tests : NSObject<Interface2, Interface1>
 
 @property (nonatomic, strong) NSString *staticVar1; = @"abcd"
 

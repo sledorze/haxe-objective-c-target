@@ -1,7 +1,7 @@
 
 
 
-@interface IntIter
+@interface IntIter : NSObject
 
 @property (nonatomic) int min;
 @property (nonatomic) int max;

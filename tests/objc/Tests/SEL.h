@@ -1,7 +1,7 @@
 
 
 
-@interface SEL
+@interface SEL : NSObject
 
 
 @end

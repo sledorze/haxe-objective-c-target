@@ -609,7 +609,8 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 				generateValue ctx args_array_e.(!index);
 				index := !index + 1;
 		) args;
-	| _ -> ctx.writer#write "non-");
+	(* Dynamic value call function with a dynamic parameter *)
+	| _ -> ctx.writer#write "-non-");
 	
 	end
 	
@@ -655,9 +656,11 @@ and generateFieldAccess ctx etype s to_method =
 		(match !(a.a_status) with
 			(* Generate a static field access *)
 			| Statics c -> field c
+			(* Generate field access for an anonymous object, Dynamic *)
 			| _ -> ctx.writer#write (Printf.sprintf " GFA2 .%s" (s)))
 	| _ ->
-		ctx.writer#write (Printf.sprintf " GFA3 .%s" (s))
+		(* Method call on a Dynamic *)
+		ctx.writer#write (Printf.sprintf " %s" (s))
 	
 and generateExpression ctx e =
 	debug ctx ("-E-"^(Type.s_expr_kind e)^">");
@@ -2102,7 +2105,7 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	h_file#write ("@interface " ^ (snd class_path));
 	(* Add the super class *)
 	(match class_def.cl_super with
-		| None -> ()
+		| None -> h_file#write " : NSObject"
 		| Some (csup,_) -> h_file#write (Printf.sprintf " : %s " (snd csup.cl_path)));
 	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
 	(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
