@@ -12,7 +12,7 @@
 - (Array*) concat:(Array*)a{
 	
 	NSMutableArray *nat = a.nativeArray;
-	return [[[Array alloc] init] initWithNSMutableArray:[self.nativeArray arrayByAddingObjectsFromArray:nat]];
+	return nil;
 }
 - (Array*) copy{
 	return [[[Array alloc] init] initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];

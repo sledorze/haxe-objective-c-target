@@ -1,16 +1,10 @@
-/*	NSCalendar.h
-	Copyright (c) 2004-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSRange.h>
-#import <Foundation/NSDate.h>
+import objc.foundation.NSLocale;
+import objc.foundation.NSTimeZone;
+import objc.foundation.NSString;
 
-#include <CoreFoundation/CFCalendar.h>
-
-@class NSDateComponents, NSLocale, NSTimeZone, NSString;
-
-enum {
+/*enum NSCalendarUnit {
 	NSEraCalendarUnit = kCFCalendarUnitEra,
 	NSYearCalendarUnit = kCFCalendarUnitYear,
 	NSMonthCalendarUnit = kCFCalendarUnitMonth,
@@ -18,7 +12,6 @@ enum {
 	NSHourCalendarUnit = kCFCalendarUnitHour,
 	NSMinuteCalendarUnit = kCFCalendarUnitMinute,
 	NSSecondCalendarUnit = kCFCalendarUnitSecond,
-	NSWeekCalendarUnit = kCFCalendarUnitWeek /* NS_DEPRECATED(10_4, 10_7, 2_0, 5_0) */,
 	NSWeekdayCalendarUnit = kCFCalendarUnitWeekday,
 	NSWeekdayOrdinalCalendarUnit = kCFCalendarUnitWeekdayOrdinal,
 #if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED || __IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
@@ -33,52 +26,47 @@ enum {
         NSCalendarCalendarUnit = (1 << 20),
         NSTimeZoneCalendarUnit = (1 << 21),
 #endif
-};
-typedef NSUInteger NSCalendarUnit;
+};*/
+typedef NSCalendarUnit = Int;
 
-@interface NSCalendar : NSObject <NSCopying, NSCoding>
+extern class NSCalendar extends NSObject/*, implements NSCopying, implements NSCoding*/ {
 
-+ (id)currentCalendar; // users preferred calendar, tracks changes
-+ (id)autoupdatingCurrentCalendar NS_AVAILABLE(10_5, 2_0);
+	public static function currentCalendar () :NSCalendar; // users preferred calendar, tracks changes
+	public static function autoupdatingCurrentCalendar () :NSCalendar;
 
-- (id)initWithCalendarIdentifier:(NSString *)ident;
+	public function initWithCalendarIdentifier (ident:String) :NSCalendar;
 
-- (NSString *)calendarIdentifier;
-
-
-- (void)setLocale:(NSLocale *)locale;
-- (NSLocale *)locale;
-
-- (void)setTimeZone:(NSTimeZone *)tz;
-- (NSTimeZone *)timeZone;
-
-- (void)setFirstWeekday:(NSUInteger)weekday;
-- (NSUInteger)firstWeekday;
-
-- (void)setMinimumDaysInFirstWeek:(NSUInteger)mdw;
-- (NSUInteger)minimumDaysInFirstWeek;
+	public function calendarIdentifier () :String;
 
 
-- (NSRange)minimumRangeOfUnit:(NSCalendarUnit)unit;
-- (NSRange)maximumRangeOfUnit:(NSCalendarUnit)unit;
+	public function setLocale (locale:NSLocale) :Void;
+	public function locale () :NSLocale;
 
-- (NSRange)rangeOfUnit:(NSCalendarUnit)smaller inUnit:(NSCalendarUnit)larger forDate:(NSDate *)date;
-- (NSUInteger)ordinalityOfUnit:(NSCalendarUnit)smaller inUnit:(NSCalendarUnit)larger forDate:(NSDate *)date;
+	public function setTimeZone (tz:NSTimeZone) :Void;
+	public function timeZone () :NSTimeZone;
 
-- (BOOL)rangeOfUnit:(NSCalendarUnit)unit startDate:(NSDate **)datep interval:(NSTimeInterval *)tip forDate:(NSDate *)date NS_AVAILABLE(10_5, 2_0);
+	public function setFirstWeekday (weekday:Int) :Void;
+	public function firstWeekday () :Int;
 
-- (NSDate *)dateFromComponents:(NSDateComponents *)comps;
-- (NSDateComponents *)components:(NSUInteger)unitFlags fromDate:(NSDate *)date;
+	public function setMinimumDaysInFirstWeek (mdw:Int) :Void;
+	public function minimumDaysInFirstWeek () :Int;
 
-- (NSDate *)dateByAddingComponents:(NSDateComponents *)comps toDate:(NSDate *)date options:(NSUInteger)opts;
 
-- (NSDateComponents *)components:(NSUInteger)unitFlags fromDate:(NSDate *)startingDate toDate:(NSDate *)resultDate options:(NSUInteger)opts;
+	public function minimumRangeOfUnit(unit:NSCalendarUnit) :NSRange;
+	public function maximumRangeOfUnit(unit:NSCalendarUnit) :NSRange;
 
-@end
+	public function rangeOfUnit (smaller:NSCalendarUnit, inUnit:NSCalendarUnit, forDate:NSDate) :NSRange;
+	public function ordinalityOfUnit (smaller:NSCalendarUnit, inUnit:NSCalendarUnit, forDate:NSDate) :NSRange;
 
-enum {
-	NSWrapCalendarComponents = kCFCalendarComponentsWrap,  // option for adding
-};
+	public function rangeOfUnit (unit:NSCalendarUnit, startDate:NSDate, interval:NSTimeInterval, forDate:NSDate) :Bool;
+
+	public function dateFromComponents (comps:NSDateComponents) :NSDate;
+	public function components (unitFlags:Int, fromDate:NSDate) :NSDateComponents;
+
+	public function dateByAddingComponents (comps:NSDateComponents, toDate:NSDate, options:Int) :NSDate;
+
+	public function components (unitFlags:Int, fromDate:NSDate, toDate:NSDate, options:Int) :NSDateComponents;
+
 
 
 // This is a just used as an extensible struct, basically;
@@ -102,7 +90,7 @@ enum {
 	NSUndefinedDateComponent = NSIntegerMax
 };
 
-@interface NSDateComponents : NSObject <NSCopying, NSCoding>
+extern class NSDateComponents extends NSObject/*, implements NSCopying, implements NSCoding*/ {
 
 - (NSCalendar *)calendar NS_AVAILABLE(10_7, 4_0);
 - (NSTimeZone *)timeZone NS_AVAILABLE(10_7, 4_0);

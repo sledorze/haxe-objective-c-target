@@ -1,5 +1,24 @@
 package objc.foundation;
 
+
+extern interface NSCopying {
+	//function copyWithZone(zone:NSZone) :Dynamic;
+}
+
+extern interface NSMutableCopying {
+	//function mutableCopyWithZone (zone:NSZone) :Dynamic;
+}
+
+extern interface NSCoding {
+	//function encodeWithCoder (aCoder:NSCoder) :Void;
+	//function initWithCoder (aDecoder:NSCoder) :Dynamic;
+}
+
+extern interface  NSSecureCoding {
+	 //static function supportsSecureCoding () :Bool;
+}
+
+
 extern class NSObject {
 	
 	// Initializing a Class
@@ -74,3 +93,4 @@ extern class NSObject {
 /*	static function setVersion:*/
 	static function version () : Void;
 }
+

@@ -1,96 +1,53 @@
-/*	NSFileHandle.h
-	Copyright (c) 1995-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSRange.h>
 
-@class NSString, NSData, NSError;
+extern class NSFileHandle, implements NSSecureCoding
+{
 
-@interface NSFileHandle : NSObject
+	//Constants
 
-- (NSData *)availableData;
+	//Static Methods
+	public  function fileHandleForWritingAtPath( path:String):Dynamic;
+	public  function fileHandleWithStandardOutput():Dynamic;
+	public  function fileHandleForReadingFromURL( url:NSURL,  error:NSError*):Dynamic;
+	public  function fileHandleWithStandardInput():Dynamic;
+	public  function fileHandleWithStandardError():Dynamic;
+	public  function fileHandleForUpdatingURL( url:NSURL,  error:NSError*):Dynamic;
+	public  function pipe():Dynamic;
+	public  function fileHandleForReadingAtPath( path:String):Dynamic;
+	public  function fileHandleForWritingToURL( url:NSURL,  error:NSError*):Dynamic;
+	public  function fileHandleForUpdatingAtPath( path:String):Dynamic;
+	public  function fileHandleWithNullDevice():Dynamic;
 
-- (NSData *)readDataToEndOfFile;
-- (NSData *)readDataOfLength:(NSUInteger)length;
+	//Properties
+	public var )(default, default):NSFileHandle;
+	public var )(default, default):NSFileHandle;
 
-- (void)writeData:(NSData *)data;
-
-- (unsigned long long)offsetInFile;
-- (unsigned long long)seekToEndOfFile;
-- (void)seekToFileOffset:(unsigned long long)offset;
-
-- (void)truncateFileAtOffset:(unsigned long long)offset;
-- (void)synchronizeFile;
-- (void)closeFile;
-
-@end
-
-@interface NSFileHandle (NSFileHandleCreation)
-
-+ (id)fileHandleWithStandardInput;
-+ (id)fileHandleWithStandardOutput;
-+ (id)fileHandleWithStandardError;
-+ (id)fileHandleWithNullDevice;
-
-+ (id)fileHandleForReadingAtPath:(NSString *)path;
-+ (id)fileHandleForWritingAtPath:(NSString *)path;
-+ (id)fileHandleForUpdatingAtPath:(NSString *)path;
-
-+ (id)fileHandleForReadingFromURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
-+ (id)fileHandleForWritingToURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
-+ (id)fileHandleForUpdatingURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
-
-@end
-
-FOUNDATION_EXPORT NSString * const NSFileHandleOperationException;
-
-FOUNDATION_EXPORT NSString * const NSFileHandleReadCompletionNotification;
-FOUNDATION_EXPORT NSString * const NSFileHandleReadToEndOfFileCompletionNotification;
-FOUNDATION_EXPORT NSString * const NSFileHandleConnectionAcceptedNotification;
-FOUNDATION_EXPORT NSString * const NSFileHandleDataAvailableNotification;
-
-FOUNDATION_EXPORT NSString * const NSFileHandleNotificationDataItem;
-FOUNDATION_EXPORT NSString * const NSFileHandleNotificationFileHandleItem;
-FOUNDATION_EXPORT NSString * const NSFileHandleNotificationMonitorModes NS_DEPRECATED(10_0, 10_7, 2_0, 5_0);
-
-@interface NSFileHandle (NSFileHandleAsynchronousAccess)
-
-- (void)readInBackgroundAndNotifyForModes:(NSArray *)modes;
-- (void)readInBackgroundAndNotify;
-
-- (void)readToEndOfFileInBackgroundAndNotifyForModes:(NSArray *)modes;
-- (void)readToEndOfFileInBackgroundAndNotify;
-
-- (void)acceptConnectionInBackgroundAndNotifyForModes:(NSArray *)modes;
-- (void)acceptConnectionInBackgroundAndNotify;
-
-- (void)waitForDataInBackgroundAndNotifyForModes:(NSArray *)modes;
-- (void)waitForDataInBackgroundAndNotify;
-
-#ifdef __BLOCKS__
-@property (copy) void (^readabilityHandler)(NSFileHandle *)  NS_AVAILABLE(10_7, 5_0);
-@property (copy) void (^writeabilityHandler)(NSFileHandle *) NS_AVAILABLE(10_7, 5_0);
-#endif
-
-@end
-
-@interface NSFileHandle (NSFileHandlePlatformSpecific)
-
-- (id)initWithFileDescriptor:(int)fd closeOnDealloc:(BOOL)closeopt;
-- (id)initWithFileDescriptor:(int)fd;
-- (int)fileDescriptor;
-
-@end
-
-@interface NSPipe : NSObject
-
-- (NSFileHandle *)fileHandleForReading;
-- (NSFileHandle *)fileHandleForWriting;
-
-- (id)init;
-+ (id)pipe;
-
-@end
+	//Methods
+	public  function readDataToEndOfFile():NSData;
+	public  function fileHandleForWriting():NSFileHandle;
+	public  function offsetInFile():unsignedlonglong;
+	public  function acceptConnectionInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function waitForDataInBackgroundAndNotify():Void;
+	public  function waitForDataInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function readInBackgroundAndNotify():Void;
+	public  function initWithFileDescriptor( fd:Int,  closeopt:Bool):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function initWithFileDescriptor1( fd:Int):Dynamic;
+	public  function fileDescriptor():Int;
+	public  function truncateFileAtOffset( offset:unsignedlonglong):Void;
+	public  function readToEndOfFileInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function acceptConnectionInBackgroundAndNotify():Void;
+	public  function synchronizeFile():Void;
+	public  function availableData():NSData;
+	public  function readDataOfLength( length:Int):NSData;
+	public  function writeData( data:NSData):Void;
+	public  function seekToEndOfFile():unsignedlonglong;
+	public  function fileHandleForReading():NSFileHandle;
+	public  function closeFile():Void;
+	public  function readInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function readToEndOfFileInBackgroundAndNotify():Void;
+	public  function seekToFileOffset( offset:unsignedlonglong):Void;
+	public  function init():Dynamic;
+}
 

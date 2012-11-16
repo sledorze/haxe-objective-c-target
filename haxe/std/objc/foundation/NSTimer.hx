@@ -1,31 +1,29 @@
-/*	NSTimer.h
-	Copyright (c) 1994-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSDate.h>
 
-@interface NSTimer : NSObject
+extern class NSTimer
+{
 
-+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)ti invocation:(NSInvocation *)invocation repeats:(BOOL)yesOrNo;
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti invocation:(NSInvocation *)invocation repeats:(BOOL)yesOrNo;
+	//Constants
 
-+ (NSTimer *)timerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(id)userInfo repeats:(BOOL)yesOrNo;
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(id)userInfo repeats:(BOOL)yesOrNo;
+	//Static Methods
+	public  function timerWithTimeInterval( ti:NSTimeInterval,  invocation:NSInvocation,  yesOrNo:Bool):NSTimer;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function timerWithTimeInterval1( ti:NSTimeInterval,  aTarget:Dynamic,  aSelector:SEL,  userInfo:Dynamic,  yesOrNo:Bool):NSTimer;
+	public  function scheduledTimerWithTimeInterval( ti:NSTimeInterval,  invocation:NSInvocation,  yesOrNo:Bool):NSTimer;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function scheduledTimerWithTimeInterval1( ti:NSTimeInterval,  aTarget:Dynamic,  aSelector:SEL,  userInfo:Dynamic,  yesOrNo:Bool):NSTimer;
 
-- (id)initWithFireDate:(NSDate *)date interval:(NSTimeInterval)ti target:(id)t selector:(SEL)s userInfo:(id)ui repeats:(BOOL)rep;
+	//Properties
 
-- (void)fire;
-
-- (NSDate *)fireDate;
-- (void)setFireDate:(NSDate *)date;
-
-- (NSTimeInterval)timeInterval;
-
-- (void)invalidate;
-- (BOOL)isValid;
-
-- (id)userInfo;
-
-@end
+	//Methods
+	public  function initWithFireDate( date:Date,  ti:NSTimeInterval,  t:Dynamic,  s:SEL,  ui:Dynamic,  rep:Bool):Dynamic;
+	public  function fire():Void;
+	public  function fireDate():Date;
+	public  function setFireDate( date:Date):Void;
+	public  function userInfo():Dynamic;
+	public  function timeInterval():NSTimeInterval;
+	public  function invalidate():Void;
+	public  function isValid():Bool;
+}
 

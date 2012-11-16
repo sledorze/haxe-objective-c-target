@@ -1,33 +1,25 @@
-/*  NSIndexPath.h
-    Copyright (c) 2003-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
 
-@interface NSIndexPath : NSObject <NSCopying, NSCoding> {
-	@private
-	NSUInteger *_indexes;
-	NSUInteger _hash;
-	NSUInteger _length;
-        void *_reserved;
+extern class NSIndexPath, implements NSCopying, implements NSCoding
+{
+
+	//Constants
+
+	//Static Methods
+	public  function indexPathWithIndexes( indexes:constInt[],  length:Int):Dynamic;
+	public  function indexPathWithIndex( index:Int):Dynamic;
+
+	//Properties
+
+	//Methods
+	public  function initWithIndexes( indexes:constInt[],  length:Int):Dynamic;
+	public  function indexPathByRemovingLastIndex():NSIndexPath;
+	public  function initWithIndex( index:Int):Dynamic;
+	public  function indexPathByAddingIndex( index:Int):NSIndexPath;
+	public  function length():Int;
+	public  function getIndexes( indexes:Int):Void;
+	public  function compare( otherObject:NSIndexPath):NSComparisonResult;
+	public  function indexAtPosition( position:Int):Int;
 }
-
-+ (id)indexPathWithIndex:(NSUInteger)index;
-+ (id)indexPathWithIndexes:(NSUInteger *)indexes length:(NSUInteger)length;   
-
-- (id)initWithIndex:(NSUInteger)index;
-- (id)initWithIndexes:(NSUInteger *)indexes length:(NSUInteger)length;    // designated initializer
-
-- (NSIndexPath *)indexPathByAddingIndex:(NSUInteger)index;
-- (NSIndexPath *)indexPathByRemovingLastIndex;
-
-- (NSUInteger)indexAtPosition:(NSUInteger)position;
-- (NSUInteger)length;
-
-- (void)getIndexes:(NSUInteger *)indexes;
-
-	// comparison support
-- (NSComparisonResult)compare:(NSIndexPath *)otherObject; // sorting an array of indexPaths using this comparison results in an array representing nodes in depth-first traversal order
-
-@end
 

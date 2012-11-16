@@ -24,6 +24,9 @@
  */
 package objc;
 
+typedef ALAssetsGroup = Dynamic;
+typedef ALAsset = Dynamic;
+ 
 class Lib {
 	
 	static function log (v : Dynamic) : Void {}
@@ -32,5 +35,13 @@ class Lib {
 	}
 	static function attach (name : String) :UIImageView {
 		return untyped __objc__ ("[UIImageView ]");
+	}
+	static function enumerateLibraryGroups () :Array<ALAssetsGroup> {
+		//library = [[ALAssetsLibrary alloc] init];
+		//[library enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:groupsEnumerator failureBlock:failHandler];
+		return null;
+	}
+	static function fetchCameraItemsInGroup (group:String) :Array<ALAsset> {
+		return null;
 	}
 }

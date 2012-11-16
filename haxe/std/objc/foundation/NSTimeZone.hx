@@ -1,85 +1,57 @@
-/*	NSTimeZone.h
-	Copyright (c) 1994-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSDate.h>
 
-@class NSString, NSArray, NSDictionary, NSDate, NSData, NSLocale;
+extern class NSTimeZone, implements NSCopying, implements NSSecureCoding
+{
 
-@interface NSTimeZone : NSObject <NSCopying, NSCoding>
+	//Constants
 
-- (NSString *)name;
-- (NSData *)data;
+	//Static Methods
+	public  function defaultTimeZone():NSTimeZone;
+	public  function knownTimeZoneNames():NSArray;
+	public  function timeZoneDataVersion():String;
+	public  function localTimeZone():NSTimeZone;
+	public  function resetSystemTimeZone():Void;
+	public  function timeZoneWithName( tzName:String):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function timeZoneWithName1( tzName:String,  aData:NSData):Dynamic;
+	public  function abbreviationDictionary():NSDictionary;
+	public  function timeZoneForSecondsFromGMT( seconds:Int):Dynamic;
+	public  function systemTimeZone():NSTimeZone;
+	public  function setDefaultTimeZone( aTimeZone:NSTimeZone):Void;
+	public  function setAbbreviationDictionary( dict:NSDictionary):Void;
+	public  function timeZoneWithAbbreviation( abbreviation:String):Dynamic;
 
-- (NSInteger)secondsFromGMTForDate:(NSDate *)aDate;
-- (NSString *)abbreviationForDate:(NSDate *)aDate;
-- (BOOL)isDaylightSavingTimeForDate:(NSDate *)aDate;
-- (NSTimeInterval)daylightSavingTimeOffsetForDate:(NSDate *)aDate NS_AVAILABLE(10_5, 2_0);
-- (NSDate *)nextDaylightSavingTimeTransitionAfterDate:(NSDate *)aDate NS_AVAILABLE(10_5, 2_0);
+	//Properties
 
-@end
+	//Methods
+	public  function name():String;
+	public  function daylightSavingTimeOffset():NSTimeInterval;
+	public  function nextDaylightSavingTimeTransition():Date;
+	public  function secondsFromGMTForDate( aDate:Date):Int;
+	public  function abbreviationForDate( aDate:Date):String;
+	public  function isDaylightSavingTimeForDate( aDate:Date):Bool;
+	public  function description():String;
+	public  function localizedName( style:NSTimeZoneNameStyle,  locale:NSLocale):String;
+	public  function secondsFromGMT():Int;
+	public  function isEqualToTimeZone( aTimeZone:NSTimeZone):Bool;
+	public  function daylightSavingTimeOffsetForDate( aDate:Date):NSTimeInterval;
+	public  function nextDaylightSavingTimeTransitionAfterDate( aDate:Date):Date;
+	public  function isDaylightSavingTime():Bool;
+	public  function initWithName( tzName:String):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function initWithName1( tzName:String,  aData:NSData):Dynamic;
+	public  function data():NSData;
+	public  function abbreviation():String;
+}
 
-@interface NSTimeZone (NSExtendedTimeZone)
-
-+ (NSTimeZone *)systemTimeZone;
-+ (void)resetSystemTimeZone;
-
-+ (NSTimeZone *)defaultTimeZone;
-+ (void)setDefaultTimeZone:(NSTimeZone *)aTimeZone;
-
-+ (NSTimeZone *)localTimeZone;
-
-+ (NSArray *)knownTimeZoneNames;
-
-+ (NSDictionary *)abbreviationDictionary;
-+ (void)setAbbreviationDictionary:(NSDictionary *)dict NS_AVAILABLE(10_6, 4_0);
-
-+ (NSString *)timeZoneDataVersion NS_AVAILABLE(10_6, 4_0);
-
-- (NSInteger)secondsFromGMT;
-- (NSString *)abbreviation;
-- (BOOL)isDaylightSavingTime;
-- (NSTimeInterval)daylightSavingTimeOffset NS_AVAILABLE(10_5, 2_0); // for current instant
-- (NSDate *)nextDaylightSavingTimeTransition NS_AVAILABLE(10_5, 2_0); // after current instant
-
-- (NSString *)description;
-
-- (BOOL)isEqualToTimeZone:(NSTimeZone *)aTimeZone;
-
-enum {
-	NSTimeZoneNameStyleStandard,		// Central Standard Time
-	NSTimeZoneNameStyleShortStandard,	// CST
-	NSTimeZoneNameStyleDaylightSaving,	// Central Daylight Time
-	NSTimeZoneNameStyleShortDaylightSaving,	// CDT
-	NSTimeZoneNameStyleGeneric,		// Central Time
-	NSTimeZoneNameStyleShortGeneric		// CT
-};
-typedef NSInteger NSTimeZoneNameStyle;
-
-- (NSString *)localizedName:(NSTimeZoneNameStyle)style locale:(NSLocale *)locale NS_AVAILABLE(10_5, 2_0);
-
-@end
-
-@interface NSTimeZone (NSTimeZoneCreation)
-
-// Primary creation method is +timeZoneWithName:; the
-// data-taking variants should rarely be used directly
-
-+ (id)timeZoneWithName:(NSString *)tzName;
-+ (id)timeZoneWithName:(NSString *)tzName data:(NSData *)aData;
-
-- (id)initWithName:(NSString *)tzName;
-- (id)initWithName:(NSString *)tzName data:(NSData *)aData;
-
-// Time zones created with this never have daylight savings and the
-// offset is constant no matter the date; the name and abbreviation
-// do NOT follow the POSIX convention (of minutes-west).
-+ (id)timeZoneForSecondsFromGMT:(NSInteger)seconds;
-
-+ (id)timeZoneWithAbbreviation:(NSString *)abbreviation;
-
-@end
-
-FOUNDATION_EXPORT NSString * const NSSystemTimeZoneDidChangeNotification NS_AVAILABLE(10_5, 2_0);
+extern enum NSTimeZoneNameStyle
+{
+	NSTimeZoneNameStyleStandard;
+	NSTimeZoneNameStyleShortStandard;
+	NSTimeZoneNameStyleDaylightSaving;
+	NSTimeZoneNameStyleShortDaylightSaving;
+	NSTimeZoneNameStyleGeneric;
+	NSTimeZoneNameStyleShortGeneric;
+}
 

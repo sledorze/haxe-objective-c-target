@@ -1,3 +1,5 @@
+package objc.foundation;
+
 /*enum {
     NSURLBookmarkCreationPreferFileIDResolution = ( 1UL << 8 ), 
     NSURLBookmarkCreationMinimalBookmark = ( 1UL << 9 ),

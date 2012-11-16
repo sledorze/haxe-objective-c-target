@@ -1,42 +1,35 @@
-/*	NSNotificationQueue.h
-	Copyright (c) 1994-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
 
-@class NSNotification, NSNotificationCenter, NSArray;
+extern class NSNotificationQueue
+{
 
-enum {
-    NSPostWhenIdle = 1,
-    NSPostASAP = 2,
-    NSPostNow = 3
-};
-typedef NSUInteger NSPostingStyle;
+	//Constants
 
-enum {
-    NSNotificationNoCoalescing = 0,
-    NSNotificationCoalescingOnName = 1,
-    NSNotificationCoalescingOnSender = 2
-};
-typedef NSUInteger NSNotificationCoalescing;
+	//Static Methods
+	public  function defaultQueue():Dynamic;
 
-@interface NSNotificationQueue : NSObject {
-@private
-    id		_notificationCenter;
-    id		_asapQueue;
-    id		_asapObs;
-    id		_idleQueue;
-    id		_idleObs;
+	//Properties
+
+	//Methods
+	public  function enqueueNotification( notification:NSNotification,  postingStyle:NSPostingStyle):Void;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function enqueueNotification1( notification:NSNotification,  postingStyle:NSPostingStyle,  coalesceMask:Int,  modes:NSArray):Void;
+	public  function dequeueNotificationsMatching( notification:NSNotification,  coalesceMask:Int):Void;
+	public  function initWithNotificationCenter( notificationCenter:NSNotificationCenter):Dynamic;
 }
 
-+ (id)defaultQueue;
+extern enum NSPostingStyle
+{
+	NSPostWhenIdle;
+	NSPostASAP;
+	NSPostNow;
+}
 
-- (id)initWithNotificationCenter:(NSNotificationCenter *)notificationCenter;
-
-- (void)enqueueNotification:(NSNotification *)notification postingStyle:(NSPostingStyle)postingStyle;
-- (void)enqueueNotification:(NSNotification *)notification postingStyle:(NSPostingStyle)postingStyle coalesceMask:(NSUInteger)coalesceMask forModes:(NSArray *)modes;
-
-- (void)dequeueNotificationsMatching:(NSNotification *)notification coalesceMask:(NSUInteger)coalesceMask;
-
-@end
+extern enum NSNotificationCoalescing
+{
+	NSNotificationNoCoalescing;
+	NSNotificationCoalescingOnName;
+	NSNotificationCoalescingOnSender;
+}
 

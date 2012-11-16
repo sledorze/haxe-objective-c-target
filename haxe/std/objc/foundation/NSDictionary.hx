@@ -1,74 +1,74 @@
 package objc.foundation;
 
-extern class NSDictionary extends NSObject {
-	
-	public function count () :Int;
-	public function objectForKey (aKey:Dynamic) :Dynamic;
-/*	public keyEnumerator () :NSEnumerator;*/
-	
+
+extern class NSDictionary, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding, implements NSFastEnumeration
+{
+
+	//Constants
+
+	//Static Methods
+	public  function dictionaryWithObject( object:Dynamic,  key:id<NSCopying>):Dynamic;
+	public  function dictionaryWithContentsOfFile( path:String):Dynamic;
+	public  function sharedKeySetForKeys( keys:NSArray):Dynamic;
+	public  function dictionaryWithContentsOfURL( url:NSURL):Dynamic;
+	public  function dictionaryWithObjects( objects:constid[],  keys:constid[],  cnt:Int):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function dictionaryWithObjects1( objects:constid[],  keys:constid<NSCopying>[],  cnt:Int):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function dictionaryWithObjects2( objects:NSArray,  keys:NSArray):Dynamic;
+	public  function dictionaryWithDictionary( dict:NSDictionary):Dynamic;
+	public  function dictionaryWithSharedKeySet( keyset:Dynamic):Dynamic;
+	public  function dictionary():Dynamic;
+	public  function dictionaryWithObjectsAndKeys( firstObject:Dynamic):Dynamic;
+	public  function dictionaryWithCapacity( numItems:Int):Dynamic;
+
+	//Properties
+
+	//Methods
+	public  function objectForKey( aKey:Dynamic):Dynamic;
+	public  function enumerateKeysAndObjectsUsingBlock( block:Dynamic):Void;
+	public  function addEntriesFromDictionary( otherDictionary:NSDictionary):Void;
+	public  function descriptionInStringsFileFormat():String;
+	public  function keysSortedByValueUsingComparator( cmptr:NSComparator):NSArray;
+	public  function objectEnumerator():NSEnumerator;
+	public  function keysSortedByValueWithOptions( opts:NSSortOptions,  cmptr:NSComparator):NSArray;
+	public  function initWithContentsOfFile( path:String):Dynamic;
+	public  function setObject( anObject:Dynamic,  aKey:id<NSCopying>):Void;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function setObject1( obj:Dynamic,  key:id<NSCopying>):Void;
+	public  function initWithDictionary( otherDictionary:NSDictionary):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function initWithDictionary1( otherDictionary:NSDictionary,  flag:Bool):Dynamic;
+	public  function count():Int;
+	public  function getObjects( objects:Dynamic,  keys:Dynamic):Void;
+	public  function initWithObjects( objects:constid[],  keys:constid[],  cnt:Int):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function initWithObjects1( objects:constid[],  keys:constid<NSCopying>[],  cnt:Int):Dynamic;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function initWithObjects2( objects:NSArray,  keys:NSArray):Dynamic;
+	public  function allKeys():NSArray;
+	public  function setDictionary( otherDictionary:NSDictionary):Void;
+	public  function initWithCapacity( numItems:Int):Dynamic;
+	public  function keysSortedByValueUsingSelector( comparator:SEL):NSArray;
+	public  function allKeysForObject( anObject:Dynamic):NSArray;
+	public  function removeAllObjects():Void;
+	public  function isEqualToDictionary( otherDictionary:NSDictionary):Bool;
+	public  function objectsForKeys( keys:NSArray,  marker:Dynamic):NSArray;
+	public  function objectForKeyedSubscript( key:Dynamic):Dynamic;
+	public  function initWithObjectsAndKeys( firstObject:Dynamic):Dynamic;
+	public  function removeObjectsForKeys( keyArray:NSArray):Void;
+	public  function keysOfEntriesPassingTest( predicate:Dynamic):NSSet;
+	public  function enumerateKeysAndObjectsWithOptions( opts:NSEnumerationOptions,  block:Dynamic):Void;
+	public  function description():String;
+	public  function initWithContentsOfURL( url:NSURL):Dynamic;
+	public  function keyEnumerator():NSEnumerator;
+	public  function writeToFile( path:String,  useAuxiliaryFile:Bool):Bool;
+	public  function allValues():NSArray;
+	public  function writeToURL( url:NSURL,  atomically:Bool):Bool;
+	public  function removeObjectForKey( aKey:Dynamic):Void;
+	public  function keysOfEntriesWithOptions( opts:NSEnumerationOptions,  predicate:Dynamic):NSSet;
+	public  function descriptionWithLocale( locale:Dynamic):String;
+	//@:overload !!NEED CUSTOM META DATA !!
+	public  function descriptionWithLocale1( locale:Dynamic,  level:Int):String;
 }
-/*
-@interface NSDictionary (NSExtendedDictionary)
 
-- (NSArray *)allKeys;
-- (NSArray *)allKeysForObject:(id)anObject;    
-- (NSArray *)allValues;
-- (NSString *)description;
-- (NSString *)descriptionInStringsFileFormat;
-- (NSString *)descriptionWithLocale:(id)locale;
-- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level;
-- (BOOL)isEqualToDictionary:(NSDictionary *)otherDictionary;
-- (NSEnumerator *)objectEnumerator;
-- (NSArray *)objectsForKeys:(NSArray *)keys notFoundMarker:(id)marker;
-- (BOOL)writeToFile:(NSString *)path atomically:(BOOL)useAuxiliaryFile;
-- (BOOL)writeToURL:(NSURL *)url atomically:(BOOL)atomically; // the atomically flag is ignored if url of a type that cannot be written atomically.
-
-- (NSArray *)keysSortedByValueUsingSelector:(SEL)comparator;
-- (void)getObjects:(id __unsafe_unretained [])objects andKeys:(id __unsafe_unretained [])keys;
-
-
-	public static function dictionary () :Dynamic;
-	public static function dictionaryWithObject (object:Dynamic, forKey:Dynamic) :Dynamic;
-
-+ (id)dictionaryWithObjects:(const id [])objects forKeys:(const id [])keys count:(NSUInteger)cnt;
-+ (id)dictionaryWithObjectsAndKeys:(id)firstObject, ... NS_REQUIRES_NIL_TERMINATION;
-+ (id)dictionaryWithDictionary:(NSDictionary *)dict;
-+ (id)dictionaryWithObjects:(NSArray *)objects forKeys:(NSArray *)keys;
-
-- (id)initWithObjects:(const id [])objects forKeys:(const id [])keys count:(NSUInteger)cnt;
-- (id)initWithObjectsAndKeys:(id)firstObject, ... NS_REQUIRES_NIL_TERMINATION;
-- (id)initWithDictionary:(NSDictionary *)otherDictionary;
-- (id)initWithDictionary:(NSDictionary *)otherDictionary copyItems:(BOOL)flag;
-- (id)initWithObjects:(NSArray *)objects forKeys:(NSArray *)keys;
-
-+ (id)dictionaryWithContentsOfFile:(NSString *)path;
-+ (id)dictionaryWithContentsOfURL:(NSURL *)url;
-- (id)initWithContentsOfFile:(NSString *)path;
-- (id)initWithContentsOfURL:(NSURL *)url;
-
-@end
-
-
-@interface NSMutableDictionary : NSDictionary
-
-- (void)removeObjectForKey:(id)aKey;
-- (void)setObject:(id)anObject forKey:(id)aKey;
-
-@end
-
-@interface NSMutableDictionary (NSExtendedMutableDictionary)
-
-- (void)addEntriesFromDictionary:(NSDictionary *)otherDictionary;
-- (void)removeAllObjects;
-- (void)removeObjectsForKeys:(NSArray *)keyArray;
-- (void)setDictionary:(NSDictionary *)otherDictionary;
-
-@end
-
-@interface NSMutableDictionary (NSMutableDictionaryCreation)
-
-+ (id)dictionaryWithCapacity:(NSUInteger)numItems;
-- (id)initWithCapacity:(NSUInteger)numItems;
-
-}
-*/

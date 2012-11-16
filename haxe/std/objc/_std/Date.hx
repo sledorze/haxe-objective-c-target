@@ -23,17 +23,34 @@
  * DAMAGE.
  */
 
+import objc.foundation.NSDate;
+import objc.foundation.NSCalendar;
 
 @:core_api  class Date {
 
-	private var mSeconds:Float;
+	private var _seconds:Float;
+	private var _date :NSDate;
+	private var _calendar :NSCalendar;
+	private var _components :NSDateComponents;
 
-	public function new(year : Int, month : Int, day : Int, hour : Int, min : Int, sec : Int ) : Void	{
-		mSeconds = untyped __global__.__hxcpp_new_date(year,month,day,hour,min,sec);
+	public function new (year : Int, month : Int, day : Int, hour : Int, min : Int, sec : Int ) :Void {
+		
+		_calendar = NSCalendar.currentCalendar();
+		
+		_components = _calendar.components (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit, NSDate.date());
+		_components.setYear ( year );
+		_components.setMonth ( month );
+		_components.setDay ( day );
+		_components.setHour ( hour );
+		_components.setMinute ( min );
+		_components.setSecond ( sec );
+		
+		_date = _calendar.dateFromComponents ( _components );
+		
 	}
 
 	public function getTime() : Float {
-		return mSeconds * 1000.0;
+		return _seconds * 1000.0;
 	}
 
 	public function getHours() : Int { return untyped __global__.__hxcpp_get_hours(mSeconds); }
@@ -53,7 +70,9 @@
 	public function toString():String { return untyped __global__.__hxcpp_to_string(mSeconds); }
 
 	public static function now() : Date {
-		return fromTime( untyped __global__.__hxcpp_date_now()*1000.0);
+		var calendar = NSCalendar.currentCalendar();
+		var components = _calendar.components (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit, NSDate.date());
+		return new Date(components.year,components.month,components.day,components.hour,components.min,components.sec);
 	}
 
 	public static function fromTime( t : Float ) : Date {

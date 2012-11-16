@@ -76,6 +76,10 @@ class Tests implements Interface1, implements Interface2 {
 			case false : var y = 0;
 		}
 	}
+	function testDate (){
+		var d = new Date (2012,11,13, 19,30,0);
+		var d2 = Date.now();
+	}
 	function testFrameworksImport(){
 		var m = new objc.ios.map.MKMapView();
 	}

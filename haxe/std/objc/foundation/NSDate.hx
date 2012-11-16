@@ -1,61 +1,40 @@
-/*	NSDate.h
-	Copyright (c) 1994-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
 
-@class NSString;
+extern class NSDate, implements NSCopying, implements NSSecureCoding
+{
 
-FOUNDATION_EXPORT NSString * const NSSystemClockDidChangeNotification NS_AVAILABLE(10_6, 4_0);
+	//Constants
 
-typedef double NSTimeInterval;
+	//Static Methods
+	public static function timeIntervalSinceReferenceDate():NSTimeInterval;
+	public static function dateWithTimeInterval( ti:NSTimeInterval,  date:Date):Dynamic;
+	public static function distantFuture():Dynamic;
+	public static function distantPast():Dynamic;
+	public static function dateWithTimeIntervalSinceReferenceDate( secs:NSTimeInterval):Dynamic;
+	public static function dateWithTimeIntervalSince1970( secs:NSTimeInterval):Dynamic;
+	public static function date():Dynamic;
+	public static function dateWithTimeIntervalSinceNow( secs:NSTimeInterval):Dynamic;
 
-#define NSTimeIntervalSince1970  978307200.0
+	//Properties
 
-@interface NSDate : NSObject <NSCopying, NSCoding>
-
-- (NSTimeInterval)timeIntervalSinceReferenceDate;
-
-@end
-
-@interface NSDate (NSExtendedDate)
-
-- (NSTimeInterval)timeIntervalSinceDate:(NSDate *)anotherDate;
-- (NSTimeInterval)timeIntervalSinceNow;
-- (NSTimeInterval)timeIntervalSince1970;
-
-- (id)addTimeInterval:(NSTimeInterval)seconds NS_DEPRECATED(10_0, 10_6, 2_0, 4_0);
-- (id)dateByAddingTimeInterval:(NSTimeInterval)ti NS_AVAILABLE(10_6, 2_0);
-
-- (NSDate *)earlierDate:(NSDate *)anotherDate;
-- (NSDate *)laterDate:(NSDate *)anotherDate;
-- (NSComparisonResult)compare:(NSDate *)other;
-- (BOOL)isEqualToDate:(NSDate *)otherDate;
-
-- (NSString *)description;
-- (NSString *)descriptionWithLocale:(id)locale;
-
-+ (NSTimeInterval)timeIntervalSinceReferenceDate;
-    
-@end
-
-@interface NSDate (NSDateCreation)
-
-+ (id)date;
-    
-+ (id)dateWithTimeIntervalSinceNow:(NSTimeInterval)secs;    
-+ (id)dateWithTimeIntervalSinceReferenceDate:(NSTimeInterval)secs;
-+ (id)dateWithTimeIntervalSince1970:(NSTimeInterval)secs;
-+ (id)dateWithTimeInterval:(NSTimeInterval)ti sinceDate:(NSDate *)date;
-
-+ (id)distantFuture;
-+ (id)distantPast;
-
-- (id)init;
-- (id)initWithTimeIntervalSinceNow:(NSTimeInterval)secs;
-- (id)initWithTimeIntervalSinceReferenceDate:(NSTimeInterval)secsToBeAdded;
-- (id)initWithTimeIntervalSince1970:(NSTimeInterval)ti;
-- (id)initWithTimeInterval:(NSTimeInterval)secsToBeAdded sinceDate:(NSDate *)anotherDate;
-
-@end
+	//Methods
+	public  function timeIntervalSinceReferenceDate():NSTimeInterval;
+	public  function timeIntervalSinceNow():NSTimeInterval;
+	public  function initWithTimeInterval( secsToBeAdded:NSTimeInterval,  anotherDate:Date):Dynamic;
+	public  function addTimeInterval( seconds:NSTimeInterval,  null:10_0,10_6,2_0,4_0):Dynamic;
+	public  function laterDate( anotherDate:Date):Date;
+	public  function description():String;
+	public  function initWithTimeIntervalSinceNow( secs:NSTimeInterval):Dynamic;
+	public  function dateByAddingTimeInterval( ti:NSTimeInterval):Dynamic;
+	public  function timeIntervalSince1970():NSTimeInterval;
+	public  function compare( other:Date):NSComparisonResult;
+	public  function isEqualToDate( otherDate:Date):Bool;
+	public  function initWithTimeIntervalSinceReferenceDate( secsToBeAdded:NSTimeInterval):Dynamic;
+	public  function initWithTimeIntervalSince1970( ti:NSTimeInterval):Dynamic;
+	public  function timeIntervalSinceDate( anotherDate:Date):NSTimeInterval;
+	public  function earlierDate( anotherDate:Date):Date;
+	public  function descriptionWithLocale( locale:Dynamic):String;
+	public  function init():Dynamic;
+}
 
