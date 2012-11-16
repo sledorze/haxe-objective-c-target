@@ -1,9 +1,11 @@
 package objc.foundation;
 import objc.foundation.NSObject;
+typedef NSFastEnumeration = Dynamic;
+typedef NSComparator = Dynamic;
+typedef NSSortOptions = Dynamic;
+typedef NSEnumerationOptions = Dynamic;
 
-
-extern class NSDictionary extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding, implements NSFastEnumeration
-{
+extern class NSDictionary extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding, implements NSFastEnumeration {
 
 	//Constants
 

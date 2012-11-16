@@ -28,7 +28,7 @@ import objc.foundation.NSCalendar;
 
 @:core_api  class Date {
 
-	private var _seconds :Int;
+	private var _seconds :Float;
 	private var _date :NSDate;
 	private var _calendar :NSCalendar;
 	private var _components :NSDateComponents;
@@ -58,21 +58,21 @@ import objc.foundation.NSCalendar;
 		return _seconds * 1000.0;
 	}
 
-	public function getHours() : Int { return untyped __global__.__hxcpp_get_hours(mSeconds); }
+	public function getHours() : Int { return _components.hour(); }
 
-	public function getMinutes() : Int { return untyped __global__.__hxcpp_get_minutes(mSeconds); }
+	public function getMinutes() : Int { return _components.minute(); }
 
-	public function getSeconds() : Int { return untyped __global__.__hxcpp_get_seconds(mSeconds); }
+	public function getSeconds() : Int { return _components.second(); }
 
-	public function getFullYear() : Int { return untyped __global__.__hxcpp_get_year(mSeconds); }
+	public function getFullYear() : Int { return _components.year(); }
 
-	public function getMonth() : Int { return untyped __global__.__hxcpp_get_month(mSeconds); }
+	public function getMonth() : Int { return _components.month(); }
 
-	public function getDate() : Int { return untyped __global__.__hxcpp_get_date(mSeconds); }
+	public function getDate() : Int { return _components.weekday(); }
 
-	public function getDay() : Int { return untyped __global__.__hxcpp_get_day(mSeconds); }
+	public function getDay() : Int { return _components.day(); }
 
-	public function toString():String { return untyped __global__.__hxcpp_to_string(mSeconds); }
+	public function toString():String { return null; }
 
 	public static function now() : Date {
 		var calendar = NSCalendar.currentCalendar();
@@ -83,7 +83,7 @@ import objc.foundation.NSCalendar;
 												NSCalendar.NSMinuteCalendarUnit | 
 												NSCalendar.NSSecondCalendarUnit, NSDate.date());
 												
-		return new Date(components.year,components.month,components.day,components.hour,components.min,components.sec);
+		return new Date (components.year(),components.month(),components.day(),components.hour(),components.minute(),components.second());
 	}
 
 	public static function fromTime( t : Float ) : Date {

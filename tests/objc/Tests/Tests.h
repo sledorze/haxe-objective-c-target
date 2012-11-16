@@ -6,6 +6,7 @@
 #import "String.h"
 #import "Int.h"
 #import "Log.h"
+#import "Date.h"
 
 @interface Tests<Interface2, Interface1>
 
@@ -19,6 +20,7 @@
 - (void) testingWhile;
 - (void) testTry;
 - (void) testSwitch;
+- (void) testDate;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;
