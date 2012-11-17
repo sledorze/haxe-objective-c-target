@@ -9,9 +9,9 @@
 
 - (void) tests{
 	
-	Array *a = [[Array alloc] init];
+	NSMutabeArray *a = [[Array alloc] init];
 	
-	Array *aa = [[Array alloc] initWithNSMutableArray: [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
+	NSMutabeArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 	float aaa = [aa objectAtIndex:2];
 	[aa objectAtIndex:3];
 	int b = 5;
@@ -32,7 +32,7 @@
 }
 - (void) testingFor{
 	
-	Array *aa = [[Array alloc] initWithNSMutableArray: [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
+	NSMutabeArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 	{
 		int _g = 0;
 		while (_g < 5) {
@@ -87,8 +87,31 @@
 	
 	Date *d = [[Date alloc] init]2012,11,13,19,30,0;
 	
-	Date *d2 = [Date["now"]];
+	Date *d2 = [Date now];
 	int x = [DateTools getMonthDays:d2];
+}
+- (void) testString{
+	
+	NSString *string = [[String alloc] init]@"abcdefghijklmnopqrstuvwxyz";
+	int len = string.length;
+	
+	NSString *s = [string characterAtIndex:5];
+	id ch = [string["charCodeAtHX"]:5];
+	int i = [string rangeOfString:@"abc" startIndex:nil];
+	int i1 = [string rangeOfString:@"abc" startIndex:2];
+	int li = [string rangeOfString options:NSBackwardsSearch:@"abc" startIndex:nil];
+	
+	NSMutabeArray *components = [string componentsSeparatedByString:split:@"-"];
+	
+	NSString *s2 = [string substringWithRange:substr:5 len:nil];
+	s2 = [string substringWithRange:substr:5 len:len];
+	s2 = [string substringWithRange:substring:5 endIndex:nil];
+	s2 = [string substringWithRange:substring:1 endIndex:len];
+	s2 = [string lowercaseString];
+	s2 = [string uppercaseString];
+	s2 = [string description];
+	
+	NSString *s3 = @"\t";
 }
 - (void) testFrameworksImport{
 	
@@ -109,7 +132,7 @@
 - (void) callLotsOfArguments:(int)arg1 t:(int)t t1:(int)t1 arg4:(int)arg4{
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"100",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"119",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 
 @end

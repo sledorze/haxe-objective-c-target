@@ -25,15 +25,23 @@
 package objc.osx;
 
 import objc.location.CLLocation;
- 
+
 class Lib {
 	
 	static function log (v : Dynamic) : Void {}
 	static function getURL (url :String, ?target : String) : Bool {
-		return untyped __objc__ ("AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:NSURL]");
+		return untyped __objc__ ("[UIApplication handleOpenURL:[NSURL urlWithString:url]]");
 	}
 	static function attach (name : String) :UIImageView {
-		return untyped __objc__ ("[[UIImageView alloc] initWithImage:[UIImage imageNamed:@\"name\"]]");
+		return untyped __objc__ ("[[NSImageView alloc] initWithImage:[NSImage imageNamed:@\"name\"]]");
 	}
-	static function location () :CLLocation;
+	static function location () :CLLocation {
+		return null;
+	}
+	static function registerHotKey (keyCode:Int, modifierFlags:Int, target:Dynamic, action:SEL, object:Dynamic) :Bool {
+		return true;
+	}
+	static function unregisterHotKey (keyCode:Int, modifierFlags:Int) :Void {
+		
+	}
 }

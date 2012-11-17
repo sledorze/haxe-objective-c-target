@@ -21,6 +21,7 @@
 - (void) testTry;
 - (void) testSwitch;
 - (void) testDate;
+- (void) testString;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;

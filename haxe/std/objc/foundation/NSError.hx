@@ -1,13 +1,13 @@
 package objc.foundation;
+import objc.foundation.NSObject;
 
-
-extern class NSError, implements NSCopying, implements NSSecureCoding
+extern class NSError extends NSObject, implements NSCopying, implements NSSecureCoding
 {
 
 	//Constants
 
 	//Static Methods
-	public  function errorWithDomain( domain:String,  code:Int,  dict:NSDictionary):Dynamic;
+	public static function errorWithDomain( domain:String,  code:Int,  dict:NSDictionary):Dynamic;
 
 	//Properties
 

@@ -1,10 +1,12 @@
 package objc.foundation;
 import objc.foundation.NSObject;
-
+private typedef NSComparisonResult = Int;
+private typedef NSStringCompareOptions = Int;
+private typedef NSStringEncoding = Int;
 
 extern class NSString extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding {
 
-	inline public static var NSMaximumStringLength = INT_MAX-1;
+	inline public static var NSMaximumStringLength = 10000;//INT_MAX-1;
 	
 	inline public static var NSCaseInsensitiveSearch = 1;
 	inline public static var NSLiteralSearch = 2;
@@ -62,7 +64,7 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function localizedCaseInsensitiveCompare (string:NSString) :NSComparisonResult;
 	public function localizedStandardCompare (string:NSString) :NSComparisonResult;
 
-	public function isEqualToString (NSString) :Bool;
+	public function isEqualToString (aString:NSString) :Bool;
 	public function hasPrefix (aString:NSString) :Bool;
 	public function hasSuffix (aString:NSString) :Bool;
 
@@ -91,8 +93,8 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function componentsSeparatedByString (separator:NSString) :NSArray;
 	public function componentsSeparatedByCharactersInSet (separator:NSCharacterSet) :NSArray;
 	public function commonPrefixWithString (aString:NSString, options:NSStringCompareOptions) :NSString;
-	public function uppercaseString () :NSString;
-	public function lowercaseString () :NSString;
+	public function uppercaseString () :String;
+	public function lowercaseString () :String;
 	public function capitalizedString () :NSString;
 	#if (osx_10_8 || ios_6_0)
 	public function uppercaseStringWithLocale (locale:NSLocale) :NSString;
@@ -100,10 +102,10 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function capitalizedStringWithLocale (locale:NSLocale) :NSString;
 	#end
 	public function stringByTrimmingCharactersInSet (set:NSCharacterSet) :NSString;
-	public function stringByPaddingToLength (newLength:Int, withString:NSString, startingAtIndex:Int) :NSString;;
+	public function stringByPaddingToLength (newLength:Int, withString:NSString, startingAtIndex:Int) :NSString;
 
 	public function getLineStart (startPtr:Int, end:Int, contentsEnd:Int, forRange:NSRange) :Void;
-	public function lineRangeForRange (range:NSRange) :NCRange;
+	public function lineRangeForRange (range:NSRange) :NSRange;
 
 	public function getParagraphStart (startPtr:Int, end:Int, contentsEnd:Int, forRange:NSRange) :Void;
 	public function paragraphRangeForRange (range:NSRange) :NSRange;
@@ -113,9 +115,9 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	inline public static var NSStringEnumerationByComposedCharacterSequences = 2;
 	inline public static var NSStringEnumerationByWords = 3;
 	inline public static var NSStringEnumerationBySentences = 4;
-	inline public static var NSStringEnumerationReverse = 1UL << 8;
-	inline public static var NSStringEnumerationSubstringNotRequired = 1UL << 9;
-	inline public static var NSStringEnumerationLocalized = 1UL << 10;
+	inline public static var NSStringEnumerationReverse = 1 << 8;//1 = 1UL
+	inline public static var NSStringEnumerationSubstringNotRequired = 1 << 9;
+	inline public static var NSStringEnumerationLocalized = 1 << 10;
 	#if (osx_10_6 || ios_4_0)
 	public function enumerateSubstringsInRange (range:NSRange, options:NSStringEnumerationOptions, usingBlock:NSString->NSRange->NSRange->Bool) :Void;
 	public function enumerateLinesUsingBlock (block:NSString->Bool) :Void;
@@ -128,95 +130,68 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function smallestEncoding () :NSStringEncoding;
 
 	public function dataUsingEncoding (encoding:NSStringEncoding, allowLossyConversion:Bool) :NSData;
-	public function dataUsingEncoding (encoding:NSStringEncoding) :NSData;
+	//public function dataUsingEncoding (encoding:NSStringEncoding) :NSData;
 
 	public function canBeConvertedToEncoding (encoding:NSStringEncoding) :Bool;
-	public function getCString:(char *)buffer maxLength:(NSUInteger)maxBufferCount encoding:(NSStringEncoding)encoding;
+	//public function getCString (buffer:String, maxLength:Int, encoding:NSStringEncoding) :String;
+
+//- (BOOL)getBytes:(void *)buffer maxLength:(NSUInteger)maxBufferCount usedLength:(NSUInteger *)usedBufferCount encoding:(NSStringEncoding)encoding options:(NSStringEncodingConversionOptions)options range:(NSRange)range remainingRange:(NSRangePointer)leftover;
+ 
+	public function maximumLengthOfBytesUsingEncoding (enc:NSStringEncoding) :Int;
+	public function lengthOfBytesUsingEncoding (enc:NSStringEncoding) :Int;
+
+	public function decomposedStringWithCanonicalMapping () :String;
+	public function precomposedStringWithCanonicalMapping () :String;
+	public function decomposedStringWithCompatibilityMapping () :String;
+	public function precomposedStringWithCompatibilityMapping () :String;
+
+	public function stringByFoldingWithOptions (options:NSStringCompareOptions, locale:NSLocale) :String;
+	//public function stringByReplacingOccurrencesOfString (target:NSString, withString:NSString, options:NSStringCompareOptions, range:NSRange) :String;
+	public function stringByReplacingOccurrencesOfString (target:NSString, withString:String) :String;
+	public function stringByReplacingCharactersInRange (range:NSRange, withString:String) :String;
+
+
+//+ (const NSStringEncoding *)availableStringEncodings;
+//+ (NSString *)localizedNameOfStringEncoding:(NSStringEncoding)encoding;
+
+	public function init () :NSString;
+	public function initWithCharactersNoCopy (characters:String, length:Int, freeWhenDone:Bool) :NSString;
+	public function initWithCharacters (characters:String, length:Int) :NSString;
+	public function initWithUTF8String (nullTerminatedCString:String) :NSString;
+	public function initWithString (aString:String) :NSString;
+	//public function initWithFormat (format:String) :NSString;
+	public function initWithFormat (format:String, arguments:Array<Dynamic>) :NSString;
+	//public function initWithFormat (NSString *)format locale:(id)locale, ... NS_FORMAT_FUNCTION(1,3);
+	//public function initWithFormat (NSString *)format locale:(id)locale arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0);
+	public function initWithData (data:NSData, encoding:NSStringEncoding) :NSString;
+	public function initWithBytes (bytes:Void, length:Int, encoding:NSStringEncoding) :NSString;
+	public function initWithBytesNoCopy (bytes:Void, length:Int, encoding:NSStringEncoding, freeWhenDone:Bool) :NSString;
+
+	public static function string () :NSString;
+	public static function stringWithString (string:String) :NSString;
+	public static function stringWithCharacters (characters:String, length:Int) :NSString;
+	public static function stringWithUTF8String (nullTerminatedCString:String) :NSString;
+	public static function stringWithFormat (format:String) :NSString;
+	public static function localizedStringWithFormat (format:String) :NSString;
+
+	public function initWithCString (nullTerminatedCString:String, encoding:NSStringEncoding) :NSString;
+	public static function stringWithCString (cString:String, encoding:NSStringEncoding) :NSString;
+
+	public function initWithContentsOfURL (url:NSURL, encoding:NSStringEncoding, error:NSError) :NSString;
+	public function initWithContentsOfFile (path:String, encoding:NSStringEncoding, error:NSError) :NSString;
+	public static function stringWithContentsOfURL (url:NSURL, encoding:NSStringEncoding, error:NSError) :NSString;
+	public static function stringWithContentsOfFile (path:String, encoding:NSStringEncoding, error:NSError) :NSString;
+
+/*	public function initWithContentsOfURL (url:NSURL, usedEncoding:NSStringEncoding, error:NSError) :NSString;
+	public function initWithContentsOfFile (path:NSString, usedEncoding:NSStringEncoding, error:NSError) :NSString;
+	public static function stringWithContentsOfURL (url:NSURL, usedEncoding:NSStringEncoding, error:NSError) :NSString;
+	public static function stringWithContentsOfFile (path:NSString, usedEncoding:NSStringEncoding, error:NSError) :NSString;
 */
-- (BOOL)getBytes:(void *)buffer maxLength:(NSUInteger)maxBufferCount usedLength:(NSUInteger *)usedBufferCount encoding:(NSStringEncoding)encoding options:(NSStringEncodingConversionOptions)options range:(NSRange)range remainingRange:(NSRangePointer)leftover;
 
-/* These return the maximum and exact number of bytes needed to store the receiver in the specified encoding in non-external representation. The first one is O(1), while the second one is O(n). These do not include space for a terminating null.
-*/
-- (NSUInteger)maximumLengthOfBytesUsingEncoding:(NSStringEncoding)enc;
-- (NSUInteger)lengthOfBytesUsingEncoding:(NSStringEncoding)enc;	
+//- (BOOL)writeToURL (NSURL *)url atomically:(BOOL)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
+//- (BOOL)writeToFile (NSString *)path atomically:(BOOL)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
 
-- (NSString *)decomposedStringWithCanonicalMapping;
-- (NSString *)precomposedStringWithCanonicalMapping;
-- (NSString *)decomposedStringWithCompatibilityMapping;
-- (NSString *)precomposedStringWithCompatibilityMapping;
-
-/* Returns a string with the character folding options applied. theOptions is a mask of compare flags with *InsensitiveSearch suffix.
-*/
-- (NSString *)stringByFoldingWithOptions:(NSStringCompareOptions)options locale:(NSLocale *)locale NS_AVAILABLE(10_5, 2_0);
-
-/* Replace all occurrences of the target string in the specified range with replacement. Specified compare options are used for matching target. If NSRegularExpressionSearch is specified, the replacement is treated as a template, as in the corresponding NSRegularExpression methods, and no other options can apply except NSCaseInsensitiveSearch and NSAnchoredSearch.
-*/
-- (NSString *)stringByReplacingOccurrencesOfString:(NSString *)target withString:(NSString *)replacement options:(NSStringCompareOptions)options range:(NSRange)searchRange NS_AVAILABLE(10_5, 2_0);
-
-/* Replace all occurrences of the target string with replacement. Invokes the above method with 0 options and range of the whole string.
-*/
-- (NSString *)stringByReplacingOccurrencesOfString:(NSString *)target withString:(NSString *)replacement NS_AVAILABLE(10_5, 2_0);
-
-/* Replace characters in range with the specified string, returning new string.
-*/
-- (NSString *)stringByReplacingCharactersInRange:(NSRange)range withString:(NSString *)replacement NS_AVAILABLE(10_5, 2_0);
-
-- (__strong const char *)UTF8String NS_RETURNS_INNER_POINTER;	// Convenience to return null-terminated UTF8 representation
-
-/* User-dependent encoding who value is derived from user's default language and potentially other factors. The use of this encoding might sometimes be needed when interpreting user documents with unknown encodings, in the absence of other hints.  This encoding should be used rarely, if at all. Note that some potential values here might result in unexpected encoding conversions of even fairly straightforward NSString content --- for instance, punctuation characters with a bidirectional encoding.
-*/
-+ (NSStringEncoding)defaultCStringEncoding;	// Should be rarely used
-
-+ (const NSStringEncoding *)availableStringEncodings;
-+ (NSString *)localizedNameOfStringEncoding:(NSStringEncoding)encoding;
-
-/*** Creation methods ***/
-
-/* In general creation methods in NSString do not apply to subclassers, as subclassers are assumed to provide their own init methods which create the string in the way the subclass wishes.  Designated initializers of NSString are thus init and initWithCoder:.
-*/
-- (id)init;
-- (id)initWithCharactersNoCopy:(unichar *)characters length:(NSUInteger)length freeWhenDone:(BOOL)freeBuffer;	/* "NoCopy" is a hint */
-- (id)initWithCharacters:(const unichar *)characters length:(NSUInteger)length;
-- (id)initWithUTF8String:(const char *)nullTerminatedCString;
-- (id)initWithString:(NSString *)aString;
-- (id)initWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
-- (id)initWithFormat:(NSString *)format arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0);
-- (id)initWithFormat:(NSString *)format locale:(id)locale, ... NS_FORMAT_FUNCTION(1,3);
-- (id)initWithFormat:(NSString *)format locale:(id)locale arguments:(va_list)argList NS_FORMAT_FUNCTION(1,0);
-- (id)initWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
-- (id)initWithBytes:(const void *)bytes length:(NSUInteger)len encoding:(NSStringEncoding)encoding;
-- (id)initWithBytesNoCopy:(void *)bytes length:(NSUInteger)len encoding:(NSStringEncoding)encoding freeWhenDone:(BOOL)freeBuffer;	/* "NoCopy" is a hint */
-
-+ (id)string;
-+ (id)stringWithString:(NSString *)string;
-+ (id)stringWithCharacters:(const unichar *)characters length:(NSUInteger)length;
-+ (id)stringWithUTF8String:(const char *)nullTerminatedCString;
-+ (id)stringWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
-+ (id)localizedStringWithFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
-
-- (id)initWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding;
-+ (id)stringWithCString:(const char *)cString encoding:(NSStringEncoding)enc;
-
-/* These use the specified encoding.  If nil is returned, the optional error return indicates problem that was encountered (for instance, file system or encoding errors).
-*/
-- (id)initWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error;
-- (id)initWithContentsOfFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)error;
-+ (id)stringWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error;
-+ (id)stringWithContentsOfFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)error;
-
-/* These try to determine the encoding, and return the encoding which was used.  Note that these methods might get "smarter" in subsequent releases of the system, and use additional techniques for recognizing encodings. If nil is returned, the optional error return indicates problem that was encountered (for instance, file system or encoding errors).
-*/
-- (id)initWithContentsOfURL:(NSURL *)url usedEncoding:(NSStringEncoding *)enc error:(NSError **)error;
-- (id)initWithContentsOfFile:(NSString *)path usedEncoding:(NSStringEncoding *)enc error:(NSError **)error;
-+ (id)stringWithContentsOfURL:(NSURL *)url usedEncoding:(NSStringEncoding *)enc error:(NSError **)error;
-+ (id)stringWithContentsOfFile:(NSString *)path usedEncoding:(NSStringEncoding *)enc error:(NSError **)error;
-
-/* Write to specified url or path using the specified encoding.  The optional error return is to indicate file system or encoding errors.
-*/
-- (BOOL)writeToURL:(NSURL *)url atomically:(BOOL)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
-- (BOOL)writeToFile:(NSString *)path atomically:(BOOL)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
-
-@end
+}
 
 
 extern class NSMutableString extends NSString {
@@ -233,41 +208,4 @@ extern class NSMutableString extends NSString {
 	public static function stringWithCapacity (capacity:Int) :NSMutableString;
 
 	public function replaceOccurrencesOfString (target:NSString, withString:NSString, options:NSStringCompareOptions, range:NSRange) :Int;
-
 }
-
-
-
-
-
-/*enum {
-    NSProprietaryStringEncoding = 65536    
-};
-*/
-
-
-/* The rest of this file is bookkeeping stuff that has to be here. Don't use this stuff, don't refer to it.
-*/
-#if !defined(_OBJC_UNICHAR_H_)
-#define _OBJC_UNICHAR_H_
-#endif
-#define NS_UNICHAR_IS_EIGHT_BIT 0
-
-@interface NSSimpleCString : NSString {
-@package
-    char *bytes;
-    int numBytes;
-#if __LP64__
-    int _unused;
-#endif
-}
-@end
-
-@interface NSConstantString : NSSimpleCString
-@end
-
-#if __LP64__
-#else
-extern void *_NSConstantStringClassReference;
-#endif
-

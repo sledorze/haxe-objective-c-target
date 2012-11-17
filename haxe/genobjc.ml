@@ -305,7 +305,7 @@ let processClassPath ctx is_static path pos =
 		| "Dynamic" -> "id"
 		| "Bool" -> "BOOL"
 		| "String" -> "NSString"
-		| "Array" -> "Array"
+		| "Array" -> "NSMutabeArray"
 		| _ -> name)
 	| (["objc"],"FlashXml__") -> "Xml"
 	| (["flash";"errors"],"Error") -> "Error"
@@ -631,11 +631,23 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "Math", "NEGATIVE_INFINITY"
 		| [], "Math", "POSITIVE_INFINITY"
 		| [], "Math", "isFinite"
-		| [], "Math", "isNaN"
-		| [], "Date", "now"
-		| [], "Date", "fromTime"
-		| [], "Date", "fromString" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s)
-		| [], "String", "charCodeAt" -> ctx.writer#write "[\"charCodeAtHX\"]"
+		| [], "Math", "isNaN" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s)
+		
+		| [], "String", "toLowerCase" -> ctx.writer#write " lowercaseString"
+		| [], "String", "toUpperCase" -> ctx.writer#write " uppercaseString"
+		| [], "String", "toString" -> ctx.writer#write " description"
+		| [], "String", "indexOf" -> ctx.writer#write " rangeOfString"
+		| [], "String", "lastIndexOf" -> ctx.writer#write " rangeOfString options:NSBackwardsSearch"
+		| [], "String", "charAt" -> ctx.writer#write " characterAtIndex"
+		| [], "String", "charCodeAt" -> ctx.writer#write " characterAtIndex"
+		| [], "String", "fromCharCode" -> ctx.writer#write (Printf.sprintf " [NSString stringWithFormat:@"%%C",%s]" s)
+		| [], "String", "split" -> ctx.writer#write (Printf.sprintf " componentsSeparatedByString:%s" s)
+		| [], "String", "substr"
+		| [], "String", "substring" -> ctx.writer#write (Printf.sprintf " substringWithRange:%s" s)
+		
+		(* | [], "Date", "now" *)
+		(* | [], "Date", "fromTime" *)
+		(* | [], "Date", "fromString" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s) *)
 		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
 		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
@@ -657,7 +669,7 @@ and generateFieldAccess ctx etype s to_method =
 			(* Generate a static field access *)
 			| Statics c -> field c
 			(* Generate field access for an anonymous object, Dynamic *)
-			| _ -> ctx.writer#write (Printf.sprintf " GFA2 .%s" (s)))
+			| _ -> ctx.writer#write (Printf.sprintf " GFA2 .%s" s))
 	| _ ->
 		(* Method call on a Dynamic *)
 		ctx.writer#write (Printf.sprintf " %s" (s))
@@ -792,7 +804,7 @@ and generateExpression ctx e =
 			fun elem -> ctx.writer#write " add:"; generateValue ctx elem; ctx.writer#write "]";
 		) el *)
 	| TArrayDecl el ->
-		ctx.writer#write "[[Array alloc] initWithNSMutableArray: [[NSMutableArray alloc] initWithObjects:";
+		ctx.writer#write "[[NSMutableArray alloc] initWithObjects:";
 		ctx.require_pointer <- true;
 		concat ctx ", " (generateValue ctx) el;
 		ctx.require_pointer <- false;

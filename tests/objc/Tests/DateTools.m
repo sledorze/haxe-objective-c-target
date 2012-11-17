@@ -72,22 +72,22 @@
 	StringBuf *r = [[StringBuf alloc] init];
 	int p = 0;
 	while (YES) {
-		int np = [f indexOf:@"%" startIndex:p];
+		int np = [f rangeOfString:@"%" startIndex:p];
 		if (np < 0) break;;
-		[r.b objectAtIndex:r.b.length] = [f substr:p len:np - p];
-		[r.b objectAtIndex:r.b.length] = [DateTools __format_get:d e:[f substr:np + 1 len:1]];
+		[r.b objectAtIndex:r.b.length] = [f substringWithRange:substr:p len:np - p];
+		[r.b objectAtIndex:r.b.length] = [DateTools __format_get:d e:[f substringWithRange:substr:np + 1 len:1]];
 		p = np + 2;
 	}
-	[r.b objectAtIndex:r.b.length] = [f substr:p len:f length - p];
+	[r.b objectAtIndex:r.b.length] = [f substringWithRange:substr:p len:f length - p];
 	return [r b join:@""];
 }
 + (NSString*) format:(Date*)d f:(NSString*)f{
 	return [DateTools __format:d f:f];
 }
 + (Date*) delta:(Date*)d t:(float)t{
-	return [Date["fromTime"]:[d getTime] + t];
+	return [Date fromTime:[d getTime] + t];
 }
-@synthesize DAYS_OF_MONTH; = [[Array alloc] initWithNSMutableArray: [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]
+@synthesize DAYS_OF_MONTH; = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]
 + (int) getMonthDays:(Date*)d{
 	int month = [d getMonth];
 	int year = [d getFullYear];

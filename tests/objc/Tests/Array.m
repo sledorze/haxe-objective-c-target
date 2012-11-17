@@ -4,17 +4,17 @@
 
 @synthesize nativeArray;
 @synthesize length;
-- (Array*) initWithNSMutableArray:(NSMutableArray*)array{
+- (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array{
 	self.nativeArray = array;
 	self.length = [array count];
 	return self;
 }
-- (Array*) concat:(Array*)a{
+- (NSMutabeArray*) concat:(NSMutabeArray*)a{
 	
 	NSMutableArray *nat = a.nativeArray;
 	return nil;
 }
-- (Array*) copy{
+- (NSMutabeArray*) copy{
 	return [[[Array alloc] init] initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];
 }
 - (id) iterator{
@@ -67,12 +67,12 @@
 	};;
 	return nil;
 }
-- (Array*) slice:(int)pos end:(id)end{
+- (NSMutabeArray*) slice:(int)pos end:(id)end{
 	return [self.splice:pos len:end - pos];
 }
 - (void) sort:(Function*)f{
 }
-- (Array*) splice:(int)pos len:(int)len{
+- (NSMutabeArray*) splice:(int)pos len:(int)len{
 	
 	NSMutableArray *newArray = [self.nativeArray subarrayWithRange:NSMakeRange (pos,len)];
 	[self.nativeArray removeObjectsInArray:newArray];

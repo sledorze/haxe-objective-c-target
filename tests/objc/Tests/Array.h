@@ -6,9 +6,9 @@
 
 @property (nonatomic, strong) NSMutableArray *nativeArray;
 @property (nonatomic) int length;
-- (Array*) initWithNSMutableArray:(NSMutableArray*)array;
-- (Array*) concat:(Array*)a;
-- (Array*) copy;
+- (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array;
+- (NSMutabeArray*) concat:(NSMutabeArray*)a;
+- (NSMutabeArray*) copy;
 - (id) iterator;
 - (void) insert:(int)pos x:(id)x;
 - (NSString*) join:(NSString*)sep;
@@ -20,8 +20,8 @@
 - (BOOL) remove:(id)x;
 - (void) reverse;
 - (id) shift;
-- (Array*) slice:(int)pos end:(id)end;
+- (NSMutabeArray*) slice:(int)pos end:(id)end;
 - (void) sort:(Function*)f;
-- (Array*) splice:(int)pos len:(int)len;
+- (NSMutabeArray*) splice:(int)pos len:(int)len;
 
 @end

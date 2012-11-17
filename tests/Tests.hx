@@ -81,6 +81,25 @@ class Tests implements Interface1, implements Interface2 {
 		var d2 = Date.now();
 		var x = DateTools.getMonthDays ( d2 );
 	}
+	function testString () {
+		// Convert String API to NSString api
+		var string = new String ("abcdefghijklmnopqrstuvwxyz");
+		var len:Int = string.length;
+		var s:String = string.charAt ( 5 );
+		var ch:Null<Int> = string.charCodeAt ( 5 );
+		var i:Int = string.indexOf ( "abc" );
+		var i:Int = string.indexOf ( "abc", 2 );
+		var li:Int = string.lastIndexOf ( "abc" );
+		var components:Array<String> = string.split("-");
+		var s2:String = string.substr(5);
+		s2 = string.substr(5, len);
+		s2 = string.substring(5);
+		s2 = string.substring(1, len);
+		s2 = string.toLowerCase();//
+		s2 = string.toUpperCase();//
+		s2 = string.toString();
+		var s3:String = String.fromCharCode ( 9 );
+	}
 	function testFrameworksImport(){
 		var m = new objc.ios.map.MKMapView();
 	}

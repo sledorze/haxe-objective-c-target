@@ -1,7 +1,8 @@
 package objc.foundation;
+import objc.foundation.NSObject;
 
 
-extern class NSCharacterSet, implements NSCopying, implements NSMutableCopying, implements NSCoding
+extern class NSCharacterSet extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSCoding
 {
 
 	//Constants
@@ -35,17 +36,13 @@ extern class NSCharacterSet, implements NSCopying, implements NSMutableCopying, 
 	public  function removeCharactersInString( aString:String):Void;
 	public  function formIntersectionWithCharacterSet( otherSet:NSCharacterSet):Void;
 	public  function invert():Void;
-	public  function characterIsMember( aCharacter:unichar):Bool;
-	public  function hasMemberInPlane( thePlane:uint8_t):Bool;
+	public  function characterIsMember( aCharacter:String):Bool;
+	public  function hasMemberInPlane( thePlane:Int):Bool;
 	public  function formUnionWithCharacterSet( otherSet:NSCharacterSet):Void;
 	public  function addCharactersInRange( aRange:NSRange):Void;
-	public  function longCharacterIsMember( theLongChar:UTF32Char):Bool;
+	public  function longCharacterIsMember( theLongChar:String):Bool;
 	public  function removeCharactersInRange( aRange:NSRange):Void;
 	public  function addCharactersInString( aString:String):Void;
 	public  function bitmapRepresentation():NSData;
-}
-
-extern enum null
-{
 }
 

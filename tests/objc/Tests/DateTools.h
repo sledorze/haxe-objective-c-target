@@ -10,7 +10,7 @@
 + (NSString*) __format:(Date*)d f:(NSString*)f;
 + (NSString*) format:(Date*)d f:(NSString*)f;
 + (Date*) delta:(Date*)d t:(float)t;
-@property (nonatomic, strong) Array *DAYS_OF_MONTH; = [[Array alloc] initWithNSMutableArray: [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]
+@property (nonatomic, strong) NSMutabeArray *DAYS_OF_MONTH; = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]
 + (int) getMonthDays:(Date*)d;
 + (float) seconds:(float)n;
 + (float) minutes:(float)n;

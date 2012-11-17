@@ -7,7 +7,7 @@
 	[self.b objectAtIndex:self.b.length] = x;
 }
 - (void) addSub:(NSString*)s pos:(int)pos len:(id)len{
-	[self.b objectAtIndex:self.b.length] = [s substr:pos len:len];
+	[self.b objectAtIndex:self.b.length] = [s substringWithRange:substr:pos len:len];
 }
 - (void) addChar:(int)c{
 	[self.b objectAtIndex:self.b.length] = [NSString fromCharCode:c];

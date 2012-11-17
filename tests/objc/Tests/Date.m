@@ -20,7 +20,7 @@
 		case 8:{
 			{
 				
-				Array *k = [s split:@":"];
+				NSMutabeArray *k = [s componentsSeparatedByString:split:@":"];
 				
 				Date *d = [[Date alloc] init]0,0,0,[Std parseInt:[k objectAtIndex:0]],[Std parseInt:[k objectAtIndex:1]],[Std parseInt:[k objectAtIndex:2]];
 				return d;
@@ -28,17 +28,17 @@
 		case 10:{
 			{
 				
-				Array *k = [s split:@"-"];
+				NSMutabeArray *k = [s componentsSeparatedByString:split:@"-"];
 				return [[Date alloc] init][Std parseInt:[k objectAtIndex:0]],[Std parseInt:[k objectAtIndex:1]] - 1,[Std parseInt:[k objectAtIndex:2]],0,0,0;
 			}}break;
 		case 19:{
 			{
 				
-				Array *k = [s split:@" "];
+				NSMutabeArray *k = [s componentsSeparatedByString:split:@" "];
 				
-				Array *y = [[k objectAtIndex:0] split:@"-"];
+				NSMutabeArray *y = [[k objectAtIndex:0] componentsSeparatedByString:split:@"-"];
 				
-				Array *t = [[k objectAtIndex:1] split:@":"];
+				NSMutabeArray *t = [[k objectAtIndex:1] componentsSeparatedByString:split:@":"];
 				return [[Date alloc] init][Std parseInt:[y objectAtIndex:0]],[Std parseInt:[y objectAtIndex:1]] - 1,[Std parseInt:[y objectAtIndex:2]],[Std parseInt:[t objectAtIndex:0]],[Std parseInt:[t objectAtIndex:1]],[Std parseInt:[t objectAtIndex:2]];
 			}}break;
 		default:{

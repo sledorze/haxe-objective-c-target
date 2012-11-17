@@ -1,53 +1,32 @@
-/*	NSNotification.h
-	Copyright (c) 1994-2011, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
+import objc.foundation.NSObject;
 
-#import <Foundation/NSObject.h>
+extern class NSNotification extends NSObject, implements NSCopying, implements NSCoding {
 
-@class NSString, NSDictionary, NSOperationQueue;
+	public function name () :String;
+	public function object () :NSNotification;
+	public function userInfo () :NSDictionary;
 
-/****************	Notifications	****************/
+	public static function notificationWithName (aName:String, object:Dynamic) :NSNotification;
+	//public static function notificationWithName (aName:String, object:Dynamic, userInfo:NSDictionary) :NSNotification;
 
-@interface NSNotification : NSObject <NSCopying, NSCoding>
-
-- (NSString *)name;
-- (id)object;
-- (NSDictionary *)userInfo;
-
-@end
-
-@interface NSNotification (NSNotificationCreation)
-
-+ (id)notificationWithName:(NSString *)aName object:(id)anObject;
-+ (id)notificationWithName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
-
-@end
+}
 
 /****************	Notification Center	****************/
 
-@interface NSNotificationCenter : NSObject {
-    @package
-    void * __strong _impl;
-    void * __strong _callback;
-    void *_pad[11];
-}
+extern class NSNotificationCenter extends NSObject {
 
-+ (id)defaultCenter;
+	public static function defaultCenter () :NSNotificationCenter;
     
-- (void)addObserver:(id)observer selector:(SEL)aSelector name:(NSString *)aName object:(id)anObject;
+	public function addObserver (observer:Dynamic, selector:SEL, name:String, object:Dynamic) :Void;
 
-- (void)postNotification:(NSNotification *)notification;
-- (void)postNotificationName:(NSString *)aName object:(id)anObject;
-- (void)postNotificationName:(NSString *)aName object:(id)anObject userInfo:(NSDictionary *)aUserInfo;
+	public function postNotification (notification:NSNotification) :Void;
+	public function postNotificationName (aName:String, object:Dynamic) :Void;
+	//public function postNotificationName (aName:String, object:Dynamic, userInfo:NSDictionary) :Void;
 
-- (void)removeObserver:(id)observer;
-- (void)removeObserver:(id)observer name:(NSString *)aName object:(id)anObject;
+	public function removeObserver (observer:Dynamic) :Void;
+	//public function removeObserver (observer:Dynamic, name:String, object:Dynamic) :Void;
 
-#if NS_BLOCKS_AVAILABLE
-- (id)addObserverForName:(NSString *)name object:(id)obj queue:(NSOperationQueue *)queue usingBlock:(void (^)(NSNotification *note))block NS_AVAILABLE(10_6, 4_0);
-    // The return value is retained by the system, and should be held onto by the caller in
-    // order to remove the observer with removeObserver: later, to stop observation.
-#endif
-
-@end
+//- (id)addObserverForName:(NSString *)name object:(id)obj queue:(NSOperationQueue *)queue usingBlock:(void (^)(NSNotification *note))block NS_AVAILABLE(10_6, 4_0);
+}
 
