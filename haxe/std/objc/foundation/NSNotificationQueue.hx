@@ -1,35 +1,27 @@
 package objc.foundation;
 
 
-extern class NSNotificationQueue
-{
+extern class NSNotificationQueue extends NSObject {
 
 	//Constants
+	inline public static var NSPostWhenIdle = 1;
+	inline public static var NSPostASAP = 2;
+	inline public static var NSPostNow = 3;
 
+	inline public static var NSNotificationNoCoalescing = 0;
+	inline public static var NSNotificationCoalescingOnName = 1;
+	inline public static var NSNotificationCoalescingOnSender = 2;
+	
 	//Static Methods
-	public  function defaultQueue():Dynamic;
+	public static function defaultQueue():NSNotificationQueue;
 
 	//Properties
 
 	//Methods
-	public  function enqueueNotification( notification:NSNotification,  postingStyle:NSPostingStyle):Void;
+	public  function enqueueNotification(notification:NSNotification, postingStyle:NSPostingStyle) :Void;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function enqueueNotification1( notification:NSNotification,  postingStyle:NSPostingStyle,  coalesceMask:Int,  modes:NSArray):Void;
-	public  function dequeueNotificationsMatching( notification:NSNotification,  coalesceMask:Int):Void;
-	public  function initWithNotificationCenter( notificationCenter:NSNotificationCenter):Dynamic;
+	public  function enqueueNotification1( notification:NSNotification, postingStyle:NSPostingStyle, coalesceMask:Int, forModes:NSArray) :Void;
+	public  function dequeueNotificationsMatching(notification:NSNotification, coalesceMask:Int) :Void;
+	
+	public  function initWithNotificationCenter(notificationCenter:NSNotificationCenter) :NSNotificationQueue;
 }
-
-extern enum NSPostingStyle
-{
-	NSPostWhenIdle;
-	NSPostASAP;
-	NSPostNow;
-}
-
-extern enum NSNotificationCoalescing
-{
-	NSNotificationNoCoalescing;
-	NSNotificationCoalescingOnName;
-	NSNotificationCoalescingOnSender;
-}
-

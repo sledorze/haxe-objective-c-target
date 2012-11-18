@@ -1,18 +1,17 @@
 package objc.foundation;
 
 
-extern class NSTimer
-{
+extern class NSTimer extends NSObject {
 
 	//Constants
 
 	//Static Methods
-	public  function timerWithTimeInterval( ti:NSTimeInterval,  invocation:NSInvocation,  yesOrNo:Bool):NSTimer;
+	public static function timerWithTimeInterval( ti:NSTimeInterval,  invocation:NSInvocation,  yesOrNo:Bool):NSTimer;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function timerWithTimeInterval1( ti:NSTimeInterval,  aTarget:Dynamic,  aSelector:SEL,  userInfo:Dynamic,  yesOrNo:Bool):NSTimer;
-	public  function scheduledTimerWithTimeInterval( ti:NSTimeInterval,  invocation:NSInvocation,  yesOrNo:Bool):NSTimer;
+	public static function timerWithTimeInterval1( ti:NSTimeInterval,  aTarget:Dynamic,  aSelector:SEL,  userInfo:Dynamic,  yesOrNo:Bool):NSTimer;
+	public static function scheduledTimerWithTimeInterval( ti:NSTimeInterval,  invocation:NSInvocation,  yesOrNo:Bool):NSTimer;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function scheduledTimerWithTimeInterval1( ti:NSTimeInterval,  aTarget:Dynamic,  aSelector:SEL,  userInfo:Dynamic,  yesOrNo:Bool):NSTimer;
+	public static function scheduledTimerWithTimeInterval1( ti:NSTimeInterval,  aTarget:Dynamic,  aSelector:SEL,  userInfo:Dynamic,  yesOrNo:Bool):NSTimer;
 
 	//Properties
 

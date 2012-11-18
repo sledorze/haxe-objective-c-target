@@ -46,4 +46,7 @@ class Lib {
 		return null;
 	}
 	static function location () :CLLocation;
+	static function deviceIsIpad () :Bool {
+		return false;
+	}
 }

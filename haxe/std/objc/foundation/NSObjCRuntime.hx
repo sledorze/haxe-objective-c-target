@@ -1,8 +1,7 @@
-/*	NSObjCRuntime.h
-	Copyright (c) 1994-2012, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#include <TargetConditionals.h>
+extern class NSObjCRuntime {}
+/*#include <TargetConditionals.h>
 
 #if defined(__cplusplus)
 #define FOUNDATION_EXTERN extern "C"
@@ -478,6 +477,5 @@ enum {NSNotFound = NSIntegerMax};
 #if !defined(ABS)
     #define ABS(A)	((A) < 0 ? (-(A)) : (A))
 #endif
-
-#endif	/* __GNUC__ */
+*/
 

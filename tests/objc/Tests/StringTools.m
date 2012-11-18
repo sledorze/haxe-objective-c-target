@@ -22,7 +22,7 @@
 	return slen >= elen && [s substringWithRange:substr:slen - elen len:elen] == end;
 }
 + (BOOL) isSpace:(NSString*)s pos:(int)pos{
-	id c = [s["charCodeAtHX"]:pos];
+	id c = [s characterAtIndex:pos];
 	return c >= 9 && c <= 13 || c == 32;
 }
 + (NSString*) ltrim:(NSString*)s{

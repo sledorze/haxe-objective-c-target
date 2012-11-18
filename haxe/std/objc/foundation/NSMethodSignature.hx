@@ -1,13 +1,12 @@
 package objc.foundation;
 
 
-extern class NSMethodSignature
-{
+extern class NSMethodSignature extends NSObject {
 
 	//Constants
 
 	//Static Methods
-	public  function signatureWithObjCTypes( types:constchar):NSMethodSignature;
+	public static function signatureWithObjCTypes( types:String) :NSMethodSignature;
 
 	//Properties
 
@@ -15,8 +14,7 @@ extern class NSMethodSignature
 	public  function isOneway():Bool;
 	public  function frameLength():Int;
 	public  function numberOfArguments():Int;
-	public  function getArgumentTypeAtIndex( idx:Int):constchar;
-	public  function methodReturnType():constchar;
+	public  function getArgumentTypeAtIndex( idx:Int):String;
+	public  function methodReturnType():String;
 	public  function methodReturnLength():Int;
 }
-

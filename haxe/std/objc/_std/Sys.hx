@@ -26,7 +26,7 @@
 @:core_api class Sys {
 
 	public static function print( v : Dynamic ) : Void {
-		untyped __global__.__hxcpp_print(v);
+		untyped __objc__("print(v)");
 	}
 
 	public static function println( v : Dynamic ) : Void {
@@ -109,7 +109,7 @@
 	}
 
 	public static function exit( code : Int ) : Void {
-		sys_exit(code);
+		untyped __objc__("exit(code)");
 	}
 
 	public static function time() : Float {
@@ -134,24 +134,4 @@
 		}
 		return result;
 	}
-
-	private static var get_env = cpp.Lib.load("std","get_env",1);
-	private static var put_env = cpp.Lib.load("std","put_env",2);
-	private static var _sleep = cpp.Lib.load("std","sys_sleep",1);
-	private static var set_time_locale = cpp.Lib.load("std","set_time_locale",1);
-	private static var get_cwd = cpp.Lib.load("std","get_cwd",0);
-	private static var set_cwd = cpp.Lib.load("std","set_cwd",1);
-	private static var sys_string = cpp.Lib.load("std","sys_string",0);
-	private static var sys_command = cpp.Lib.load("std","sys_command",1);
-	private static var sys_exit = cpp.Lib.load("std","sys_exit",1);
-	private static var sys_time = cpp.Lib.load("std","sys_time",0);
-	private static var sys_cpu_time = cpp.Lib.load("std","sys_cpu_time",0);
-	private static var sys_exe_path = cpp.Lib.load("std","sys_exe_path",0);
-	private static var sys_env = cpp.Lib.load("std","sys_env",0);
-
-	private static var file_stdin = cpp.Lib.load("std","file_stdin",0);
-	private static var file_stdout = cpp.Lib.load("std","file_stdout",0);
-	private static var file_stderr = cpp.Lib.load("std","file_stderr",0);
-
-	private static var getch = cpp.Lib.load("std","sys_getch",1);
 }

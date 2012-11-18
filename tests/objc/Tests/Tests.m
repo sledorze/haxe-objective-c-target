@@ -96,7 +96,7 @@
 	int len = string.length;
 	
 	NSString *s = [string characterAtIndex:5];
-	id ch = [string["charCodeAtHX"]:5];
+	id ch = [string characterAtIndex:5];
 	int i = [string rangeOfString:@"abc" startIndex:nil];
 	int i1 = [string rangeOfString:@"abc" startIndex:2];
 	int li = [string rangeOfString options:NSBackwardsSearch:@"abc" startIndex:nil];

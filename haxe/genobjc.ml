@@ -640,7 +640,7 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "String", "lastIndexOf" -> ctx.writer#write " rangeOfString options:NSBackwardsSearch"
 		| [], "String", "charAt" -> ctx.writer#write " characterAtIndex"
 		| [], "String", "charCodeAt" -> ctx.writer#write " characterAtIndex"
-		| [], "String", "fromCharCode" -> ctx.writer#write (Printf.sprintf " [NSString stringWithFormat:@"%%C",%s]" s)
+		
 		| [], "String", "split" -> ctx.writer#write (Printf.sprintf " componentsSeparatedByString:%s" s)
 		| [], "String", "substr"
 		| [], "String", "substring" -> ctx.writer#write (Printf.sprintf " substringWithRange:%s" s)
@@ -650,7 +650,7 @@ and generateFieldAccess ctx etype s to_method =
 		(* | [], "Date", "fromString" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s) *)
 		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
 		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
-		| ["flash";"xml"], "XML", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
+		| ["objc";"foundation"], "NSXMLParser", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
 		| _ ->
 			(* TODO : methods called with self use the dot notation, which is not good *)
 			(* ctx.writer#write ((if to_method then "1" else "0")^(if ctx.generating_call then "2" else "0")^(if ctx.generating_self_access then "3" else "0")); *)
@@ -700,7 +700,7 @@ and generateExpression ctx e =
 		let c = match isSpecialCompare e1 e2 with Some c -> c | None -> assert false in
 		generateExpression ctx (mk (TCall (mk (TField (mk (TTypeExpr (TClassDecl c)) t_dynamic e.epos,"compare")) t_dynamic e.epos,[e1;e2])) ctx.com.basic.tbool e.epos);
 		
-	(* what is this used for? *)
+	(* TODO: what is this used for? *)
 (* 	| TBinop (op,{ eexpr = TField (e1,s) },e2) ->
 		generateValueOp ctx e1;
 		generateFieldAccess ctx e1.etype s;
@@ -2114,23 +2114,39 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	ctx.writer#import_headers imports_manager#get_imports;
 	ctx.writer#new_line;
 	
-	h_file#write ("@interface " ^ (snd class_path));
-	(* Add the super class *)
-	(match class_def.cl_super with
-		| None -> h_file#write " : NSObject"
-		| Some (csup,_) -> h_file#write (Printf.sprintf " : %s " (snd csup.cl_path)));
-	(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
-	(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
-	(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
-	if class_def.cl_implements != [] then begin
-		(* Add implement *)
-		h_file#write "<";
-		(match class_def.cl_implements with
-		| [] -> ()
-		| l -> concat ctx ", " (fun (i,_) -> h_file#write (Printf.sprintf "%s" (snd i.cl_path))) l
-		);
-		h_file#write ">";
+	let isCategory = (has_meta ":category" class_def.cl_meta) in
+	if isCategory then begin
+		
+		let category_class =
+		(match (snd class_path) with
+			| "Array" -> "NSArray"
+			| "Date" -> "NSDate"
+		) in
+		h_file#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
+		
+		end
+	else begin
+		
+		h_file#write ("@interface " ^ (snd class_path));
+		(* Add the super class *)
+		(match class_def.cl_super with
+			| None -> h_file#write " : NSObject"
+			| Some (csup,_) -> h_file#write (Printf.sprintf " : %s " (snd csup.cl_path)));
+		(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
+		(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
+		(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
+		if class_def.cl_implements != [] then begin
+			(* Add implement *)
+			h_file#write "<";
+			(match class_def.cl_implements with
+			| [] -> ()
+			| l -> concat ctx ", " (fun (i,_) -> h_file#write (Printf.sprintf "%s" (snd i.cl_path))) l
+			);
+			h_file#write ">";
+		end
 	end;
+	
+	
 	h_file#new_line;
 	
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;

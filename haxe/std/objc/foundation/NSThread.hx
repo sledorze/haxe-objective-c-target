@@ -1,24 +1,23 @@
 package objc.foundation;
 
 
-extern class NSThread
-{
+extern class NSThread extends NSObject {
 
 	//Constants
 
 	//Static Methods
-	public  function isMainThread():Bool;
-	public  function sleepForTimeInterval( ti:NSTimeInterval):Void;
-	public  function setThreadPriority( p:Float):Bool;
-	public  function currentThread():NSThread;
-	public  function isMultiThreaded():Bool;
-	public  function exit():Void;
-	public  function callStackReturnAddresses():NSArray;
-	public  function sleepUntilDate( date:Date):Void;
-	public  function mainThread():NSThread;
-	public  function detachNewThreadSelector( selector:SEL,  target:Dynamic,  argument:Dynamic):Void;
-	public  function threadPriority():Float;
-	public  function callStackSymbols():NSArray;
+	public static function isMainThread():Bool;
+	public static function sleepForTimeInterval( ti:NSTimeInterval):Void;
+	public static function setThreadPriority( p:Float):Bool;
+	public static function currentThread():NSThread;
+	public static function isMultiThreaded():Bool;
+	public static function exit():Void;
+	public static function callStackReturnAddresses():NSArray;
+	public static function sleepUntilDate( date:Date):Void;
+	public static function mainThread():NSThread;
+	public static function detachNewThreadSelector( selector:SEL,  target:Dynamic,  argument:Dynamic):Void;
+	public static function threadPriority():Float;
+	public static function callStackSymbols():NSArray;
 
 	//Properties
 
