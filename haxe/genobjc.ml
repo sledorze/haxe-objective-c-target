@@ -1196,7 +1196,7 @@ let generateMain ctx fd =
 	(* TODO: register the main.m file for pbxproj, but not necessary in this method *)
 	let platform_class = ref "" in
 	let app_delegate_class = ref "" in
-	let gen = (match fd.tf_expr.eexpr with
+	(match fd.tf_expr.eexpr with
 		(* \ TBlock [] -> print_endline "objc_error: The main method should have a return" *)
 		| TBlock expr_list ->
 			(* Iterate over the expressions in the main block *)
@@ -1221,7 +1221,7 @@ let generateMain ctx fd =
 				| _ -> print_endline "objc_error: The main method should have a return");
 			) expr_list
 		| _ -> print_endline "objc_error: The main method should have a return"
-	) in
+	);
 	(* print_endline ("- app_delegate_class: "^ (!app_delegate_class)); *)
 	let src_dir = srcDir ctx.com in
 	let m_file = newSourceFile src_dir ([],"main") ".m" in
@@ -1978,7 +1978,7 @@ let generatePch common_ctx class_def =
 	file#close
 ;;
 
-let getMetaString meta key =
+let getMetaString key meta =
 	let rec loop = function
 		| [] -> ""
 		| (k,[Ast.EConst (Ast.String name),_],_) :: _  when k=key-> name
@@ -1990,7 +1990,7 @@ let generatePlist common_ctx class_def  =
 	(* TODO: Read and parse the Main class for metadata *)
 	let app_name = appName common_ctx in
 	let src_dir = srcDir common_ctx in
-	let identifier = "" in
+	let identifier = "" in (* (getMetaString ":identifier" class_def.cl_meta) in *)
 	let version = "" in
 	(* let identifier = getMetaString class_def.cl_meta ":identifier" in
 	let version = getMetaString class_def.cl_meta ":version" in *)
@@ -2117,10 +2117,12 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	let isCategory = (has_meta ":category" class_def.cl_meta) in
 	if isCategory then begin
 		
-		let category_class =
-		(match (snd class_path) with
+		let category_class = (match (snd class_path) with
+			| "String" -> "NSString"
 			| "Array" -> "NSArray"
 			| "Date" -> "NSDate"
+			| "Hash" -> "NSDictionary"
+			| _ -> ""
 		) in
 		h_file#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
 		

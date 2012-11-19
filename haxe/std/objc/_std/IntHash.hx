@@ -23,7 +23,7 @@
  * DAMAGE.
  */
 
-@:core_api class IntHash<T> {
+@:category @:core_api class IntHash<T> {
 
 	private var h : Dynamic;
 

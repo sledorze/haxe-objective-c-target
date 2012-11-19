@@ -42,9 +42,6 @@
 	self.length = [self.nativeArray count];
 	return [self.nativeArray count];
 }
-- (id) objectAtIndex:(int)index{
-	return [self.nativeArray objectAtIndex:index];
-}
 - (void) unshift:(id)x{
 	[self.nativeArray insertObject:x atIndex:0];
 	self.length = [self.nativeArray count];

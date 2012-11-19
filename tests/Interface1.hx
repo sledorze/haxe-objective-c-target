@@ -4,4 +4,5 @@ interface Interface1 {
 	public var interfaceVar2 :Float;
 	
 	public function add (a:Int, b:Int) :Int;
+	//@:optional public function add2 (a:Int, b:Int) :Int;
 }

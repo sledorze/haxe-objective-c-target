@@ -23,7 +23,7 @@
  * DAMAGE.
  */
 
-@:core_api class Hash<T>  {
+@:category @:core_api class Hash<T>  {
 	private var __Internal : Dynamic;
 
 	public function new() : Void {

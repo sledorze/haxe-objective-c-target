@@ -15,7 +15,6 @@
 - (NSString*) toString;
 - (id) pop;
 - (int) push:(id)x;
-- (id) objectAtIndex:(int)index;
 - (void) unshift:(id)x;
 - (BOOL) remove:(id)x;
 - (void) reverse;

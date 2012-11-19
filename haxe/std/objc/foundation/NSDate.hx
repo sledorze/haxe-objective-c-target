@@ -9,33 +9,32 @@ extern class NSDate extends NSObject, implements NSCopying, implements NSSecureC
 
 	//Static Methods
 	public static function timeIntervalSinceReferenceDate () :NSTimeInterval;
-	public static function dateWithTimeInterval( ti:NSTimeInterval,  date:Date):Dynamic;
-	public static function distantFuture():Dynamic;
-	public static function distantPast():Dynamic;
-	public static function dateWithTimeIntervalSinceReferenceDate( secs:NSTimeInterval):Dynamic;
-	public static function dateWithTimeIntervalSince1970( secs:NSTimeInterval):Dynamic;
-	public static function date():Dynamic;
-	public static function dateWithTimeIntervalSinceNow( secs:NSTimeInterval):Dynamic;
+	public static function dateWithTimeInterval( ti:NSTimeInterval,  date:Date):NSDate;
+	public static function dateWithTimeIntervalSinceReferenceDate( secs:NSTimeInterval):NSDate;
+	public static function dateWithTimeIntervalSince1970( secs:NSTimeInterval):NSDate;
+	public static function date() :NSDate;
+	public static function dateWithTimeIntervalSinceNow( secs:NSTimeInterval):NSDate;
+	public static function distantFuture():NSDate;
+	public static function distantPast():NSDate;
 
 	//Properties
 
 	//Methods
 	//public  function timeIntervalSinceReferenceDate():NSTimeInterval;
 	public  function timeIntervalSinceNow():NSTimeInterval;
-	public  function initWithTimeInterval( secsToBeAdded:NSTimeInterval, anotherDate:Date) :Dynamic;
-	public  function addTimeInterval( seconds:NSTimeInterval) :Dynamic;
-	public  function laterDate( anotherDate:Date):Date;
-	public  function description():String;
-	public  function initWithTimeIntervalSinceNow( secs:NSTimeInterval):Dynamic;
-	public  function dateByAddingTimeInterval( ti:NSTimeInterval):Dynamic;
 	public  function timeIntervalSince1970():NSTimeInterval;
+	public  function timeIntervalSinceDate( anotherDate:Date):NSTimeInterval;
+	
+	public  function laterDate( anotherDate:Date):Date;
+	public  function earlierDate( anotherDate:Date):Date;
+	public  function description():String;
 	public  function compare (other:NSDate) :NSComparisonResult;
 	public  function isEqualToDate (otherDate:NSDate) :Bool;
-	public  function initWithTimeIntervalSinceReferenceDate( secsToBeAdded:NSTimeInterval):Dynamic;
-	public  function initWithTimeIntervalSince1970( ti:NSTimeInterval):Dynamic;
-	public  function timeIntervalSinceDate( anotherDate:Date):NSTimeInterval;
-	public  function earlierDate( anotherDate:Date):Date;
 	public  function descriptionWithLocale( locale:Dynamic):String;
+	
 	public  function init() :NSDate;
+	public  function initWithTimeIntervalSinceNow( secs:NSTimeInterval) :NSDate;
+	public  function initWithTimeIntervalSinceReferenceDate( secsToBeAdded:NSTimeInterval) :NSDate;
+	public  function initWithTimeIntervalSince1970( ti:NSTimeInterval) :NSDate;
+	public  function initWithTimeInterval( secsToBeAdded:NSTimeInterval, anotherDate:Date) :NSDate;
 }
-
