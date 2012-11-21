@@ -1359,122 +1359,6 @@ let xcworkspacedata common_ctx =
 ");
 	file#close
 ;;
-let xcscheme common_ctx =
-	let src_dir = srcDir common_ctx in
-	let app_name = appName common_ctx in
-	let file = newSourceFile (src_dir^".xcodeproj/xcuserdata/Cristi.xcuserdatad/xcschemes") ([],app_name) ".xcscheme" in
-	let buildable_reference = ("<BuildableReference
-               BuildableIdentifier = \"primary\"
-               BlueprintIdentifier = \"28BFD9D41628A95900882B34\"
-               BuildableName = \""^app_name^".app\"
-               BlueprintName = \""^app_name^"\"
-               ReferencedContainer = \"container:"^app_name^".xcodeproj\">
-            </BuildableReference>") in
-			
-	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<Scheme
-   LastUpgradeVersion = \"0450\"
-   version = \"1.3\">
-   <BuildAction
-      parallelizeBuildables = \"YES\"
-      buildImplicitDependencies = \"YES\">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = \"YES\"
-            buildForRunning = \"YES\"
-            buildForProfiling = \"YES\"
-            buildForArchiving = \"YES\"
-            buildForAnalyzing = \"YES\">
-			"^buildable_reference^"
-         </BuildActionEntry>
-      </BuildActionEntries>
-   </BuildAction> 
-   <TestAction
-      selectedDebuggerIdentifier = \"Xcode.DebuggerFoundation.Debugger.LLDB\"
-      selectedLauncherIdentifier = \"Xcode.DebuggerFoundation.Launcher.LLDB\"
-      shouldUseLaunchSchemeArgsEnv = \"YES\"
-      buildConfiguration = \"Debug\">
-      <Testables>
-         <TestableReference
-            skipped = \"NO\">
-            "^buildable_reference^"
-         </TestableReference>
-      </Testables>
-      <MacroExpansion>
-         "^buildable_reference^"
-      </MacroExpansion>
-   </TestAction>
-   <LaunchAction
-      selectedDebuggerIdentifier = \"Xcode.DebuggerFoundation.Debugger.LLDB\"
-      selectedLauncherIdentifier = \"Xcode.DebuggerFoundation.Launcher.LLDB\"
-      launchStyle = \"0\"
-      useCustomWorkingDirectory = \"NO\"
-      buildConfiguration = \"Debug\"
-      ignoresPersistentStateOnLaunch = \"NO\"
-      debugDocumentVersioning = \"YES\"
-      allowLocationSimulation = \"YES\">
-      <BuildableProductRunnable>
-         "^buildable_reference^"
-      </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
-   </LaunchAction>
-   <ProfileAction
-      shouldUseLaunchSchemeArgsEnv = \"YES\"
-      savedToolIdentifier = \"\"
-      useCustomWorkingDirectory = \"NO\"
-      buildConfiguration = \"Release\"
-      debugDocumentVersioning = \"YES\">
-      <BuildableProductRunnable>
-         "^buildable_reference^"
-      </BuildableProductRunnable>
-   </ProfileAction>
-   <AnalyzeAction
-      buildConfiguration = \"Debug\">
-   </AnalyzeAction>
-   <ArchiveAction
-      buildConfiguration = \"Release\"
-      revealArchiveInOrganizer = \"YES\">
-   </ArchiveAction>
-</Scheme>
-");
-	file#close
-;;
-let xcschememanagement common_ctx = 
-	let src_dir = srcDir common_ctx in
-	let app_name = appName common_ctx in
-	let remote_global_id_string_tests = "" in 
-	let file = newSourceFile (src_dir^".xcodeproj/xcuserdata/Cristi.xcuserdatad/xcschemes") ([],"xcschememanagement") ".plist" in
-	file#write ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-<dict>
-	<key>SchemeUserState</key>
-	<dict>
-		<key>"^app_name^".xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>28BFD9D41628A95900882B34</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>"^remote_global_id_string_tests^"</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
-</dict>
-</plist>
-");
-	file#close
-;;
 let pbxproj common_ctx files_manager = 
 	let src_dir = srcDir common_ctx in
 	let app_name = appName common_ctx in
@@ -1951,9 +1835,7 @@ let generateXcodeStructure common_ctx =
 	(* Create Main Xcode bundle *)
 	mkdir base_dir ( (app_name^".xcodeproj") :: []);
 		mkdir base_dir ( (app_name^".xcodeproj") :: ["project.xcworkspace"]);
-			mkdir base_dir ( (app_name^".xcodeproj") :: "project.xcworkspace" :: ["Cristi.xcuserdatad"]);
-		mkdir base_dir ( (app_name^".xcodeproj") :: ["xcuserdata"]);
-			mkdir base_dir ((app_name^".xcodeproj") :: "xcuserdata" :: "Cristi.xcuserdatad" :: ["xcschemes"])
+			mkdir base_dir ( (app_name^".xcodeproj") :: "project.xcworkspace" :: ["Cristi.xcuserdatad"])
 ;;
 
 let generatePch common_ctx class_def =
@@ -2199,7 +2081,5 @@ let generate common_ctx =
 	(*  *)
 	localizations common_ctx;
 	xcworkspacedata common_ctx;
-	pbxproj common_ctx files_manager;
-	xcscheme common_ctx;
-	xcschememanagement common_ctx
+	pbxproj common_ctx files_manager
 ;;

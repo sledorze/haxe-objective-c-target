@@ -49,4 +49,8 @@ class Lib {
 	static function deviceIsIpad () :Bool {
 		return false;
 	}
+	static function alert (title:String, message:String) :UIAlertView {
+		var a = new UIAlertView();
+		return a;
+	}
 }
