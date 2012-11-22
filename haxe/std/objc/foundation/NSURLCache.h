@@ -47,7 +47,7 @@ typedef NSUInteger NSURLCacheStoragePolicy;
     It is used to maintain characteristics and attributes of a cached 
     object. 
 */
-@interface NSCachedURLResponse : NSObject <NSCoding, NSCopying>
+extern class NSCachedURLResponse extends NSObject, implements NSObject, NSCopying>
 {
     @private
     NSCachedURLResponseInternal *_internal;
@@ -109,13 +109,13 @@ typedef NSUInteger NSURLCacheStoragePolicy;
 */
 - (NSURLCacheStoragePolicy)storagePolicy;
 
-@end
+}
 
 
 @class NSURLRequest;
 @class NSURLCacheInternal;
 
-@interface NSURLCache : NSObject
+extern class NSURLCache extends NSObject
 {
     @private
     NSURLCacheInternal *_internal;
@@ -267,4 +267,4 @@ typedef NSUInteger NSURLCacheStoragePolicy;
 */
 - (NSUInteger)currentDiskUsage;
 
-@end
+}

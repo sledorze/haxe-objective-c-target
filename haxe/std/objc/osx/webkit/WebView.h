@@ -105,7 +105,7 @@ extern NSString *WebViewProgressFinishedNotification;
     WebView's WebPolicyDelegate can make determinations about how
     content should be handled, based on the resource's URL and MIME type.
 */
-@interface WebView : NSView
+extern class WebView : NSView
 {
 @private
     WebViewPrivate *_private;
@@ -657,10 +657,10 @@ extern NSString *WebViewProgressFinishedNotification;
 */
 - (NSImage *)mainFrameIcon;
 
-@end
+}
 
 
-@interface WebView (WebIBActions) <NSUserInterfaceValidations>
+extern class WebView (WebIBActions) <NSUserInterfaceValidations>
 - (IBAction)takeStringURLFrom:(id)sender;
 - (IBAction)stopLoading:(id)sender;
 - (IBAction)reload:(id)sender;
@@ -677,7 +677,7 @@ extern NSString *WebViewProgressFinishedNotification;
 - (IBAction)makeTextStandardSize:(id)sender;
 - (IBAction)toggleContinuousSpellChecking:(id)sender;
 - (IBAction)toggleSmartInsertDelete:(id)sender;
-@end
+}
 
 
 // WebView editing support
@@ -688,11 +688,11 @@ extern NSString * const WebViewDidEndEditingNotification;
 extern NSString * const WebViewDidChangeTypingStyleNotification;
 extern NSString * const WebViewDidChangeSelectionNotification;
 
-@interface WebView (WebViewCSS)
+extern class WebView (WebViewCSS)
 - (DOMCSSStyleDeclaration *)computedStyleForElement:(DOMElement *)element pseudoElement:(NSString *)pseudoElement;
-@end
+}
 
-@interface WebView (WebViewEditing)
+extern class WebView (WebViewEditing)
 - (DOMRange *)editableDOMRangeForPoint:(NSPoint)point;
 - (void)setSelectedDOMRange:(DOMRange *)range affinity:(NSSelectionAffinity)selectionAffinity;
 - (DOMRange *)selectedDOMRange;
@@ -711,18 +711,18 @@ extern NSString * const WebViewDidChangeSelectionNotification;
 - (void)setEditingDelegate:(id)delegate;
 - (id)editingDelegate;
 - (DOMCSSStyleDeclaration *)styleDeclarationWithText:(NSString *)text;
-@end
+}
 
-@interface WebView (WebViewUndoableEditing)
+extern class WebView (WebViewUndoableEditing)
 - (void)replaceSelectionWithNode:(DOMNode *)node; 
 - (void)replaceSelectionWithText:(NSString *)text;    
 - (void)replaceSelectionWithMarkupString:(NSString *)markupString;
 - (void)replaceSelectionWithArchive:(WebArchive *)archive;
 - (void)deleteSelection;    
 - (void)applyStyle:(DOMCSSStyleDeclaration *)style;
-@end
+}
 
-@interface WebView (WebViewEditingActions)
+extern class WebView (WebViewEditingActions)
 
 - (void)copy:(id)sender;
 - (void)cut:(id)sender;
@@ -825,4 +825,4 @@ a custom implementation for each.
 - (void)uppercaseWord:(id)sender;
 */
  
-@end
+}

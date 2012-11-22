@@ -11,7 +11,7 @@
 FOUNDATION_EXPORT NSString * const NSDefaultRunLoopMode;
 FOUNDATION_EXPORT NSString * const NSRunLoopCommonModes NS_AVAILABLE(10_5, 2_0);
 
-@interface NSRunLoop : NSObject {
+extern class NSRunLoop extends NSObject {
 @private
     id          _rl;
     id          _dperf;
@@ -35,9 +35,9 @@ FOUNDATION_EXPORT NSString * const NSRunLoopCommonModes NS_AVAILABLE(10_5, 2_0);
 - (NSDate *)limitDateForMode:(NSString *)mode;
 - (void)acceptInputForMode:(NSString *)mode beforeDate:(NSDate *)limitDate;
 
-@end
+}
 
-@interface NSRunLoop (NSRunLoopConveniences)
+extern class NSRunLoop (NSRunLoopConveniences)
 
 - (void)run; 
 - (void)runUntilDate:(NSDate *)limitDate;
@@ -47,24 +47,24 @@ FOUNDATION_EXPORT NSString * const NSRunLoopCommonModes NS_AVAILABLE(10_5, 2_0);
 - (void)configureAsServer NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
 #endif
 
-@end
+}
 
 /**************** 	Delayed perform	 ******************/
 
-@interface NSObject (NSDelayedPerforming)
+extern class NSObject (NSDelayedPerforming)
 
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay inModes:(NSArray *)modes;
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay;
 + (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget selector:(SEL)aSelector object:(id)anArgument;
 + (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget;
 
-@end
+}
 
-@interface NSRunLoop (NSOrderedPerform)
+extern class NSRunLoop (NSOrderedPerform)
 
 - (void)performSelector:(SEL)aSelector target:(id)target argument:(id)arg order:(NSUInteger)order modes:(NSArray *)modes;
 - (void)cancelPerformSelector:(SEL)aSelector target:(id)target argument:(id)arg;
 - (void)cancelPerformSelectorsWithTarget:(id)target;
 
-@end
+}
 

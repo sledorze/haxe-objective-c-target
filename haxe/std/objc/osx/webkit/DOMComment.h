@@ -28,7 +28,7 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_1_3
 
-@interface DOMComment : DOMCharacterData
-@end
+extern class DOMComment : DOMCharacterData
+}
 
 #endif

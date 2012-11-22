@@ -7,7 +7,7 @@
 
 #import <AppKit/NSControl.h>
 
-@interface NSStepper : NSControl {
+extern class NSStepper : NSControl {
   @private
     unsigned int _reserved1;
     unsigned int _reserved2;
@@ -30,4 +30,4 @@
 - (BOOL)autorepeat;
 - (void)setAutorepeat:(BOOL)autorepeat;
 
-@end
+}

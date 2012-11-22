@@ -22,7 +22,7 @@ typedef NS_OPTIONS(NSUInteger, NSRegularExpressionOptions) {
 };
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface NSRegularExpression : NSObject <NSCopying, NSCoding> {
+extern class NSRegularExpression : NSObject <NSCopying, NSCoding> {
     @protected   // all instance variables are private
     NSString *_pattern;
     NSUInteger _options;
@@ -37,15 +37,15 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (NSRegularExpression *)regularExpressionWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options error:(NSError **)error;
 - (id)initWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options error:(NSError **)error;
 
-@property (readonly) NSString *pattern;
-@property (readonly) NSRegularExpressionOptions options;
-@property (readonly) NSUInteger numberOfCaptureGroups;
+	public var NSString *pattern;
+	public var NSRegularExpressionOptions options;
+	public var NSUInteger numberOfCaptureGroups;
 
 /* This class method will produce a string by adding backslash escapes as necessary to the given string, to escape any characters that would otherwise be treated as pattern metacharacters.
 */
 + (NSString *)escapedPatternForString:(NSString *)string;
 
-@end
+}
 
 
 typedef NS_OPTIONS(NSUInteger, NSMatchingOptions) {
@@ -64,7 +64,7 @@ typedef NS_OPTIONS(NSUInteger, NSMatchingFlags) {
    NSMatchingInternalError          = 1 << 4        /* Set when matching failed due to an internal error. */
 };
 
-@interface NSRegularExpression (NSMatching)
+extern class NSRegularExpression (NSMatching)
 
 /* The fundamental matching method on NSRegularExpression is a block iterator.  There are several additional convenience methods, for returning all matches at once, the number of matches, the first match, or the range of the first match.  Each match is specified by an instance of NSTextCheckingResult (of type NSTextCheckingTypeRegularExpression) in which the overall match range is given by the range property (equivalent to rangeAtIndex:0) and any capture group ranges are given by rangeAtIndex: for indexes from 1 to numberOfCaptureGroups.  {NSNotFound, 0} is used if a particular capture group does not participate in the match.
 */
@@ -87,10 +87,10 @@ NSMatchingAnchored, NSMatchingWithTransparentBounds, and NSMatchingWithoutAnchor
 NSRegularExpression is designed to be immutable and threadsafe, so that a single instance can be used in matching operations on multiple threads at once.  However, the string on which it is operating should not be mutated during the course of a matching operation (whether from another thread or from within the block used in the iteration).
 */
 
-@end
+}
 
 
-@interface NSRegularExpression (NSReplacement)
+extern class NSRegularExpression (NSReplacement)
 
 /* NSRegularExpression also provides find-and-replace methods for both immutable and mutable strings.  The replacement is treated as a template, with $0 being replaced by the contents of the matched range, $1 by the contents of the first capture group, and so on.  Additional digits beyond the maximum required to represent the number of capture groups will be treated as ordinary characters, as will a $ not followed by digits.  Backslash will escape both $ and itself.
 */
@@ -105,10 +105,10 @@ NSRegularExpression is designed to be immutable and threadsafe, so that a single
 */
 + (NSString *)escapedTemplateForString:(NSString *)string;
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface NSDataDetector : NSRegularExpression {
+extern class NSDataDetector : NSRegularExpression {
     @protected   // all instance variables are private
     NSTextCheckingTypes _types;
 }
@@ -118,7 +118,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (NSDataDetector *)dataDetectorWithTypes:(NSTextCheckingTypes)checkingTypes error:(NSError **)error;
 - (id)initWithTypes:(NSTextCheckingTypes)checkingTypes error:(NSError **)error;
 
-@property (readonly) NSTextCheckingTypes checkingTypes;
+	public var NSTextCheckingTypes checkingTypes;
 
-@end
+}
 

@@ -20,7 +20,7 @@ enum {
 };
 typedef NSUInteger NSAlertStyle;
 
-@interface NSAlert : NSObject
+extern class NSAlert extends NSObject
 {
     @private
     /*All instance variables are private*/
@@ -158,12 +158,12 @@ enum {
 */
 - (id)window;
 
-@end
+}
 
 @protocol NSAlertDelegate <NSObject>
 @optional
 /* the delegate should implement this if custom help behavior is required.
 */
 - (BOOL)alertShowHelp:(NSAlert *)alert;
-@end
+}
 

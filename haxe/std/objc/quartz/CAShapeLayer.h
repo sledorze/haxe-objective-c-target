@@ -28,7 +28,7 @@
  * Note: rasterization may favor speed over accuracy, e.g. pixels with
  * multiple intersecting path segments may not give exact results. */
 
-@interface CAShapeLayer : CALayer
+extern class CAShapeLayer : CALayer
 
 /* The path defining the shape to be rendered. If the path extends
  * outside the layer bounds it will not automatically be clipped to the
@@ -37,22 +37,22 @@
  * animatable, no implicit animation will be created when the property
  * is changed.) */
 
-@property CGPathRef path;
+	public var  CGPathRef path;
 
 /* The color to fill the path, or nil for no fill. Defaults to opaque
  * black. Animatable. */
 
-@property CGColorRef fillColor;
+	public var  CGColorRef fillColor;
 
 /* The fill rule used when filling the path. Options are `non-zero' and
  * `even-odd'. Defaults to `non-zero'. */
 
-@property(copy) NSString *fillRule;
+	public var NSString *fillRule;
 
 /* The color to fill the path's stroked outline, or nil for no stroking.
  * Defaults to nil. Animatable. */
 
-@property CGColorRef strokeColor;
+	public var  CGColorRef strokeColor;
 
 /* These values define the subregion of the path used to draw the
  * stroked outline. The values must be in the range [0,1] with zero
@@ -61,39 +61,39 @@
  * length. strokeStart defaults to zero and strokeEnd to one. Both are
  * animatable. */
 
-@property CGFloat strokeStart, strokeEnd;
+	public var  CGFloat strokeStart, strokeEnd;
 
 /* The line width used when stroking the path. Defaults to one.
  * Animatable. */
 
-@property CGFloat lineWidth;
+	public var  CGFloat lineWidth;
 
 /* The miter limit used when stroking the path. Defaults to ten.
  * Animatable. */
 
-@property CGFloat miterLimit;
+	public var  CGFloat miterLimit;
 
 /* The cap style used when stroking the path. Options are `butt', `round'
  * and `square'. Defaults to `butt'. */
 
-@property(copy) NSString *lineCap;
+	public var NSString *lineCap;
 
 /* The join style used when stroking the path. Options are `miter', `round'
  * and `bevel'. Defaults to `miter'. */
 
-@property(copy) NSString *lineJoin;
+	public var NSString *lineJoin;
 
 /* The phase of the dashing pattern applied when creating the stroke.
  * Defaults to zero. Animatable. */
 
-@property CGFloat lineDashPhase;
+	public var  CGFloat lineDashPhase;
 
 /* The dash pattern (an array of NSNumbers) applied when creating the
  * stroked version of the path. Defaults to nil. */
 
-@property(copy) NSArray *lineDashPattern;
+	public var NSArray *lineDashPattern;
 
-@end
+}
 
 /* `fillRule' values. */
 

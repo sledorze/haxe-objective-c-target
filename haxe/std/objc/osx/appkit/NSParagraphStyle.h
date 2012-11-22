@@ -31,7 +31,7 @@ typedef NSUInteger NSLineBreakMode;
 */
 APPKIT_EXTERN NSString *NSTabColumnTerminatorsAttributeName;
 
-@interface NSTextTab : NSObject <NSCopying, NSCoding> {
+extern class NSTextTab extends NSObject <NSCopying, NSCoding> {
     /*All instance variables are private*/
     struct {
 	NSTextAlignment alignment:4;
@@ -68,9 +68,9 @@ NSDecimalTabStopType -> NSRightTextAlignment with the decimal character for the 
 - (id)initWithType:(NSTextTabType)type location:(CGFloat)loc;
 - (CGFloat)location;
 - (NSTextTabType)tabStopType;
-@end
+}
 
-@interface NSParagraphStyle : NSObject <NSCopying, NSMutableCopying, NSCoding> {
+extern class NSParagraphStyle extends NSObject <NSCopying, NSMutableCopying, NSCoding> {
     /*All instance variables are private*/
     CGFloat _lineSpacing;
     CGFloat _paragraphSpacing;
@@ -136,9 +136,9 @@ NSDecimalTabStopType -> NSRightTextAlignment with the decimal character for the 
 /* Specifies whether the paragraph is to be treated as a header for purposes of HTML generation.  Should be set to 0 (the default value) if the paragraph is not a header, or from 1 through 6 if the paragraph is to be treated as a header. */
 - (NSInteger)headerLevel;
 
-@end
+}
 
-@interface NSMutableParagraphStyle : NSParagraphStyle
+extern class NSMutableParagraphStyle : NSParagraphStyle
 
 - (void)setLineSpacing:(CGFloat)aFloat;
 - (void)setParagraphSpacing:(CGFloat)aFloat;
@@ -162,4 +162,4 @@ NSDecimalTabStopType -> NSRightTextAlignment with the decimal character for the 
 - (void)setHyphenationFactor:(float)aFactor;
 - (void)setTighteningFactorForTruncation:(float)aFactor;
 - (void)setHeaderLevel:(NSInteger)level;
-@end
+}

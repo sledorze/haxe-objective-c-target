@@ -3,6 +3,6 @@
 
 @interface SEL : NSObject
 
-- (void) new:(id)sel;
+- (id) new:(id)sel;
 
 @end

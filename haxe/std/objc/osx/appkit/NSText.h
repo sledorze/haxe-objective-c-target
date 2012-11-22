@@ -64,7 +64,7 @@ enum {
     NSOtherTextMovement			= 0
 };
 
-@interface NSText : NSView <NSChangeSpelling, NSIgnoreMisspelledWords> {
+extern class NSText : NSView <NSChangeSpelling, NSIgnoreMisspelledWords> {
     /*All instance variables are private*/
     id _ivars;
 }
@@ -154,7 +154,7 @@ enum {
 - (void)checkSpelling:(id)sender;
 - (void)toggleRuler:(id)sender;
 
-@end
+}
 
 @protocol NSTextDelegate <NSObject>
 @optional
@@ -163,7 +163,7 @@ enum {
 - (void)textDidBeginEditing:(NSNotification *)notification;
 - (void)textDidEndEditing:(NSNotification *)notification;
 - (void)textDidChange:(NSNotification *)notification;       // Any keyDown or paste which changes the contents causes this
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSTextDidBeginEditingNotification;

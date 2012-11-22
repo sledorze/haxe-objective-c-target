@@ -7,7 +7,7 @@
 
 #import <AppKit/NSImageRep.h>
 
-@interface NSCustomImageRep : NSImageRep {
+extern class NSCustomImageRep : NSImageRep {
     /*All instance variables are private*/
     SEL _drawMethod;
     id _drawObject;
@@ -18,5 +18,5 @@
 - (SEL)drawSelector;
 - (id)delegate;
 
-@end
+}
 

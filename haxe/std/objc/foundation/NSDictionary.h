@@ -9,15 +9,15 @@
 
 /****************	Immutable Dictionary	****************/
 
-@interface NSDictionary : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSDictionary extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)objectForKey:(id)aKey;
 - (NSEnumerator *)keyEnumerator;
 
-@end
+}
 
-@interface NSDictionary (NSExtendedDictionary)
+extern class NSDictionary (NSExtendedDictionary)
 
 - (NSArray *)allKeys;
 - (NSArray *)allKeysForObject:(id)anObject;    
@@ -48,9 +48,9 @@
 - (NSSet *)keysOfEntriesWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(id key, id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
 #endif
 
-@end
+}
 
-@interface NSDictionary (NSDictionaryCreation)
+extern class NSDictionary (NSDictionaryCreation)
 
 + (id)dictionary;
 + (id)dictionaryWithObject:(id)object forKey:(id <NSCopying>)key;
@@ -78,18 +78,18 @@
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithContentsOfURL:(NSURL *)url;
 
-@end
+}
 
 /****************	Mutable Dictionary	****************/
 
-@interface NSMutableDictionary : NSDictionary
+extern class NSMutableDictionary : NSDictionary
 
 - (void)removeObjectForKey:(id)aKey;
 - (void)setObject:(id)anObject forKey:(id <NSCopying>)aKey;
 
-@end
+}
 
-@interface NSMutableDictionary (NSExtendedMutableDictionary)
+extern class NSMutableDictionary (NSExtendedMutableDictionary)
 
 - (void)addEntriesFromDictionary:(NSDictionary *)otherDictionary;
 - (void)removeAllObjects;
@@ -97,16 +97,16 @@
 - (void)setDictionary:(NSDictionary *)otherDictionary;
 - (void)setObject:(id)obj forKeyedSubscript:(id <NSCopying>)key NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
-@interface NSMutableDictionary (NSMutableDictionaryCreation)
+extern class NSMutableDictionary (NSMutableDictionaryCreation)
 
 + (id)dictionaryWithCapacity:(NSUInteger)numItems;
 - (id)initWithCapacity:(NSUInteger)numItems;
 
-@end
+}
 
-@interface NSDictionary (NSSharedKeySetDictionary)
+extern class NSDictionary (NSSharedKeySetDictionary)
 
 /*  Use this method to create a key set to pass to +dictionaryWithSharedKeySet:.
  The keys are copied from the array and must be copyable.
@@ -118,9 +118,9 @@
  */
 + (id)sharedKeySetForKeys:(NSArray *)keys NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
-@interface NSMutableDictionary (NSSharedKeySetDictionary)
+extern class NSMutableDictionary (NSSharedKeySetDictionary)
 
 /*  Create a mutable dictionary which is optimized for dealing with a known set of keys.
  Keys that are not in the key set can still be set into the dictionary, but that usage is not optimal.
@@ -130,4 +130,4 @@
  */
 + (id)dictionaryWithSharedKeySet:(id)keyset NS_AVAILABLE(10_8, 6_0);
 
-@end
+}

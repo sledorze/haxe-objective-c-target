@@ -11,14 +11,14 @@
 
 /****************	Immutable Array		****************/
 
-@interface NSArray : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSArray extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;
     
-@end
+}
 
-@interface NSArray (NSExtendedArray)
+extern class NSArray (NSExtendedArray)
 
 - (NSArray *)arrayByAddingObject:(id)anObject;
 - (NSArray *)arrayByAddingObjectsFromArray:(NSArray *)otherArray;
@@ -78,9 +78,9 @@ typedef NS_OPTIONS(NSUInteger, NSBinarySearchingOptions) {
 
 #endif
 
-@end
+}
 
-@interface NSArray (NSArrayCreation)
+extern class NSArray (NSArrayCreation)
 
 + (id)array;
 + (id)arrayWithObject:(id)anObject;
@@ -98,19 +98,19 @@ typedef NS_OPTIONS(NSUInteger, NSBinarySearchingOptions) {
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithContentsOfURL:(NSURL *)url;
 
-@end
+}
 
-@interface NSArray (NSDeprecated)
+extern class NSArray (NSDeprecated)
 
 /* This method is unsafe because it could potentially cause buffer overruns. You should use -getObjects:range: instead.
 */
 - (void)getObjects:(id __unsafe_unretained [])objects;
 
-@end
+}
 
 /****************	Mutable Array		****************/
 
-@interface NSMutableArray : NSArray
+extern class NSMutableArray : NSArray
 
 - (void)addObject:(id)anObject;
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
@@ -118,9 +118,9 @@ typedef NS_OPTIONS(NSUInteger, NSBinarySearchingOptions) {
 - (void)removeObjectAtIndex:(NSUInteger)index;
 - (void)replaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject;
 
-@end
+}
 
-@interface NSMutableArray (NSExtendedMutableArray)
+extern class NSMutableArray (NSExtendedMutableArray)
     
 - (void)addObjectsFromArray:(NSArray *)otherArray;
 - (void)exchangeObjectAtIndex:(NSUInteger)idx1 withObjectAtIndex:(NSUInteger)idx2;
@@ -149,12 +149,12 @@ typedef NS_OPTIONS(NSUInteger, NSBinarySearchingOptions) {
 - (void)sortWithOptions:(NSSortOptions)opts usingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
 #endif
 
-@end
+}
 
-@interface NSMutableArray (NSMutableArrayCreation)
+extern class NSMutableArray (NSMutableArrayCreation)
 
 + (id)arrayWithCapacity:(NSUInteger)numItems;
 - (id)initWithCapacity:(NSUInteger)numItems;
 
-@end
+}
 

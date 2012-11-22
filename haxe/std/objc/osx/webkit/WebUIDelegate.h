@@ -135,7 +135,7 @@ typedef enum {
 */
 - (void)cancel;
 
-@end
+}
 
 @class WebFrame;
 @class WebFrameView;
@@ -148,7 +148,7 @@ typedef enum {
     other aspects of web pages. These methods are used to open new
     windows and control aspects of existing windows.
 */
-@interface NSObject (WebUIDelegate)
+extern class NSObject (WebUIDelegate)
 
 /*!
     @method webView:createWebViewWithRequest:
@@ -566,4 +566,4 @@ typedef enum {
 - (void)webView:(WebView *)sender setContentRect:(NSRect)frame WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_1_0_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0);
 - (NSRect)webViewContentRect:(WebView *)sender WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_1_0_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0);
 
-@end
+}

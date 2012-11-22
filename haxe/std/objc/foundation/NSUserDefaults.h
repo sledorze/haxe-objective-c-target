@@ -10,7 +10,7 @@ FOUNDATION_EXPORT NSString * const NSGlobalDomain;
 FOUNDATION_EXPORT NSString * const NSArgumentDomain;
 FOUNDATION_EXPORT NSString * const NSRegistrationDomain;
 
-@interface NSUserDefaults : NSObject {
+extern class NSUserDefaults extends NSObject {
 @private
     NSInteger _unused;
     void *_reserved[4];
@@ -66,7 +66,7 @@ FOUNDATION_EXPORT NSString * const NSRegistrationDomain;
 - (BOOL)objectIsForcedForKey:(NSString *)key inDomain:(NSString *)domain;
 
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSUserDefaultsDidChangeNotification;
 

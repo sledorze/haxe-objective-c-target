@@ -11,7 +11,7 @@
 
 @class NSMenu;
 
-@interface NSPopUpButton : NSButton {
+extern class NSPopUpButton : NSButton {
     /*All instance variables are private*/
     @private
     struct __pbFlags {
@@ -81,7 +81,7 @@
 - (NSArray *)itemTitles;
 - (NSString *)titleOfSelectedItem;
 
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSPopUpButtonWillPopUpNotification;

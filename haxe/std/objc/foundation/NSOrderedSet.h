@@ -12,15 +12,15 @@
 /****************       Immutable Ordered Set   ****************/
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSOrderedSet : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSOrderedSet extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)idx;
 - (NSUInteger)indexOfObject:(id)object;
 
-@end
+}
 
-@interface NSOrderedSet (NSExtendedOrderedSet)
+extern class NSOrderedSet (NSExtendedOrderedSet)
 
 - (void)getObjects:(id __unsafe_unretained [])objects range:(NSRange)range;
 - (NSArray *)objectsAtIndexes:(NSIndexSet *)indexes;
@@ -77,9 +77,9 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
 - (NSString *)descriptionWithLocale:(id)locale;
 - (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level;
 
-@end
+}
 
-@interface NSOrderedSet (NSOrderedSetCreation)
+extern class NSOrderedSet (NSOrderedSetCreation)
 
 + (id)orderedSet;
 + (id)orderedSetWithObject:(id)object;
@@ -104,20 +104,20 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
 - (id)initWithSet:(NSSet *)set;
 - (id)initWithSet:(NSSet *)set copyItems:(BOOL)flag;
 
-@end
+}
 
 /****************       Mutable Ordered Set     ****************/
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSMutableOrderedSet : NSOrderedSet
+extern class NSMutableOrderedSet : NSOrderedSet
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)idx;
 - (void)removeObjectAtIndex:(NSUInteger)idx;
 - (void)replaceObjectAtIndex:(NSUInteger)idx withObject:(id)object;
 
-@end
+}
 
-@interface NSMutableOrderedSet (NSExtendedMutableOrderedSet)
+extern class NSMutableOrderedSet (NSExtendedMutableOrderedSet)
 
 - (void)addObject:(id)object;
 - (void)addObjects:(const id [])objects count:(NSUInteger)count;
@@ -155,12 +155,12 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
 - (void)sortRange:(NSRange)range options:(NSSortOptions)opts usingComparator:(NSComparator)cmptr;
 #endif
 
-@end
+}
 
-@interface NSMutableOrderedSet (NSMutableOrderedSetCreation)
+extern class NSMutableOrderedSet (NSMutableOrderedSetCreation)
 
 + (id)orderedSetWithCapacity:(NSUInteger)numItems;
 - (id)initWithCapacity:(NSUInteger)numItems;
     
-@end
+}
 

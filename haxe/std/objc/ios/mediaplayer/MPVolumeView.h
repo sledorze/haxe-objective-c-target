@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayerDefines.h>
 
-MP_EXTERN_CLASS_AVAILABLE(2_0) @interface MPVolumeView : UIView <NSCoding>
+MP_EXTERN_CLASS_AVAILABLE(2_0)extern class MPVolumeView extends UIView, implements NSObject>
 
 - (CGSize)sizeThatFits:(CGSize)size;
 
-@property (nonatomic) BOOL showsVolumeSlider NS_AVAILABLE_IOS(4_2); // Default is YES.
-@property (nonatomic) BOOL showsRouteButton NS_AVAILABLE_IOS(4_2);  // Default is YES.
+	public var BOOL showsVolumeSlider NS_AVAILABLE_IOS(4_2); // Default is YES.
+	public var BOOL showsRouteButton NS_AVAILABLE_IOS(4_2);  // Default is YES.
 
 // Volume slider customization
 
@@ -36,4 +36,4 @@ MP_EXTERN_CLASS_AVAILABLE(2_0) @interface MPVolumeView : UIView <NSCoding>
 
 - (CGRect)routeButtonRectForBounds:(CGRect)bounds NS_AVAILABLE_IOS(6_0);
 
-@end
+}

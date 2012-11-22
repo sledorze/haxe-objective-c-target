@@ -57,7 +57,7 @@ extern NSString *WebHistoryItemsKey;
     @discussion WebHistory is used to track pages that have been loaded
     by WebKit.
 */
-@interface WebHistory : NSObject {
+extern class WebHistory extends NSObject {
 @private
     WebHistoryPrivate *_historyPrivate;
 }
@@ -162,4 +162,4 @@ extern NSString *WebHistoryItemsKey;
 */
 - (int)historyAgeInDaysLimit;
 
-@end
+}

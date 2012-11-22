@@ -43,7 +43,7 @@
 @class AVPlayerLayerInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVPlayerLayer : CALayer
+extern class AVPlayerLayer : CALayer
 {
 	AVPlayerLayerInternal		*_playerLayer;
 }
@@ -56,28 +56,28 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (AVPlayerLayer *)playerLayerWithPlayer:(AVPlayer *)player;
 
 /*! 
-	@property		player
+		public var 		player
 	@abstract		Indicates the instance of AVPlayer for which the AVPlayerLayer displays visual output
 */
-@property (nonatomic, retain) AVPlayer *player;
+	public var AVPlayer *player;
 
 /*!
-	@property		videoGravity
+		public var 		videoGravity
 	@abstract		A string defining how the video is displayed within an AVPlayerLayer bounds rect.
 	@discusssion	Options are AVLayerVideoGravityResizeAspect, AVLayerVideoGravityResizeAspectFill 
  					and AVLayerVideoGravityResize. AVLayerVideoGravityResizeAspect is default. 
 					See <AVFoundation/AVAnimation.h> for a description of these options.
  */
-@property(copy) NSString *videoGravity;
+	public var NSString *videoGravity;
 
 /*!
-	 @property		readyForDisplay
+	 	public var 		readyForDisplay
 	 @abstract		Boolean indicating that the first video frame has been made ready for display for the current item of the associated AVPlayer.
 	 @discusssion	Use this property as an indicator of when best to show or animate-in an AVPlayerLayer into view. 
 					An AVPlayerLayer may be displayed, or made visible, while this propoerty is NO, however the layer will not have any 
 					user-visible content until the value becomes YES. 
 					This property remains NO for an AVPlayer currentItem whose AVAsset contains no enabled video tracks.
  */
-@property(nonatomic, readonly, getter=isReadyForDisplay) BOOL readyForDisplay;
+	public var (nonatomic, readonly, getter=isReadyForDisplay) BOOL readyForDisplay;
 
-@end
+}

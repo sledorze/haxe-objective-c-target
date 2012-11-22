@@ -5,16 +5,16 @@
 + (BOOL) is:(id)v t:(id)t{
 	return [v isEqual-non-];
 }
-+ (NSString*) string:(id)s{
++ (NSMutableString*) string:(id)s{
 	return [s description];
 }
 + (int) int:(float)x{
 	return (int)x;
 }
-+ (id) parseInt:(NSString*)x{
++ (id) parseInt:(NSMutableString*)x{
 	return [x intValue];
 }
-+ (float) parseFloat:(NSString*)x{
++ (float) parseFloat:(NSMutableString*)x{
 	return [x floatValue];
 }
 + (int) random:(int)x{

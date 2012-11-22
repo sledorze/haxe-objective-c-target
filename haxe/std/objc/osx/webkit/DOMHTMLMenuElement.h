@@ -28,8 +28,8 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_1_3
 
-@interface DOMHTMLMenuElement : DOMHTMLElement
-@property BOOL compact;
-@end
+extern class DOMHTMLMenuElement : DOMHTMLElement
+	public var  BOOL compact;
+}
 
 #endif

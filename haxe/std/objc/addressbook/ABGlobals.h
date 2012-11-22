@@ -40,24 +40,24 @@ extern NSString * const kABJobTitleProperty;              // Job Title - kABStri
 extern NSString * const kABHomePageProperty;              // Home Web page - kABStringProperty
 
 extern NSString * const kABURLsProperty AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;          // URLs - kABMultiStringProperty
-        extern NSString * const kABHomePageLabel AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER; // Homepage URL
+       extern NSString * const kABHomePageLabel AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER; // Homepage URL
 		
 extern NSString * const kABCalendarURIsProperty AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER; // Calendar URIs - kABMultiStringProperty
 
 extern NSString * const kABEmailProperty;                 // Email(s) - kABMultiStringProperty
-        extern NSString * const kABEmailWorkLabel;        // Work email
-        extern NSString * const kABEmailHomeLabel;        // Home email
-        extern NSString * const kABEmailMobileMeLabel;    // MobileMe email
+       extern NSString * const kABEmailWorkLabel;        // Work email
+       extern NSString * const kABEmailHomeLabel;        // Home email
+       extern NSString * const kABEmailMobileMeLabel;    // MobileMe email
 
 extern NSString * const kABAddressProperty;                // Street Addresses - kABMultiDictionaryProperty
-    extern NSString * const kABAddressStreetKey;           // Street
-    extern NSString * const kABAddressCityKey;             // City
-    extern NSString * const kABAddressStateKey;            // State
-    extern NSString * const kABAddressZIPKey;              // Zip
-    extern NSString * const kABAddressCountryKey;          // Country
-    extern NSString * const kABAddressCountryCodeKey;      // Country Code
-        extern NSString * const kABAddressHomeLabel;       // Home Address
-        extern NSString * const kABAddressWorkLabel;       // Work Address
+   extern NSString * const kABAddressStreetKey;           // Street
+   extern NSString * const kABAddressCityKey;             // City
+   extern NSString * const kABAddressStateKey;            // State
+   extern NSString * const kABAddressZIPKey;              // Zip
+   extern NSString * const kABAddressCountryKey;          // Country
+   extern NSString * const kABAddressCountryCodeKey;      // Country Code
+       extern NSString * const kABAddressHomeLabel;       // Home Address
+       extern NSString * const kABAddressWorkLabel;       // Work Address
 
 /*
  * kABAddressCountryCodeKey code must be one of the following:
@@ -129,20 +129,20 @@ extern NSString * const kABAddressProperty;                // Street Addresses -
 
 extern NSString* const kABOtherDatesProperty       AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;       // Dates associated with this person - kABMultiDateProperty - (Person)
 extern NSString* const kABOtherDateComponentsProperty AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;    // Dates associated with this person - kABMultiDateComponentsProperty - (Person)
-       extern  NSString* const kABAnniversaryLabel AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABAnniversaryLabel AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 extern NSString* const kABRelatedNamesProperty     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;       // names - kABMultiStringProperty
-       extern  NSString* const kABFatherLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABMotherLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABParentLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABBrotherLabel     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABSisterLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABChildLabel       AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABFriendLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABSpouseLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABPartnerLabel     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABAssistantLabel   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-       extern  NSString* const kABManagerLabel     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABFatherLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABMotherLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABParentLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABBrotherLabel     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABSisterLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABChildLabel       AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABFriendLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABSpouseLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABPartnerLabel     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABAssistantLabel   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+      extern  NSString* const kABManagerLabel     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 extern NSString * const kABDepartmentProperty      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;     // Department name - (Person)
 
@@ -209,15 +209,15 @@ extern NSString * const kABInstantMessageProperty					AVAILABLE_MAC_OS_X_VERSION
 		extern NSString * const kABInstantMessageServiceYahoo		AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;		// Yahoo!
 
 extern NSString * const kABSocialProfileProperty                    AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // Social Profiles - kABMultiDictionaryProperty
-    extern NSString * const kABSocialProfileURLKey                  AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // String representation of the profile URL
-    extern NSString * const kABSocialProfileUsernameKey             AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // User-visible profile name
-    extern NSString * const kABSocialProfileUserIdentifierKey       AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // Service-specific identifier
-    extern NSString * const kABSocialProfileServiceKey              AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // Service name. Possible values follow.
-        extern NSString * const kABSocialProfileServiceTwitter      AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern NSString * const kABSocialProfileServiceFacebook     AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern NSString * const kABSocialProfileServiceLinkedIn     AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern NSString * const kABSocialProfileServiceFlickr       AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern NSString * const kABSocialProfileServiceMySpace      AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
+   extern NSString * const kABSocialProfileURLKey                  AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // String representation of the profile URL
+   extern NSString * const kABSocialProfileUsernameKey             AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // User-visible profile name
+   extern NSString * const kABSocialProfileUserIdentifierKey       AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // Service-specific identifier
+   extern NSString * const kABSocialProfileServiceKey              AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;  // Service name. Possible values follow.
+       extern NSString * const kABSocialProfileServiceTwitter      AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern NSString * const kABSocialProfileServiceFacebook     AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern NSString * const kABSocialProfileServiceLinkedIn     AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern NSString * const kABSocialProfileServiceFlickr       AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern NSString * const kABSocialProfileServiceMySpace      AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 extern NSString * const kABNoteProperty;                   // Note - kABStringProperty
 

@@ -51,7 +51,7 @@
 - (NSSize)minContentSize NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
 /* NSColorPickingCustom MUST be implemented by the CustomPicker, or an error will occur! 
 */
@@ -72,5 +72,5 @@
 /* Set your color picker's displayed color to newColor.
 */
 - (void)setColor:(NSColor *)newColor;
-@end
+}
 

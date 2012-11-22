@@ -4,7 +4,7 @@ import objc.foundation.NSObject;
 import objc.foundation.NSArray;
 
 
-extern class CAAnimation extends NSObject/*<NSCoding, NSCopying, CAMediaTiming, CAAction>*/{
+extern class CAAnimation extends NSObject/*,implements NSObject, NSCopying, CAMediaTiming, CAAction>*/{
 
 	public static function animation () :CAAnimation;
 	public static function defaultValueForKey(key:String) :CAAnimation;

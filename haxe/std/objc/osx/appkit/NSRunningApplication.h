@@ -53,7 +53,7 @@ typedef NSInteger NSApplicationActivationPolicy;
 @class NSLock, NSDate, NSImage, NSURL;
 
 NS_CLASS_AVAILABLE(10_6, NA)
-@interface NSRunningApplication : NSObject {
+extern class NSRunningApplication extends NSObject {
     @private
     id _superReserved;
     __strong void *_asn;
@@ -87,46 +87,46 @@ NS_CLASS_AVAILABLE(10_6, NA)
 }
 
 /* Indicates that the process is an exited application.  This is observable through KVO. */
-@property (readonly, getter=isTerminated) BOOL terminated;
+	public var  (readonly, getter=isTerminated) BOOL terminated;
 
 /* Indicates that the process is finished launching, which corresponds to the NSApplicationDidFinishLaunching internal notification.  This is observable through KVO.  Some applications do not post this notification and so are never reported as finished launching. */
-@property (readonly, getter=isFinishedLaunching) BOOL finishedLaunching;
+	public var  (readonly, getter=isFinishedLaunching) BOOL finishedLaunching;
 
 /* Indicates whether the application is currently hidden.  This is observable through KVO. */
-@property (readonly, getter=isHidden) BOOL hidden;
+	public var  (readonly, getter=isHidden) BOOL hidden;
 
 /* Indicates whether the application is currently frontmost.  This is observable through KVO. */
-@property (readonly, getter=isActive) BOOL active;
+	public var  (readonly, getter=isActive) BOOL active;
 
 /* Indicates whether the application currently owns the menu bar.  This is observable through KVO. */
-@property (readonly) BOOL ownsMenuBar NS_AVAILABLE_MAC(10_7);
+	public var BOOL ownsMenuBar NS_AVAILABLE_MAC(10_7);
 
 /* Indicates the activation policy of the application.   This is observable through KVO (the type is usually fixed, but may be changed through a call to -[NSApplication setActivationPolicy:]).  */
-@property (readonly) NSApplicationActivationPolicy activationPolicy;
+	public var NSApplicationActivationPolicy activationPolicy;
 
 /* Indicates the name of the application.  This is dependent on the current localization of the referenced app, and is suitable for presentation to the user. */
-@property (readonly) NSString *localizedName;
+	public var NSString *localizedName;
 
 /* Indicates the CFBundleIdentifier of the application, or nil if the application does not have an Info.plist. */
-@property (readonly) NSString *bundleIdentifier;
+	public var NSString *bundleIdentifier;
 
 /* Indicates the URL to the application's bundle, or nil if the application does not have a bundle. */
-@property (readonly) NSURL *bundleURL;
+	public var NSURL *bundleURL;
 
 /* Indicates the URL to the application's executable. */
-@property (readonly) NSURL *executableURL;
+	public var NSURL *executableURL;
 
 /* Indicates the process identifier (pid) of the application.  Do not rely on this for comparing processes.  Use isEqual: instead.  Not all applications have a pid.  Applications without a pid return -1 from this method. */
-@property (readonly) pid_t processIdentifier;
+	public var pid_t processIdentifier;
 
 /* Indicates the date when the application was launched.  This property is not available for all applications.  Specifically, it is not available for applications that were launched without going through LaunchServices.   */
-@property (readonly) NSDate *launchDate;
+	public var NSDate *launchDate;
 
 /* Returns the icon of the application. */
-@property (readonly) NSImage *icon;
+	public var NSImage *icon;
 
 /* Indicates the executing processor architecture for the application, as an NSBundleExecutableArchitecture from NSBundle.h. */
-@property (readonly) NSInteger executableArchitecture;
+	public var NSInteger executableArchitecture;
 
 /* Attempts to hide or unhide the receiver.  These methods return true if the request to hide or unhide was successfully sent, false if not (for example, if the application has quit, or is of a type that cannot be unhidden). */
 - (BOOL)hide;
@@ -156,9 +156,9 @@ NS_CLASS_AVAILABLE(10_6, NA)
  */
 + (void) terminateAutomaticallyTerminableApplications;
 
-@end
+}
 
-@interface NSWorkspace (NSWorkspaceRunningApplications)
+extern class NSWorkspace (NSWorkspaceRunningApplications)
 
 /* Returns an array of NSRunningApplications representing currently running applications.  The order of the array is unspecified, but it is stable, meaning that the relative order of particular applications will not change across multiple calls to runningApplications.
 
@@ -168,5 +168,5 @@ NS_CLASS_AVAILABLE(10_6, NA)
  */
 - (NSArray *)runningApplications NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 

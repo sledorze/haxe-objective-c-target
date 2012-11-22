@@ -40,57 +40,57 @@
 @class AVMetadataItemInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVMetadataItem : NSObject <AVAsynchronousKeyValueLoading, NSCopying, NSMutableCopying>
+extern class AVMetadataItem extends NSObject <AVAsynchronousKeyValueLoading, NSCopying, NSMutableCopying>
 {
 	AVMetadataItemInternal	*_priv;
 }
 
 /* indicates the key of the metadata item */
-@property (readonly, copy) id<NSObject, NSCopying> key;
+	public var (default, null) id<NSObject, NSCopying> key;
 
 /* indicates the common key of the metadata item */
-@property (readonly, copy) NSString *commonKey;
+	public var (default, null) NSString *commonKey;
 
 /* indicates the keyspace of the metadata item's key; this will typically
    be the default keyspace for the metadata container in which the metadata item is stored */
-@property (readonly, copy) NSString *keySpace;
+	public var (default, null) NSString *keySpace;
 
 /* indicates the locale of the metadata item; may be nil if no locale information is available for the metadata item */
-@property (readonly, copy) NSLocale *locale;
+	public var (default, null) NSLocale *locale;
 
 /* indicates the timestamp of the metadata item. */
-@property (readonly) CMTime time;
+	public var CMTime time;
 
 /* indicates the duration of the metadata item */
-@property (readonly) CMTime duration NS_AVAILABLE(10_7, 4_2);
+	public var CMTime duration NS_AVAILABLE(10_7, 4_2);
 
 /* provides the value of the metadata item */
-@property (readonly, copy) id<NSObject, NSCopying> value;
+	public var (default, null) id<NSObject, NSCopying> value;
 
 /* provides a dictionary of the additional attributes */
-@property (readonly, copy) NSDictionary *extraAttributes;
+	public var (default, null) NSDictionary *extraAttributes;
 
-@end
+}
 
 
-@interface AVMetadataItem (AVMetadataItemTypeCoercion)
+extern class AVMetadataItem (AVMetadataItemTypeCoercion)
 
 /* provides the value of the metadata item as a string; will be nil if the value cannot be represented as a string */
-@property (readonly) NSString *stringValue;
+	public var NSString *stringValue;
 
 /* provides the value of the metadata item as an NSNumber. If the metadata item's value can't be coerced to a number, @"numberValue" will be nil. */
-@property (readonly) NSNumber *numberValue;
+	public var NSNumber *numberValue;
 
 /* provides the value of the metadata item as an NSDate. If the metadata item's value can't be coerced to a date, @"dateValue" will be nil. */
-@property (readonly) NSDate *dateValue;
+	public var NSDate *dateValue;
 
 /* provides the raw bytes of the value of the metadata item */
-@property (readonly) NSData *dataValue;
+	public var NSData *dataValue;
 
-@end
+}
 
 
-@interface AVMetadataItem (AVAsynchronousKeyValueLoading)
+extern class AVMetadataItem (AVAsynchronousKeyValueLoading)
 
 /* The following two methods of the AVAsynchronousKeyValueLoading protocol are re-declared here so that they can be annotated with availability information. See AVAsynchronousKeyValueLoading.h for documentation. */
 
@@ -98,10 +98,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 - (void)loadValuesAsynchronouslyForKeys:(NSArray *)keys completionHandler:(void (^)(void))handler NS_AVAILABLE(10_7, 4_2);
 
-@end
+}
 
 
-@interface AVMetadataItem (AVMetadataItemArrayFiltering)
+extern class AVMetadataItem (AVMetadataItemArrayFiltering)
 
 /*!
  @method		metadataItemsFromArray:filteredAndSortedAccordingToPreferredLanguages:
@@ -143,7 +143,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 + (NSArray *)metadataItemsFromArray:(NSArray *)metadataItems withKey:(id)key keySpace:(NSString *)keySpace;
 
-@end
+}
 
 
 /*!
@@ -159,31 +159,31 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 @class AVMutableMetadataItemInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVMutableMetadataItem : AVMetadataItem
+extern class AVMutableMetadataItem : AVMetadataItem
 {
 	AVMutableMetadataItemInternal	*_mutablePriv;
 }
 
-@property (readwrite, copy) id<NSObject, NSCopying> key;
+	public var  id<NSObject, NSCopying> key;
 
 /* indicates the keyspace of the metadata item's key; this will typically
    be the default keyspace for the metadata container in which the metadata item is stored */
-@property (readwrite, copy) NSString *keySpace;
+	public var  NSString *keySpace;
 
 /* indicates the locale of the metadata item; may be nil if no locale information is available for the metadata item */
-@property (readwrite, copy) NSLocale *locale;
+	public var  NSLocale *locale;
 
 /* indicates the timestamp of the metadata item. */
-@property (readwrite) CMTime time;
+	public var  CMTime time;
 
 /* indicates the duration of the metadata item */
-@property (readwrite) CMTime duration NS_AVAILABLE(10_7, 4_2);
+	public var  CMTime duration NS_AVAILABLE(10_7, 4_2);
 
 /* provides the value of the metadata item */
-@property (readwrite, copy) id<NSObject, NSCopying> value;
+	public var  id<NSObject, NSCopying> value;
 
 /* provides a dictionary of the additional attributes */
-@property (readwrite, copy) NSDictionary *extraAttributes;
+	public var  NSDictionary *extraAttributes;
 
 /*!
 	@method			metadataItem
@@ -191,5 +191,5 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 + (AVMutableMetadataItem *)metadataItem;
 
-@end
+}
 

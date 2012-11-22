@@ -1,6 +1,6 @@
 //
 //  UIPickerView.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2006-2012, Apple Inc. All rights reserved.
 //
@@ -11,9 +11,9 @@
 #import <UIKit/UITableView.h>
 #import <UIKit/UIKitDefines.h>
 
-@protocol UIPickerViewDataSource, UIPickerViewDelegate;
+extern interface UIPickerViewDataSource, UIPickerViewDelegate;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPickerView : UIView <NSCoding, UITableViewDataSource>
+extern class UIPickerView extends UIView, implements NSObject, UITableViewDataSource>
 { 
   @private
     NSMutableArray            *_tables;
@@ -45,12 +45,12 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPickerView : UIView <NSCoding, UITableV
     } _pickerViewFlags;
 }
 
-@property(nonatomic,assign) id<UIPickerViewDataSource> dataSource;                // default is nil. weak reference
-@property(nonatomic,assign) id<UIPickerViewDelegate>   delegate;                  // default is nil. weak reference
-@property(nonatomic)        BOOL                       showsSelectionIndicator;   // default is NO
+	public var  id<UIPickerViewDataSource> dataSource;                // default is nil. weak reference
+	public var  id<UIPickerViewDelegate>   delegate;                  // default is nil. weak reference
+	public var         BOOL                       showsSelectionIndicator;   // default is NO
 
 // info that was fetched and cached from the data source and delegate
-@property(nonatomic,readonly) NSInteger numberOfComponents;
+	public var (default, null) NSInteger numberOfComponents;
 - (NSInteger)numberOfRowsInComponent:(NSInteger)component;
 - (CGSize)rowSizeForComponent:(NSInteger)component;
 
@@ -60,18 +60,18 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPickerView : UIView <NSCoding, UITableV
 - (UIView *)viewForRow:(NSInteger)row forComponent:(NSInteger)component;
 
 // Reloading whole view or single component
-- (void)reloadAllComponents;
-- (void)reloadComponent:(NSInteger)component;
+	public function reloadAllComponents;
+	public function reloadComponent:(NSInteger)component;
 
 // selection. in this case, it means showing the appropriate row in the middle
-- (void)selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated;  // scrolls the specified row to center.
+	public function selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated;  // scrolls the specified row to center.
 
 - (NSInteger)selectedRowInComponent:(NSInteger)component;                                   // returns selected row. -1 if nothing selected
 
-@end
+}
 
 
-@protocol UIPickerViewDataSource<NSObject>
+extern interface UIPickerViewDataSource<NSObject>
 @required
 
 // returns the number of 'columns' to display.
@@ -79,10 +79,10 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPickerView : UIView <NSCoding, UITableV
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component;
-@end
+}
 
 
-@protocol UIPickerViewDelegate<NSObject>
+extern interface UIPickerViewDelegate<NSObject>
 @optional
 
 // returns width of column and height of row for each component. 
@@ -96,6 +96,6 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPickerView : UIView <NSCoding, UITableV
 - (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component NS_AVAILABLE_IOS(6_0); // attributed title is favored if both methods are implemented
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view;
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
+	public function pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component;
 
-@end
+}

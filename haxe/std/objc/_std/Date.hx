@@ -29,7 +29,6 @@ import objc.foundation.NSCalendar;
 @:category @:core_api class Date {
 
 	private var _seconds :Float;
-	private var _date :NSDate;
 	private var _calendar :NSCalendar;
 	private var _components :NSDateComponents;
 
@@ -50,7 +49,7 @@ import objc.foundation.NSCalendar;
 		_components.setMinute ( min );
 		_components.setSecond ( sec );
 		
-		_date = _calendar.dateFromComponents ( _components );
+		untyped __objc__("self = _calendar.dateFromComponents ( _components )");
 		
 	}
 

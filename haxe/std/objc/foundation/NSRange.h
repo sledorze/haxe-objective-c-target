@@ -38,10 +38,10 @@ FOUNDATION_EXPORT NSRange NSIntersectionRange(NSRange range1, NSRange range2);
 FOUNDATION_EXPORT NSString *NSStringFromRange(NSRange range);
 FOUNDATION_EXPORT NSRange NSRangeFromString(NSString *aString);
 
-@interface NSValue (NSValueRangeExtensions)
+extern class NSValue (NSValueRangeExtensions)
 
 + (NSValue *)valueWithRange:(NSRange)range;
 - (NSRange)rangeValue;
 
-@end
+}
 

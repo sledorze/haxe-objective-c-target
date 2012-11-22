@@ -31,27 +31,27 @@
 @class NSString;
 @class NSURL;
 
-@interface DOMHTMLImageElement : DOMHTMLElement
-@property(copy) NSString *name;
-@property(copy) NSString *align;
-@property(copy) NSString *alt;
-@property(copy) NSString *border;
-@property int height;
-@property int hspace;
-@property BOOL isMap;
-@property(copy) NSString *longDesc;
-@property(copy) NSString *src;
-@property(copy) NSString *useMap;
-@property int vspace;
-@property int width;
-@property(readonly) BOOL complete AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *lowsrc AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int naturalHeight AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int naturalWidth AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int x AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int y AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *altDisplayString AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSURL *absoluteImageURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLImageElement : DOMHTMLElement
+	public var NSString *name;
+	public var NSString *align;
+	public var NSString *alt;
+	public var NSString *border;
+	public var  int height;
+	public var  int hspace;
+	public var  BOOL isMap;
+	public var NSString *longDesc;
+	public var NSString *src;
+	public var NSString *useMap;
+	public var  int vspace;
+	public var  int width;
+	public var  (default, null) : BOOL complete AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *lowsrc AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int naturalHeight AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int naturalWidth AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int x AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int y AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *altDisplayString AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSURL *absoluteImageURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

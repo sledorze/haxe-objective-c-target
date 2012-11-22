@@ -30,10 +30,10 @@
 
 @class DOMFile;
 
-@interface DOMFileList : DOMObject
-@property(readonly) unsigned length;
+extern class DOMFileList : DOMObject
+	public var  (default, null) : unsigned length;
 
 - (DOMFile *)item:(unsigned)index;
-@end
+}
 
 #endif

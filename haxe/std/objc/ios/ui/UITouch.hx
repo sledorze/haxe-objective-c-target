@@ -17,7 +17,7 @@ extern class UIWebView extends UIView {
 	 public var tapCount : NSUInteger;   // touch down within a certain point within a certain amount of time
 
 	 public var window : UIWindow;
-	 public var view : UIView;
+	 public var view extends UIView;
 	 public var gestureRecognizers : Array;
 
 	 public function locationInView (view:UIView) :CGPoint;

@@ -32,18 +32,18 @@
 @class NSString;
 @class NSURL;
 
-@interface DOMHTMLLinkElement : DOMHTMLElement
-@property BOOL disabled;
-@property(copy) NSString *charset;
-@property(copy) NSString *href;
-@property(copy) NSString *hreflang;
-@property(copy) NSString *media;
-@property(copy) NSString *rel;
-@property(copy) NSString *rev;
-@property(copy) NSString *target;
-@property(copy) NSString *type;
-@property(readonly, retain) DOMStyleSheet *sheet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSURL *absoluteLinkURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLLinkElement : DOMHTMLElement
+	public var  BOOL disabled;
+	public var NSString *charset;
+	public var NSString *href;
+	public var NSString *hreflang;
+	public var NSString *media;
+	public var NSString *rel;
+	public var NSString *rev;
+	public var NSString *target;
+	public var NSString *type;
+	public var (default, null) DOMStyleSheet *sheet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSURL *absoluteLinkURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

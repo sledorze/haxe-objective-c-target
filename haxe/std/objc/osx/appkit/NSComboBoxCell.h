@@ -10,7 +10,7 @@
 @class NSButtonCell, NSTableView, NSMutableArray;
 @protocol NSComboBoxCellDataSource;
 
-@interface NSComboBoxCell : NSTextFieldCell   {
+extern class NSComboBoxCell : NSTextFieldCell   {
     /*All instance variables are private*/
     id _delegate;
     id _dataSource;
@@ -81,7 +81,7 @@
 - (NSInteger)indexOfItemWithObjectValue:(id)object;
 - (NSArray *)objectValues;
 
-@end
+}
 
 @protocol NSComboBoxCellDataSource <NSObject>
 @optional
@@ -91,4 +91,4 @@
 
 - (NSUInteger)comboBoxCell:(NSComboBoxCell *)aComboBoxCell indexOfItemWithStringValue:(NSString *)string;
 - (NSString *)comboBoxCell:(NSComboBoxCell *)aComboBoxCell completedString:(NSString *)uncompletedString; 
-@end
+}

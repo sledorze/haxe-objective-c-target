@@ -8,7 +8,7 @@
 #import <AppKit/NSControl.h>
 #import <AppKit/NSSliderCell.h>
 
-@interface NSSlider : NSControl
+extern class NSSlider : NSControl
 
 - (double)minValue;
 - (void)setMinValue:(double)aDouble;
@@ -31,9 +31,9 @@
 - (NSInteger)isVertical;
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
 
-@end
+}
 
-@interface NSSlider(NSTickMarkSupport)
+extern class NSSlider(NSTickMarkSupport)
 
 // For setting and retrieving the number of tick marks on a slider.
 //   0 indicates no tick marks are present, which is the default
@@ -66,4 +66,4 @@
 
 - (double)closestTickMarkValueToValue:(double)value;
 
-@end
+}

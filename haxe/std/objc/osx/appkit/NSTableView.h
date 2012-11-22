@@ -67,7 +67,7 @@ enum { NSTableViewDropOn, NSTableViewDropAbove };
 typedef NSUInteger NSTableViewDropOperation;
 
 
-@interface NSTableView : NSControl <NSUserInterfaceValidations, NSTextViewDelegate, NSDraggingSource>
+extern class NSTableView : NSControl <NSUserInterfaceValidations, NSTextViewDelegate, NSDraggingSource>
 {
     /* All instance variables are private */
     NSTableHeaderView   *_headerView;
@@ -641,7 +641,7 @@ typedef NSUInteger NSTableViewAnimationOptions;
  */
 - (void)moveRowAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 #pragma mark -
 
@@ -764,7 +764,7 @@ typedef NSUInteger NSTableViewAnimationOptions;
 - (void)tableViewColumnDidResize:(NSNotification *)notification;
 - (void)tableViewSelectionIsChanging:(NSNotification *)notification;
 
-@end
+}
 
 APPKIT_EXTERN NSString *NSTableViewSelectionDidChangeNotification;
 APPKIT_EXTERN NSString *NSTableViewColumnDidMoveNotification;       // @"NSOldColumn", @"NSNewColumn"
@@ -832,9 +832,9 @@ APPKIT_EXTERN NSString *const NSTableViewRowViewKey NS_AVAILABLE_MAC(10_7); // @
 */
 - (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet;
 
-@end
+}
 
-@interface NSObject(NSTableViewDataSourceDeprecated)
+extern class NSObject(NSTableViewDataSourceDeprecated)
 
 /*
  * Deprecated delegate methods
@@ -844,12 +844,12 @@ APPKIT_EXTERN NSString *const NSTableViewRowViewKey NS_AVAILABLE_MAC(10_7); // @
 */
 - (BOOL)tableView:(NSTableView *)tableView writeRows:(NSArray *)rows toPasteboard:(NSPasteboard *)pboard NS_DEPRECATED_MAC(10_0, 10_4);
 
-@end
+}
 
 
 /* Deprecated methods */
 
-@interface NSTableView(NSDeprecated) 
+extern class NSTableView(NSDeprecated) 
 
 /* Deprecated in Mac OS 10.3.  Calls setGridStyleMask:, setting grid style to either None, or vertical and horizonal solid grid lines as appropriate.
 */
@@ -888,4 +888,4 @@ APPKIT_EXTERN NSString *const NSTableViewRowViewKey NS_AVAILABLE_MAC(10_7); // @
 */
 - (NSRange)columnsInRect:(NSRect)rect NS_DEPRECATED_MAC(10_0, 10_5);
 
-@end
+}

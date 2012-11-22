@@ -18,7 +18,7 @@
 // user interface.
 
 
-@interface ABPersonView : NSView {
+extern class ABPersonView : NSView {
 @private
 	ABAddressBook *_addressBook;
 	ABPerson *_person;
@@ -30,16 +30,16 @@
 	id   _reserved3;
 }
 
-@property (assign) BOOL editing;
+	public var  BOOL editing;
 // A Boolean value that determines whether the receiver is in editing mode.
 // When YES, ABPersonView includes additional controls to manipulate person properties.
 
-@property (readwrite, retain) ABPerson *person;
+	public var  (readwrite, retain) ABPerson *person;
 // An ABPerson record for display.
 // Raises if person originates from ABAddressBook's +sharedAddressBook.
 // Person must be exist in an ABAddressBook created and manipulated on the main thread only.
 // When person is nil, displays an empty selection state. 
 
-@end
+}
 
 #endif

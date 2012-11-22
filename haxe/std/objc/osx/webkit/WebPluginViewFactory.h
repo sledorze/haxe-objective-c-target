@@ -83,4 +83,4 @@ extern NSString *WebPlugInShouldLoadMainResourceKey AVAILABLE_IN_WEBKIT_VERSION_
 */
 + (NSView *)plugInViewWithArguments:(NSDictionary *)arguments;
 
-@end
+}

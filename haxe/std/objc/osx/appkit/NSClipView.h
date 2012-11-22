@@ -9,7 +9,7 @@
 
 @class NSColor, NSNotification;
 
-@interface NSClipView : NSView
+extern class NSClipView : NSView
 {
     /*All instance variables are private*/
     NSColor             *_backgroundColor;
@@ -62,9 +62,9 @@
 - (NSPoint)constrainScrollPoint:(NSPoint)newOrigin;
 - (void)scrollToPoint:(NSPoint)newOrigin;
 
-@end
+}
 
-@interface NSView(NSClipViewSuperview)
+extern class NSView(NSClipViewSuperview)
 - (void)reflectScrolledClipView:(NSClipView *)aClipView;
 - (void)scrollClipView:(NSClipView *)aClipView toPoint:(NSPoint)aPoint;
-@end
+}

@@ -13,7 +13,7 @@
 @protocol NSDraggingSource, NSPasteboardWriting;
 
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface NSDraggingSession : NSObject {
+extern class NSDraggingSession extends NSObject {
 @private
     void *_private;
     NSPoint _dragLocation;
@@ -37,24 +37,24 @@ NS_CLASS_AVAILABLE(10_7, NA)
 }
 
 /* Controls the dragging formation when the drag is over the source. The default value is NSDraggingFormationNone. */
-@property NSDraggingFormation draggingFormation;
+	public var  NSDraggingFormation draggingFormation;
 
 /* Controls whether the dragging image animates back to its starting point on a cancelled or failed drag. -draggingSession:endedAtPoint:operation: is a good time to change this value depending on the result of the drag operation. The default value is YES.
  */
-@property BOOL animatesToStartingPositionsOnCancelOrFail;
+	public var  BOOL animatesToStartingPositionsOnCancelOrFail;
 
 /* The index of the draggingItem under the cursor. The default is the NSDraggingItem closest to the location in the event that was passed to -beginDraggingSessionWithItems:event:source:
  */
-@property NSInteger draggingLeaderIndex;
+	public var  NSInteger draggingLeaderIndex;
 
 /* Returns the pasteboard object that holds the data being dragged. */
-@property(readonly) NSPasteboard *draggingPasteboard;
+	public var  (default, null) : NSPasteboard *draggingPasteboard;
 
 /* Returns a number that uniquely identifies the dragging session. */
-@property(readonly) NSInteger draggingSequenceNumber;
+	public var  (default, null) : NSInteger draggingSequenceNumber;
 
 /* The current location (cursor) of the drag in screen coordinates. */
-@property(readonly) NSPoint draggingLocation;
+	public var  (default, null) : NSPoint draggingLocation;
 
 /* Use the following enumerate methods to modify the properties of each dragging item. For example, change the drag image and size.
    Note: All changes made here are only in effect while destination is not overriding them. When the drag exits the destination, all properties return to the last values set here.
@@ -65,6 +65,6 @@ NS_CLASS_AVAILABLE(10_7, NA)
 */
 - (void)enumerateDraggingItemsWithOptions:(NSDraggingItemEnumerationOptions)enumOpts forView:(NSView *)view classes:(NSArray *)classArray searchOptions:(NSDictionary *)searchOptions usingBlock:(void (^)(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop))block;
 #endif
-@end
+}
 
 

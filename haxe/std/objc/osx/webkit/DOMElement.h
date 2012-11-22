@@ -38,28 +38,28 @@ enum {
     DOM_ALLOW_KEYBOARD_INPUT = 1
 };
 
-@interface DOMElement : DOMNode
-@property(readonly, copy) NSString *tagName;
-@property(readonly, retain) DOMCSSStyleDeclaration *style;
-@property(readonly) int offsetLeft;
-@property(readonly) int offsetTop;
-@property(readonly) int offsetWidth;
-@property(readonly) int offsetHeight;
-@property(readonly, retain) DOMElement *offsetParent;
-@property(readonly) int clientLeft AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int clientTop AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int clientWidth;
-@property(readonly) int clientHeight;
-@property int scrollLeft;
-@property int scrollTop;
-@property(readonly) int scrollWidth;
-@property(readonly) int scrollHeight;
-@property(readonly, retain) DOMElement *firstElementChild AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(readonly, retain) DOMElement *lastElementChild AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(readonly, retain) DOMElement *previousElementSibling AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(readonly, retain) DOMElement *nextElementSibling AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(readonly) unsigned childElementCount AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(readonly, copy) NSString *innerText AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMElement : DOMNode
+	public var (default, null) NSString *tagName;
+	public var (default, null) DOMCSSStyleDeclaration *style;
+	public var  (default, null) : int offsetLeft;
+	public var  (default, null) : int offsetTop;
+	public var  (default, null) : int offsetWidth;
+	public var  (default, null) : int offsetHeight;
+	public var (default, null) DOMElement *offsetParent;
+	public var  (default, null) : int clientLeft AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int clientTop AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int clientWidth;
+	public var  (default, null) : int clientHeight;
+	public var  int scrollLeft;
+	public var  int scrollTop;
+	public var  (default, null) : int scrollWidth;
+	public var  (default, null) : int scrollHeight;
+	public var (default, null) DOMElement *firstElementChild AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var (default, null) DOMElement *lastElementChild AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var (default, null) DOMElement *previousElementSibling AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var (default, null) DOMElement *nextElementSibling AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  (default, null) : unsigned childElementCount AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var (default, null) NSString *innerText AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (NSString *)getAttribute:(NSString *)name;
 - (void)setAttribute:(NSString *)name value:(NSString *)value AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
@@ -86,9 +86,9 @@ enum {
 - (DOMElement *)querySelector:(NSString *)selectors AVAILABLE_IN_WEBKIT_VERSION_4_0;
 - (DOMNodeList *)querySelectorAll:(NSString *)selectors AVAILABLE_IN_WEBKIT_VERSION_4_0;
 - (void)webkitRequestFullScreen:(unsigned short)flags AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+}
 
-@interface DOMElement (DOMElementDeprecated)
+extern class DOMElement (DOMElementDeprecated)
 - (void)setAttribute:(NSString *)name :(NSString *)value AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (NSString *)getAttributeNS:(NSString *)namespaceURI :(NSString *)localName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (void)setAttributeNS:(NSString *)namespaceURI :(NSString *)qualifiedName :(NSString *)value AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
@@ -96,6 +96,6 @@ enum {
 - (DOMNodeList *)getElementsByTagNameNS:(NSString *)namespaceURI :(NSString *)localName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMAttr *)getAttributeNodeNS:(NSString *)namespaceURI :(NSString *)localName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (BOOL)hasAttributeNS:(NSString *)namespaceURI :(NSString *)localName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

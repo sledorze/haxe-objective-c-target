@@ -8,7 +8,7 @@
 
 /* Because NSBundle caches allocated instances, subclasses should be prepared
    to receive an already initialized object back from [super initWithPath:] */
-@interface NSBundle : NSObject {
+extern class NSBundle : NSObject {
 @private
     NSUInteger		_flags;
     id		        _cfBundle;
@@ -116,7 +116,7 @@ enum {
 
 - (NSArray *)executableArchitectures NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
 #define NSLocalizedString(key, comment) \
 	    [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]

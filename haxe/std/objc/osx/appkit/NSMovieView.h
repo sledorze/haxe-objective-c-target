@@ -28,7 +28,7 @@ typedef struct __MVFlags {
     unsigned int        reserved:25;
 } _MVFlags;
 
-@interface NSMovieView : NSView <NSUserInterfaceValidations>
+extern class NSMovieView : NSView <NSUserInterfaceValidations>
 {
   @protected
     NSMovie*       _fMovie;
@@ -102,6 +102,6 @@ typedef struct __MVFlags {
 
 - (void)clear:(id)sender NS_DEPRECATED_MAC(10_0, 10_5);	// deprecated. use delete:
 
-@end
+}
 
 #endif /* !__LP64__ */

@@ -13,7 +13,7 @@
 
 // Properties describe values within a managed object. There are different types of properties, each of them represented by a subclass which encapsulates the specific property behavior.
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSPropertyDescription : NSObject <NSCoding, NSCopying> {
+extern class NSPropertyDescription extends NSObject, implements NSObject, NSCopying> {
 @private
 	NSString *_versionHashModifier;
 	id _underlyingProperty;
@@ -79,7 +79,7 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 - (BOOL)isIndexedBySpotlight NS_AVAILABLE(10_6,3_0);
 - (void)setIndexedBySpotlight:(BOOL)flag NS_AVAILABLE(10_6,3_0);
 
-/* Returns a boolean value indicating if the property data should be written out to the external record file.
+/* Returns a boolean value indicating if the property data should be written out to theexternal record file.
 */
 - (BOOL)isStoredInExternalRecord NS_AVAILABLE(10_6,3_0);
 - (void)setStoredInExternalRecord:(BOOL)flag NS_AVAILABLE(10_6,3_0);
@@ -87,4 +87,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 - (NSString *)renamingIdentifier NS_AVAILABLE(10_6,3_0);
 - (void)setRenamingIdentifier:(NSString *)value NS_AVAILABLE(10_6,3_0);
 
-@end
+}

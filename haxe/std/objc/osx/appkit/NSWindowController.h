@@ -10,7 +10,7 @@
 
 @class NSArray, NSDocument, NSWindow;
 
-@interface NSWindowController : NSResponder <NSCoding> {
+extern class NSWindowController : NSResponder, implements NSObject> {
     @private
     NSWindow *_window;
     NSString *_windowNibName;
@@ -110,4 +110,4 @@
 - (void)loadWindow;
     // This method can be overridden by advanced users.  It should not be called directly (doing so will cause the window controller to be improperly set up).  Call the -window method to force loading of the nib.
 
-@end
+}

@@ -15,7 +15,7 @@
 
 APPKIT_EXTERN NSString * const NSSoundPboardType;
 
-@interface NSSound : NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
+extern class NSSound extends NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
 {
 @private
     id _delegate;
@@ -100,29 +100,29 @@ APPKIT_EXTERN NSString * const NSSoundPboardType;
 - (NSArray *)channelMapping NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
-@interface NSSound (NSDeprecated)
+extern class NSSound (NSDeprecated)
 
 /* Methods that were deprecated in Mac OS 10.5. You can now use +soundUnfilteredTypes to get an array of Uniform Type Identifiers (UTIs).
 */
 + (NSArray *)soundUnfilteredFileTypes NS_DEPRECATED_MAC(10_0, 10_5);
 + (NSArray *)soundUnfilteredPasteboardTypes NS_DEPRECATED_MAC(10_0, 10_5);
 
-@end
+}
 
 @protocol NSSoundDelegate <NSObject>
 @optional
 
 - (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)aBool;
 
-@end
+}
 
-@interface NSBundle (NSBundleSoundExtensions)
+extern class NSBundle (NSBundleSoundExtensions)
 
 /* May return nil if no file found
 */
 - (NSString *)pathForSoundResource:(NSString *)name;
 
-@end
+}
 

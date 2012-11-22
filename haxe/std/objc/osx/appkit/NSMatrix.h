@@ -85,7 +85,7 @@ typedef struct __MFlags {
 #endif
 } _MFlags;
 
-@interface NSMatrix : NSControl <NSUserInterfaceValidations>
+extern class NSMatrix : NSControl <NSUserInterfaceValidations>
 {
     /*All instance variables are private*/
     id                  _target;
@@ -204,14 +204,14 @@ typedef struct __MFlags {
 - (void)resetCursorRects;
 - (void)setToolTip:(NSString *)toolTipString forCell:(NSCell *)cell;
 - (NSString *)toolTipForCell:(NSCell *)cell;
-@end
+}
 
-@interface NSMatrix(NSKeyboardUI)
+extern class NSMatrix(NSKeyboardUI)
 - (void)setTabKeyTraversesCells:(BOOL)flag;
 - (BOOL)tabKeyTraversesCells;
 - (void)setKeyCell:(NSCell *)keyCell;
 - (id)keyCell;
-@end
+}
 
-@protocol NSMatrixDelegate <NSControlTextEditingDelegate> @end
+@protocol NSMatrixDelegate <NSControlTextEditingDelegate> }
 

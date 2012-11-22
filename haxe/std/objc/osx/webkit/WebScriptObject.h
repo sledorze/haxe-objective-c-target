@@ -101,7 +101,7 @@
     The above conversions occur only if the declared ObjC type is an object type. 
     For primitive type like int and char, a numeric cast is performed.
 */
-@interface NSObject (WebScripting)
+extern class NSObject (WebScripting)
 
 /*!
     @method webScriptNameForSelector:
@@ -184,7 +184,7 @@
 */
 - (void)finalizeForWebScript;
 
-@end
+}
 
 
 // WebScriptObject --------------------------------------------------
@@ -216,7 +216,7 @@
         - (id)webScriptValueAtIndex:(unsigned)index;
         - (void)setWebScriptValueAtIndex:(unsigned)index value:(id)value;
 */
-@interface WebScriptObject : NSObject
+extern class WebScriptObject extends NSObject
 {
     WebScriptObjectPrivate *_private;
 }
@@ -297,7 +297,7 @@
 */
 - (void)setException:(NSString *)description;
 
-@end
+}
 
 
 // WebUndefined --------------------------------------------------------------
@@ -305,7 +305,7 @@
 /*!
     @class WebUndefined
 */
-@interface WebUndefined : NSObject <NSCoding, NSCopying>
+extern class WebUndefined extends NSObject, implements NSObject, NSCopying>
 
 /*!
     @method undefined
@@ -313,6 +313,6 @@
 */
 + (WebUndefined *)undefined;
 
-@end
+}
 
 #endif

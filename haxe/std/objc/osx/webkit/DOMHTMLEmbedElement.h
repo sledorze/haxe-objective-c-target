@@ -30,13 +30,13 @@
 
 @class NSString;
 
-@interface DOMHTMLEmbedElement : DOMHTMLElement
-@property(copy) NSString *align;
-@property int height;
-@property(copy) NSString *name;
-@property(copy) NSString *src;
-@property(copy) NSString *type;
-@property int width;
-@end
+extern class DOMHTMLEmbedElement : DOMHTMLElement
+	public var NSString *align;
+	public var  int height;
+	public var NSString *name;
+	public var NSString *src;
+	public var NSString *type;
+	public var  int width;
+}
 
 #endif

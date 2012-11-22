@@ -1,9 +1,4 @@
-//
-//  UIImage.h
-//  UIKit
-//
-//  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
-//
+package objc.ios.ui;
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -33,19 +28,7 @@ typedef NS_ENUM(NSInteger, UIImageResizingMode) {
     UIImageResizingModeStretch,
 };
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIImage : NSObject <NSCoding> {
-  @package
-    CFTypeRef _imageRef;
-    CGFloat   _scale;
-    struct {
-	unsigned int named:1;
-	unsigned int imageOrientation:3;
-	unsigned int cached:1;
-	unsigned int hasPattern:1;
-	unsigned int isCIImage:1;
-        unsigned int imageSetIdentifer:16;
-    } _imageFlags;
-}
+extern class UIImage extends NSObject, implements NSObject {
 
 + (UIImage *)imageNamed:(NSString *)name;      // load from main bundle
 
@@ -65,11 +48,11 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIImage : NSObject <NSCoding> {
 - (id)initWithCIImage:(CIImage *)ciImage NS_AVAILABLE_IOS(5_0);
 - (id)initWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
 
-@property(nonatomic,readonly) CGSize             size;             // reflects orientation setting. In iOS 4.0 and later, this is measured in points. In 3.x and earlier, measured in pixels
-@property(nonatomic,readonly) CGImageRef         CGImage;          // returns underlying CGImageRef or nil if CIImage based
-@property(nonatomic,readonly) CIImage           *CIImage NS_AVAILABLE_IOS(5_0); // returns underlying CIImage or nil if CGImageRef based
-@property(nonatomic,readonly) UIImageOrientation imageOrientation; // this will affect how the image is composited
-@property(nonatomic,readonly) CGFloat            scale NS_AVAILABLE_IOS(4_0);
+	public var (default, null) CGSize             size;             // reflects orientation setting. In iOS 4.0 and later, this is measured in points. In 3.x and earlier, measured in pixels
+	public var (default, null) CGImageRef         CGImage;          // returns underlying CGImageRef or nil if CIImage based
+	public var (default, null) CIImage           *CIImage NS_AVAILABLE_IOS(5_0); // returns underlying CIImage or nil if CGImageRef based
+	public var (default, null) UIImageOrientation imageOrientation; // this will affect how the image is composited
+	public var (default, null) CGFloat            scale NS_AVAILABLE_IOS(4_0);
 
 // animated images. When set as UIImageView.image, animation will play in an infinite loop until removed. Drawing will render the first image
 
@@ -78,23 +61,23 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIImage : NSObject <NSCoding> {
 + (UIImage *)animatedResizableImageNamed:(NSString *)name capInsets:(UIEdgeInsets)capInsets resizingMode:(UIImageResizingMode)resizingMode duration:(NSTimeInterval)duration NS_AVAILABLE_IOS(6_0);
 + (UIImage *)animatedImageWithImages:(NSArray *)images duration:(NSTimeInterval)duration NS_AVAILABLE_IOS(5_0);
 
-@property(nonatomic,readonly) NSArray       *images   NS_AVAILABLE_IOS(5_0); // default is nil for non-animated images
-@property(nonatomic,readonly) NSTimeInterval duration NS_AVAILABLE_IOS(5_0); // total duration for all frames. default is 0 for non-animated images
+	public var (default, null) NSArray       *images   NS_AVAILABLE_IOS(5_0); // default is nil for non-animated images
+	public var (default, null) NSTimeInterval duration NS_AVAILABLE_IOS(5_0); // total duration for all frames. default is 0 for non-animated images
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
-- (void)drawAtPoint:(CGPoint)point;                                                        // mode = kCGBlendModeNormal, alpha = 1.0
-- (void)drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
-- (void)drawInRect:(CGRect)rect;                                                           // mode = kCGBlendModeNormal, alpha = 1.0
-- (void)drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function drawAtPoint:(CGPoint)point;                                                        // mode = kCGBlendModeNormal, alpha = 1.0
+	public function drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function drawInRect:(CGRect)rect;                                                           // mode = kCGBlendModeNormal, alpha = 1.0
+	public function drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
 
-- (void)drawAsPatternInRect:(CGRect)rect; // draws the image as a CGPattern
+	public function drawAsPatternInRect:(CGRect)rect; // draws the image as a CGPattern
 
 - (UIImage *)resizableImageWithCapInsets:(UIEdgeInsets)capInsets NS_AVAILABLE_IOS(5_0); // create a resizable version of this image. the interior is tiled when drawn.
 - (UIImage *)resizableImageWithCapInsets:(UIEdgeInsets)capInsets resizingMode:(UIImageResizingMode)resizingMode NS_AVAILABLE_IOS(6_0); // the interior is resized according to the resizingMode
 
-@property(nonatomic,readonly) UIEdgeInsets capInsets               NS_AVAILABLE_IOS(5_0);   // default is UIEdgeInsetsZero for non resizable images
-@property(nonatomic,readonly) UIImageResizingMode resizingMode NS_AVAILABLE_IOS(6_0); // default is UIImageResizingModeTile
+	public var (default, null) UIEdgeInsets capInsets               NS_AVAILABLE_IOS(5_0);   // default is UIEdgeInsetsZero for non resizable images
+	public var (default, null) UIImageResizingMode resizingMode NS_AVAILABLE_IOS(6_0); // default is UIImageResizingModeTile
 
 // Support for constraint-based layout (auto layout)
 // The alignmentRectInsets of a UIImage are used by UIImageView and other UIView and UIControl
@@ -102,27 +85,18 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIImage : NSObject <NSCoding> {
 //  constraint-based layout.
 // The default alignmentRectInsets are UIEdgeInsetsZero.
 - (UIImage *)imageWithAlignmentRectInsets:(UIEdgeInsets)alignmentInsets NS_AVAILABLE_IOS(6_0);
-@property(nonatomic,readonly) UIEdgeInsets alignmentRectInsets NS_AVAILABLE_IOS(6_0);
+	public var (default, null) UIEdgeInsets alignmentRectInsets NS_AVAILABLE_IOS(6_0);
 
-@end
-
-@interface UIImage(UIImageDeprecated)
-
-// use resizableImageWithCapInsets: and capInsets.
-
-- (UIImage *)stretchableImageWithLeftCapWidth:(NSInteger)leftCapWidth topCapHeight:(NSInteger)topCapHeight;
-@property(nonatomic,readonly) NSInteger leftCapWidth;   // default is 0. if non-zero, horiz. stretchable. right cap is calculated as width - leftCapWidth - 1
-@property(nonatomic,readonly) NSInteger topCapHeight;   // default is 0. if non-zero, vert. stretchable. bottom cap is calculated as height - topCapWidth - 1
-
-@end
+}
 
 
-@interface CIImage(UIKitAdditions)
+
+extern class CIImage(UIKitAdditions)
 
 - (id)initWithImage:(UIImage *)image NS_AVAILABLE_IOS(5_0);
 - (id)initWithImage:(UIImage *)image options:(NSDictionary *)options NS_AVAILABLE_IOS(5_0);
 
-@end
+}
 
 UIKIT_EXTERN NSData *UIImagePNGRepresentation(UIImage *image);                               // return image as PNG. May return nil if image has no CGImageRef or invalid bitmap format
 UIKIT_EXTERN NSData *UIImageJPEGRepresentation(UIImage *image, CGFloat compressionQuality);  // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)

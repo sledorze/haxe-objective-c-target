@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMCSSCharsetRule : DOMCSSRule
-@property(readonly, copy) NSString *encoding;
-@end
+extern class DOMCSSCharsetRule : DOMCSSRule
+	public var (default, null) NSString *encoding;
+}
 
 #endif

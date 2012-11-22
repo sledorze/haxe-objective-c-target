@@ -38,7 +38,7 @@ typedef enum {
     WebViewInsertActionDropped,
 } WebViewInsertAction;
 
-@interface NSObject (WebViewEditingDelegate)
+extern class NSObject (WebViewEditingDelegate)
 - (BOOL)webView:(WebView *)webView shouldBeginEditingInDOMRange:(DOMRange *)range;
 - (BOOL)webView:(WebView *)webView shouldEndEditingInDOMRange:(DOMRange *)range;
 - (BOOL)webView:(WebView *)webView shouldInsertNode:(DOMNode *)node replacingDOMRange:(DOMRange *)range givenAction:(WebViewInsertAction)action;
@@ -54,4 +54,4 @@ typedef enum {
 - (void)webViewDidChangeTypingStyle:(NSNotification *)notification;
 - (void)webViewDidChangeSelection:(NSNotification *)notification;
 - (NSUndoManager *)undoManagerForWebView:(WebView *)webView;
-@end
+}

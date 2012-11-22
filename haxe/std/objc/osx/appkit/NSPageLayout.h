@@ -9,7 +9,7 @@
 
 @class NSArray, NSMutableArray, NSPrintInfo, NSView, NSViewController, NSWindow, NSWindowController;
 
-@interface NSPageLayout : NSObject {
+extern class NSPageLayout extends NSObject {
     @private
     NSMutableArray *_accessoryControllers;
     NSPrintInfo *_originalPrintInfo;
@@ -52,9 +52,9 @@
 */
 - (NSPrintInfo *)printInfo;
 
-@end
+}
 
-@interface NSPageLayout(NSDeprecated)
+extern class NSPageLayout(NSDeprecated)
 
 /* Methods that were deprecated in Mac OS 10.5. -setAccessoryView: replaces all of the accessory controllers that have been added so far by -addAccessoryController:. -accessoryView merely returns the view of the first accessory controller, or nil.
 */
@@ -66,12 +66,12 @@
 - (void)readPrintInfo NS_DEPRECATED_MAC(10_0, 10_5);
 - (void)writePrintInfo NS_DEPRECATED_MAC(10_0, 10_5);
 
-@end
+}
 
-@interface NSApplication(NSPageLayoutPanel)
+extern class NSApplication(NSPageLayoutPanel)
 
 /* An action method that merely invokes [[NSPageLayout pageLayout] runModal].
 */
 - (void)runPageLayout:(id)sender;
 
-@end
+}

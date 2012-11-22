@@ -29,7 +29,7 @@
     @"orientation" and @"mirrored".
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureVideoPreviewLayer : CALayer
+extern class AVCaptureVideoPreviewLayer : CALayer
 {
 	AVCaptureVideoPreviewLayerInternal *_internal;
 }
@@ -97,14 +97,14 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property session
+ 	public var  session
  @abstract
     The AVCaptureSession instance being previewed by the receiver.
 
  @discussion
     The session is retained by the preview layer.
 */
-@property (nonatomic, retain) AVCaptureSession *session;
+	public var AVCaptureSession *session;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -125,7 +125,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property connection
+ 	public var  connection
  @abstract
     The AVCaptureConnection instance describing the AVCaptureInputPort to which
     the receiver is connected.
@@ -135,10 +135,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     a connection is formed to the first eligible video AVCaptureInput.  If the receiver 
     is detached from a session, the connection property becomes nil.
 */
-@property (nonatomic, readonly) AVCaptureConnection *connection NS_AVAILABLE(10_7, 6_0);
+	public var AVCaptureConnection *connection NS_AVAILABLE(10_7, 6_0);
 
 /*!
- @property videoGravity
+ 	public var  videoGravity
  @abstract
     A string defining how the video is displayed within an AVCaptureVideoPreviewLayer bounds rect.
 
@@ -147,7 +147,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     and AVLayerVideoGravityResizeAspectFill. AVLayerVideoGravityResizeAspect is default.
     See <AVFoundation/AVAnimation.h> for a description of these options.
 */
-@property (copy) NSString *videoGravity;
+	public var  (copy) NSString *videoGravity;
 
 /*!
  @method captureDevicePointOfInterestForPoint:
@@ -213,7 +213,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 #if TARGET_OS_IPHONE
 
 /*!
- @property orientationSupported
+ 	public var  orientationSupported
  @abstract
     Specifies whether or not the preview layer supports orientation.
 
@@ -223,10 +223,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     manipulate the orientation of the receiver.  This property is deprecated.  Use 
     AVCaptureConnection's -isVideoOrientationSupported instead.
 */
-@property (nonatomic, readonly, getter=isOrientationSupported) BOOL orientationSupported NS_DEPRECATED_IOS(4_0, 6_0);
+	public var  (nonatomic, readonly, getter=isOrientationSupported) BOOL orientationSupported NS_DEPRECATED_IOS(4_0, 6_0);
 
 /*!
- @property orientation
+ 	public var  orientation
  @abstract
     Specifies the orientation of the preview layer.
 
@@ -236,10 +236,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     exception will be raised if this requirement is ignored.  This property is deprecated.
     Use AVCaptureConnection's -videoOrientation instead.
 */
-@property (nonatomic) AVCaptureVideoOrientation orientation NS_DEPRECATED_IOS(4_0, 6_0);
+	public var AVCaptureVideoOrientation orientation NS_DEPRECATED_IOS(4_0, 6_0);
 
 /*!
- @property mirroringSupported
+ 	public var  mirroringSupported
  @abstract
     Specifies whether or not the preview layer supports mirroring.
 
@@ -249,10 +249,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     on the receiver.  This property is deprecated.  Use AVCaptureConnection's 
     -isVideoMirroringSupported instead.
 */
-@property (nonatomic, readonly, getter=isMirroringSupported) BOOL mirroringSupported NS_DEPRECATED_IOS(4_0, 6_0);
+	public var  (nonatomic, readonly, getter=isMirroringSupported) BOOL mirroringSupported NS_DEPRECATED_IOS(4_0, 6_0);
 
 /*!
- @property automaticallyAdjustsMirroring
+ 	public var  automaticallyAdjustsMirroring
  @abstract
     Specifies whether or not the value of @"mirrored" can change based on configuration
     of the session.
@@ -264,10 +264,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The default value is YES.  This property is deprecated.  Use AVCaptureConnection's
     -automaticallyAdjustsVideoMirroring instead.
 */
-@property (nonatomic) BOOL automaticallyAdjustsMirroring NS_DEPRECATED_IOS(4_0, 6_0);
+	public var BOOL automaticallyAdjustsMirroring NS_DEPRECATED_IOS(4_0, 6_0);
 
 /*!
- @property mirrored
+ 	public var  mirrored
  @abstract
     Specifies whether or not the preview is flipped over a vertical axis.
 	
@@ -280,8 +280,8 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     these requirements.  This property is deprecated.  Use AVCaptureConnection's 
     -videoMirrored instead.
 */
-@property (nonatomic, getter=isMirrored) BOOL mirrored NS_DEPRECATED_IOS(4_0, 6_0);
+	public var  (nonatomic, getter=isMirrored) BOOL mirrored NS_DEPRECATED_IOS(4_0, 6_0);
 
 #endif // TARGET_OS_IPHONE
 
-@end
+}

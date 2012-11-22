@@ -30,7 +30,7 @@ COREDATA_EXTERN NSString * const NSMigrationEntityPolicyKey NS_AVAILABLE(10_5,3_
 @class NSMigrationManager;
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSEntityMigrationPolicy : NSObject
+extern class NSEntityMigrationPolicy extends NSObject
 
 
 /* Invoked by the migration manager at the start of a given entity mapping.  This is also the precursor to the creation step.
@@ -69,5 +69,5 @@ associate the source and destination instances as required if super is not calle
 */
 - (BOOL)endEntityMapping:(NSEntityMapping *)mapping manager:(NSMigrationManager *)manager error:(NSError **)error;
 
-@end
+}
 

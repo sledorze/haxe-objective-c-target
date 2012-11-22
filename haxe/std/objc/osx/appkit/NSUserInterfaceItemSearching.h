@@ -37,10 +37,10 @@
 - (void)showAllHelpTopicsForSearchString:(NSString *)searchString;
 
 #endif
-@end
+}
 
 
-@interface NSApplication (NSUserInterfaceItemSearching)
+extern class NSApplication (NSUserInterfaceItemSearching)
 
 /* Register an an object that conforms to NSUserInterfaceItemSearching with the application.  You can register as many as you like.  If you register the same instance more than once the subsequent registrations are ignored
  */
@@ -55,5 +55,5 @@
  */
 - (BOOL)searchString:(NSString *)searchString inUserInterfaceItemString:(NSString *)stringToSearch searchRange:(NSRange)searchRange foundRange:(NSRange *)foundRange NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 

@@ -31,9 +31,9 @@
 @class DOMCSSStyleDeclaration;
 @class NSString;
 
-@interface DOMCSSPageRule : DOMCSSRule
-@property(copy) NSString *selectorText;
-@property(readonly, retain) DOMCSSStyleDeclaration *style;
-@end
+extern class DOMCSSPageRule : DOMCSSRule
+	public var NSString *selectorText;
+	public var (default, null) DOMCSSStyleDeclaration *style;
+}
 
 #endif

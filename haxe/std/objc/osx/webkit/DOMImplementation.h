@@ -34,19 +34,19 @@
 @class DOMHTMLDocument;
 @class NSString;
 
-@interface DOMImplementation : DOMObject
+extern class DOMImplementation : DOMObject
 - (BOOL)hasFeature:(NSString *)feature version:(NSString *)version AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (DOMDocumentType *)createDocumentType:(NSString *)qualifiedName publicId:(NSString *)publicId systemId:(NSString *)systemId AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (DOMDocument *)createDocument:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName doctype:(DOMDocumentType *)doctype AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (DOMCSSStyleSheet *)createCSSStyleSheet:(NSString *)title media:(NSString *)media AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (DOMHTMLDocument *)createHTMLDocument:(NSString *)title AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMImplementation (DOMImplementationDeprecated)
+extern class DOMImplementation (DOMImplementationDeprecated)
 - (BOOL)hasFeature:(NSString *)feature :(NSString *)version AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMDocumentType *)createDocumentType:(NSString *)qualifiedName :(NSString *)publicId :(NSString *)systemId AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMDocument *)createDocument:(NSString *)namespaceURI :(NSString *)qualifiedName :(DOMDocumentType *)doctype AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMCSSStyleSheet *)createCSSStyleSheet:(NSString *)title :(NSString *)media AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

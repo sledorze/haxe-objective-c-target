@@ -11,9 +11,9 @@
 #import <Foundation/NSObjCRuntime.h>
 
 #if defined(__cplusplus)
-	#define AVF_EXPORT extern "C"
+	#define AVF_EXPORTextern "C"
 #else
-	#define AVF_EXPORT extern
+	#define AVF_EXPORTextern
 #endif
 
 // Pre-10.8, weak import

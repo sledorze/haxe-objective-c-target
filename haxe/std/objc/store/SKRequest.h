@@ -11,12 +11,12 @@
 @protocol SKRequestDelegate;
 
 // Base class used to fetch data from the store.  Should not be used directly.
-SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKRequest : NSObject {
+SK_EXTERN_CLASS_AVAILABLE(3_0)extern class SKRequest extends NSObject {
 @private
     id _requestInternal;
 }
 
-@property(nonatomic, assign) id <SKRequestDelegate> delegate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var  id <SKRequestDelegate> delegate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 // Cancel the request if it has started.
 - (void)cancel __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
@@ -24,7 +24,7 @@ SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKRequest : NSObject {
 // Start the request if it has not already been started.
 - (void)start __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@end
+}
 
 
 @protocol SKRequestDelegate <NSObject>
@@ -33,4 +33,4 @@ SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKRequest : NSObject {
 - (void)requestDidFinish:(SKRequest *)request __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@end
+}

@@ -13,7 +13,7 @@
 @class NSMenuView;
 #endif
 
-@interface NSMenuItemCell : NSButtonCell {
+extern class NSMenuItemCell : NSButtonCell {
     /*All instance variables are private*/
     @private
     id _extraData;
@@ -65,4 +65,4 @@
 
 - (NSInteger)tag;
 
-@end
+}

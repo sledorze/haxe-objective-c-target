@@ -35,7 +35,7 @@ typedef NSUInteger NSFontCollectionVisibility;
  NSFontCollection - immutable font list
  */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface NSFontCollection : NSObject <NSCopying, NSMutableCopying, NSCoding>
+extern class NSFontCollection extends NSObject <NSCopying, NSMutableCopying, NSCoding>
 
 /*
  Creating collections
@@ -99,13 +99,13 @@ NS_CLASS_AVAILABLE(10_7, NA)
 - (NSArray *)matchingDescriptorsForFamily:(NSString *)family;
 - (NSArray *)matchingDescriptorsForFamily:(NSString *)family options:(NSDictionary *)options;
 
-@end
+}
 
 /*
  NSMutableFontCollection - mutable font list
  */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface NSMutableFontCollection : NSFontCollection
+extern class NSMutableFontCollection : NSFontCollection
 
 // See -queryDescriptors.
 - (void)setQueryDescriptors:(NSArray *)descriptors;
@@ -119,7 +119,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
 // Edit the query and exclusion arrays to ensure that the results of querying the given descriptors are excluded from the matching descriptors.
 - (void)removeQueryForDescriptors:(NSArray *)descriptors;
 
-@end
+}
 
 /*
  Matching options

@@ -30,10 +30,10 @@
 
 @class NSString;
 
-@interface DOMEntity : DOMNode
-@property(readonly, copy) NSString *publicId;
-@property(readonly, copy) NSString *systemId;
-@property(readonly, copy) NSString *notationName;
-@end
+extern class DOMEntity : DOMNode
+	public var (default, null) NSString *publicId;
+	public var (default, null) NSString *systemId;
+	public var (default, null) NSString *notationName;
+}
 
 #endif

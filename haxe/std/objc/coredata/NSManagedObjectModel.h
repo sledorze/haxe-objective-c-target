@@ -15,7 +15,7 @@
 
 // Models describe object graphs to be managed. Models (and their entities/properties/fetch request templates) are editable until they are used by a persistent store coordinator, allowing developers to create/modify them dynamically. However, once a model is being used, it MUST NOT be changed. When the persistent store coordinator first fetches data using a model, it will become uneditable. Any attempt to mutate a model or any of its subobjects after that point will cause an exception to be thrown. If you need to modify a model that is in use, create a copy, modify the copy, and then discard the objects with the old model.
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSManagedObjectModel : NSObject <NSCoding, NSCopying, NSFastEnumeration> {
+extern class NSManagedObjectModel extends NSObject, implements NSObject, NSCopying, NSFastEnumeration> {
 @private
 	id _dataForOptimization;
 	id *_optimizationHints; 
@@ -99,4 +99,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 */
 - (NSDictionary *)entityVersionHashesByName NS_AVAILABLE(10_5,3_0);
 
-@end
+}

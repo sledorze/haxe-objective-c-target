@@ -14,7 +14,7 @@
 @class NSImage;
 @class NSSortDescriptor;
 
-@interface NSTableColumn : NSObject <NSCoding, NSUserInterfaceItemIdentification> {
+extern class NSTableColumn extends NSObject, implements NSObject, NSUserInterfaceItemIdentification> {
     /*All instance variables are private */
     id		_identifier;
     CGFloat	_width;
@@ -110,17 +110,17 @@ enum {
 - (BOOL)isHidden NS_AVAILABLE_MAC(10_5);
 - (void)setHidden:(BOOL)hidden NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
 /*
  * Deprecated Methods
  */
 
-@interface NSTableColumn(NSDeprecated)
+extern class NSTableColumn(NSDeprecated)
 
 /* Deprecated in Mac OS 10.4.  If flag is YES, calls setResizingMask:(NSTableColumnUserResizingMask | NSTableColumnAutoresizingMask).  If flag is NO, calls setResizingMask:(NSTableColumnNoResizing).
  */
 - (void)setResizable:(BOOL)flag NS_DEPRECATED_MAC(10_0, 10_4);
 - (BOOL)isResizable NS_DEPRECATED_MAC(10_0, 10_4);
 
-@end
+}

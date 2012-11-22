@@ -19,7 +19,7 @@
     @discussion NSURLCredentialStorage implements a singleton object (shared instance) which manages the shared credentials cache. Note: Whereas in Mac OS X any application can access any credential with a persistence of NSURLCredentialPersistencePermanent provided the user gives permission, in iPhone OS an application can access only its own credentials.
 */
 
-@interface NSURLCredentialStorage : NSObject
+extern class NSURLCredentialStorage extends NSObject
 {
     @private
     NSURLCredentialStorageInternal *_internal;
@@ -85,7 +85,7 @@
 */
 - (void)setDefaultCredential:(NSURLCredential *)credential forProtectionSpace:(NSURLProtectionSpace *)space;
 
-@end
+}
 
 /*!
     @const NSURLCredentialStorageChangedNotification

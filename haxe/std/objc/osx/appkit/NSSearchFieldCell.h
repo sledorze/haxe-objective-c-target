@@ -24,7 +24,7 @@
 
 @class NSButtonCell, NSMenu, NSMutableArray, NSTimer;
 
-@interface NSSearchFieldCell : NSTextFieldCell {
+extern class NSSearchFieldCell : NSTextFieldCell {
   @private
     struct __sfFlags {
 	unsigned int sendsWholeSearchString:1;
@@ -91,5 +91,5 @@
 - (BOOL) sendsSearchStringImmediately;
 - (void) setSendsSearchStringImmediately:(BOOL)flag;
 
-@end
+}
 

@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMHTMLUListElement : DOMHTMLElement
-@property BOOL compact;
-@property(copy) NSString *type;
-@end
+extern class DOMHTMLUListElement : DOMHTMLElement
+	public var  BOOL compact;
+	public var NSString *type;
+}
 
 #endif

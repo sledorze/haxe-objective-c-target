@@ -19,18 +19,18 @@
 // -----------------------------------------------------------------------------
 
 
-MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMediaLibrary : NSObject <NSCoding>
+MP_EXTERN_CLASS_AVAILABLE(3_0)extern class MPMediaLibrary extends NSObject, implements NSObject>
 
 + (MPMediaLibrary *)defaultMediaLibrary;
 
 // Returns the date at which the media library was last modified.
-@property(nonatomic, readonly) NSDate *lastModifiedDate;
+	public var (default, null) NSDate *lastModifiedDate;
 
 // MPMediaLibraryDidChangeNotification will be posted when a sync happens.
 - (void)beginGeneratingLibraryChangeNotifications;
 - (void)endGeneratingLibraryChangeNotifications;
 
-@end
+}
 
 
 // -----------------------------------------------------------------------------

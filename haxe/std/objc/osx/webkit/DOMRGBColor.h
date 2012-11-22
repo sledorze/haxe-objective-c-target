@@ -31,12 +31,12 @@
 @class DOMCSSPrimitiveValue;
 @class NSColor;
 
-@interface DOMRGBColor : DOMObject
-@property(readonly, retain) DOMCSSPrimitiveValue *red;
-@property(readonly, retain) DOMCSSPrimitiveValue *green;
-@property(readonly, retain) DOMCSSPrimitiveValue *blue;
-@property(readonly, retain) DOMCSSPrimitiveValue *alpha;
-@property(readonly, copy) NSColor *color AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMRGBColor : DOMObject
+	public var (default, null) DOMCSSPrimitiveValue *red;
+	public var (default, null) DOMCSSPrimitiveValue *green;
+	public var (default, null) DOMCSSPrimitiveValue *blue;
+	public var (default, null) DOMCSSPrimitiveValue *alpha;
+	public var (default, null) NSColor *color AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

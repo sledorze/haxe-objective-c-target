@@ -14,7 +14,7 @@
 @class AVTimedMetadataGroupInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_3)
-@interface AVTimedMetadataGroup : NSObject <NSCopying>
+extern class AVTimedMetadataGroup extends NSObject <NSCopying>
 {
 	AVTimedMetadataGroupInternal *_priv;
 }
@@ -31,25 +31,25 @@ NS_CLASS_AVAILABLE(10_7, 4_3)
 - (id)initWithItems:(NSArray *)items timeRange:(CMTimeRange)timeRange;
 
 /* indicates the time range of the timed metadata */
-@property (readonly) CMTimeRange timeRange;
+	public var CMTimeRange timeRange;
 
 /* array of AVMetadataItem */
-@property (readonly, copy) NSArray *items;
+	public var (default, null) NSArray *items;
 
-@end
+}
 
 @class AVMutableTimedMetadataGroupInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_3)
-@interface AVMutableTimedMetadataGroup : AVTimedMetadataGroup
+extern class AVMutableTimedMetadataGroup : AVTimedMetadataGroup
 {
 	AVMutableTimedMetadataGroupInternal	*_mutablePriv;
 }
 
 /* indicates the time range of the timed metadata */
-@property (readwrite) CMTimeRange timeRange;
+	public var  CMTimeRange timeRange;
 
 /* array of AVMetadataItem */
-@property (readwrite, copy) NSArray *items;
+	public var  NSArray *items;
 
-@end
+}

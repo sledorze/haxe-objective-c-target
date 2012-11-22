@@ -7,7 +7,7 @@
 
 #import <AppKit/NSControl.h>
 
-@interface NSColorWell : NSControl
+extern class NSColorWell : NSControl
 {
     /*All instance variables are private*/
     NSColor *_color;
@@ -36,4 +36,4 @@
 - (void)setColor:(NSColor *)color;
 - (NSColor *)color;
 
-@end
+}

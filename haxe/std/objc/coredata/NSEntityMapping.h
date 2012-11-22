@@ -23,7 +23,7 @@ enum {
 typedef NSUInteger NSEntityMappingType;
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSEntityMapping : NSObject {
+extern class NSEntityMapping extends NSObject {
 
 @private
     void *_reserved;
@@ -103,4 +103,4 @@ NS_CLASS_AVAILABLE(10_5,3_0)
 - (NSString *)entityMigrationPolicyClassName;
 - (void)setEntityMigrationPolicyClassName:(NSString *)name;
 
-@end
+}

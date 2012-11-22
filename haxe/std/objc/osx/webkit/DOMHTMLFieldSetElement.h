@@ -30,8 +30,8 @@
 
 @class DOMHTMLFormElement;
 
-@interface DOMHTMLFieldSetElement : DOMHTMLElement
-@property(readonly, retain) DOMHTMLFormElement *form;
-@end
+extern class DOMHTMLFieldSetElement : DOMHTMLElement
+	public var (default, null) DOMHTMLFormElement *form;
+}
 
 #endif

@@ -33,7 +33,7 @@
     perform certain operations.
 */
 
-@interface NSObject (WebPlugInContainer)
+extern class NSObject (WebPlugInContainer)
 
 /*!
     @method webPlugInContainerLoadRequest:inFrame:
@@ -69,4 +69,4 @@
 */
 - (WebFrame *)webFrame;
 
-@end
+}

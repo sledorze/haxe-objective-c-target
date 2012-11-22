@@ -12,7 +12,7 @@
 @class NSImage;
 @class NSCursor;
 
-@interface NSTableHeaderView : NSView
+extern class NSTableHeaderView : NSView
 {
     /* All instance variables are private */ 
     NSTableView	*_tableView;
@@ -42,4 +42,4 @@
 - (NSRect)headerRectOfColumn:(NSInteger)column;
 - (NSInteger)columnAtPoint:(NSPoint)point;
 
-@end
+}

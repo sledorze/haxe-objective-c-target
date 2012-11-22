@@ -2,16 +2,16 @@
 #import <Foundation/Foundation.h>
 
 #import "Date.h"
+#import "String.h"
 #import "Array.h"
+#import "Std.h"
 
 @interface NSDate ( Date )
 
-- (void) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec;
-+ (Date*) now;
-+ (Date*) fromTime:(float)t;
-+ (Date*) fromString:(NSString*)s;
++ (NSDate*) now;
++ (NSDate*) fromTime:(float)t;
++ (NSDate*) fromString:(NSMutableString*)s;
 @property (nonatomic) float _seconds;
-@property (nonatomic, strong) NSDate *_date;
 @property (nonatomic, strong) NSCalendar *_calendar;
 @property (nonatomic, strong) NSDateComponents *_components;
 - (float) getTime;
@@ -22,6 +22,7 @@
 - (int) getMonth;
 - (int) getDate;
 - (int) getDay;
-- (NSString*) toString;
+- (NSMutableString*) toString;
+- (id) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec;
 
 @end

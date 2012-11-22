@@ -24,21 +24,21 @@ typedef SLRequestMethod TWRequestMethod; // available in iPhone 5.0
 typedef SLRequestHandler TWRequestHandler;
 
 NS_DEPRECATED(NA, NA, 5_0, 6_0) __attribute__((visibility("default")))
-@interface TWRequest : NSObject
+extern class TWRequest extends NSObject
 
 - (id)initWithURL:(NSURL *)url parameters:(NSDictionary *)parameters requestMethod:(TWRequestMethod)requestMethod;
 
 // Optional account information used to authenticate the request. Defaults to nil.
-@property (nonatomic, retain) ACAccount *account;
+	public var ACAccount *account;
 
 // The request method
-@property (nonatomic, readonly) TWRequestMethod requestMethod;
+	public var TWRequestMethod requestMethod;
 
 // The request URL
-@property (nonatomic, readonly) NSURL *URL;
+	public var NSURL *URL;
 
 // The parameters 
-@property (nonatomic, readonly) NSDictionary *parameters;
+	public var NSDictionary *parameters;
 
 // Specify a named MIME multi-part value. As of version 6.0, if you set parameters,
 // the parameters will automatically be added as form data in the multi-part data.
@@ -50,5 +50,5 @@ NS_DEPRECATED(NA, NA, 5_0, 6_0) __attribute__((visibility("default")))
 // Issue the request. This block is not guaranteed to be called on any particular thread.
 - (void)performRequestWithHandler:(TWRequestHandler)handler;
 
-@end
+}
 

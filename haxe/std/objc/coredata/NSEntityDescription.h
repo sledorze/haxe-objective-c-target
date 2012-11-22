@@ -16,7 +16,7 @@
 
 // Entities describe the "types" of objects available.
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSEntityDescription : NSObject <NSCoding, NSCopying, NSFastEnumeration> {
+extern class NSEntityDescription extends NSObject, implements NSObject, NSCopying, NSFastEnumeration> {
 @private
 	int32_t  _cd_rc;
 	id _snapshotClass;
@@ -104,4 +104,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 - (NSArray *)compoundIndexes NS_AVAILABLE(NA,5_0);
 - (void)setCompoundIndexes:(NSArray *)value NS_AVAILABLE(NA,5_0);
 
-@end
+}

@@ -25,13 +25,13 @@
  */
 + (void)restoreWindowWithIdentifier:(NSString *)identifier state:(NSCoder *)state completionHandler:(void (^)(NSWindow *, NSError *))completionHandler NS_AVAILABLE_MAC(10_7);
 #endif
-@end
+}
 
 /* NSDocumentController implements the NSWindowRestoration protocol.  It is set as the restoration class for document windows.  You may subclass it and override the restoreWindowWithIdentifier:state:completionHandler: method to control how documents are restored. */
-@interface NSDocumentController (NSWindowRestoration) <NSWindowRestoration>
-@end
+extern class NSDocumentController (NSWindowRestoration) <NSWindowRestoration>
+}
 
-@interface NSApplication (NSWindowRestoration)
+extern class NSApplication (NSWindowRestoration)
 
 #if NS_BLOCKS_AVAILABLE
 /* The following message is the funnel point for all window restoration.  The default behavior is to "demux:" decode the restoration class and send it the class method restoreWindowWithIdentifier:state:completionHandler: above.
@@ -43,14 +43,14 @@
 - (BOOL)restoreWindowWithIdentifier:(NSString *)identifier state:(NSCoder *)state completionHandler:(void (^)(NSWindow *, NSError *))completionHandler NS_AVAILABLE_MAC(10_7);
 #endif
 
-@end
+}
 
 /* NSApplicationDidFinishRestoringWindowsNotification is posted when the application is finished restoring windows, that is, when all the completion handlers from restoreWindowWithIdentifier:state:completionHandler: have been called.  This is always posted after NSApplicationWillFinishLaunching, but may be posted before or after NSApplicationDidFinishLaunching, depending on whether clients copy the completion handlers and invoke them later.  If there were no windows to restore, then this notification is still posted at the corresponding point in app launch (between NSApplicationWillFinishLaunchingNotification and NSApplicationDidFinishLaunchingNotification).  The object is NSApplication, and there is no user info.
  */
 APPKIT_EXTERN NSString * const NSApplicationDidFinishRestoringWindowsNotification NS_AVAILABLE_MAC(10_7);
 
 
-@interface NSWindow (NSUserInterfaceRestoration)
+extern class NSWindow (NSUserInterfaceRestoration)
 
 /* Determines whether the window should be restored on relaunch.  By default, windows with NSTitledWindowMask set in the styleMask are restorable, and windows without it set are not.
  */
@@ -67,10 +67,10 @@ APPKIT_EXTERN NSString * const NSApplicationDidFinishRestoringWindowsNotificatio
 - (void)enableSnapshotRestoration;
 
  
-@end
+}
 
 
-@interface NSResponder (NSRestorableState)
+extern class NSResponder (NSRestorableState)
 
 /* Method called to save the restorable state.  The receiver is passed an NSCoder that supports keyed encoding (but not decoding), and should encode its restorable state. If you override this method, you should call through to super.  You should not otherwise invoke this method.  If you encode an object that implements the NSUserInterfaceItemIdentification protocol, the object itself is not archived; only its identifier is stored.  Thus, for example, a window may efficiently store its firstResponder as restorable state.
  */
@@ -90,10 +90,10 @@ APPKIT_EXTERN NSString * const NSApplicationDidFinishRestoringWindowsNotificatio
 */
 + (NSArray *)restorableStateKeyPaths NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 
-@interface NSApplication (NSRestorableStateExtension)
+extern class NSApplication (NSRestorableStateExtension)
 
 /* These methods allow the app to extend the period of state restoration.  If the app crashes before state restoration is complete, then it may offer to discard restorable state on the next launch.  If a window has some state that may take a long time to restore, such as a web page, you may use the following methods to extend the period of this crash protection beyond the default.
  
@@ -106,9 +106,9 @@ APPKIT_EXTERN NSString * const NSApplicationDidFinishRestoringWindowsNotificatio
 - (void)extendStateRestoration NS_AVAILABLE_MAC(10_7);
 - (void)completeStateRestoration NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
-@interface NSDocument (NSRestorableState)
+extern class NSDocument (NSRestorableState)
 
 /* The following method is called by the default implementation of +[NSDocumentController restoreWindowWithIdentifier:state:completionHandler:] to restore a window that was associated with a document, after that document has been reopened.
  
@@ -124,4 +124,4 @@ If your document has variable or optional windows, you may override this to crea
 - (void)invalidateRestorableState NS_AVAILABLE_MAC(10_7);
 + (NSArray *)restorableStateKeyPaths NS_AVAILABLE_MAC(10_7);
 
-@end
+}

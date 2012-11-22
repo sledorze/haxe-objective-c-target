@@ -28,7 +28,7 @@ enum {
 };
 typedef NSUInteger NSDrawerState;
 
-@interface NSDrawer : NSResponder
+extern class NSDrawer : NSResponder
 {
     /*All instance variables are private*/
     NSDrawerState 	_drawerState;
@@ -88,13 +88,13 @@ typedef NSUInteger NSDrawerState;
 - (void)setTrailingOffset:(CGFloat)offset;
 - (CGFloat)trailingOffset;
 
-@end
+}
 
-@interface NSWindow(Drawers)
+extern class NSWindow(Drawers)
 
 - (NSArray *)drawers;
 
-@end
+}
 
 @protocol NSDrawerDelegate <NSObject>
 @optional
@@ -108,7 +108,7 @@ typedef NSUInteger NSDrawerState;
 - (void)drawerWillClose:(NSNotification *)notification;
 - (void)drawerDidClose:(NSNotification *)notification;
 
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSDrawerWillOpenNotification;

@@ -12,7 +12,7 @@
 
 // Fetched properties allow to specify related objects through a "weakly" resolved property, so there is no actual join necessary.
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSFetchedPropertyDescription : NSPropertyDescription {
+extern class NSFetchedPropertyDescription : NSPropertyDescription {
 @private
 	void *_reserved5;
 	void *_reserved6;
@@ -24,4 +24,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 - (NSFetchRequest *)fetchRequest;
 - (void)setFetchRequest:(NSFetchRequest *)fetchRequest;
 
-@end
+}

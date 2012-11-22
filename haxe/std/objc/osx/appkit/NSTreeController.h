@@ -11,7 +11,7 @@
 @class NSTreeNode;
 
 
-@interface NSTreeController : NSObjectController {
+extern class NSTreeController extends NSObjectController {
     id _treeControllerReserved1;
     NSArray *_modelObservingKeyPaths;
     id _treeStructureObservers;
@@ -104,5 +104,5 @@
 - (NSString *)leafKeyPathForNode:(NSTreeNode *)node NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 

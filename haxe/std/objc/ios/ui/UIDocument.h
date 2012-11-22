@@ -1,6 +1,6 @@
 //
 //  UIDocument.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 1997-2012, Apple Inc. All rights reserved.
 //
@@ -30,7 +30,7 @@ typedef NS_OPTIONS(NSUInteger, UIDocumentState) {
 
 UIKIT_EXTERN NSString *const UIDocumentStateChangedNotification NS_AVAILABLE_IOS(5_0);
 
-NS_CLASS_AVAILABLE_IOS(5_0) @interface UIDocument : NSObject <NSFilePresenter> {
+@:require(ios_5_0) extern class UIDocument extends NSObject <NSFilePresenter> {
     @private
     NSURL *_fileURL;
     NSString *_fileType;
@@ -78,21 +78,21 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIDocument : NSObject <NSFilePresenter> {
 // These values will be set by UIKit before the completion handlers to the opening, reverting, and saving methods are called.
 // Clients that wish to access these properties outside of an open, save, or revert completion handler and wait for any pending file operations should wrap the accesses in -performAsynchronousFileAccessUsingBlock:
 
-@property(readonly) NSURL *fileURL;
-@property(readonly, copy) NSString *localizedName;  // The default implementation derives the name from the URL. Subclasses may override to provide a custom name for presentation to the user, such as in error strings.
-@property(readonly, copy) NSString *fileType;       // The file's UTI. Derived from the fileURL by default.
-@property(copy) NSDate *fileModificationDate;       // The last known modification date of the document's on-disk representation. Updated by openWithCompletionHandler:, revertToContentsOfURL:, and saveToURL: and will return nil if none of these has completed successfully at least once.
+	public var  (default, null) : NSURL *fileURL;
+	public var (default, null) NSString *localizedName;  // The default implementation derives the name from the URL. Subclasses may override to provide a custom name for presentation to the user, such as in error strings.
+	public var (default, null) NSString *fileType;       // The file's UTI. Derived from the fileURL by default.
+	public var NSDate *fileModificationDate;       // The last known modification date of the document's on-disk representation. Updated by openWithCompletionHandler:, revertToContentsOfURL:, and saveToURL: and will return nil if none of these has completed successfully at least once.
 
-@property(readonly) UIDocumentState documentState;
+	public var  (default, null) : UIDocumentState documentState;
 
 #pragma mark *** Opening and Closing ***
 
 // Subclassing this method without calling super should be avoided. Subclassers who don't call super must use NSFileCoordinator for coordinated reading themselves.
 // Open the document located by the fileURL.  This will call readFromURL:error: on a background queue and then invoke the completionHandler on the current dispatch queue when openWithCompletionHandler: is invoked.
-- (void)openWithCompletionHandler:(void (^)(BOOL success))completionHandler;
+	public function openWithCompletionHandler:(void (^)(BOOL success))completionHandler;
 
 // Close the document. The default implementation calls [self autosaveWithCompletionHandler:completionHandler] which will save if [self hasUnsavedChanges] returns YES.
-- (void)closeWithCompletionHandler:(void (^)(BOOL success))completionHandler;
+	public function closeWithCompletionHandler:(void (^)(BOOL success))completionHandler;
 
 #pragma mark *** Simple Reading and Writing ***
 
@@ -111,40 +111,40 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIDocument : NSObject <NSFilePresenter> {
 // UIKit will call -disableEditing when it is unsafe to make changes to the document, such as during a close or revert, and call -enableEditing when it is safe again.
 // The default implementation of these methods do nothing.
 
-- (void)disableEditing;
-- (void)enableEditing;
+	public function disableEditing;
+	public function enableEditing;
 
 #pragma mark *** Change Management ***
 
 // The document's undo manager. Setting the undo manager also registers the document as an observer of various NSUndoManager notifications so that -updateChangeCount: is invoked as undoable changes are made to the document. 
 // Asking for the undo manager creates a default one if one is not already set.
 // Typically, when a subclass sets the undoManager, it does not need to override -hasUnsavedChanges or call updateChangeCount: manually.
-@property(retain) NSUndoManager *undoManager;
+	public var NSUndoManager *undoManager;
 
 // Subclasses should generally not need to override this. Instead they should use the undoManager or call -updateChangeCount: every time they get a change and UIKit will calculate -hasUnsavedChanges automatically.
 // The default implementation of -autosaveWithCompletionHandler: initiates a save if [self hasUnsavedChanges] is YES.
 - (BOOL)hasUnsavedChanges;
 
 // Record the fact that a change affecting the value returned by -hasUnsavedChanges has occurred. Subclasses should not need to call this if they set the undoManager.
-- (void)updateChangeCount:(UIDocumentChangeKind)change; 
+	public function updateChangeCount:(UIDocumentChangeKind)change; 
 
 // Change count tokens can be used to encapsulate the record of document changes being made in a particular save.
 // Subclasses that don't register changes via -updateChangeCount: or by using the undoManager should implement these methods to determine if the model has new unsaved changes at the end of a save.
 // -changeCountTokenForSaveOperation: is called at the beginning of a save operation and the token returned is passed to -updateChangeCountWithToken:forSaveOperation: at the conclusion of a save.
 // The default implementation of updateChangeCountWithToken:forSaveOperation: calls [self updateChangeCount:UIDocumentChangeCleared] if no changes are made during the save.
 - (id)changeCountTokenForSaveOperation:(UIDocumentSaveOperation)saveOperation; 
-- (void)updateChangeCountWithToken:(id)changeCountToken forSaveOperation:(UIDocumentSaveOperation)saveOperation; 
+	public function updateChangeCountWithToken:(id)changeCountToken forSaveOperation:(UIDocumentSaveOperation)saveOperation; 
 
 #pragma mark *** Advanced Reading and Writing ***
 
 // Subclassing this method without calling super should be avoided. Subclassers  who don't call super must use NSFileCoordinator for coordinated writing themselves.
 // The default implementation of this method invokes [self contentsOfType:error:] synchronously on the calling queue, and then invokes [self writeContents:andAttributes:safelyToURL:ForSaveOperation:completionHandler:] on a background queue.
 // The completion handler is executed on the calling queue.
-- (void)saveToURL:(NSURL *)url forSaveOperation:(UIDocumentSaveOperation)saveOperation completionHandler:(void (^)(BOOL success))completionHandler;
+	public function saveToURL:(NSURL *)url forSaveOperation:(UIDocumentSaveOperation)saveOperation completionHandler:(void (^)(BOOL success))completionHandler;
 
 // Clients should not need to call this method directly. It exists as an override point for subclasses that want to do special things with autosaving.
 // The default implementation of this method invokes [self hasUnsavedChanges] and, if that returns YES, invokes [self saveToURL:[self fileURL] forSaveOperation:UIDocumentSaveForOverwriting completionHandler:completionHandler].
-- (void)autosaveWithCompletionHandler:(void (^)(BOOL success))completionHandler;
+	public function autosaveWithCompletionHandler:(void (^)(BOOL success))completionHandler;
 
 - (NSString *)savingFileType; // The default implementation returns the current file type. saveToURL: will save to an extension based on this type so subclasses can override this to allow moving the document to a new type.
 - (NSString *)fileNameExtensionForType:(NSString *)typeName saveOperation:(UIDocumentSaveOperation)saveOperation; // For a specified type, and a particular kind of save operation, return a file name extension that can be appended to a base file name.
@@ -168,7 +168,7 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIDocument : NSObject <NSFilePresenter> {
 #pragma mark *** File Access Serialization ***
 
 // The default implementations of saveToURL: and openWithCompletionHandler: both use this to serialize file access. Direct calls to reading and writing methods should use this method to serialize file access on a background queue.
-- (void)performAsynchronousFileAccessUsingBlock:(void (^)(void))block;
+	public function performAsynchronousFileAccessUsingBlock:(void (^)(void))block;
 
 #pragma mark *** Error Presentation ***
 // These are advanced methods for dealing with errors in UIDocument.
@@ -181,17 +181,17 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIDocument : NSObject <NSFilePresenter> {
 // 1. Subclasses that do not call super are responsible for calling -finishedHandlingError: when done with the error (i.e. when the app will not require any additional user feedback from the error).
 // 2. Subclasses that do not call super are also responsible for implementing -userInteractionNoLongerPermittedForError: to wrap up error handling immediately when required.
 // 3. If the userInteractionPermitted flag is NO, you should immediately handle the error and call [self finishedHandlingError:] within the context of -handleError:userInteractionPermitted:
-- (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted;
+	public function handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted;
 
 // Called when handling of an error (including any user interaction) is complete.
 // Subclasses only need to call this method if they override -handleError:userInteractionPermitted: and do not call super.
 // If overridden, subclasses must call super
-- (void)finishedHandlingError:(NSError *)error recovered:(BOOL)recovered;
+	public function finishedHandlingError:(NSError *)error recovered:(BOOL)recovered;
 
 // UIKit calls this method when it is no longer safe to proceed without immediately handling the error, such as when the app is being suspended.
 // Subclasses must immediately wrap up error handling (including dismissing any interactive UI) and call [self finishedHandlingError:] before returning.
 // It is only necessary to override this method if you override -handleError:userInteractionPermitted: without calling super
-- (void)userInteractionNoLongerPermittedForError:(NSError *)error;
+	public function userInteractionNoLongerPermittedForError:(NSError *)error;
 
 #pragma mark *** Reverting ***
 
@@ -199,6 +199,6 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIDocument : NSObject <NSFilePresenter> {
 // Default implementation calls [self disableEditing] in the beginning and [self enableEditing] on completion to indicate that the document should not accept changes from the user while this is happening.
 // The default implementation also calls [self openWithCompletionHandler:] after updating the fileURL.
 // Subclasses that override this method must call super or use NSFileCoordinator directly to initiate a coordinated read.
-- (void)revertToContentsOfURL:(NSURL *)url completionHandler:(void (^)(BOOL success))completionHandler;
+	public function revertToContentsOfURL:(NSURL *)url completionHandler:(void (^)(BOOL success))completionHandler;
 
-@end
+}

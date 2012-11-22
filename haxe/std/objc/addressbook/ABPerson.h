@@ -16,20 +16,20 @@
 // ABPerson is a subclass of ABRecord and represents a person. See ABGlobals.h for
 // a list of built-in properties
 
-@interface ABPerson : ABRecord
+extern class ABPerson : ABRecord
 
 - (NSArray *)parentGroups;
     // Returns an array of ABGroup this person belongs to.
     // Returns an empty array if this person doesn't belong to any groups
 
-@end
+}
 
 // ================================================================================
 //      interface ABPerson(ABPerson_Properties)
 // ================================================================================
 // This section deals with adding/removing properties on people
 
-@interface ABPerson (ABPerson_Properties)
+extern class ABPerson (ABPerson_Properties)
 
 + (NSInteger)addPropertiesAndTypes:(NSDictionary *)properties;
     // Adds properties to all people records. The dictionary must be of the form:
@@ -48,14 +48,14 @@
 + (ABPropertyType)typeOfProperty:(NSString*)property;
     // Returns the type of a given property.
     // Returns kABErrorInProperty if the property is not known
-@end
+}
 
 // ================================================================================
 //      interface ABPerson(ABPerson_Searching)
 // ================================================================================
 // This section deals with creating search elements to search groups
 
-@interface ABPerson (ABPerson_Searching)
+extern class ABPerson (ABPerson_Searching)
 + (ABSearchElement *)searchElementForProperty:(NSString*)property
                                         label:(NSString*)label
                                           key:(NSString*)key
@@ -70,18 +70,18 @@
     //
     // if the value is nil then the only supported comparisons are kABEqual or kABNotEqual.
     // Note: Support for nil values was added to Mac OS X version 10.2.4
-@end
+}
 
 // ================================================================================
 //      interface ABPerson(ABPerson_vCard)
 // ================================================================================
 // This section deals with vCards
 
-@interface ABPerson (ABPerson_vCard)
+extern class ABPerson (ABPerson_vCard)
 - (id)initWithVCardRepresentation:(NSData *)vCardData;
     // Create a person from a vCard
     // Returns nil if vCardData is nil or not a valid vCard
 
 - (NSData *)vCardRepresentation;
     // Returns the vCard representation of a person
-@end
+}

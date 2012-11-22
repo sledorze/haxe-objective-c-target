@@ -15,7 +15,7 @@
 - (void)prepareToPlay;
 
 // Returns YES if prepared for playback.
-@property(nonatomic, readonly) BOOL isPreparedToPlay;
+	public var (default, null) BOOL isPreparedToPlay;
 
 // Plays items from the current queue, resuming paused playback if possible.
 - (void)play;
@@ -27,18 +27,18 @@
 - (void)stop;
 
 // The current playback time of the now playing item in seconds.
-@property(nonatomic) NSTimeInterval currentPlaybackTime;
+	public var  NSTimeInterval currentPlaybackTime;
 
 // The current playback rate of the now playing item. Default is 1.0 (normal speed).
 // Pausing will set the rate to 0.0. Setting the rate to non-zero implies playing.
-@property(nonatomic) float currentPlaybackRate;
+	public var  float currentPlaybackRate;
 
 // The seeking rate will increase the longer scanning is active.
 - (void)beginSeekingForward;
 - (void)beginSeekingBackward;
 - (void)endSeeking;
 
-@end
+}
 
 // Posted when the prepared state changes of an object conforming to the MPMediaPlayback protocol changes.
 MP_EXTERN NSString *const MPMediaPlaybackIsPreparedToPlayDidChangeNotification NS_AVAILABLE_IOS(3_2);

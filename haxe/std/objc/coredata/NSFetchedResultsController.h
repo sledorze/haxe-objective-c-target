@@ -48,7 +48,7 @@ Handling of Invalidated Objects
 @class NSManagedObjectContext;
 
 NS_CLASS_AVAILABLE(NA,3_0)
-@interface NSFetchedResultsController : NSObject {
+extern class NSFetchedResultsController extends NSObject {
 @private
 	NSFetchRequest *_fetchRequest;
 	NSManagedObjectContext *_managedObjectContext;
@@ -105,23 +105,23 @@ NS_CLASS_AVAILABLE(NA,3_0)
 
 /* NSFetchRequest instance used to do the fetching. You must not change it, its predicate, or its sort descriptor after initialization without disabling caching or calling +deleteCacheWithName.  The sort descriptor used in the request groups objects into sections. 
 */
-@property (nonatomic, readonly) NSFetchRequest *fetchRequest;
+	public var NSFetchRequest *fetchRequest;
 
 /* Managed Object Context used to fetch objects. The controller registers to listen to change notifications on this context and properly update its result set and section information. 
 */
-@property (nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
+	public var NSManagedObjectContext *managedObjectContext;
 
 /* The keyPath on the fetched objects used to determine the section they belong to. 
 */
-@property (nonatomic, readonly) NSString *sectionNameKeyPath;
+	public var NSString *sectionNameKeyPath;
 
 /* Name of the persistent cached section information. Use nil to disable persistent caching, or +deleteCacheWithName to clear a cache.
 */
-@property (nonatomic, readonly) NSString *cacheName;
+	public var NSString *cacheName;
 
 /* Delegate that is notified when the result set changes.
 */
-@property(nonatomic, assign) id< NSFetchedResultsControllerDelegate > delegate;
+	public var  id< NSFetchedResultsControllerDelegate > delegate;
 
 /* Deletes the cached section information with the given name.
     If name is nil, then all caches are deleted.
@@ -135,7 +135,7 @@ NS_CLASS_AVAILABLE(NA,3_0)
 /* Returns the results of the fetch.
     Returns nil if the performFetch: hasn't been called.
 */
-@property  (nonatomic, readonly) NSArray *fetchedObjects;
+	public var   (nonatomic, readonly) NSArray *fetchedObjects;
 
 /* Returns the fetched object at a given indexPath.
 */
@@ -166,7 +166,7 @@ NS_CLASS_AVAILABLE(NA,3_0)
     Developers should override this method if they wish to return a different array for the section index.
     Only needed if a section index is used.
 */
-@property (nonatomic, readonly) NSArray *sectionIndexTitles;
+	public var NSArray *sectionIndexTitles;
 
 /* ========================================================*/
 /* =========== QUERYING SECTION INFORMATION ===============*/
@@ -180,7 +180,7 @@ NS_CLASS_AVAILABLE(NA,3_0)
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section; 
 
 */
-@property (nonatomic, readonly) NSArray *sections;
+	public var NSArray *sections;
 
 /* Returns the section number for a given section title and index in the section index.
     It's expected that developers call this method when executing UITableViewDataSource's
@@ -188,7 +188,7 @@ NS_CLASS_AVAILABLE(NA,3_0)
 */
 - (NSInteger)sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)sectionIndex;
 
-@end
+}
 
 // ================== PROTOCOLS ==================
 
@@ -196,21 +196,21 @@ NS_CLASS_AVAILABLE(NA,3_0)
 
 /* Name of the section
 */
-@property (nonatomic, readonly) NSString *name;
+	public var NSString *name;
 
 /* Title of the section (used when displaying the index)
 */
-@property (nonatomic, readonly) NSString *indexTitle;
+	public var NSString *indexTitle;
 
 /* Number of objects in section
 */
-@property (nonatomic, readonly) NSUInteger numberOfObjects;
+	public var NSUInteger numberOfObjects;
 
 /* Returns the array of objects in the section.
 */
-@property (nonatomic, readonly) NSArray *objects;
+	public var NSArray *objects;
 
-@end // NSFetchedResultsSectionInfo
+} // NSFetchedResultsSectionInfo
 
 
 
@@ -272,4 +272,4 @@ typedef NSUInteger NSFetchedResultsChangeType;
 @optional
 - (NSString *)controller:(NSFetchedResultsController *)controller sectionIndexTitleForSectionName:(NSString *)sectionName __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
 
-@end
+}

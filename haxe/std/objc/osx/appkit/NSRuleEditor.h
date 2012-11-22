@@ -53,7 +53,7 @@ enum {
 
 typedef NSUInteger NSRuleEditorRowType;
 
-@interface NSRuleEditor : NSControl {
+extern class NSRuleEditor : NSControl {
     @private
     id _ruleDataSource;
     id _ruleDelegate;
@@ -211,7 +211,7 @@ typedef NSUInteger NSRuleEditorRowType;
 - (void)setDisplayValuesKeyPath:(NSString *)keyPath;
 - (NSString *)displayValuesKeyPath;
 
-@end
+}
 
 
 @protocol NSRuleEditorDelegate <NSObject>
@@ -240,7 +240,7 @@ typedef NSUInteger NSRuleEditorRowType;
 /* If ruleEditorRowsDidChange: is implemented, NSRuleEditor will automatically register its delegate to receive NSRuleEditorRowsDidChangeNotification notifications to this method. Implementation of this method is optional. */
 - (void)ruleEditorRowsDidChange:(NSNotification *)notification;
 
-@end
+}
 
 /* The following strings are to be used as keys to the dictionary returned from the optional method ruleEditor: predicatePartsForCriterion: withDisplayValue: inRow: .  In order to construct a valid predicate, the union of the dictionaries for each item in the row must contain the required parts as described below: */
 

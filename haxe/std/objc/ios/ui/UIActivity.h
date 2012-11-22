@@ -1,6 +1,6 @@
 //
 //  UIActivity.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2012 Apple, Inc. All rights reserved.
 //
@@ -20,7 +20,7 @@ UIKIT_EXTERN NSString *const UIActivityTypeCopyToPasteboard NS_AVAILABLE_IOS(6_0
 UIKIT_EXTERN NSString *const UIActivityTypeAssignToContact  NS_AVAILABLE_IOS(6_0); // image
 UIKIT_EXTERN NSString *const UIActivityTypeSaveToCameraRoll NS_AVAILABLE_IOS(6_0); // image, video
 
-NS_CLASS_AVAILABLE_IOS(6_0) @interface UIActivity : NSObject
+NS_CLASS_AVAILABLE_IOS(6_0)extern class UIActivity extends NSObject
 
 // override methods
 
@@ -29,13 +29,13 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface UIActivity : NSObject
 - (UIImage *)activityImage;       // default returns nil. subclass must override and must return non-nil value
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems;   // override this to return availability of activity based on items. default returns NO
-- (void)prepareWithActivityItems:(NSArray *)activityItems;      // override to extract items and set up your HI. default does nothing
+	public function prepareWithActivityItems:(NSArray *)activityItems;      // override to extract items and set up your HI. default does nothing
 
 - (UIViewController *)activityViewController;   // return non-nil to have vC presented modally. call activityDidFinish at end. default returns nil
-- (void)performActivity;                        // if no view controller, this method is called. call activityDidFinish when done. default calls [self activityDidFinish:NO]
+	public function performActivity;                        // if no view controller, this method is called. call activityDidFinish when done. default calls [self activityDidFinish:NO]
 
 // state method
 
-- (void)activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished. can be called on any thread
+	public function activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished. can be called on any thread
 
-@end
+}

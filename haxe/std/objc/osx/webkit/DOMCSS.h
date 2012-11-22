@@ -50,7 +50,7 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_1_3
 
-@interface DOMCSSStyleDeclaration (DOMCSS2Properties)
+extern class DOMCSSStyleDeclaration (DOMCSS2Properties)
 - (NSString *)azimuth;
 - (void)setAzimuth:(NSString *)azimuth;
 - (NSString *)background;
@@ -295,6 +295,6 @@
 - (void)setWordSpacing:(NSString *)wordSpacing;
 - (NSString *)zIndex;
 - (void)setZIndex:(NSString *)zIndex;
-@end
+}
 
 #endif

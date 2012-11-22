@@ -11,9 +11,9 @@
 @class NSNumber, NSData, NSDictionary;
 
 #if (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
-@interface NSURL: NSObject <NSSecureCoding, NSCopying>
+extern class NSURL: NSObject <NSSecureCoding, NSCopying>
 #else
-@interface NSURL: NSObject <NSSecureCoding, NSCopying, NSURLHandleClient>
+extern class NSURL: NSObject <NSSecureCoding, NSCopying, NSURLHandleClient>
 #endif
 {
     NSString *_urlString;
@@ -212,7 +212,7 @@ FOUNDATION_EXPORT NSString * const NSURLVolumeIsBrowsableKey                NS_A
 FOUNDATION_EXPORT NSString * const NSURLVolumeMaximumFileSizeKey            NS_AVAILABLE(10_7, 5_0); // The largest file size (in bytes) supported by this file system, or nil if this cannot be determined. (Read-only, value type NSNumber)
 FOUNDATION_EXPORT NSString * const NSURLVolumeIsEjectableKey                NS_AVAILABLE(10_7, 5_0); // true if the volume's media is ejectable from the drive mechanism under software control. (Read-only, value type boolean NSNumber)
 FOUNDATION_EXPORT NSString * const NSURLVolumeIsRemovableKey                NS_AVAILABLE(10_7, 5_0); // true if the volume's media is removable from the drive mechanism. (Read-only, value type boolean NSNumber)
-FOUNDATION_EXPORT NSString * const NSURLVolumeIsInternalKey                 NS_AVAILABLE(10_7, 5_0); // true if the volume's device is connected to an internal bus, false if connected to an external bus, or nil if not available. (Read-only, value type boolean NSNumber)
+FOUNDATION_EXPORT NSString * const NSURLVolumeIsInternalKey                 NS_AVAILABLE(10_7, 5_0); // true if the volume's device is connected to an internal bus, false if connected to anexternal bus, or nil if not available. (Read-only, value type boolean NSNumber)
 FOUNDATION_EXPORT NSString * const NSURLVolumeIsAutomountedKey              NS_AVAILABLE(10_7, 5_0); // true if the volume is automounted. Note: do not mistake this with the functionality provided by kCFURLVolumeSupportsBrowsingKey. (Read-only, value type boolean NSNumber)
 FOUNDATION_EXPORT NSString * const NSURLVolumeIsLocalKey                    NS_AVAILABLE(10_7, 5_0); // true if the volume is stored on a local device. (Read-only, value type boolean NSNumber)
 FOUNDATION_EXPORT NSString * const NSURLVolumeIsReadOnlyKey                 NS_AVAILABLE(10_7, 5_0); // true if the volume is read-only. (Read-only, value type boolean NSNumber)
@@ -253,7 +253,7 @@ typedef NS_OPTIONS(NSUInteger, NSURLBookmarkResolutionOptions) {
 
 typedef NSUInteger NSURLBookmarkFileCreationOptions;
 
-/* Create a NSData containing a externalizable representation from a given url, which can later be resolved or interrogated for properties
+/* Create a NSData containing aexternalizable representation from a given url, which can later be resolved or interrogated for properties
  */
 - (NSData *)bookmarkDataWithOptions:(NSURLBookmarkCreationOptions)options includingResourceValuesForKeys:(NSArray *)keys relativeToURL:(NSURL *)relativeURL error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
 
@@ -285,10 +285,10 @@ typedef NSUInteger NSURLBookmarkFileCreationOptions;
  */
 - (void) stopAccessingSecurityScopedResource NS_AVAILABLE(10_7, NA);
 
-@end
+}
 
 
-@interface NSString (NSURLUtilities)
+extern class NSString (NSURLUtilities)
 
 /* Adds all percent escapes necessary to convert the receiver into a legal URL string.  Uses the given encoding to determine the correct percent escapes (returning nil if the given encoding cannot encode a particular character).  See CFURLCreateStringByAddingPercentEscapes in CFURL.h for more complex transformations
  */
@@ -298,10 +298,10 @@ typedef NSUInteger NSURLBookmarkFileCreationOptions;
  */
 - (NSString *)stringByReplacingPercentEscapesUsingEncoding:(NSStringEncoding)enc;
 
-@end
+}
 
 
-@interface NSURL (NSURLPathUtilities)
+extern class NSURL (NSURLPathUtilities)
     
 /* The following methods work on the path portion of a URL in the same manner that the NSPathUtilities methods on NSString do.
  */
@@ -320,15 +320,15 @@ typedef NSUInteger NSURLBookmarkFileCreationOptions;
 - (NSURL *)URLByStandardizingPath NS_AVAILABLE(10_6, 4_0);
 - (NSURL *)URLByResolvingSymlinksInPath NS_AVAILABLE(10_6, 4_0) ;
 
-@end
+}
 
 
 #if (TARGET_OS_MAC || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 /* NSFileSecurity encapsulates a file system object's security information. NSFileSecurity and CFFileSecurity are toll-free bridged.
  */
-@interface NSFileSecurity : NSObject <NSCopying, NSCoding>
+extern class NSFileSecurity : NSObject <NSCopying, NSCoding>
 
-@end
+}
 #endif
 
 
@@ -338,16 +338,16 @@ typedef NSUInteger NSURLBookmarkFileCreationOptions;
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 /* Client informal protocol for use with the deprecated loadResourceDataNotifyingClient: below.
  */
-@interface NSObject (NSURLClient)
+extern class NSObject (NSURLClient)
 - (void)URL:(NSURL *)sender resourceDataDidBecomeAvailable:(NSData *)newBytes NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 - (void)URLResourceDidFinishLoading:(NSURL *)sender NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 - (void)URLResourceDidCancelLoading:(NSURL *)sender NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 - (void)URL:(NSURL *)sender resourceDidFailLoadingWithReason:(NSString *)reason NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
-@end
+}
 
 /* This entire protocol is deprecated; use NSURLConnection instead.
  */
-@interface NSURL (NSURLLoading)
+extern class NSURL (NSURLLoading)
 - (NSData *)resourceDataUsingCache:(BOOL)shouldUseCache NS_DEPRECATED(10_0, 10_4, 2_0, 2_0); // Blocks to load the data if necessary.  If shouldUseCache is YES, then if an equivalent URL has already been loaded and cached, its resource data will be returned immediately.  If shouldUseCache is NO, a new load will be started
 - (void)loadResourceDataNotifyingClient:(id)client usingCache:(BOOL)shouldUseCache NS_DEPRECATED(10_0, 10_4, 2_0, 2_0); // Starts an asynchronous load of the data, registering delegate to receive notification.  Only one such background load can proceed at a time.
 - (id)propertyForKey:(NSString *)propertyKey NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
@@ -359,5 +359,5 @@ typedef NSUInteger NSURLBookmarkFileCreationOptions;
 
 - (NSURLHandle *)URLHandleUsingCache:(BOOL)shouldUseCache NS_DEPRECATED(10_0, 10_4, 2_0, 2_0); // Sophisticated clients will want to ask for this, then message the handle directly.  If shouldUseCache is NO, a newly instantiated handle is returned, even if an equivalent URL has been loaded
 
-@end
+}
 #endif

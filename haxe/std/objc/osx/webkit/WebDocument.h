@@ -79,7 +79,7 @@
 */
 - (void)viewDidMoveToHostWindow;
 
-@end
+}
 
 
 /*!
@@ -97,7 +97,7 @@
     @result YES if found, NO if not found.
 */
 - (BOOL)searchFor:(NSString *)string direction:(BOOL)forward caseSensitive:(BOOL)caseFlag wrap:(BOOL)wrapFlag;
-@end
+}
 
 
 /*!
@@ -149,7 +149,7 @@
 */
 - (void)deselectAll;
 
-@end
+}
 
 
 /*!
@@ -206,4 +206,4 @@
 */
 - (NSString *)title;
 
-@end
+}

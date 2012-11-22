@@ -13,7 +13,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileWrapperReadingOptions) {
     */
     NSFileWrapperReadingImmediate = 1 << 0,
 
-    /* Whether file mapping for regular file wrappers is disallowed. In Mac OS 10.6 and newer NSFileWrapper only ever memory maps files on internal drives, regardless of whether this option is used. It never memory maps files on external drives or network volumes. You can use this option to keep NSFileWrapper from memory mapping files at all, even ones on internal drives. This is useful if you want to make sure your application doesn't hold files open (mapped files are open files) and therefore prevent the user from ejecting DVDs, unmounting disk partitions, or unmounting disk images.
+    /* Whether file mapping for regular file wrappers is disallowed. In Mac OS 10.6 and newer NSFileWrapper only ever memory maps files on internal drives, regardless of whether this option is used. It never memory maps files onexternal drives or network volumes. You can use this option to keep NSFileWrapper from memory mapping files at all, even ones on internal drives. This is useful if you want to make sure your application doesn't hold files open (mapped files are open files) and therefore prevent the user from ejecting DVDs, unmounting disk partitions, or unmounting disk images.
     */
     NSFileWrapperReadingWithoutMapping = 1 << 1
 
@@ -32,7 +32,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileWrapperWritingOptions) {
 } NS_ENUM_AVAILABLE(10_6, 4_0);
 
 NS_CLASS_AVAILABLE(10_0, 4_0)
-@interface NSFileWrapper : NSObject<NSCoding> {
+extern class NSFileWrapper : NSObject,implements NSObject> {
     @private
     NSDictionary *_fileAttributes;
     NSString *_preferredFileName;
@@ -152,11 +152,11 @@ NS_CLASS_AVAILABLE(10_0, 4_0)
 */
 - (NSURL *)symbolicLinkDestinationURL NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@interface NSFileWrapper(NSDeprecated)
+extern class NSFileWrapper(NSDeprecated)
 
 #pragma mark *** Backward Compatibility ***
 
@@ -183,7 +183,7 @@ NS_CLASS_AVAILABLE(10_0, 4_0)
 */
 - (NSString *)symbolicLinkDestination;
 
-@end
+}
 
 #endif
 

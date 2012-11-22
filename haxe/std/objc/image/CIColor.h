@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 
 CORE_IMAGE_CLASS_EXPORT
-@interface CIColor : NSObject <NSCoding, NSCopying>
+extern class CIColor extends NSObject, implements NSObject, NSCopying>
 {
     void *_priv;
     void *_pad[3];
@@ -49,4 +49,4 @@ CORE_IMAGE_CLASS_EXPORT
 /* Returns a formatted string with the components of the color. */
 - (NSString *)stringRepresentation;
 
-@end
+}

@@ -14,7 +14,7 @@ APPKIT_EXTERN NSString *NSComboBoxSelectionIsChangingNotification;
 
 @protocol NSComboBoxDelegate, NSComboBoxDataSource;
 
-@interface NSComboBox : NSTextField {
+extern class NSComboBox : NSTextField {
     /*All instance variables are private*/
     id _dataSource;
 }
@@ -68,7 +68,7 @@ APPKIT_EXTERN NSString *NSComboBoxSelectionIsChangingNotification;
 - (NSInteger)indexOfItemWithObjectValue:(id)object;
 - (NSArray *)objectValues;
 
-@end
+}
 
 @protocol NSComboBoxDataSource <NSObject>
 @optional
@@ -78,7 +78,7 @@ APPKIT_EXTERN NSString *NSComboBoxSelectionIsChangingNotification;
 
 - (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
 - (NSString *)comboBox:(NSComboBox *)aComboBox completedString:(NSString *)string;
-@end
+}
 
 @protocol NSComboBoxDelegate <NSTextFieldDelegate>
 @optional
@@ -89,4 +89,4 @@ APPKIT_EXTERN NSString *NSComboBoxSelectionIsChangingNotification;
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification;
 - (void)comboBoxSelectionIsChanging:(NSNotification *)notification;
 
-@end
+}

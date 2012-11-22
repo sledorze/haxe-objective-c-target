@@ -27,7 +27,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileVersionReplacingOptions) {
 /* Instances of NSFileVersion for the same version of the same file are equal, and instances of NSFileVersion for different versions of the same file are not equal, but the equality of NSFileVersions for different files is undefined. Repeated invocations of the methods that return NSFileVersions do not necessarily return the exact same instance of NSFileVersion.
 */
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSFileVersion : NSObject {
+extern class NSFileVersion extends NSObject {
 @private
     NSURL *_fileURL;
     id _library;
@@ -74,27 +74,27 @@ When adding or removing versions of a file you should do it as part of a "coordi
 
 /* The location of the receiver's storage, or possibly nil if the receiver's storage has been deleted. The storage is read-only. The URL will have an arcane path. You must not derive user-presentable text from it.
 */
-@property (readonly) NSURL *URL;
+	public var NSURL *URL;
 
 /* The user-presentable name of the version, or possibly nil if the receiver's storage has been deleted. This will be different from the user-presentable name of the versioned file if, for example, the file has been renamed since the version was added.
 */
-@property (readonly) NSString *localizedName;
+	public var NSString *localizedName;
 
 /* The user-presentable name of the computer on which the version was saved, or possibly nil if the receiver's storage has been deleted, or nil if no computer name was recorded. The computer name is guaranteed to have been recorded only if the version is a conflict version. This will be different from that computer's current name if the computer's name has been changed since the version was retrieved from that computer.
 */
-@property (readonly) NSString *localizedNameOfSavingComputer;
+	public var NSString *localizedNameOfSavingComputer;
 
 /* The modification date of the version, or possibly nil if the receiver's storage has been deleted.
 */
-@property (readonly) NSDate *modificationDate;
+	public var NSDate *modificationDate;
 
 /* An object that can be encoded and, after subsequent decoding, passed to -versionOfItemAtURL:forPersistentIdentifier: to create a new instance of NSFileVersion that is equal to the receiver.
 */
-@property (readonly) id<NSCoding> persistentIdentifier;
+	public var id,implements NSObject> persistentIdentifier;
 
 /* Whether the version was created as a result of the discovery of a conflict between two writers of the versioned file.
 */
-@property (readonly, getter=isConflict) BOOL conflict;
+	public var  (readonly, getter=isConflict) BOOL conflict;
 
 /* If the version is a conflict version, whether the conflict has been resolved. If the version is not a conflict version, simply YES.
 
@@ -102,7 +102,7 @@ The operating system's reaction to your setting this to YES is complicated and s
 
 Once you have indicated that a conflict has been resolved you cannot make it unresolved again. Setting this to NO causes an exception to be thrown.
 */
-@property (getter=isResolved) BOOL resolved;
+	public var  (getter=isResolved) BOOL resolved;
 
 /* Whether the system is allowed to automatically delete the receiver's storage in the future, at an unpredictable time.
 
@@ -114,7 +114,7 @@ You cannot make the versioned file itself discardable. Setting the value of this
 
 Versions can be discardable only on Mac OS X.
 */
-@property (getter=isDiscardable) BOOL discardable NS_AVAILABLE_MAC(10_7);
+	public var  (getter=isDiscardable) BOOL discardable NS_AVAILABLE_MAC(10_7);
 
 /* If the passed-in URL locates a file, replace the file with a file whose contents are taken from the version but whose display name is taken from the file. If the passed-in URL does not locate a file then simply write one. If successful, return a URL that locates the resulting file; it may be different from the passed-in URL. The one exception to taking the display name from an existing file is if the version is of a different type than the overwritten file. In that case the file name extension will be taken from the version. (When file name extensions are being hidden in a user-friendly way this is not actually an exception.) If not successful, return NO after setting *outError to an NSError that encapsulates why not.
 
@@ -136,4 +136,4 @@ When removing versions of a file you should do it as part of a coordinated write
 */
 + (BOOL)removeOtherVersionsOfItemAtURL:(NSURL *)url error:(NSError **)outError;
 
-@end
+}

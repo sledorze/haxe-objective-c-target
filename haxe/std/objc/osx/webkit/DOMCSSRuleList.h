@@ -30,10 +30,10 @@
 
 @class DOMCSSRule;
 
-@interface DOMCSSRuleList : DOMObject
-@property(readonly) unsigned length;
+extern class DOMCSSRuleList : DOMObject
+	public var  (default, null) : unsigned length;
 
 - (DOMCSSRule *)item:(unsigned)index;
-@end
+}
 
 #endif

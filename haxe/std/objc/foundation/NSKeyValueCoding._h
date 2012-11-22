@@ -32,7 +32,7 @@ FOUNDATION_EXPORT NSString *const NSUnionOfArraysKeyValueOperator;
 FOUNDATION_EXPORT NSString *const NSUnionOfObjectsKeyValueOperator;
 FOUNDATION_EXPORT NSString *const NSUnionOfSetsKeyValueOperator;
 
-@interface NSObject(NSKeyValueCoding)
+extern class NSObject(NSKeyValueCoding)
 
 /* Return YES if -valueForKey:, -setValue:forKey:, -mutableArrayValueForKey:, -storedValueForKey:, -takeStoredValue:forKey:, and -takeValue:forKey: may directly manipulate instance variables when sent to instances of the receiving class, NO otherwise. The default implementation of this method returns YES.
 */
@@ -141,9 +141,9 @@ Performance note: the repetitive -set<Key>: messages implied by step 2's descrip
 */
 - (void)setValuesForKeysWithDictionary:(NSDictionary *)keyedValues;
 
-@end
+}
 
-@interface NSArray(NSKeyValueCoding)
+extern class NSArray(NSKeyValueCoding)
 
 /* Return an array containing the results of invoking -valueForKey: on each of the receiver's elements. The returned array will contain NSNull elements for each instance of -valueForKey: returning nil.
 */
@@ -153,25 +153,25 @@ Performance note: the repetitive -set<Key>: messages implied by step 2's descrip
 */
 - (void)setValue:(id)value forKey:(NSString *)key;
 
-@end
+}
 
-@interface NSDictionary(NSKeyValueCoding)
+extern class NSDictionary(NSKeyValueCoding)
 
 /* Return the result of sending -objectForKey: to the receiver.
 */
 - (id)valueForKey:(NSString *)key;
 
-@end
+}
 
-@interface NSMutableDictionary(NSKeyValueCoding)
+extern class NSMutableDictionary(NSKeyValueCoding)
 
 /* Send -setObject:forKey: to the receiver, unless the value is nil, in which case send -removeObject:forKey:.
 */
 - (void)setValue:(id)value forKey:(NSString *)key;
 
-@end
+}
 
-@interface NSOrderedSet(NSKeyValueCoding)
+extern class NSOrderedSet(NSKeyValueCoding)
 
 /* Return an ordered set containing the results of invoking -valueForKey: on each of the receiver's members. The returned ordered set might not have the same number of members as the receiver. The returned ordered set will not contain any elements corresponding to instances of -valueForKey: returning nil, nor will it contain duplicates.
 */
@@ -181,9 +181,9 @@ Performance note: the repetitive -set<Key>: messages implied by step 2's descrip
 */
 - (void)setValue:(id)value forKey:(NSString *)key NS_AVAILABLE(10_7, 5_0);
 
-@end
+}
 
-@interface NSSet(NSKeyValueCoding)
+extern class NSSet(NSKeyValueCoding)
 
 /* Return a set containing the results of invoking -valueForKey: on each of the receiver's members. The returned set might not have the same number of members as the receiver. The returned set will not contain any elements corresponding to instances of -valueForKey: returning nil (in contrast with -[NSArray(NSKeyValueCoding) valueForKey:], which may put NSNulls in the arrays it returns).
 */
@@ -193,11 +193,11 @@ Performance note: the repetitive -set<Key>: messages implied by step 2's descrip
 */
 - (void)setValue:(id)value forKey:(NSString *)key;
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@interface NSObject(NSDeprecatedKeyValueCoding)
+extern class NSObject(NSDeprecatedKeyValueCoding)
 
 /* Methods that were deprecated in Mac OS 10.4.
 */
@@ -215,6 +215,6 @@ Performance note: the repetitive -set<Key>: messages implied by step 2's descrip
 - (NSDictionary *)valuesForKeys:(NSArray *)keys NS_DEPRECATED(10_0, 10_3, 2_0, 2_0);
 - (void)takeValuesFromDictionary:(NSDictionary *)properties NS_DEPRECATED(10_0, 10_3, 2_0, 2_0);
 
-@end
+}
 
 #endif

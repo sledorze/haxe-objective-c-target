@@ -1,6 +1,6 @@
 //
 //  UITableViewHeaderFooterView.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -9,19 +9,19 @@
 #import <UIKit/UITableView.h>
 
 // Either the header or footer for a section
-NS_CLASS_AVAILABLE_IOS(6_0) @interface UITableViewHeaderFooterView : UIView
+NS_CLASS_AVAILABLE_IOS(6_0)extern class UITableViewHeaderFooterView extends UIView
 
-@property(nonatomic, retain) UIColor *tintColor UI_APPEARANCE_SELECTOR;
+	public var  UIColor *tintColor UI_APPEARANCE_SELECTOR;
 
-@property(nonatomic, readonly, retain) UILabel* textLabel;
-@property(nonatomic, readonly, retain) UILabel* detailTextLabel; // only supported for headers in grouped style
+	public var (default, null) UILabel* textLabel;
+	public var (default, null) UILabel* detailTextLabel; // only supported for headers in grouped style
 
-@property (nonatomic, readonly, retain) UIView *contentView;
-@property (nonatomic, retain) UIView *backgroundView;
+	public var (default, null) UIView *contentView;
+	public var UIView *backgroundView;
 
-@property (nonatomic, readonly, copy) NSString *reuseIdentifier;
+	public var (default, null) NSString *reuseIdentifier;
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
-- (void)prepareForReuse;  // if the view is reusable (has a reuse identifier), this is called just before the view is returned from the table view method dequeueReusableHeaderFooterViewWithIdentifier:.  If you override, you MUST call super.
+	public function prepareForReuse;  // if the view is reusable (has a reuse identifier), this is called just before the view is returned from the table view method dequeueReusableHeaderFooterViewWithIdentifier:.  If you override, you MUST call super.
 
-@end
+}

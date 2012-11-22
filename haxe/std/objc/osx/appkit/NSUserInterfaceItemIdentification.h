@@ -20,6 +20,6 @@ To help avoid collision of identifiers, it is recommended that identifiers use t
 
 The slash '/', backslash '\', and colon ':' characters are reserved and should not be used in identifiers.
  */
-@property (copy) NSString *identifier;
+	public var  (copy) NSString *identifier;
 
-@end
+}

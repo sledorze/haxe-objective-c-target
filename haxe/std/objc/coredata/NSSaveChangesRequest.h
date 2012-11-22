@@ -11,7 +11,7 @@
 @class NSPersistentStoreRequest;
 
 NS_CLASS_AVAILABLE(10_7,5_0)
-@interface NSSaveChangesRequest : NSPersistentStoreRequest {
+extern class NSSaveChangesRequest : NSPersistentStoreRequest {
 @private
     NSSet *_insertedObjects;
     NSSet *_updatedObjects;
@@ -33,4 +33,4 @@ NS_CLASS_AVAILABLE(10_7,5_0)
 // Objects that were flagged for optimistic locking on the calling context via detectConflictsForObject:.
 - (NSSet *)lockedObjects;
 
-@end
+}

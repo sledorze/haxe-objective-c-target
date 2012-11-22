@@ -44,7 +44,7 @@ extern NSString *ABMultiValueIdentifiersErrorKey AVAILABLE_MAC_OS_X_VERSION_10_7
 //      ABAddressBook
 // ================================================================
 
-@interface ABAddressBook : NSObject
+extern class ABAddressBook extends NSObject
 {
 @private
     id                   _reserved8;
@@ -166,5 +166,5 @@ extern NSString *ABMultiValueIdentifiersErrorKey AVAILABLE_MAC_OS_X_VERSION_10_7
     // Possible values: kABFirstNameFirst or kABLastNameFirst
 
 
-@end
+}
 

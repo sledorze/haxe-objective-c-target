@@ -1,6 +1,6 @@
 //
 //  NSAttributedString.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2011-2012 Apple Inc. All rights reserved.
 //

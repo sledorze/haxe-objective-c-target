@@ -7,7 +7,7 @@
 
 #import <AppKit/NSImageRep.h>
 
-@interface NSPDFImageRep : NSImageRep
+extern class NSPDFImageRep : NSImageRep
 {
   @private
     NSData* _pdfData;
@@ -27,5 +27,5 @@
 - (NSInteger)  currentPage;
 - (NSInteger)  pageCount;
 
-@end
+}
 

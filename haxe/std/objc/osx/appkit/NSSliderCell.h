@@ -21,7 +21,7 @@ enum {
 };
 typedef NSUInteger NSSliderType;
 
-@interface NSSliderCell : NSActionCell
+extern class NSSliderCell : NSActionCell
 {
     /*All instance variables are private*/
     int     _reserved[3];
@@ -74,9 +74,9 @@ typedef NSUInteger NSSliderType;
 - (void) setSliderType:(NSSliderType)sliderType;
 - (NSSliderType)sliderType;
 
-@end
+}
 
-@interface NSSliderCell(NSTickMarkSupport)
+extern class NSSliderCell(NSTickMarkSupport)
 
 // For setting and retrieving the number of tick marks on a slider.
 //   0 indicates no tick marks are present, which is the default
@@ -109,4 +109,4 @@ typedef NSUInteger NSSliderType;
 
 - (double)closestTickMarkValueToValue:(double)value;
 
-@end
+}

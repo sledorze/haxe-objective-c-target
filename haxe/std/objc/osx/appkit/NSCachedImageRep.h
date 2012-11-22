@@ -11,7 +11,7 @@
 @class NSWindow;
 
 // this entire class is deprecated.  Please see the 10.6 AppKit release notes for more information.
-@interface NSCachedImageRep : NSImageRep {
+extern class NSCachedImageRep : NSImageRep {
     /*All instance variables are private*/
     NSPoint _origin;
     NSWindow *_window;
@@ -27,4 +27,4 @@
 - (NSWindow *)window NS_DEPRECATED_MAC(10_0, 10_6);
 - (NSRect)rect NS_DEPRECATED_MAC(10_0, 10_6);
 
-@end
+}

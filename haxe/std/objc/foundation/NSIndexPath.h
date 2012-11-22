@@ -4,7 +4,7 @@
 
 #import <Foundation/NSObject.h>
 
-@interface NSIndexPath : NSObject <NSCopying, NSCoding> {
+extern class NSIndexPath extends NSObject <NSCopying, NSCoding> {
 	@private
 	__strong NSUInteger *_indexes;
 	NSUInteger _hash;
@@ -29,5 +29,5 @@
 	// comparison support
 - (NSComparisonResult)compare:(NSIndexPath *)otherObject; // sorting an array of indexPaths using this comparison results in an array representing nodes in depth-first traversal order
 
-@end
+}
 

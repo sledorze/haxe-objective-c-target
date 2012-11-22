@@ -10,9 +10,9 @@
 @class NSDictionary;
 @class NSPropertyDescription;
 
-// Provides the basic unit of external data that the Core Data stack interacts with.
+// Provides the basic unit ofexternal data that the Core Data stack interacts with.
 NS_CLASS_AVAILABLE(10_7,5_0)
-@interface NSIncrementalStoreNode : NSObject {
+extern class NSIncrementalStoreNode extends NSObject {
 @private
     NSManagedObjectID *_objectID;
     uint64_t _versionNumber;
@@ -23,7 +23,7 @@ NS_CLASS_AVAILABLE(10_7,5_0)
 // Returns an object initialized with the following values
 // objectID -> The NSManagedObjectID corresponding to the object whose values are cached
 //
-// values -> A dictionary containing the values persisted in an external store with keys corresponding to the names of the NSPropertyDescriptions
+// values -> A dictionary containing the values persisted in anexternal store with keys corresponding to the names of the NSPropertyDescriptions
 //      in the NSEntityDescription described by the NSManagedObjectID.  Unknown or unmodeled keys will be stripped out.
 //
 //		For attributes: an immutable value (NSNumber, NSString, NSData etc).  Missing attribute keys will assume a nil value.
@@ -38,7 +38,7 @@ NS_CLASS_AVAILABLE(10_7,5_0)
 // version -> The revision number of this state; used for conflict detection and merging 
 - (id)initWithObjectID:(NSManagedObjectID*)objectID withValues:(NSDictionary*)values version:(uint64_t)version;
 
-// Update the values and version to reflect new data being saved to or loaded from the external store.  
+// Update the values and version to reflect new data being saved to or loaded from theexternal store.  
 // The values dictionary is in the same format as the initializer
 - (void)updateWithValues:(NSDictionary *)values version:(uint64_t)version;
 
@@ -51,4 +51,4 @@ NS_CLASS_AVAILABLE(10_7,5_0)
 // May return NSNull for to-one relationships.  If a relationship is nil, clients should  invoke -newValueForRelationship:forObjectWithID:withContext:error: on the NSPersistentStore
 - (id)valueForPropertyDescription:(NSPropertyDescription*)prop;
 
-@end
+}

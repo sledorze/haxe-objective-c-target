@@ -51,7 +51,7 @@
  */
 - (void)rejectProtectionSpaceAndContinueWithChallenge:(NSURLAuthenticationChallenge *)challenge;
 
-@end
+}
 
 @class NSURLAuthenticationChallengeInternal;
 
@@ -62,7 +62,7 @@
     to indicate when it's done.
 */
 
-@interface NSURLAuthenticationChallenge : NSObject <NSCoding>
+extern class NSURLAuthenticationChallenge extends NSObject, implements NSObject>
 {
 @private
     NSURLAuthenticationChallengeInternal *_internal;
@@ -147,4 +147,4 @@
 */
 - (id<NSURLAuthenticationChallengeSender>)sender;
 
-@end
+}

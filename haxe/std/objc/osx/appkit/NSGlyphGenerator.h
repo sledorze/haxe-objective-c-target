@@ -23,10 +23,10 @@ enum {
 
 - (NSAttributedString *)attributedString;
 - (NSUInteger)layoutOptions;
-@end
+}
 
-@interface NSGlyphGenerator : NSObject
+extern class NSGlyphGenerator extends NSObject
 - (void)generateGlyphsForGlyphStorage:(id <NSGlyphStorage>)glyphStorage desiredNumberOfCharacters:(NSUInteger)nChars glyphIndex:(NSUInteger *)glyphIndex characterIndex:(NSUInteger *)charIndex;
 
 + (id) sharedGlyphGenerator;
-@end
+}

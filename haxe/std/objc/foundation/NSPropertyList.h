@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger, NSPropertyListFormat) {
 typedef NSUInteger NSPropertyListReadOptions;
 typedef NSUInteger NSPropertyListWriteOptions;
 
-@interface NSPropertyListSerialization : NSObject {
+extern class NSPropertyListSerialization extends NSObject {
     void *reserved[6];
 }
 
@@ -55,5 +55,5 @@ typedef NSUInteger NSPropertyListWriteOptions;
  */
 + (id)propertyListFromData:(NSData *)data mutabilityOption:(NSPropertyListMutabilityOptions)opt format:(NSPropertyListFormat *)format errorDescription:(out __strong NSString **)errorString;
 
-@end
+}
 

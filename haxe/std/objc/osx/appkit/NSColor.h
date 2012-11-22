@@ -41,7 +41,7 @@ Subclassers of NSColor need to implement the methods colorSpaceName, set, the va
 
 
 
-@interface NSColor : NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
+extern class NSColor extends NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
 
 /* Create NSCalibratedWhiteColorSpace colors.
 */
@@ -262,23 +262,23 @@ This method provides a global approach to removing alpha which might not always 
 + (void)setIgnoresAlpha:(BOOL)flag;
 + (BOOL)ignoresAlpha;
 
-@end
+}
 
 
-@interface NSColor (NSQuartzCoreAdditions)
+extern class NSColor (NSQuartzCoreAdditions)
 + (NSColor *)colorWithCIColor:(CIColor *)color;
-@end
+}
 
-@interface CIColor (NSAppKitAdditions)
+extern class CIColor (NSAppKitAdditions)
 - (id)initWithColor:(NSColor *)color;
-@end
+}
 
-@interface NSCoder(NSAppKitColorExtensions)
+extern class NSCoder(NSAppKitColorExtensions)
 
 /* To decode NXColors... Will return nil if the archived color was "invalid" (written out by the kit in a few instances). Otherwise returns autoreleased NSColor. Can't write NSColors as NXColors, so we have no corresponding encode method.
 */
 - (NSColor *)decodeNXColor;
 
-@end
+}
 
 APPKIT_EXTERN NSString *NSSystemColorsDidChangeNotification;

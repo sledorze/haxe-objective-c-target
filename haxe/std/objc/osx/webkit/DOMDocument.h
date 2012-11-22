@@ -56,35 +56,35 @@
 @protocol DOMNodeFilter;
 @protocol DOMXPathNSResolver;
 
-@interface DOMDocument : DOMNode
-@property(readonly, retain) DOMDocumentType *doctype;
-@property(readonly, retain) DOMImplementation *implementation;
-@property(readonly, retain) DOMElement *documentElement;
-@property(readonly, copy) NSString *inputEncoding AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *xmlEncoding AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *xmlVersion AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property BOOL xmlStandalone AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *documentURI AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, retain) DOMAbstractView *defaultView;
-@property(readonly, retain) DOMStyleSheetList *styleSheets;
-@property(copy) NSString *title;
-@property(readonly, copy) NSString *referrer;
-@property(readonly, copy) NSString *domain;
-@property(readonly, copy) NSString *URL;
-@property(copy) NSString *cookie;
-@property(retain) DOMHTMLElement *body;
-@property(readonly, retain) DOMHTMLCollection *images;
-@property(readonly, retain) DOMHTMLCollection *applets;
-@property(readonly, retain) DOMHTMLCollection *links;
-@property(readonly, retain) DOMHTMLCollection *forms;
-@property(readonly, retain) DOMHTMLCollection *anchors;
-@property(readonly, copy) NSString *lastModified AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(copy) NSString *charset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *defaultCharset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *readyState AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *characterSet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *preferredStylesheetSet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *selectedStylesheetSet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMDocument : DOMNode
+	public var (default, null) DOMDocumentType *doctype;
+	public var (default, null) DOMImplementation *implementation;
+	public var (default, null) DOMElement *documentElement;
+	public var (default, null) NSString *inputEncoding AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *xmlEncoding AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *xmlVersion AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  BOOL xmlStandalone AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *documentURI AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) DOMAbstractView *defaultView;
+	public var (default, null) DOMStyleSheetList *styleSheets;
+	public var NSString *title;
+	public var (default, null) NSString *referrer;
+	public var (default, null) NSString *domain;
+	public var (default, null) NSString *URL;
+	public var NSString *cookie;
+	public var DOMHTMLElement *body;
+	public var (default, null) DOMHTMLCollection *images;
+	public var (default, null) DOMHTMLCollection *applets;
+	public var (default, null) DOMHTMLCollection *links;
+	public var (default, null) DOMHTMLCollection *forms;
+	public var (default, null) DOMHTMLCollection *anchors;
+	public var (default, null) NSString *lastModified AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var NSString *charset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *defaultCharset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *readyState AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *characterSet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *preferredStylesheetSet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *selectedStylesheetSet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (DOMElement *)createElement:(NSString *)tagName;
 - (DOMDocumentFragment *)createDocumentFragment;
@@ -127,9 +127,9 @@
 - (DOMElement *)querySelector:(NSString *)selectors AVAILABLE_IN_WEBKIT_VERSION_4_0;
 - (DOMNodeList *)querySelectorAll:(NSString *)selectors AVAILABLE_IN_WEBKIT_VERSION_4_0;
 - (void)webkitCancelFullScreen AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+}
 
-@interface DOMDocument (DOMDocumentDeprecated)
+extern class DOMDocument (DOMDocumentDeprecated)
 - (DOMProcessingInstruction *)createProcessingInstruction:(NSString *)target :(NSString *)data AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMNode *)importNode:(DOMNode *)importedNode :(BOOL)deep AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMElement *)createElementNS:(NSString *)namespaceURI :(NSString *)qualifiedName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
@@ -141,6 +141,6 @@
 - (DOMXPathExpression *)createExpression:(NSString *)expression :(id <DOMXPathNSResolver>)resolver AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
 - (DOMXPathResult *)evaluate:(NSString *)expression :(DOMNode *)contextNode :(id <DOMXPathNSResolver>)resolver :(unsigned short)type :(DOMXPathResult *)inResult AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
 - (DOMCSSStyleDeclaration *)getComputedStyle:(DOMElement *)element :(NSString *)pseudoElement AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

@@ -7,14 +7,14 @@
 #import <Foundation/NSDictionary.h>
 
 NS_CLASS_AVAILABLE(10_0, 3_2)
-@interface NSAttributedString : NSObject <NSCopying, NSMutableCopying, NSCoding>
+extern class NSAttributedString extends NSObject <NSCopying, NSMutableCopying, NSCoding>
 
 - (NSString *)string;
 - (NSDictionary *)attributesAtIndex:(NSUInteger)location effectiveRange:(NSRangePointer)range;
 
-@end
+}
 
-@interface NSAttributedString (NSExtendedAttributedString)
+extern class NSAttributedString (NSExtendedAttributedString)
 
 - (NSUInteger)length;
 - (id)attribute:(NSString *)attrName atIndex:(NSUInteger)location effectiveRange:(NSRangePointer)range;
@@ -39,17 +39,17 @@ typedef NS_OPTIONS(NSUInteger, NSAttributedStringEnumerationOptions) {
 - (void)enumerateAttribute:(NSString *)attrName inRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)(id value, NSRange range, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
 #endif
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_0, 3_2)
-@interface NSMutableAttributedString : NSAttributedString
+extern class NSMutableAttributedString : NSAttributedString
 
 - (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)str;
 - (void)setAttributes:(NSDictionary *)attrs range:(NSRange)range;
 
-@end
+}
 
-@interface NSMutableAttributedString (NSExtendedMutableAttributedString)
+extern class NSMutableAttributedString (NSExtendedMutableAttributedString)
 
 - (NSMutableString *)mutableString;
 
@@ -66,5 +66,5 @@ NS_CLASS_AVAILABLE(10_0, 3_2)
 - (void)beginEditing;
 - (void)endEditing;
 
-@end
+}
 

@@ -63,19 +63,19 @@
 @class AVCompositionInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVComposition : AVAsset <NSMutableCopying>
+extern class AVComposition : AVAsset <NSMutableCopying>
 {
 @private
 	AVCompositionInternal	*_priv;
 }
 
 /* provides the array of AVCompositionTracks contained by the composition */
-@property (nonatomic, readonly) NSArray *tracks;
+	public var NSArray *tracks;
 
 /*	indicates the authored size of the visual portion of the composition */
-@property (nonatomic, readonly) CGSize naturalSize;
+	public var CGSize naturalSize;
 
-@end
+}
 
 
 @class AVAssetTrack;
@@ -84,19 +84,19 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVMutableComposition : AVComposition
+extern class AVMutableComposition : AVComposition
 {
 @private
     AVMutableCompositionInternal    *_mutablePriv;
 }
 
 /* provides the array of AVMutableCompositionTracks contained by the composition */
-@property (nonatomic, readonly) NSArray *tracks;
+	public var NSArray *tracks;
 
 /* Indicates the authored size of the visual portion of the asset.
    If not set, the default behavior is to provide the size of the composition's first video track.
    Set to CGSizeZero to revert to default behavior. */
-@property (nonatomic) CGSize naturalSize;
+	public var CGSize naturalSize;
 
 /*!
 	@method			composition
@@ -104,10 +104,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 + (AVMutableComposition *)composition;
 
-@end
+}
 
     
-@interface AVMutableComposition (AVMutableCompositionCompositionLevelEditing)
+extern class AVMutableComposition (AVMutableCompositionCompositionLevelEditing)
 
 /*!
 	@method			insertTimeRange:ofAsset:atTime:error:
@@ -176,10 +176,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)scaleTimeRange:(CMTimeRange)timeRange toDuration:(CMTime)duration;
 
-@end
+}
 
 
-@interface AVMutableComposition (AVMutableCompositionTrackLevelEditing)
+extern class AVMutableComposition (AVMutableCompositionTrackLevelEditing)
 
 /*!
 	@method			addMutableTrackWithMediaType:preferredTrackID:
@@ -227,4 +227,4 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (AVMutableCompositionTrack *)mutableTrackCompatibleWithTrack:(AVAssetTrack *)track;
 
-@end
+}

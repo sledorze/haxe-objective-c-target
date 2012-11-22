@@ -9,11 +9,11 @@
 
 @class NSBezierPath;
 
-@interface NSAffineTransform (NSAppKitAdditons)
+extern class NSAffineTransform (NSAppKitAdditons)
 // Transform a path
 - (NSBezierPath *)transformBezierPath:(NSBezierPath *)aPath;
 
 // Setting a transform in NSGraphicsContext
 - (void)set;
 - (void)concat;
-@end
+}

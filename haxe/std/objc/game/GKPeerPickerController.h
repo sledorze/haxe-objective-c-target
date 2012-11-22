@@ -47,7 +47,7 @@ typedef NSUInteger GKPeerPickerConnectionType;
  */
 - (void)peerPickerControllerDidCancel:(GKPeerPickerController *)picker;
 
-@end
+}
 
 
 /* The GKPeerPickerController class manages the system-supplied user interface for choosing peers to connect with for multiplayer games. The class manages the actual user interactions with the views and reports the results of those interactions to your delegate object.
@@ -57,7 +57,7 @@ typedef NSUInteger GKPeerPickerConnectionType;
  You must provide a delegate that conforms to the GKPeerPickerControllerDelegate protocol in order to use this class. After the user interface starts, this class notifies your delegate of the user’s actions.
  */
 NS_CLASS_AVAILABLE(NA, 4_1)
-GK_EXTERN_CLASS @interface GKPeerPickerController : NSObject {
+GK_EXTERN_CLASSextern class GKPeerPickerController extends NSObject {
 @private
 	id _picker;
 }
@@ -66,11 +66,11 @@ GK_EXTERN_CLASS @interface GKPeerPickerController : NSObject {
  
  This mask can be specified by combining, using the C bitwise OR operator, any of the options described in GKPickerConnectionType. If not set, the default supported type is GKPickerConnectionTypeNearby.  If multiple connection types are supported, system-supplied UI will be presented to allow the user to select a connection type. The delegate receives a -peerPickerController:didSelectConnectionType: callback when the user selects a connection type.  If desired, this property should be set prior to calling -show, and should not be set while the picker is visible.
  */
-@property(nonatomic,assign) GKPeerPickerConnectionType connectionTypesMask;
+	public var  GKPeerPickerConnectionType connectionTypesMask;
 
 /* The delegate receives notifications when the user interacts with the picker interface. If this property is nil, the picker is dismissed immediately if you try to show it.
  */
-@property(nonatomic,assign) id<GKPeerPickerControllerDelegate> delegate;
+	public var  id<GKPeerPickerControllerDelegate> delegate;
 
 /* Show the picker.
  */
@@ -80,6 +80,6 @@ GK_EXTERN_CLASS @interface GKPeerPickerController : NSObject {
  */
 - (void)dismiss;
 
-@property(nonatomic,readonly,getter=isVisible) BOOL visible;
+	public var (nonatomic,readonly,getter=isVisible) BOOL visible;
 
-@end
+}

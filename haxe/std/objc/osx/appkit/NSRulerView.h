@@ -16,7 +16,7 @@ enum {
 };
 typedef NSUInteger NSRulerOrientation;
 
-@interface NSRulerView : NSView {
+extern class NSRulerView : NSView {
   /*All instance variables are private*/
   @private
     NSScrollView *_scrollView;
@@ -133,10 +133,10 @@ typedef NSUInteger NSRulerOrientation;
 - (BOOL)isFlipped;
     // A vertical ruler mimics the flippedness of the documentView of it's scrollView.  A horizontal ruler is always flipped (for ease of drawing).
 
-@end
+}
 
 // This informal protocol defines the communication between a ruler and its client view during mouse tracking.
-@interface NSView (NSRulerMarkerClientViewDelegation)
+extern class NSView (NSRulerMarkerClientViewDelegation)
 
 - (BOOL)rulerView:(NSRulerView *)ruler shouldMoveMarker:(NSRulerMarker *)marker;
     // This is sent when a drag operation is just beginning for a ruler marker already on the ruler.  If the ruler object should be allowed to either move or remove, return YES.  If you return NO, all tracking is abandoned and nothing happens.
@@ -171,4 +171,4 @@ typedef NSUInteger NSRulerOrientation;
 // This additional mapping allows mapping between location and point for clients with rotated coordinate system (i.e. vertical text view)
 - (CGFloat)rulerView:(NSRulerView *)ruler locationForPoint:(NSPoint)aPoint NS_AVAILABLE_MAC(10_7);
 - (NSPoint)rulerView:(NSRulerView *)ruler pointForLocation:(CGFloat)aPoint NS_AVAILABLE_MAC(10_7);
-@end
+}

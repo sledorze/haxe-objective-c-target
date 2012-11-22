@@ -24,7 +24,7 @@
 
 #import <QuartzCore/CALayer.h>
 
-@interface CATiledLayer : CALayer
+extern class CATiledLayer : CALayer
 
 /* The time in seconds that newly added images take to "fade-in" to the
  * rendered representation of the tiled layer. The default implementation
@@ -38,20 +38,20 @@
  * the number of levels is clamped to the maximum value (the bottom
  * most LOD must contain at least a single pixel in each dimension). */
 
-@property size_t levelsOfDetail;
+	public var  size_t levelsOfDetail;
 
 /* The number of magnified levels of detail for this layer. Defaults to
  * zero. Each previous LOD is twice the resolution of the later. E.g.
  * specifying 'levelBias' of two means the layer has two extra levels:
  * 2x and 4x. */
 
-@property size_t levelsOfDetailBias;
+	public var  size_t levelsOfDetailBias;
 
 /* The maximum size of each tile used to create the layer's content.
  * Defaults to (256, 256). Note that there is a maximum tile size, and
  * requests for tiles larger than that limit will cause a suitable
  * value to be substituted. */
 
-@property CGSize tileSize;
+	public var  CGSize tileSize;
 
-@end
+}

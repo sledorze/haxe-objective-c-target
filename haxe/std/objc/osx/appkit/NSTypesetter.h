@@ -20,7 +20,7 @@ enum {
 };
 typedef NSUInteger NSTypesetterControlCharacterAction;
     
-@interface NSTypesetter : NSObject {
+extern class NSTypesetter extends NSObject {
 #if __LP64__
     void *_reserved;
 #else /* __LP64__ */
@@ -135,10 +135,10 @@ typedef NSUInteger NSTypesetterControlCharacterAction;
 + (id)sharedSystemTypesetter;
 + (id)sharedSystemTypesetterForBehavior:(NSTypesetterBehavior)theBehavior;
 + (NSTypesetterBehavior)defaultTypesetterBehavior;
-@end
+}
 
 /* NSLayoutPhaseInterface declares various subclass override points that are invoked if implemented */
-@interface NSTypesetter (NSLayoutPhaseInterface)
+extern class NSTypesetter (NSLayoutPhaseInterface)
 // Called right before setLineFragmentRect:forGlyphRange:usedRect:
 - (void)willSetLineFragmentRect:(NSRectPointer)lineRect forGlyphRange:(NSRange)glyphRange usedRect:(NSRectPointer)usedRect baselineOffset:(CGFloat *)baselineOffset;
 
@@ -149,10 +149,10 @@ typedef NSUInteger NSTypesetterControlCharacterAction;
 - (UTF32Char)hyphenCharacterForGlyphAtIndex:(NSUInteger)glyphIndex;
 
 - (NSRect)boundingBoxForControlGlyphAtIndex:(NSUInteger)glyphIndex forTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)proposedRect glyphPosition:(NSPoint)glyphPosition characterIndex:(NSUInteger)charIndex;
-@end
+}
 
 /* NSGlyphStorageInterface declares all primitives interfacing to the glyph storage (usually NSLayoutManager). By overriding all the methods, you can implement an NSTypesetter subclass that interacts with custom glyph storage. */
-@interface NSTypesetter (NSGlyphStorageInterface)
+extern class NSTypesetter (NSGlyphStorageInterface)
 // Glyph/character range mappings
 - (NSRange)characterRangeForGlyphRange:(NSRange)glyphRange actualGlyphRange:(NSRangePointer)actualGlyphRange;
 - (NSRange)glyphRangeForCharacterRange:(NSRange)charRange actualCharacterRange:(NSRangePointer)actualCharRange;
@@ -175,7 +175,7 @@ typedef NSUInteger NSTypesetterControlCharacterAction;
 - (void)setLocation:(NSPoint)location withAdvancements:(const CGFloat *)advancements forStartOfGlyphRange:(NSRange)glyphRange;
 - (void)setAttachmentSize:(NSSize)attachmentSize forGlyphRange:(NSRange)glyphRange;
 - (void)setBidiLevels:(const uint8_t *)levels forGlyphRange:(NSRange)glyphRange;
-@end
+}
 
 #if !__LP64__ && MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4
 #import <AppKit/NSSimpleHorizontalTypesetter.h>

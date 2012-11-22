@@ -16,9 +16,9 @@
 #endif
 
 #if !__LP64__
-@interface NSMovie : NSObject <NSCopying, NSCoding> {
+extern class NSMovie extends NSObject <NSCopying, NSCoding> {
 #else
-@interface NSMovie : NSObject <NSCoding> {
+extern class NSMovie extends NSObject, implements NSObject> {
 #endif
 
   @private
@@ -52,5 +52,5 @@
 
 #endif
 
-@end
+}
 

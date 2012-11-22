@@ -4,9 +4,9 @@ extern class NSObjCRuntime {}
 /*#include <TargetConditionals.h>
 
 #if defined(__cplusplus)
-#define FOUNDATION_EXTERN extern "C"
+#define FOUNDATION_EXTERNextern "C"
 #else
-#define FOUNDATION_EXTERN extern
+#define FOUNDATION_EXTERNextern
 #endif
 
 #if TARGET_OS_WIN32
@@ -41,7 +41,7 @@ extern class NSObjCRuntime {}
 #endif
 
 #if !defined(FOUNDATION_EXTERN_INLINE)
-#define FOUNDATION_EXTERN_INLINE extern __inline__
+#define FOUNDATION_EXTERN_INLINEextern __inline__
 #endif
 
 #if !defined(NS_REQUIRES_NIL_TERMINATION)

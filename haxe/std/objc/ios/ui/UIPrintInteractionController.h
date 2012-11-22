@@ -1,6 +1,6 @@
 //
 //  UIPrintInteractionController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2010-2012, Apple Inc. All rights reserved.
 //
@@ -15,9 +15,9 @@
 
 typedef void (^UIPrintInteractionCompletionHandler)(UIPrintInteractionController *printInteractionController, BOOL completed, NSError *error);
 
-@protocol UIPrintInteractionControllerDelegate;
+extern interface UIPrintInteractionControllerDelegate;
 
-NS_CLASS_AVAILABLE_IOS(4_2) @interface UIPrintInteractionController : NSObject {
+NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintInteractionController extends NSObject {
   @private
     UIPrintInfo                             *_printInfo;
     id<UIPrintInteractionControllerDelegate> _delegate;
@@ -40,38 +40,38 @@ NS_CLASS_AVAILABLE_IOS(4_2) @interface UIPrintInteractionController : NSObject {
 
 + (UIPrintInteractionController *)sharedPrintController;
 
-@property(nonatomic,retain) UIPrintInfo                             *printInfo;      // changes to printInfo ignored while printing. default is nil
-@property(nonatomic,assign) id<UIPrintInteractionControllerDelegate> delegate;       // not retained. default is nil
-@property(nonatomic)        BOOL                                     showsPageRange; // default is NO.
+	public var (nonatomic,retain) UIPrintInfo                             *printInfo;      // changes to printInfo ignored while printing. default is nil
+	public var  id<UIPrintInteractionControllerDelegate> delegate;       // not retained. default is nil
+	public var         BOOL                                     showsPageRange; // default is NO.
 
-@property(nonatomic,readonly) UIPrintPaper *printPaper;  // set after printer selection
+	public var (default, null) UIPrintPaper *printPaper;  // set after printer selection
 
-@property(nonatomic,retain) UIPrintPageRenderer *printPageRenderer;  // calls class to render each page
-@property(nonatomic,retain) UIPrintFormatter    *printFormatter;     // uses a single formatter to fill the pages
-@property(nonatomic,copy)   id                   printingItem;       // single NSData, NSURL, UIImage, ALAsset
-@property(nonatomic,copy)   NSArray             *printingItems;      // array of NSData, NSURL, UIImage, ALAsset. does not support page range
+	public var (nonatomic,retain) UIPrintPageRenderer *printPageRenderer;  // calls class to render each page
+	public var (nonatomic,retain) UIPrintFormatter    *printFormatter;     // uses a single formatter to fill the pages
+public var    id                   printingItem;       // single NSData, NSURL, UIImage, ALAsset
+public var    NSArray             *printingItems;      // array of NSData, NSURL, UIImage, ALAsset. does not support page range
 
 - (BOOL)presentAnimated:(BOOL)animated completionHandler:(UIPrintInteractionCompletionHandler)completion;                                                // iPhone
 - (BOOL)presentFromRect:(CGRect)rect inView:(UIView *)view animated:(BOOL)animated completionHandler:(UIPrintInteractionCompletionHandler)completion;    // iPad
 - (BOOL)presentFromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated completionHandler:(UIPrintInteractionCompletionHandler)completion;      // iPad
 
-- (void)dismissAnimated:(BOOL)animated;
+	public function dismissAnimated:(BOOL)animated;
 
-@end
+}
 
-@protocol UIPrintInteractionControllerDelegate <NSObject>
+extern interface UIPrintInteractionControllerDelegate <NSObject>
 @optional
 
 - (UIViewController *)printInteractionControllerParentViewController:(UIPrintInteractionController *)printInteractionController;
 
 - (UIPrintPaper *)printInteractionController:(UIPrintInteractionController *)printInteractionController choosePaper:(NSArray *)paperList;
 
-- (void)printInteractionControllerWillPresentPrinterOptions:(UIPrintInteractionController *)printInteractionController;
-- (void)printInteractionControllerDidPresentPrinterOptions:(UIPrintInteractionController *)printInteractionController;
-- (void)printInteractionControllerWillDismissPrinterOptions:(UIPrintInteractionController *)printInteractionController;
-- (void)printInteractionControllerDidDismissPrinterOptions:(UIPrintInteractionController *)printInteractionController;
+	public function printInteractionControllerWillPresentPrinterOptions:(UIPrintInteractionController *)printInteractionController;
+	public function printInteractionControllerDidPresentPrinterOptions:(UIPrintInteractionController *)printInteractionController;
+	public function printInteractionControllerWillDismissPrinterOptions:(UIPrintInteractionController *)printInteractionController;
+	public function printInteractionControllerDidDismissPrinterOptions:(UIPrintInteractionController *)printInteractionController;
 
-- (void)printInteractionControllerWillStartJob:(UIPrintInteractionController *)printInteractionController;
-- (void)printInteractionControllerDidFinishJob:(UIPrintInteractionController *)printInteractionController;
+	public function printInteractionControllerWillStartJob:(UIPrintInteractionController *)printInteractionController;
+	public function printInteractionControllerDidFinishJob:(UIPrintInteractionController *)printInteractionController;
 
-@end
+}

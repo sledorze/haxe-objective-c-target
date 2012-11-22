@@ -36,7 +36,7 @@
     @discussion A WebResource represents a fully downloaded URL. 
     It includes the data of the resource as well as the metadata associated with the resource.
 */
-@interface WebResource : NSObject <NSCoding, NSCopying>
+extern class WebResource extends NSObject, implements NSObject, NSCopying>
 {
 @private
     WebResourcePrivate *_private;
@@ -84,4 +84,4 @@
 */
 - (NSString *)frameName;
 
-@end
+}

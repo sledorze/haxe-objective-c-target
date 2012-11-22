@@ -1,6 +1,6 @@
 //
 //  UITapGestureRecognizer.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -15,14 +15,14 @@
 //     locationInView:         location of the tap, from the first tap in the sequence if numberOfTapsRequired > 1. this is the centroid if numberOfTouchesRequired > 1
 //     locationOfTouch:inView: location of a particular touch, from the first tap in the sequence if numberOfTapsRequired > 1
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UITapGestureRecognizer : UIGestureRecognizer {
+extern class UITapGestureRecognizer : UIGestureRecognizer {
   @package
     CGPoint      _locationInView;
     id           _imp;
     unsigned int _delaysRecognitionForGreaterTapCounts;
 }
 
-@property (nonatomic) NSUInteger  numberOfTapsRequired;       // Default is 1. The number of taps required to match
-@property (nonatomic) NSUInteger  numberOfTouchesRequired;    // Default is 1. The number of fingers required to match
+	public var NSUInteger  numberOfTapsRequired;       // Default is 1. The number of taps required to match
+	public var NSUInteger  numberOfTouchesRequired;    // Default is 1. The number of fingers required to match
 
-@end
+}

@@ -31,11 +31,11 @@
 @class DOMText;
 @class NSString;
 
-@interface DOMText : DOMCharacterData
-@property(readonly, copy) NSString *wholeText AVAILABLE_IN_WEBKIT_VERSION_4_0;
+extern class DOMText : DOMCharacterData
+	public var (default, null) NSString *wholeText AVAILABLE_IN_WEBKIT_VERSION_4_0;
 
 - (DOMText *)splitText:(unsigned)offset;
 - (DOMText *)replaceWholeText:(NSString *)content AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+}
 
 #endif

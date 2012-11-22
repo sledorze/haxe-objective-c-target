@@ -12,7 +12,7 @@
 @class NSError;
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSMappingModel: NSObject {
+extern class NSMappingModelextends NSObject {
     @private
     void *_reserved;
     void *_reserved1;
@@ -49,4 +49,4 @@ NS_CLASS_AVAILABLE(10_5,3_0)
 */
 - (NSDictionary *)entityMappingsByName;
 
-@end
+}

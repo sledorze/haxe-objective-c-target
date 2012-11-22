@@ -25,7 +25,7 @@
     When the URL value in the NSPathControl changes from an automatic drag and drop operation, or from the user selecting a new path via the open panel, the action is sent, but the clickedPathComponentCell will be nil.
 */
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSPathControl : NSControl {
+extern class NSPathControl : NSControl {
 @private
     NSDragOperation _draggingSourceOperationMaskForLocal;
     NSDragOperation _draggingSourceOperationMaskForNonLocal;
@@ -71,7 +71,7 @@ NS_CLASS_AVAILABLE(10_5, NA)
 - (void)setMenu:(NSMenu *)menu;
 - (NSMenu *)menu;
 
-@end
+}
 
 
 @protocol NSPathControlDelegate <NSObject>
@@ -106,5 +106,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 */
 - (void)pathControl:(NSPathControl *)pathControl willPopUpMenu:(NSMenu *)menu;
 
-@end
+}
 

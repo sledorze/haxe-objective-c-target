@@ -19,7 +19,7 @@ enum {
     NSImageRepMatchesDevice = 0
 };
 
-@interface NSImageRep : NSObject <NSCopying, NSCoding> {
+extern class NSImageRep extends NSObject <NSCopying, NSCoding> {
     /*All instance variables are private*/
     struct __repFlags {
 	unsigned int hasAlpha:1;
@@ -124,7 +124,7 @@ enum {
  */
 - (CGImageRef)CGImageForProposedRect:(NSRect *)proposedDestRect context:(NSGraphicsContext *)context hints:(NSDictionary *)hints NS_AVAILABLE_MAC(10_6); 
 
-@end
+}
 
 /* Notifications */
 #define NSImageRepRegistryChangedNotification NSImageRepRegistryDidChangeNotification /* obsolete name */

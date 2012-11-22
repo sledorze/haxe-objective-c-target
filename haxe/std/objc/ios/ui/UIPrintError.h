@@ -1,6 +1,6 @@
 //
 //  UIPrintError.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2010-2012, Apple Inc. All rights reserved.
 //

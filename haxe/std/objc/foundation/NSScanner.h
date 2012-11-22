@@ -6,7 +6,7 @@
 
 @class NSString, NSCharacterSet, NSDictionary;
 
-@interface NSScanner : NSObject <NSCopying>
+extern class NSScanner extends NSObject <NSCopying>
 
 - (NSString *)string;
 - (NSUInteger)scanLocation;
@@ -15,9 +15,9 @@
 - (void)setCaseSensitive:(BOOL)flag;
 - (void)setLocale:(id)locale;
 
-@end
+}
 
-@interface NSScanner (NSExtendedScanner)
+extern class NSScanner (NSExtendedScanner)
 
 - (NSCharacterSet *)charactersToBeSkipped;
 - (BOOL)caseSensitive;
@@ -45,5 +45,5 @@
 + (id)scannerWithString:(NSString *)string;
 + (id)localizedScannerWithString:(NSString *)string;
 
-@end
+}
 

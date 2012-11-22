@@ -7,7 +7,7 @@
 
 #import <AppKit/NSImageRep.h>
 
-@interface NSPICTImageRep : NSImageRep
+extern class NSPICTImageRep : NSImageRep
 {
     /*All instance variables are private*/
     NSPoint      _pictOrigin;		/* topLeft of picFrame */
@@ -29,4 +29,4 @@
 - (NSData*) PICTRepresentation;
 - (NSRect)  boundingBox;
 
-@end
+}

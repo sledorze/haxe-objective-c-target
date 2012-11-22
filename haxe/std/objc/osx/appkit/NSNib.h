@@ -19,7 +19,7 @@ As are all NSObjects, instantiated nib objects are allocated in a memory zone (N
 
 @class NSArray, NSBundle, NSData, NSDictionary, NSIBObjectData, NSURL;
 
-@interface NSNib : NSObject <NSCoding> {
+extern class NSNib extends NSObject, implements NSObject> {
    @private
     NSData *_data;
     NSArray *_images;
@@ -51,7 +51,7 @@ As are all NSObjects, instantiated nib objects are allocated in a memory zone (N
 // A nib may be instantiated multiple times, each time creating a distinct object
 // tree and top level objects.  Furthermore, each instantiation of the nib
 // must have a distict owner instance that will be responsible for the
-// resulting object tree.  The possible defines for the externalNameTable
+// resulting object tree.  The possible defines for theexternalNameTable
 // dictionary are:
 //      NSNibOwner = the object that will own the new instance (File's Owner)
 //      NSNibTopLevelObjects = NSMutableArray, if present will be filled with
@@ -67,7 +67,7 @@ As are all NSObjects, instantiated nib objects are allocated in a memory zone (N
 //
 - (BOOL)instantiateNibWithOwner:(id)owner topLevelObjects:(NSArray **)topLevelObjects;
 
-@end
+}
 
 // ** External Name Table Keys **
 // Note: the actual values of these defines match the

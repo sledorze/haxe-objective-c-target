@@ -1,6 +1,6 @@
 //
 //  UIAccessibilityAdditions.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -15,13 +15,13 @@
   in order to provide accessibility information per component. 
   See UIAccessibility.h for more information about hints and labels.
 */
-@protocol UIPickerViewAccessibilityDelegate <UIPickerViewDelegate>
+extern interface UIPickerViewAccessibilityDelegate <UIPickerViewDelegate>
 
 @optional
 - (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component;
 - (NSString *)pickerView:(UIPickerView *)pickerView accessibilityHintForComponent:(NSInteger)component;
 
-@end
+}
 
 /*
  Provide a custom status string when VoiceOver scrolls with accessibilityScroll:
@@ -29,9 +29,9 @@
  this protocol to announce "Showing books 10 through 20".
  By default, VoiceOver will announce "Page X of Y" when scrolling. 
  */
-@protocol UIScrollViewAccessibilityDelegate <UIScrollViewDelegate>
+extern interface UIScrollViewAccessibilityDelegate <UIScrollViewDelegate>
 
 @optional
 - (NSString *)accessibilityScrollStatusForScrollView:(UIScrollView *)scrollView;
 
-@end
+}

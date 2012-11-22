@@ -17,7 +17,7 @@ enum {
 };
 typedef NSUInteger NSCharacterCollection;
 
-@interface NSGlyphInfo : NSObject <NSCopying, NSCoding> {
+extern class NSGlyphInfo extends NSObject <NSCopying, NSCoding> {
     NSString *_baseString;
 }
 
@@ -38,4 +38,4 @@ typedef NSUInteger NSCharacterCollection;
 
 // Returns RO (character collection).  Returns NSIdentityMappingCharacterCollection if instantiated with NSGlyph or glyph name
 - (NSCharacterCollection)characterCollection;
-@end
+}

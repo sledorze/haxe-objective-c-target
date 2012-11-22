@@ -15,7 +15,7 @@
 @class NSMutableArray, NSArray;
 @protocol NSMenuDelegate;
 
-@interface NSMenu : NSObject <NSCopying, NSCoding>
+extern class NSMenu extends NSObject <NSCopying, NSCoding>
 {
     /*All instance variables are private*/
     @private
@@ -195,15 +195,15 @@
 - (void)helpRequested:(NSEvent *)eventPtr;
 - (BOOL)isTornOff;
 
-@end
+}
 
-@interface NSMenu (NSSubmenuAction)
+extern class NSMenu (NSSubmenuAction)
 - (void)submenuAction:(id)sender;
-@end
+}
 
-@interface NSObject (NSMenuValidation)
+extern class NSObject (NSMenuValidation)
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem;
-@end
+}
 
 @protocol NSMenuDelegate <NSObject>
 @optional
@@ -227,7 +227,7 @@
 */
 - (NSRect)confinementRectForMenu:(NSMenu *)menu onScreen:(NSScreen *)screen NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 /* The NSMenuProperties type is a bitmask used for specifying a set of menu or menu item properties, used in the following method.
  */
@@ -245,9 +245,9 @@ typedef NSUInteger NSMenuProperties;
  
  This may be called from the menu delegate method -menuNeedsUpdate:.  Calling this at other times will raise an exception.
  */
-@interface NSMenu (NSMenuPropertiesToUpdate)
+extern class NSMenu (NSMenuPropertiesToUpdate)
 - (NSMenuProperties)propertiesToUpdate NS_AVAILABLE_MAC(10_6);
-@end
+}
 
 APPKIT_EXTERN NSString *NSMenuWillSendActionNotification;
 APPKIT_EXTERN NSString *NSMenuDidSendActionNotification;
@@ -261,7 +261,7 @@ APPKIT_EXTERN NSString *NSMenuDidBeginTrackingNotification;
 APPKIT_EXTERN NSString *NSMenuDidEndTrackingNotification;
 
 // The remainder of this file contains deprecated methods
-@interface NSMenu (NSDeprecated)
+extern class NSMenu (NSDeprecated)
 
 - (void)setMenuRepresentation:(id)menuRep NS_DEPRECATED_MAC(10_0, 10_2);
 - (id)menuRepresentation NS_DEPRECATED_MAC(10_0, 10_2);
@@ -279,4 +279,4 @@ APPKIT_EXTERN NSString *NSMenuDidEndTrackingNotification;
 - (void)sizeToFit NS_DEPRECATED_MAC(10_0, 10_2);
 - (NSPoint)locationForSubmenu:(NSMenu *)aSubmenu NS_DEPRECATED_MAC(10_0, 10_2);
 
-@end
+}

@@ -31,12 +31,12 @@
 @class DOMNode;
 @protocol DOMNodeFilter;
 
-@interface DOMTreeWalker : DOMObject
-@property(readonly, retain) DOMNode *root;
-@property(readonly) unsigned whatToShow;
-@property(readonly, retain) id <DOMNodeFilter> filter;
-@property(readonly) BOOL expandEntityReferences;
-@property(retain) DOMNode *currentNode;
+extern class DOMTreeWalker : DOMObject
+	public var (default, null) DOMNode *root;
+	public var  (default, null) : unsigned whatToShow;
+	public var (default, null) id <DOMNodeFilter> filter;
+	public var  (default, null) : BOOL expandEntityReferences;
+	public var DOMNode *currentNode;
 
 - (DOMNode *)parentNode;
 - (DOMNode *)firstChild;
@@ -45,6 +45,6 @@
 - (DOMNode *)nextSibling;
 - (DOMNode *)previousNode;
 - (DOMNode *)nextNode;
-@end
+}
 
 #endif

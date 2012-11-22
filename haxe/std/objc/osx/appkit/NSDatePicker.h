@@ -11,7 +11,7 @@
 
 @class NSCalendar, NSLocale, NSTimeZone;
 
-@interface NSDatePicker : NSControl
+extern class NSDatePicker : NSControl
 {
 }
 
@@ -75,5 +75,5 @@
 - (id <NSDatePickerCellDelegate>)delegate;
 - (void)setDelegate:(id <NSDatePickerCellDelegate>)anObject;
 
-@end
+}
 

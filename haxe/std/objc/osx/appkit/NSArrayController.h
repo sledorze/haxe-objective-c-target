@@ -11,7 +11,7 @@
 
 @class NSArray, NSIndexSet, NSMutableArray, NSMutableIndexSet;
 
-@interface NSArrayController : NSObjectController {
+extern class NSArrayController extends NSObjectController {
 @private
 	void *_reserved4;
 	id _rearrangementExtensions;
@@ -108,5 +108,5 @@
 - (void)removeObject:(id)object;    // removes from the content objects and the arranged objects (if currently contained)
 - (void)removeObjects:(NSArray *)objects;
 
-@end
+}
 

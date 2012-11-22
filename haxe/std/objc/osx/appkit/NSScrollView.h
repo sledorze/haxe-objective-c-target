@@ -74,7 +74,7 @@ typedef struct __SFlags {
 #endif
 } _SFlags;
 
-@interface NSScrollView : NSView <NSTextFinderBarContainer>
+extern class NSScrollView : NSView <NSTextFinderBarContainer>
 {
     /*All instance variables are private*/
     NSScroller *_vScroller;
@@ -179,9 +179,9 @@ typedef struct __SFlags {
 - (BOOL)usesPredominantAxisScrolling NS_AVAILABLE_MAC(10_7);
 - (void)setUsesPredominantAxisScrolling:(BOOL)predominantAxisScrolling NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
-@interface NSScrollView(NSRulerSupport)
+extern class NSScrollView(NSRulerSupport)
 
 + (void)setRulerViewClass:(Class)rulerViewClass;
 + (Class)rulerViewClass;
@@ -199,7 +199,7 @@ typedef struct __SFlags {
 - (void)setVerticalRulerView:(NSRulerView *)ruler;
 - (NSRulerView *)verticalRulerView;
 
-@end
+}
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 enum {
@@ -210,9 +210,9 @@ enum {
 #endif
 typedef NSInteger NSScrollViewFindBarPosition;
 
-@interface NSScrollView(NSFindBarSupport)
+extern class NSScrollView(NSFindBarSupport)
 
 - (void)setFindBarPosition:(NSScrollViewFindBarPosition)position NS_AVAILABLE_MAC(10_7);
 - (NSScrollViewFindBarPosition)findBarPosition NS_AVAILABLE_MAC(10_7);
 
-@end
+}

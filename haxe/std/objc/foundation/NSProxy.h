@@ -7,7 +7,7 @@
 @class NSMethodSignature, NSInvocation;
 
 NS_ROOT_CLASS
-@interface NSProxy <NSObject> {
+extern class NSProxy <NSObject> {
     Class	isa;
 }
 
@@ -28,5 +28,5 @@ NS_ROOT_CLASS
 
 // - (id)forwardingTargetForSelector:(SEL)aSelector;
 
-@end
+}
 

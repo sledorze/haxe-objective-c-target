@@ -48,11 +48,11 @@
 */
 - (NSArray*) validAttributesForMarkedText;
 
-@end
+}
 
 /* NSInputManager is deprecated in Mac OS X 10.6. Use NSTextInputContext instead. 
  */
-@interface NSInputManager : NSObject <NSTextInput> {
+extern class NSInputManager extends NSObject <NSTextInput> {
 /*All instance variables are private*/
 @private
     id _currentClient;
@@ -110,4 +110,4 @@
 /* This should return YES when the input method (language) prefers to delay text change notification 'till the input is actually committed.
 */
 - (BOOL) wantsToDelayTextChangeNotifications NS_DEPRECATED_MAC(10_0, 10_6);
-@end
+}

@@ -43,18 +43,18 @@ enum {
 - (BOOL)wantsToTrackMouseForEvent:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex;
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex untilMouseUp:(BOOL)flag;
 - (NSRect)cellFrameForTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)lineFrag glyphPosition:(NSPoint)position characterIndex:(NSUInteger)charIndex;
-@end
+}
 
 /* Simple class to provide basic attachment cell functionality. By default this class causes NSTextView to send out delegate messages when the attachment is clicked on or dragged.
  */
-@interface NSTextAttachmentCell : NSCell <NSTextAttachmentCell> {
+extern class NSTextAttachmentCell : NSCell <NSTextAttachmentCell> {
     /*All instance variables are private*/
     NSTextAttachment *_attachment;
 }
-@end
+}
 
 
-@interface NSTextAttachment : NSObject <NSCoding> {
+extern class NSTextAttachment extends NSObject, implements NSObject> {
     /*All instance variables are private*/
     NSFileWrapper *_fileWrapper;
     id <NSTextAttachmentCell>_cell;
@@ -79,19 +79,19 @@ enum {
 - (id <NSTextAttachmentCell>)attachmentCell;
 - (void)setAttachmentCell:(id <NSTextAttachmentCell>)cell;
 
-@end
+}
 
 
 /* Convenience for creating an attributed string with an attachment.
  */
-@interface NSAttributedString (NSAttributedStringAttachmentConveniences)
+extern class NSAttributedString (NSAttributedStringAttachmentConveniences)
 
 + (NSAttributedString *)attributedStringWithAttachment:(NSTextAttachment *)attachment;
 
-@end
+}
 
-@interface NSMutableAttributedString (NSMutableAttributedStringAttachmentConveniences)
+extern class NSMutableAttributedString (NSMutableAttributedStringAttachmentConveniences)
 
 - (void)updateAttachmentsFromPath:(NSString *)path;
 
-@end
+}

@@ -31,22 +31,22 @@
 @class NSString;
 @class NSURL;
 
-@interface DOMHTMLAreaElement : DOMHTMLElement
-@property(copy) NSString *alt;
-@property(copy) NSString *coords;
-@property(copy) NSString *href;
-@property BOOL noHref;
-@property(copy) NSString *shape;
-@property(copy) NSString *target;
-@property(copy) NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
-@property(readonly, copy) NSString *hashName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *host AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *hostname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *pathname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *port AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *protocol AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *search AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSURL *absoluteLinkURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLAreaElement : DOMHTMLElement
+	public var NSString *alt;
+	public var NSString *coords;
+	public var NSString *href;
+	public var  BOOL noHref;
+	public var NSString *shape;
+	public var NSString *target;
+	public var NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
+	public var (default, null) NSString *hashName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *host AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *hostname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *pathname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *port AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *protocol AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *search AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSURL *absoluteLinkURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

@@ -11,7 +11,7 @@
 
 @protocol NSTextFieldDelegate;
 
-@interface NSTextField : NSControl <NSUserInterfaceValidations>
+extern class NSTextField : NSControl <NSUserInterfaceValidations>
 {
     /*All instance variables are private*/
     id	_delegate;
@@ -44,17 +44,17 @@
 
 - (void)setBezelStyle:(NSTextFieldBezelStyle)style;
 - (NSTextFieldBezelStyle)bezelStyle;
-@end
+}
 
-@interface NSTextField(NSKeyboardUI)
+extern class NSTextField(NSKeyboardUI)
 - (void)setTitleWithMnemonic:(NSString *)stringWithAmpersand;
-@end
+}
 
-@interface NSTextField(NSTextFieldAttributedStringMethods)
+extern class NSTextField(NSTextFieldAttributedStringMethods)
 - (BOOL)allowsEditingTextAttributes;
 - (void)setAllowsEditingTextAttributes:(BOOL)flag;
 - (BOOL)importsGraphics;
 - (void)setImportsGraphics:(BOOL)flag;
-@end
+}
 
-@protocol NSTextFieldDelegate <NSControlTextEditingDelegate> @end
+@protocol NSTextFieldDelegate <NSControlTextEditingDelegate> }

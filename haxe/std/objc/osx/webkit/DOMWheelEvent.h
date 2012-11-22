@@ -30,25 +30,25 @@
 
 @class DOMAbstractView;
 
-@interface DOMWheelEvent : DOMUIEvent
-@property(readonly) int screenX;
-@property(readonly) int screenY;
-@property(readonly) int clientX;
-@property(readonly) int clientY;
-@property(readonly) BOOL ctrlKey;
-@property(readonly) BOOL shiftKey;
-@property(readonly) BOOL altKey;
-@property(readonly) BOOL metaKey;
-@property(readonly) int wheelDelta;
-@property(readonly) int wheelDeltaX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int wheelDeltaY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int offsetX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int offsetY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int x AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int y AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) BOOL isHorizontal;
+extern class DOMWheelEvent : DOMUIEvent
+	public var  (default, null) : int screenX;
+	public var  (default, null) : int screenY;
+	public var  (default, null) : int clientX;
+	public var  (default, null) : int clientY;
+	public var  (default, null) : BOOL ctrlKey;
+	public var  (default, null) : BOOL shiftKey;
+	public var  (default, null) : BOOL altKey;
+	public var  (default, null) : BOOL metaKey;
+	public var  (default, null) : int wheelDelta;
+	public var  (default, null) : int wheelDeltaX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int wheelDeltaY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int offsetX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int offsetY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int x AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int y AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : BOOL isHorizontal;
 
 - (void)initWheelEvent:(int)wheelDeltaX wheelDeltaY:(int)wheelDeltaY view:(DOMAbstractView *)view screenX:(int)screenX screenY:(int)screenY clientX:(int)clientX clientY:(int)clientY ctrlKey:(BOOL)ctrlKey altKey:(BOOL)altKey shiftKey:(BOOL)shiftKey metaKey:(BOOL)metaKey AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
 #endif

@@ -22,7 +22,7 @@
 #endif
 
 //
-//  Platform specific defs for externs
+//  Platform specific defs forexterns
 //
 
 //
@@ -55,7 +55,7 @@
 #define APPKIT_EXTERN		extern "C" _NSWINDOWS_DLL_GOOP
 #define APPKIT_PRIVATE_EXTERN	extern
 #else
-#define APPKIT_EXTERN		_NSWINDOWS_DLL_GOOP extern
+#define APPKIT_EXTERN		_NSWINDOWS_DLL_GOOPextern
 #define APPKIT_PRIVATE_EXTERN	extern
 #endif
 

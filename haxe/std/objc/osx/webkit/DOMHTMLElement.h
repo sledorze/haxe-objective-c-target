@@ -31,24 +31,24 @@
 @class DOMHTMLCollection;
 @class NSString;
 
-@interface DOMHTMLElement : DOMElement
-@property(copy) NSString *idName;
-@property(copy) NSString *title;
-@property(copy) NSString *lang;
-@property(copy) NSString *dir;
-@property(copy) NSString *className;
-@property int tabIndex;
-@property(copy) NSString *accessKey AVAILABLE_AFTER_WEBKIT_VERSION_5_1;
-@property(copy) NSString *innerHTML;
-@property(copy) NSString *innerText;
-@property(copy) NSString *outerHTML;
-@property(copy) NSString *outerText;
-@property(readonly, retain) DOMHTMLCollection *children;
-@property(copy) NSString *contentEditable;
-@property(readonly) BOOL isContentEditable;
-@property(readonly, copy) NSString *titleDisplayString AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMHTMLElement : DOMElement
+	public var NSString *idName;
+	public var NSString *title;
+	public var NSString *lang;
+	public var NSString *dir;
+	public var NSString *className;
+	public var  int tabIndex;
+	public var NSString *accessKey AVAILABLE_AFTER_WEBKIT_VERSION_5_1;
+	public var NSString *innerHTML;
+	public var NSString *innerText;
+	public var NSString *outerHTML;
+	public var NSString *outerText;
+	public var (default, null) DOMHTMLCollection *children;
+	public var NSString *contentEditable;
+	public var  (default, null) : BOOL isContentEditable;
+	public var (default, null) NSString *titleDisplayString AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (void)click AVAILABLE_AFTER_WEBKIT_VERSION_5_1;
-@end
+}
 
 #endif

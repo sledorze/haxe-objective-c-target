@@ -38,25 +38,25 @@ enum {
     DOM_BUBBLING_PHASE = 3
 };
 
-@interface DOMEvent : DOMObject
-@property(readonly, copy) NSString *type;
-@property(readonly, retain) id <DOMEventTarget> target;
-@property(readonly, retain) id <DOMEventTarget> currentTarget;
-@property(readonly) unsigned short eventPhase;
-@property(readonly) BOOL bubbles;
-@property(readonly) BOOL cancelable;
-@property(readonly) DOMTimeStamp timeStamp;
-@property(readonly, retain) id <DOMEventTarget> srcElement AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property BOOL returnValue AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property BOOL cancelBubble AVAILABLE_IN_WEBKIT_VERSION_4_0;
+extern class DOMEvent : DOMObject
+	public var (default, null) NSString *type;
+	public var (default, null) id <DOMEventTarget> target;
+	public var (default, null) id <DOMEventTarget> currentTarget;
+	public var  (default, null) : unsigned short eventPhase;
+	public var  (default, null) : BOOL bubbles;
+	public var  (default, null) : BOOL cancelable;
+	public var  (default, null) : DOMTimeStamp timeStamp;
+	public var (default, null) id <DOMEventTarget> srcElement AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  BOOL returnValue AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  BOOL cancelBubble AVAILABLE_IN_WEBKIT_VERSION_4_0;
 
 - (void)stopPropagation;
 - (void)preventDefault;
 - (void)initEvent:(NSString *)eventTypeArg canBubbleArg:(BOOL)canBubbleArg cancelableArg:(BOOL)cancelableArg AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMEvent (DOMEventDeprecated)
+extern class DOMEvent (DOMEventDeprecated)
 - (void)initEvent:(NSString *)eventTypeArg :(BOOL)canBubbleArg :(BOOL)cancelableArg AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

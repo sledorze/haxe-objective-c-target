@@ -53,7 +53,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileManagerItemReplacementOptions) {
 */
 extern NSString * const NSUbiquityIdentityDidChangeNotification NS_AVAILABLE(10_8, 6_0);
 
-@interface NSFileManager : NSObject
+extern class NSFileManager : NSObject
 
 /* Returns the default singleton instance.
 */
@@ -273,14 +273,14 @@ extern NSString * const NSUbiquityIdentityDidChangeNotification NS_AVAILABLE(10_
 */
 - (id <NSObject, NSCopying, NSCoding>)ubiquityIdentityToken NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 /* These delegate methods are for the use of the deprecated handler-taking methods on NSFileManager for copying, moving, linking or deleting files.
  */
-@interface NSObject (NSCopyLinkMoveHandler)
+extern class NSObject (NSCopyLinkMoveHandler)
 - (BOOL)fileManager:(NSFileManager *)fm shouldProceedAfterError:(NSDictionary *)errorInfo NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
 - (void)fileManager:(NSFileManager *)fm willProcessPath:(NSString *)path NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-@end
+}
 
 
 @protocol NSFileManagerDelegate <NSObject>
@@ -342,10 +342,10 @@ extern NSString * const NSUbiquityIdentityDidChangeNotification NS_AVAILABLE(10_
 - (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtPath:(NSString *)path;
 - (BOOL)fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtURL:(NSURL *)URL NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 
-@interface NSDirectoryEnumerator : NSEnumerator
+extern class NSDirectoryEnumerator : NSEnumerator
 
 /* For NSDirectoryEnumerators created with -enumeratorAtPath:, the -fileAttributes and -directoryAttributes methods return an NSDictionary containing the keys listed below. For NSDirectoryEnumerators created with -enumeratorAtURL:includingPropertiesForKeys:options:errorHandler:, these two methods return nil.
  */
@@ -362,7 +362,7 @@ extern NSString * const NSUbiquityIdentityDidChangeNotification NS_AVAILABLE(10_
  */
 - (void)skipDescendants NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSFileType;
 FOUNDATION_EXPORT NSString * const NSFileTypeDirectory;
@@ -401,7 +401,7 @@ FOUNDATION_EXPORT NSString * const NSFileSystemFreeSize;
 FOUNDATION_EXPORT NSString * const NSFileSystemNodes;
 FOUNDATION_EXPORT NSString * const NSFileSystemFreeNodes;
 
-@interface NSDictionary (NSFileAttributes)
+extern class NSDictionary (NSFileAttributes)
 
 - (unsigned long long)fileSize;
 - (NSDate *)fileModificationDate;
@@ -419,5 +419,5 @@ FOUNDATION_EXPORT NSString * const NSFileSystemFreeNodes;
 - (NSDate *)fileCreationDate;
 - (NSNumber *)fileOwnerAccountID;
 - (NSNumber *)fileGroupOwnerAccountID;
-@end
+}
 

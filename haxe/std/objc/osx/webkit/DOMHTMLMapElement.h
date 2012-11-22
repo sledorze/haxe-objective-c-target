@@ -31,9 +31,9 @@
 @class DOMHTMLCollection;
 @class NSString;
 
-@interface DOMHTMLMapElement : DOMHTMLElement
-@property(readonly, retain) DOMHTMLCollection *areas;
-@property(copy) NSString *name;
-@end
+extern class DOMHTMLMapElement : DOMHTMLElement
+	public var (default, null) DOMHTMLCollection *areas;
+	public var NSString *name;
+}
 
 #endif

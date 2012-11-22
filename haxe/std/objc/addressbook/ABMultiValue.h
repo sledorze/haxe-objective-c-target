@@ -20,7 +20,7 @@
 // point to the wrong pair. Identifiers are unique Ids.
 //
 
-@interface ABMultiValue : NSObject <NSCopying, NSMutableCopying, NSFastEnumeration>
+extern class ABMultiValue extends NSObject <NSCopying, NSMutableCopying, NSFastEnumeration>
 {
 @protected
     NSMutableArray      *_identifiers;
@@ -66,14 +66,14 @@
 	//	Returns nil if the identifier is not found
 
 #endif
-@end
+}
 
 // ================================================================================
 //	interface ABMutableMultiValue
 // ================================================================================
 // Mutable variant of ABMultiValue
 
-@interface ABMutableMultiValue : ABMultiValue
+extern class ABMutableMultiValue : ABMultiValue
 
 - (NSString *)addValue:(id)value withLabel:(NSString *)label;
     // Adds a value with its label
@@ -106,4 +106,4 @@
     // Raises if identifier is nil
     // Returns YES if successful
 
-@end
+}

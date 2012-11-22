@@ -1,6 +1,6 @@
 //
 //  UIToolbar.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2006-2012, Apple Inc. All rights reserved.
 //
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, UIToolbarPosition) {
 
 @class UIBarButtonItem, UIColor;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIToolbar : UIView {
+extern class UIToolbar extends UIView {
   @private
     id                     _delegate;
     NSArray               *_items;
@@ -44,16 +44,16 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIToolbar : UIView {
     id                     _currentAlert;
 }
 
-@property(nonatomic)        UIBarStyle barStyle;    // default is UIBarStyleDefault (blue)
-@property(nonatomic,copy)   NSArray   *items;       // get/set visible UIBarButtonItem. default is nil. changes not animated. shown in order
-@property(nonatomic,assign,getter=isTranslucent) BOOL translucent NS_AVAILABLE_IOS(3_0); // Default is NO. Always YES if barStyle is set to UIBarStyleBlackTranslucent
+	public var         UIBarStyle barStyle;    // default is UIBarStyleDefault (blue)
+public var    NSArray   *items;       // get/set visible UIBarButtonItem. default is nil. changes not animated. shown in order
+	public var (nonatomic,assign,getter=isTranslucent) BOOL translucent NS_AVAILABLE_IOS(3_0); // Default is NO. Always YES if barStyle is set to UIBarStyleBlackTranslucent
 
-- (void)setItems:(NSArray *)items animated:(BOOL)animated;   // will fade in or out or reorder and adjust spacing
+	public function setItems:(NSArray *)items animated:(BOOL)animated;   // will fade in or out or reorder and adjust spacing
 
 /* Default tintColor is nil. When non-nil, bordered buttons and segmented controls in the toolbar
  will pick up the same tint unless their tints are independently set.
  */
-@property(nonatomic,retain) UIColor   *tintColor  UI_APPEARANCE_SELECTOR;
+	public var (nonatomic,retain) UIColor   *tintColor  UI_APPEARANCE_SELECTOR;
 
 /* Use these methods to set and access custom background images for toolbars.
       Default is nil. When non-nil the image will be used instead of the system image for toolbars in the
@@ -65,12 +65,12 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIToolbar : UIView {
  the bar buttons (unless otherwise customized) will inherit the underlying
  barStyle or tintColor.
  */
-- (void)setBackgroundImage:(UIImage *)backgroundImage forToolbarPosition:(UIToolbarPosition)topOrBottom barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public function setBackgroundImage:(UIImage *)backgroundImage forToolbarPosition:(UIToolbarPosition)topOrBottom barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 - (UIImage *)backgroundImageForToolbarPosition:(UIToolbarPosition)topOrBottom barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 /* Default is nil. When non-nil, a custom shadow image to show instead of the default shadow image. For a custom shadow to be shown, a custom background image must also be set with -setBackgroundImage:forToolbarPosition:barMetrics: (if the default background image is used, the default shadow image will be used).
  */
-- (void)setShadowImage:(UIImage *)shadowImage forToolbarPosition:(UIToolbarPosition)topOrBottom NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+	public function setShadowImage:(UIImage *)shadowImage forToolbarPosition:(UIToolbarPosition)topOrBottom NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 - (UIImage *)shadowImageForToolbarPosition:(UIToolbarPosition)topOrBottom NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 
-@end
+}

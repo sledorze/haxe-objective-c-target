@@ -119,7 +119,7 @@ typedef NSInteger NSToolTipTag;
 
 @class _NSViewAuxiliary;
 
-@interface NSView : NSResponder <NSAnimatablePropertyContainer, NSUserInterfaceItemIdentification, NSDraggingDestination>
+extern class NSView : NSResponder <NSAnimatablePropertyContainer, NSUserInterfaceItemIdentification, NSDraggingDestination>
 {
     /*All instance variables are private*/
     NSRect              _frame;
@@ -395,13 +395,13 @@ typedef NSInteger NSToolTipTag;
 /* Returns NSTextInputContext object for the receiver. Returns nil if the receiver doesn't conform to NSTextInputClient protocol.
  */
 - (NSTextInputContext *)inputContext NS_AVAILABLE_MAC(10_6);
-@end
+}
 
-@interface NSObject(NSToolTipOwner)
+extern class NSObject(NSToolTipOwner)
 - (NSString *)view:(NSView *)view stringForToolTip:(NSToolTipTag)tag point:(NSPoint)point userData:(void *)data;
-@end
+}
 
-@interface NSView(NSKeyboardUI)
+extern class NSView(NSKeyboardUI)
 - (BOOL)performMnemonic:(NSString *)theString;
 - (void)setNextKeyView:(NSView *)next;
 - (NSView *)nextKeyView;
@@ -421,9 +421,9 @@ typedef NSInteger NSToolTipTag;
 - (NSRect)focusRingMaskBounds NS_AVAILABLE_MAC(10_7);
 - (void)noteFocusRingMaskChanged NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
-@interface NSView(NSPrinting)
+extern class NSView(NSPrinting)
 
 /* EPS/PDF generation */
 - (void)writeEPSInsideRect:(NSRect)rect toPasteboard:(NSPasteboard *)pasteboard;
@@ -457,10 +457,10 @@ typedef NSInteger NSToolTipTag;
 
 - (void)beginPageInRect:(NSRect)aRect atPlacement:(NSPoint)location;
 - (void)endPage;
-@end
+}
 
 
-@interface NSView(NSDrag)
+extern class NSView(NSDrag)
 /* Starts a dragging session with a group of NSDraggingItems. The frame property of each NSDraggingItem must be in the view's coordinate system. The images may animate (flock) from thier initial layout into a system defined formation. Flocking or may not be done immediately. (see NSDraggingSession's flockOnBeginDrag. The visible area of the view is used as the clip rect.
 */
 - (NSDraggingSession *)beginDraggingSessionWithItems:(NSArray *)items event:(NSEvent *)event source:(id<NSDraggingSource>)source NS_AVAILABLE_MAC(10_7);
@@ -475,13 +475,13 @@ typedef NSInteger NSToolTipTag;
 
 - (BOOL)dragFile:(NSString *)filename fromRect:(NSRect)rect slideBack:(BOOL)aFlag event:(NSEvent *)event;
 - (BOOL)dragPromisedFilesOfTypes:(NSArray *)typeArray fromRect:(NSRect)rect source:(id)sourceObject slideBack:(BOOL)aFlag event:(NSEvent *)event;
-@end
+}
 
-@interface NSView (NSFullScreenMode) 
+extern class NSView (NSFullScreenMode) 
 - (BOOL)enterFullScreenMode:(NSScreen *)screen withOptions:(NSDictionary *)options NS_AVAILABLE_MAC(10_5);
 - (void)exitFullScreenModeWithOptions:(NSDictionary *)options NS_AVAILABLE_MAC(10_5);
 - (BOOL)isInFullScreenMode NS_AVAILABLE_MAC(10_5); 
-@end
+}
 
 /* Constants for options when entering and exiting full screen mode */
 APPKIT_EXTERN NSString * const NSFullScreenModeAllScreens NS_AVAILABLE_MAC(10_5);                      // NSNumber numberWithBool:YES/NO
@@ -489,7 +489,7 @@ APPKIT_EXTERN NSString * const NSFullScreenModeSetting NS_AVAILABLE_MAC(10_5);  
 APPKIT_EXTERN NSString * const NSFullScreenModeWindowLevel NS_AVAILABLE_MAC(10_5);                     // NSNumber numberWithInt:windowLevel
 APPKIT_EXTERN NSString * const NSFullScreenModeApplicationPresentationOptions NS_AVAILABLE_MAC(10_5);  // NSNumber numberWithUnsignedInteger:(NSApplicationPresentationOptions flags)
 
-@interface NSView(NSDefinition)
+extern class NSView(NSDefinition)
 /* Shows a window that displays the definition (or other subject depending on available dictionaries) of the specified attributed string.  This method can be used for implementing the same functionality as NSTextView's 'Look Up in Dictionary' contextual menu on a custom view.
  
  textBaselineOrigin specifies the baseline origin of attrString in the receiver view coordinate system.  If a small overlay window is selected as default presentation (see NSDefinitionPresentationTypeKey option for details), the overlay text would be rendered starting from the location.  Otherwise, 'Dictionary' application will be invoked to show the definition of the specified string.
@@ -510,7 +510,7 @@ APPKIT_EXTERN NSString * const NSFullScreenModeApplicationPresentationOptions NS
 - (void)showDefinitionForAttributedString:(NSAttributedString *)attrString range:(NSRange)targetRange options:(NSDictionary *)options baselineOriginProvider:(NSPoint (^)(NSRange adjustedRange))originProvider NS_AVAILABLE_MAC(10_6);
 #endif
 
-@end
+}
 
 /* NSDefinitionPresentationTypeKey is an optional key in 'options' that specifies the presentation type of the definition display.  The possible values are NSDefinitionPresentationTypeOverlay that produces a small overlay window at the string location, or NSDefinitionPresentationTypeDictionaryApplication that invokes 'Dictionary' application to display the definition.  Without this option, the definition will be shown in either of those presentation forms depending on the 'Contextual Menu:' setting in Dictionary application preferences.
  */
@@ -519,13 +519,13 @@ APPKIT_EXTERN NSString * const NSDefinitionPresentationTypeOverlay NS_AVAILABLE_
 APPKIT_EXTERN NSString * const NSDefinitionPresentationTypeDictionaryApplication NS_AVAILABLE_MAC(10_6);
 
 
-@interface NSView(NSFindIndicator)
+extern class NSView(NSFindIndicator)
 
 /* When this method returns YES, the receiver or one of its ancestors is being drawn for a find indicator, meaning the receiver should draw so its contents will be easily readable.
  */
 - (BOOL)isDrawingFindIndicator NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 /* Notifications */
 

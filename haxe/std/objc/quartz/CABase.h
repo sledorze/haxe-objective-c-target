@@ -34,7 +34,7 @@
 #endif
 
 #ifdef __cplusplus
-# define CA_EXTERN_C_BEGIN extern "C" {
+# define CA_EXTERN_C_BEGINextern "C" {
 # define CA_EXTERN_C_END   }
 #else
 # define CA_EXTERN_C_BEGIN
@@ -49,7 +49,7 @@
 #endif
 
 #ifndef CA_EXTERN
-# define CA_EXTERN extern
+# define CA_EXTERNextern
 #endif
 
 #ifndef CA_INLINE

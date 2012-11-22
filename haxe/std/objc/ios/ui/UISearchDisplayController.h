@@ -1,6 +1,6 @@
 //
 //  UISearchDisplayController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -12,9 +12,9 @@
 #import <UIKit/UITableView.h>
 
 @class UISearchBar, UITableView, UIViewController, UIPopoverController;
-@protocol UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate;
+extern interface UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate;
 
-NS_CLASS_AVAILABLE_IOS(3_0) @interface UISearchDisplayController : NSObject {
+NS_CLASS_AVAILABLE_IOS(3_0)extern class UISearchDisplayController extends NSObject {
   @private
     UIViewController           *_viewController;
     UITableView                *_tableView;
@@ -51,42 +51,42 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UISearchDisplayController : NSObject {
 
 - (id)initWithSearchBar:(UISearchBar *)searchBar contentsController:(UIViewController *)viewController;
 
-@property(nonatomic,assign)                           id<UISearchDisplayDelegate> delegate;
+	public var                            id<UISearchDisplayDelegate> delegate;
 
-@property(nonatomic,getter=isActive)  BOOL            active;  // configure the view controller for searching. default is NO. animated is NO
-- (void)setActive:(BOOL)visible animated:(BOOL)animated;       // animate the view controller for searching
+	public var (nonatomic,getter=isActive)  BOOL            active;  // configure the view controller for searching. default is NO. animated is NO
+	public function setActive:(BOOL)visible animated:(BOOL)animated;       // animate the view controller for searching
 
-@property(nonatomic,readonly)                         UISearchBar                *searchBar;
-@property(nonatomic,readonly)                         UIViewController           *searchContentsController; // the view we are searching (often a UITableViewController)
-@property(nonatomic,readonly)                         UITableView                *searchResultsTableView;   // will return non-nil. create if requested
-@property(nonatomic,assign)                           id<UITableViewDataSource>   searchResultsDataSource;  // default is nil. delegate can provide
-@property(nonatomic,assign)                           id<UITableViewDelegate>     searchResultsDelegate;    // default is nil. delegate can provide
-@property(nonatomic,copy)                             NSString                   *searchResultsTitle NS_AVAILABLE_IOS(5_0); // default is nil. If nil, the controller uses the default title string
+	public var (default, null)                         UISearchBar                *searchBar;
+	public var (default, null)                         UIViewController           *searchContentsController; // the view we are searching (often a UITableViewController)
+	public var (default, null)                         UITableView                *searchResultsTableView;   // will return non-nil. create if requested
+	public var                            id<UITableViewDataSource>   searchResultsDataSource;  // default is nil. delegate can provide
+	public var                            id<UITableViewDelegate>     searchResultsDelegate;    // default is nil. delegate can provide
+public var                              NSString                   *searchResultsTitle NS_AVAILABLE_IOS(5_0); // default is nil. If nil, the controller uses the default title string
 
-@end
+}
 
-@protocol UISearchDisplayDelegate <NSObject>
+extern interface UISearchDisplayDelegate <NSObject>
 
 @optional
 
 // when we start/end showing the search UI
-- (void) searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller;
-- (void) searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller;
-- (void) searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller;
-- (void) searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller;
+	public function  searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller;
+	public function  searchDisplayControllerDidBeginSearch:(UISearchDisplayController *)controller;
+	public function  searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller;
+	public function  searchDisplayControllerDidEndSearch:(UISearchDisplayController *)controller;
 
 // called when the table is created destroyed, shown or hidden. configure as necessary.
-- (void)searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView;
-- (void)searchDisplayController:(UISearchDisplayController *)controller willUnloadSearchResultsTableView:(UITableView *)tableView;
+	public function searchDisplayController:(UISearchDisplayController *)controller didLoadSearchResultsTableView:(UITableView *)tableView;
+	public function searchDisplayController:(UISearchDisplayController *)controller willUnloadSearchResultsTableView:(UITableView *)tableView;
 
 // called when table is shown/hidden
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView;
-- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView;
-- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView;
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView;
+	public function searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView;
+	public function searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView;
+	public function searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView;
+	public function searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView;
 
 // return YES to reload table. called when search string/option changes. convenience methods on top UISearchBar delegate methods
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString;
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption;
 
-@end
+}

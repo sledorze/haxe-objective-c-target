@@ -12,7 +12,7 @@
 @class NSArray, NSBundle, NSPointerArray, NSView;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSViewController : NSResponder <NSCoding>
+extern class NSViewController : NSResponder, implements NSObject>
 {
     @private
     NSString *_nibName;
@@ -64,5 +64,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 - (BOOL)commitEditing;
 - (void)discardEditing;
 
-@end
+}
 

@@ -44,17 +44,17 @@ enum {
     DOM_FIRST_ORDERED_NODE_TYPE = 9
 };
 
-@interface DOMXPathResult : DOMObject
-@property(readonly) unsigned short resultType;
-@property(readonly) double numberValue;
-@property(readonly, copy) NSString *stringValue;
-@property(readonly) BOOL booleanValue;
-@property(readonly, retain) DOMNode *singleNodeValue;
-@property(readonly) BOOL invalidIteratorState;
-@property(readonly) unsigned snapshotLength;
+extern class DOMXPathResult : DOMObject
+	public var  (default, null) : unsigned short resultType;
+	public var  (default, null) : double numberValue;
+	public var (default, null) NSString *stringValue;
+	public var  (default, null) : BOOL booleanValue;
+	public var (default, null) DOMNode *singleNodeValue;
+	public var  (default, null) : BOOL invalidIteratorState;
+	public var  (default, null) : unsigned snapshotLength;
 
 - (DOMNode *)iterateNext;
 - (DOMNode *)snapshotItem:(unsigned)index;
-@end
+}
 
 #endif

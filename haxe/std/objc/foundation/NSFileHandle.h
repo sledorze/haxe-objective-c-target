@@ -8,7 +8,7 @@
 
 @class NSString, NSData, NSError;
 
-@interface NSFileHandle : NSObject <NSSecureCoding>
+extern class NSFileHandle extends NSObject <NSSecureCoding>
 
 - (NSData *)availableData;
 
@@ -25,9 +25,9 @@
 - (void)synchronizeFile;
 - (void)closeFile;
 
-@end
+}
 
-@interface NSFileHandle (NSFileHandleCreation)
+extern class NSFileHandle (NSFileHandleCreation)
 
 + (id)fileHandleWithStandardInput;
 + (id)fileHandleWithStandardOutput;
@@ -42,7 +42,7 @@
 + (id)fileHandleForWritingToURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
 + (id)fileHandleForUpdatingURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSFileHandleOperationException;
 
@@ -55,7 +55,7 @@ FOUNDATION_EXPORT NSString * const NSFileHandleNotificationDataItem;
 FOUNDATION_EXPORT NSString * const NSFileHandleNotificationFileHandleItem;
 FOUNDATION_EXPORT NSString * const NSFileHandleNotificationMonitorModes NS_DEPRECATED(10_0, 10_7, 2_0, 5_0);
 
-@interface NSFileHandle (NSFileHandleAsynchronousAccess)
+extern class NSFileHandle (NSFileHandleAsynchronousAccess)
 
 - (void)readInBackgroundAndNotifyForModes:(NSArray *)modes;
 - (void)readInBackgroundAndNotify;
@@ -70,21 +70,21 @@ FOUNDATION_EXPORT NSString * const NSFileHandleNotificationMonitorModes NS_DEPRE
 - (void)waitForDataInBackgroundAndNotify;
 
 #ifdef __BLOCKS__
-@property (copy) void (^readabilityHandler)(NSFileHandle *)  NS_AVAILABLE(10_7, 5_0);
-@property (copy) void (^writeabilityHandler)(NSFileHandle *) NS_AVAILABLE(10_7, 5_0);
+	public var  (copy) void (^readabilityHandler)(NSFileHandle *)  NS_AVAILABLE(10_7, 5_0);
+	public var  (copy) void (^writeabilityHandler)(NSFileHandle *) NS_AVAILABLE(10_7, 5_0);
 #endif
 
-@end
+}
 
-@interface NSFileHandle (NSFileHandlePlatformSpecific)
+extern class NSFileHandle (NSFileHandlePlatformSpecific)
 
 - (id)initWithFileDescriptor:(int)fd closeOnDealloc:(BOOL)closeopt;
 - (id)initWithFileDescriptor:(int)fd;
 - (int)fileDescriptor;
 
-@end
+}
 
-@interface NSPipe : NSObject
+extern class NSPipe extends NSObject
 
 - (NSFileHandle *)fileHandleForReading;
 - (NSFileHandle *)fileHandleForWriting;
@@ -92,5 +92,5 @@ FOUNDATION_EXPORT NSString * const NSFileHandleNotificationMonitorModes NS_DEPRE
 - (id)init;
 + (id)pipe;
 
-@end
+}
 

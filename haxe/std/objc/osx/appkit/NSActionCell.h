@@ -7,7 +7,7 @@
 
 #import <AppKit/NSCell.h>
 
-@interface NSActionCell : NSCell
+extern class NSActionCell : NSCell
 {
     /*All instance variables are private*/
     NSInteger	_tag;        
@@ -23,4 +23,4 @@
 - (NSInteger)tag;
 - (void)setTag:(NSInteger)anInt;
 
-@end
+}

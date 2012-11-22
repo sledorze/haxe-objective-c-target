@@ -58,7 +58,7 @@ UIKIT_EXTERN CGAffineTransform CGAffineTransformFromString(NSString *string);
 UIKIT_EXTERN UIEdgeInsets UIEdgeInsetsFromString(NSString *string);
 UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);*/
 
-/*@interface NSValue (NSValueUIGeometryExtensions)
+/*extern class NSValue (NSValueUIGeometryExtensions)
 
 + (NSValue *)valueWithCGPoint:(CGPoint)point;
 + (NSValue *)valueWithCGSize:(CGSize)size;
@@ -74,16 +74,16 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);*/
 - (UIEdgeInsets)UIEdgeInsetsValue;
 - (UIOffset)UIOffsetValue NS_AVAILABLE_IOS(5_0);
 
-@end
+}
     
-@interface NSCoder (UIGeometryKeyedCoding)
+extern class NSCoder (UIGeometryKeyedCoding)
 
-- (void)encodeCGPoint:(CGPoint)point forKey:(NSString *)key;
-- (void)encodeCGSize:(CGSize)size forKey:(NSString *)key;
-- (void)encodeCGRect:(CGRect)rect forKey:(NSString *)key;
-- (void)encodeCGAffineTransform:(CGAffineTransform)transform forKey:(NSString *)key;
-- (void)encodeUIEdgeInsets:(UIEdgeInsets)insets forKey:(NSString *)key;
-- (void)encodeUIOffset:(UIOffset)offset forKey:(NSString *)key NS_AVAILABLE_IOS(5_0);
+	public function encodeCGPoint:(CGPoint)point forKey:(NSString *)key;
+	public function encodeCGSize:(CGSize)size forKey:(NSString *)key;
+	public function encodeCGRect:(CGRect)rect forKey:(NSString *)key;
+	public function encodeCGAffineTransform:(CGAffineTransform)transform forKey:(NSString *)key;
+	public function encodeUIEdgeInsets:(UIEdgeInsets)insets forKey:(NSString *)key;
+	public function encodeUIOffset:(UIOffset)offset forKey:(NSString *)key NS_AVAILABLE_IOS(5_0);
 
 - (CGPoint)decodeCGPointForKey:(NSString *)key;
 - (CGSize)decodeCGSizeForKey:(NSString *)key;
@@ -92,4 +92,4 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);*/
 - (UIEdgeInsets)decodeUIEdgeInsetsForKey:(NSString *)key;
 - (UIOffset)decodeUIOffsetForKey:(NSString *)key NS_AVAILABLE_IOS(5_0);
 
-@end*/
+}*/

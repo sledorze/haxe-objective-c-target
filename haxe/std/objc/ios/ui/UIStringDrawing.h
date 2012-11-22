@@ -1,6 +1,6 @@
 //
 //  UIStringDrawing.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //
@@ -54,7 +54,7 @@ typedef NS_ENUM(NSInteger, UIBaselineAdjustment) {
 
 // these methods draw using a UIFont. draw methods return size of actual string. all draw in the current context using the current color
 
-@interface NSString(UIStringDrawing)
+extern class NSString(UIStringDrawing)
 
 // Single line, no wrapping. Truncation based on the NSLineBreakMode.
 - (CGSize)sizeWithFont:(UIFont *)font; // Uses NSLineBreakByWordWrapping
@@ -86,4 +86,4 @@ typedef NS_ENUM(NSInteger, UIBaselineAdjustment) {
 
 - (CGSize)drawAtPoint:(CGPoint)point forWidth:(CGFloat)width withFont:(UIFont *)font minFontSize:(CGFloat)minFontSize actualFontSize:(CGFloat *)actualFontSize lineBreakMode:(NSLineBreakMode)lineBreakMode baselineAdjustment:(UIBaselineAdjustment)baselineAdjustment; // default is UIBaselineAdjustmentAlignBaselines
 
-@end
+}

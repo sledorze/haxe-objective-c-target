@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMHTMLHeadElement : DOMHTMLElement
-@property(copy) NSString *profile;
-@end
+extern class DOMHTMLHeadElement : DOMHTMLElement
+	public var NSString *profile;
+}
 
 #endif

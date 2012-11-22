@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMHTMLModElement : DOMHTMLElement
-@property(copy) NSString *cite;
-@property(copy) NSString *dateTime;
-@end
+extern class DOMHTMLModElement : DOMHTMLElement
+	public var NSString *cite;
+	public var NSString *dateTime;
+}
 
 #endif

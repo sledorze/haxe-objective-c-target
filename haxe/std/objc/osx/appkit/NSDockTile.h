@@ -15,7 +15,7 @@
 @class NSView;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSDockTile : NSObject {
+extern class NSDockTile extends NSObject {
     @private;
     id _owner;
     void *_dockContextRef;
@@ -59,7 +59,7 @@ NS_CLASS_AVAILABLE(10_5, NA)
 */
 - (id)owner;
 
-@end
+}
 
 
 
@@ -76,5 +76,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 @optional
 - (NSMenu*)dockMenu;
 #endif
-@end
+}
 

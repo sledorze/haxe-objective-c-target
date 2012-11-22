@@ -12,7 +12,7 @@
 @class NSEvent;
 
 NS_CLASS_AVAILABLE(10_6, NA)
-@interface NSTextInputContext : NSObject {
+extern class NSTextInputContext extends NSObject {
 @private
     id _client; // weak reference
 
@@ -62,15 +62,15 @@ NS_CLASS_AVAILABLE(10_6, NA)
 /**** Properties *****/
 /* Returns the owner of this input context. The owner, typically an NSView, retains its NSTextInputContext instance. NSTextInputContext doesn't retain its client.
  */
-@property(readonly) id <NSTextInputClient> client; 
+	public var  (default, null) : id <NSTextInputClient> client; 
 
 /* Indicates whether the client handles NSGlyphInfoAttributeName or not. The default value is determined by examining the return value sending -validAttributesForMarkedText to client at initialization.
  */
-@property BOOL acceptsGlyphInfo;
+	public var  BOOL acceptsGlyphInfo;
 
 /* Specifies the set of keyboard input source locales allowed when this input context is active. NSAllRomanInputSourcesLocaleIdentifier can be specified as a valid locale.
  */
-@property(copy) NSArray *allowedInputSourceLocales;
+	public var NSArray *allowedInputSourceLocales;
 
 
 /**** Activation *****/
@@ -99,18 +99,18 @@ NS_CLASS_AVAILABLE(10_6, NA)
 
 /* The array of keyboard text input source identifier strings available to the receiver.
  */
-@property(readonly) NSArray *keyboardInputSources; 
+	public var  (default, null) : NSArray *keyboardInputSources; 
 
 /* The identifier string for the selected keyboard text input source.
  */
-@property(copy) NSString *selectedKeyboardInputSource;
+	public var NSString *selectedKeyboardInputSource;
 
 
 /**** Text Input source attributes ****/
 /* Returns the display name for inputSourceIdentifier.
  */
 + (NSString *)localizedNameForInputSource:(NSString *)inputSourceIdentifier;
-@end
+}
 
 /**** Notifications ****/
 /* Notified whenever the selected text input source changes.

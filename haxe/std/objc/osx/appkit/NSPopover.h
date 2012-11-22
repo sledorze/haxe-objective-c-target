@@ -56,7 +56,7 @@ typedef NSInteger NSPopoverBehavior;
 @protocol NSPopoverDelegate;
 
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface NSPopover : NSResponder {
+extern class NSPopover : NSResponder {
 @private
     id _bindingAdaptor;
     id <NSPopoverDelegate> _delegate;
@@ -106,35 +106,35 @@ NS_CLASS_AVAILABLE(10_7, NA)
 
 /*  The delegate of the popover. The delegate is not retained. 
  */
-@property(assign) IBOutlet id <NSPopoverDelegate> delegate;
+	public var (assign) IBOutlet id <NSPopoverDelegate> delegate;
 
 /*  The appearance of the popover. The default appearance is NSPopoverAppearanceMinimal.  See the declaration of NSPopoverAppearance above for more information about appearances. 
  */
-@property NSPopoverAppearance appearance;
+	public var  NSPopoverAppearance appearance;
 
 /*  The behavior of the popover.  The default behavior is NSPopoverBehaviorApplicationDefined. See the declaration of NSPopoverBehavior above for more information about popover behaviors. 
  */
-@property NSPopoverBehavior behavior;
+	public var  NSPopoverBehavior behavior;
 
 /*  Should the popover be animated when it shows, closes, or appears to transition to a detachable window.  This property also controls whether the popover animates when the content view or content size changes. AppKit does not guarantee which behaviors will be animated or that this property will be respected; it is regarded as a hint.  The default value is YES. 
  */
-@property BOOL animates;
+	public var  BOOL animates;
 
 /*  The view controller that manages the content of the popover.  The default value is nil.  You must set the content view controller of the popover to a non-nil value before the popover is shown.  Changes to the popover's content view controller while the popover is shown will animate (provided animates is YES). 
  */
-@property(retain) IBOutlet NSViewController *contentViewController;
+	public var IBOutlet NSViewController *contentViewController;
 
 /*  The content size of the popover.  The popover's content size is set to match the size of the content view when the content view controller is set.  Changes to the content size of the popover will animate while the popover is shown (provided animates is YES). 
  */
-@property NSSize contentSize;
+	public var  NSSize contentSize;
 
 /*  YES if the popover is being shown, NO otherwise. The popover is considered to be shown from the point when -showRelativeToRect:ofView:preferredEdge: is invoked until the popover is closed in response to an invocation of either -close or -performClose:.
  */
-@property(readonly, getter=isShown) BOOL shown;
+	public var (readonly, getter=isShown) BOOL shown;
 
 /*  Popovers are positioned relative to a positioning view and are automatically moved when the location or size of the positioning view changes.  Sometimes it is desirable to position popovers relative to a rectangle within the positioning view.  In this case, you must update the positioningRect binding whenever this rectangle changes, or use the positioningRect binding so AppKit can re-position the popover when appropriate. 
  */
-@property NSRect positioningRect;
+	public var  NSRect positioningRect;
 
 #pragma mark -
 #pragma mark Show and Close
@@ -151,7 +151,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
  */
 - (void)close;
 
-@end
+}
 
 #pragma mark -
 #pragma mark Notifications
@@ -214,4 +214,4 @@ APPKIT_EXTERN NSString * const NSPopoverDidCloseNotification NS_AVAILABLE_MAC(10
  */
 - (void)popoverDidClose:(NSNotification *)notification;
 
-@end
+}

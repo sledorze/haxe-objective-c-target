@@ -13,12 +13,12 @@
 @class ABRecord;
 
 // ================================================================================
-//	interface ABSearchElement : NSObject
+//	interface ABSearchElement extends NSObject
 // ================================================================================
 // Use -[ABPerson searchElementForProperty:...] and -[ABGroup searchElementForProperty:...] to create
 // search elements on ABPerson and ABGroup.
 
-@interface ABSearchElement : NSObject
+extern class ABSearchElement extends NSObject
 
 + (ABSearchElement *)searchElementForConjunction:(ABSearchConjunction)conjuction children:(NSArray *)children;
     // Creates a search element combining several sub search elements.
@@ -28,4 +28,4 @@
 - (BOOL)matchesRecord:(ABRecord *)record;
     // Given a record returns YES if this record matches the search element
     // Raises if record is nil
-@end
+}

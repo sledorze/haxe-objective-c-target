@@ -1,6 +1,6 @@
 //
 //  UINibLoading.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //
@@ -10,12 +10,12 @@
 
 UIKIT_EXTERN NSString * const UINibExternalObjects NS_AVAILABLE_IOS(3_0);
 
-@interface NSBundle(UINibLoadingAdditions)
+extern class NSBundle(UINibLoadingAdditions)
 - (NSArray *)loadNibNamed:(NSString *)name owner:(id)owner options:(NSDictionary *)options;
-@end
+}
 
-@interface NSObject(UINibLoadingAdditions)
-- (void)awakeFromNib;
-@end
+extern class NSObject(UINibLoadingAdditions)
+	public function awakeFromNib;
+}
 
 UIKIT_EXTERN NSString * const UINibProxiedObjectsKey NS_DEPRECATED_IOS(2_0, 3_0);

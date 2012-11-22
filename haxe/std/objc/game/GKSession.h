@@ -20,7 +20,7 @@
  This a not a Game Center feature. To support Game Center and online play, see GKMatch.
 */
 NS_CLASS_AVAILABLE(10_8, 4_1)
-GK_EXTERN_CLASS @interface GKSession : NSObject {
+GK_EXTERN_CLASSextern class GKSession extends NSObject {
 @private
 	id _session;
 }
@@ -32,20 +32,20 @@ If name = nil then GKSession will use the device name.
 */
 - (id)initWithSessionID:(NSString *)sessionID displayName:(NSString *)name sessionMode:(GKSessionMode)mode;
 
-@property(assign) id<GKSessionDelegate> delegate;
+	public var (assign) id<GKSessionDelegate> delegate;
 
-@property(readonly) NSString *sessionID;
-@property(readonly) NSString *displayName;
-@property(readonly) GKSessionMode sessionMode;
-@property(readonly) NSString *peerID;			// session's peerID
+	public var  (default, null) : NSString *sessionID;
+	public var  (default, null) : NSString *displayName;
+	public var  (default, null) : GKSessionMode sessionMode;
+	public var  (default, null) : NSString *peerID;			// session's peerID
 
 /* Toggle availability on the network based on session mode and search criteria.  Delegate will get a callback -session:didReceiveConnectionRequestFromPeer: when a peer attempts a connection.
 */
-@property(getter=isAvailable) BOOL available;
+	public var (getter=isAvailable) BOOL available;
 
 /* The timeout for disconnecting a peer if it appears that the peer has lost connection to the game network 
 */
-@property(assign) NSTimeInterval disconnectTimeout; // default is 20 seconds
+	public var (assign) NSTimeInterval disconnectTimeout; // default is 20 seconds
 
 /* Return the application chosen name of a specific peer
 */
@@ -87,4 +87,4 @@ Failure results in a call to delegate -session:connectionWithPeerFailed:withErro
 /* Returns peers according to connection state
 */ 
 - (NSArray *)peersWithConnectionState:(GKPeerConnectionState)state;
-@end
+}

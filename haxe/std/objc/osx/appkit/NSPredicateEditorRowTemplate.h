@@ -14,7 +14,7 @@
 @class NSPredicate, NSArray, NSEntityDescription;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSPredicateEditorRowTemplate : NSObject <NSCoding, NSCopying> {
+extern class NSPredicateEditorRowTemplate extends NSObject, implements NSObject, NSCopying> {
     @private
     NSInteger _templateType;
     NSUInteger _predicateOptions;
@@ -77,5 +77,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 */
 + (NSArray *)templatesWithAttributeKeyPaths:(NSArray *)keyPaths inEntityDescription:(NSEntityDescription *)entityDescription;
 
-@end
+}
 

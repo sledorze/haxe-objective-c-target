@@ -35,12 +35,12 @@ typedef NSInteger MPMediaType;
 // An MPMediaItem represents a single piece of media in an MPMediaLibrary.
 // Media items have a unique identifier which persists across application launches.
 
-MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMediaItem : MPMediaEntity
-@end
+MP_EXTERN_CLASS_AVAILABLE(3_0)extern class MPMediaItem : MPMediaEntity
+}
 
 //-----------------------------------------------------
 
-MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMediaItemArtwork : NSObject
+MP_EXTERN_CLASS_AVAILABLE(3_0)extern class MPMediaItemArtwork extends NSObject
 
 // Initializes an MPMediaItemArtwork instance with the given full-size image.
 // The crop rect of the image is assumed to be equal to the bounds of the 
@@ -50,10 +50,10 @@ MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMediaItemArtwork : NSObject
 // Returns the artwork image for an item at a given size (in points).
 - (UIImage *)imageWithSize:(CGSize)size;
 
-@property(nonatomic, readonly) CGRect bounds; // The bounds of the full size image (in points).
-@property(nonatomic, readonly) CGRect imageCropRect; // The actual content area of the artwork, in the bounds of the full size image (in points).
+	public var (default, null) CGRect bounds; // The bounds of the full size image (in points).
+	public var (default, null) CGRect imageCropRect; // The actual content area of the artwork, in the bounds of the full size image (in points).
 
-@end
+}
 
 // ----------------------------------------------------
 

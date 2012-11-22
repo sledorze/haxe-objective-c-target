@@ -30,8 +30,8 @@
 
 @class DOMCSSStyleDeclaration;
 
-@interface DOMCSSFontFaceRule : DOMCSSRule
-@property(readonly, retain) DOMCSSStyleDeclaration *style;
-@end
+extern class DOMCSSFontFaceRule : DOMCSSRule
+	public var (default, null) DOMCSSStyleDeclaration *style;
+}
 
 #endif

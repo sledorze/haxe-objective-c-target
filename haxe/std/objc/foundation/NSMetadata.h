@@ -10,7 +10,7 @@
 @protocol NSMetadataQueryDelegate;
 
 NS_CLASS_AVAILABLE(10_4, 5_0)
-@interface NSMetadataQuery : NSObject {
+extern class NSMetadataQuery extends NSObject {
 @private
     NSUInteger _flags;
     NSTimeInterval _interval;
@@ -71,7 +71,7 @@ NS_CLASS_AVAILABLE(10_4, 5_0)
 
 - (id)valueOfAttribute:(NSString *)attrName forResultAtIndex:(NSUInteger)idx;
 
-@end
+}
 
 @protocol NSMetadataQueryDelegate <NSObject>
 @optional
@@ -79,7 +79,7 @@ NS_CLASS_AVAILABLE(10_4, 5_0)
 - (id)metadataQuery:(NSMetadataQuery *)query replacementObjectForResultObject:(NSMetadataItem *)result;
 - (id)metadataQuery:(NSMetadataQuery *)query replacementValueForAttribute:(NSString *)attrName value:(id)attrValue;
 
-@end
+}
 
 // There is no info associated with these notifications
 FOUNDATION_EXPORT NSString * const NSMetadataQueryDidStartGatheringNotification NS_AVAILABLE(10_4, 5_0);
@@ -100,7 +100,7 @@ FOUNDATION_EXPORT NSString * const NSMetadataQueryUbiquitousDataScope NS_AVAILAB
 
 
 NS_CLASS_AVAILABLE(10_4, 5_0)
-@interface NSMetadataItem : NSObject {
+extern class NSMetadataItem extends NSObject {
 @private
     id _item;
     __strong void *_reserved;
@@ -111,10 +111,10 @@ NS_CLASS_AVAILABLE(10_4, 5_0)
 
 - (NSArray *)attributes;
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_4, 5_0)
-@interface NSMetadataQueryAttributeValueTuple : NSObject {
+extern class NSMetadataQueryAttributeValueTuple extends NSObject {
 @private
     id _attr;
     id _value;
@@ -126,10 +126,10 @@ NS_CLASS_AVAILABLE(10_4, 5_0)
 - (id)value;
 - (NSUInteger)count;
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_4, 5_0)
-@interface NSMetadataQueryResultGroup : NSObject {
+extern class NSMetadataQueryResultGroup extends NSObject {
 @private
     id _private[9];
     NSUInteger _private2[1];
@@ -146,7 +146,7 @@ NS_CLASS_AVAILABLE(10_4, 5_0)
 
 - (NSArray *)results;   // this is for K-V Bindings, and causes side-effects on the query
 
-@end
+}
 
 // The following NSMetadataItem attributes are available on Mac OS and iOS. See <Metadata/MDItem.h> for more attribute names on Mac OS.
 FOUNDATION_EXPORT NSString * const NSMetadataItemFSNameKey NS_AVAILABLE(10_7, 5_0); // NSString

@@ -40,7 +40,7 @@
     navigation to happen in other layers of the stack;  they are only for maintaining this data
     structure.
 */
-@interface WebBackForwardList : NSObject {
+extern class WebBackForwardList extends NSObject {
 @private
     WebBackForwardListPrivate *_private;
 }
@@ -155,9 +155,9 @@
 */
 - (WebHistoryItem *)itemAtIndex:(int)index;
 
-@end
+}
 
-@interface WebBackForwardList(WebBackForwardListDeprecated)
+extern class WebBackForwardList(WebBackForwardListDeprecated)
 
 // The following methods are deprecated, and exist for backward compatibility only.
 // Use -[WebPreferences setUsesPageCache] and -[WebPreferences usesPageCache]
@@ -179,4 +179,4 @@
     associated with this WebBackForwardList will not use the shared page cache.
 */
 - (NSUInteger)pageCacheSize;
-@end
+}

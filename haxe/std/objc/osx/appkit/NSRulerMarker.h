@@ -10,7 +10,7 @@
 
 @class NSEvent, NSImage, NSRulerView;
 
-@interface NSRulerMarker : NSObject <NSCopying, NSCoding> {
+extern class NSRulerMarker extends NSObject <NSCopying, NSCoding> {
     /*All instance variables are private*/
     NSRulerView *_ruler;
     CGFloat _location;
@@ -78,4 +78,4 @@
 - (BOOL)trackMouse:(NSEvent *)mouseDownEvent adding:(BOOL)isAdding;
     // Handles the given mmouseDown event.  Performs a modal tracking loop until mouseUp allowing the object to be moved, if movable or removed, if removable.
 
-@end
+}

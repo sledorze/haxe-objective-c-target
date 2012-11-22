@@ -30,11 +30,11 @@
 
 @class NSString;
 
-@interface DOMHTMLMetaElement : DOMHTMLElement
-@property(copy) NSString *content;
-@property(copy) NSString *httpEquiv;
-@property(copy) NSString *name;
-@property(copy) NSString *scheme;
-@end
+extern class DOMHTMLMetaElement : DOMHTMLElement
+	public var NSString *content;
+	public var NSString *httpEquiv;
+	public var NSString *name;
+	public var NSString *scheme;
+}
 
 #endif

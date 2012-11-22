@@ -59,7 +59,7 @@ typedef NS_OPTIONS(NSUInteger, NSNetServiceOptions) {
 
 #pragma mark -
 
-@interface NSNetService : NSObject {
+extern class NSNetService : NSObject {
 @private
     id _netService;
     id _delegate;
@@ -161,11 +161,11 @@ If publish: is called on an NSNetService instance initialized with this method, 
 - (void)stopMonitoring;
 
 
-@end
+}
 
 #pragma mark -
 
-@interface NSNetServiceBrowser : NSObject {
+extern class NSNetServiceBrowser : NSObject {
 @private
     id _netServiceBrowser;
     id _delegate;
@@ -198,7 +198,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 */
 - (void)stop;
 
-@end
+}
 
 #pragma mark -
 
@@ -237,7 +237,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 */
 - (void)netService:(NSNetService *)sender didUpdateTXTRecordData:(NSData *)data;
 
-@end
+}
 
 #pragma mark -
 
@@ -272,7 +272,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 */
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
 
-@end
+}
 
 #pragma mark -
 #pragma mark Deprecated API
@@ -282,7 +282,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 /* Methods in these categories are provided for binary compatibility only.
 */
 
-@interface NSNetService (NSDeprecated)
+extern class NSNetService (NSDeprecated)
 
 /* Returns an NSString representing the TXT record or nil if there is none. This string may or may not be the full TXT record.
 
@@ -296,9 +296,9 @@ This method is deprecated on Mac OS X 10.4 "Tiger" and later; use -setTXTRecordD
 */
 - (void)setProtocolSpecificInformation:(NSString *)specificInformation NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 
-@end
+}
 
-@interface NSNetServiceBrowser (NSDeprecated)
+extern class NSNetServiceBrowser (NSDeprecated)
 
 /* Starts a search for any domain visible to the host based on network configuration. Discovered domains are reported to the delegate's -netServiceBrowser:didFindDomain:moreComing: method. These may be domains in which it is not possible to register.
 
@@ -306,6 +306,6 @@ This method is deprecated on Mac OS X 10.4 "Tiger" and later; use -searchForBrow
 */
 - (void)searchForAllDomains NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 
-@end
+}
 
 #endif

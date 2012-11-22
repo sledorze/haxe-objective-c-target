@@ -6,7 +6,7 @@
 
 @class NSString, NSArray, NSTimeZone;
 
-@interface NSCalendarDate : NSDate {
+extern class NSCalendarDate : NSDate {
 @private
     NSUInteger		refCount;
     NSTimeInterval 	_timeIntervalSinceReferenceDate;
@@ -47,9 +47,9 @@
 - (void)setTimeZone:(NSTimeZone *)aTimeZone;
 - (void)years:(NSInteger *)yp months:(NSInteger *)mop days:(NSInteger *)dp hours:(NSInteger *)hp minutes:(NSInteger *)mip seconds:(NSInteger *)sp sinceDate:(NSCalendarDate *)date;
 
-@end
+}
 
-@interface NSDate (NSCalendarDateExtras)
+extern class NSDate (NSCalendarDateExtras)
 /*    DEPRECATED DEPRECATED DEPRECATED
  *    These methods are deprecated.
  *    Use NSCalendar for calendrical calculations.
@@ -61,5 +61,5 @@
 - (NSCalendarDate *)dateWithCalendarFormat:(NSString *)format timeZone:(NSTimeZone *)aTimeZone;
 - (NSString *)descriptionWithCalendarFormat:(NSString *)format timeZone:(NSTimeZone *)aTimeZone locale:(id)locale;
 - (id)initWithString:(NSString *)description;
-@end
+}
 

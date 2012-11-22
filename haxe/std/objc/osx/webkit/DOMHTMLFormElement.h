@@ -31,19 +31,19 @@
 @class DOMHTMLCollection;
 @class NSString;
 
-@interface DOMHTMLFormElement : DOMHTMLElement
-@property(copy) NSString *acceptCharset;
-@property(copy) NSString *action;
-@property(copy) NSString *enctype;
-@property(copy) NSString *encoding AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *method;
-@property(copy) NSString *name;
-@property(copy) NSString *target;
-@property(readonly, retain) DOMHTMLCollection *elements;
-@property(readonly) int length;
+extern class DOMHTMLFormElement : DOMHTMLElement
+	public var NSString *acceptCharset;
+	public var NSString *action;
+	public var NSString *enctype;
+	public var NSString *encoding AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *method;
+	public var NSString *name;
+	public var NSString *target;
+	public var (default, null) DOMHTMLCollection *elements;
+	public var  (default, null) : int length;
 
 - (void)submit;
 - (void)reset;
-@end
+}
 
 #endif

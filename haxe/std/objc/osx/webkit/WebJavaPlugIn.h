@@ -47,7 +47,7 @@ typedef enum {
     WebJNIReturnTypeDouble
 } WebJNIReturnType;
 
-@interface NSObject (WebJavaPlugIn)
+extern class NSObject (WebJavaPlugIn)
 
 /*!
     @method webPlugInGetApplet
@@ -82,4 +82,4 @@ typedef enum {
                  callingURL:(NSURL *)url
        exceptionDescription:(NSString **)exceptionString;
 
-@end
+}

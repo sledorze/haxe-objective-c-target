@@ -1,6 +1,6 @@
 //
 //  UIAccelerometer.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2007-2012, Apple Inc. All rights reserved.
 //
@@ -13,24 +13,24 @@
 
 typedef double UIAccelerationValue;
 
-@protocol UIAccelerometerDelegate;
+extern interface UIAccelerometerDelegate;
 
 NS_CLASS_AVAILABLE_IOS(2_0)
-@interface UIAcceleration : NSObject {
+extern class UIAcceleration : NSObject {
   @private
     NSTimeInterval timestamp;
     UIAccelerationValue x, y, z;
 }
 
-@property(nonatomic,readonly) NSTimeInterval timestamp;
-@property(nonatomic,readonly) UIAccelerationValue x;
-@property(nonatomic,readonly) UIAccelerationValue y;
-@property(nonatomic,readonly) UIAccelerationValue z;
+	public var (default, null) NSTimeInterval timestamp;
+	public var (default, null) UIAccelerationValue x;
+	public var (default, null) UIAccelerationValue y;
+	public var (default, null) UIAccelerationValue z;
 
-@end
+}
 
 NS_CLASS_AVAILABLE_IOS(2_0)
-@interface UIAccelerometer : NSObject {
+extern class UIAccelerometer : NSObject {
   @private
     NSTimeInterval               _updateInterval;
     id <UIAccelerometerDelegate> _delegate;
@@ -42,14 +42,14 @@ NS_CLASS_AVAILABLE_IOS(2_0)
 
 + (UIAccelerometer *)sharedAccelerometer;
 
-@property(nonatomic) NSTimeInterval updateInterval; //May be capped at a minimum interval
-@property(nonatomic,assign) id<UIAccelerometerDelegate> delegate;
+	public var  NSTimeInterval updateInterval; //May be capped at a minimum interval
+	public var  id<UIAccelerometerDelegate> delegate;
 
-@end
+}
 
-@protocol UIAccelerometerDelegate<NSObject>
+extern interface UIAccelerometerDelegate<NSObject>
 @optional
 
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration NS_DEPRECATED_IOS(2_0, 5_0);
+	public function accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration NS_DEPRECATED_IOS(2_0, 5_0);
 
-@end
+}

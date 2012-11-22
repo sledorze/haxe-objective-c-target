@@ -30,22 +30,22 @@
 
 @class NSString;
 
-@interface DOMCharacterData : DOMNode
-@property(copy) NSString *data;
-@property(readonly) unsigned length;
+extern class DOMCharacterData : DOMNode
+	public var NSString *data;
+	public var  (default, null) : unsigned length;
 
 - (NSString *)substringData:(unsigned)offset length:(unsigned)length AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)appendData:(NSString *)data;
 - (void)insertData:(unsigned)offset data:(NSString *)data AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)deleteData:(unsigned)offset length:(unsigned)length AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)replaceData:(unsigned)offset length:(unsigned)length data:(NSString *)data AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMCharacterData (DOMCharacterDataDeprecated)
+extern class DOMCharacterData (DOMCharacterDataDeprecated)
 - (NSString *)substringData:(unsigned)offset :(unsigned)length AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (void)insertData:(unsigned)offset :(NSString *)data AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (void)deleteData:(unsigned)offset :(unsigned)length AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (void)replaceData:(unsigned)offset :(unsigned)length :(NSString *)data AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

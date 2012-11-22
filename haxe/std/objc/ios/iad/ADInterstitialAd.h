@@ -23,21 +23,21 @@
  presented before it has loaded, it will throw an exception.
  */
 
-NS_CLASS_AVAILABLE(NA, 4_3) @interface ADInterstitialAd : NSObject
+NS_CLASS_AVAILABLE(NA, 4_3)extern class ADInterstitialAd extends NSObject
 
 // The interstitial ad's delegate is notified when it has loaded, when errors occur in
 // getting ads, when actions begin and end, and when it has unloaded.
 // Applications built against the iOS 5.0 or later SDK and when running on iOS 5.0 or later
 // may treat the delegate as if it was 'weak' instead of 'assign' (aka _unsafe_unretained).
-@property (nonatomic, assign) id <ADInterstitialAdDelegate> delegate;
+	public var id <ADInterstitialAdDelegate> delegate;
 
 // YES if an advertisement is loaded, NO otherwise. This property should always be checked before the
 // interstitial ad is presented.
-@property (nonatomic, readonly, getter=isLoaded) BOOL loaded;
+	public var  (nonatomic, readonly, getter=isLoaded) BOOL loaded;
 
 // Actions display full screen content in a modal session. Use this property to determine
 // if such an action is currently in progress.
-@property (nonatomic, readonly, getter=isActionInProgress) BOOL actionInProgress;
+	public var  (nonatomic, readonly, getter=isActionInProgress) BOOL actionInProgress;
 
 // Cancels the current in-progress action. This should only be used in cases where the
 // user's attention is required immediately. If this method IS invoked, there will not be a delegate call
@@ -61,7 +61,7 @@ NS_CLASS_AVAILABLE(NA, 4_3) @interface ADInterstitialAd : NSObject
 // or the ad unit to which it is linked will restore control to the application immediately.
 - (void)presentFromViewController:(UIViewController *)viewController;
 
-@end
+}
 
 @protocol ADInterstitialAdDelegate <NSObject>
 
@@ -97,4 +97,4 @@ NS_CLASS_AVAILABLE(NA, 4_3) @interface ADInterstitialAd : NSObject
 // of the action should resume at this point.
 - (void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd;
 
-@end
+}

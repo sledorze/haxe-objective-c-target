@@ -57,7 +57,7 @@ typedef NSInteger AVAssetReaderStatus;
 	AVAssetReaderAudioMixOutput mixes multiple audio tracks of the asset after reading them, while AVAssetReaderVideoCompositionOutput composites multiple video tracks after reading them.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetReader : NSObject
+extern class AVAssetReader extends NSObject
 {
 @private
 	AVAssetReaderInternal		*_priv;
@@ -91,37 +91,37 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithAsset:(AVAsset *)asset error:(NSError **)outError;
 
 /*!
- @property asset
+ 	public var  asset
  @abstract
 	The asset from which the receiver's outputs read sample buffers.
 
  @discussion
 	The value of this property is an AVAsset. Concrete instances of AVAssetReader that are created with specific AVAssetTrack instances must obtain those tracks from the asset returned by this property.
  */
-@property (nonatomic, retain, readonly) AVAsset *asset;
+	public var (default, null) AVAsset *asset;
 
 /*!
- @property status
+ 	public var  status
  @abstract
 	The status of reading sample buffers from the receiver's asset.
 
  @discussion
 	The value of this property is an AVAssetReaderStatus that indicates whether reading is in progress, has completed successfully, has been canceled, or has failed. Clients of AVAssetReaderOutput objects should check the value of this property after -[AVAssetReaderOutput copyNextSampleBuffer] returns NULL to determine why no more samples could be read. This property is thread safe.
  */
-@property (readonly) AVAssetReaderStatus status;
+	public var AVAssetReaderStatus status;
 
 /*!
- @property error
+ 	public var  error
  @abstract
 	If the receiver's status is AVAssetReaderStatusFailed, this describes the error that caused the failure.
 
  @discussion
 	The value of this property is an NSError that describes what caused the receiver to no longer be able to read its asset. If the receiver's status is not AVAssetReaderStatusFailed, the value of this property is nil. This property is thread safe.
  */
-@property (readonly) NSError *error;
+	public var NSError *error;
 
 /*!
- @property timeRange
+ 	public var  timeRange
  @abstract
 	Specifies a range of time that may limit the temporal portion of the receiver's asset from which media data will be read.
 
@@ -130,17 +130,17 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	
 	This property cannot be set after reading has started.
  */
-@property (nonatomic) CMTimeRange timeRange;
+	public var CMTimeRange timeRange;
 
 /*!
- @property outputs
+ 	public var  outputs
  @abstract
 	The outputs from which clients of receiver can read media data.
 
  @discussion
 	The value of this property is an NSArray containing concrete instances of AVAssetReaderOutput. Outputs can be added to the receiver using the addOutput: method.
  */
-@property (nonatomic, readonly) NSArray *outputs;
+	public var NSArray *outputs;
 
 /*!
  @method canAddOutput:
@@ -199,4 +199,4 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  */
 - (void)cancelReading;
 
-@end
+}

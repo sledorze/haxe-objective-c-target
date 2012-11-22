@@ -30,10 +30,10 @@
 
 @class DOMCSSValue;
 
-@interface DOMCSSValueList : DOMCSSValue
-@property(readonly) unsigned length;
+extern class DOMCSSValueList : DOMCSSValue
+	public var  (default, null) : unsigned length;
 
 - (DOMCSSValue *)item:(unsigned)index;
-@end
+}
 
 #endif

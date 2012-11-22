@@ -46,7 +46,7 @@
     representation of the data.  WebDataSources manage a hierarchy of WebFrames.
     WebDataSources are typically related to a view by their containing WebFrame.
 */
-@interface WebDataSource : NSObject
+extern class WebDataSource extends NSObject
 {
 @private
     WebDataSourcePrivate *_private;
@@ -177,4 +177,4 @@
 */
 - (void)addSubresource:(WebResource *)subresource;
 
-@end
+}

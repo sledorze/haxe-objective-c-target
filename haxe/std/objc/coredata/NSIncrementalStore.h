@@ -18,7 +18,7 @@
 // This API is designed to allow users to create persistent stores which load and save 
 // data incrementally, allowing for the management of large and/or shared datasets.
 NS_CLASS_AVAILABLE(10_7,5_0)
-@interface NSIncrementalStore : NSPersistentStore {
+extern class NSIncrementalStore : NSPersistentStore {
 	@private
 	NSDictionary *_storeMetadata;
 	uint64_t _lastIdentifier;
@@ -51,7 +51,7 @@ NS_CLASS_AVAILABLE(10_7,5_0)
 // method. The correct behavior in these cases would be to return nil and an error.
 - (id)executeRequest:(NSPersistentStoreRequest *)request withContext:(NSManagedObjectContext*)context error:(NSError **)error;
 
-// Returns an NSIncrementalStoreNode encapsulating the persistent external values for the object for an objectID. 
+// Returns an NSIncrementalStoreNode encapsulating the persistentexternal values for the object for an objectID. 
 // It should include all attributes values and may include to-one relationship values as NSManagedObjectIDs.
 // Should return nil and set the error if the object cannot be found.
 - (NSIncrementalStoreNode *)newValuesForObjectWithID:(NSManagedObjectID*)objectID withContext:(NSManagedObjectContext*)context error:(NSError**)error;
@@ -85,5 +85,5 @@ NS_CLASS_AVAILABLE(10_7,5_0)
 // by this store.
 - (id)referenceObjectForObjectID:(NSManagedObjectID *)objectID;
 
-@end
+}
 

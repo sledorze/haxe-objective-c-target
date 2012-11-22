@@ -1,6 +1,6 @@
 //
 //  UIAccessibility.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -30,7 +30,7 @@
  A completely custom subclass of UIView might need to override all of the
  UIAccessibility methods except accessibilityFrame.
  */
-@interface NSObject (UIAccessibility)
+extern class NSObject (UIAccessibility)
 
 /*
  Return YES if the receiver should be exposed as an accessibility element. 
@@ -38,7 +38,7 @@
  default on UIKit controls == YES 
  Setting the property to YES will cause the receiver to be visible to assistive applications. 
  */
-@property(nonatomic) BOOL isAccessibilityElement;
+	public var  BOOL isAccessibilityElement;
 
 /*
  Returns the localized label that represents the element. 
@@ -50,7 +50,7 @@
  default on UIKit controls == derived from the title
  Setting the property will change the label that is returned to the accessibility client. 
  */
-@property(nonatomic, copy) NSString *accessibilityLabel;
+	public var  NSString *accessibilityLabel;
 
 /*
  Returns a localized string that describes the result of performing an action on the element, when the result is non-obvious.
@@ -59,7 +59,7 @@
  default == nil
  Setting the property will change the hint that is returned to the accessibility client. 
  */
-@property(nonatomic, copy) NSString *accessibilityHint;
+	public var  NSString *accessibilityHint;
 
 /*
  Returns a localized string that represents the value of the element, such as the value 
@@ -69,7 +69,7 @@
  default on UIKit controls == values for appropriate controls 
  Setting the property will change the value that is returned to the accessibility client.  
  */
-@property(nonatomic, copy) NSString *accessibilityValue;
+	public var  NSString *accessibilityValue;
 
 /*
  Returns a UIAccessibilityTraits mask that is the OR combination of
@@ -81,7 +81,7 @@
  default on UIKit controls == traits that best characterize individual controls. 
  Setting the property will change the traits that are returned to the accessibility client. 
  */
-@property(nonatomic) UIAccessibilityTraits accessibilityTraits;
+	public var  UIAccessibilityTraits accessibilityTraits;
 
 /*
  Returns the frame of the element in screen coordinates.
@@ -89,13 +89,13 @@
  default on UIViews == the frame of the view
  Setting the property will change the frame that is returned to the accessibility client. 
  */
-@property(nonatomic) CGRect accessibilityFrame;
+	public var  CGRect accessibilityFrame;
 
 /*
  Returns the activation point for an accessible element in screen coordinates.
  default == Mid-point of the accessibilityFrame.
  */
-@property(nonatomic) CGPoint accessibilityActivationPoint NS_AVAILABLE_IOS(5_0);
+	public var  CGPoint accessibilityActivationPoint NS_AVAILABLE_IOS(5_0);
 
 /*
  Returns the language code that the element's label, value and hint should be spoken in. 
@@ -104,20 +104,20 @@
  For example, en-US specifies U.S. English.
  default == nil
  */
-@property(nonatomic, retain) NSString *accessibilityLanguage;
+	public var  NSString *accessibilityLanguage;
 
 /*
  Marks all the accessible elements contained within as hidden.
  default == NO
  */
-@property(nonatomic) BOOL accessibilityElementsHidden NS_AVAILABLE_IOS(5_0);
+	public var  BOOL accessibilityElementsHidden NS_AVAILABLE_IOS(5_0);
 
 /*
  Informs whether the receiving view should be considered modal by accessibility. If YES, then 
  elements outside this view will be ignored. Only elements inside this view will be exposed.
  default == NO
  */
-@property(nonatomic) BOOL accessibilityViewIsModal NS_AVAILABLE_IOS(5_0);
+	public var  BOOL accessibilityViewIsModal NS_AVAILABLE_IOS(5_0);
 
 /*
  Forces children elements to be grouped together regardless of their position on screen.
@@ -126,9 +126,9 @@
  a parent view of the items in the vertical column, VoiceOver will navigate the order correctly.
  default == NO
  */
-@property(nonatomic) BOOL shouldGroupAccessibilityChildren NS_AVAILABLE_IOS(6_0);
+	public var  BOOL shouldGroupAccessibilityChildren NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 
 /*
@@ -147,7 +147,7 @@
  
  Accessibility containers MUST return NO to -isAccessibilityElement.
  */
-@interface NSObject (UIAccessibilityContainer)
+extern class NSObject (UIAccessibilityContainer)
 
 /*
  Returns the number of accessibility elements in the container.
@@ -166,7 +166,7 @@
  */
 - (NSInteger)indexOfAccessibilityElement:(id)element;
 
-@end
+}
 
 /*
  UIAccessibilityFocus
@@ -174,23 +174,23 @@
  Assistive technologies, like VoiceOver, maintain a virtual focus on an element
  that allows the user to inspect an element without activating it.
  */
-@interface NSObject (UIAccessibilityFocus)
+extern class NSObject (UIAccessibilityFocus)
 
 // Override the following methods to know when an assistive technology has set or unset its virtual focus on the element. 
-- (void)accessibilityElementDidBecomeFocused NS_AVAILABLE_IOS(4_0);
-- (void)accessibilityElementDidLoseFocus NS_AVAILABLE_IOS(4_0);
+	public function accessibilityElementDidBecomeFocused NS_AVAILABLE_IOS(4_0);
+	public function accessibilityElementDidLoseFocus NS_AVAILABLE_IOS(4_0);
 
 // Returns whether an assistive technology is focused on the element.
 - (BOOL)accessibilityElementIsFocused NS_AVAILABLE_IOS(4_0);
 
-@end
+}
 
 /*
  UIAccessibilityAction
 
  An element should implement methods in this category if it supports the action.
  */
-@interface NSObject (UIAccessibilityAction)
+extern class NSObject (UIAccessibilityAction)
 
 /* 
  If an element has the UIAccessibilityTraitAdjustable trait, it must also implement
@@ -198,8 +198,8 @@
  while decrementing decreases its content. For example, accessibilityIncrement will increase the value
  of a UISlider, and accessibilityDecrement will decrease the value.
  */   
-- (void)accessibilityIncrement NS_AVAILABLE_IOS(4_0);
-- (void)accessibilityDecrement NS_AVAILABLE_IOS(4_0);
+	public function accessibilityIncrement NS_AVAILABLE_IOS(4_0);
+	public function accessibilityDecrement NS_AVAILABLE_IOS(4_0);
 
 /*
  If the user interface requires a scrolling action (e.g. turning the page of a book), a view in the view 
@@ -239,7 +239,7 @@ typedef NS_ENUM(NSInteger, UIAccessibilityScrollDirection) {
  */
 - (BOOL)accessibilityPerformMagicTap NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 /* 
  UIAccessibilityReadingContent
@@ -247,7 +247,7 @@ typedef NS_ENUM(NSInteger, UIAccessibilityScrollDirection) {
  Implemented on an element that represents content meant to be read, like a book or periodical. 
  Use in conjuction with UIAccessibilityTraitCausesPageTurn to provide a continuous reading experience with VoiceOver.
  */
-@protocol UIAccessibilityReadingContent
+extern interface UIAccessibilityReadingContent
 @required
 
 // Returns the line number given a point in the view's coordinate space.
@@ -262,7 +262,7 @@ typedef NS_ENUM(NSInteger, UIAccessibilityScrollDirection) {
 // Returns a string representing the text displayed on the current page.
 - (NSString *)accessibilityPageContent NS_AVAILABLE_IOS(5_0);
 
-@end
+}
 
 /*
  UIAccessibilityPostNotification

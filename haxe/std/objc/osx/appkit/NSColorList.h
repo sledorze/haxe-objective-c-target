@@ -18,7 +18,7 @@ NSColorLists post "NSColorListDidChangeNotification" when changed.
 
 @class NSArray, NSMutableArray, NSColor, NSBundle;
 
-@interface NSColorList : NSObject <NSCoding> {
+extern class NSColorList extends NSObject, implements NSObject> {
     /*All instance variables are private*/
     NSMutableArray *_keyArray;
     NSMutableArray *_colorArray;
@@ -92,7 +92,7 @@ NSColorLists post "NSColorListDidChangeNotification" when changed.
 */
 - (void)removeFile;
 
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSColorListDidChangeNotification;

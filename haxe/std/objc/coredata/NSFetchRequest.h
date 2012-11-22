@@ -25,7 +25,7 @@ typedef NSUInteger NSFetchRequestResultType;
 
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
-@interface NSFetchRequest : NSPersistentStoreRequest <NSCoding> {
+extern class NSFetchRequest : NSPersistentStoreRequest, implements NSObject> {
 @private
 	NSArray *_groupByProperties;
 	NSPredicate *_havingPredicate;
@@ -140,4 +140,4 @@ NS_CLASS_AVAILABLE(10_4, 3_0)
 - (NSPredicate*)havingPredicate NS_AVAILABLE(10_7,  5_0);
 - (void)setHavingPredicate:(NSPredicate *)predicate NS_AVAILABLE(10_7,  5_0); 
 
-@end
+}

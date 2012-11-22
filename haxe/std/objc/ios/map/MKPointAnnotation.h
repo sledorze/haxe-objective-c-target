@@ -11,11 +11,11 @@
 #import <CoreLocation/CLLocation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKPointAnnotation : MKShape {
+extern class MKPointAnnotation : MKShape {
 @package
     CLLocationCoordinate2D _coordinate;
 }
 
-@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
+	public var CLLocationCoordinate2D coordinate;
 
-@end
+}

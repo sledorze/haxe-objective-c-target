@@ -57,7 +57,7 @@ enum {
 #endif
 typedef NSInteger NSScrollerKnobStyle;
 
-@interface NSScroller : NSControl
+extern class NSScroller : NSControl
 {
     /*All instance variables are private*/
     CGFloat _curValue;
@@ -160,13 +160,13 @@ When it opts in in this manner, an NSScroller subclass certifies that:
 - (CGFloat)knobProportion;
 - (void)setKnobProportion:(CGFloat)proportion NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
-@interface NSScroller(NSDeprecated)
+extern class NSScroller(NSDeprecated)
 /* A method that was deprecated in Mac OS 10.5. To maintain binary compatibility, AppKit will continue to invoke overrides of this method. Code that targets Mac OS 10.5 and later should use -setDoubleValue: and -setKnobProportion: instead, and eliminate any overrides of -setFloatValue:knobProportion:. Code that needs to remain compatible with Mac OS 10.4 and earlier should continue to use -setFloatValue:knobProportion:. 
 */
 - (void)setFloatValue:(float)aFloat knobProportion:(CGFloat)proportion NS_DEPRECATED_MAC(10_0, 10_5);
-@end
+}
 
 /* Posted when the preferred scroller style changes.  The notification object is private; disregard it.  Consult NSScroller's +preferredScrollerStyle method when this notification is received, or thereafter, to determine the new scroller style to use.
 */

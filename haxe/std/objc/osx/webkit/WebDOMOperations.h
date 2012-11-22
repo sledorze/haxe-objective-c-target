@@ -33,7 +33,7 @@
 @class WebArchive;
 @class WebFrame;
 
-@interface DOMNode (WebDOMNodeOperations)
+extern class DOMNode (WebDOMNodeOperations)
 
 /*!
     @method webArchive
@@ -41,9 +41,9 @@
 */
 - (WebArchive *)webArchive;
 
-@end
+}
 
-@interface DOMDocument (WebDOMDocumentOperations)
+extern class DOMDocument (WebDOMDocumentOperations)
 
 /*!
     @method webFrame
@@ -60,9 +60,9 @@
 */
 - (NSURL *)URLWithAttributeString:(NSString *)string;
 
-@end
+}
 
-@interface DOMRange (WebDOMRangeOperations)
+extern class DOMRange (WebDOMRangeOperations)
 
 /*!
     @method webArchive
@@ -76,19 +76,9 @@
 */
 - (NSString *)markupString;
 
-@end
+}
 
-@interface DOMHTMLFrameElement (WebDOMHTMLFrameElementOperations)
-
-/*!
-    @method contentFrame
-    @abstract Returns the content frame of the element.
-*/
-- (WebFrame *)contentFrame;
-
-@end
-
-@interface DOMHTMLIFrameElement (WebDOMHTMLIFrameElementOperations)
+extern class DOMHTMLFrameElement (WebDOMHTMLFrameElementOperations)
 
 /*!
     @method contentFrame
@@ -96,9 +86,19 @@
 */
 - (WebFrame *)contentFrame;
 
-@end
+}
 
-@interface DOMHTMLObjectElement (WebDOMHTMLObjectElementOperations)
+extern class DOMHTMLIFrameElement (WebDOMHTMLIFrameElementOperations)
+
+/*!
+    @method contentFrame
+    @abstract Returns the content frame of the element.
+*/
+- (WebFrame *)contentFrame;
+
+}
+
+extern class DOMHTMLObjectElement (WebDOMHTMLObjectElementOperations)
 
 /*!
     @method contentFrame
@@ -108,4 +108,4 @@
 */
 - (WebFrame *)contentFrame;
 
-@end
+}

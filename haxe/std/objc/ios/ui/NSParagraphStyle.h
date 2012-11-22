@@ -1,6 +1,6 @@
 //
 //  NSParagraphStyle.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2011-2012 Apple Inc. All rights reserved.
 //
@@ -22,54 +22,54 @@ typedef NS_ENUM(NSInteger, NSLineBreakMode) {		/* What to do with long lines */
     NSLineBreakByTruncatingMiddle	/* Truncate middle of line:  "ab...yz" */
 } NS_ENUM_AVAILABLE_IOS(6_0);
 
-NS_CLASS_AVAILABLE_IOS(6_0) @interface NSParagraphStyle : NSObject <NSCopying, NSMutableCopying, NSCoding> 
+NS_CLASS_AVAILABLE_IOS(6_0)extern class NSParagraphStyle extends NSObject <NSCopying, NSMutableCopying, NSCoding> 
 
 + (NSParagraphStyle *)defaultParagraphStyle;
 
 + (NSWritingDirection)defaultWritingDirectionForLanguage:(NSString *)languageName;  // languageName is in ISO lang region format
 
-@property(readonly) CGFloat lineSpacing; /* "Leading": distance between the bottom of one line fragment and top of next (applied between lines in the same container). Can't be negative. This value is included in the line fragment heights in layout manager. */
-@property(readonly) CGFloat paragraphSpacing; /* Distance between the bottom of this paragraph and top of next (or the beginning of its paragraphSpacingBefore, if any). */
-@property(readonly) NSTextAlignment alignment;
+	public var  (default, null) : CGFloat lineSpacing; /* "Leading": distance between the bottom of one line fragment and top of next (applied between lines in the same container). Can't be negative. This value is included in the line fragment heights in layout manager. */
+	public var  (default, null) : CGFloat paragraphSpacing; /* Distance between the bottom of this paragraph and top of next (or the beginning of its paragraphSpacingBefore, if any). */
+	public var  (default, null) : NSTextAlignment alignment;
 
 /* The following values are relative to the appropriate margin (depending on the paragraph direction) */
 
-@property(readonly) CGFloat headIndent; /* Distance from margin to front edge of paragraph */
-@property(readonly) CGFloat tailIndent; /* Distance from margin to back edge of paragraph; if negative or 0, from other margin */
-@property(readonly) CGFloat firstLineHeadIndent; /* Distance from margin to edge appropriate for text direction */
+	public var  (default, null) : CGFloat headIndent; /* Distance from margin to front edge of paragraph */
+	public var  (default, null) : CGFloat tailIndent; /* Distance from margin to back edge of paragraph; if negative or 0, from other margin */
+	public var  (default, null) : CGFloat firstLineHeadIndent; /* Distance from margin to edge appropriate for text direction */
 
-@property(readonly) CGFloat minimumLineHeight; /* Line height is the distance from bottom of descenders to top of ascenders; basically the line fragment height. Does not include lineSpacing (which is added after this computation). */
-@property(readonly) CGFloat maximumLineHeight; /* 0 implies no maximum. */ 
+	public var  (default, null) : CGFloat minimumLineHeight; /* Line height is the distance from bottom of descenders to top of ascenders; basically the line fragment height. Does not include lineSpacing (which is added after this computation). */
+	public var  (default, null) : CGFloat maximumLineHeight; /* 0 implies no maximum. */ 
 
-@property(readonly) NSLineBreakMode lineBreakMode;
+	public var  (default, null) : NSLineBreakMode lineBreakMode;
 
-@property(readonly) NSWritingDirection baseWritingDirection;
+	public var  (default, null) : NSWritingDirection baseWritingDirection;
 
-@property(readonly) CGFloat lineHeightMultiple; /* Natural line height is multiplied by this factor (if positive) before being constrained by minimum and maximum line height. */
-@property(readonly) CGFloat paragraphSpacingBefore; /* Distance between the bottom of the previous paragraph (or the end of its paragraphSpacing, if any) and the top of this paragraph. */
+	public var  (default, null) : CGFloat lineHeightMultiple; /* Natural line height is multiplied by this factor (if positive) before being constrained by minimum and maximum line height. */
+	public var  (default, null) : CGFloat paragraphSpacingBefore; /* Distance between the bottom of the previous paragraph (or the end of its paragraphSpacing, if any) and the top of this paragraph. */
 
 /* Specifies the threshold for hyphenation.  Valid values lie between 0.0 and 1.0 inclusive.  Hyphenation will be attempted when the ratio of the text width as broken without hyphenation to the width of the line fragment is less than the hyphenation factor.  When this takes on its default value of 0.0, the layout manager's hyphenation factor is used instead.  When both are 0.0, hyphenation is disabled.
  
     NOTE: On iOS, the only supported values are 0.0 and 1.0.
 */
-@property(readonly) float hyphenationFactor;
-@end
+	public var  (default, null) : float hyphenationFactor;
+}
 
 
-NS_CLASS_AVAILABLE_IOS(6_0) @interface NSMutableParagraphStyle : NSParagraphStyle
+NS_CLASS_AVAILABLE_IOS(6_0)extern class NSMutableParagraphStyle : NSParagraphStyle
 
-@property(readwrite) CGFloat lineSpacing;
-@property(readwrite) CGFloat paragraphSpacing;
-@property(readwrite) NSTextAlignment alignment;
-@property(readwrite) CGFloat firstLineHeadIndent;
-@property(readwrite) CGFloat headIndent;
-@property(readwrite) CGFloat tailIndent;
-@property(readwrite) NSLineBreakMode lineBreakMode;
-@property(readwrite) CGFloat minimumLineHeight;
-@property(readwrite) CGFloat maximumLineHeight;
-@property(readwrite) NSWritingDirection baseWritingDirection;
-@property(readwrite) CGFloat lineHeightMultiple;
-@property(readwrite) CGFloat paragraphSpacingBefore;
-@property(readwrite) float hyphenationFactor;
+	public var  CGFloat lineSpacing;
+	public var  CGFloat paragraphSpacing;
+	public var  NSTextAlignment alignment;
+	public var  CGFloat firstLineHeadIndent;
+	public var  CGFloat headIndent;
+	public var  CGFloat tailIndent;
+	public var  NSLineBreakMode lineBreakMode;
+	public var  CGFloat minimumLineHeight;
+	public var  CGFloat maximumLineHeight;
+	public var  NSWritingDirection baseWritingDirection;
+	public var  CGFloat lineHeightMultiple;
+	public var  CGFloat paragraphSpacingBefore;
+	public var  float hyphenationFactor;
 
-@end
+}

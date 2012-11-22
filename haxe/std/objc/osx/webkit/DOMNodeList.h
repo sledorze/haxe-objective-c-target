@@ -30,10 +30,10 @@
 
 @class DOMNode;
 
-@interface DOMNodeList : DOMObject
-@property(readonly) unsigned length;
+extern class DOMNodeList : DOMObject
+	public var  (default, null) : unsigned length;
 
 - (DOMNode *)item:(unsigned)index;
-@end
+}
 
 #endif

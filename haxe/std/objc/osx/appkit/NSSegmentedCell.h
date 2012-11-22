@@ -19,7 +19,7 @@ typedef NSUInteger NSSegmentSwitchTracking;
 
 @class NSMutableArray;
 
-@interface NSSegmentedCell : NSActionCell {
+extern class NSSegmentedCell : NSActionCell {
   @private
     NSMutableArray* _segmentItems;
     NSInteger           _selectedSegment;
@@ -107,13 +107,13 @@ typedef NSUInteger NSSegmentSwitchTracking;
 */
 - (void)drawSegment:(NSInteger)segment inFrame:(NSRect)frame withView:(NSView *)controlView;
 
-@end
+}
 
 
-@interface NSSegmentedCell (NSSegmentBackgroundStyle)
+extern class NSSegmentedCell (NSSegmentBackgroundStyle)
 /* Describes the surface drawn onto in -[NSCell drawSegment:inFrame:withView:]. That method draws a segment interior, not the segment bezel.  This is both an override point and a useful method to call. A segmented cell that draws a custom bezel would override this to describe that surface. A cell that has custom segment drawing might query this method to help pick an image that looks good on the cell. Calling this method gives you some independence from changes in framework art style.
 */
 - (NSBackgroundStyle)interiorBackgroundStyleForSegment:(NSInteger)segment NS_AVAILABLE_MAC(10_5);
-@end
+}
 
 

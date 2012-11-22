@@ -10,13 +10,13 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKShape : NSObject <MKAnnotation> {
+extern class MKShape extends NSObject <MKAnnotation> {
 @package
     NSString *_title;
     NSString *_subtitle;
 }
 
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *subtitle;
+	public var NSString *title;
+	public var NSString *subtitle;
 
-@end
+}

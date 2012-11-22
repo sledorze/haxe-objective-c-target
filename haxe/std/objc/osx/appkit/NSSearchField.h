@@ -8,7 +8,7 @@
 #import <AppKit/NSTextField.h>
 
 
-@interface NSSearchField : NSTextField {
+extern class NSSearchField : NSTextField {
   @private
     unsigned int _reserved1;
     unsigned int _reserved2;
@@ -24,5 +24,5 @@
 - (NSString*) recentsAutosaveName;
     // forwarded to cell
 
-@end
+}
 

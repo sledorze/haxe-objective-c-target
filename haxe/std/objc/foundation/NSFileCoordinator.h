@@ -54,7 +54,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileCoordinatorWritingOptions) {
 };
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSFileCoordinator : NSObject {
+extern class NSFileCoordinator extends NSObject {
     @private
     id _accessArbiter;
     id _fileReactor;
@@ -182,4 +182,4 @@ This method this can be invoked from any thread. It always returns immediately, 
 */
 - (void)cancel;
 
-@end
+}

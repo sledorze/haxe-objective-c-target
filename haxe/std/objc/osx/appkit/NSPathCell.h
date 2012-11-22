@@ -44,7 +44,7 @@ enum {
 typedef NSInteger NSPathStyle;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSPathCell : NSActionCell <NSOpenSavePanelDelegate> {
+extern class NSPathCell : NSActionCell <NSOpenSavePanelDelegate> {
 @private
     NSColor *_backgroundColor;
     NSMutableArray *_borderColors;
@@ -139,7 +139,7 @@ NS_CLASS_AVAILABLE(10_5, NA)
 /* The NSPathCell properly respects the controlSize for the NSPathStyleStandard and NSPathStylePopUp styles. When the controlSize is set, the new size is propigated to the subcells. When the pathStyle is set to NSPathStyleNavigationBar, you cannot change the controlSize, and it is always set to "small". Attempting to change the controlSize when the pathStyle is NSPathStyleNavigationBar will cause an assertion. Setting the pathStyle to NSPathStyleNavigationBar will force the controlSize to be NSSmallControlSize. */
 - (void)setControlSize:(NSControlSize)size;
 
-@end
+}
 
 @protocol NSPathCellDelegate <NSObject>
 
@@ -153,7 +153,7 @@ NS_CLASS_AVAILABLE(10_5, NA)
 */
 - (void)pathCell:(NSPathCell *)pathCell willPopUpMenu:(NSMenu *)menu;
 
-@end
+}
 
 
 enum {

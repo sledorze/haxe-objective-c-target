@@ -10,12 +10,12 @@
 @class NSFontPanel, NSMutableDictionary, NSFontManager, NSMutableArray, NSTableView, NSFontDescriptor, NSFont;
 
 
-@interface NSObject (NSFontPanelValidationAdditions)
+extern class NSObject (NSFontPanelValidationAdditions)
 - (NSUInteger) validModesForFontPanel: (NSFontPanel *) fontPanel;
-@end
+}
 
 
-@interface NSFontPanel : NSPanel {
+extern class NSFontPanel : NSPanel {
     /*All instance variables are private*/
     NSFontManager *_manager;
     NSArray *_collectionNames;
@@ -103,7 +103,7 @@
 */
 - (void) reloadDefaultFontFamilies;
 
-@end
+}
 
 
 /* Tags of views in the FontPanel

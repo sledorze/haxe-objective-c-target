@@ -46,23 +46,23 @@ extern CFStringRef const kABJobTitleProperty;              // Job Title - kABStr
 extern CFStringRef const kABHomePageProperty;              // Home Web page - kABStringProperty
 
 extern CFStringRef const kABURLsProperty AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // URLs - kABMultiStringProperty
-    extern CFStringRef const kABHomePageLabel AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER; // Homepage URL
+   extern CFStringRef const kABHomePageLabel AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER; // Homepage URL
 	
 extern CFStringRef const kABCalendarURIsProperty AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER; // Calendar URIs - kABMultiStringProperty
 
 extern CFStringRef const kABEmailProperty;                 // Email(s) - kABMultiStringProperty
-        extern CFStringRef const kABEmailWorkLabel;        // Work email
-        extern CFStringRef const kABEmailHomeLabel;        // Home email
+       extern CFStringRef const kABEmailWorkLabel;        // Work email
+       extern CFStringRef const kABEmailHomeLabel;        // Home email
 
 extern CFStringRef const kABAddressProperty;                // Street Addresses - kABMultiDictionaryProperty
-    extern CFStringRef const kABAddressStreetKey;           // Street
-    extern CFStringRef const kABAddressCityKey;             // City
-    extern CFStringRef const kABAddressStateKey;            // State
-    extern CFStringRef const kABAddressZIPKey;              // Zip
-    extern CFStringRef const kABAddressCountryKey;          // Country
-    extern CFStringRef const kABAddressCountryCodeKey;      // Country Code
-        extern CFStringRef const kABAddressHomeLabel;       // Home Address
-        extern CFStringRef const kABAddressWorkLabel;       // Work Address
+   extern CFStringRef const kABAddressStreetKey;           // Street
+   extern CFStringRef const kABAddressCityKey;             // City
+   extern CFStringRef const kABAddressStateKey;            // State
+   extern CFStringRef const kABAddressZIPKey;              // Zip
+   extern CFStringRef const kABAddressCountryKey;          // Country
+   extern CFStringRef const kABAddressCountryCodeKey;      // Country Code
+       extern CFStringRef const kABAddressHomeLabel;       // Home Address
+       extern CFStringRef const kABAddressWorkLabel;       // Work Address
 
 /*
  * kABAddressCountryCodeKey code must be one of the following:
@@ -131,20 +131,20 @@ extern CFStringRef const kABAddressProperty;                // Street Addresses 
  */
 
 extern  CFStringRef const kABOtherDatesProperty      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;         // Dates associated with this person - kABMultiDateProperty - (Person)
-    extern  CFStringRef const kABAnniversaryLabel    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABAnniversaryLabel    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 extern  CFStringRef const kABRelatedNamesProperty    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;         // names - kABMultiStringProperty
-    extern  CFStringRef const kABFatherLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABMotherLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABParentLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABBrotherLabel        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABSisterLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABChildLabel          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABFriendLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABSpouseLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABPartnerLabel        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABAssistantLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-    extern  CFStringRef const kABManagerLabel        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABFatherLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABMotherLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABParentLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABBrotherLabel        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABSisterLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABChildLabel          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABFriendLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABSpouseLabel         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABPartnerLabel        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABAssistantLabel      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+   extern  CFStringRef const kABManagerLabel        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 extern CFStringRef const kABDepartmentProperty       AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;         // Department name - kABStringProperty - (Person)
 
@@ -159,40 +159,40 @@ extern CFStringRef const kABPersonFlags              AVAILABLE_MAC_OS_X_VERSION_
 #define kABLastNameFirst                        000020
 
 extern CFStringRef const kABPhoneProperty;                   // Generic phone number - kABMultiStringProperty
-        extern CFStringRef const kABPhoneWorkLabel;          // Work phone
-        extern CFStringRef const kABPhoneHomeLabel;          // Home phone
-        extern CFStringRef const kABPhoneMobileLabel;        // Cell phone
-        extern CFStringRef const kABPhoneMainLabel;          // Main phone
-        extern CFStringRef const kABPhoneHomeFAXLabel;       // FAX number
-        extern CFStringRef const kABPhoneWorkFAXLabel;       // FAX number
-        extern CFStringRef const kABPhonePagerLabel;         // Pager number
+       extern CFStringRef const kABPhoneWorkLabel;          // Work phone
+       extern CFStringRef const kABPhoneHomeLabel;          // Home phone
+       extern CFStringRef const kABPhoneMobileLabel;        // Cell phone
+       extern CFStringRef const kABPhoneMainLabel;          // Main phone
+       extern CFStringRef const kABPhoneHomeFAXLabel;       // FAX number
+       extern CFStringRef const kABPhoneWorkFAXLabel;       // FAX number
+       extern CFStringRef const kABPhonePagerLabel;         // Pager number
 
 
 
 // Deprecated in Mac OS 10.7. You should use kABInstantMessageProperty.
 extern CFStringRef const kABAIMInstantProperty							DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;	// AIM Instant Messaging - kABMultiStringProperty
-        extern CFStringRef const kABAIMWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern CFStringRef const kABAIMHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABAIMWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABAIMHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 // Deprecated in Mac OS 10.7. You should use kABInstantMessageProperty.
 extern CFStringRef const kABJabberInstantProperty						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;	// Jabber Instant Messaging - kABMultiStringProperty
-        extern CFStringRef const kABJabberWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern CFStringRef const kABJabberHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABJabberWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABJabberHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 // Deprecated in Mac OS 10.7. You should use kABInstantMessageProperty.
 extern CFStringRef const kABMSNInstantProperty							DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;	// MSN Instant Messaging - kABMultiStringProperty
-        extern CFStringRef const kABMSNWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern CFStringRef const kABMSNHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABMSNWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABMSNHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 // Deprecated in Mac OS 10.7. You should use kABInstantMessageProperty.
 extern CFStringRef const kABYahooInstantProperty						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;	// Yahoo Instant Messaging - kABMultiStringProperty
-        extern CFStringRef const kABYahooWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern CFStringRef const kABYahooHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABYahooWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABYahooHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 // Deprecated in Mac OS 10.7. You should use kABInstantMessageProperty.
 extern CFStringRef const kABICQInstantProperty							DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;	// ICQ Instant Messaging - kABMultiStringProperty
-        extern CFStringRef const kABICQWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
-        extern CFStringRef const kABICQHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABICQWorkLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
+       extern CFStringRef const kABICQHomeLabel						DEPRECATED_IN_MAC_OS_X_VERSION_10_7_AND_LATER;
 
 extern CFStringRef const kABInstantMessageProperty						AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;	// Instant Messaging - kABMultiDictionaryProperty
 	extern CFStringRef const kABInstantMessageUsernameKey				AVAILABLE_MAC_OS_X_VERSION_10_7_AND_LATER;		// dictionary key for the instant messaging handle/username

@@ -31,11 +31,11 @@
 @class DOMStyleSheet;
 @class NSString;
 
-@interface DOMHTMLStyleElement : DOMHTMLElement
-@property BOOL disabled;
-@property(copy) NSString *media;
-@property(copy) NSString *type;
-@property(readonly, retain) DOMStyleSheet *sheet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLStyleElement : DOMHTMLElement
+	public var  BOOL disabled;
+	public var NSString *media;
+	public var NSString *type;
+	public var (default, null) DOMStyleSheet *sheet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

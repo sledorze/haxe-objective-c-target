@@ -16,7 +16,7 @@
 #define	NSVariableStatusItemLength	(-1)
 #define	NSSquareStatusItemLength	(-2)
 
-@interface NSStatusBar : NSObject
+extern class NSStatusBar extends NSObject
 {
  @private
     id             _items;
@@ -33,4 +33,4 @@
 - (BOOL)isVertical;
 - (CGFloat)thickness;
 
-@end
+}

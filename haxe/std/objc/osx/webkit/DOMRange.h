@@ -47,14 +47,14 @@ enum {
     DOM_NODE_INSIDE = 3
 };
 
-@interface DOMRange : DOMObject
-@property(readonly, retain) DOMNode *startContainer;
-@property(readonly) int startOffset;
-@property(readonly, retain) DOMNode *endContainer;
-@property(readonly) int endOffset;
-@property(readonly) BOOL collapsed;
-@property(readonly, retain) DOMNode *commonAncestorContainer;
-@property(readonly, copy) NSString *text AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMRange : DOMObject
+	public var (default, null) DOMNode *startContainer;
+	public var  (default, null) : int startOffset;
+	public var (default, null) DOMNode *endContainer;
+	public var  (default, null) : int endOffset;
+	public var  (default, null) : BOOL collapsed;
+	public var (default, null) DOMNode *commonAncestorContainer;
+	public var (default, null) NSString *text AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (void)setStart:(DOMNode *)refNode offset:(int)offset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)setEnd:(DOMNode *)refNode offset:(int)offset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
@@ -79,12 +79,12 @@ enum {
 - (short)compareNode:(DOMNode *)refNode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (short)comparePoint:(DOMNode *)refNode offset:(int)offset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (BOOL)isPointInRange:(DOMNode *)refNode offset:(int)offset AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMRange (DOMRangeDeprecated)
+extern class DOMRange (DOMRangeDeprecated)
 - (void)setStart:(DOMNode *)refNode :(int)offset AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (void)setEnd:(DOMNode *)refNode :(int)offset AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (short)compareBoundaryPoints:(unsigned short)how :(DOMRange *)sourceRange AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

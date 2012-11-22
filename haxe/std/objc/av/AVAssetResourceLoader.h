@@ -16,7 +16,7 @@
 @class AVAssetResourceLoaderInternal;
 
 NS_CLASS_AVAILABLE(TBD, 6_0)
-@interface AVAssetResourceLoader : NSObject {
+extern class AVAssetResourceLoader extends NSObject {
 @private
 	AVAssetResourceLoaderInternal *_resourceLoader;
 }
@@ -32,22 +32,22 @@ NS_CLASS_AVAILABLE(TBD, 6_0)
 - (void)setDelegate:(id<AVAssetResourceLoaderDelegate>)delegate queue:(dispatch_queue_t)delegateQueue;
 
 /*!
- @property 		delegate
+ 	public var  		delegate
  @abstract		The receiver's delegate.
  @discussion
   The value of this property is an object conforming to the AVAssetResourceLoaderDelegate protocol. The delegate is set using the setDelegate:queue: method.
 */
-@property (nonatomic, readonly) id<AVAssetResourceLoaderDelegate> delegate;
+	public var id<AVAssetResourceLoaderDelegate> delegate;
 
 /*!
- @property 		delegateQueue
+ 	public var  		delegateQueue
  @abstract		The dispatch queue on which all delegate methods will be invoked.
  @discussion
   The value of this property is a dispatch_queue_t. The queue is set using the setDelegate:queue: method.
 */
-@property (nonatomic, readonly) dispatch_queue_t delegateQueue;
+	public var dispatch_queue_t delegateQueue;
 
-@end
+}
 
 
 @protocol AVAssetResourceLoaderDelegate <NSObject>
@@ -71,28 +71,28 @@ NS_CLASS_AVAILABLE(TBD, 6_0)
 */
 - (BOOL)resourceLoader:(AVAssetResourceLoader *)resourceLoader shouldWaitForLoadingOfRequestedResource:(AVAssetResourceLoadingRequest *)loadingRequest;
 
-@end
+}
 
 
 @class AVAssetResourceLoadingRequestInternal;
 
 NS_CLASS_AVAILABLE(TBD, 6_0)
-@interface AVAssetResourceLoadingRequest : NSObject {
+extern class AVAssetResourceLoadingRequest extends NSObject {
 @private
 	AVAssetResourceLoadingRequestInternal *_loadingRequest;
 }
 
 /*! 
- @property 		request
+ 	public var  		request
  @abstract		An NSURLRequest for the requested resource.
 */
-@property (nonatomic, readonly) NSURLRequest *request;
+	public var NSURLRequest *request;
 
 /*! 
- @property 		finished
+ 	public var  		finished
  @abstract		Indicates whether loading of the resource has been finished.
 */
-@property (nonatomic, readonly) BOOL finished;
+	public var BOOL finished;
 
 /*! 
  @method 		finishLoadingWithResponse:data:redirect:   
@@ -129,4 +129,4 @@ NS_CLASS_AVAILABLE(TBD, 6_0)
 */
 - (NSData *)streamingContentKeyRequestDataForApp:(NSData *)appIdentifier contentIdentifier:(NSData *)contentIdentifier options:(NSDictionary *)options error:(NSError **)outError;
 
-@end
+}

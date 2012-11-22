@@ -32,19 +32,19 @@
 @class DOMCSSRuleList;
 @class NSString;
 
-@interface DOMCSSStyleSheet : DOMStyleSheet
-@property(readonly, retain) DOMCSSRule *ownerRule;
-@property(readonly, retain) DOMCSSRuleList *cssRules;
-@property(readonly, retain) DOMCSSRuleList *rules AVAILABLE_IN_WEBKIT_VERSION_4_0;
+extern class DOMCSSStyleSheet : DOMStyleSheet
+	public var (default, null) DOMCSSRule *ownerRule;
+	public var (default, null) DOMCSSRuleList *cssRules;
+	public var (default, null) DOMCSSRuleList *rules AVAILABLE_IN_WEBKIT_VERSION_4_0;
 
 - (unsigned)insertRule:(NSString *)rule index:(unsigned)index AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)deleteRule:(unsigned)index;
 - (int)addRule:(NSString *)selector style:(NSString *)style index:(unsigned)index AVAILABLE_IN_WEBKIT_VERSION_4_0;
 - (void)removeRule:(unsigned)index AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+}
 
-@interface DOMCSSStyleSheet (DOMCSSStyleSheetDeprecated)
+extern class DOMCSSStyleSheet (DOMCSSStyleSheetDeprecated)
 - (unsigned)insertRule:(NSString *)rule :(unsigned)index AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

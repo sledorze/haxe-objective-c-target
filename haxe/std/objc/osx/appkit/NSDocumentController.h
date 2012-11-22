@@ -11,7 +11,7 @@
 
 @class NSArray, NSDocument, NSError, NSMenuItem, NSMutableDictionary, NSOpenPanel, NSURL, NSWindow;
 
-@interface NSDocumentController : NSObject<NSCoding, NSUserInterfaceValidations> {
+extern class NSDocumentController extends NSObject,implements NSObject, NSUserInterfaceValidations> {
     @private
     id _documents;
     id _moreVars;
@@ -252,9 +252,9 @@ For backward binary compatibility with Mac OS 10.4 and earlier, the default impl
 */
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem;
 
-@end
+}
 
-@interface NSDocumentController(NSDeprecated)
+extern class NSDocumentController(NSDeprecated)
 
 #pragma mark *** Backward Compatibility
 
@@ -281,4 +281,4 @@ For backward binary compatibility with Mac OS 10.4 and earlier, the default impl
 - (void)setShouldCreateUI:(BOOL)flag NS_DEPRECATED_MAC(10_0, 10_4);
 - (BOOL)shouldCreateUI NS_DEPRECATED_MAC(10_0, 10_4);
 
-@end
+}

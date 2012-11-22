@@ -11,7 +11,7 @@
  * `drawableProperties' property defined by the protocol to configure
  * the created surface. */
 
-@interface CAEAGLLayer : CALayer <EAGLDrawable>
+extern class CAEAGLLayer : CALayer <EAGLDrawable>
 {
 @private
   struct _CAEAGLNativeWindow *_win;
@@ -20,4 +20,4 @@
 /* Note: the default value of the `opaque' property in this class is true,
  * not false as in CALayer. */
 
-@end
+}

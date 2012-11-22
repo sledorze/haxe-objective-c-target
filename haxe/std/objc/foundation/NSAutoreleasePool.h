@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 
 NS_AUTOMATED_REFCOUNT_UNAVAILABLE
-@interface NSAutoreleasePool : NSObject {
+extern class NSAutoreleasePool extends NSObject {
 @private
     void	*_token;
     void	*_reserved3;
@@ -19,5 +19,5 @@ NS_AUTOMATED_REFCOUNT_UNAVAILABLE
 
 - (void)drain;
 
-@end
+}
 

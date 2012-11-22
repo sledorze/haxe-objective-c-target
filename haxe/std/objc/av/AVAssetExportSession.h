@@ -117,7 +117,7 @@ enum {
 typedef NSInteger AVAssetExportSessionStatus;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVAssetExportSession : NSObject
+extern class AVAssetExportSession extends NSObject
 {
 @private
 	AVAssetExportSessionInternal  *_exportSession;
@@ -185,63 +185,63 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 /* These properties are key-value observable unless documented otherwise */
 
 /* Indicates the name of the preset with which the AVExportSession was initialized */
-@property (nonatomic, readonly) NSString *presetName;
+	public var NSString *presetName;
 
 /* Indicates the instance of AVAsset with which the AVExportSession was initialized  */
-@property (nonatomic, retain, readonly) AVAsset *asset NS_AVAILABLE(10_8, 5_0);
+	public var (default, null) AVAsset *asset NS_AVAILABLE(10_8, 5_0);
 
 /* Indicates the types of files the target can write, according to the preset the target was initialized with.
    Does not perform an inspection of the AVAsset to determine whether its contents are compatible with the supported file types. If you need to make that determination before initiating the export, use - (void)determineCompatibleFileTypesWithCompletionHandler:(void (^)(NSArray *compatibleFileTypes))handler:. */
-@property (nonatomic, readonly) NSArray *supportedFileTypes;
+	public var NSArray *supportedFileTypes;
 
 /* Indicates the type of file to be written by the session.
    The value of this property must be set before you invoke -exportAsynchronouslyWithCompletionHandler:; otherwise -exportAsynchronouslyWithCompletionHandler: will raise an NSInternalInconsistencyException.
    Setting the value of this property to a file type that's not among the session's supported file types will result in an NSInvalidArgumentException. See supportedFileTypes. */
-@property (nonatomic, copy) NSString *outputFileType;
+	public var NSString *outputFileType;
 
 /* Indicates the URL of the export session's output. You may use UTTypeCopyPreferredTagWithClass(outputFileType, kUTTagClassFilenameExtension) to obtain an appropriate path extension for the outputFileType you have specified. For more information about UTTypeCopyPreferredTagWithClass and kUTTagClassFilenameExtension, on iOS see <MobileCoreServices/UTType.h> and on Mac OS X see <LaunchServices/UTType.h>.  */
-@property (nonatomic, copy) NSURL *outputURL;
+	public var NSURL *outputURL;
 
 /* indicates the status of the export session */
-@property (nonatomic, readonly) AVAssetExportSessionStatus status;
+	public var AVAssetExportSessionStatus status;
 
 /* describes the error that occured if the export status is AVAssetExportSessionStatusFailed */
-@property (nonatomic, readonly) NSError *error;
+	public var NSError *error;
 
 /* Specifies the progress of the export on a scale from 0 to 1.0.  A value of 0 means the export has not yet begun, A value of 1.0 means the export is complete. This property is not key-value observable. */
-@property (nonatomic, readonly) float progress;
+	public var float progress;
 
 #if TARGET_OS_IPHONE
 
 /* Provides an estimate of the maximum duration of exported media that is possible given the source asset, the export preset, and the current value of fileLengthLimit.  The export will not stop when it reaches this maximum duration; set the timeRange property to export only a certain time range.  */
-@property (nonatomic, readonly) CMTime maxDuration;
+	public var CMTime maxDuration;
 
 /* indicates the estimated byte size of exported file */
-@property (nonatomic, readonly) long long estimatedOutputFileLength NS_AVAILABLE_IOS(5_0);
+	public var long long estimatedOutputFileLength NS_AVAILABLE_IOS(5_0);
 
 #endif
 
 /* Specifies a time range to be exported from the source.  The default timeRange of an export session is kCMTimeZero..kCMTimePositiveInfinity, meaning that the full duration of the asset will be exported. */
-@property (nonatomic) CMTimeRange timeRange;
+	public var CMTimeRange timeRange;
 
 /* Specifies an NSArray of AVMetadataItems that are to be written to the output file by the export session.
    If the value of this key is nil, any existing metadata in the exported asset will be translated as accurately as possible into
    the appropriate metadata keyspace for the output file and written to the output. */
-@property (nonatomic, copy) NSArray *metadata; 
+	public var NSArray *metadata; 
 
 #if TARGET_OS_IPHONE
 /* Indicates the file length that the output of the session should not exceed.  Depending on the content of the source asset, it is possible for the output to slightly exceed the file length limit.  The length of the output file should be tested if you require that a strict limit be observed before making use of the output.  See also maxDuration and timeRange. */
-@property (nonatomic) long long fileLengthLimit; 
+	public var long long fileLengthLimit; 
 #endif
 
 /* indicates whether non-default audio mixing is enabled for export and supplies the parameters for audio mixing */
-@property (nonatomic, copy) AVAudioMix *audioMix;
+	public var AVAudioMix *audioMix;
 
 /* indicates whether video composition is enabled for export and supplies the instructions for video composition */
-@property (nonatomic, copy) AVVideoComposition *videoComposition;
+	public var AVVideoComposition *videoComposition;
 
 /* indicates the movie should be optimized for network use */
-@property (nonatomic) BOOL shouldOptimizeForNetworkUse;
+	public var BOOL shouldOptimizeForNetworkUse;
 
 /*!
 	@method						determineCompatibleFileTypesWithCompletionHandler:
@@ -276,4 +276,4 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)cancelExport;
 
-@end
+}

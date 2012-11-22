@@ -10,7 +10,7 @@
 @class NSCloseCommand;
 @class NSScriptCommand;
 
-@interface NSWindow(NSScripting)
+extern class NSWindow(NSScripting)
 
 // Key value coding (KVC) compliant get-accessors for the same-named attributes declared in Cocoa's definition of the Standard Suite.  The -isMiniaturized, -isVisible, and -isZoomed methods, declared in NSWindow.h, also serve as KVC accessors.
 - (BOOL)hasCloseBox;
@@ -33,4 +33,4 @@
 - (id)handlePrintScriptCommand:(NSScriptCommand *)command;
 - (id)handleSaveScriptCommand:(NSScriptCommand *)command;
 
-@end
+}

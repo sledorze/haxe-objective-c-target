@@ -17,7 +17,7 @@ typedef NSUInteger NSToolbarDisplayMode;
 enum { NSToolbarSizeModeDefault, NSToolbarSizeModeRegular, NSToolbarSizeModeSmall };
 typedef NSUInteger NSToolbarSizeMode;
 
-@interface NSToolbar : NSObject {
+extern class NSToolbar extends NSObject {
 @private
     NSString *			_toolbarIdentifier;
 
@@ -161,7 +161,7 @@ typedef NSUInteger NSToolbarSizeMode;
     /* Typically you should not invoke this method.  This method is called on window updates with the purpose of validating 
 each of the visible items.  The toolbar will iterate through the list of visible items, sending each a -validate message. */
 
-@end
+}
 
 @protocol NSToolbarDelegate <NSObject>
 
@@ -190,7 +190,7 @@ each of the visible items.  The toolbar will iterate through the list of visible
 - (void)toolbarDidRemoveItem: (NSNotification *)notification;
     /* After an item is removed from a toolbar the notification is sent.  This allows the chance to tear down information related to the item that may have been cached.  The notification object is the toolbar from which the item is being removed.  The item being removed is found by referencing the @"item" key in the userInfo.  */
 
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSToolbarWillAddItemNotification;

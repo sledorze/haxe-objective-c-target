@@ -6,7 +6,7 @@
 
 @class NSString, NSData, NSSet;
 
-@interface NSCoder : NSObject
+extern class NSCoder extends NSObject
 
 - (void)encodeValueOfObjCType:(const char *)type at:(const void *)addr;
 - (void)encodeDataObject:(NSData *)data;
@@ -14,9 +14,9 @@
 - (NSData *)decodeDataObject;
 - (NSInteger)versionForClassName:(NSString *)className;
 
-@end
+}
 
-@interface NSCoder (NSExtendedCoder)
+extern class NSCoder (NSExtendedCoder)
     
 - (void)encodeObject:(id)object;
 - (void)encodeRootObject:(id)rootObject;
@@ -82,14 +82,14 @@
 // Get the current set of allowed classes.
 - (NSSet *)allowedClasses NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 FOUNDATION_EXPORT NSObject *NXReadNSObjectFromCoder(NSCoder *decoder) NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
 /* Given an NSCoder, returns an object previously written with
    NXWriteNSObject(). The returned object is autoreleased. */
 
-@interface NSCoder (NSTypedstreamCompatibility)
+extern class NSCoder (NSTypedstreamCompatibility)
 
 - (void)encodeNXObject:(id)object NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
 /* Writes old-style object onto the coder. No sharing is done across
@@ -108,6 +108,6 @@ FOUNDATION_EXPORT NSObject *NXReadNSObjectFromCoder(NSCoder *decoder) NS_DEPRECA
    will take care of calling -awake and -finishUnarchiving. The
    returned object is autoreleased. */
 
-@end
+}
 #endif
 

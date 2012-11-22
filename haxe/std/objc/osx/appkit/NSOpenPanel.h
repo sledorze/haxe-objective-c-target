@@ -10,7 +10,7 @@
 @class NSString;
 @class NSWindow;
 
-@interface NSOpenPanel : NSSavePanel {
+extern class NSOpenPanel : NSSavePanel {
 @private
     char _reservedOpenPanel[4];
     void *_privateOpenPanel;
@@ -34,9 +34,9 @@
 - (BOOL)canChooseFiles;
 - (void)setCanChooseFiles:(BOOL)flag;
 
-@end
+}
 
-@interface NSOpenPanel (NSDeprecated)
+extern class NSOpenPanel (NSDeprecated)
 
 /* Use URLs instead.
  */
@@ -65,4 +65,4 @@
  */
 - (NSInteger)runModalForTypes:(NSArray *)fileTypes NS_DEPRECATED_MAC(10_0, 10_6);
 
-@end
+}

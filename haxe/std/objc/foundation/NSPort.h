@@ -13,7 +13,7 @@ typedef int NSSocketNativeHandle;
 
 FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 
-@interface NSPort : NSObject <NSCopying, NSCoding>
+extern class NSPort extends NSObject <NSCopying, NSCoding>
 
 // For backwards compatibility on Mach, +allocWithZone: returns
 // an instance of the NSMachPort class when sent to the NSPort
@@ -60,7 +60,7 @@ FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 	// but can if they need to do extra work.
 #endif
 
-@end
+}
 
 @protocol NSPortDelegate <NSObject>
 @optional
@@ -69,12 +69,12 @@ FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 	// This is the delegate method that subclasses should send
 	// to their delegates, unless the subclass has something
 	// more specific that it wants to try to send first
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 
 NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE 
-@interface NSMachPort : NSPort {
+extern class NSMachPort : NSPort {
     @private
     id _delegate;
     NSUInteger _flags;
@@ -105,7 +105,7 @@ enum {
 	// methods from NSPort; since this is complicated, subclassing
 	// NSMachPort is not recommended
 
-@end
+}
 
 @protocol NSMachPortDelegate <NSPortDelegate>
 @optional
@@ -114,27 +114,27 @@ enum {
 // are sent handlePortMessage:; argument is the raw Mach message
 - (void)handleMachMessage:(void *)msg;
 
-@end
+}
 
 #endif
 
 // A subclass of NSPort which can be used for local
 // message sending on all platforms.
 NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE 
-@interface NSMessagePort : NSPort {
+extern class NSMessagePort : NSPort {
     @private
     void * __strong _port;
     id _delegate;
 }
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32 || TARGET_IPHONE_SIMULATOR
 
 // A subclass of NSPort which can be used for remote
 // message sending on all platforms.
 
-@interface NSSocketPort : NSPort {
+extern class NSSocketPort : NSPort {
     @private
     void * __strong _receiver;
     id _connectors;
@@ -160,7 +160,7 @@ NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE
 - (NSData *)address;
 - (NSSocketNativeHandle)socket;
 
-@end
+}
 
 #endif
 

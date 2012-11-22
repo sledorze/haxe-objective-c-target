@@ -11,11 +11,11 @@
 @class MKMapView;
 
 MK_CLASS_AVAILABLE(NA, 5_0)
-@interface MKUserTrackingBarButtonItem : UIBarButtonItem {
+extern class MKUserTrackingBarButtonItem : UIBarButtonItem {
 
 }
 
 - (id)initWithMapView:(MKMapView *)mapView;
-@property (nonatomic, retain) MKMapView *mapView;
+	public var MKMapView *mapView;
 
-@end
+}

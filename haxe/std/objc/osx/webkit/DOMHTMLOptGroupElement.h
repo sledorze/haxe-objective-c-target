@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMHTMLOptGroupElement : DOMHTMLElement
-@property BOOL disabled;
-@property(copy) NSString *label;
-@end
+extern class DOMHTMLOptGroupElement : DOMHTMLElement
+	public var  BOOL disabled;
+	public var NSString *label;
+}
 
 #endif

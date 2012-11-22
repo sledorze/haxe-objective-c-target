@@ -8,7 +8,7 @@
 #import <Foundation/NSSet.h>
 
 
-@interface NSSortDescriptor : NSObject <NSCoding, NSCopying> {
+extern class NSSortDescriptor extends NSObject, implements NSObject, NSCopying> {
 @private
     NSUInteger _sortDescriptorFlags;
     NSString *_key;
@@ -37,23 +37,23 @@
 - (NSComparisonResult)compareObject:(id)object1 toObject:(id)object2;    // primitive - override this method if you want to perform comparisons differently (not key based for example)
 - (id)reversedSortDescriptor;    // primitive - override this method to return a sort descriptor instance with reversed sort order
 
-@end
+}
 
-@interface NSSet (NSSortDescriptorSorting)
+extern class NSSet (NSSortDescriptorSorting)
 
 - (NSArray *)sortedArrayUsingDescriptors:(NSArray *)sortDescriptors NS_AVAILABLE(10_6, 4_0);    // returns a new array by sorting the objects of the receiver
 
-@end
+}
 
-@interface NSArray (NSSortDescriptorSorting)
+extern class NSArray (NSSortDescriptorSorting)
 
 - (NSArray *)sortedArrayUsingDescriptors:(NSArray *)sortDescriptors;    // returns a new array by sorting the objects of the receiver
 
-@end
+}
 
-@interface NSMutableArray (NSSortDescriptorSorting)
+extern class NSMutableArray (NSSortDescriptorSorting)
 
 - (void)sortUsingDescriptors:(NSArray *)sortDescriptors;    // sorts the array itself
 
-@end
+}
 

@@ -13,7 +13,7 @@ enum {
     NSTextListPrependEnclosingMarker = (1 << 0)
 };
 
-@interface NSTextList : NSObject <NSCoding, NSCopying> {
+extern class NSTextList extends NSObject, implements NSObject, NSCopying> {
     /*All instance variables are private*/
     NSString *_markerFormat;
     NSUInteger _listFlags;
@@ -28,5 +28,5 @@ enum {
 - (void)setStartingItemNumber:(NSInteger)itemNum NS_AVAILABLE_MAC(10_6);
 - (NSInteger)startingItemNumber NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 

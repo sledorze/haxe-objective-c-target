@@ -54,7 +54,7 @@ AVF_EXPORT NSString *const AVCaptureSessionDidStartRunningNotification NS_AVAILA
  @discussion
     Clients may observe the AVCaptureSessionDidStopRunningNotification to know
     when an instance of AVCaptureSession stops running.  An AVCaptureSession instance
-    may stop running automatically due to external system conditions, such as the
+    may stop running automatically due toexternal system conditions, such as the
     device going to sleep, or being locked by a user.
 */
 AVF_EXPORT NSString *const AVCaptureSessionDidStopRunningNotification NS_AVAILABLE(10_7, 4_0);
@@ -280,7 +280,7 @@ AVF_EXPORT NSString *const AVCaptureSessionPresetiFrame1280x720 NS_AVAILABLE(NA,
     customize the quality level or bitrate of the output.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureSession : NSObject 
+extern class AVCaptureSession extends NSObject 
 {
 @private
 	AVCaptureSessionInternal *_internal;
@@ -305,7 +305,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (BOOL)canSetSessionPreset:(NSString*)preset;
 
 /*!
- @property sessionPreset
+ 	public var  sessionPreset
  @abstract
     Indicates the session preset currently in use by the receiver.
  
@@ -314,10 +314,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     the current session preset in use by the receiver.  The sessionPreset property may be set 
     while the receiver is running.
 */
-@property(nonatomic, copy) NSString *sessionPreset;
+	public var  NSString *sessionPreset;
 
 /*!
- @property inputs
+ 	public var  inputs
  @abstract
     An NSArray of AVCaptureInputs currently added to the receiver.
 
@@ -325,7 +325,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an NSArray of AVCaptureInputs currently added to
     the receiver.  Clients can add AVCaptureInputs to a session by calling -addInput:.
 */
-@property(nonatomic, readonly) NSArray *inputs;
+	public var (default, null) NSArray *inputs;
 
 /*!
  @method canAddInput:
@@ -371,7 +371,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)removeInput:(AVCaptureInput *)input;
 
 /*!
- @property outputs
+ 	public var  outputs
  @abstract
     An NSArray of AVCaptureOutputs currently added to the receiver.
 
@@ -379,7 +379,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an NSArray of AVCaptureOutputs currently added to
     the receiver.  Clients can add AVCaptureOutputs to a session by calling -addOutput:.
 */
-@property(nonatomic, readonly) NSArray *outputs;
+	public var (default, null) NSArray *outputs;
 
 /*!
  @method canAddOutput:
@@ -542,7 +542,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)commitConfiguration;
 
 /*!
- @property running
+ 	public var  running
  @abstract
     Indicates whether the session is currently running.
  
@@ -551,13 +551,13 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     Clients can key value observe the value of this property to be notified when
     the session automatically starts or stops running.
 */
-@property(nonatomic, readonly, getter=isRunning) BOOL running;
+	public var (nonatomic, readonly, getter=isRunning) BOOL running;
 
 
 #if TARGET_OS_IPHONE
 
 /*!
- @property interrupted
+ 	public var  interrupted
  @abstract
     Indicates whether the session is being interrupted.
  
@@ -567,7 +567,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     the value of this property to be notified when the session ceases to be interrupted
     and again has access to needed hardware resources.
 */
-@property(nonatomic, readonly, getter=isInterrupted) BOOL interrupted NS_AVAILABLE_IOS(4_0);
+	public var (nonatomic, readonly, getter=isInterrupted) BOOL interrupted NS_AVAILABLE_IOS(4_0);
 
 #endif // TARGET_OS_IPHONE
 
@@ -596,7 +596,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)stopRunning;
 
-@end
+}
 
 
 
@@ -651,7 +651,7 @@ typedef NSInteger AVVideoFieldMode;
     Connections involving video expose video specific properties, such as videoMirrored and videoOrientation.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureConnection : NSObject 
+extern class AVCaptureConnection extends NSObject 
 {
 @private
 	AVCaptureConnectionInternal *_internal;
@@ -756,7 +756,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property inputPorts
+ 	public var  inputPorts
  @abstract
     An array of AVCaptureInputPort instances providing data through this connection.
 
@@ -765,10 +765,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     to the connection's AVCaptureOutput.  This property is read-only.  An AVCaptureConnection's
     inputPorts remain static for the life of the object.  
 */
-@property(nonatomic, readonly) NSArray *inputPorts;
+	public var (default, null) NSArray *inputPorts;
 
 /*!
- @property output
+ 	public var  output
  @abstract
     The AVCaptureOutput instance consuming data from this connection's inputPorts.
 
@@ -778,10 +778,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     output remains static for the life of the object.  Note that a connection can either
     be to an output or a video preview layer, but never to both.
 */
-@property(nonatomic, readonly) AVCaptureOutput *output;
+	public var (default, null) AVCaptureOutput *output;
 
 /*!
- @property videoPreviewLayer
+ 	public var  videoPreviewLayer
  @abstract
     The AVCaptureVideoPreviewLayer instance consuming data from this connection's inputPort.
  
@@ -791,10 +791,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     videoPreviewLayer remains static for the life of the object. Note that a connection can either
     be to an output or a video preview layer, but never to both.
 */
-@property(nonatomic, readonly) AVCaptureVideoPreviewLayer *videoPreviewLayer NS_AVAILABLE(10_7, 6_0);
+	public var (default, null) AVCaptureVideoPreviewLayer *videoPreviewLayer NS_AVAILABLE(10_7, 6_0);
 
 /*!
- @property enabled
+ 	public var  enabled
  @abstract
     Indicates whether the connection's output should consume data.
 
@@ -803,10 +803,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     from its connected inputPorts when a session is running. Clients can set this property to stop the 
     flow of data to a given output during capture.  The default value is YES.  
 */
-@property(nonatomic, getter=isEnabled) BOOL enabled;
+	public var (nonatomic, getter=isEnabled) BOOL enabled;
 
 /*!
- @property active
+ 	public var  active
  @abstract
     Indicates whether the receiver's output is currently capable of consuming
     data through this connection.
@@ -817,10 +817,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     may key-value observe this property to know when a session's configuration forces a
     connection to become inactive.  The default value is YES.  
 */
-@property(nonatomic, readonly, getter=isActive) BOOL active;
+	public var (nonatomic, readonly, getter=isActive) BOOL active;
 
 /*!
- @property audioChannels
+ 	public var  audioChannels
  @abstract
     An array of AVCaptureAudioChannel objects representing individual channels of
     audio data flowing through the connection.
@@ -830,10 +830,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     audio.  In such connections, the audioChannels array contains one AVCaptureAudioChannel
     object for each channel of audio data flowing through this connection.
 */
-@property(nonatomic, readonly) NSArray *audioChannels;
+	public var (default, null) NSArray *audioChannels;
 
 /*!
- @property supportsVideoMirroring
+ 	public var  supportsVideoMirroring
  @abstract
     Indicates whether the connection supports setting the videoMirrored property.
 
@@ -842,10 +842,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  In such connections, the videoMirrored property may only be set if
     -isVideoMirroringSupported returns YES.
 */
-@property(nonatomic, readonly, getter=isVideoMirroringSupported) BOOL supportsVideoMirroring;
+	public var (nonatomic, readonly, getter=isVideoMirroringSupported) BOOL supportsVideoMirroring;
 
 /*!
- @property videoMirrored
+ 	public var  videoMirrored
  @abstract
     Indicates whether the video flowing through the connection should be mirrored
     about its vertical axis.
@@ -855,10 +855,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  if -isVideoMirroringSupported returns YES, videoMirrored may be set
     to flip the video about its vertical axis and produce a mirror-image effect.
 */
-@property(nonatomic, getter=isVideoMirrored) BOOL videoMirrored;
+	public var (nonatomic, getter=isVideoMirrored) BOOL videoMirrored;
 
 /*!
- @property automaticallyAdjustsVideoMirroring
+ 	public var  automaticallyAdjustsVideoMirroring
  @abstract
     Specifies whether or not the value of @"videoMirrored" can change based on configuration
     of the session.
@@ -869,10 +869,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     depending on the configuration of the session, for example after switching to a different AVCaptureDeviceInput.
     The default value is YES.
 */
-@property (nonatomic) BOOL automaticallyAdjustsVideoMirroring NS_AVAILABLE(10_7, 6_0);
+	public var BOOL automaticallyAdjustsVideoMirroring NS_AVAILABLE(10_7, 6_0);
 
 /*!
- @property supportsVideoOrientation
+ 	public var  supportsVideoOrientation
  @abstract
     Indicates whether the connection supports setting the videoOrientation property.
 
@@ -881,10 +881,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  In such connections, the videoOrientation property may only be set if
     -isVideoOrientationSupported returns YES.
 */
-@property(nonatomic, readonly, getter=isVideoOrientationSupported) BOOL supportsVideoOrientation;
+	public var (nonatomic, readonly, getter=isVideoOrientationSupported) BOOL supportsVideoOrientation;
 
 /*!
- @property videoOrientation
+ 	public var  videoOrientation
  @abstract
     Indicates whether the video flowing through the connection should be rotated
     to a given orientation.
@@ -898,12 +898,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     handles orientation using a Quicktime track matrix.  In the AVCaptureStillImageOutput,
     orientation is handled using Exif tags.
 */
-@property(nonatomic) AVCaptureVideoOrientation videoOrientation;
+	public var  AVCaptureVideoOrientation videoOrientation;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property supportsVideoFieldMode
+ 	public var  supportsVideoFieldMode
  @abstract
     Indicates whether the connection supports setting the videoFieldMode property.
  
@@ -912,10 +912,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  In such connections, the videoFieldMode property may only be set if
     -isVideoFieldModeSupported returns YES.
 */
-@property(nonatomic, readonly, getter=isVideoFieldModeSupported) BOOL supportsVideoFieldMode NS_AVAILABLE(10_7, NA);
+	public var (nonatomic, readonly, getter=isVideoFieldModeSupported) BOOL supportsVideoFieldMode NS_AVAILABLE(10_7, NA);
 
 /*!
- @property videoFieldMode
+ 	public var  videoFieldMode
  @abstract
     Indicates how interlaced video flowing through the connection should be treated.
  
@@ -924,12 +924,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  If -isVideoFieldModeSupported returns YES, videoFieldMode may be set
     to affect interlaced video content flowing through the connection.
 */
-@property(nonatomic) AVVideoFieldMode videoFieldMode NS_AVAILABLE(10_7, NA);
+	public var  AVVideoFieldMode videoFieldMode NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property supportsVideoMinFrameDuration
+ 	public var  supportsVideoMinFrameDuration
  @abstract
     Indicates whether the connection supports setting the videoMinFrameDuration property.
  
@@ -938,10 +938,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  In such connections, the videoMinFrameDuration property may only be set if
     -isVideoMinFrameDurationSupported returns YES.
 */
-@property(nonatomic, readonly, getter=isVideoMinFrameDurationSupported) BOOL supportsVideoMinFrameDuration NS_AVAILABLE(10_7, 5_0);
+	public var (nonatomic, readonly, getter=isVideoMinFrameDurationSupported) BOOL supportsVideoMinFrameDuration NS_AVAILABLE(10_7, 5_0);
 
 /*!
- @property videoMinFrameDuration
+ 	public var  videoMinFrameDuration
  @abstract
     Indicates the minimum time interval at which the receiver should output consecutive video frames.
  
@@ -951,12 +951,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     the reciprocal of the maximum frame rate. A value of kCMTimeZero or kCMTimeInvalid indicates an unlimited maximum frame
     rate. The default value is kCMTimeInvalid.
 */
-@property(nonatomic) CMTime videoMinFrameDuration NS_AVAILABLE(10_7, 5_0);
+	public var  CMTime videoMinFrameDuration NS_AVAILABLE(10_7, 5_0);
 
 #if TARGET_OS_IPHONE
 
 /*!
- @property supportsVideoMaxFrameDuration
+ 	public var  supportsVideoMaxFrameDuration
  @abstract
     Indicates whether the connection supports setting the videoMaxFrameDuration property.
  
@@ -965,10 +965,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     video.  In such connections, the videoMaxFrameDuration property may only be set if
     -isVideoMaxFrameDurationSupported returns YES.
 */
-@property(nonatomic, readonly, getter=isVideoMaxFrameDurationSupported) BOOL supportsVideoMaxFrameDuration NS_AVAILABLE(NA, 5_0);
+	public var (nonatomic, readonly, getter=isVideoMaxFrameDurationSupported) BOOL supportsVideoMaxFrameDuration NS_AVAILABLE(NA, 5_0);
 
 /*!
- @property videoMaxFrameDuration
+ 	public var  videoMaxFrameDuration
  @abstract
     Indicates the maximum time interval at which the receiver should output consecutive video frames.
  
@@ -978,12 +978,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     the reciprocal of the minimum frame rate. A value of kCMTimeZero or kCMTimeInvalid indicates an unlimited minimum frame
     rate. The default value is kCMTimeInvalid.
 */
-@property(nonatomic) CMTime videoMaxFrameDuration NS_AVAILABLE(NA, 5_0);
+	public var  CMTime videoMaxFrameDuration NS_AVAILABLE(NA, 5_0);
 
 #endif // TARGET_OS_IPHONE
 
 /*!
- @property videoMaxScaleAndCropFactor
+ 	public var  videoMaxScaleAndCropFactor
  @abstract
     Indicates the maximum video scale and crop factor supported by the receiver.
  
@@ -993,10 +993,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     the maximum CGFloat value that may be used when setting the videoScaleAndCropFactor
     property.
 */
-@property(nonatomic, readonly) CGFloat videoMaxScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
+	public var (default, null) CGFloat videoMaxScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
 
 /*!
- @property videoScaleAndCropFactor
+ 	public var  videoScaleAndCropFactor
  @abstract
     Indicates the current video scale and crop factor in use by the receiver.
  
@@ -1007,10 +1007,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     1.0, the image is its original size.  At a factor greater than 1.0, the image
     is scaled by the factor and center-cropped to its original dimensions.
 */
-@property(nonatomic) CGFloat videoScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
+	public var  CGFloat videoScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
 
 /*!
- @property supportsVideoStabilization
+ 	public var  supportsVideoStabilization
  @abstract
     Indicates whether the connection supports video stabilization.
  
@@ -1019,10 +1019,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     In such connections, the -enablesVideoStabilizationWhenAvailable property may only be set if
     -supportsVideoStabilization returns YES.
 */
-@property(nonatomic, readonly, getter=isVideoStabilizationSupported) BOOL supportsVideoStabilization NS_AVAILABLE_IOS(6_0);
+	public var (nonatomic, readonly, getter=isVideoStabilizationSupported) BOOL supportsVideoStabilization NS_AVAILABLE_IOS(6_0);
 
 /*!
- @property videoStabilizationEnabled
+ 	public var  videoStabilizationEnabled
  @abstract
     Indicates whether stabilization is currently being applied to video flowing through the receiver.
  
@@ -1033,10 +1033,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     property returns YES if video stabilization is currently in use.  This property is key-value
     observable.
 */
-@property(nonatomic, readonly, getter=isVideoStabilizationEnabled) BOOL videoStabilizationEnabled NS_AVAILABLE_IOS(6_0);
+	public var (nonatomic, readonly, getter=isVideoStabilizationEnabled) BOOL videoStabilizationEnabled NS_AVAILABLE_IOS(6_0);
 
 /*!
- @property enablesVideoStabilizationWhenAvailable;
+ 	public var  enablesVideoStabilizationWhenAvailable;
  @abstract
     Indicates whether stabilization should be applied to video flowing through the receiver
     when the feature is available.
@@ -1053,9 +1053,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     AVCaptureMovieFileOutput instance.  For apps linked on or after iOS 6.0, the default value is
     always NO.
 */
-@property(nonatomic) BOOL enablesVideoStabilizationWhenAvailable NS_AVAILABLE_IOS(6_0);
+	public var  BOOL enablesVideoStabilizationWhenAvailable NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 
 
@@ -1074,14 +1074,14 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     for audio levels. Instances of AVCaptureAudioChannel cannot be created directly.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureAudioChannel : NSObject
+extern class AVCaptureAudioChannel extends NSObject
 {
 @private
 	AVCaptureAudioChannelInternal *_internal;
 }
 
 /*!
- @property averagePowerLevel
+ 	public var  averagePowerLevel
  @abstract
     A measurement of the instantaneous average power level of the audio
     flowing through the receiver.
@@ -1091,10 +1091,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     averagePowerLevel to get its instantaneous average power level in decibels.
     This property is not key-value observable.
 */
-@property(nonatomic, readonly) float averagePowerLevel;
+	public var (default, null) float averagePowerLevel;
 
 /*!
- @property peakHoldLevel
+ 	public var  peakHoldLevel
  @abstract
     A measurement of the peak/hold level of the audio flowing through the receiver.
 
@@ -1103,12 +1103,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     peakHoldLevel to get its most recent peak hold level in decibels.
     This property is not key-value observable.
 */
-@property(nonatomic, readonly) float peakHoldLevel;
+	public var (default, null) float peakHoldLevel;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property volume
+ 	public var  volume
  @abstract
     A property indicating the current volume (gain) of the receiver.
 
@@ -1117,10 +1117,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     point value between 0.0 -> 1.0.  If you desire to boost the gain in software, you
     may specify a a value greater than 1.0.
 */
-@property(nonatomic) float volume NS_AVAILABLE(10_7, NA);
+	public var  float volume NS_AVAILABLE(10_7, NA);
 
 /*!
- @property enabled
+ 	public var  enabled
  @abstract
     A property indicating whether the receiver is currently enabled for data capture.
 
@@ -1128,8 +1128,8 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     By default, all AVCaptureAudioChannel objects exposed by a connection are enabled.
     You may set enabled to NO to stop the flow of data for a particular AVCaptureAudioChannel.
 */
-@property(nonatomic, getter=isEnabled) BOOL enabled NS_AVAILABLE(10_7, NA);
+	public var (nonatomic, getter=isEnabled) BOOL enabled NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@end
+}

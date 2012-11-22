@@ -28,24 +28,24 @@
 	Clients can read the media data of an asset by adding one or more concrete instances of AVAssetReaderOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetReaderOutput : NSObject
+extern class AVAssetReaderOutput extends NSObject
 {
 @private
 	AVAssetReaderOutputInternal	*_internal;
 }
 
 /*!
- @property mediaType
+ 	public var  mediaType
  @abstract
 	The media type of the samples that can be read from the receiver.
 
  @discussion
 	The value of this property is one of the media type strings defined in AVMediaFormat.h.
  */
-@property (nonatomic, readonly) NSString *mediaType;
+	public var NSString *mediaType;
 
 /*!
- @property alwaysCopiesSampleData
+ 	public var  alwaysCopiesSampleData
  @abstract
 	Indicates whether or not the data in buffers gets copied before being vended to the client.
  
@@ -54,7 +54,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  
 	Default is YES
  */
-@property (nonatomic) BOOL alwaysCopiesSampleData NS_AVAILABLE(10_8, 5_0);
+	public var BOOL alwaysCopiesSampleData NS_AVAILABLE(10_8, 5_0);
 
 /*!
  @method copyNextSampleBuffer
@@ -69,7 +69,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  */
 - (CMSampleBufferRef)copyNextSampleBuffer;
 
-@end
+}
 
 @class AVAssetReaderTrackOutputInternal;
 
@@ -82,7 +82,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	Clients can read the media data of an asset track by adding an instance of AVAssetReaderTrackOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method. The track's media samples can either be read in the format in which they are stored in the asset, or they can be converted to a different format.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetReaderTrackOutput : AVAssetReaderOutput
+extern class AVAssetReaderTrackOutput : AVAssetReaderOutput
 {
 @private
 	AVAssetReaderTrackOutputInternal	*_trackOutputInternal;
@@ -155,26 +155,26 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithTrack:(AVAssetTrack *)track outputSettings:(NSDictionary *)outputSettings;
 
 /*!
- @property track
+ 	public var  track
  @abstract
 	The track from which the receiver reads sample buffers.
 
  @discussion
 	The value of this property is an AVAssetTrack owned by the target AVAssetReader's asset.
  */
-@property (nonatomic, readonly) AVAssetTrack *track;
+	public var AVAssetTrack *track;
 
 /*!
- @property outputSettings
+ 	public var  outputSettings
  @abstract
 	The output settings used by the receiver.
 
  @discussion
 	The value of this property is an NSDictionary that contains values for keys as specified by either AVAudioSettings.h for audio tracks or AVVideoSettings.h for video tracks.  A value of nil indicates that the receiver will vend samples in their original format as stored in the target track.
  */ 
-@property (nonatomic, readonly) NSDictionary *outputSettings;
+	public var NSDictionary *outputSettings;
 
-@end
+}
 
 
 @class AVAssetReaderAudioMixOutputInternal;
@@ -188,7 +188,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	Clients can read the audio data mixed from one or more asset tracks by adding an instance of AVAssetReaderAudioMixOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetReaderAudioMixOutput : AVAssetReaderOutput
+extern class AVAssetReaderAudioMixOutput : AVAssetReaderOutput
 {
 @private
 	AVAssetReaderAudioMixOutputInternal	*_audioMixOutputInternal;
@@ -233,27 +233,27 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithAudioTracks:(NSArray *)audioTracks audioSettings:(NSDictionary *)audioSettings;
 
 /*!
- @property audioTracks
+ 	public var  audioTracks
  @abstract
 	The tracks from which the receiver reads mixed audio.
 
  @discussion
 	The value of this property is an NSArray of AVAssetTracks owned by the target AVAssetReader's asset.
  */
-@property (nonatomic, readonly) NSArray *audioTracks;
+	public var NSArray *audioTracks;
 
 /*!
- @property audioSettings
+ 	public var  audioSettings
  @abstract
 	The audio settings used by the receiver.
 
  @discussion
 	The value of this property is an NSDictionary that contains values for keys from AVAudioSettings.h (linear PCM only).  A value of nil indicates that the receiver will return audio samples in a convenient uncompressed format, with sample rate and other properties determined according to the properties of the receiver's audio tracks.
  */ 
-@property (nonatomic, readonly) NSDictionary *audioSettings;
+	public var NSDictionary *audioSettings;
 
 /*!
- @property audioMix
+ 	public var  audioMix
  @abstract
 	The audio mix used by the receiver.
 
@@ -262,9 +262,9 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  
 	This property cannot be set after reading has started.
  */
-@property (nonatomic, copy) AVAudioMix *audioMix;
+	public var AVAudioMix *audioMix;
 
-@end
+}
 
 
 @class AVAssetReaderVideoCompositionOutputInternal;
@@ -278,7 +278,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	Clients can read the video frames composited from one or more asset tracks by adding an instance of AVAssetReaderVideoCompositionOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetReaderVideoCompositionOutput : AVAssetReaderOutput
+extern class AVAssetReaderVideoCompositionOutput : AVAssetReaderOutput
 {
 @private
 	AVAssetReaderVideoCompositionOutputInternal	*_videoCompositionOutputInternal;
@@ -326,27 +326,27 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithVideoTracks:(NSArray *)videoTracks videoSettings:(NSDictionary *)videoSettings;
 
 /*!
- @property videoTracks
+ 	public var  videoTracks
  @abstract
 	The tracks from which the receiver reads composited video.
 
  @discussion
 	The value of this property is an NSArray of AVAssetTracks owned by the target AVAssetReader's asset.
  */
-@property (nonatomic, readonly) NSArray *videoTracks;
+	public var NSArray *videoTracks;
 
 /*!
- @property videoSettings
+ 	public var  videoSettings
  @abstract
 	The video settings used by the receiver.
 
  @discussion
 	The value of this property is an NSDictionary that contains values for keys as specified by AVVideoSettings.h.  A value of nil indicates that the receiver will return video frames in a convenient uncompressed format, with properties determined according to the properties of the receiver's video tracks.
  */ 
-@property (nonatomic, readonly) NSDictionary *videoSettings;
+	public var NSDictionary *videoSettings;
 
 /*!
- @property videoComposition
+ 	public var  videoComposition
  @abstract
 	The composition of video used by the receiver.
 
@@ -355,6 +355,6 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  
 	This property cannot be set after reading has started.
  */
-@property (nonatomic, copy) AVVideoComposition *videoComposition;
+	public var AVVideoComposition *videoComposition;
 
-@end
+}

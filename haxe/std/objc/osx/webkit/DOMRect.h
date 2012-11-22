@@ -30,11 +30,11 @@
 
 @class DOMCSSPrimitiveValue;
 
-@interface DOMRect : DOMObject
-@property(readonly, retain) DOMCSSPrimitiveValue *top;
-@property(readonly, retain) DOMCSSPrimitiveValue *right;
-@property(readonly, retain) DOMCSSPrimitiveValue *bottom;
-@property(readonly, retain) DOMCSSPrimitiveValue *left;
-@end
+extern class DOMRect : DOMObject
+	public var (default, null) DOMCSSPrimitiveValue *top;
+	public var (default, null) DOMCSSPrimitiveValue *right;
+	public var (default, null) DOMCSSPrimitiveValue *bottom;
+	public var (default, null) DOMCSSPrimitiveValue *left;
+}
 
 #endif

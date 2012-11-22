@@ -182,12 +182,12 @@ CORE_IMAGE_EXPORT NSString *kCIInputVersionKey __OSX_AVAILABLE_STARTING(__MAC_NA
  
  The CIFilter class produces a CIImage object as output. Typically, a filter takes one or more images as input. Some filters, however, generate an image based on other types of input parameters. The parameters of a CIFilter object are set and retrieved through the use of key-value pairs. You use the CIFilter object in conjunction with the CIImage, CIContext, CIVector, CIImageAccumulator, and CIColor objects to take advantage of the built-in Core Image filters when processing images. CIFilter objects are also used along with CIKernel, CISampler, and CIFilterShape objects to create custom filters. */
 CORE_IMAGE_CLASS_EXPORT
-@interface CIFilter : NSObject <NSCoding, NSCopying>
+extern class CIFilter extends NSObject, implements NSObject, NSCopying>
 {
     void *_priv[8];
 }
 
-@property (readonly, nonatomic) CIImage *outputImage;
+	public var  (readonly, nonatomic) CIImage *outputImage;
 
 /* name of the filter */
 - (NSString*)name __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
@@ -221,12 +221,12 @@ CORE_IMAGE_CLASS_EXPORT
 /** Similar to above except that all argument values and option key-value are specified inline. The list of key-value pairs must be terminated by the 'nil' object. */
 - (CIImage *)apply:(CIKernel *)k, ... NS_REQUIRES_NIL_TERMINATION __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
 
-@end
+}
 
 
 /** Methods to register a filter and get access to the list of registered filters
  Use these methods to create filters and find filters. */
-@interface CIFilter (CIFilterRegistry)
+extern class CIFilter (CIFilterRegistry)
 
 /** Creates a new filter of type 'name'. All input values will be undefined. */
 + (CIFilter *) filterWithName:(NSString *) name;
@@ -284,4 +284,4 @@ CORE_IMAGE_CLASS_EXPORT
                                    error:(NSError **)outError
    __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
 
-@end
+}

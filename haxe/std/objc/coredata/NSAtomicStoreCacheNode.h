@@ -11,7 +11,7 @@
 #import <CoreData/NSManagedObject.h>
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSAtomicStoreCacheNode : NSObject {
+extern class NSAtomicStoreCacheNode extends NSObject {
     @private
     NSManagedObjectID *_objectID;
     uintptr_t __versionNumber;
@@ -44,4 +44,4 @@ The default implementation forwards the request to the -propertyCache dictionary
 */
 - (void)setValue:(id)value forKey:(NSString*)key;
 
-@end
+}

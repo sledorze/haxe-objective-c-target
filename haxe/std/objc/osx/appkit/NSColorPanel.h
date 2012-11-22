@@ -41,7 +41,7 @@ enum {
     
     
 
-@interface NSColorPanel : NSPanel
+extern class NSColorPanel : NSPanel
 {
     /*All instance variables are private*/
     id			_colorSwatch;
@@ -98,15 +98,15 @@ enum {
 - (void)setTarget:(id)anObject;
 - (void)attachColorList:(NSColorList *)colorList;
 - (void)detachColorList:(NSColorList *)colorList;
-@end
+}
 
-@interface NSApplication(NSColorPanel)
+extern class NSApplication(NSColorPanel)
 - (void)orderFrontColorPanel:(id)sender;
-@end
+}
 
-@interface NSObject(NSColorPanelResponderMethod)
+extern class NSObject(NSColorPanelResponderMethod)
 - (void)changeColor:(id)sender;
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSColorPanelColorDidChangeNotification;

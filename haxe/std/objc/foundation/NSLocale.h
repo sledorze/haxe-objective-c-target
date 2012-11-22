@@ -9,21 +9,21 @@
 
 // Toll-free bridged with CFLocaleRef
 
-@interface NSLocale : NSObject <NSCopying, NSSecureCoding>
+extern class NSLocale extends NSObject <NSCopying, NSSecureCoding>
 
 - (id)objectForKey:(id)key;
 
 - (NSString *)displayNameForKey:(id)key value:(id)value;
 
-@end
+}
 
-@interface NSLocale (NSExtendedLocale)
+extern class NSLocale (NSExtendedLocale)
 
 - (NSString *)localeIdentifier;  // same as NSLocaleIdentifier
 
-@end
+}
 
-@interface NSLocale (NSLocaleCreation)
+extern class NSLocale (NSLocaleCreation)
 
 + (id)systemLocale;
 + (id)currentLocale;
@@ -31,9 +31,9 @@
 
 - (id)initWithLocaleIdentifier:(NSString *)string;
 
-@end
+}
 
-@interface NSLocale (NSLocaleGeneralInfo)
+extern class NSLocale (NSLocaleGeneralInfo)
 
 + (NSArray *)availableLocaleIdentifiers;
 + (NSArray *)ISOLanguageCodes;
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSUInteger, NSLocaleLanguageDirection) {
 + (NSLocaleLanguageDirection)characterDirectionForLanguage:(NSString *)isoLangCode NS_AVAILABLE(10_6, 4_0);
 + (NSLocaleLanguageDirection)lineDirectionForLanguage:(NSString *)isoLangCode NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 
 FOUNDATION_EXPORT NSString * const NSCurrentLocaleDidChangeNotification NS_AVAILABLE(10_5, 2_0);

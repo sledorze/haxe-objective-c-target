@@ -17,7 +17,7 @@
 // MKReverseGeocoder is now deprecated.
 // Use CLGeocoder in CoreLocation instead.
 MK_CLASS_DEPRECATED(NA, NA, 3_0, 5_0)
-@interface MKReverseGeocoder : NSObject {
+extern class MKReverseGeocoder extends NSObject {
 @private
     MKReverseGeocoderInternal *_internal;
 }
@@ -29,12 +29,12 @@ MK_CLASS_DEPRECATED(NA, NA, 3_0, 5_0)
 - (void)start NS_DEPRECATED_IOS(3_0,5_0);
 - (void)cancel NS_DEPRECATED_IOS(3_0,5_0);
 
-@property (nonatomic, assign) id<MKReverseGeocoderDelegate> delegate    NS_DEPRECATED_IOS(3_0,5_0);
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate       NS_DEPRECATED_IOS(3_0,5_0);
-@property (nonatomic, readonly) MKPlacemark *placemark                  NS_DEPRECATED_IOS(3_2,5_0);
-@property (nonatomic, readonly, getter=isQuerying) BOOL querying        NS_DEPRECATED_IOS(3_0,5_0);
+	public var id<MKReverseGeocoderDelegate> delegate    NS_DEPRECATED_IOS(3_0,5_0);
+	public var CLLocationCoordinate2D coordinate       NS_DEPRECATED_IOS(3_0,5_0);
+	public var MKPlacemark *placemark                  NS_DEPRECATED_IOS(3_2,5_0);
+	public var  (nonatomic, readonly, getter=isQuerying) BOOL querying        NS_DEPRECATED_IOS(3_0,5_0);
 
-@end
+}
 
 MK_CLASS_DEPRECATED(NA, NA, 3_0, 5_0)
 @protocol MKReverseGeocoderDelegate <NSObject>
@@ -45,4 +45,4 @@ MK_CLASS_DEPRECATED(NA, NA, 3_0, 5_0)
 //   - Result not found errors (permanent condition).  The result not found errors
 //     will have the domain MKErrorDomain and the code MKErrorPlacemarkNotFound
 - (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error NS_DEPRECATED_IOS(3_0,5_0);
-@end
+}

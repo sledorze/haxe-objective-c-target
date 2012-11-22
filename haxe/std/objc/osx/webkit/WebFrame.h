@@ -44,7 +44,7 @@
     @discussion Every web page is represented by at least one WebFrame.  A WebFrame
     has a WebFrameView and a WebDataSource.
 */
-@interface WebFrame : NSObject
+extern class WebFrame extends NSObject
 {
 @private
     WebFramePrivate *_private;
@@ -213,4 +213,4 @@
     bridge between the WebKit and JavaScriptCore APIs.
 */
 - (JSGlobalContextRef)globalContext;
-@end
+}

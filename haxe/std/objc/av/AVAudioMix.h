@@ -25,21 +25,21 @@
 @class AVAudioMixInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVAudioMix : NSObject <NSCopying, NSMutableCopying> {
+extern class AVAudioMix extends NSObject <NSCopying, NSMutableCopying> {
 @private
     AVAudioMixInternal    *_audioMix;
 }
 
 /* Indicates parameters for inputs to the mix; an NSArray of instances of AVAudioMixInputParameters. Note that an instance of AVAudioMixInputParameters is not required for each audio track that contributes to the mix; audio for those without associated AVAudioMixInputParameters will be included in the mix, processed according to default behavior.  */
-@property (nonatomic, readonly, copy) NSArray *inputParameters;
+	public var (default, null) NSArray *inputParameters;
 
-@end
+}
 
 
 @class AVMutableAudioMixInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVMutableAudioMix : AVAudioMix {
+extern class AVMutableAudioMix : AVAudioMix {
 @private
     AVMutableAudioMixInternal    *_mutableAudioMix;
 }
@@ -51,9 +51,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (AVMutableAudioMix *)audioMix;
 
 /* Indicates parameters for inputs to the mix; an NSArray of instances of AVAudioMixInputParameters. Note that an instance of AVAudioMixInputParameters is not required for each audio track that contributes to the mix; audio for those without associated AVAudioMixInputParameters will be included in the mix, processed according to default behavior.  */
-@property (nonatomic, copy) NSArray *inputParameters;
+	public var NSArray *inputParameters;
 
-@end
+}
 
 
 /*!
@@ -79,16 +79,16 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 @class AVAudioMixInputParametersInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVAudioMixInputParameters : NSObject <NSCopying, NSMutableCopying> {
+extern class AVAudioMixInputParameters extends NSObject <NSCopying, NSMutableCopying> {
 @private
     AVAudioMixInputParametersInternal    *_inputParameters;
 }
 
 /* indicates the trackID of the audio track to which the parameters should be applied */
-@property (nonatomic, readonly) CMPersistentTrackID trackID;
+	public var CMPersistentTrackID trackID;
 
 /* obtains an audio processing tap on the audio track */
-@property (nonatomic, readonly, retain) __attribute__((NSObject)) MTAudioProcessingTapRef audioTapProcessor NS_AVAILABLE(TBD, 6_0);
+	public var (default, null) __attribute__((NSObject)) MTAudioProcessingTapRef audioTapProcessor NS_AVAILABLE(TBD, 6_0);
 
 /*  
  @method		getVolumeRampForTime:startVolume:endVolume:timeRange:
@@ -107,7 +107,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (BOOL)getVolumeRampForTime:(CMTime)time startVolume:(float *)startVolume endVolume:(float *)endVolume timeRange:(CMTimeRange *)timeRange;
 
-@end
+}
 
 
 @class AVAssetTrack;
@@ -115,7 +115,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 @class AVMutableAudioMixInputParametersInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVMutableAudioMixInputParameters : AVAudioMixInputParameters {
+extern class AVMutableAudioMixInputParameters : AVAudioMixInputParameters {
 @private
     AVMutableAudioMixInputParametersInternal    *_mutableInputParameters;
 }
@@ -135,10 +135,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (AVMutableAudioMixInputParameters *)audioMixInputParameters;
 
 /* indicates the trackID of the audio track to which the parameters should be applied */
-@property (nonatomic) CMPersistentTrackID trackID;
+	public var CMPersistentTrackID trackID;
 
 /* sets an audio processing tap to the audio track */
-@property (nonatomic, retain) __attribute__((NSObject)) MTAudioProcessingTapRef audioTapProcessor NS_AVAILABLE(TBD, 6_0);
+	public var __attribute__((NSObject)) MTAudioProcessingTapRef audioTapProcessor NS_AVAILABLE(TBD, 6_0);
 
 /* sets a volume ramp to apply during the specified timeRange */
 - (void)setVolumeRampFromStartVolume:(float)startVolume toEndVolume:(float)endVolume timeRange:(CMTimeRange)timeRange;
@@ -146,4 +146,4 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 /* sets the value of the audio volume at a specific time */
 - (void)setVolume:(float)volume atTime:(CMTime)time;
 
-@end
+}

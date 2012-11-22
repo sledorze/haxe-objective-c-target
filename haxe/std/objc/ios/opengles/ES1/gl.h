@@ -40,7 +40,7 @@ extern "C" {
 */
 
 #define GL_APIENTRY
-#define GL_API extern
+#define GL_APIextern
 
 typedef unsigned int    GLenum;
 typedef unsigned char   GLboolean;

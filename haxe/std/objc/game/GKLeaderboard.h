@@ -24,21 +24,21 @@ typedef NSInteger GKLeaderboardPlayerScope;
 
 // GKLeaderboard represents the set of high scores for the current game, always including the local player's best score.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKLeaderboard : NSObject {
+extern class GKLeaderboard extends NSObject {
 }
 
-@property(nonatomic, assign)            GKLeaderboardTimeScope      timeScope;
-@property(nonatomic, assign)            GKLeaderboardPlayerScope    playerScope;        // Filter on friends. Does not apply to leaderboard initialized with players.
-@property(nonatomic, retain)            NSString                    *category;          // leaderboard category.  If nil, then it will fetch the aggregate leaderboard
-@property(nonatomic, readonly, retain)  NSString                    *title;             // Localized category title. Defaults to nil until loaded.
-@property(nonatomic, assign)            NSRange                     range;              // Leaderboards start at index 1 and the length should be less than 100. Does not apply to leaderboards initialized with players.  Exception will be thrown if developer tries to set an invalid range
+	public var             GKLeaderboardTimeScope      timeScope;
+	public var             GKLeaderboardPlayerScope    playerScope;        // Filter on friends. Does not apply to leaderboard initialized with players.
+	public var             NSString                    *category;          // leaderboard category.  If nil, then it will fetch the aggregate leaderboard
+	public var (default, null)  NSString                    *title;             // Localized category title. Defaults to nil until loaded.
+	public var             NSRange                     range;              // Leaderboards start at index 1 and the length should be less than 100. Does not apply to leaderboards initialized with players.  Exception will be thrown if developer tries to set an invalid range
 
-@property(nonatomic, readonly, retain)  NSArray                     *scores;            // Scores are not valid until loadScores: has completed.
-@property(nonatomic, readonly, assign)  NSUInteger                  maxRange;           // The maxRange which represents the size of the leaderboard is not valid until loadScores: has completed.
-@property(nonatomic, readonly, retain)  GKScore                     *localPlayerScore;  // The local player's score
-@property(readonly, getter=isLoading)   BOOL                        loading;            // true if the leaderboard is currently loading
+	public var (default, null)  NSArray                     *scores;            // Scores are not valid until loadScores: has completed.
+	public var (nonatomic, readonly, assign)  NSUInteger                  maxRange;           // The maxRange which represents the size of the leaderboard is not valid until loadScores: has completed.
+	public var (default, null)  GKScore                     *localPlayerScore;  // The local player's score
+	public var (readonly, getter=isLoading)   BOOL                        loading;            // true if the leaderboard is currently loading
 
-@property(nonatomic, readonly, retain)  NSString                    *groupIdentifier    __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_6_0);       // set when leaderboards have been designated a game group; set when loadLeaderboardsWithCompletionHandler has been called for leaderboards that support game groups
+	public var (default, null)  NSString                    *groupIdentifier    __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_6_0);       // set when leaderboards have been designated a game group; set when loadLeaderboardsWithCompletionHandler has been called for leaderboards that support game groups
 
 // Designated initializer
 // Default is the range 1-10 with Global/AllTime scopes
@@ -71,4 +71,4 @@ NS_CLASS_AVAILABLE(10_8, 4_1)
 // 3. Leaderboard not present
 + (void)setDefaultLeaderboard:(NSString *)categoryID withCompletionHandler:(void(^)(NSError *error))completionHandler __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);
 
-@end
+}

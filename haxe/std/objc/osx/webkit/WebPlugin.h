@@ -34,7 +34,7 @@
     and web related plug-ins it may contain.
 */
 
-@interface NSObject (WebPlugIn)
+extern class NSObject (WebPlugIn)
 
 /*!
     @method webPlugInInitialize
@@ -129,4 +129,4 @@
 */
 - (void)webPlugInMainResourceDidFinishLoading WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_IN_WEBKIT_VERSION_4_0);
 
-@end
+}

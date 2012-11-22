@@ -24,7 +24,7 @@ enum {
 };
 typedef NSUInteger NSTabViewType;
 
-@interface NSTabView : NSView
+extern class NSTabView : NSView
 {
     @private
     	
@@ -131,7 +131,7 @@ typedef NSUInteger NSTabViewType;
 - (NSTabViewItem *)tabViewItemAtIndex:(NSInteger)index;			// May raise an NSRangeException	
 - (NSInteger)indexOfTabViewItemWithIdentifier:(id)identifier;			// NSNotFound if not found
 
-@end
+}
 
 //================================================================================
 //	NSTabViewDelegate protocol
@@ -143,4 +143,4 @@ typedef NSUInteger NSTabViewType;
 - (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 - (void)tabViewDidChangeNumberOfTabViewItems:(NSTabView *)tabView;
-@end
+}

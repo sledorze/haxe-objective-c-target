@@ -1,6 +1,6 @@
 //
 //  NSStringDrawing.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2011-2012 Apple Inc. All rights reserved.
 //
@@ -10,30 +10,30 @@
 #import <UIKit/NSAttributedString.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(6_0) @interface NSStringDrawingContext : NSObject {
+NS_CLASS_AVAILABLE_IOS(6_0)extern class NSStringDrawingContext extends NSObject {
 @private
 }
 
 // Minimum scale factor for drawWithRect:options:context: and boundingRectWithSize:options:context: methods. If this property is set, the extended string drawing methods will attempt to draw the attributed string in the giv'en bounds by proportionally scaling the font(s) in the attributed string
-@property(nonatomic) CGFloat minimumScaleFactor;
+	public var  CGFloat minimumScaleFactor;
 // Minimum tracking adjustment for drawWithRect:options:context: and boundingRectWithSize:options:context: methods. If this property is set, the extended string drawing methods will attempt to draw the attributed string in the given bounds by adjusting the tracking between the glyphs in the attributed string
-@property(nonatomic) CGFloat minimumTrackingAdjustment;
+	public var  CGFloat minimumTrackingAdjustment;
 
 // actual scale factor used by the last drawing call where minimum scale factor was specified
-@property(nonatomic, readonly) CGFloat actualScaleFactor;
+	public var (default, null) CGFloat actualScaleFactor;
 // actual tracking adjustment used by the last drawing call where minimum tracking factor was specified
-@property(nonatomic, readonly) CGFloat actualTrackingAdjustment;
+	public var (default, null) CGFloat actualTrackingAdjustment;
 
 // bounds of the string drawn by the previous invocation of drawWithRect:options:context:
-@property(nonatomic, readonly) CGRect totalBounds;
+	public var (default, null) CGRect totalBounds;
 
-@end
+}
 
-@interface NSAttributedString(NSStringDrawing)
+extern class NSAttributedString(NSStringDrawing)
 - (CGSize)size NS_AVAILABLE_IOS(6_0);
-- (void)drawAtPoint:(CGPoint)point NS_AVAILABLE_IOS(6_0);
-- (void)drawInRect:(CGRect)rect NS_AVAILABLE_IOS(6_0);
-@end
+	public function drawAtPoint:(CGPoint)point NS_AVAILABLE_IOS(6_0);
+	public function drawInRect:(CGRect)rect NS_AVAILABLE_IOS(6_0);
+}
 
 typedef NS_ENUM(NSInteger, NSStringDrawingOptions) {
     NSStringDrawingTruncatesLastVisibleLine = 1 << 5, // Truncates and adds the ellipsis character to the last visible line if the text doesn't fit into the bounds specified. Ignored if NSStringDrawingUsesLineFragmentOrigin is not also set.
@@ -42,7 +42,7 @@ typedef NS_ENUM(NSInteger, NSStringDrawingOptions) {
     NSStringDrawingUsesDeviceMetrics = 1 << 3, // Uses image glyph bounds instead of typographic bounds
 } NS_ENUM_AVAILABLE_IOS(6_0);
 
-@interface NSAttributedString (NSExtendedStringDrawing)
-- (void)drawWithRect:(CGRect)rect options:(NSStringDrawingOptions)options context:(NSStringDrawingContext *)context NS_AVAILABLE_IOS(6_0);
+extern class NSAttributedString (NSExtendedStringDrawing)
+	public function drawWithRect:(CGRect)rect options:(NSStringDrawingOptions)options context:(NSStringDrawingContext *)context NS_AVAILABLE_IOS(6_0);
 - (CGRect)boundingRectWithSize:(CGSize)size options:(NSStringDrawingOptions)options context:(NSStringDrawingContext *)context NS_AVAILABLE_IOS(6_0);
-@end
+}

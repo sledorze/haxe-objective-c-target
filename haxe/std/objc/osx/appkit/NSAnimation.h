@@ -32,7 +32,7 @@ typedef float NSAnimationProgress;
 extern NSString* NSAnimationProgressMarkNotification;   // has single entry in user info dictionary
 extern NSString*    NSAnimationProgressMark;		    // NSNumber(float) with NSAnimationProgress
 
-@interface NSAnimation : NSObject <NSCopying, NSCoding> {
+extern class NSAnimation extends NSObject <NSCopying, NSCoding> {
   @private
     NSTimeInterval       _duration;
     NSAnimationProgress  _currentProgress;
@@ -105,7 +105,7 @@ extern NSString*    NSAnimationProgressMark;		    // NSNumber(float) with NSAnim
 
 - (NSArray*)runLoopModesForAnimating;
 
-@end
+}
 
 @protocol NSAnimationDelegate <NSObject>
 @optional
@@ -114,7 +114,7 @@ extern NSString*    NSAnimationProgressMark;		    // NSNumber(float) with NSAnim
 - (void)animationDidEnd:(NSAnimation*)animation;
 - (float)animation:(NSAnimation*)animation valueForProgress:(NSAnimationProgress)progress;
 - (void)animation:(NSAnimation*)animation didReachProgressMark:(NSAnimationProgress)progress;
-@end
+}
 
 /*-----------------------------------------------------------------------------------------*/
 
@@ -125,7 +125,7 @@ APPKIT_EXTERN NSString* NSViewAnimationEffectKey;       // NSString*(effect stri
 APPKIT_EXTERN NSString*     NSViewAnimationFadeInEffect;
 APPKIT_EXTERN NSString*     NSViewAnimationFadeOutEffect;
 
-@interface NSViewAnimation : NSAnimation {
+extern class NSViewAnimation : NSAnimation {
   @private
     NSArray*                _viewAnimations;
     id                      _viewAnimationInfo;
@@ -147,7 +147,7 @@ APPKIT_EXTERN NSString*     NSViewAnimationFadeOutEffect;
 - (NSArray*)viewAnimations;
 - (void)setViewAnimations:(NSArray*)viewAnimations;
 
-@end
+}
 
 
 @protocol NSAnimatablePropertyContainer
@@ -186,12 +186,12 @@ The full set of available CAAnimation classes can be found in QuartzCore/CAAnima
         return [super defaultAnimationForKey:key];
     }
 }
-@end
+}
 */
 + (id)defaultAnimationForKey:(NSString *)key;
 
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
-@end /* @protocol NSAnimatablePropertyContainer */
+} /* @protocol NSAnimatablePropertyContainer */
 
 APPKIT_EXTERN NSString *NSAnimationTriggerOrderIn NS_AVAILABLE_MAC(10_5);
 APPKIT_EXTERN NSString *NSAnimationTriggerOrderOut NS_AVAILABLE_MAC(10_5);

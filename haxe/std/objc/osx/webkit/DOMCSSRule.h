@@ -44,11 +44,11 @@ enum {
     DOM_WEBKIT_KEYFRAME_RULE = 8
 };
 
-@interface DOMCSSRule : DOMObject
-@property(readonly) unsigned short type;
-@property(copy) NSString *cssText;
-@property(readonly, retain) DOMCSSStyleSheet *parentStyleSheet;
-@property(readonly, retain) DOMCSSRule *parentRule;
-@end
+extern class DOMCSSRule : DOMObject
+	public var  (default, null) : unsigned short type;
+	public var NSString *cssText;
+	public var (default, null) DOMCSSStyleSheet *parentStyleSheet;
+	public var (default, null) DOMCSSRule *parentRule;
+}
 
 #endif

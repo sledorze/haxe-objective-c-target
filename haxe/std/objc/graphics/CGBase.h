@@ -43,9 +43,9 @@
 
 #if !defined(CG_EXTERN)
 #  if defined(__cplusplus)
-#   define CG_EXTERN extern "C"
+#   define CG_EXTERNextern "C"
 #  else
-#   define CG_EXTERN extern
+#   define CG_EXTERNextern
 #  endif
 #endif /* !defined(CG_EXTERN) */
 
@@ -53,7 +53,7 @@
 
 #if !defined(CG_LOCAL)
 # if __CG_HAS_COMPILER_ATTRIBUTE(visibility)
-#  define CG_LOCAL extern __attribute__((visibility("hidden")))
+#  define CG_LOCALextern __attribute__((visibility("hidden")))
 # else
 #  define CG_LOCAL CG_EXTERN
 # endif

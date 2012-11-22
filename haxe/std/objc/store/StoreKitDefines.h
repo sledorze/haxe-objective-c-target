@@ -6,9 +6,9 @@
 //
 
 #ifdef __cplusplus
-#define SK_EXTERN   extern "C" __attribute__((visibility ("default")))
+#define SK_EXTERN  extern "C" __attribute__((visibility ("default")))
 #else
-#define SK_EXTERN   extern __attribute__((visibility ("default")))
+#define SK_EXTERN  extern __attribute__((visibility ("default")))
 #endif
 
 #define	SK_EXTERN_CLASS	__attribute__((visibility("default")))

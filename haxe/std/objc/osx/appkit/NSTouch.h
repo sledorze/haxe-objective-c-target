@@ -29,7 +29,7 @@ typedef NSUInteger NSTouchPhase;
 /* Unlike the iPhone, NSTouch objects do not persist for the life of the touch.
 */
 NS_CLASS_AVAILABLE(10_6, NA)
-@interface NSTouch : NSObject <NSCopying> {
+extern class NSTouch extends NSObject <NSCopying> {
 @private
     NSInteger _index;
     id _identity;
@@ -53,17 +53,17 @@ NS_CLASS_AVAILABLE(10_6, NA)
 /* Properties of this touch */
 /* Use the identity property to track changes to a particular touch during the touch's life. While touch identities may be re-used, they are unique during the life of the touch, even when multiple devices are present. Note: identity objects implement the NSCopying protocol so that they may be used as keys in an NSDictionary. Use isEqual: to compare two touch identities.
 */
-@property(readonly, retain) id<NSObject, NSCopying> identity; 
-@property(readonly) NSTouchPhase phase;
-@property(readonly) NSPoint normalizedPosition; // Scaled absolute position is in [0,1], where (0, 0) is the lower left of the surface.
-@property(readonly) BOOL isResting;
+	public var (default, null) id<NSObject, NSCopying> identity; 
+	public var  (default, null) : NSTouchPhase phase;
+	public var  (default, null) : NSPoint normalizedPosition; // Scaled absolute position is in [0,1], where (0, 0) is the lower left of the surface.
+	public var  (default, null) : BOOL isResting;
 
 /* Properties of the underlying touch device */ 
-@property(readonly, retain) id device; // The digitizer that generated the touch. Useful to distinguish touches emanating from multiple-device scenario
+	public var (default, null) id device; // The digitizer that generated the touch. Useful to distinguish touches emanating from multiple-device scenario
 
 /* The range of the touch device in points (72ppi). Note: 0,0 is the lower left of the surface.
 */
-@property(readonly) NSSize  deviceSize;
+	public var  (default, null) : NSSize  deviceSize;
 
-@end
+}
 

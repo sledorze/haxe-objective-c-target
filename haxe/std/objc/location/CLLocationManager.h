@@ -73,7 +73,7 @@ typedef NSInteger CLActivityType;
  *    The CLLocationManager object is your entry point to the location service.
  */
 NS_CLASS_AVAILABLE(10_6, 2_0)
-@interface CLLocationManager : NSObject
+extern class CLLocationManager extends NSObject
 {
 @private
 	id _internal;
@@ -130,7 +130,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  */
 + (CLAuthorizationStatus)authorizationStatus __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_2);
 
-@property(assign, nonatomic) id<CLLocationManagerDelegate> delegate;
+	public var (assign, nonatomic) id<CLLocationManagerDelegate> delegate;
 
 /*
  *  locationServicesEnabled
@@ -138,7 +138,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *  Discussion:
  *      Deprecated. Use +locationServicesEnabled instead.
  */
-@property(readonly, nonatomic) BOOL locationServicesEnabled __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_2_0,__IPHONE_4_0);
+	public var (readonly, nonatomic) BOOL locationServicesEnabled __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_2_0,__IPHONE_4_0);
 
 /*
  *  purpose
@@ -150,7 +150,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *
  *      Deprecated.  Set the purpose string in Info.plist using key NSLocationUsageDescription.
  */
-@property(copy, nonatomic) NSString *purpose __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_7, __MAC_NA, __IPHONE_3_2, __IPHONE_6_0);
+	public var (copy, nonatomic) NSString *purpose __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_7, __MAC_NA, __IPHONE_3_2, __IPHONE_6_0);
 
 /*
  *	activityType
@@ -160,7 +160,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *		the determination of when location updates may be automatically paused.
  *		By default, CLActivityTypeOther is used.
  */
-@property(assign, nonatomic) CLActivityType activityType __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public var (assign, nonatomic) CLActivityType activityType __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 /*
  *  distanceFilter
@@ -170,7 +170,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *      than the stated value, unless the accuracy has improved. Pass in kCLDistanceFilterNone to be 
  *      notified of all movements. By default, kCLDistanceFilterNone is used.
  */
-@property(assign, nonatomic) CLLocationDistance distanceFilter;
+	public var (assign, nonatomic) CLLocationDistance distanceFilter;
 
 /*
  *  desiredAccuracy
@@ -183,7 +183,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *      achieve the best possible accuracy. Use kCLLocationAccuracyBestForNavigation for navigation.
  *      By default, kCLLocationAccuracyBest is used.
  */
-@property(assign, nonatomic) CLLocationAccuracy desiredAccuracy;
+	public var (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
 
 /*
  *	pausesLocationUpdatesAutomatically
@@ -192,7 +192,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *		Specifies that location updates may automatically be paused when possible.
  *		By default, this is YES for applications linked against iOS 6.0 or later.
  */
-@property(assign, nonatomic) BOOL pausesLocationUpdatesAutomatically __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public var (assign, nonatomic) BOOL pausesLocationUpdatesAutomatically __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 /*
  *  location
@@ -200,7 +200,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *  Discussion:
  *      The last location received. Will be nil until a location has been received.
  */
-@property(readonly, nonatomic) CLLocation *location;
+	public var (readonly, nonatomic) CLLocation *location;
 
 /*
  *  headingAvailable
@@ -208,7 +208,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *  Discussion:
  *      Deprecated. Use +headingAvailable instead.
  */
-@property(readonly, nonatomic) BOOL headingAvailable __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_3_0,__IPHONE_4_0);
+	public var (readonly, nonatomic) BOOL headingAvailable __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_3_0,__IPHONE_4_0);
 
 /*
  *  headingFilter
@@ -218,7 +218,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *      be notified of updates less than the stated filter value. Pass in kCLHeadingFilterNone to be
  *      notified of all updates. By default, 1 degree is used.
  */
-@property(assign, nonatomic) CLLocationDegrees headingFilter __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var (assign, nonatomic) CLLocationDegrees headingFilter __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 /*
  *  headingOrientation
@@ -229,7 +229,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *      CLDeviceOrientationFaceDown are ignored.
  *      
  */
-@property(assign, nonatomic) CLDeviceOrientation headingOrientation __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
+	public var (assign, nonatomic) CLDeviceOrientation headingOrientation __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
 
 /*
  *  heading
@@ -237,7 +237,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *  Discussion:
  *      Returns the latest heading update received, or nil if none is available.
  */
-@property(readonly, nonatomic) CLHeading *heading __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
+	public var (readonly, nonatomic) CLHeading *heading __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
 
 /*
  *  maximumRegionMonitoringDistance
@@ -247,7 +247,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *       Attempts to register a region larger than this will generate a kCLErrorRegionMonitoringFailure.
  *       This value may vary based on the hardware features of the device, as well as on dynamically changing resource constraints.
  */
-@property (readonly, nonatomic) CLLocationDistance maximumRegionMonitoringDistance __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var  (readonly, nonatomic) CLLocationDistance maximumRegionMonitoringDistance __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 
 /*
  *  monitoredRegions
@@ -257,7 +257,7 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  *       has been instructed to monitor a region, during this or previous launches of your application, it will
  *       be present in this set.
  */
-@property (readonly, nonatomic) NSSet *monitoredRegions __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var  (readonly, nonatomic) NSSet *monitoredRegions __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 
 /*
  *  startUpdatingLocation
@@ -414,4 +414,4 @@ NS_CLASS_AVAILABLE(10_6, 2_0)
  */
 + (BOOL)deferredLocationUpdatesAvailable __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
-@end
+}

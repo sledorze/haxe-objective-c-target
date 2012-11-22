@@ -17,7 +17,7 @@
 // ABGroup is a subclass of ABRecord. It represents a group of people or other groups
 // No recursions allowed
 
-@interface ABGroup : ABRecord
+extern class ABGroup : ABRecord
 {
 @private
     id _groupReserved1;
@@ -69,7 +69,7 @@
     // Returns the distribution identifier for a given property and person. If not set then returns the property primary identifier
     // Raises if property or person is nil
     // Returns the distribution identifier or nil if not successful
-@end
+}
 
 
 // ================================================================================
@@ -77,7 +77,7 @@
 // ================================================================================
 // This section deals with adding/removing properties on groups
 
-@interface ABGroup (ABGroup_Properties)
+extern class ABGroup (ABGroup_Properties)
 
 + (NSInteger)addPropertiesAndTypes:(NSDictionary *)properties;
     // Add properties to all groups. The dictionary must be of the form:
@@ -97,14 +97,14 @@
     // Returns the type of a given property.
     // Returns kABErrorInProperty if the property is not known
 
-@end
+}
 
 // ================================================================================
 //      interface ABGroup(ABGroup_Searching)
 // ================================================================================
 // This section deals with creating search elements to search groups
 
-@interface ABGroup (ABGroup_Searching)
+extern class ABGroup (ABGroup_Searching)
 + (ABSearchElement *)searchElementForProperty:(NSString*)property
                                         label:(NSString*)label
                                           key:(NSString*)key
@@ -119,5 +119,5 @@
     //
     // if the value is nil the only supported comparisons are kABEqual or kABNotEqual
     // Note: Support for nil values was added to Mac OS X version 10.2.4
-@end
+}
 

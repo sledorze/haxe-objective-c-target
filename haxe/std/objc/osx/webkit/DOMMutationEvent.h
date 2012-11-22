@@ -37,18 +37,18 @@ enum {
     DOM_REMOVAL = 3
 };
 
-@interface DOMMutationEvent : DOMEvent
-@property(readonly, retain) DOMNode *relatedNode;
-@property(readonly, copy) NSString *prevValue;
-@property(readonly, copy) NSString *newValue;
-@property(readonly, copy) NSString *attrName;
-@property(readonly) unsigned short attrChange;
+extern class DOMMutationEvent : DOMEvent
+	public var (default, null) DOMNode *relatedNode;
+	public var (default, null) NSString *prevValue;
+	public var (default, null) NSString *newValue;
+	public var (default, null) NSString *attrName;
+	public var  (default, null) : unsigned short attrChange;
 
 - (void)initMutationEvent:(NSString *)type canBubble:(BOOL)canBubble cancelable:(BOOL)cancelable relatedNode:(DOMNode *)relatedNode prevValue:(NSString *)prevValue newValue:(NSString *)newValue attrName:(NSString *)attrName attrChange:(unsigned short)attrChange AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMMutationEvent (DOMMutationEventDeprecated)
+extern class DOMMutationEvent (DOMMutationEventDeprecated)
 - (void)initMutationEvent:(NSString *)type :(BOOL)canBubble :(BOOL)cancelable :(DOMNode *)relatedNode :(NSString *)prevValue :(NSString *)newValue :(NSString *)attrName :(unsigned short)attrChange AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

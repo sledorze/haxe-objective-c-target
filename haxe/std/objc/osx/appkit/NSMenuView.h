@@ -15,7 +15,7 @@
 #import <AppKit/NSMenuItemCell.h>
 @class NSScreen;
 
-@interface NSMenuView : NSView {
+extern class NSMenuView : NSView {
     /*All instance variables are private*/
     @private
     NSMenu *_menu;
@@ -113,6 +113,6 @@
 - (void)setHorizontalEdgePadding:(CGFloat)pad;
     // How much empty pad should be left on either edge of the item.
 
-@end
+}
 
 #endif

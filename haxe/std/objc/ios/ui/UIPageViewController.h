@@ -1,6 +1,6 @@
 //
 //  UIPageViewController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2011-2012, Apple Inc. All rights reserved.
 //
@@ -39,52 +39,52 @@ UIKIT_EXTERN NSString * const UIPageViewControllerOptionSpineLocationKey;
 // Only valid for use with page view controllers with transition style 'UIPageViewControllerTransitionStyleScroll'.
 UIKIT_EXTERN NSString * const UIPageViewControllerOptionInterPageSpacingKey NS_AVAILABLE_IOS(6_0);
 
-@protocol UIPageViewControllerDelegate, UIPageViewControllerDataSource;
+extern interface UIPageViewControllerDelegate, UIPageViewControllerDataSource;
 
-NS_CLASS_AVAILABLE_IOS(5_0) @interface UIPageViewController : UIViewController {
+@:require(ios_5_0) extern class UIPageViewController extends UIViewController {
 }
 
 - (id)initWithTransitionStyle:(UIPageViewControllerTransitionStyle)style navigationOrientation:(UIPageViewControllerNavigationOrientation)navigationOrientation options:(NSDictionary *)options;
 
-@property (nonatomic, assign) id <UIPageViewControllerDelegate> delegate;
-@property (nonatomic, assign) id <UIPageViewControllerDataSource> dataSource; // If nil, user gesture-driven navigation will be disabled.
-@property (nonatomic, readonly) UIPageViewControllerTransitionStyle transitionStyle;
-@property (nonatomic, readonly) UIPageViewControllerNavigationOrientation navigationOrientation;
-@property (nonatomic, readonly) UIPageViewControllerSpineLocation spineLocation; // If transition style is 'UIPageViewControllerTransitionStylePageCurl', default is 'UIPageViewControllerSpineLocationMin', otherwise 'UIPageViewControllerSpineLocationNone'.
+	public var id <UIPageViewControllerDelegate> delegate;
+	public var id <UIPageViewControllerDataSource> dataSource; // If nil, user gesture-driven navigation will be disabled.
+	public var UIPageViewControllerTransitionStyle transitionStyle;
+	public var UIPageViewControllerNavigationOrientation navigationOrientation;
+	public var UIPageViewControllerSpineLocation spineLocation; // If transition style is 'UIPageViewControllerTransitionStylePageCurl', default is 'UIPageViewControllerSpineLocationMin', otherwise 'UIPageViewControllerSpineLocationNone'.
 
 // Whether client content appears on both sides of each page. If 'NO', content on page front will partially show through back.
 // If 'UIPageViewControllerSpineLocationMid' is set, 'doubleSided' is set to 'YES'. Setting 'NO' when spine location is mid results in an exception.
-@property (nonatomic, getter=isDoubleSided) BOOL doubleSided; // Default is 'NO'.
+	public var  (nonatomic, getter=isDoubleSided) BOOL doubleSided; // Default is 'NO'.
 
 // An array of UIGestureRecognizers pre-configured to handle user interaction. Initially attached to a view in the UIPageViewController's hierarchy, they can be placed on an arbitrary view to change the region in which the page view controller will respond to user gestures.
 // Only populated if transition style is 'UIPageViewControllerTransitionStylePageCurl'.
-@property(nonatomic, readonly) NSArray *gestureRecognizers;
+	public var (default, null) NSArray *gestureRecognizers;
 
-@property (nonatomic, readonly) NSArray *viewControllers;
+	public var NSArray *viewControllers;
 
 // Set visible view controllers, optionally with animation. Array should only include view controllers that will be visible after the animation has completed.
 // For transition style 'UIPageViewControllerTransitionStylePageCurl', if 'doubleSided' is 'YES' and the spine location is not 'UIPageViewControllerSpineLocationMid', two view controllers must be included, as the latter view controller is used as the back.
-- (void)setViewControllers:(NSArray *)viewControllers direction:(UIPageViewControllerNavigationDirection)direction animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
+	public function setViewControllers:(NSArray *)viewControllers direction:(UIPageViewControllerNavigationDirection)direction animated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
-@end
+}
 
-@protocol UIPageViewControllerDelegate <NSObject>
+extern interface UIPageViewControllerDelegate <NSObject>
 
 @optional
 
 // Sent when a gesture-initiated transition begins.
-- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers NS_AVAILABLE_IOS(6_0);
+	public function pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers NS_AVAILABLE_IOS(6_0);
 
 // Sent when a gesture-initiated transition ends. The 'finished' parameter indicates whether the animation finished, while the 'completed' parameter indicates whether the transition completed or bailed out (if the user let go early).
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed;
+	public function pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed;
 
 // Delegate may specify a different spine location for after the interface orientation change. Only sent for transition style 'UIPageViewControllerTransitionStylePageCurl'.
 // Delegate may set new view controllers or update double-sided state within this method's implementation as well.
 - (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
-@end
+}
 
-@protocol UIPageViewControllerDataSource <NSObject>
+extern interface UIPageViewControllerDataSource <NSObject>
 
 @required
 
@@ -101,4 +101,4 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIPageViewController : UIViewController {
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController NS_AVAILABLE_IOS(6_0); // The number of items reflected in the page indicator.
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController NS_AVAILABLE_IOS(6_0); // The selected item reflected in the page indicator.
 
-@end
+}

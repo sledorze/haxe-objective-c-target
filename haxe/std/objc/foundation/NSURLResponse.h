@@ -28,7 +28,7 @@
     NSURLConnection and NSURLConnectionDelegate for more information
     about receiving the content data for a URL load.
 */
-@interface NSURLResponse : NSObject <NSCoding, NSCopying>
+extern class NSURLResponse extends NSObject, implements NSObject, NSCopying>
 {
     @package
     NSURLResponseInternal *_internal;
@@ -108,7 +108,7 @@
 */
 - (NSString *)suggestedFilename;
 
-@end
+}
 
 
 
@@ -122,7 +122,7 @@
     provides conveniences for accessing information specific to HTTP
     protocol responses.
 */
-@interface NSHTTPURLResponse : NSURLResponse 
+extern class NSHTTPURLResponse : NSURLResponse 
 {
     @package
     NSHTTPURLResponseInternal *_httpInternal;
@@ -169,5 +169,5 @@
 */
 + (NSString *)localizedStringForStatusCode:(NSInteger)statusCode;
 
-@end
+}
 

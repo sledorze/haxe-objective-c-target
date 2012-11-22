@@ -9,7 +9,7 @@
 
 @class NSImage;
 
-@interface NSBrowserCell : NSCell
+extern class NSBrowserCell : NSCell
 
 + (NSImage *)branchImage;
 + (NSImage *)highlightedBranchImage;
@@ -27,4 +27,4 @@
 - (void)setAlternateImage:(NSImage *)newAltImage;
 - (NSImage *)alternateImage;
 
-@end
+}

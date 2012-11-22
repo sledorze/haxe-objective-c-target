@@ -47,16 +47,16 @@
 @class NSImage;
 @class NSURL;
 
-@interface DOMNode (DOMNodeExtensions)
+extern class DOMNode (DOMNodeExtensions)
 - (NSRect)boundingBox WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER);
 - (NSArray *)lineBoxRects WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER);
-@end
+}
 
-@interface DOMElement (DOMElementAppKitExtensions)
+extern class DOMElement (DOMElementAppKitExtensions)
 - (NSImage *)image WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER);
-@end
+}
 
-@interface DOMHTMLDocument (DOMHTMLDocumentExtensions)
+extern class DOMHTMLDocument (DOMHTMLDocumentExtensions)
 - (DOMDocumentFragment *)createDocumentFragmentWithMarkupString:(NSString *)markupString baseURL:(NSURL *)baseURL WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER);
 - (DOMDocumentFragment *)createDocumentFragmentWithText:(NSString *)text WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER);
-@end
+}

@@ -34,12 +34,12 @@ enum {
     DOM_BOTH = 2
 };
 
-@interface DOMOverflowEvent : DOMEvent
-@property(readonly) unsigned short orient;
-@property(readonly) BOOL horizontalOverflow;
-@property(readonly) BOOL verticalOverflow;
+extern class DOMOverflowEvent : DOMEvent
+	public var  (default, null) : unsigned short orient;
+	public var  (default, null) : BOOL horizontalOverflow;
+	public var  (default, null) : BOOL verticalOverflow;
 
 - (void)initOverflowEvent:(unsigned short)orient horizontalOverflow:(BOOL)horizontalOverflow verticalOverflow:(BOOL)verticalOverflow;
-@end
+}
 
 #endif

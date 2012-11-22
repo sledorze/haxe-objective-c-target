@@ -51,6 +51,6 @@ enum {
 
 @protocol DOMNodeFilter <NSObject>
 - (short)acceptNode:(DOMNode *)n;
-@end
+}
 
 #endif

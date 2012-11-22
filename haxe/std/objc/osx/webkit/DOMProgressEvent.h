@@ -28,10 +28,10 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_LATEST
 
-@interface DOMProgressEvent : DOMEvent
-@property(readonly) BOOL lengthComputable;
-@property(readonly) unsigned long long loaded;
-@property(readonly) unsigned long long total;
-@end
+extern class DOMProgressEvent : DOMEvent
+	public var  (default, null) : BOOL lengthComputable;
+	public var  (default, null) : unsigned long long loaded;
+	public var  (default, null) : unsigned long long total;
+}
 
 #endif

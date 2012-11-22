@@ -47,7 +47,7 @@ APPKIT_EXTERN NSString *NSDragPboard;
 
 @class NSPasteboardItem;
 
-@interface NSPasteboard : NSObject
+extern class NSPasteboard extends NSObject
 {
     @private
     id			_pboard;
@@ -138,22 +138,22 @@ Example: there are five items on the pasteboard, two contain TIFF data, two cont
 - (NSString *)stringForType:(NSString *)dataType;
 
 
-@end
+}
 
 
-@interface NSPasteboard(FilterServices)
+extern class NSPasteboard(FilterServices)
 + (NSArray *)typesFilterableTo:(NSString *)type;
 
 + (NSPasteboard *)pasteboardByFilteringFile:(NSString *)filename;
 + (NSPasteboard *)pasteboardByFilteringData:(NSData *)data ofType:(NSString *)type;
 + (NSPasteboard *)pasteboardByFilteringTypesInPasteboard:(NSPasteboard *)pboard;
-@end
+}
 
 
-@interface NSObject(NSPasteboardOwner)
+extern class NSObject(NSPasteboardOwner)
 - (void)pasteboard:(NSPasteboard *)sender provideDataForType:(NSString *)type;
 - (void)pasteboardChangedOwner:(NSPasteboard *)sender;
-@end
+}
 
 
 /* Pasteboard Reading Options
@@ -204,7 +204,7 @@ typedef NSUInteger NSPasteboardWritingOptions;
 */
 - (id)pasteboardPropertyListForType:(NSString *)type;
 
-@end
+}
 
 
 
@@ -244,7 +244,7 @@ typedef NSUInteger NSPasteboardReadingOptions;
 @optional
 - (id)initWithPasteboardPropertyList:(id)propertyList ofType:(NSString *)type;
 
-@end
+}
 
 
 
@@ -274,16 +274,16 @@ typedef NSUInteger NSPasteboardReadingOptions;
 
 */
 
-@interface NSURL(NSPasteboardSupport) <NSPasteboardWriting, NSPasteboardReading>
+extern class NSURL(NSPasteboardSupport) <NSPasteboardWriting, NSPasteboardReading>
 + (NSURL *)URLFromPasteboard:(NSPasteboard *)pasteBoard;
 - (void)writeToPasteboard:(NSPasteboard *)pasteBoard;
-@end
+}
 
 
 /*** NSString Pasteboard Support ***/
 
-@interface NSString(NSPasteboardSupport) <NSPasteboardWriting, NSPasteboardReading>
-@end
+extern class NSString(NSPasteboardSupport) <NSPasteboardWriting, NSPasteboardReading>
+}
 
 
 /*** Pboard Types ***/
@@ -317,14 +317,14 @@ APPKIT_EXTERN NSString *const NSPasteboardTypeFindPanelSearchOptions	NS_AVAILABL
 
 /* The file contents pboard type allowed you to synthesize a pboard type for a file's contents based on the file's extension.  Using the UTI of a file to represent its contents now replaces this functionality.*/
 
-@interface NSPasteboard(NSFileContents)
+extern class NSPasteboard(NSFileContents)
 - (BOOL)writeFileContents:(NSString *)filename;
 - (NSString *)readFileContentsType:(NSString *)type toFile:(NSString *)filename;
 
 - (BOOL)writeFileWrapper:(NSFileWrapper *)wrapper;
 - (NSFileWrapper *)readFileWrapper;
 
-@end
+}
 
 APPKIT_EXTERN NSString *NSFileContentsPboardType;   
 

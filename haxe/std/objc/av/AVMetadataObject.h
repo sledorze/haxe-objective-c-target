@@ -25,13 +25,13 @@
     The concrete AVMetadataFaceObject is used by AVCaptureMetadataOutput for face detection.
 */
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVMetadataObject : NSObject
+extern class AVMetadataObject extends NSObject
 {
 	AVMetadataObjectInternal *_objectInternal;
 }
 
 /*!
- @property time
+ 	public var  time
  @abstract
     The media time associated with this metadata object.
  
@@ -40,10 +40,10 @@ NS_CLASS_AVAILABLE(NA, 6_0)
 	which this object was captured. If this metadata object originates from a CMSampleBuffer, its time matches
     the sample buffer's presentation time. This property may return kCMTimeInvalid.
 */
-@property(readonly) CMTime time;
+	public var  (default, null) : CMTime time;
 
 /*!
- @property duration
+ 	public var  duration
  @abstract
     The media duration associated with this metadata object.
  
@@ -52,10 +52,10 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     object originates from a CMSampleBuffer, its duration matches the sample buffer's duration. This property 
     may return kCMTimeInvalid.
 */
-@property(readonly) CMTime duration;
+	public var  (default, null) : CMTime duration;
 
 /*!
- @property bounds
+ 	public var  bounds
  @abstract
     The bounding rectangle of the receiver.
  
@@ -65,10 +65,10 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     may be expressed as scalar values from 0. - 1.  If the original video has been scaled down, the bounds of the 
     metadata object still are meaningful.  This property may return CGRectZero if the metadata has no bounds.
 */
-@property(readonly) CGRect bounds;
+	public var  (default, null) : CGRect bounds;
 
 /*!
- @property type
+ 	public var  type
  @abstract
     An identifier for the metadata object.
  
@@ -76,9 +76,9 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     The value of this property is an NSString representing the type of the metadata object.  Clients inspecting
     a collection of metadata objects can use this property to filter objects with a matching type.
 */
-@property(readonly) NSString *type;
+	public var  (default, null) : NSString *type;
 
-@end
+}
 
 /*!
  @constant AVMetadataObjectTypeFace
@@ -102,13 +102,13 @@ AVF_EXPORT NSString *const AVMetadataObjectTypeFace;
     On supported platforms, AVCaptureMetadataOutput outputs arrays of detected face objects.  See AVCaptureMetadataOutput.h.
 */
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVMetadataFaceObject : AVMetadataObject
+extern class AVMetadataFaceObject : AVMetadataObject
 {
 	AVMetadataFaceObjectInternal *_internal;
 }
 
 /*!
- @property faceID
+ 	public var  faceID
  @abstract
     A unique number associated with the receiver.
  
@@ -118,19 +118,19 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     faces leave the picture and new ones enter.  Faces that leave the picture then re-enter are assigned
     a new faceID.
 */
-@property(readonly) NSInteger faceID;
+	public var  (default, null) : NSInteger faceID;
 
 /*!
- @property hasRollAngle
+ 	public var  hasRollAngle
  @abstract
     A BOOL indicating whether the rollAngle property is valid for this receiver.
  
  @discussion
 */
-@property(readonly) BOOL hasRollAngle;
+	public var  (default, null) : BOOL hasRollAngle;
 
 /*!
- @property rollAngle
+ 	public var  rollAngle
  @abstract
     The roll angle of the face in degrees.
  
@@ -139,19 +139,19 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     A value of 0.0 indicates that the face is level in the picture.  If -hasRollAngle returns NO,
     then reading this property throws an NSGenericException.
 */
-@property(readonly) CGFloat rollAngle;
+	public var  (default, null) : CGFloat rollAngle;
 
 /*!
- @property hasYawAngle
+ 	public var  hasYawAngle
  @abstract
     A BOOL indicating whether the yawAngle property is valid for this receiver.
  
  @discussion
 */
-@property(readonly) BOOL hasYawAngle;
+	public var  (default, null) : BOOL hasYawAngle;
 
 /*!
- @property yawAngle
+ 	public var  yawAngle
  @abstract
     The yaw angle of the face in degrees.
  
@@ -160,6 +160,6 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     A value of 0.0 indicates that the face is straight on in the picture.  If -hasYawAngle returns NO,
     then reading this property throws an NSGenericException.
 */
-@property(readonly) CGFloat yawAngle;
+	public var  (default, null) : CGFloat yawAngle;
 
-@end
+}

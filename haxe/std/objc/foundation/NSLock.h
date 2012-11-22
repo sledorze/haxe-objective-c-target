@@ -11,9 +11,9 @@
 - (void)lock;
 - (void)unlock;
 
-@end
+}
 
-@interface NSLock : NSObject <NSLocking> {
+extern class NSLock extends NSObject <NSLocking> {
 @private
     void *_priv;
 }
@@ -24,9 +24,9 @@
 - (void)setName:(NSString *)n NS_AVAILABLE(10_5, 2_0);
 - (NSString *)name NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
-@interface NSConditionLock : NSObject <NSLocking> {
+extern class NSConditionLock extends NSObject <NSLocking> {
 @private
     void *_priv;
 }
@@ -44,9 +44,9 @@
 - (void)setName:(NSString *)n NS_AVAILABLE(10_5, 2_0);
 - (NSString *)name NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
-@interface NSRecursiveLock : NSObject <NSLocking> {
+extern class NSRecursiveLock extends NSObject <NSLocking> {
 @private
     void *_priv;
 }
@@ -57,12 +57,12 @@
 - (void)setName:(NSString *)n NS_AVAILABLE(10_5, 2_0);
 - (NSString *)name NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
 
 
 NS_CLASS_AVAILABLE(10_5, 2_0)
-@interface NSCondition : NSObject <NSLocking> {
+extern class NSCondition extends NSObject <NSLocking> {
 @private
     void *_priv;
 }
@@ -75,6 +75,6 @@ NS_CLASS_AVAILABLE(10_5, 2_0)
 - (void)setName:(NSString *)n;
 - (NSString *)name;
 
-@end
+}
 
 

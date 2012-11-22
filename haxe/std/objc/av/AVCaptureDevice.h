@@ -73,7 +73,7 @@ AVF_EXPORT NSString *const AVCaptureDeviceSubjectAreaDidChangeNotification NS_AV
     AVCaptureDeviceInput with the device and adding that to the capture session.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureDevice : NSObject
+extern class AVCaptureDevice extends NSObject
 {
     AVCaptureDeviceInternal *_internal;
 }
@@ -148,7 +148,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (AVCaptureDevice *)deviceWithUniqueID:(NSString *)deviceUniqueID;
 
 /*!
- @property uniqueID
+ 	public var  uniqueID
  @abstract
     An ID unique to the model of device corresponding to the receiver.
 
@@ -157,10 +157,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     disconnections, application restarts, and reboots of the system itself. Applications can store the value returned by
     this property to recall or track the status of a specific device in the future.
 */
-@property(nonatomic, readonly) NSString *uniqueID;
+	public var (default, null) NSString *uniqueID;
 
 /*!
- @property modelID
+ 	public var  modelID
  @abstract
     The model ID of the receiver.
 
@@ -169,22 +169,22 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     device connections and disconnections, and across different systems. For example, the model ID of the camera built
     in to two identical iPhone models will be the same even though they are different physical devices.
 */
-@property(nonatomic, readonly) NSString *modelID;
+	public var (default, null) NSString *modelID;
 
 /*!
- @property localizedName
+ 	public var  localizedName
  @abstract
     A localized human-readable name for the receiver.
  
  @discussion
     This property can be used for displaying the name of a capture device in a user interface.
 */
-@property(nonatomic, readonly) NSString *localizedName;
+	public var (default, null) NSString *localizedName;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property transportType
+ 	public var  transportType
  @abstract
     The transport type of the receiver (e.g. USB, PCI, etc).
 
@@ -192,7 +192,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     This property can be used to discover the transport type of a capture device.  Transport types
     are defined in <IOKit/audio/IOAudioTypes.h> as kIOAudioDeviceTransportType*.
 */
-@property(nonatomic, readonly) int32_t transportType NS_AVAILABLE(10_7, NA);
+	public var (default, null) int32_t transportType NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -259,7 +259,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (BOOL)supportsAVCaptureSessionPreset:(NSString *)preset;
 
 /*!
- @property connected
+ 	public var  connected
  @abstract
     Indicates whether the device is connected and available to the system.
 
@@ -270,12 +270,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     YES again. If the same physical device again becomes available to the system, it will be represented using a new
     instance of AVCaptureDevice.
 */
-@property(nonatomic, readonly, getter=isConnected) BOOL connected;
+	public var (nonatomic, readonly, getter=isConnected) BOOL connected;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property inUseByAnotherApplication
+ 	public var  inUseByAnotherApplication
  @abstract
     Indicates whether the device is in use by another application.
 
@@ -284,36 +284,36 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     in use by another application. Clients can key value observe the value of this property to be notified when
     another app starts or stops using this device.
 */
-@property(nonatomic, readonly, getter=isInUseByAnotherApplication) BOOL inUseByAnotherApplication NS_AVAILABLE(10_7, NA);
+	public var (nonatomic, readonly, getter=isInUseByAnotherApplication) BOOL inUseByAnotherApplication NS_AVAILABLE(10_7, NA);
 
 /*!
- @property suspended
+ 	public var  suspended
  @abstract
     Indicates whether the device is suspended.
 
  @discussion
     The value of this property is a BOOL indicating whether the device represented by the receiver is
     currently suspended.  Some devices disallow data capture due to a feature on the device.
-    For example, isSuspended returns YES for the external iSight when its privacy iris is closed, or 
+    For example, isSuspended returns YES for theexternal iSight when its privacy iris is closed, or 
     for the internal iSight on a notebook when the notebook's display is closed.  Clients can key value 
     observe the value of this property to be notified when the device becomes suspended or unsuspended.
 */
-@property(nonatomic, readonly, getter=isSuspended) BOOL suspended NS_AVAILABLE(10_7, NA);
+	public var (nonatomic, readonly, getter=isSuspended) BOOL suspended NS_AVAILABLE(10_7, NA);
 
 /*!
- @property linkedDevices
+ 	public var  linkedDevices
  @abstract
     An array of AVCaptureDevice objects physically linked to the receiver.
 
  @discussion
     The value of this property is an array of AVCaptureDevice objects that are a part of the same physical 
-    device as the receiver.  For example, for the external iSight camera, linkedDevices returns an array 
-    containing an AVCaptureDevice for the external iSight microphone.
+    device as the receiver.  For example, for theexternal iSight camera, linkedDevices returns an array 
+    containing an AVCaptureDevice for theexternal iSight microphone.
 */
-@property(nonatomic, readonly) NSArray *linkedDevices NS_AVAILABLE(10_7, NA);
+	public var (default, null) NSArray *linkedDevices NS_AVAILABLE(10_7, NA);
 
 /*!
- @property formats
+ 	public var  formats
  @abstract
     An array of AVCaptureDeviceFormat objects supported by the receiver.
 
@@ -322,10 +322,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     capture device's activeFormat property may be set to one of the formats in this array.  Clients 
     can observe automatic changes to the receiver's formats by key value observing this property.
 */
-@property(nonatomic, readonly) NSArray *formats NS_AVAILABLE(10_7, NA);
+	public var (default, null) NSArray *formats NS_AVAILABLE(10_7, NA);
 
 /*!
- @property activeFormat
+ 	public var  activeFormat
  @abstract
     The currently active format of the receiver.
 
@@ -336,10 +336,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     access to the receiver using lockForConfiguration:.  Clients can observe automatic changes to the 
     receiver's activeFormat by key value observing this property.
 */
-@property(nonatomic, retain) AVCaptureDeviceFormat *activeFormat NS_AVAILABLE(10_7, NA);
+	public var  AVCaptureDeviceFormat *activeFormat NS_AVAILABLE(10_7, NA);
 
 /*!
- @property activeVideoMinFrameDuration
+ 	public var  activeVideoMinFrameDuration
  @abstract
     A property indicating the receiver's current active minimum frame duration (the reciprocal of its max frame rate).
 
@@ -353,10 +353,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     Clients can observe automatic changes to the receiver's activeVideoMinFrameDuration by key value 
     observing this property.
 */
-@property(nonatomic) CMTime activeVideoMinFrameDuration NS_AVAILABLE(10_7, NA);
+	public var  CMTime activeVideoMinFrameDuration NS_AVAILABLE(10_7, NA);
 
 /*!
- @property inputSources
+ 	public var  inputSources
  @abstract
     An array of AVCaptureDeviceInputSource objects supported by the receiver.
  
@@ -366,10 +366,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     used to enumerate the possible choices. Clients can observe automatic changes to the receiver's 
     inputSources by key value observing this property.
 */
-@property(nonatomic, readonly) NSArray *inputSources NS_AVAILABLE(10_7, NA);
+	public var (default, null) NSArray *inputSources NS_AVAILABLE(10_7, NA);
 
 /*!
- @property activeInputSource
+ 	public var  activeInputSource
  @abstract
     The currently active input source of the receiver.
 
@@ -380,11 +380,11 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     obtaining exclusive access to the receiver using lockForConfiguration:.  Clients can observe automatic  
     changes to the receiver's activeInputSource by key value observing this property.
 */
-@property(nonatomic, retain) AVCaptureDeviceInputSource *activeInputSource NS_AVAILABLE(10_7, NA);
+	public var  AVCaptureDeviceInputSource *activeInputSource NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@end
+}
 
 
 /*!
@@ -406,10 +406,10 @@ enum {
 };
 typedef NSInteger AVCaptureDevicePosition;
 
-@interface AVCaptureDevice (AVCaptureDevicePosition)
+extern class AVCaptureDevice (AVCaptureDevicePosition)
 
 /*!
- @property position
+ 	public var  position
  @abstract
     Indicates the physical position of an AVCaptureDevice's hardware on the system.
 
@@ -417,9 +417,9 @@ typedef NSInteger AVCaptureDevicePosition;
     The value of this property is an AVCaptureDevicePosition indicating where the receiver's device is physically
     located on the system hardware.
 */
-@property(nonatomic, readonly) AVCaptureDevicePosition position;
+	public var (default, null) AVCaptureDevicePosition position;
 
-@end
+}
 
 /*!
  @enum AVCaptureFlashMode
@@ -440,10 +440,10 @@ enum {
 };
 typedef NSInteger AVCaptureFlashMode;
 
-@interface AVCaptureDevice (AVCaptureDeviceFlash)
+extern class AVCaptureDevice (AVCaptureDeviceFlash)
 
 /*!
- @property hasFlash
+ 	public var  hasFlash
  @abstract
     Indicates whether the receiver has a flash.
 
@@ -451,10 +451,10 @@ typedef NSInteger AVCaptureFlashMode;
     The value of this property is a BOOL indicating whether the receiver has a flash. The receiver's flashMode property
     can only be set when this property returns YES.
 */
-@property(nonatomic, readonly) BOOL hasFlash;
+	public var (default, null) BOOL hasFlash;
 
 /*!
- @property flashAvailable
+ 	public var  flashAvailable
  @abstract
     Indicates whether the receiver's flash is currently available for use.
  
@@ -463,10 +463,10 @@ typedef NSInteger AVCaptureFlashMode;
     currently available. The flash may become unavailable if, for example, the device
     overheats and needs to cool off. This property is key-value observable.
 */
-@property(nonatomic, readonly, getter=isFlashAvailable) BOOL flashAvailable NS_AVAILABLE_IOS(5_0);
+	public var (nonatomic, readonly, getter=isFlashAvailable) BOOL flashAvailable NS_AVAILABLE_IOS(5_0);
 
 /*!
- @property flashActive
+ 	public var  flashActive
  @abstract
     Indicates whether the receiver's flash is currently active.
  
@@ -475,7 +475,7 @@ typedef NSInteger AVCaptureFlashMode;
     currently active. When the flash is active, it will flash if a still image is
     captured. This property is key-value observable.
 */
-@property(nonatomic, readonly, getter=isFlashActive) BOOL flashActive NS_AVAILABLE_IOS(5_0);
+	public var (nonatomic, readonly, getter=isFlashActive) BOOL flashActive NS_AVAILABLE_IOS(5_0);
 
 /*!
  @method isFlashModeSupported:
@@ -493,7 +493,7 @@ typedef NSInteger AVCaptureFlashMode;
 - (BOOL)isFlashModeSupported:(AVCaptureFlashMode)flashMode;
 
 /*!
- @property flashMode
+ 	public var  flashMode
  @abstract
     Indicates current mode of the receiver's flash, if it has one.
 
@@ -504,9 +504,9 @@ typedef NSInteger AVCaptureFlashMode;
     if called without first obtaining exclusive access to the receiver using lockForConfiguration:.
     Clients can observe automatic changes to the receiver's flashMode by key value observing this property.
 */
-@property(nonatomic) AVCaptureFlashMode flashMode;
+	public var  AVCaptureFlashMode flashMode;
 
-@end
+}
 
 /*!
  @enum AVCaptureTorchMode
@@ -535,10 +535,10 @@ typedef NSInteger AVCaptureTorchMode;
 */
 extern const float AVCaptureMaxAvailableTorchLevel;
 
-@interface AVCaptureDevice (AVCaptureDeviceTorch)
+extern class AVCaptureDevice (AVCaptureDeviceTorch)
 
 /*!
- @property hasTorch
+ 	public var  hasTorch
  @abstract
     Indicates whether the receiver has a torch.
 
@@ -546,10 +546,10 @@ extern const float AVCaptureMaxAvailableTorchLevel;
     The value of this property is a BOOL indicating whether the receiver has a torch. The receiver's torchMode property
     can only be set when this property returns YES.
 */
-@property(nonatomic, readonly) BOOL hasTorch;
+	public var (default, null) BOOL hasTorch;
 
 /*!
- @property torchAvailable
+ 	public var  torchAvailable
  @abstract
     Indicates whether the receiver's torch is currently available for use.
  
@@ -558,10 +558,10 @@ extern const float AVCaptureMaxAvailableTorchLevel;
     currently available. The torch may become unavailable if, for example, the device
     overheats and needs to cool off. This property is key-value observable.
 */
-@property(nonatomic, readonly, getter=isTorchAvailable) BOOL torchAvailable NS_AVAILABLE_IOS(5_0);
+	public var (nonatomic, readonly, getter=isTorchAvailable) BOOL torchAvailable NS_AVAILABLE_IOS(5_0);
 
 /*!
- @property torchActive
+ 	public var  torchActive
  @abstract
     Indicates whether the receiver's torch is currently active.
  
@@ -571,10 +571,10 @@ extern const float AVCaptureMaxAvailableTorchLevel;
     is YES, the torch will illuminate once a recording starts (see AVCaptureOutput.h 
     -startRecordingToOutputFileURL:recordingDelegate:). This property is key-value observable.
 */
-@property(nonatomic, readonly, getter=isTorchActive) BOOL torchActive NS_AVAILABLE_IOS(6_0);
+	public var (nonatomic, readonly, getter=isTorchActive) BOOL torchActive NS_AVAILABLE_IOS(6_0);
 
 /*!
- @property torchLevel
+ 	public var  torchLevel
  @abstract
     Indicates the receiver's current torch brightness level as a floating point value.
 
@@ -582,7 +582,7 @@ extern const float AVCaptureMaxAvailableTorchLevel;
     The value of this property is a float indicating the receiver's torch level 
     from 0.0 (off) -> 1.0 (full). This property is key-value observable.
 */
-@property(nonatomic, readonly) float torchLevel NS_AVAILABLE_IOS(5_0);
+	public var (default, null) float torchLevel NS_AVAILABLE_IOS(5_0);
 
 /*!
  @method isTorchModeSupported:
@@ -600,7 +600,7 @@ extern const float AVCaptureMaxAvailableTorchLevel;
 - (BOOL)isTorchModeSupported:(AVCaptureTorchMode)torchMode;
 
 /*!
- @property torchMode
+ 	public var  torchMode
  @abstract
     Indicates current mode of the receiver's torch, if it has one.
 
@@ -611,10 +611,10 @@ extern const float AVCaptureMaxAvailableTorchLevel;
     if called without first obtaining exclusive access to the receiver using lockForConfiguration:.
     Clients can observe automatic changes to the receiver's torchMode by key value observing this property.
 */
-@property(nonatomic) AVCaptureTorchMode torchMode;
+	public var  AVCaptureTorchMode torchMode;
 
 /*!
- @property setTorchModeOnWithLevel:error:
+ 	public var  setTorchModeOnWithLevel:error:
  @abstract
     Sets the current mode of the receiver's torch to AVCaptureTorchModeOn at the specified level.
 
@@ -630,7 +630,7 @@ extern const float AVCaptureMaxAvailableTorchLevel;
 */
 - (BOOL)setTorchModeOnWithLevel:(float)torchLevel error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 /*!
  @enum AVCaptureFocusMode
@@ -651,7 +651,7 @@ enum {
 };
 typedef NSInteger AVCaptureFocusMode;
 
-@interface AVCaptureDevice (AVCaptureDeviceFocus)
+extern class AVCaptureDevice (AVCaptureDeviceFocus)
 
 /*!
  @method isFocusModeSupported:
@@ -669,7 +669,7 @@ typedef NSInteger AVCaptureFocusMode;
 - (BOOL)isFocusModeSupported:(AVCaptureFocusMode)focusMode;
 
 /*!
- @property focusMode
+ 	public var  focusMode
  @abstract
     Indicates current focus mode of the receiver, if it has one.
 
@@ -680,20 +680,20 @@ typedef NSInteger AVCaptureFocusMode;
     using lockForConfiguration:.  Clients can observe automatic changes to the receiver's focusMode by key value 
     observing this property.
 */
-@property(nonatomic) AVCaptureFocusMode focusMode;
+	public var  AVCaptureFocusMode focusMode;
 
 /*!
- @property focusPointOfInterestSupported
+ 	public var  focusPointOfInterestSupported
  @abstract
     Indicates whether the receiver supports focus points of interest.
 
  @discussion
     The receiver's focusPointOfInterest property can only be set if this property returns YES.
 */
-@property(nonatomic, readonly, getter=isFocusPointOfInterestSupported) BOOL focusPointOfInterestSupported;
+	public var (nonatomic, readonly, getter=isFocusPointOfInterestSupported) BOOL focusPointOfInterestSupported;
 
 /*!
- @property focusPointOfInterest
+ 	public var  focusPointOfInterest
  @abstract
     Indicates current focus point of interest of the receiver, if it has one.
 
@@ -707,10 +707,10 @@ typedef NSInteger AVCaptureFocusMode;
     setting focusPointOfInterest alone does not initiate a focus operation.  After setting focusPointOfInterest, call
     -setFocusMode: to apply the new point of interest.
 */
-@property(nonatomic) CGPoint focusPointOfInterest;
+	public var  CGPoint focusPointOfInterest;
 
 /*!
- @property adjustingFocus
+ 	public var  adjustingFocus
  @abstract
     Indicates whether the receiver is currently adjusting camera focus.
 
@@ -720,9 +720,9 @@ typedef NSInteger AVCaptureFocusMode;
     observe the value of this property to determine whether the camera focus is stable or is being automatically
     adjusted.
 */
-@property(nonatomic, readonly, getter=isAdjustingFocus) BOOL adjustingFocus;
+	public var (nonatomic, readonly, getter=isAdjustingFocus) BOOL adjustingFocus;
 
-@end
+}
 
 /*!
  @enum AVCaptureExposureMode
@@ -744,7 +744,7 @@ enum {
 };
 typedef NSInteger AVCaptureExposureMode;
 
-@interface AVCaptureDevice (AVCaptureDeviceExposure)
+extern class AVCaptureDevice (AVCaptureDeviceExposure)
 
 /*!
  @method isExposureModeSupported:
@@ -762,7 +762,7 @@ typedef NSInteger AVCaptureExposureMode;
 - (BOOL)isExposureModeSupported:(AVCaptureExposureMode)exposureMode;
 
 /*!
- @property exposureMode
+ 	public var  exposureMode
  @abstract
     Indicates current exposure mode of the receiver, if it has adjustable exposure.
 
@@ -773,20 +773,20 @@ typedef NSInteger AVCaptureExposureMode;
     exclusive access to the receiver using lockForConfiguration:.  Clients can observe automatic changes to the receiver's 
     exposureMode by key value observing this property.
 */
-@property(nonatomic) AVCaptureExposureMode exposureMode;
+	public var  AVCaptureExposureMode exposureMode;
 
 /*!
- @property exposurePointOfInterestSupported:
+ 	public var  exposurePointOfInterestSupported:
  @abstract
     Indicates whether the receiver supports exposure points of interest.
  
  @discussion
     The receiver's exposurePointOfInterest property can only be set if this property returns YES.
 */
-@property(nonatomic, readonly, getter=isExposurePointOfInterestSupported) BOOL exposurePointOfInterestSupported;
+	public var (nonatomic, readonly, getter=isExposurePointOfInterestSupported) BOOL exposurePointOfInterestSupported;
 
 /*!
- @property exposurePointOfInterest
+ 	public var  exposurePointOfInterest
  @abstract
     Indicates current exposure point of interest of the receiver, if it has one.
 
@@ -800,10 +800,10 @@ typedef NSInteger AVCaptureExposureMode;
     by key value observing this property.  Note that setting exposurePointOfInterest alone does not initiate an exposure 
     operation.  After setting exposurePointOfInterest, call -setExposureMode: to apply the new point of interest.
 */
-@property(nonatomic) CGPoint exposurePointOfInterest;
+	public var  CGPoint exposurePointOfInterest;
 
 /*!
- @property adjustingExposure
+ 	public var  adjustingExposure
  @abstract
     Indicates whether the receiver is currently adjusting camera exposure.
 
@@ -813,9 +813,9 @@ typedef NSInteger AVCaptureExposureMode;
     Clients can observe the value of this property to determine whether the camera exposure is stable or is being
     automatically adjusted.
 */
-@property(nonatomic, readonly, getter=isAdjustingExposure) BOOL adjustingExposure;
+	public var (nonatomic, readonly, getter=isAdjustingExposure) BOOL adjustingExposure;
 
-@end
+}
 
 /*!
  @enum AVCaptureWhiteBalanceMode
@@ -837,7 +837,7 @@ enum {
 };
 typedef NSInteger AVCaptureWhiteBalanceMode;
 
-@interface AVCaptureDevice (AVCaptureDeviceWhiteBalance)
+extern class AVCaptureDevice (AVCaptureDeviceWhiteBalance)
 
 /*!
  @method isWhiteBalanceModeSupported:
@@ -855,7 +855,7 @@ typedef NSInteger AVCaptureWhiteBalanceMode;
 - (BOOL)isWhiteBalanceModeSupported:(AVCaptureWhiteBalanceMode)whiteBalanceMode;
 
 /*!
- @property whiteBalanceMode
+ 	public var  whiteBalanceMode
  @abstract
     Indicates current white balance mode of the receiver, if it has adjustable white balance.
 
@@ -866,10 +866,10 @@ typedef NSInteger AVCaptureWhiteBalanceMode;
     exclusive access to the receiver using lockForConfiguration:.  Clients can observe automatic changes to the receiver's 
     whiteBalanceMode by key value observing this property.
 */
-@property(nonatomic) AVCaptureWhiteBalanceMode whiteBalanceMode;
+	public var  AVCaptureWhiteBalanceMode whiteBalanceMode;
 
 /*!
- @property adjustingWhiteBalance
+ 	public var  adjustingWhiteBalance
  @abstract
     Indicates whether the receiver is currently adjusting camera white balance.
 
@@ -879,14 +879,14 @@ typedef NSInteger AVCaptureWhiteBalanceMode;
     AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance. Clients can observe the value of this property to determine
     whether the camera white balance is stable or is being automatically adjusted.
 */
-@property(nonatomic, readonly, getter=isAdjustingWhiteBalance) BOOL adjustingWhiteBalance;
+	public var (nonatomic, readonly, getter=isAdjustingWhiteBalance) BOOL adjustingWhiteBalance;
 
-@end
+}
 
-@interface AVCaptureDevice (AVCaptureDeviceSubjectAreaChangeMonitoring)
+extern class AVCaptureDevice (AVCaptureDeviceSubjectAreaChangeMonitoring)
 
 /*!
- @property subjectAreaChangeMonitoringEnabled
+ 	public var  subjectAreaChangeMonitoringEnabled
  @abstract
 	Indicates whether the receiver should monitor the subject area for changes.
  
@@ -900,24 +900,24 @@ typedef NSInteger AVCaptureWhiteBalanceMode;
 	for configuration using lockForConfiguration: before clients can set
 	the value of this property.
 */
-@property(nonatomic, getter=isSubjectAreaChangeMonitoringEnabled) BOOL subjectAreaChangeMonitoringEnabled NS_AVAILABLE_IOS(5_0);
+	public var (nonatomic, getter=isSubjectAreaChangeMonitoringEnabled) BOOL subjectAreaChangeMonitoringEnabled NS_AVAILABLE_IOS(5_0);
 
-@end
+}
 
-@interface AVCaptureDevice (AVCaptureDeviceLowLightBoost)
+extern class AVCaptureDevice (AVCaptureDeviceLowLightBoost)
 
 /*!
- @property lowLightBoostSupported
+ 	public var  lowLightBoostSupported
  @abstract
     Indicates whether the receiver supports boosting images in low light conditions.
  
  @discussion
     The receiver's automaticallyEnablesLowLightBoostWhenAvailable property can only be set if this property returns YES.
 */
-@property(nonatomic, readonly, getter=isLowLightBoostSupported) BOOL lowLightBoostSupported NS_AVAILABLE_IOS(6_0);
+	public var (nonatomic, readonly, getter=isLowLightBoostSupported) BOOL lowLightBoostSupported NS_AVAILABLE_IOS(6_0);
 
 /*!
- @property lowLightBoostEnabled
+ 	public var  lowLightBoostEnabled
  @abstract
     Indicates whether the receiver's low light boost feature is enabled.
  
@@ -927,10 +927,10 @@ typedef NSInteger AVCaptureWhiteBalanceMode;
     YES, the receiver has switched into a special mode in which more light can be perceived in images.
     This property is key-value observable.
 */
-@property(nonatomic, readonly, getter=isLowLightBoostEnabled) BOOL lowLightBoostEnabled NS_AVAILABLE_IOS(6_0);
+	public var (nonatomic, readonly, getter=isLowLightBoostEnabled) BOOL lowLightBoostEnabled NS_AVAILABLE_IOS(6_0);
 
 /*!
- @property automaticallyEnablesLowLightBoostWhenAvailable
+ 	public var  automaticallyEnablesLowLightBoostWhenAvailable
  @abstract
     Indicates whether the receiver should automatically switch to low light boost mode when necessary.
  
@@ -946,9 +946,9 @@ typedef NSInteger AVCaptureWhiteBalanceMode;
     returns NO. The receiver must be locked for configuration using lockForConfiguration: before clients
     can set this method, otherwise an NSGenericException is thrown.
 */
-@property(nonatomic) BOOL automaticallyEnablesLowLightBoostWhenAvailable NS_AVAILABLE_IOS(6_0);
+	public var  BOOL automaticallyEnablesLowLightBoostWhenAvailable NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -970,10 +970,10 @@ enum {
 };
 typedef NSInteger AVCaptureDeviceTransportControlsPlaybackMode;
 
-@interface AVCaptureDevice (AVCaptureDeviceTransportControls)
+extern class AVCaptureDevice (AVCaptureDeviceTransportControls)
 
 /*!
- @property transportControlsSupported
+ 	public var  transportControlsSupported
  @abstract
     Returns whether the receiver supports transport control commands.
 
@@ -982,10 +982,10 @@ typedef NSInteger AVCaptureDeviceTransportControlsPlaybackMode;
     RS422 deck control, the value of this property is YES.  If transport controls are not supported,
     none of the associated transport control methods and properties are available on the receiver.
 */
-@property(nonatomic, readonly) BOOL transportControlsSupported NS_AVAILABLE(10_7, NA);
+	public var (default, null) BOOL transportControlsSupported NS_AVAILABLE(10_7, NA);
 
 /*!
- @property transportControlsPlaybackMode
+ 	public var  transportControlsPlaybackMode
  @abstract
     Returns the receiver's current playback mode.
 
@@ -993,10 +993,10 @@ typedef NSInteger AVCaptureDeviceTransportControlsPlaybackMode;
     For devices that support transport control, this property may be queried to discover the 
     current playback mode.
 */
-@property(nonatomic, readonly) AVCaptureDeviceTransportControlsPlaybackMode transportControlsPlaybackMode NS_AVAILABLE(10_7, NA);
+	public var (default, null) AVCaptureDeviceTransportControlsPlaybackMode transportControlsPlaybackMode NS_AVAILABLE(10_7, NA);
 
 /*!
- @property transportControlsSpeed
+ 	public var  transportControlsSpeed
  @abstract
     Returns the receiver's current playback speed as a floating point value.
 
@@ -1009,7 +1009,7 @@ typedef NSInteger AVCaptureDeviceTransportControlsPlaybackMode;
     2.0 -> forward at 2x normal speed.
     etc.
 */
-@property(nonatomic, readonly) AVCaptureDeviceTransportControlsSpeed transportControlsSpeed NS_AVAILABLE(10_7, NA);
+	public var (default, null) AVCaptureDeviceTransportControlsSpeed transportControlsSpeed NS_AVAILABLE(10_7, NA);
 
 /*!
  @method setTransportControlsPlaybackMode:speed:
@@ -1029,7 +1029,7 @@ typedef NSInteger AVCaptureDeviceTransportControlsPlaybackMode;
 */
 - (void)setTransportControlsPlaybackMode:(AVCaptureDeviceTransportControlsPlaybackMode)mode speed:(AVCaptureDeviceTransportControlsSpeed)speed NS_AVAILABLE(10_7, NA);
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -1053,13 +1053,13 @@ typedef NSInteger AVCaptureDeviceTransportControlsPlaybackMode;
     duration (CMTime).  An AVFrameRateRange object is immutable.  Its values do not change for the life of the object.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface AVFrameRateRange : NSObject
+extern class AVFrameRateRange extends NSObject
 {
     AVFrameRateRangeInternal *_internal;
 }
 
 /*!
- @property minFrameRate
+ 	public var  minFrameRate
  @abstract
     A Float64 indicating the minimum frame rate supported by this range.
 
@@ -1067,10 +1067,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     This read-only property indicates the minimum frame rate supported by
     this range in frames per second.
 */
-@property(readonly) Float64 minFrameRate;
+	public var  (default, null) : Float64 minFrameRate;
 
 /*!
- @property maxFrameRate
+ 	public var  maxFrameRate
  @abstract
     A Float64 indicating the maximum frame rate supported by this range.
 
@@ -1078,10 +1078,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     This read-only property indicates the maximum frame rate supported by
     this range in frames per second.
 */
-@property(readonly) Float64 maxFrameRate;
+	public var  (default, null) : Float64 maxFrameRate;
 
 /*!
- @property maxFrameDuration
+ 	public var  maxFrameDuration
  @abstract
     A CMTime indicating the maximum frame duration supported by this range.
 
@@ -1090,10 +1090,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     this range.  It is the reciprocal of minFrameRate, and expresses minFrameRate
     as a duration.
 */
-@property(readonly) CMTime maxFrameDuration;
+	public var  (default, null) : CMTime maxFrameDuration;
 
 /*!
- @property minFrameDuration
+ 	public var  minFrameDuration
  @abstract
     A CMTime indicating the minimum frame duration supported by this range.
 
@@ -1102,9 +1102,9 @@ NS_CLASS_AVAILABLE(10_7, NA)
     this range.  It is the reciprocal of maxFrameRate, and expresses maxFrameRate
     as a duration.
 */
-@property(readonly) CMTime minFrameDuration;
+	public var  (default, null) : CMTime minFrameDuration;
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -1129,13 +1129,13 @@ NS_CLASS_AVAILABLE(10_7, NA)
     Its values do not change for the life of the object.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface AVCaptureDeviceFormat : NSObject
+extern class AVCaptureDeviceFormat extends NSObject
 {
     AVCaptureDeviceFormatInternal *_internal;
 }
 
 /*!
- @property mediaType
+ 	public var  mediaType
  @abstract
     An NSString describing the media type of an AVCaptureDevice active or supported format.
 
@@ -1143,10 +1143,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     Supported mediaTypes are listed in AVMediaFormat.h.  This is a read-only
     property.  The caller assumes no ownership of the returned value and should not CFRelease it.
 */
-@property(nonatomic, readonly) NSString *mediaType;
+	public var (default, null) NSString *mediaType;
 
 /*!
- @property formatDescription
+ 	public var  formatDescription
  @abstract
     A CMFormatDescription describing an AVCaptureDevice active or supported format.
 
@@ -1154,10 +1154,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     A CMFormatDescription describing an AVCaptureDevice active or supported format.  This is a read-only
     property.  The caller assumes no ownership of the returned value and should not CFRelease it.
 */
-@property(nonatomic, readonly) CMFormatDescriptionRef formatDescription;
+	public var (default, null) CMFormatDescriptionRef formatDescription;
 
 /*!
- @property videoSupportedFrameRateRanges
+ 	public var  videoSupportedFrameRateRanges
  @abstract
     A property indicating the format's supported frame rate ranges.
 
@@ -1165,9 +1165,9 @@ NS_CLASS_AVAILABLE(10_7, NA)
     videoSupportedFrameRateRanges is an array of AVFrameRateRange objects, one for
     each of the format's supported video frame rate ranges.
 */
-@property(nonatomic, readonly) NSArray *videoSupportedFrameRateRanges;
+	public var (default, null) NSArray *videoSupportedFrameRateRanges;
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -1187,13 +1187,13 @@ NS_CLASS_AVAILABLE(10_7, NA)
     input source.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface AVCaptureDeviceInputSource : NSObject
+extern class AVCaptureDeviceInputSource extends NSObject
 {
     AVCaptureDeviceInputSourceInternal *_internal;
 }
 
 /*!
- @property inputSourceID
+ 	public var  inputSourceID
  @abstract
     An ID unique among the inputSources exposed by a given AVCaptureDevice.
 
@@ -1201,18 +1201,18 @@ NS_CLASS_AVAILABLE(10_7, NA)
     An AVCaptureDevice's inputSources array must contain AVCaptureInputSource objects with unique
     inputSourceIDs.
 */
-@property(nonatomic, readonly) NSString *inputSourceID;
+	public var (default, null) NSString *inputSourceID;
 
 /*!
- @property localizedName
+ 	public var  localizedName
  @abstract
     A localized human-readable name for the receiver.
 
  @discussion
     This property can be used for displaying the name of the capture device input source in a user interface.
 */
-@property(nonatomic, readonly) NSString *localizedName;
+	public var (default, null) NSString *localizedName;
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))

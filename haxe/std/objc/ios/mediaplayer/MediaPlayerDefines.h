@@ -6,9 +6,9 @@
 //
 
 #ifdef __cplusplus
-#define MP_EXTERN extern "C" __attribute__((visibility ("default")))
+#define MP_EXTERNextern "C" __attribute__((visibility ("default")))
 #else
-#define MP_EXTERN     extern __attribute__((visibility ("default")))
+#define MP_EXTERN    extern __attribute__((visibility ("default")))
 #endif
 
 #define MP_EXTERN_CLASS                    __attribute__((visibility("default")))

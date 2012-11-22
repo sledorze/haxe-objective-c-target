@@ -29,25 +29,25 @@
 		is naturally achieved by invoking AVPlayerItemTrack's various methods on the main thread or queue.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVPlayerItemTrack : NSObject
+extern class AVPlayerItemTrack extends NSObject
 {
 @private
 	AVPlayerItemTrackInternal	*_playerItemTrack;
 }
 
 /*!
- @property		assetTrack
+ 	public var 		assetTrack
  @abstract		Indicates the AVAssetTrack for which the AVPlayerItemTrack represents presentation state.
  @discussion	This property is not observable.
 	Clients must serialize their access to the resulting AVAssetTrack and related objects on the associated AVPlayer's
 	notification queue.  By default, this queue is the main queue.
  */
-@property (nonatomic, readonly) AVAssetTrack *assetTrack;
+	public var AVAssetTrack *assetTrack;
 
 /*!
- @property		enabled
+ 	public var 		enabled
  @abstract		Indicates whether the track is enabled for presentation during playback.
  */
-@property (nonatomic, assign, getter=isEnabled) BOOL enabled;
+	public var  (nonatomic, assign, getter=isEnabled) BOOL enabled;
 
-@end
+}

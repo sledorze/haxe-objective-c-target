@@ -1,6 +1,6 @@
 //
 //  UIDocumentInteractionController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -10,21 +10,21 @@
 #import <UIKit/UIKitDefines.h>
 #import <UIKit/UIViewController.h>
 
-@protocol UIDocumentInteractionControllerDelegate;
+extern interface UIDocumentInteractionControllerDelegate;
 
 @class UIImage, UIView, UIPopoverController;
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIDocumentInteractionController : NSObject <UIActionSheetDelegate>
+extern class UIDocumentInteractionController extends NSObject <UIActionSheetDelegate>
 
 + (UIDocumentInteractionController *)interactionControllerWithURL:(NSURL *)url; // use file to determine UTI. assumes file is complete
 
-@property(nonatomic,assign) id<UIDocumentInteractionControllerDelegate> delegate; // default is nil
+	public var  id<UIDocumentInteractionControllerDelegate> delegate; // default is nil
 
-@property(retain)   NSURL    *URL;             // default is nil. if set, updates UTI, icon and name
-@property(nonatomic,copy)     NSString *UTI;             // determined from name if set, URL otherwise, override if the name or URL uses a custom scheme and the UTI can't be determined automatically
-@property(copy)               NSString *name;            // determined from URL, override if the URL uses a custom scheme and the name can't be determined automatically
-@property(nonatomic,readonly) NSArray  *icons;           // determined from name if set, URL otherwise. will return a generic document icon if an icon cannot be determined. returns an array of icons sorted from smallest to largest.
-@property(nonatomic,retain)   id        annotation;      // additional plist information for application to pass to receiver (must be a plist object). default is nil.
+	public var   NSURL    *URL;             // default is nil. if set, updates UTI, icon and name
+public var      NSString *UTI;             // determined from name if set, URL otherwise, override if the name or URL uses a custom scheme and the UTI can't be determined automatically
+	public var               NSString *name;            // determined from URL, override if the URL uses a custom scheme and the name can't be determined automatically
+	public var (default, null) NSArray  *icons;           // determined from name if set, URL otherwise. will return a generic document icon if an icon cannot be determined. returns an array of icons sorted from smallest to largest.
+	public var (nonatomic,retain)   id        annotation;      // additional plist information for application to pass to receiver (must be a plist object). default is nil.
 
 // This is the default method you should call to give your users the option to quick look, open, or copy the document.
 // Presents a menu allowing the user to Quick Look, open, or copy the item specified by URL.
@@ -45,18 +45,18 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIDocumentInteractionController : NSObjec
 - (BOOL)presentOpenInMenuFromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
 
 // Dismiss the full screen quick look window if it is visible.
-- (void)dismissPreviewAnimated:(BOOL)animated;
+	public function dismissPreviewAnimated:(BOOL)animated;
 
 // Dismiss any visible menus.
-- (void)dismissMenuAnimated:(BOOL)animated;
+	public function dismissMenuAnimated:(BOOL)animated;
 
 // Returns an array of gesture recognizers preconfigured to manage the quick look and options menu.
 // These gesture recognizers should only be installed on your view when the file has been copied locally and is present at URL.
-@property(nonatomic,readonly) NSArray *gestureRecognizers;
+	public var (default, null) NSArray *gestureRecognizers;
 
-@end
+}
 
-@protocol UIDocumentInteractionControllerDelegate <NSObject>
+extern interface UIDocumentInteractionControllerDelegate <NSObject>
 
 @optional
 
@@ -73,23 +73,23 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIDocumentInteractionController : NSObjec
 - (UIView *)documentInteractionControllerViewForPreview:(UIDocumentInteractionController *)controller;
 
 // Preview presented/dismissed on document.  Use to set up any HI underneath.
-- (void)documentInteractionControllerWillBeginPreview:(UIDocumentInteractionController *)controller;
-- (void)documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *)controller;
+	public function documentInteractionControllerWillBeginPreview:(UIDocumentInteractionController *)controller;
+	public function documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *)controller;
 
 // Options menu presented/dismissed on document.  Use to set up any HI underneath.
-- (void)documentInteractionControllerWillPresentOptionsMenu:(UIDocumentInteractionController *)controller;
-- (void)documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller;
+	public function documentInteractionControllerWillPresentOptionsMenu:(UIDocumentInteractionController *)controller;
+	public function documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller;
 
 // Open in menu presented/dismissed on document.  Use to set up any HI underneath.
-- (void)documentInteractionControllerWillPresentOpenInMenu:(UIDocumentInteractionController *)controller;
-- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller;
+	public function documentInteractionControllerWillPresentOpenInMenu:(UIDocumentInteractionController *)controller;
+	public function documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller;
 
 // Synchronous.  May be called when inside preview.  Usually followed by app termination.  Can use willBegin... to set annotation.
-- (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application;	 // bundle ID
-- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application;
+	public function documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application;	 // bundle ID
+	public function documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application;
 
 // Used to handle additional menu items that can be performed on the item specified by URL.  Currently only supports the "copy:", "print:" and "saveToCameraRoll:" actions.
 - (BOOL)documentInteractionController:(UIDocumentInteractionController *)controller canPerformAction:(SEL)action NS_DEPRECATED_IOS(3_2, 6_0);
 - (BOOL)documentInteractionController:(UIDocumentInteractionController *)controller performAction:(SEL)action NS_DEPRECATED_IOS(3_2, 6_0);
 
-@end 
+} 

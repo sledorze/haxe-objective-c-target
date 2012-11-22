@@ -9,7 +9,7 @@
 @class NSAttributedString;
 @class NSDictionary;
 
-@interface NSFormatter : NSObject <NSCopying, NSCoding>
+extern class NSFormatter extends NSObject <NSCopying, NSCoding>
 
 - (NSString *)stringForObjectValue:(id)obj;
 
@@ -24,5 +24,5 @@
 
 - (BOOL)isPartialStringValid:(NSString **)partialStringPtr proposedSelectedRange:(NSRangePointer)proposedSelRangePtr originalString:(NSString *)origString originalSelectedRange:(NSRange)origSelRange errorDescription:(NSString **)error;
 
-@end
+}
 

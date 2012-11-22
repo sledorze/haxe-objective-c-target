@@ -12,7 +12,7 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKMultiPoint : MKShape {
+extern class MKMultiPoint : MKShape {
 @package
     MKMapPoint *_points;
     NSUInteger _pointCount;
@@ -20,11 +20,11 @@ MK_CLASS_AVAILABLE(NA, 4_0)
     MKMapRect _boundingRect;
 }
 
-@property (nonatomic, readonly) MKMapPoint *points;
-@property (nonatomic, readonly) NSUInteger pointCount;
+	public var MKMapPoint *points;
+	public var NSUInteger pointCount;
 
 // Unproject and copy points into the provided array of coordinates that
 // must be large enough to hold range.length coordinates.
 - (void)getCoordinates:(CLLocationCoordinate2D *)coords range:(NSRange)range;
 
-@end
+}

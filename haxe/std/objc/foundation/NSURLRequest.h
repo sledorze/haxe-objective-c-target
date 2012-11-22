@@ -172,7 +172,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
     which can are used to perform the load of a URL, or as input to the
     NSURLConnection class method which performs synchronous loads.
 */
-@interface NSURLRequest : NSObject <NSCoding, NSCopying, NSMutableCopying>
+extern class NSURLRequest extends NSObject, implements NSObject, NSCopying, NSMutableCopying>
 {
     @private
     NSURLRequestInternal *_internal;
@@ -291,7 +291,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
  */
 - (BOOL)allowsCellularAccess  NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 
 
@@ -324,7 +324,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
     example.
     </ul>
 */
-@interface NSMutableURLRequest : NSURLRequest
+extern class NSMutableURLRequest : NSURLRequest
 
 /*! 
     @method setURL
@@ -391,7 +391,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
  */
 - (void)setAllowsCellularAccess:(BOOL)allow NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 
 
@@ -400,7 +400,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
     The NSHTTPURLRequest on NSURLRequest provides methods for accessing
     information specific to HTTP protocol requests.
 */
-@interface NSURLRequest (NSHTTPURLRequest) 
+extern class NSURLRequest (NSHTTPURLRequest) 
 
 /*! 
     @method HTTPMethod
@@ -471,7 +471,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
  */
 - (BOOL)HTTPShouldUsePipelining NS_AVAILABLE(10_7, 4_0);
 
-@end
+}
 
 
 
@@ -480,7 +480,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
     The NSMutableHTTPURLRequest on NSMutableURLRequest provides methods
     for configuring information specific to HTTP protocol requests.
 */
-@interface NSMutableURLRequest (NSMutableHTTPURLRequest) 
+extern class NSMutableURLRequest (NSMutableHTTPURLRequest) 
 
 /*! 
     @method setHTTPMethod:
@@ -581,5 +581,5 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
  */
 - (void)setHTTPShouldUsePipelining:(BOOL)shouldUsePipelining NS_AVAILABLE(10_7, 4_0);
 
-@end
+}
 

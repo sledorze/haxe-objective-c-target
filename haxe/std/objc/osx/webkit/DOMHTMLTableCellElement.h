@@ -30,22 +30,22 @@
 
 @class NSString;
 
-@interface DOMHTMLTableCellElement : DOMHTMLElement
-@property(readonly) int cellIndex;
-@property(copy) NSString *abbr;
-@property(copy) NSString *align;
-@property(copy) NSString *axis;
-@property(copy) NSString *bgColor;
-@property(copy) NSString *ch;
-@property(copy) NSString *chOff;
-@property int colSpan;
-@property(copy) NSString *headers;
-@property(copy) NSString *height;
-@property BOOL noWrap;
-@property int rowSpan;
-@property(copy) NSString *scope;
-@property(copy) NSString *vAlign;
-@property(copy) NSString *width;
-@end
+extern class DOMHTMLTableCellElement : DOMHTMLElement
+	public var  (default, null) : int cellIndex;
+	public var NSString *abbr;
+	public var NSString *align;
+	public var NSString *axis;
+	public var NSString *bgColor;
+	public var NSString *ch;
+	public var NSString *chOff;
+	public var  int colSpan;
+	public var NSString *headers;
+	public var NSString *height;
+	public var  BOOL noWrap;
+	public var  int rowSpan;
+	public var NSString *scope;
+	public var NSString *vAlign;
+	public var NSString *width;
+}
 
 #endif

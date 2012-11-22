@@ -1,6 +1,6 @@
 //
 //  UIPrintPaper.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2010-2012, Apple Inc. All rights reserved.
 //
@@ -9,7 +9,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(4_2) @interface UIPrintPaper : NSObject {
+NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintPaper extends NSObject {
   @private
     int _paperOrientation;
     id  _internal;
@@ -17,13 +17,13 @@ NS_CLASS_AVAILABLE_IOS(4_2) @interface UIPrintPaper : NSObject {
 
 + (UIPrintPaper *)bestPaperForPageSize:(CGSize)contentSize withPapersFromArray:(NSArray *)paperList; // for use by delegate. pass in list
 
-@property(readonly) CGSize paperSize;
-@property(readonly) CGRect printableRect;
+	public var  (default, null) : CGSize paperSize;
+	public var  (default, null) : CGRect printableRect;
 
-@end
+}
 
 //_____________________________________________
 
-@interface UIPrintPaper(Deprecated_Nonfunctional)
+extern class UIPrintPaper(Deprecated_Nonfunctional)
 - (CGRect)printRect;
-@end
+}

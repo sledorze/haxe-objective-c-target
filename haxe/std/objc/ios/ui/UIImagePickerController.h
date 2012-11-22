@@ -1,6 +1,6 @@
 //
 //  UIImagePickerController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -10,7 +10,7 @@
 #import <UIKit/UIKitDefines.h>
 
 @class UIImage;
-@protocol UIImagePickerControllerDelegate;
+extern interface UIImagePickerControllerDelegate;
 
 typedef NS_ENUM(NSInteger, UIImagePickerControllerSourceType) {
     UIImagePickerControllerSourceTypePhotoLibrary,
@@ -56,7 +56,7 @@ UIKIT_EXTERN NSString *const UIImagePickerControllerMediaURL;       // an NSURL
 UIKIT_EXTERN NSString *const UIImagePickerControllerReferenceURL        NS_AVAILABLE_IOS(4_1);  // an NSURL that references an asset in the AssetsLibrary framework
 UIKIT_EXTERN NSString *const UIImagePickerControllerMediaMetadata       NS_AVAILABLE_IOS(4_1);  // an NSDictionary containing metadata from a captured photo
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIImagePickerController : UINavigationController <NSCoding> {
+extern class UIImagePickerController : UINavigationController, implements NSObject> {
   @private
     UIImagePickerControllerSourceType _sourceType;
     id                                _image;
@@ -80,58 +80,58 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIImagePickerController : UINavigationCon
 + (BOOL)isFlashAvailableForCameraDevice:(UIImagePickerControllerCameraDevice)cameraDevice           NS_AVAILABLE_IOS(4_0); // returns YES if camera device supports flash and torch.
 + (NSArray *)availableCaptureModesForCameraDevice:(UIImagePickerControllerCameraDevice)cameraDevice NS_AVAILABLE_IOS(4_0); // returns array of NSNumbers (UIImagePickerControllerCameraCaptureMode)
 
-@property(nonatomic,assign)    id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> delegate;
+	public var     id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> delegate;
 
-@property(nonatomic)           UIImagePickerControllerSourceType     sourceType;                                                        // default value is UIImagePickerControllerSourceTypePhotoLibrary.
-@property(nonatomic,copy)      NSArray                              *mediaTypes;  
+	public var            UIImagePickerControllerSourceType     sourceType;                                                        // default value is UIImagePickerControllerSourceTypePhotoLibrary.
+public var       NSArray                              *mediaTypes;  
     // default value is an array containing kUTTypeImage.
-@property(nonatomic)           BOOL                                  allowsEditing NS_AVAILABLE_IOS(3_1);     // replacement for -allowsImageEditing; default value is NO.
-@property(nonatomic)           BOOL                                  allowsImageEditing NS_DEPRECATED_IOS(2_0, 3_1);
+	public var            BOOL                                  allowsEditing NS_AVAILABLE_IOS(3_1);     // replacement for -allowsImageEditing; default value is NO.
+	public var            BOOL                                  allowsImageEditing NS_DEPRECATED_IOS(2_0, 3_1);
 
 // video properties apply only if mediaTypes includes kUTTypeMovie
-@property(nonatomic)           NSTimeInterval                        videoMaximumDuration NS_AVAILABLE_IOS(3_1); // default value is 10 minutes.
-@property(nonatomic)           UIImagePickerControllerQualityType    videoQuality NS_AVAILABLE_IOS(3_1);         // default value is UIImagePickerControllerQualityTypeMedium. If the cameraDevice does not support the videoQuality, it will use the default value.
+	public var            NSTimeInterval                        videoMaximumDuration NS_AVAILABLE_IOS(3_1); // default value is 10 minutes.
+	public var            UIImagePickerControllerQualityType    videoQuality NS_AVAILABLE_IOS(3_1);         // default value is UIImagePickerControllerQualityTypeMedium. If the cameraDevice does not support the videoQuality, it will use the default value.
 
 // camera additions available only if sourceType is UIImagePickerControllerSourceTypeCamera.
-@property(nonatomic)           BOOL                                  showsCameraControls NS_AVAILABLE_IOS(3_1);   // set to NO to hide all standard camera UI. default is YES
-@property(nonatomic,retain)    UIView                                *cameraOverlayView  NS_AVAILABLE_IOS(3_1);   // set a view to overlay the preview view.
-@property(nonatomic)           CGAffineTransform                     cameraViewTransform NS_AVAILABLE_IOS(3_1);   // set the transform of the preview view.
+	public var            BOOL                                  showsCameraControls NS_AVAILABLE_IOS(3_1);   // set to NO to hide all standard camera UI. default is YES
+	public var (nonatomic,retain)    UIView                                *cameraOverlayView  NS_AVAILABLE_IOS(3_1);   // set a view to overlay the preview view.
+	public var            CGAffineTransform                     cameraViewTransform NS_AVAILABLE_IOS(3_1);   // set the transform of the preview view.
 
-- (void)takePicture NS_AVAILABLE_IOS(3_1);                                                   
+	public function takePicture NS_AVAILABLE_IOS(3_1);                                                   
 // programatically initiates still image capture. ignored if image capture is in-flight.
 // clients can initiate additional captures after receiving -imagePickerController:didFinishPickingMediaWithInfo: delegate callback
 
 - (BOOL)startVideoCapture NS_AVAILABLE_IOS(4_0);
-- (void)stopVideoCapture  NS_AVAILABLE_IOS(4_0);
+	public function stopVideoCapture  NS_AVAILABLE_IOS(4_0);
 
-@property(nonatomic) UIImagePickerControllerCameraCaptureMode cameraCaptureMode NS_AVAILABLE_IOS(4_0); // default is UIImagePickerControllerCameraCaptureModePhoto
-@property(nonatomic) UIImagePickerControllerCameraDevice      cameraDevice      NS_AVAILABLE_IOS(4_0); // default is UIImagePickerControllerCameraDeviceRear
-@property(nonatomic) UIImagePickerControllerCameraFlashMode   cameraFlashMode   NS_AVAILABLE_IOS(4_0); // default is UIImagePickerControllerCameraFlashModeAuto. 
+	public var  UIImagePickerControllerCameraCaptureMode cameraCaptureMode NS_AVAILABLE_IOS(4_0); // default is UIImagePickerControllerCameraCaptureModePhoto
+	public var  UIImagePickerControllerCameraDevice      cameraDevice      NS_AVAILABLE_IOS(4_0); // default is UIImagePickerControllerCameraDeviceRear
+	public var  UIImagePickerControllerCameraFlashMode   cameraFlashMode   NS_AVAILABLE_IOS(4_0); // default is UIImagePickerControllerCameraFlashModeAuto. 
 // cameraFlashMode controls the still-image flash when cameraCaptureMode is Photo. cameraFlashMode controls the video torch when cameraCaptureMode is Video.
 
-@end
+}
 
-@protocol UIImagePickerControllerDelegate<NSObject>
+extern interface UIImagePickerControllerDelegate<NSObject>
 @optional
 // The picker does not dismiss itself; the client dismisses it in these callbacks.
 // The delegate will receive one or the other, but not both, depending whether the user
 // confirms or cancels.
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0);
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
+	public function imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0);
+	public function imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
+	public function imagePickerControllerDidCancel:(UIImagePickerController *)picker;
 
-@end
+}
 
 
 // Adds a photo to the saved photos album.  The optional completionSelector should have the form:
-//  - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+//  	public function image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 UIKIT_EXTERN void UIImageWriteToSavedPhotosAlbum(UIImage *image, id completionTarget, SEL completionSelector, void *contextInfo);
 
 // Is a specific video eligible to be saved to the saved photos album? 
 UIKIT_EXTERN BOOL UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(NSString *videoPath) NS_AVAILABLE_IOS(3_1);
 
 // Adds a video to the saved photos album. The optional completionSelector should have the form:
-//  - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+//  	public function video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 UIKIT_EXTERN void UISaveVideoAtPathToSavedPhotosAlbum(NSString *videoPath, id completionTarget, SEL completionSelector, void *contextInfo) NS_AVAILABLE_IOS(3_1);
 
 

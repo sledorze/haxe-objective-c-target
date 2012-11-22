@@ -29,7 +29,7 @@ typedef NSUInteger MKAnnotationViewDragState;
 @protocol MKAnnotation;
 
 MK_CLASS_AVAILABLE(NA, 3_0)
-@interface MKAnnotationView : UIView
+extern class MKAnnotationView extends UIView
 {
 @private
     MKAnnotationViewInternal *_internal;
@@ -37,52 +37,52 @@ MK_CLASS_AVAILABLE(NA, 3_0)
 
 - (id)initWithAnnotation:(id <MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier;
 
-@property (nonatomic, readonly) NSString *reuseIdentifier;
+	public var NSString *reuseIdentifier;
 
 // Classes that override must call super.
 - (void)prepareForReuse;
 
-@property (nonatomic, retain) id <MKAnnotation> annotation;
+	public var id <MKAnnotation> annotation;
 
-@property (nonatomic, retain) UIImage *image;
+	public var UIImage *image;
 
 // By default, the center of annotation view is placed over the coordinate of the annotation.
 // centerOffset is the offset in screen points from the center of the annotion view.
-@property (nonatomic) CGPoint centerOffset;
+	public var CGPoint centerOffset;
 
 // calloutOffset is the offset in screen points from the top-middle of the annotation view, where the anchor of the callout should be shown.
-@property (nonatomic) CGPoint calloutOffset;
+	public var CGPoint calloutOffset;
 
 // Defaults to YES. If NO, ignores touch events and subclasses may draw differently.
-@property (nonatomic, getter=isEnabled) BOOL enabled;
+	public var  (nonatomic, getter=isEnabled) BOOL enabled;
 
 // Defaults to NO. This gets set/cleared automatically when touch enters/exits during tracking and cleared on up.
-@property (nonatomic, getter=isHighlighted) BOOL highlighted;
+	public var  (nonatomic, getter=isHighlighted) BOOL highlighted;
 
 // Defaults to NO. Becomes YES when tapped on in the map view.
-@property (nonatomic, getter=isSelected) BOOL selected;
+	public var  (nonatomic, getter=isSelected) BOOL selected;
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
 // If YES, a standard callout bubble will be shown when the annotation is selected.
 // The annotation must have a title for the callout to be shown.
-@property (nonatomic) BOOL canShowCallout;
+	public var BOOL canShowCallout;
 
 // The left accessory view to be used in the standard callout.
-@property (retain, nonatomic) UIView *leftCalloutAccessoryView;
+	public var  (retain, nonatomic) UIView *leftCalloutAccessoryView;
 
 // The right accessory view to be used in the standard callout.
-@property (retain, nonatomic) UIView *rightCalloutAccessoryView;
+	public var  (retain, nonatomic) UIView *rightCalloutAccessoryView;
 
 // If YES and the underlying id<MKAnnotation> responds to setCoordinate:, 
 // the user will be able to drag this annotation view around the map.
-@property (nonatomic, getter=isDraggable) BOOL draggable NS_AVAILABLE(NA, 4_0);
+	public var  (nonatomic, getter=isDraggable) BOOL draggable NS_AVAILABLE(NA, 4_0);
 
 // Automatically set to MKAnnotationViewDragStateStarting, Canceling, and Ending when necessary.
 // Implementer is responsible for transitioning to Dragging and None states as appropriate.
-@property (nonatomic) MKAnnotationViewDragState dragState NS_AVAILABLE(NA, 4_0);
+	public var MKAnnotationViewDragState dragState NS_AVAILABLE(NA, 4_0);
 
 // Developers targeting iOS 4.2 and after must use setDragState:animated: instead of setDragState:.
 - (void)setDragState:(MKAnnotationViewDragState)newDragState animated:(BOOL)animated NS_AVAILABLE(NA, 4_2);
 
 
-@end
+}

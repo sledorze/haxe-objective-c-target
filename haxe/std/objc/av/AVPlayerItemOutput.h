@@ -35,7 +35,7 @@
 @class AVPlayerItemOutputInternal;
 
 NS_CLASS_AVAILABLE(10_8, 6_0)
-@interface AVPlayerItemOutput : NSObject
+extern class AVPlayerItemOutput extends NSObject
 {
 	@private
 	AVPlayerItemOutputInternal *_outputInternal;
@@ -85,14 +85,14 @@ NS_CLASS_AVAILABLE(10_8, 6_0)
 #endif // !TARGET_OS_IPHONE
 
 /*!
-	@property		suppressesPlayerRendering
+		public var 		suppressesPlayerRendering
 	@abstract		Indicates whether the output, when added to an AVPlayerItem, will be used in addition to normal rendering of media data by the player or instead of normal rendering. The default value is NO, indicating that the output will be used in addition to normal rendering. If you want to render the media data provided by the output yourself instead of allowing it to be rendered as in normally would be by	AVPlayer, set suppressesPlayerRendering to YES.
 	@discussion
 		 Whenever any output is added to an AVPlayerItem that has suppressesPlayerRendering set to YES, the media data supplied to the output will not be rendered by AVPlayer. Other media data associated with the item but not provided to such an output is not affected. For example, if an output of class AVPlayerItemVideoOutput with a value of YES for suppressesPlayerRendering is added to an AVPlayerItem, video media for that item will not be rendered by the AVPlayer, while audio media, subtitle media, and other kinds of media, if present, will be rendered.
 */
-@property (nonatomic, readwrite) BOOL suppressesPlayerRendering NS_AVAILABLE(10_8, 6_0);
+	public var  (nonatomic, readwrite) BOOL suppressesPlayerRendering NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 /*!
 	@class			AVPlayerItemVideoOutput
@@ -156,7 +156,7 @@ NS_CLASS_AVAILABLE(10_8, 6_0)
 @class AVPlayerItemVideoOutputInternal;
 
 NS_CLASS_AVAILABLE(10_8, 6_0)
-@interface AVPlayerItemVideoOutput : AVPlayerItemOutput
+extern class AVPlayerItemVideoOutput : AVPlayerItemOutput
 {
 @private
 	AVPlayerItemVideoOutputInternal *_videoOutputInternal;
@@ -224,19 +224,19 @@ NS_CLASS_AVAILABLE(10_8, 6_0)
 - (void)requestNotificationOfMediaDataChangeWithAdvanceInterval:(NSTimeInterval)interval;
 
 /*!
-	@property		delegate
+		public var 		delegate
 	@abstract		The receiver's delegate.
  */
-@property (nonatomic, readonly) id<AVPlayerItemOutputPullDelegate>delegate;
+	public var id<AVPlayerItemOutputPullDelegate>delegate;
 
 /*!
-	@property		delegateQueue
+		public var 		delegateQueue
 	@abstract		The dispatch queue where the delegate is messaged.
  */
 
-@property (nonatomic, readonly) dispatch_queue_t delegateQueue;
+	public var dispatch_queue_t delegateQueue;
 
-@end
+}
 
 /*!
 	@protocol		AVPlayerItemOutputPullDelegate
@@ -265,5 +265,5 @@ NS_CLASS_AVAILABLE(10_8, 6_0)
 
 - (void)outputSequenceWasFlushed:(AVPlayerItemOutput *)output NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 

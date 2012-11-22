@@ -37,9 +37,9 @@ enum {
     DOM_CSS_CUSTOM = 3
 };
 
-@interface DOMCSSValue : DOMObject
-@property(copy) NSString *cssText;
-@property(readonly) unsigned short cssValueType;
-@end
+extern class DOMCSSValue : DOMObject
+	public var NSString *cssText;
+	public var  (default, null) : unsigned short cssValueType;
+}
 
 #endif

@@ -36,7 +36,7 @@ enum {
 };
 typedef NSUInteger NSImageInterpolation;
 
-@interface NSGraphicsContext : NSObject {
+extern class NSGraphicsContext extends NSObject {
 }
 
 // Instantiates from an appropriate concrete subclass depending on NSGraphicsContextDestinationAttributeName attribute
@@ -86,9 +86,9 @@ typedef NSUInteger NSImageInterpolation;
 /* Returns the flip state of the receiver.  The state is determined by messaging -isFlipped to the focus view in the context.  If no view has focus, returns NO unless the receiver is instantiated via graphicsContextWithGraphicsPort:drawingToScreen:flipped: with initialFlippedState == YES.
 */
 - (BOOL)isFlipped;
-@end
+}
 
-@interface NSGraphicsContext(NSGraphicsContext_RenderingOptions)
+extern class NSGraphicsContext(NSGraphicsContext_RenderingOptions)
 
 - (void)setShouldAntialias:(BOOL)antialias;
 - (BOOL)shouldAntialias;
@@ -101,18 +101,18 @@ typedef NSUInteger NSImageInterpolation;
 - (NSCompositingOperation)compositingOperation;
 - (NSColorRenderingIntent)colorRenderingIntent NS_AVAILABLE_MAC(10_5);
 - (void)setColorRenderingIntent:(NSColorRenderingIntent)renderingIntent NS_AVAILABLE_MAC(10_5);
-@end
+}
 
 @class CIContext;
-@interface NSGraphicsContext (NSQuartzCoreAdditions)
+extern class NSGraphicsContext (NSQuartzCoreAdditions)
 - (CIContext *)CIContext;
-@end
+}
 
 /********* Deprecated API *********/
 // The remaining portion is deprecated on Mac OS X 10.6 and Later.
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6
-@interface NSGraphicsContext (NSGraphicsContextDeprecated)
+extern class NSGraphicsContext (NSGraphicsContextDeprecated)
 - (id)focusStack;
 - (void)setFocusStack:(id)stack;
-@end
+}
 #endif /* MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_6 */

@@ -12,7 +12,7 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKPolygon : MKMultiPoint <MKOverlay> {
+extern class MKPolygon : MKMultiPoint <MKOverlay> {
 @package
     CLLocationCoordinate2D _centroid;
     NSArray *_interiorPolygons;
@@ -25,6 +25,6 @@ MK_CLASS_AVAILABLE(NA, 4_0)
 + (MKPolygon *)polygonWithCoordinates:(CLLocationCoordinate2D *)coords count:(NSUInteger)count;
 + (MKPolygon *)polygonWithCoordinates:(CLLocationCoordinate2D *)coords count:(NSUInteger)count interiorPolygons:(NSArray *)interiorPolygons;
 
-@property (readonly) NSArray *interiorPolygons;
+	public var NSArray *interiorPolygons;
 
-@end
+}

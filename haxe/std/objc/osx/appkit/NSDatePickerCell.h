@@ -38,7 +38,7 @@ enum {
 @class NSCalendar, NSLocale, NSTimeZone;
 @protocol NSDatePickerCellDelegate;
 
-@interface NSDatePickerCell : NSActionCell
+extern class NSDatePickerCell : NSActionCell
 {
 @private
     NSTimeInterval _timeInterval;
@@ -123,10 +123,10 @@ enum {
 - (id <NSDatePickerCellDelegate>)delegate;
 - (void)setDelegate:(id <NSDatePickerCellDelegate>)anObject;
 
-@end
+}
 
 @protocol NSDatePickerCellDelegate <NSObject>
 @optional
 - (void)datePickerCell:(NSDatePickerCell *)aDatePickerCell validateProposedDateValue:(NSDate **)proposedDateValue timeInterval:(NSTimeInterval *)proposedTimeInterval;
-@end
+}
 

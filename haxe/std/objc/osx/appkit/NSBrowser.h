@@ -106,7 +106,7 @@ enum {
 
 typedef NSUInteger NSBrowserDropOperation;
 
-@interface NSBrowser : NSControl
+extern class NSBrowser : NSControl
 {
     /* All instance variables are private */
     id                  _target;
@@ -379,7 +379,7 @@ typedef NSUInteger NSBrowserDropOperation;
  */
 - (void)editItemAtIndexPath:(NSIndexPath *)indexPath withEvent:(NSEvent *)theEvent select:(BOOL)select NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 #pragma mark -
 #pragma mark **** Notifications ****
@@ -571,12 +571,12 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification;
  */
 - (NSIndexSet *)browser:(NSBrowser *)browser selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes inColumn:(NSInteger)column NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 #pragma mark -
 #pragma mark **** Deprecated Methods ****
 
-@interface NSBrowser(NSDeprecated)
+extern class NSBrowser(NSDeprecated)
 
 /* This property has been non-functional since before 10.0.
  */
@@ -599,4 +599,4 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification;
  */
 - (void)updateScroller NS_DEPRECATED_MAC(10_0, 10_3);
 
-@end
+}

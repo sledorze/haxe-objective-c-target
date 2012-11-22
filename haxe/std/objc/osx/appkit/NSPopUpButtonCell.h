@@ -17,7 +17,7 @@ enum {
 };
 typedef NSUInteger NSPopUpArrowPosition;
 
-@interface NSPopUpButtonCell : NSMenuItemCell {
+extern class NSPopUpButtonCell : NSMenuItemCell {
     /*All instance variables are private*/
     @private
     NSMenu *_menu;
@@ -120,7 +120,7 @@ typedef NSUInteger NSPopUpArrowPosition;
 - (id)objectValue;
 - (void)setObjectValue:(id)obj;
 
-@end
+}
 
 
 /* Notifications */

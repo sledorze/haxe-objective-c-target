@@ -1,6 +1,6 @@
 //
 //  UINavigationController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2007-2012, Apple Inc. All rights reserved.
 //
@@ -27,9 +27,9 @@
 UIKIT_EXTERN const CGFloat UINavigationControllerHideShowBarDuration;
 
 @class UIView, UINavigationBar, UINavigationItem, UIToolbar, UILayoutContainerView;
-@protocol UINavigationControllerDelegate;
+extern interface UINavigationControllerDelegate;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationController : UIViewController {
+extern class UINavigationController extends UIViewController {
   @package
     UIView           *_containerView;
     UINavigationBar  *_navigationBar;
@@ -78,51 +78,51 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationController : UIViewController
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController; // Convenience method pushes the root view controller without animation.
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated; // Uses a horizontal slide transition. Has no effect if the view controller is already in the stack.
+	public function pushViewController:(UIViewController *)viewController animated:(BOOL)animated; // Uses a horizontal slide transition. Has no effect if the view controller is already in the stack.
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated; // Returns the popped controller.
 - (NSArray *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated; // Pops view controllers until the one specified is on top. Returns the popped controllers.
 - (NSArray *)popToRootViewControllerAnimated:(BOOL)animated; // Pops until there's only a single view controller left on the stack. Returns the popped controllers.
 
-@property(nonatomic,readonly,retain) UIViewController *topViewController; // The top view controller on the stack.
-@property(nonatomic,readonly,retain) UIViewController *visibleViewController; // Return modal view controller if it exists. Otherwise the top view controller.
+	public var (default, null) UIViewController *topViewController; // The top view controller on the stack.
+	public var (default, null) UIViewController *visibleViewController; // Return modal view controller if it exists. Otherwise the top view controller.
 
-@property(nonatomic,copy) NSArray *viewControllers; // The current view controller stack.
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated NS_AVAILABLE_IOS(3_0); // If animated is YES, then simulate a push or pop depending on whether the new top view controller was previously in the stack.
+public var  NSArray *viewControllers; // The current view controller stack.
+	public function setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated NS_AVAILABLE_IOS(3_0); // If animated is YES, then simulate a push or pop depending on whether the new top view controller was previously in the stack.
 
-@property(nonatomic,getter=isNavigationBarHidden) BOOL navigationBarHidden;
-- (void)setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated; // Hide or show the navigation bar. If animated, it will transition vertically using UINavigationControllerHideShowBarDuration.
-@property(nonatomic,readonly) UINavigationBar *navigationBar; // The navigation bar managed by the controller. Pushing, popping or setting navigation items on a managed navigation bar is not supported.
+	public var (nonatomic,getter=isNavigationBarHidden) BOOL navigationBarHidden;
+	public function setNavigationBarHidden:(BOOL)hidden animated:(BOOL)animated; // Hide or show the navigation bar. If animated, it will transition vertically using UINavigationControllerHideShowBarDuration.
+	public var (default, null) UINavigationBar *navigationBar; // The navigation bar managed by the controller. Pushing, popping or setting navigation items on a managed navigation bar is not supported.
 
-@property(nonatomic,getter=isToolbarHidden) BOOL toolbarHidden NS_AVAILABLE_IOS(3_0); // Defaults to YES, i.e. hidden.
-- (void)setToolbarHidden:(BOOL)hidden animated:(BOOL)animated NS_AVAILABLE_IOS(3_0); // Hide or show the toolbar at the bottom of the screen. If animated, it will transition vertically using UINavigationControllerHideShowBarDuration.
-@property(nonatomic,readonly) UIToolbar *toolbar NS_AVAILABLE_IOS(3_0); // For use when presenting an action sheet.
+	public var (nonatomic,getter=isToolbarHidden) BOOL toolbarHidden NS_AVAILABLE_IOS(3_0); // Defaults to YES, i.e. hidden.
+	public function setToolbarHidden:(BOOL)hidden animated:(BOOL)animated NS_AVAILABLE_IOS(3_0); // Hide or show the toolbar at the bottom of the screen. If animated, it will transition vertically using UINavigationControllerHideShowBarDuration.
+	public var (default, null) UIToolbar *toolbar NS_AVAILABLE_IOS(3_0); // For use when presenting an action sheet.
 
-@property(nonatomic, assign) id<UINavigationControllerDelegate> delegate;
+	public var  id<UINavigationControllerDelegate> delegate;
 
-@end
+}
 
-@protocol UINavigationControllerDelegate <NSObject>
+extern interface UINavigationControllerDelegate <NSObject>
 
 @optional
 
 // Called when the navigation controller shows a new top view controller via a push, pop or setting of the view controller stack.
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+	public function navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+	public function navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
-@end
+}
 
-@interface UIViewController (UINavigationControllerItem)
+extern class UIViewController (UINavigationControllerItem)
 
-@property(nonatomic,readonly,retain) UINavigationItem *navigationItem; // Created on-demand so that a view controller may customize its navigation appearance.
-@property(nonatomic) BOOL hidesBottomBarWhenPushed; // If YES, then when this view controller is pushed into a controller hierarchy with a bottom bar (like a tab bar), the bottom bar will slide out. Default is NO.
-@property(nonatomic,readonly,retain) UINavigationController *navigationController; // If this view controller has been pushed onto a navigation controller, return it.
+	public var (default, null) UINavigationItem *navigationItem; // Created on-demand so that a view controller may customize its navigation appearance.
+	public var  BOOL hidesBottomBarWhenPushed; // If YES, then when this view controller is pushed into a controller hierarchy with a bottom bar (like a tab bar), the bottom bar will slide out. Default is NO.
+	public var (default, null) UINavigationController *navigationController; // If this view controller has been pushed onto a navigation controller, return it.
 
-@end
+}
 
-@interface UIViewController (UINavigationControllerContextualToolbarItems)
+extern class UIViewController (UINavigationControllerContextualToolbarItems)
 
-@property (nonatomic, retain) NSArray *toolbarItems NS_AVAILABLE_IOS(3_0);
-- (void)setToolbarItems:(NSArray *)toolbarItems animated:(BOOL)animated NS_AVAILABLE_IOS(3_0);
+	public var NSArray *toolbarItems NS_AVAILABLE_IOS(3_0);
+	public function setToolbarItems:(NSArray *)toolbarItems animated:(BOOL)animated NS_AVAILABLE_IOS(3_0);
 
-@end
+}

@@ -38,12 +38,12 @@ EAGL_EXTERN NSString * const kEAGLColorFormatRGB565;
 @protocol EAGLDrawable
 
 /* Contains keys from kEAGLDrawableProperty* above */
-@property(copy) NSDictionary* drawableProperties;
+	public var NSDictionary* drawableProperties;
 
-@end
+}
 
 /* Extends EAGLContext interface */
-@interface EAGLContext (EAGLContextDrawableAdditions)
+extern class EAGLContext (EAGLContextDrawableAdditions)
 
 /* Attaches an EAGLDrawable as storage for the OpenGL ES renderbuffer object bound to <target> */
 - (BOOL)renderbufferStorage:(NSUInteger)target fromDrawable:(id<EAGLDrawable>)drawable;
@@ -51,7 +51,7 @@ EAGL_EXTERN NSString * const kEAGLColorFormatRGB565;
 /* Request the native window system display the OpenGL ES renderbuffer bound to <target> */
 - (BOOL)presentRenderbuffer:(NSUInteger)target;
 
-@end /* EAGLDrawable protocol */
+} /* EAGLDrawable protocol */
 
 #endif /* _EAGL_DRAWABLE_H_ */
 

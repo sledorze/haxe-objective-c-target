@@ -32,6 +32,6 @@
 
 @protocol DOMEventListener <NSObject>
 - (void)handleEvent:(DOMEvent *)evt;
-@end
+}
 
 #endif

@@ -6,7 +6,7 @@
 #import <QuartzCore/CABase.h>
 #import <Foundation/NSObject.h>
 
-@interface CAValueFunction : NSObject <NSCoding>
+extern class CAValueFunction extends NSObject, implements NSObject>
 {
 @protected
   NSString *_string;
@@ -15,9 +15,9 @@
 
 + (id)functionWithName:(NSString *)name;
 
-@property(readonly) NSString *name;
+	public var  (default, null) : NSString *name;
 
-@end
+}
 
 /** Value function names. **/
 

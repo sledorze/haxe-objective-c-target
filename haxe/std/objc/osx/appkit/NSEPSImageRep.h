@@ -9,7 +9,7 @@
 
 @class NSPDFImageRep;
 
-@interface NSEPSImageRep : NSImageRep {
+extern class NSEPSImageRep : NSImageRep {
     /*All instance variables are private*/
     NSPoint _bBoxOrigin;
     NSData *_epsData;
@@ -25,5 +25,5 @@
 
 - (NSRect)boundingBox;
 
-@end
+}
 

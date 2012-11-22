@@ -7,7 +7,7 @@
 
 @class NSString, NSArray, NSDictionary, NSDate, NSData, NSLocale;
 
-@interface NSTimeZone : NSObject <NSCopying, NSSecureCoding>
+extern class NSTimeZone extends NSObject <NSCopying, NSSecureCoding>
 
 - (NSString *)name;
 - (NSData *)data;
@@ -18,9 +18,9 @@
 - (NSTimeInterval)daylightSavingTimeOffsetForDate:(NSDate *)aDate NS_AVAILABLE(10_5, 2_0);
 - (NSDate *)nextDaylightSavingTimeTransitionAfterDate:(NSDate *)aDate NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
-@interface NSTimeZone (NSExtendedTimeZone)
+extern class NSTimeZone (NSExtendedTimeZone)
 
 + (NSTimeZone *)systemTimeZone;
 + (void)resetSystemTimeZone;
@@ -58,9 +58,9 @@ typedef NS_ENUM(NSInteger, NSTimeZoneNameStyle) {
 
 - (NSString *)localizedName:(NSTimeZoneNameStyle)style locale:(NSLocale *)locale NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
-@interface NSTimeZone (NSTimeZoneCreation)
+extern class NSTimeZone (NSTimeZoneCreation)
 
 // Primary creation method is +timeZoneWithName:; the
 // data-taking variants should rarely be used directly
@@ -78,7 +78,7 @@ typedef NS_ENUM(NSInteger, NSTimeZoneNameStyle) {
 
 + (id)timeZoneWithAbbreviation:(NSString *)abbreviation;
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSSystemTimeZoneDidChangeNotification NS_AVAILABLE(10_5, 2_0);
 

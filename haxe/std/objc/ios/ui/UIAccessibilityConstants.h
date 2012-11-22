@@ -1,6 +1,6 @@
 //
 //  UIAccessibilityConstants.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //

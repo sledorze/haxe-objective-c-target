@@ -30,10 +30,10 @@
 
 @class NSString;
 
-@interface DOMHTMLFontElement : DOMHTMLElement
-@property(copy) NSString *color;
-@property(copy) NSString *face;
-@property(copy) NSString *size;
-@end
+extern class DOMHTMLFontElement : DOMHTMLElement
+	public var NSString *color;
+	public var NSString *face;
+	public var NSString *size;
+}
 
 #endif

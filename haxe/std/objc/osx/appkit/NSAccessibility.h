@@ -16,7 +16,7 @@
 
 /*** Accessibility Informal Protocol ***/
 
-@interface NSObject (NSAccessibility)
+extern class NSObject (NSAccessibility)
 
 /* Attribute methods
 */
@@ -64,18 +64,18 @@
 */
 - (NSArray *)accessibilityArrayAttributeValues:(NSString *)attribute index:(NSUInteger)index maxCount:(NSUInteger)maxCount;
 
-@end
+}
 
 
 /*** Accessibility Related Methods ***/
 
-@interface NSObject (NSAccessibilityAdditions)
+extern class NSObject (NSAccessibilityAdditions)
 
 /* For changing the set of attributes on an instance - as an alternative to sub-classing.
 */
 - (BOOL)accessibilitySetOverrideValue:(id)value forAttribute:(NSString *)attribute;
 
-@end
+}
 
 
 /* Getting descriptions for standard roles and actions.

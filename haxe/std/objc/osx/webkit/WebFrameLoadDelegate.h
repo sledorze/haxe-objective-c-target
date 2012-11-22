@@ -41,7 +41,7 @@
     Once at least one byte is received, the data source is considered "committed". This is done
     so the contents of the frame will not be lost if the new data source fails to successfully load.
 */
-@interface NSObject (WebFrameLoadDelegate)
+extern class NSObject (WebFrameLoadDelegate)
 
 /*!
     @method webView:didStartProvisionalLoadForFrame:
@@ -194,4 +194,4 @@
 */
 - (void)webView:(WebView *)webView windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject WEBKIT_OBJC_METHOD_ANNOTATION(AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0);
 
-@end
+}

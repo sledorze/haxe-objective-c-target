@@ -40,7 +40,7 @@ enum {
 typedef NSUInteger NSSpeechBoundary;
 
 
-@interface NSSpeechSynthesizer : NSObject {
+extern class NSSpeechSynthesizer extends NSObject {
 @private // All instance variables are private
     id	_privateNSSpeechSynthesizerVars;
 }
@@ -78,7 +78,7 @@ typedef NSUInteger NSSpeechBoundary;
 + (NSArray *)availableVoices;
 + (NSDictionary *)attributesForVoice:(NSString*)voice;
 
-@end
+}
 
 @protocol NSSpeechSynthesizerDelegate <NSObject>
 @optional
@@ -87,7 +87,7 @@ typedef NSUInteger NSSpeechBoundary;
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender willSpeakPhoneme:(short)phonemeOpcode;
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender didEncounterErrorAtIndex:(NSUInteger)characterIndex ofString:(NSString *)string message:(NSString *)message NS_AVAILABLE_MAC(10_5);
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender didEncounterSyncMessage:(NSString *)message NS_AVAILABLE_MAC(10_5);
-@end
+}
 
 // Synthesizer Properties (including object type)
 APPKIT_EXTERN NSString *const NSSpeechStatusProperty NS_AVAILABLE_MAC(10_5);  // NSDictionary, see keys below

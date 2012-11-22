@@ -44,7 +44,7 @@ extern NSString *WebArchivePboardType;
     This class can be used for saving standalone web pages, representing portions of a web page on the pasteboard, or any other
     application where one class is needed to represent rich web content. 
 */
-@interface WebArchive : NSObject <NSCoding, NSCopying>
+extern class WebArchive extends NSObject, implements NSObject, NSCopying>
 {
     @private
     WebArchivePrivate *_private;
@@ -94,4 +94,4 @@ extern NSString *WebArchivePboardType;
 */
 - (NSData *)data;
 
-@end
+}

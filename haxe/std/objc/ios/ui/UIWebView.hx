@@ -46,8 +46,8 @@ extern class UIWebView extends UIView {
 extern interface UIWebViewDelegate {
 
 /*- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
-- (void)webViewDidStartLoad:(UIWebView *)webView;
-- (void)webViewDidFinishLoad:(UIWebView *)webView;
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;*/
+	public function webViewDidStartLoad:(UIWebView *)webView;
+	public function webViewDidFinishLoad:(UIWebView *)webView;
+	public function webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error;*/
 
 }

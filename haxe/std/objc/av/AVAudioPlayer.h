@@ -18,7 +18,7 @@
 @protocol AVAudioPlayerDelegate;
 
 NS_CLASS_AVAILABLE(10_7, 2_2)
-@interface AVAudioPlayer : NSObject {
+extern class AVAudioPlayer extends NSObject {
 @private
     void *_impl;
 }
@@ -41,45 +41,45 @@ NS_CLASS_AVAILABLE(10_7, 2_2)
 
 /* properties */
 
-@property(readonly, getter=isPlaying) BOOL playing; /* is it playing or not? */
+	public var (readonly, getter=isPlaying) BOOL playing; /* is it playing or not? */
 
-@property(readonly) NSUInteger numberOfChannels;
-@property(readonly) NSTimeInterval duration; /* the duration of the sound. */
+	public var  (default, null) : NSUInteger numberOfChannels;
+	public var  (default, null) : NSTimeInterval duration; /* the duration of the sound. */
 
 /* the delegate will be sent messages from the AVAudioPlayerDelegate protocol */ 
-@property(assign) id<AVAudioPlayerDelegate> delegate; 
+	public var (assign) id<AVAudioPlayerDelegate> delegate; 
 
 /* one of these properties will be non-nil based on the init... method used */
-@property(readonly) NSURL *url; /* returns nil if object was not created with a URL */
-@property(readonly) NSData *data; /* returns nil if object was not created with a data object */
+	public var  (default, null) : NSURL *url; /* returns nil if object was not created with a URL */
+	public var  (default, null) : NSData *data; /* returns nil if object was not created with a data object */
 
-@property float pan NS_AVAILABLE(10_7, 4_0); /* set panning. -1.0 is left, 0.0 is center, 1.0 is right. */
-@property float volume; /* The volume for the sound. The nominal range is from 0.0 to 1.0. */
+	public var  float pan NS_AVAILABLE(10_7, 4_0); /* set panning. -1.0 is left, 0.0 is center, 1.0 is right. */
+	public var  float volume; /* The volume for the sound. The nominal range is from 0.0 to 1.0. */
 
-@property BOOL enableRate NS_AVAILABLE(10_8, 5_0); /* You must set enableRate to YES for the rate property to take effect. You must set this before calling prepareToPlay. */
-@property float rate NS_AVAILABLE(10_8, 5_0); /* See enableRate. The playback rate for the sound. 1.0 is normal, 0.5 is half speed, 2.0 is double speed. */
+	public var  BOOL enableRate NS_AVAILABLE(10_8, 5_0); /* You must set enableRate to YES for the rate property to take effect. You must set this before calling prepareToPlay. */
+	public var  float rate NS_AVAILABLE(10_8, 5_0); /* See enableRate. The playback rate for the sound. 1.0 is normal, 0.5 is half speed, 2.0 is double speed. */
 
 
 /*  If the sound is playing, currentTime is the offset into the sound of the current playback position.  
 If the sound is not playing, currentTime is the offset into the sound where playing would start. */
-@property NSTimeInterval currentTime;
+	public var  NSTimeInterval currentTime;
 
 /* returns the current time associated with the output device */
-@property(readonly) NSTimeInterval deviceCurrentTime NS_AVAILABLE(10_7, 4_0);
+	public var  (default, null) : NSTimeInterval deviceCurrentTime NS_AVAILABLE(10_7, 4_0);
 
 /* "numberOfLoops" is the number of times that the sound will return to the beginning upon reaching the end. 
 A value of zero means to play the sound just once.
 A value of one will result in playing the sound twice, and so on..
 Any negative number will loop indefinitely until stopped.
 */
-@property NSInteger numberOfLoops;
+	public var  NSInteger numberOfLoops;
 
 /* settings */
-@property(readonly) NSDictionary *settings NS_AVAILABLE(10_7, 4_0); /* returns a settings dictionary with keys as described in AVAudioSettings.h */
+	public var  (default, null) : NSDictionary *settings NS_AVAILABLE(10_7, 4_0); /* returns a settings dictionary with keys as described in AVAudioSettings.h */
 
 /* metering */
 
-@property(getter=isMeteringEnabled) BOOL meteringEnabled; /* turns level metering on or off. default is off. */
+	public var (getter=isMeteringEnabled) BOOL meteringEnabled; /* turns level metering on or off. default is off. */
 
 - (void)updateMeters; /* call to refresh meter values */
 
@@ -90,10 +90,10 @@ Any negative number will loop indefinitely until stopped.
 /* The channels property lets you assign the output to play to specific channels as described by AVAudioSession's channels property */
 /* This property is nil valued until set. */
 /* The array must have the same number of channels as returned by the numberOfChannels property. */
-@property(nonatomic, copy) NSArray* channelAssignments; /* Array of AVAudioSessionChannelDescription objects */
+	public var  NSArray* channelAssignments; /* Array of AVAudioSessionChannelDescription objects */
 #endif
 
-@end
+}
 
 /* A protocol for delegates of AVAudioPlayer */
 @protocol AVAudioPlayerDelegate <NSObject>
@@ -120,4 +120,4 @@ Any negative number will loop indefinitely until stopped.
 
 #endif // TARGET_OS_IPHONE
 
-@end
+}

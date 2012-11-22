@@ -26,7 +26,7 @@ enum {
 typedef NSUInteger NSSnapshotEventType;
 
 NS_CLASS_AVAILABLE(10_4,3_0) NS_REQUIRES_PROPERTY_DEFINITIONS
-@interface NSManagedObject : NSObject {
+extern class NSManagedObject extends NSObject {
 @private
     int32_t             _cd_rc;
     uintptr_t           _cd_stateFlags;
@@ -133,5 +133,5 @@ NS_CLASS_AVAILABLE(10_4,3_0) NS_REQUIRES_PROPERTY_DEFINITIONS
 - (BOOL)validateForInsert:(NSError **)error;
 - (BOOL)validateForUpdate:(NSError **)error;
 
-@end
+}
 

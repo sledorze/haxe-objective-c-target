@@ -890,7 +890,7 @@ NPError     NP_LOADDS NPN_PopUpContextMenu(NPP instance, NPMenu* menu);
 NPBool      NP_LOADDS NPN_ConvertPoint(NPP instance, double sourceX, double sourceY, NPCoordinateSpace sourceSpace, double *destX, double *destY, NPCoordinateSpace destSpace);
 
 #ifdef __cplusplus
-}  /* end extern "C" */
+}  /* endextern "C" */
 #endif
 
 #endif /* RC_INVOKED */

@@ -28,9 +28,9 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_1_3
 
-@interface DOMHTMLPreElement : DOMHTMLElement
-@property int width;
-@property BOOL wrap AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLPreElement : DOMHTMLElement
+	public var  int width;
+	public var  BOOL wrap AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

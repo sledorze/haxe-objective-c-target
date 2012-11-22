@@ -65,7 +65,7 @@ FOUNDATION_EXPORT NSString *const NSKeyValueChangeOldKey;
 FOUNDATION_EXPORT NSString *const NSKeyValueChangeIndexesKey;
 FOUNDATION_EXPORT NSString *const NSKeyValueChangeNotificationIsPriorKey NS_AVAILABLE(10_5, 2_0);
 
-@interface NSObject(NSKeyValueObserving)
+extern class NSObject(NSKeyValueObserving)
 
 /* Given that the receiver has been registered as an observer of the value at a key path relative to an object, be notified of a change to that value.
 
@@ -84,9 +84,9 @@ context is always the same pointer that was passed in at observer registration t
 */
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 
-@end
+}
 
-@interface NSObject(NSKeyValueObserverRegistration)
+extern class NSObject(NSKeyValueObserverRegistration)
 
 /* Register or deregister as an observer of the value at a key path relative to the receiver. The options determine what is included in observer notifications and when they're sent, as described above, and the context is passed in observer notifications as described above. You should use -removeObserver:forKeyPath:context: instead of -removeObserver:forKeyPath: whenever possible because it allows you to more precisely specify your intent. When the same observer is registered for the same key path multiple times, but with different context pointers each time, -removeObserver:forKeyPath: has to guess at the context pointer when deciding what exactly to remove, and it can guess wrong.
 */
@@ -94,9 +94,9 @@ context is always the same pointer that was passed in at observer registration t
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context NS_AVAILABLE(10_7, 5_0);
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
 
-@end
+}
 
-@interface NSArray(NSKeyValueObserverRegistration)
+extern class NSArray(NSKeyValueObserverRegistration)
 
 /* Register or deregister as an observer of the values at a key path relative to each indexed element of the array. The options determine what is included in observer notifications and when they're sent, as described above, and the context is passed in observer notifications as described above. These are not merely convenience methods; invoking them is potentially much faster than repeatedly invoking NSObject(NSKeyValueObserverRegistration) methods. You should use -removeObserver:fromObjectsAtIndexes:forKeyPath:context: instead of -removeObserver:fromObjectsAtIndexes:forKeyPath: whenever possible for the same reason described in the NSObject(NSKeyValueObserverRegistration) comment.
 */
@@ -110,9 +110,9 @@ context is always the same pointer that was passed in at observer registration t
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context NS_AVAILABLE(10_7, 5_0);
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
 
-@end
+}
 
-@interface NSOrderedSet(NSKeyValueObserverRegistration)
+extern class NSOrderedSet(NSKeyValueObserverRegistration)
 
 /* NSOrderedSets are not observable, so these methods raise exceptions when invoked on NSOrderedSets. Instead of observing an ordered set, observe the ordered to-many relationship for which the ordered set is the collection of related objects.
 */
@@ -120,9 +120,9 @@ context is always the same pointer that was passed in at observer registration t
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context NS_AVAILABLE(10_7, 5_0);
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
 
-@end
+}
 
-@interface NSSet(NSKeyValueObserverRegistration)
+extern class NSSet(NSKeyValueObserverRegistration)
 
 /* NSSets are not observable, so these methods raise exceptions when invoked on NSSets. Instead of observing a set, observe the unordered to-many relationship for which the set is the collection of related objects.
 */
@@ -130,9 +130,9 @@ context is always the same pointer that was passed in at observer registration t
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context NS_AVAILABLE(10_7, 5_0);
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath;
 
-@end
+}
 
-@interface NSObject(NSKeyValueObserverNotification)
+extern class NSObject(NSKeyValueObserverNotification)
 
 /* Given a key that identifies a property (attribute, to-one relationship, or ordered or unordered to-many relationship), send -observeValueForKeyPath:ofObject:change:context: notification messages of kind NSKeyValueChangeSetting to each observer registered for the key, including those that are registered with other objects using key paths that locate the keyed value in this object. Invocations of these methods must always be paired.
 
@@ -167,9 +167,9 @@ The change dictionaries may also contain optional entries:
 - (void)willChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutationKind usingObjects:(NSSet *)objects;
 - (void)didChangeValueForKey:(NSString *)key withSetMutation:(NSKeyValueSetMutationKind)mutationKind usingObjects:(NSSet *)objects;
 
-@end
+}
 
-@interface NSObject(NSKeyValueObservingCustomization)
+extern class NSObject(NSKeyValueObservingCustomization)
 
 /* Return a set of key paths for properties whose values affect the value of the keyed property. When an observer for the key is registered with an instance of the receiving class, KVO itself automatically observes all of the key paths for the same instance, and sends change notifications for the key to the observer when the value for any of those key paths changes. The default implementation of this method searches the receiving class for a method whose name matches the pattern +keyPathsForValuesAffecting<Key>, and returns the result of invoking that method if it is found. So, any such method must return an NSSet too. If no such method is found, an NSSet that is computed from information provided by previous invocations of the now-deprecated +setKeys:triggerChangeNotificationsForDependentKey: method is returned, for backward binary compatibility.
 
@@ -190,17 +190,17 @@ You can't really override this method when you add a computed property to an exi
 - (void)setObservationInfo:(void *)observationInfo;
 - (void *)observationInfo;
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@interface NSObject(NSDeprecatedKeyValueObservingCustomization)
+extern class NSObject(NSDeprecatedKeyValueObservingCustomization)
 
 /* A method that was deprecated in Mac OS 10.5, in favor of using +keyPathsForValuesAffectingValueForKey:. Registers the fact that invocations of -willChangeValueForKey:/-didChangeValueForKey:, -willChange:valuesAtIndexes:forKey:/-didChange:valuesAtIndexes:forKey:, and -willChangeValueForKey:withSetMutation:usingObjects:/-didChangeValueForKey:withSetMutation:usingObjects: for any key in the passed-in array should also send notifications for the dependent key.
 */
 + (void)setKeys:(NSArray *)keys triggerChangeNotificationsForDependentKey:(NSString *)dependentKey NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
 
-@end 
+} 
 
 #endif
 

@@ -11,7 +11,7 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKOverlayView : UIView {
+extern class MKOverlayView extends UIView {
 
 @package
     id <MKOverlay> _overlay;
@@ -33,7 +33,7 @@ MK_CLASS_AVAILABLE(NA, 4_0)
 
 - (id)initWithOverlay:(id <MKOverlay>)overlay;
 
-@property (nonatomic, readonly) id <MKOverlay> overlay;
+	public var id <MKOverlay> overlay;
 
 // Convert screen points relative to this view to absolute MKMapPoints
 - (CGPoint)pointForMapPoint:(MKMapPoint)mapPoint;
@@ -60,7 +60,7 @@ MK_CLASS_AVAILABLE(NA, 4_0)
 - (void)setNeedsDisplayInMapRect:(MKMapRect)mapRect
                        zoomScale:(MKZoomScale)zoomScale;
 
-@end
+}
 
 // Road widths are typically not drawn to scale on the map.  This function
 // returns the approximate width in points of roads at the specified zoomScale.

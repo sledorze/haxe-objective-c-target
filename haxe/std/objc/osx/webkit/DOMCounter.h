@@ -30,10 +30,10 @@
 
 @class NSString;
 
-@interface DOMCounter : DOMObject
-@property(readonly, copy) NSString *identifier;
-@property(readonly, copy) NSString *listStyle;
-@property(readonly, copy) NSString *separator;
-@end
+extern class DOMCounter : DOMObject
+	public var (default, null) NSString *identifier;
+	public var (default, null) NSString *listStyle;
+	public var (default, null) NSString *separator;
+}
 
 #endif

@@ -28,8 +28,8 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_4_0
 
-@interface DOMBlob : DOMObject
-@property(readonly) unsigned long long size;
-@end
+extern class DOMBlob : DOMObject
+	public var  (default, null) : unsigned long long size;
+}
 
 #endif

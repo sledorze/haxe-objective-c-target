@@ -49,7 +49,7 @@
 - (void) activeConversationWillChange:(id)sender fromOldConversation:(NSInteger)oldConversation NS_DEPRECATED_MAC(10_0, 10_6);
 - (void) activeConversationChanged:(id)sender toNewConversation:(NSInteger)newConversation NS_DEPRECATED_MAC(10_0, 10_6);
 
-@end
+}
 
 /* These methods are sent to input servers that return YES to wantsToHandleMouseEvents.  thePoint is in screen coordinate.
 */
@@ -57,12 +57,12 @@
 - (BOOL) mouseDownOnCharacterIndex:(NSUInteger)theIndex atCoordinate:(NSPoint)thePoint withModifier:(NSUInteger)theFlags client:(id)sender NS_DEPRECATED_MAC(10_0, 10_6);
 - (BOOL) mouseDraggedOnCharacterIndex:(NSUInteger)theIndex atCoordinate:(NSPoint)thePoint withModifier:(NSUInteger)theFlags client:(id)sender NS_DEPRECATED_MAC(10_0, 10_6);
 - (void) mouseUpOnCharacterIndex:(NSUInteger)theIndex atCoordinate:(NSPoint)thePoint withModifier:(NSUInteger)theFlags client:(id)sender NS_DEPRECATED_MAC(10_0, 10_6);
-@end
+}
 
-@interface NSInputServer : NSObject <NSInputServiceProvider, NSInputServerMouseTracker> {
+extern class NSInputServer extends NSObject <NSInputServiceProvider, NSInputServerMouseTracker> {
     NSString *_name;
     id _delegate;
 }
 
 - initWithDelegate:(id)aDelegate name:(NSString *)name NS_DEPRECATED_MAC(10_0, 10_6);
-@end
+}

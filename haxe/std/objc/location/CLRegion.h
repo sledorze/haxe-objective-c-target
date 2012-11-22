@@ -17,7 +17,7 @@
  *    A geographic area.
  */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface CLRegion : NSObject <NSCopying, NSCoding>
+extern class CLRegion extends NSObject <NSCopying, NSCoding>
 {
 @private
 	id _internal;
@@ -42,7 +42,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  *  Discussion:
  *    Returns the coordinate of the center of the region.
  */
-@property (readonly, nonatomic) CLLocationCoordinate2D center __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var  (readonly, nonatomic) CLLocationCoordinate2D center __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 
 /*
  *  radius
@@ -50,7 +50,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  *  Discussion:
  *    Returns the radius of the region.
  */
-@property (readonly, nonatomic) CLLocationDistance radius __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var  (readonly, nonatomic) CLLocationDistance radius __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 
 /*
  *  identifier
@@ -58,7 +58,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  *  Discussion:
  *    Returns the region's identifier.
  */
-@property (readonly, nonatomic) NSString *identifier __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var  (readonly, nonatomic) NSString *identifier __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 
 /*
  *  containsCoordinate:
@@ -68,4 +68,4 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  */
 - (BOOL)containsCoordinate:(CLLocationCoordinate2D)coordinate __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 
-@end
+}

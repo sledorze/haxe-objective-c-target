@@ -159,7 +159,7 @@ typedef struct __CFlags {
 
 
 
-@interface NSCell : NSObject <NSCopying, NSCoding, NSUserInterfaceItemIdentification>
+extern class NSCell extends NSObject <NSCopying, NSCoding, NSUserInterfaceItemIdentification>
 {
     /*All instance variables are private*/
     id _contents;
@@ -311,9 +311,9 @@ typedef struct __CFlags {
  */
 - (NSArray *)draggingImageComponentsWithFrame:(NSRect)frame inView:(NSView *)view NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
-@interface NSCell(NSKeyboardUI)
+extern class NSCell(NSKeyboardUI)
 - (void)setRefusesFirstResponder:(BOOL)flag;
 - (BOOL)refusesFirstResponder;
 - (BOOL)acceptsFirstResponder;
@@ -333,9 +333,9 @@ typedef struct __CFlags {
 - (NSRect)focusRingMaskBoundsForFrame:(NSRect)cellFrame inView:(NSView *)controlView NS_AVAILABLE_MAC(10_7);
 
 - (BOOL)wantsNotificationForMarkedText; // If the receiver returns YES, the field editor initiated by it posts text change notifications (i.e. NSTextDidChangeNotification) while editing marked text; otherwise, they are delayed until the marked text confirmation. The NSCell's implementation returns NO.
-@end
+}
 
-@interface NSCell(NSCellAttributedStringMethods)
+extern class NSCell(NSCellAttributedStringMethods)
 - (NSAttributedString *)attributedStringValue;
 - (void)setAttributedStringValue:(NSAttributedString *)obj;
 /* These methods determine whether the user can modify text attributes and import graphics in a rich cell.  Note that whatever these flags are, cells can still contain attributed text if programmatically set. */
@@ -343,14 +343,14 @@ typedef struct __CFlags {
 - (void)setAllowsEditingTextAttributes:(BOOL)flag;	/* If NO, also clears setImportsGraphics: */
 - (BOOL)importsGraphics;
 - (void)setImportsGraphics:(BOOL)flag;			/* If YES, also sets setAllowsEditingTextAttributes: */
-@end
+}
 
-@interface NSCell(NSCellMixedState)
+extern class NSCell(NSCellMixedState)
 - (void)setAllowsMixedState:(BOOL)flag;	/* allow button to have mixed state value*/
 - (BOOL)allowsMixedState;
 - (NSInteger)nextState;			/* get next state state in cycle */
 - (void)setNextState;			/* toggle/cycle through states */
-@end
+}
 
 APPKIT_EXTERN NSString *NSControlTintDidChangeNotification; /* sent after user changes control tint preference */
 
@@ -369,7 +369,7 @@ enum {
 };
 #endif
 
-@interface NSCell(NSCellHitTest)
+extern class NSCell(NSCellHitTest)
 /* Return hit testing information for the cell. Use a bit-wise mask to look for a specific value when calling the method. Generally, this should be overridden by custom NSCell subclasses to return the correct result. Currently, it is called by some multi-cell views, such as NSTableView.
 
     By default, NSCell will look at the cell type and do the following:
@@ -388,9 +388,9 @@ enum {
         If the cell not disabled, and it would track, return NSCellHitContentArea | NSCellHitTrackableArea.
 */
 - (NSUInteger)hitTestForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)controlView NS_AVAILABLE_MAC(10_5);
-@end
+}
 
-@interface NSCell(NSCellExpansion)
+extern class NSCell(NSCellExpansion)
 /*  Allows the cell to return an expansion cell frame if cellFrame is too small for the entire contents in the view. When the mouse is hovered over the cell in certain controls, the full cell contents will be shown in a special floating tool tip view. If the frame is not too small, return an empty rect, and no expansion tool tip view will be shown. By default, NSCell returns NSZeroRect, while some subclasses (such as NSTextFieldCell) will return the proper frame when required. 
 */
 - (NSRect)expansionFrameWithFrame:(NSRect)cellFrame inView:(NSView *)view NS_AVAILABLE_MAC(10_5);
@@ -398,7 +398,7 @@ enum {
 /* Allows the cell to perform custom expansion tool tip drawing. Note that the view may be different from the original view that the cell appeared in. By default, NSCell simply calls drawWithFrame:inView:.
 */
 - (void)drawWithExpansionFrame:(NSRect)cellFrame inView:(NSView *)view NS_AVAILABLE_MAC(10_5);
-@end
+}
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 enum {
@@ -410,7 +410,7 @@ enum {
 #endif
 typedef NSInteger NSBackgroundStyle;
 
-@interface NSCell (NSCellBackgroundStyle)
+extern class NSCell (NSCellBackgroundStyle)
 
 /* Describes the surface the cell is drawn onto in -[NSCell drawWithFrame:inView:]. A control typically sets this before it asks the cell to draw. A cell may draw differently based on background characteristics. For example, a tableview drawing a cell in a selected row might call [cell setBackgroundStyle:NSBackgroundStyleDark]. A text cell might decide to render its text white as a result. A rating-style level indicator might draw its stars white instead of gray.
  */
@@ -424,10 +424,10 @@ typedef NSInteger NSBackgroundStyle;
  */
 - (NSBackgroundStyle)interiorBackgroundStyle NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
 
-@interface NSCell (NSDeprecated)
+extern class NSCell (NSDeprecated)
 
 enum {
     NSScaleProportionally = 0, // Deprecated. Use NSScaleProportionallyDown
@@ -441,7 +441,7 @@ enum {
 - (BOOL)isEntryAcceptable:(NSString *)aString NS_DEPRECATED_MAC(10_0, 10_0);
 - (void)setFloatingPointFormat:(BOOL)autoRange left:(NSUInteger)leftDigits right:(NSUInteger)rightDigits NS_DEPRECATED_MAC(10_0, 10_0);
 
-@end
+}
 
 
 /* Draw an image from two end caps and a fill.  The end caps are scaled proportionally to match the thickness of the destination frame.  In the horizontal case, the startCap is drawn into the left part of the destination, the endCap is drawn into the right part of the destination, and the fill is tiled over the remaining area.  The caps and the fill should all be the same height.  The vertical case is similar.  

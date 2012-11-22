@@ -16,7 +16,7 @@
 #include <CoreGraphics/CoreGraphics.h>
 
 #ifdef __cplusplus
- #define CI_EXTERN_C_BEGIN  extern "C" {
+ #define CI_EXTERN_C_BEGIN extern "C" {
  #define CI_EXTERN_C_END  }
 #else
  #define CI_EXTERN_C_BEGIN
@@ -24,12 +24,12 @@
 #endif
 
 #ifdef __cplusplus
-# define CORE_IMAGE_EXPORT extern "C" __attribute__((visibility("default")))
+# define CORE_IMAGE_EXPORTextern "C" __attribute__((visibility("default")))
 #else
-# define CORE_IMAGE_EXPORT extern __attribute__((visibility("default")))
+# define CORE_IMAGE_EXPORTextern __attribute__((visibility("default")))
 #endif
 
-#define CORE_IMAGE_HIDDEN extern __attribute__((visibility("hidden")))
+#define CORE_IMAGE_HIDDENextern __attribute__((visibility("hidden")))
 
 #define CORE_IMAGE_CLASS_EXPORT __attribute__((visibility("default")))
 

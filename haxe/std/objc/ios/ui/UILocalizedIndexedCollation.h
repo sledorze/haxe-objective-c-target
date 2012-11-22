@@ -1,6 +1,6 @@
 //
 //  UILocalizedIndexedCollation.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(3_0) @interface UILocalizedIndexedCollation : NSObject
+NS_CLASS_AVAILABLE_IOS(3_0)extern class UILocalizedIndexedCollation extends NSObject
 {
   @package
     NSLocale *_locale;
@@ -25,10 +25,10 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UILocalizedIndexedCollation : NSObject
 + (id)currentCollation;
 
 // Provides the list of section titles used to group results (e.g. A-Z,# in US/English)
-@property(nonatomic, readonly) NSArray *sectionTitles;
+	public var (default, null) NSArray *sectionTitles;
 
 // Provides the list of index titles used to quickly jump to particular sections
-@property(nonatomic, readonly) NSArray *sectionIndexTitles;
+	public var (default, null) NSArray *sectionIndexTitles;
 
 // Specifies the section that should be scrolled to for the title at the given index.
 // This method allows you to map between a given item in the index
@@ -45,4 +45,4 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UILocalizedIndexedCollation : NSObject
 // selector multiple times, so this method should be fast.
 - (NSArray *)sortedArrayFromArray:(NSArray *)array collationStringSelector:(SEL)selector;
 
-@end
+}

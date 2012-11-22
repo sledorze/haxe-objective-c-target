@@ -13,47 +13,47 @@
 
 #import <QuartzCore/CALayer.h>
 
-@interface CAEmitterLayer : CALayer
+extern class CAEmitterLayer : CALayer
 
 /* The array of emitter cells attached to the layer. Each object must
  * have the CAEmitterCell class. */
 
-@property(copy) NSArray *emitterCells;
+	public var NSArray *emitterCells;
 
 /* The birth rate of each cell is multiplied by this number to give the
  * actual number of particles created every second. Default value is one.
  * Animatable. */
 
-@property float birthRate;
+	public var  float birthRate;
 
 /* The cell lifetime range is multiplied by this value when particles are
  * created. Defaults to one. Animatable. */
 
-@property float lifetime;
+	public var  float lifetime;
 
 /* The center of the emission shape. Defaults to (0, 0, 0). Animatable. */
 
-@property CGPoint emitterPosition;
-@property CGFloat emitterZPosition;
+	public var  CGPoint emitterPosition;
+	public var  CGFloat emitterZPosition;
 
 /* The size of the emission shape. Defaults to (0, 0, 0). Animatable.
  * Depending on the `emitterShape' property some of the values may be
  * ignored. */
 
-@property CGSize emitterSize;
-@property CGFloat emitterDepth;
+	public var  CGSize emitterSize;
+	public var  CGFloat emitterDepth;
 
 /* A string defining the type of emission shape used. Current options are:
  * `point' (the default), `line', `rectangle', `circle', `cuboid' and
  * `sphere'. */
 
-@property(copy) NSString *emitterShape;
+	public var NSString *emitterShape;
 
 /* A string defining how particles are created relative to the emission
  * shape. Current options are `points', `outline', `surface' and
  * `volume' (the default). */
 
-@property(copy) NSString *emitterMode;
+	public var NSString *emitterMode;
 
 /* A string defining how particles are composited into the layer's
  * image. Current options are `unordered' (the default), `oldestFirst',
@@ -61,7 +61,7 @@
  * `additive'. The first four use source-over compositing, the last
  * uses additive compositing. */
 
-@property(copy) NSString *renderMode;
+	public var NSString *renderMode;
 
 /* When true the particles are rendered as if they directly inhabit the
  * three dimensional coordinate space of the layer's superlayer, rather
@@ -69,29 +69,29 @@
  * If true, the effect of the `filters', `backgroundFilters' and shadow-
  * related properties of the layer is undefined. */
 
-@property BOOL preservesDepth;
+	public var  BOOL preservesDepth;
 
 /* Multiplies the cell-defined particle velocity. Defaults to one.
  * Animatable. */
 
-@property float velocity;
+	public var  float velocity;
 
 /* Multiplies the cell-defined particle scale. Defaults to one. Animatable. */
 
-@property float scale;
+	public var  float scale;
 
 /* Multiplies the cell-defined particle spin. Defaults to one. Animatable. */
 
-@property float spin;
+	public var  float spin;
 
 /* The seed used to initialize the random number generator. Defaults to
  * zero. Each layer has its own RNG state. For properties with a mean M
  * and a range R, random values of the properties are uniformly
  * distributed in the interval [M - R/2, M + R/2]. */
 
-@property unsigned int seed;
+	public var  unsigned int seed;
 
-@end
+}
 
 /** `emitterShape' values. **/
 

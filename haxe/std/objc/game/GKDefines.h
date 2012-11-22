@@ -8,9 +8,9 @@
 
 #ifndef GK_EXTERN
 #ifdef __cplusplus
-#define GK_EXTERN   extern "C" __attribute__((visibility ("default")))
+#define GK_EXTERN  extern "C" __attribute__((visibility ("default")))
 #else
-#define GK_EXTERN   extern __attribute__((visibility ("default")))
+#define GK_EXTERN  extern __attribute__((visibility ("default")))
 #endif
 #endif
 

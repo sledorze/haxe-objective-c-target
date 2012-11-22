@@ -30,14 +30,14 @@
 
 @class NSString;
 
-@interface DOMHTMLScriptElement : DOMHTMLElement
-@property(copy) NSString *text;
-@property(copy) NSString *htmlFor;
-@property(copy) NSString *event;
-@property(copy) NSString *charset;
-@property BOOL defer;
-@property(copy) NSString *src;
-@property(copy) NSString *type;
-@end
+extern class DOMHTMLScriptElement : DOMHTMLElement
+	public var NSString *text;
+	public var NSString *htmlFor;
+	public var NSString *event;
+	public var NSString *charset;
+	public var  BOOL defer;
+	public var NSString *src;
+	public var NSString *type;
+}
 
 #endif

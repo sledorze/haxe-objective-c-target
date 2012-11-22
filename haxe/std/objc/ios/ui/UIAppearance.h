@@ -1,6 +1,6 @@
 //
 //  UIAppearance.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2011-2012, Apple Inc. All rights reserved.
 //
@@ -10,15 +10,15 @@
 /* To participate in the appearance proxy API, tag your appearance property selectors in your header with UI_APPEARANCE_SELECTOR.
  
  Appearance property selectors must be of the form:
- - (void)setProperty:(PropertyType)property forAxis1:(IntegerType)axis1 axis2:(IntegerType)axis2 axisN:(IntegerType)axisN;
+ 	public function setProperty:(PropertyType)property forAxis1:(IntegerType)axis1 axis2:(IntegerType)axis2 axisN:(IntegerType)axisN;
  - (PropertyType)propertyForAxis1:(IntegerType)axis1 axis2:(IntegerType)axis2 axisN:(IntegerType)axisN;
  You may have no axes or as many as you like for any property. PropertyType may be any standard iOS type: id, NSInteger, NSUInteger, CGFloat, CGPoint, CGSize, CGRect, UIEdgeInsets or UIOffset. IntegerType must be either NSInteger or NSUInteger; we will throw an exception if other types are used in the axes.
  */
 #define UI_APPEARANCE_SELECTOR
 
-@protocol UIAppearanceContainer <NSObject> @end
+extern interface UIAppearanceContainer <NSObject> }
 
-@protocol UIAppearance <NSObject>
+extern interface UIAppearance <NSObject>
 /* To customize the appearance of all instances of a class, send the relevant appearance modification messages to the appearance proxy for the class. For example, to modify the tint color for all UINavigationBar instances:
     [[UINavigationBar appearance] setTintColor:myColor];
   */
@@ -39,4 +39,4 @@
 */
 + (id)appearanceWhenContainedIn:(Class <UIAppearanceContainer>)ContainerClass, ... NS_REQUIRES_NIL_TERMINATION;
 
-@end
+}

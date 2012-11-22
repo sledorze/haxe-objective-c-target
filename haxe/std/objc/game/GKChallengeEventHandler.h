@@ -34,12 +34,12 @@
 // Called when a non-local player has completed a challenge issued by the local player. Triggered by a push notification from the server. Received when a challenge notification banner is tapped, or while the game is running. 
 - (void)remotePlayerDidCompleteChallenge:(GKChallenge *)challenge;
 
-@end
+}
 
 NS_CLASS_AVAILABLE(NA, 6_0)
 // A singleton object responsible for dispatching challenge-related events to its delegate
-@interface GKChallengeEventHandler : NSObject
+extern class GKChallengeEventHandler extends NSObject
 + (GKChallengeEventHandler *) challengeEventHandler;
 
-@property (nonatomic, assign) id<GKChallengeEventHandlerDelegate> delegate; // It is not safe to read or write this property on anything other than the main thread
-@end
+	public var id<GKChallengeEventHandlerDelegate> delegate; // It is not safe to read or write this property on anything other than the main thread
+}

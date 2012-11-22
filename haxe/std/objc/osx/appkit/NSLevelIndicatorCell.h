@@ -17,7 +17,7 @@ enum {
 };
 typedef NSUInteger NSLevelIndicatorStyle;
 
-@interface NSLevelIndicatorCell : NSActionCell {
+extern class NSLevelIndicatorCell : NSActionCell {
   @private
     double _value;
     double _minValue;
@@ -71,5 +71,5 @@ typedef NSUInteger NSLevelIndicatorStyle;
 
 - (void)setImage:(NSImage*)image;
 
-@end
+}
 

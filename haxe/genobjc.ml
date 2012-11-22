@@ -299,6 +299,13 @@ let addPointerIfNeeded t =
 
 (* Generating correct type *)
 let processClassPath ctx is_static path pos =
+	(match path with
+		| ([],"Int")
+		| ([],"Float")
+		| ([],"Dynamic")
+		| ([],"Bool") -> ();
+		| _ -> ctx.imports_manager#add_class_path path);
+		
 	match path with
 	| ([],name) ->
 		(match name with
@@ -306,7 +313,8 @@ let processClassPath ctx is_static path pos =
 		| "Float" -> "float"
 		| "Dynamic" -> "id"
 		| "Bool" -> "BOOL"
-		| "String" -> "NSString"
+		| "String" -> "NSMutableString"
+		| "Date" -> "NSDate"
 		| "Array" -> "NSMutabeArray"
 		| _ -> name)
 	| (["objc"],"FlashXml__") -> "Xml"
@@ -314,9 +322,7 @@ let processClassPath ctx is_static path pos =
 	| (["flash"],"Vector") -> "Vector"
 	| (["objc";"ios"],"XML") -> "XML"
 	| (["haxe"],"Int32") when not is_static -> "int"
-	| (pack,name) ->
-		ctx.imports_manager#add_class_path path;
-		name
+	| (pack,name) -> name
 ;;
 
 let appName ctx =
@@ -529,7 +535,7 @@ let generateFunctionHeader ctx name f params p =
 	let old_t = ctx.local_types in
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
-	let return_type = typeToString ctx f.tf_type p in
+	let return_type = if ctx.generating_constructor then "id" else typeToString ctx f.tf_type p in
 	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
 	(* Generate function name. Some of them will need a rename, check with the database *)
 	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
@@ -859,7 +865,7 @@ and generateExpression ctx e =
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
 			| _ ->
-				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (snd c.cl_path));
+				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (processClassPath ctx false c.cl_path c.cl_pos) (* (snd c.cl_path) *));
 				if List.length el > 0 then ctx.writer#write ":";
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write "]";
@@ -1345,29 +1351,7 @@ let generateField ctx is_static field =
 		match follow field.cf_type with
 			| TFun (args,r) -> ()
 			| _ when is_getset -> if ctx.generating_header then generateProperty ctx field pos is_static
-			| _ -> generateProperty ctx field pos is_static;
-		
-		(* TODO: Store the default values of properties and use them in the init method in order to assign them to the propety *)
-		(* TODO: Not sure how to solve for statics *)
-		(* if is_static then begin
-			let gen_init_value () = match field.cf_expr with
-			| None -> ()
-			| Some e -> generateValue ctx e in
-		
-			ctx.writer#write ("+ (NSString*) set_static_string:(NSString*)val {
-	static NSString *_val;
-	if (val == nil) {
-		if (_val == nil) {
-			_val = ");
-			gen_init_value();
-			ctx.writer#write (";
-		}
-	}
-	else
-		_val = val;
-	return _val;
-}")
-		end *)
+			| _ -> generateProperty ctx field pos is_static
 ;;
 
 let rec defineGetSet ctx is_static c =
@@ -2001,6 +1985,10 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	output_m ("@implementation " ^ (snd class_def.cl_path));
 
 	m_file#new_line;
+	
+	List.iter (generateField ctx true) class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
+	
 	(match class_def.cl_constructor with
 	| None -> ();
 		(* ctx.generating_constructor <- true; *)
@@ -2020,9 +2008,6 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 		generateField ctx false f;
 	);
 	
-	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
-	
 	output_m "\n\n@end\n";
 	m_file#close;
 	
@@ -2040,6 +2025,7 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	let ctx = newContext common_ctx h_file imports_manager file_info in
 	ctx.class_def <- class_def;
 	ctx.generating_header <- true;
+	(* Import the super class *)
 	(match class_def.cl_super with
 		| None -> ()
 		| Some (csup,_) -> ctx.imports_manager#add_class_path csup.cl_path);
@@ -2089,6 +2075,10 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	
 	
 	h_file#new_line;
+	
+	List.iter (generateField ctx true) class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
+	
 	(match class_def.cl_constructor with
 	| None -> ();
 		(* ctx.generating_constructor <- true; *)
@@ -2104,11 +2094,10 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in
+		ctx.generating_constructor <- true;
 		generateField ctx false f;
+		ctx.generating_constructor <- false;
 	);
-	
-	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
 	
 	h_file#write "\n\n@end\n";
 	h_file#close

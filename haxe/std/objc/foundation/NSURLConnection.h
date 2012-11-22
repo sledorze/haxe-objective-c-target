@@ -103,7 +103,7 @@
         customization of resource load, and do not allow the caller to
         respond to, e.g., authentication challenges.<p>
 */
-@interface NSURLConnection : NSObject
+extern class NSURLConnection extends NSObject
 {
     @private
     NSURLConnectionInternal *_internal;
@@ -157,7 +157,7 @@
 */
 + (BOOL)canHandleRequest:(NSURLRequest *)request;
 
-@end
+}
 
 /*!
     @protocol       NSURLConnectionDelegate
@@ -211,7 +211,7 @@
 - (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
-@end
+}
 
 /*!
     @protocol       NSURLConnectionDataDelegate
@@ -306,7 +306,7 @@
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse;
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
-@end
+}
 
 /*!
     @protocol       NSURLConnectionDownloadDelegate
@@ -352,7 +352,7 @@
 
 @required
 - (void)connectionDidFinishDownloading:(NSURLConnection *)connection destinationURL:(NSURL *) destinationURL;
-@end
+}
 
 /*!
     @category    NSURLConnection(NSURLConnectionSynchronousLoading)
@@ -362,7 +362,7 @@
                  NSURLConnection provides the interface to perform
                  synchronous loading of URL requests.
 */
-@interface NSURLConnection (NSURLConnectionSynchronousLoading)
+extern class NSURLConnection (NSURLConnectionSynchronousLoading)
 
 /*! 
     @method      sendSynchronousRequest:returningResponse:error:
@@ -404,7 +404,7 @@
 */
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error;
 
-@end
+}
 
 #if NS_BLOCKS_AVAILABLE
 
@@ -419,7 +419,7 @@
     Note that there is no guarantee of load ordering implied by this
     method.
  */
-@interface NSURLConnection (NSURLConnectionQueuedLoading)
+extern class NSURLConnection (NSURLConnectionQueuedLoading)
 
 /*!
     @method       sendAsynchronousRequest:queue:completionHandler:
@@ -457,6 +457,6 @@
                           queue:(NSOperationQueue*) queue
               completionHandler:(void (^)(NSURLResponse*, NSData*, NSError*)) handler NS_AVAILABLE(10_7, 5_0);
            
-@end
+}
                    
 #endif   

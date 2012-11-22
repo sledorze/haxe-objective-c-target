@@ -28,7 +28,7 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_1_3
 
-@interface DOMEntityReference : DOMNode
-@end
+extern class DOMEntityReference : DOMNode
+}
 
 #endif

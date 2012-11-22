@@ -1,13 +1,14 @@
 
 
+#import "String.h"
 
 @interface Std : NSObject
 
 + (BOOL) is:(id)v t:(id)t;
-+ (NSString*) string:(id)s;
++ (NSMutableString*) string:(id)s;
 + (int) int:(float)x;
-+ (id) parseInt:(NSString*)x;
-+ (float) parseFloat:(NSString*)x;
++ (id) parseInt:(NSMutableString*)x;
++ (float) parseFloat:(NSMutableString*)x;
 + (int) random:(int)x;
 
 @end

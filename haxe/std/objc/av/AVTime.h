@@ -15,7 +15,7 @@
 
 // utilities for carriage of CoreMedia time structures in NSValues
 
-@interface NSValue (NSValueAVFoundationExtensions)
+extern class NSValue (NSValueAVFoundationExtensions)
 
 + (NSValue *)valueWithCMTime:(CMTime)time NS_AVAILABLE(10_7, 4_0);
 
@@ -27,11 +27,11 @@
 + (NSValue *)valueWithCMTimeMapping:(CMTimeMapping)timeMapping NS_AVAILABLE(10_7, 4_0);
 - (CMTimeMapping)CMTimeMappingValue NS_AVAILABLE(10_7, 4_0);
 
-@end
+}
 
 // utilities for encoding and decoding CoreMedia time structures for NSCoding
 
-@interface NSCoder (AVTimeCoding)
+extern class NSCoder (AVTimeCoding)
 
 - (void)encodeCMTime:(CMTime)time forKey:(NSString *)key NS_AVAILABLE(10_7, 4_0);
 - (CMTime)decodeCMTimeForKey:(NSString *)key NS_AVAILABLE(10_7, 4_0);
@@ -42,5 +42,5 @@
 - (void)encodeCMTimeMapping:(CMTimeMapping)timeMapping forKey:(NSString *)key NS_AVAILABLE(10_7, 4_0);
 - (CMTimeMapping)decodeCMTimeMappingForKey:(NSString *)key NS_AVAILABLE(10_7, 4_0);
 
-@end
+}
 

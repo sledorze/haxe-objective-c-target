@@ -10,7 +10,7 @@
 
 @class NSCell, NSFont, NSTextView, NSNotification, NSAttributedString, NSFormatter;
 
-@interface NSControl : NSView
+extern class NSControl : NSView
 {
     /*All instance variables are private*/
     NSInteger	_tag;
@@ -90,21 +90,21 @@
 - (void)setIntegerValue:(NSInteger)anInteger NS_AVAILABLE_MAC(10_5);
 - (void)takeIntegerValueFrom:(id)sender NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
-@interface NSControl(NSKeyboardUI)
+extern class NSControl(NSKeyboardUI)
 - (void)performClick:sender;
 - (void)setRefusesFirstResponder:(BOOL)flag;
 - (BOOL)refusesFirstResponder;
-@end
+}
 
-@interface NSObject(NSControlSubclassNotifications)
+extern class NSObject(NSControlSubclassNotifications)
 
 - (void)controlTextDidBeginEditing:(NSNotification *)obj;
 - (void)controlTextDidEndEditing:(NSNotification *)obj;
 - (void)controlTextDidChange:(NSNotification *)obj;
 
-@end
+}
 
 
 
@@ -121,22 +121,22 @@
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector;
 - (NSArray *)control:(NSControl *)control textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index;
-@end
+}
 
 								// userInfo keys:
 APPKIT_EXTERN NSString *NSControlTextDidBeginEditingNotification;	//	@"NSFieldEditor"
 APPKIT_EXTERN NSString *NSControlTextDidEndEditingNotification;	//	@"NSFieldEditor"
 APPKIT_EXTERN NSString *NSControlTextDidChangeNotification;		//	@"NSFieldEditor"
 
-@interface NSControl(NSControlAttributedStringMethods)
+extern class NSControl(NSControlAttributedStringMethods)
 - (NSAttributedString *)attributedStringValue;
 - (void)setAttributedStringValue:(NSAttributedString *)obj;
-@end
+}
 
-@interface NSControl (NSDeprecated)
+extern class NSControl (NSDeprecated)
 
 // Use formatters instead.  See -[NSControl formatter] and -[NSControl setFormatter:].
 - (void)setFloatingPointFormat:(BOOL)autoRange left:(NSUInteger)leftDigits right:(NSUInteger)rightDigits NS_DEPRECATED_MAC(10_0, 10_0);
 
-@end
+}
 

@@ -11,7 +11,7 @@
 @class NSExpression;
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSPropertyMapping : NSObject {
+extern class NSPropertyMapping extends NSObject {
     @private
     void *_reserved;
     void *_reserved1;
@@ -41,4 +41,4 @@ NS_CLASS_AVAILABLE(10_5,3_0)
 - (NSDictionary *)userInfo;
 - (void)setUserInfo:(NSDictionary *)userInfo;
 
-@end
+}

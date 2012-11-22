@@ -32,15 +32,15 @@
 @class DOMHTMLElement;
 @class NSString;
 
-@interface DOMHTMLTableSectionElement : DOMHTMLElement
-@property(copy) NSString *align;
-@property(copy) NSString *ch;
-@property(copy) NSString *chOff;
-@property(copy) NSString *vAlign;
-@property(readonly, retain) DOMHTMLCollection *rows;
+extern class DOMHTMLTableSectionElement : DOMHTMLElement
+	public var NSString *align;
+	public var NSString *ch;
+	public var NSString *chOff;
+	public var NSString *vAlign;
+	public var (default, null) DOMHTMLCollection *rows;
 
 - (DOMHTMLElement *)insertRow:(int)index;
 - (void)deleteRow:(int)index;
-@end
+}
 
 #endif

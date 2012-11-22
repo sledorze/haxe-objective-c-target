@@ -21,25 +21,25 @@
 @class AVMediaSelectionGroupInternal;
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-@interface AVMediaSelectionGroup : NSObject <NSCopying> {
+extern class AVMediaSelectionGroup extends NSObject <NSCopying> {
 	AVMediaSelectionGroupInternal	*_mediaSelectionGroup;
 }
 
 /*!
- @property		options
+ 	public var 		options
  @abstract		A collection of mutually exclusive media selection options.
  @discussion	An NSArray of AVMediaSelectionOption*.
 */
-@property (nonatomic, readonly) NSArray *options;
+	public var NSArray *options;
 
 /*!
- @property		allowsEmptySelection
+ 	public var 		allowsEmptySelection
  @abstract		Indicates whether it's possible to present none of the options in the group when an associated AVPlayerItem is played.
  @discussion
 	If allowsEmptySelection is YES, all of the available media options in the group can be deselected by passing nil
 	as the specified AVMediaSelectionOption to -[AVPlayerItem selectMediaOption:inMediaSelectionGroup:].
 */
-@property (nonatomic, readonly) BOOL allowsEmptySelection;
+	public var BOOL allowsEmptySelection;
 
 /*!
   @method		mediaSelectionOptionWithPropertyList:
@@ -50,7 +50,7 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 */
 - (AVMediaSelectionOption *)mediaSelectionOptionWithPropertyList:(id)plist;
 
-@end
+}
 
 
 /*!
@@ -61,7 +61,7 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 	according to playability, locale, and media characteristics.
 	Note that it's possible to implement additional filtering behaviors by using -[NSArray indexesOfObjectsPassingTest:].
 */
-@interface AVMediaSelectionGroup (AVMediaSelectionOptionFiltering)
+extern class AVMediaSelectionGroup (AVMediaSelectionOptionFiltering)
 
 /*!
   @method		playableMediaSelectionOptionsFromArray:
@@ -118,7 +118,7 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 */
 + (NSArray *)mediaSelectionOptionsFromArray:(NSArray *)mediaSelectionOptions withoutMediaCharacteristics:(NSArray *)mediaCharacteristics;
 
-@end
+}
 
 
 /*!
@@ -131,18 +131,18 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 @class AVMediaSelectionOptionInternal;
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-@interface AVMediaSelectionOption : NSObject <NSCopying> {
+extern class AVMediaSelectionOption extends NSObject <NSCopying> {
 	AVMediaSelectionOptionInternal	*_mediaSelectionOption;
 }
 
 /*!
- @property		mediaType
+ 	public var 		mediaType
  @abstract		The media type of the media data, e.g. AVMediaTypeAudio, AVMediaTypeSubtitle, etc.
 */
-@property (nonatomic, readonly) NSString *mediaType;
+	public var NSString *mediaType;
 
 /*!
- @property		mediaSubTypes
+ 	public var 		mediaSubTypes
  @abstract		The mediaSubTypes of the media data associated with the option. 
  @discussion
 	An NSArray of NSNumbers carrying four character codes (of type FourCharCode) as defined in CoreAudioTypes.h for audio media and in CMFormatDescription.h for video media.
@@ -150,7 +150,7 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 	
 	Note that if no information is available about the encoding of the media presented when a media option is selected, the value of mediaSubTypes will be an empty array. This can occur, for example, with streaming media. In these cases the value of mediaSubTypes should simply not be used as a criteria for selection.
 */
-@property (nonatomic, readonly) NSArray *mediaSubTypes;
+	public var NSArray *mediaSubTypes;
 
 /*!
   @method		hasMediaCharacteristic:
@@ -162,22 +162,22 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 - (BOOL)hasMediaCharacteristic:(NSString *)mediaCharacteristic;
 
 /*!
- @property		playable
+ 	public var 		playable
  @abstract		Indicates whether a media selection option is playable.
  @discussion	If the media data associated with the option cannot be decoded or otherwise rendered, playable is NO.
 */
-@property (nonatomic, readonly, getter=isPlayable) BOOL playable;
+	public var  (nonatomic, readonly, getter=isPlayable) BOOL playable;
 
 /*!
- @property		locale
+ 	public var 		locale
  @abstract		Indicates the locale for which the media option was authored.
  @discussion
  	Use -[NSLocale objectForKey:NSLocaleLanguageCode] to obtain the language code of the locale. See NSLocale.h for additional information.
 */
-@property (nonatomic, readonly) NSLocale *locale;
+	public var NSLocale *locale;
 
 /*!
- @property		commonMetadata
+ 	public var 		commonMetadata
  @abstract		Provides an array of AVMetadataItems for each common metadata key for which a value is available.
  @discussion
    The array of AVMetadataItems can be filtered according to language via +[AVMetadataItem metadataItemsFromArray:filteredAndSortedAccordingToPreferredLanguages:], according to locale via +[AVMetadataItem metadataItemsFromArray:withLocale:],
@@ -203,15 +203,15 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 	}
 
 */
-@property (nonatomic, readonly) NSArray *commonMetadata;
+	public var NSArray *commonMetadata;
 
 /*!
- @property		availableMetadataFormats
+ 	public var 		availableMetadataFormats
  @abstract		Provides an NSArray of NSStrings, each representing a metadata format that contains metadata associated with the option (e.g. ID3, iTunes metadata, etc.).
  @discussion
    Metadata formats are defined in AVMetadataFormat.h.
 */
-@property (nonatomic, readonly) NSArray *availableMetadataFormats;
+	public var NSArray *availableMetadataFormats;
 
 /*!
   @method		metadataForFormat:
@@ -240,4 +240,4 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 */
 - (id)propertyList;
 
-@end
+}

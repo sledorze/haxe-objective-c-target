@@ -1,6 +1,6 @@
 //
 //  UIInterface.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //
@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, UIBarStyle) {
 
 // System colors
 
-@interface UIColor (UIColorSystemColors)
+extern class UIColor (UIColorSystemColors)
 + (UIColor *)lightTextColor;                // for a dark background
 + (UIColor *)darkTextColor;                 // for a light background
 
@@ -34,13 +34,13 @@ typedef NS_ENUM(NSInteger, UIBarStyle) {
 + (UIColor *)viewFlipsideBackgroundColor;
 + (UIColor *)scrollViewTexturedBackgroundColor NS_AVAILABLE_IOS(3_2);
 + (UIColor *)underPageBackgroundColor NS_AVAILABLE_IOS(5_0);
-@end
+}
 
 // System fonts
 
-@interface UIFont (UIFontSystemFonts)
+extern class UIFont (UIFontSystemFonts)
 + (CGFloat)labelFontSize;
 + (CGFloat)buttonFontSize;
 + (CGFloat)smallSystemFontSize;
 + (CGFloat)systemFontSize;
-@end
+}

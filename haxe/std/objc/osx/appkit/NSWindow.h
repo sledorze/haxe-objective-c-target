@@ -185,7 +185,7 @@ typedef NSUInteger NSWindowButton;
 @class NSEvent;
 @class NSWindowController;
 
-@interface NSWindow : NSResponder <NSAnimatablePropertyContainer, NSUserInterfaceValidations, NSUserInterfaceItemIdentification>
+extern class NSWindow : NSResponder <NSAnimatablePropertyContainer, NSUserInterfaceValidations, NSUserInterfaceItemIdentification>
 {
     /*All instance variables are private*/
     NSRect              _frame;
@@ -631,9 +631,9 @@ If the url represents a filename or other resource with a known icon, that icon 
 */
 + (NSInteger)windowNumberAtPoint:(NSPoint)point belowWindowWithWindowNumber:(NSInteger)windowNumber NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
-@interface NSWindow(NSKeyboardUI)
+extern class NSWindow(NSKeyboardUI)
 - (void)setInitialFirstResponder:(NSView *)view;
 - (NSView *)initialFirstResponder;
 - (void)selectNextKeyView:(id)sender;
@@ -648,30 +648,30 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (void)setAutorecalculatesKeyViewLoop:(BOOL)flag;
 - (BOOL)autorecalculatesKeyViewLoop;
 - (void)recalculateKeyViewLoop;
-@end
+}
 
-@interface NSWindow (NSToolbarSupport)
+extern class NSWindow (NSToolbarSupport)
 - (void)setToolbar:(NSToolbar*)toolbar;
 - (NSToolbar *)toolbar;
 - (void)toggleToolbarShown:(id)sender;
 - (void)runToolbarCustomizationPalette:(id)sender;
 - (void)setShowsToolbarButton:(BOOL)show;
 - (BOOL)showsToolbarButton;
-@end
+}
 
-@interface NSWindow(NSDrag)
+extern class NSWindow(NSDrag)
 - (void)dragImage:(NSImage *)anImage at:(NSPoint)baseLocation offset:(NSSize)initialOffset event:(NSEvent *)event pasteboard:(NSPasteboard *)pboard source:(id)sourceObj slideBack:(BOOL)slideFlag;
 
 - (void)registerForDraggedTypes:(NSArray *)newTypes;
 - (void)unregisterDraggedTypes;
-@end
+}
 
-@interface NSWindow(NSCarbonExtensions)
+extern class NSWindow(NSCarbonExtensions)
 // create an NSWindow for a Carbon window - windowRef must be a Carbon WindowRef - see MacWindows.h
 - (NSWindow *)initWithWindowRef:(void * /* WindowRef */)windowRef;
 // return the Carbon WindowRef for this window, creating if necessary: - see MacWindows.h
 - (void * /* WindowRef */)windowRef;
-@end
+}
 
 
 @protocol NSWindowDelegate <NSObject>
@@ -763,7 +763,7 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (void)windowWillExitVersionBrowser:(NSNotification *)notification   NS_AVAILABLE_MAC(10_7);
 - (void)windowDidExitVersionBrowser:(NSNotification *)notification   NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 
 /* Notifications */

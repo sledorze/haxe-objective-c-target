@@ -31,8 +31,8 @@
 @class DOMNode;
 @class NSString;
 
-@interface DOMNamedNodeMap : DOMObject
-@property(readonly) unsigned length;
+extern class DOMNamedNodeMap : DOMObject
+	public var  (default, null) : unsigned length;
 
 - (DOMNode *)getNamedItem:(NSString *)name;
 - (DOMNode *)setNamedItem:(DOMNode *)node;
@@ -41,11 +41,11 @@
 - (DOMNode *)getNamedItemNS:(NSString *)namespaceURI localName:(NSString *)localName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (DOMNode *)setNamedItemNS:(DOMNode *)node;
 - (DOMNode *)removeNamedItemNS:(NSString *)namespaceURI localName:(NSString *)localName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMNamedNodeMap (DOMNamedNodeMapDeprecated)
+extern class DOMNamedNodeMap (DOMNamedNodeMapDeprecated)
 - (DOMNode *)getNamedItemNS:(NSString *)namespaceURI :(NSString *)localName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMNode *)removeNamedItemNS:(NSString *)namespaceURI :(NSString *)localName AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

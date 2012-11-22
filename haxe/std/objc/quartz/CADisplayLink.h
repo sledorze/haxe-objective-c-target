@@ -10,7 +10,7 @@
 
 /** Class representing a timer bound to the display vsync. **/
 
-@interface CADisplayLink : NSObject
+extern class CADisplayLink extends NSObject
 {
 @private
   void *_impl;
@@ -45,12 +45,12 @@
  * normal Core Animation conventions, i.e. Mach host time converted to
  * seconds. */
 
-@property(readonly, nonatomic) CFTimeInterval timestamp, duration;
+	public var (readonly, nonatomic) CFTimeInterval timestamp, duration;
 
 /* When true the object is prevented from firing. Initial state is
  * false. */
 
-@property(getter=isPaused, nonatomic) BOOL paused;
+	public var (getter=isPaused, nonatomic) BOOL paused;
 
 /* Defines how many display frames must pass between each time the
  * display link fires. Default value is one, which means the display
@@ -58,6 +58,6 @@
  * will cause the display link to fire every other display frame, and
  * so on. The behavior when using values less than one is undefined. */
 
-@property(nonatomic) NSInteger frameInterval;
+	public var  NSInteger frameInterval;
 
-@end
+}

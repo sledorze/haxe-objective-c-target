@@ -56,7 +56,7 @@ enum {
 
 @class NSMutableDictionary, NSDictionary, NSArray, NSSet, NSAffineTransform;
 
-@interface NSFontDescriptor: NSObject <NSCopying, NSCoding> {
+extern class NSFontDescriptorextends NSObject <NSCopying, NSCoding> {
 /* All instance variables are private */
     NSMutableDictionary *_attributes;
     id _reserved1;
@@ -97,7 +97,7 @@ enum {
 - (NSFontDescriptor *)fontDescriptorWithMatrix:(NSAffineTransform *)matrix;
 - (NSFontDescriptor *)fontDescriptorWithFace:(NSString *)newFace;
 - (NSFontDescriptor *)fontDescriptorWithFamily:(NSString *)newFamily;
-@end
+}
 
 /* Predefined font attributes not defined in NSAttributedString.h */
 

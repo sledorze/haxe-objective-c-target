@@ -12,10 +12,10 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKPolylineView : MKOverlayPathView
+extern class MKPolylineView : MKOverlayPathView
 
 - (id)initWithPolyline:(MKPolyline *)polyline;
 
-@property (nonatomic, readonly) MKPolyline *polyline;
+	public var MKPolyline *polyline;
 
-@end
+}

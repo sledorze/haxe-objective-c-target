@@ -49,7 +49,7 @@ typedef NSUInteger NSSelectionAffinity;
 */
 APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(10_5);
 
-@interface NSTextView : NSText <NSTextInput, NSUserInterfaceValidations, NSTextInputClient, NSTextLayoutOrientationProvider, NSDraggingSource>
+extern class NSTextView : NSText <NSTextInput, NSUserInterfaceValidations, NSTextInputClient, NSTextLayoutOrientationProvider, NSDraggingSource>
 
 /**************************** Initializing ****************************/
 
@@ -180,9 +180,9 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 - (NSUInteger)characterIndexForInsertionAtPoint:(NSPoint)point NS_AVAILABLE_MAC(10_5);
     // Here point is in view coordinates, and the return value is a character index appropriate for placing a zero-length selection for an insertion point associated with the mouse at the given point.  The NSTextInput method characterIndexForPoint: is not suitable for this role.
 
-@end
+}
 
-@interface NSTextView (NSCompletion)
+extern class NSTextView (NSCompletion)
 
 /************************* Completion support *********************/
 
@@ -197,9 +197,9 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 
 - (void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(NSInteger)movement isFinal:(BOOL)flag;
     // Called with final == NO as the user moves through the potential completions, then with final == YES when a completion is definitively selected (or completion is cancelled and the original value is reinserted).  The default implementation inserts the completion into the text at the appropriate location.  The movement argument takes its values from the movement codes defined in NSText.h, and allows subclassers to distinguish between canceling completion and selection by arrow keys, by return, by tab, or by other means such as clicking.
-@end
+}
 
-@interface NSTextView (NSPasteboard)
+extern class NSTextView (NSPasteboard)
 
 /******************* Pasteboard support (mainly for subclassers) *******************/
 
@@ -243,9 +243,9 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 - (void)pasteAsRichText:(id)sender;
     // These methods are like paste: (from NSResponder) but they restrict the acceptable type of the pasted data.  They are suitable as menu actions for appropriate "Paste As" submenu commands.
 
-@end
+}
 
-@interface NSTextView (NSDragging)
+extern class NSTextView (NSDragging)
 
 - (BOOL)dragSelectionWithEvent:(NSEvent *)event offset:(NSSize)mouseOffset slideBack:(BOOL)slideBack;
     // Causes textview to begin dragging current selected range, returning YES if it succeeds in initiating the drag.  Primarily for subclassers, who can override it to intervene at beginning of a drag.
@@ -262,9 +262,9 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 - (void)cleanUpAfterDragOperation;
     // If you set up persistent state that should go away when the drag operation finishes, you can clean it up here.  Such state is usually set up in -dragOperationForDraggingInfo:type:.  You should probably never need to call this except to message super in an override.
 
-@end
+}
 
-@interface NSTextView (NSSharing)
+extern class NSTextView (NSSharing)
 
 // The methods in this category deal with settings that need to be shared by all the NSTextViews of a single NSLayoutManager.  Many of these methods are overrides of NSText or NSResponder methods.
 
@@ -394,9 +394,9 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
  */
 - (NSArray *)allowedInputSourceLocales NS_AVAILABLE_MAC(10_5);
 - (void)setAllowedInputSourceLocales:(NSArray *)localeIdentifiers NS_AVAILABLE_MAC(10_5);
-@end
+}
 
-@interface NSTextView (NSTextChecking)
+extern class NSTextView (NSTextChecking)
 
 /*************************** Smart copy/paste/delete/substitution support ***************************/
 
@@ -451,9 +451,9 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 - (void)setIncrementalSearchingEnabled:(BOOL)flag NS_AVAILABLE_MAC(10_7);
 - (BOOL)isIncrementalSearchingEnabled NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
-@interface NSTextView (NSQuickLookPreview)
+extern class NSTextView (NSQuickLookPreview)
 /*************************** Quick Look support ***************************/
 - (IBAction)toggleQuickLookPreviewPanel:(id)sender NS_AVAILABLE_MAC(10_7);
 // This action message toggles the visiblity state of the Quick Look preview panel if the receiver is the current Quick Look controller.
@@ -464,13 +464,13 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 
 - (void)updateQuickLookPreviewPanel NS_AVAILABLE_MAC(10_7);
 // Notifies QLPreviewPanel for possible status changes with the data source or controller.  Typically invoked from selection changes. 
-@end
+}
 
-@interface NSTextView (NSDeprecated)
+extern class NSTextView (NSDeprecated)
 - (void)toggleBaseWritingDirection:(id)sender;
     // toggleBaseWritingDirection: will be deprecated in favor of the new NSResponder methods makeBaseWritingDirectionNatural:, makeBaseWritingDirectionLeftToRight:, and makeBaseWritingDirectionRightToLeft:, which NSTextView now implements.
 
-@end
+}
 
 // Note that all delegation messages come from the first textView
 
@@ -547,7 +547,7 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(
 - (void)textView:(NSTextView *)view draggedCell:(id <NSTextAttachmentCell>)cell inRect:(NSRect)rect event:(NSEvent *)event;
 - (NSUndoManager *)undoManagerForTextView:(NSTextView *)view;
 
-@end
+}
 
 APPKIT_EXTERN NSString *NSTextViewWillChangeNotifyingTextViewNotification;
     // NSOldNotifyingTextView -> the old view, NSNewNotifyingTextView -> the new view.  The text view delegate is not automatically registered to receive this notification because the text machinery will automatically switch over the delegate to observe the new first text view as the first text view changes.

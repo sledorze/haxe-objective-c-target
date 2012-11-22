@@ -10,7 +10,7 @@
 
 @class NSArray, NSError, NSEvent, NSMenu, NSUndoManager, NSWindow;
 
-@interface NSResponder : NSObject <NSCoding>
+extern class NSResponder extends NSObject, implements NSObject>
 {
     /*All instance variables are private*/
     id _nextResponder;
@@ -93,13 +93,13 @@
 /* This method is used in the process of finding a target for an action method. If this NSResponder instance does not itself respondsToSelector:action, then supplementalTargetForAction:sender: is called. This method should return an object which responds to the action; if this responder does not have a supplemental object that does that, the implementation of this method should call super's supplementalTargetForAction:sender:. NSResponder's implementation returns nil.
 */
 - (id)supplementalTargetForAction:(SEL)action sender:(id)sender NS_AVAILABLE_MAC(10_7);
-@end
+}
 
-@interface NSResponder(NSKeyboardUI)
+extern class NSResponder(NSKeyboardUI)
 - (BOOL)performMnemonic:(NSString *)theString;
-@end
+}
 
-@interface NSResponder (NSStandardKeyBindingMethods)
+extern class NSResponder (NSStandardKeyBindingMethods)
 
 // This category contains a large number of methods intended for use as key binding commands.  NSResponder does not implement any of them.  NSTextView implements a certain subset of them (see the NSTextView.h header).  Your responder subclasses can implement any that make sense.  You can make up your own as well, but you should use these if the concepts map.  If your view is key and uses key binding and the user types a key sequence which is bound to a command which is not implemented in your class, it is OK, nothing will happen by default.
 
@@ -243,23 +243,23 @@
 - (void)makeTextWritingDirectionLeftToRight:(id)sender NS_AVAILABLE_MAC(10_6);
 - (void)makeTextWritingDirectionRightToLeft:(id)sender NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
-@interface NSResponder(NSUndoSupport)
+extern class NSResponder(NSUndoSupport)
 - (NSUndoManager *)undoManager;
-@end
+}
 
-@interface NSResponder (NSControlEditingSupport)
+extern class NSResponder (NSControlEditingSupport)
 
 /* This is a responder chain method to allow controls to determine when they should become first responder or not. Some controls, such as NSTextField, should only become first responder when the enclosing NSTableView/NSBrowser indicates that the view can begin editing. It is up to the particular control that wants to be validated to call this method in its -mouseDown: (or other time) to determine if it should attempt to become the first responder or not. The default implementation returns YES when there is no -nextResponder, otherwise, it is forwarded up the responder chain. NSTableView/NSBrowser implements this to only allow first responder status if the responder is a view in a selected row. It also delays the first responder assignment if a doubleAction needs to (possibly) be sent. 'event' may be nil if there is no applicable event.
  */
 - (BOOL)validateProposedFirstResponder:(NSResponder *)responder forEvent:(NSEvent *)event NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 
 
-@interface NSResponder(NSErrorPresentation)
+extern class NSResponder(NSErrorPresentation)
 
 /* Present an error alert to the user, as a document-modal panel. When the user has dismissed the alert and any recovery possible for the error and chosen by the user has been attempted, send the selected message to the specified delegate. The method selected by didPresentSelector must have the same signature as:
 
@@ -300,11 +300,11 @@ You can override this method to customize the presentation of errors by examinin
 */
 - (NSError *)willPresentError:(NSError *)error;
 
-@end
+}
 
 
-@interface NSResponder(NSTextFinderSupport)
+extern class NSResponder(NSTextFinderSupport)
 
 - (void)performTextFinderAction:(id)sender NS_AVAILABLE_MAC(10_7);
 
-@end
+}

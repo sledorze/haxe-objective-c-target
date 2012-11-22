@@ -23,7 +23,7 @@ enum {
 
 typedef NSInteger NSSegmentStyle;
 
-@interface NSSegmentedControl : NSControl {
+extern class NSSegmentedControl : NSControl {
   @private
     NSInteger _reserved1;
     NSInteger _reserved2;
@@ -65,7 +65,7 @@ typedef NSInteger NSSegmentStyle;
 - (void)setSegmentStyle:(NSSegmentStyle)segmentStyle NS_AVAILABLE_MAC(10_5);
 - (NSSegmentStyle)segmentStyle NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 /* In Mac OS X 10.7, the following styles have artwork identical with NSSegmentStyleTexturedSquare, and their usage is discouraged.  Prefer to use NSSegmentStyleTexturedSquare because it has the correct metrics for this artwork. */

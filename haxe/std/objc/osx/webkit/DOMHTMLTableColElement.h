@@ -30,13 +30,13 @@
 
 @class NSString;
 
-@interface DOMHTMLTableColElement : DOMHTMLElement
-@property(copy) NSString *align;
-@property(copy) NSString *ch;
-@property(copy) NSString *chOff;
-@property int span;
-@property(copy) NSString *vAlign;
-@property(copy) NSString *width;
-@end
+extern class DOMHTMLTableColElement : DOMHTMLElement
+	public var NSString *align;
+	public var NSString *ch;
+	public var NSString *chOff;
+	public var  int span;
+	public var NSString *vAlign;
+	public var NSString *width;
+}
 
 #endif

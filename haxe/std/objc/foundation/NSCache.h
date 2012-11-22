@@ -8,7 +8,7 @@
 @protocol NSCacheDelegate;
 
 NS_CLASS_AVAILABLE(10_6, 4_0)
-@interface NSCache : NSObject {
+extern class NSCache extends NSObject {
 @private
     id _delegate;
     void *_private[5];
@@ -37,11 +37,11 @@ NS_CLASS_AVAILABLE(10_6, 4_0)
 - (BOOL)evictsObjectsWithDiscardedContent;
 - (void)setEvictsObjectsWithDiscardedContent:(BOOL)b;
 
-@end
+}
 
 @protocol NSCacheDelegate <NSObject>
 @optional
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj;
-@end
+}
 
 

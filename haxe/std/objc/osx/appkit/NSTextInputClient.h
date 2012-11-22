@@ -78,4 +78,4 @@
 /* Returns if the marked text is in vertical layout.
  */
 - (BOOL)drawsVerticallyForCharacterAtIndex:(NSUInteger)charIndex NS_AVAILABLE_MAC(10_6);
-@end
+}

@@ -39,7 +39,7 @@ typedef NSInteger NSPrintRenderingQuality;
 */
 APPKIT_EXTERN NSString *NSPrintOperationExistsException;
 
-@interface NSPrintOperation : NSObject {
+extern class NSPrintOperation extends NSObject {
 }
 
 /* Factory methods that create a new NSPrintOperation for printing, copying to Portable Document Format, or copying to Encapsulated PostScript. The passed-in NSPrintInfo is copied, and the copy is retained by the new NSPrintOperation. (So, no need to copy the NSPrintInfo you pass to these.) You can get the copy with -printInfo.
@@ -140,9 +140,9 @@ This can only be invoked once. Create a new NSPrintOperation instance for each o
 - (BOOL)deliverResult;
 - (void)cleanUpOperation;
 
-@end
+}
 
-@interface NSPrintOperation(NSDeprecated)
+extern class NSPrintOperation(NSDeprecated)
 
 /* Methods that were deprecated in Mac OS 10.5. You can merely get the NSPrintPanel of the operation and invoke these methods on the result instead of invoking them on the operation. In Mac OS 10.5 -setAccessoryView:/-accessoryView are deprecated in NSPageLayout and NSPrintPanel too. You should consider using those class' support for NSViewControllers instead.
 */
@@ -157,4 +157,4 @@ This can only be invoked once. Create a new NSPrintOperation instance for each o
 - (void)setShowPanels:(BOOL)flag NS_DEPRECATED_MAC(10_0, 10_4);
 - (BOOL)showPanels NS_DEPRECATED_MAC(10_0, 10_4);
 
-@end
+}

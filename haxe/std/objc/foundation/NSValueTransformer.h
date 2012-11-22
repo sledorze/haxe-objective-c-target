@@ -13,7 +13,7 @@ FOUNDATION_EXPORT NSString * const NSUnarchiveFromDataTransformerName	NS_AVAILAB
 FOUNDATION_EXPORT NSString * const NSKeyedUnarchiveFromDataTransformerName	NS_AVAILABLE(10_5, 3_0);
 
 NS_CLASS_AVAILABLE(10_3, 3_0)
-@interface NSValueTransformer : NSObject {
+extern class NSValueTransformer extends NSObject {
 }
 
 // name-based registry for shared objects (especially used when loading nib files with transformers specified by name in Interface Builder) - also useful for localization (developers can register different kind of transformers or differently configured transformers at application startup and refer to them by name from within nib files or other code)
@@ -29,5 +29,5 @@ NS_CLASS_AVAILABLE(10_3, 3_0)
 - (id)transformedValue:(id)value;           // by default returns value
 - (id)reverseTransformedValue:(id)value;    // by default raises an exception if +allowsReverseTransformation returns NO and otherwise invokes transformedValue:
 
-@end
+}
 

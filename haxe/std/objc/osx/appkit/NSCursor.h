@@ -12,7 +12,7 @@
 
 #define NSAppKitVersionNumberWithCursorSizeSupport 682.0
 
-@interface NSCursor : NSObject <NSCoding> {
+extern class NSCursor extends NSObject, implements NSObject> {
     /*All instance variables are private*/
     NSPoint _hotSpot;
     struct _cursorFlags {
@@ -75,4 +75,4 @@
 - (void)mouseEntered:(NSEvent *)theEvent;
 - (void)mouseExited:(NSEvent *)theEvent;
 
-@end
+}

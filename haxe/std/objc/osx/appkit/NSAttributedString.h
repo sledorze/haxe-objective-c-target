@@ -170,7 +170,7 @@ APPKIT_EXTERN NSString *NSFileTypeDocumentOption                NS_AVAILABLE_MAC
 /* In Mac OS X 10.4 and later, WebKit is always used for HTML documents, and all of the above options are recognized.  In Mac OS X 10.3, there is an additional options key, @"UseWebKit" (NSNumber containing integer; if present and positive, specifies that WebKit-based HTML importing is to be used).  In Mac OS X 10.3, the Timeout, WebPreferences, and WebResourceLoadDelegate options are recognized only when WebKit-based HTML importing is used.
 */
 
-@interface NSAttributedString (NSAttributedStringKitAdditions) <NSPasteboardReading, NSPasteboardWriting>
+extern class NSAttributedString (NSAttributedStringKitAdditions) <NSPasteboardReading, NSPasteboardWriting>
 
 /* Attributes which should be copied/pasted with "copy font".
 */
@@ -246,9 +246,9 @@ APPKIT_EXTERN NSString *NSFileTypeDocumentOption                NS_AVAILABLE_MAC
 - (NSFileWrapper *)RTFDFileWrapperFromRange:(NSRange)range documentAttributes:(NSDictionary *)dict;
 - (NSData *)docFormatFromRange:(NSRange)range documentAttributes:(NSDictionary *)dict;
 
-@end
+}
 
-@interface NSAttributedString(NSDeprecatedKitAdditions)
+extern class NSAttributedString(NSDeprecatedKitAdditions)
 
 /* Methods that were deprecated in Mac OS 10.5. You can now use +textTypes and +textUnfilteredTypes to get arrays of Uniform Type Identifiers (UTIs).
 */
@@ -257,9 +257,9 @@ APPKIT_EXTERN NSString *NSFileTypeDocumentOption                NS_AVAILABLE_MAC
 + (NSArray *)textUnfilteredFileTypes NS_DEPRECATED_MAC(10_1, 10_5);
 + (NSArray *)textUnfilteredPasteboardTypes NS_DEPRECATED_MAC(10_1, 10_5);
 
-@end
+}
 
-@interface NSMutableAttributedString (NSMutableAttributedStringKitAdditions)
+extern class NSMutableAttributedString (NSMutableAttributedStringKitAdditions)
 
 /* Methods to set the contents of a mutable attributed string by loading text documents in various formats.
 */
@@ -289,7 +289,7 @@ APPKIT_EXTERN NSString *NSFileTypeDocumentOption                NS_AVAILABLE_MAC
 - (void)fixParagraphStyleAttributeInRange:(NSRange)range;
 - (void)fixAttachmentAttributeInRange:(NSRange)range;
 
-@end
+}
 
 /* Deprecated constants previously used for underline style.
 */

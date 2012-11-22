@@ -12,7 +12,7 @@
 @class CAMediaTimingFunction;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSAnimationContext : NSObject
+extern class NSAnimationContext extends NSObject
 {
     NSTimeInterval _duration;
     id _reserved[5];
@@ -35,4 +35,4 @@ NS_CLASS_AVAILABLE(10_5, NA)
 - (void)setCompletionHandler:(void (^)(void))handler NS_AVAILABLE_MAC(10_7);
 #endif
 
-@end
+}

@@ -13,16 +13,16 @@
 
 // View controller that provides the standard user interface for leaderboards.  Present modally from the top view controller.
 NS_CLASS_AVAILABLE(NA, 4_1)
-@interface GKLeaderboardViewController : GKGameCenterViewController
+extern class GKLeaderboardViewController : GKGameCenterViewController
 
-@property (nonatomic, assign) GKLeaderboardTimeScope timeScope;
-@property (nonatomic, retain) NSString *category;
-@property (nonatomic, assign) id <GKLeaderboardViewControllerDelegate> leaderboardDelegate;
+	public var GKLeaderboardTimeScope timeScope;
+	public var NSString *category;
+	public var id <GKLeaderboardViewControllerDelegate> leaderboardDelegate;
 
-@end
+}
 
 @protocol GKLeaderboardViewControllerDelegate
 @required
 // The leaderboard view has finished
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController;
-@end
+}

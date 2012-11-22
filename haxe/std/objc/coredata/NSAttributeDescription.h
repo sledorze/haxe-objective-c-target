@@ -33,7 +33,7 @@ typedef NSUInteger NSAttributeType;
 
 // Attributes represent individual values like strings, numbers, dates, etc.
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSAttributeDescription : NSPropertyDescription {
+extern class NSAttributeDescription : NSPropertyDescription {
 @private
 	Class _attributeValueClass;
 	NSString *_valueTransformerName;
@@ -70,4 +70,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 - (BOOL)allowsExternalBinaryDataStorage NS_AVAILABLE(10_7, 5_0);
 - (void)setAllowsExternalBinaryDataStorage:(BOOL)flag NS_AVAILABLE(10_7, 5_0);
 
-@end
+}

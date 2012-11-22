@@ -81,15 +81,15 @@ typedef NSUInteger NSDraggingItemEnumerationOptions;
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination;
 
 /* Controls the dragging formation while the drag is over this destination. The default value is the current drag formation. */
-@property NSDraggingFormation draggingFormation NS_AVAILABLE_MAC(10_7);
+	public var  NSDraggingFormation draggingFormation NS_AVAILABLE_MAC(10_7);
 
 /* During the conclusion of an accepted drag, if this property is set to YES, the drag manager will animate each dragging image to their NSDraggingFormationNone locations. Otherwise, the drag images are removed without any animation. Note: This property is inspected between -prepareForDragOperation: and -performDragOperation:. If the final destination frames do not match the current NSDraggingFormationNone frames, then enumerate through the draggingItems during -performDragOperation: to set thier NSDraggingFormationNone frames to the correct destinations.
  */
-@property BOOL animatesToDestination NS_AVAILABLE_MAC(10_7);
+	public var  BOOL animatesToDestination NS_AVAILABLE_MAC(10_7);
 
 /* During draggingEntered: or draggingUpdated:, you are responsible for returning the drag operation. In some cases, you may accept some, but not all items on the dragging pasteboard. (For example, you only accept image files.) If you only accept some of the items, you should set this property so the drag manager can update the drag count badge. When -updateItems: is called, you should set the image of non valid dragging items to nil. If none of the drag items are valid then do not call this method. Simply return NSDragOperationNone from draggingEntered: and/or draggingUpdated: and do not modify any drag item properties.
  */
-@property NSInteger numberOfValidItemsForDrop NS_AVAILABLE_MAC(10_7);
+	public var  NSInteger numberOfValidItemsForDrop NS_AVAILABLE_MAC(10_7);
 
 /* Use the following enumerate method to modify the properties of each dragging item. For example, change the drag image and size.
    Note: All changes made here are only in effect while the drag is over the destination. When the drag exits the destination all properties return to the values last set by the dragging session.
@@ -100,7 +100,7 @@ typedef NSUInteger NSDraggingItemEnumerationOptions;
 */
 - (void)enumerateDraggingItemsWithOptions:(NSDraggingItemEnumerationOptions)enumOpts forView:(NSView *)view classes:(NSArray *)classArray searchOptions:(NSDictionary *)searchOptions usingBlock:(void (^)(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop))block NS_AVAILABLE_MAC(10_7);
 #endif
-@end
+}
 
 
 /* Methods implemented by an object that receives dragged images.  The
@@ -123,7 +123,7 @@ typedef NSUInteger NSDraggingItemEnumerationOptions;
 /* While a destination may change the dragging images at any time, it is recommended to wait until this method is called before updating the dragging image. This allows the system to delay changing the dragging images until it is likely that the user will drop on this destination. Otherwise, the dragging images will change too often during the drag which would be distracting to the user. The destination may update the dragging images by calling one of the -enumerateDraggingItems methods on the sender.
 */
 - (void)updateDraggingItemsForDrag:(id <NSDraggingInfo>)sender NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 
 @protocol NSDraggingSource <NSObject>
@@ -152,9 +152,9 @@ typedef NSUInteger NSDraggingItemEnumerationOptions;
 
 - (BOOL)ignoreModifierKeysForDraggingSession:(NSDraggingSession *)session;
 
-@end
+}
 
-@interface NSObject(NSDraggingSourceDeprecated)
+extern class NSObject(NSDraggingSourceDeprecated)
 /* The following methods are informally deprecated and are only called if the source does not implement the NSDraggingSource protocol methods. These methods will be formally deprecated in a future OS release
 */
 - (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)flag;
@@ -168,4 +168,4 @@ typedef NSUInteger NSDraggingItemEnumerationOptions;
 
 // Formally deprecated 
 - (void)draggedImage:(NSImage *)image endedAt:(NSPoint)screenPoint deposited:(BOOL)flag DEPRECATED_IN_MAC_OS_X_VERSION_10_1_AND_LATER;
-@end
+}

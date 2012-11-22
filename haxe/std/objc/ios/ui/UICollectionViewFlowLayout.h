@@ -1,6 +1,6 @@
 //
 //  UICollectionViewFlowLayout.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2011 Apple Inc. All rights reserved.
 //
@@ -18,7 +18,7 @@ typedef NS_ENUM(NSInteger, UICollectionViewScrollDirection) {
     UICollectionViewScrollDirectionHorizontal
 };
 
-@protocol UICollectionViewDelegateFlowLayout <UICollectionViewDelegate>
+extern interface UICollectionViewDelegateFlowLayout <UICollectionViewDelegate>
 @optional
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
@@ -28,17 +28,17 @@ typedef NS_ENUM(NSInteger, UICollectionViewScrollDirection) {
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section;
 
-@end
+}
 
-NS_CLASS_AVAILABLE_IOS(6_0) @interface UICollectionViewFlowLayout : UICollectionViewLayout
+NS_CLASS_AVAILABLE_IOS(6_0)extern class UICollectionViewFlowLayout : UICollectionViewLayout
 
-@property (nonatomic) CGFloat minimumLineSpacing;
-@property (nonatomic) CGFloat minimumInteritemSpacing;
-@property (nonatomic) CGSize itemSize;
-@property (nonatomic) UICollectionViewScrollDirection scrollDirection; // default is UICollectionViewScrollDirectionVertical
-@property (nonatomic) CGSize headerReferenceSize;
-@property (nonatomic) CGSize footerReferenceSize;
+	public var CGFloat minimumLineSpacing;
+	public var CGFloat minimumInteritemSpacing;
+	public var CGSize itemSize;
+	public var UICollectionViewScrollDirection scrollDirection; // default is UICollectionViewScrollDirectionVertical
+	public var CGSize headerReferenceSize;
+	public var CGSize footerReferenceSize;
 
-@property (nonatomic) UIEdgeInsets sectionInset;
+	public var UIEdgeInsets sectionInset;
 
-@end
+}

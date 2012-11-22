@@ -46,7 +46,7 @@ extern NSString *WebHistoryItemChangedNotification;
     pages visited.  With the exception of the displayTitle, the properties of 
     WebHistoryItems are set by WebKit.  WebHistoryItems are normally never created directly.
 */
-@interface WebHistoryItem : NSObject <NSCopying>
+extern class WebHistoryItem extends NSObject <NSCopying>
 {
 @private
     WebHistoryItemPrivate *_private;
@@ -123,4 +123,4 @@ extern NSString *WebHistoryItemChangedNotification;
 */
 - (NSImage *)icon;
 
-@end
+}

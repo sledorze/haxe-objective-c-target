@@ -10,15 +10,15 @@
 #import <MapKit/MKPlacemark.h>
 
 MK_CLASS_AVAILABLE(NA, 6_0)
-@interface MKMapItem : NSObject
+extern class MKMapItem extends NSObject
 
 // If this MKMapItem represents your current location (isCurrentLocation == YES), then placemark will be nil.
-@property (nonatomic, readonly, retain) MKPlacemark *placemark;
-@property (nonatomic, readonly) BOOL isCurrentLocation;
+	public var (default, null) MKPlacemark *placemark;
+	public var BOOL isCurrentLocation;
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *phoneNumber;
-@property (nonatomic, retain) NSURL *url;
+	public var NSString *name;
+	public var NSString *phoneNumber;
+	public var NSURL *url;
 
 + (MKMapItem *)mapItemForCurrentLocation;
 - (id)initWithPlacemark:(MKPlacemark *)placemark;
@@ -26,7 +26,7 @@ MK_CLASS_AVAILABLE(NA, 6_0)
 - (BOOL)openInMapsWithLaunchOptions:(NSDictionary *)launchOptions;
 + (BOOL)openMapsWithItems:(NSArray *)mapItems launchOptions:(NSDictionary *)launchOptions;
 
-@end
+}
 
 MK_EXTERN NSString * const MKLaunchOptionsDirectionsModeKey     NS_AVAILABLE_IOS(6_0); // Key to a directions mode
 MK_EXTERN NSString * const MKLaunchOptionsMapTypeKey            NS_AVAILABLE_IOS(6_0); // Key to an NSNumber corresponding to a MKMapType

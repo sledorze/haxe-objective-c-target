@@ -27,17 +27,17 @@ typedef struct {
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len;
 
-@end
+}
 
-@interface NSEnumerator : NSObject <NSFastEnumeration>
+extern class NSEnumerator extends NSObject <NSFastEnumeration>
 
 - (id)nextObject;
 
-@end
+}
 
-@interface NSEnumerator (NSExtendedEnumerator)
+extern class NSEnumerator (NSExtendedEnumerator)
 
 - (NSArray *)allObjects;
 
-@end
+}
 

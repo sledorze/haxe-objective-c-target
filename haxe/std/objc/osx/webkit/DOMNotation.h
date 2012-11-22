@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMNotation : DOMNode
-@property(readonly, copy) NSString *publicId;
-@property(readonly, copy) NSString *systemId;
-@end
+extern class DOMNotation : DOMNode
+	public var (default, null) NSString *publicId;
+	public var (default, null) NSString *systemId;
+}
 
 #endif

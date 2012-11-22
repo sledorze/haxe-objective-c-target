@@ -1,25 +1,26 @@
 
 
-#import "Int.h"
 #import "String.h"
+#import "Int.h"
+#import "StringTools.h"
 
 @interface StringTools : NSObject
 
-+ (NSString*) urlEncode:(NSString*)s;
-+ (NSString*) urlDecode:(NSString*)s;
-+ (NSString*) htmlEscape:(NSString*)s;
-+ (NSString*) htmlUnescape:(NSString*)s;
-+ (BOOL) startsWith:(NSString*)s start:(NSString*)start;
-+ (BOOL) endsWith:(NSString*)s end:(NSString*)end;
-+ (BOOL) isSpace:(NSString*)s pos:(int)pos;
-+ (NSString*) ltrim:(NSString*)s;
-+ (NSString*) rtrim:(NSString*)s;
-+ (NSString*) trim:(NSString*)s;
-+ (NSString*) rpad:(NSString*)s c:(NSString*)c l:(int)l;
-+ (NSString*) lpad:(NSString*)s c:(NSString*)c l:(int)l;
-+ (NSString*) replace:(NSString*)s sub:(NSString*)sub by:(NSString*)by;
-+ (NSString*) hex:(int)n digits:(id)digits;
-+ (int) fastCodeAt:(NSString*)s index:(int)index;
++ (NSMutableString*) urlEncode:(NSMutableString*)s;
++ (NSMutableString*) urlDecode:(NSMutableString*)s;
++ (NSMutableString*) htmlEscape:(NSMutableString*)s;
++ (NSMutableString*) htmlUnescape:(NSMutableString*)s;
++ (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start;
++ (BOOL) endsWith:(NSMutableString*)s end:(NSMutableString*)end;
++ (BOOL) isSpace:(NSMutableString*)s pos:(int)pos;
++ (NSMutableString*) ltrim:(NSMutableString*)s;
++ (NSMutableString*) rtrim:(NSMutableString*)s;
++ (NSMutableString*) trim:(NSMutableString*)s;
++ (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
++ (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
++ (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by;
++ (NSMutableString*) hex:(int)n digits:(id)digits;
++ (int) fastCodeAt:(NSMutableString*)s index:(int)index;
 + (BOOL) isEOF:(int)c;
 
 @end

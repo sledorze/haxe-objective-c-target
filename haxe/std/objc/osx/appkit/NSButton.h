@@ -11,7 +11,7 @@
 
 @class NSSound;
 
-@interface NSButton : NSControl <NSUserInterfaceValidations>
+extern class NSButton : NSControl <NSUserInterfaceValidations>
 
 - (NSString *)title;
 - (void)setTitle:(NSString *)aString;
@@ -39,37 +39,37 @@
 - (void)highlight:(BOOL)flag;
 - (BOOL)performKeyEquivalent:(NSEvent *)key;
 
-@end
+}
 
-@interface NSButton(NSKeyboardUI)
+extern class NSButton(NSKeyboardUI)
 - (void)setTitleWithMnemonic:(NSString *)stringWithAmpersand;
-@end
+}
 
-@interface NSButton(NSButtonAttributedStringMethods)
+extern class NSButton(NSButtonAttributedStringMethods)
 - (NSAttributedString *)attributedTitle;
 - (void)setAttributedTitle:(NSAttributedString *)aString;
 - (NSAttributedString *)attributedAlternateTitle;
 - (void)setAttributedAlternateTitle:(NSAttributedString *)obj;
-@end
+}
 
-@interface NSButton(NSButtonBezelStyles)
+extern class NSButton(NSButtonBezelStyles)
 - (void) setBezelStyle:(NSBezelStyle)bezelStyle;
 - (NSBezelStyle)bezelStyle;
-@end
+}
 
-@interface NSButton(NSButtonMixedState)
+extern class NSButton(NSButtonMixedState)
 - (void)setAllowsMixedState:(BOOL)flag;
 - (BOOL)allowsMixedState;
 - (void)setNextState;
-@end
+}
 
-@interface NSButton(NSButtonBorder)
+extern class NSButton(NSButtonBorder)
 - (void) setShowsBorderOnlyWhileMouseInside:(BOOL)show;
 - (BOOL) showsBorderOnlyWhileMouseInside;
-@end
+}
 
-@interface NSButton (NSButtonSoundExtensions)
+extern class NSButton (NSButtonSoundExtensions)
 - (void)setSound:(NSSound *)aSound;
 - (NSSound *)sound;
-@end
+}
 

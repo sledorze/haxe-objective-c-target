@@ -38,20 +38,20 @@ enum {
     DOM_KEY_LOCATION_NUMPAD = 0x03
 };
 
-@interface DOMKeyboardEvent : DOMUIEvent
-@property(readonly, copy) NSString *keyIdentifier;
-@property(readonly) unsigned keyLocation;
-@property(readonly) BOOL ctrlKey;
-@property(readonly) BOOL shiftKey;
-@property(readonly) BOOL altKey;
-@property(readonly) BOOL metaKey;
-@property(readonly) BOOL altGraphKey AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int keyCode;
-@property(readonly) int charCode;
+extern class DOMKeyboardEvent : DOMUIEvent
+	public var (default, null) NSString *keyIdentifier;
+	public var  (default, null) : unsigned keyLocation;
+	public var  (default, null) : BOOL ctrlKey;
+	public var  (default, null) : BOOL shiftKey;
+	public var  (default, null) : BOOL altKey;
+	public var  (default, null) : BOOL metaKey;
+	public var  (default, null) : BOOL altGraphKey AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int keyCode;
+	public var  (default, null) : int charCode;
 
 - (BOOL)getModifierState:(NSString *)keyIdentifierArg;
 - (void)initKeyboardEvent:(NSString *)type canBubble:(BOOL)canBubble cancelable:(BOOL)cancelable view:(DOMAbstractView *)view keyIdentifier:(NSString *)keyIdentifier keyLocation:(unsigned)keyLocation ctrlKey:(BOOL)ctrlKey altKey:(BOOL)altKey shiftKey:(BOOL)shiftKey metaKey:(BOOL)metaKey altGraphKey:(BOOL)altGraphKey AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)initKeyboardEvent:(NSString *)type canBubble:(BOOL)canBubble cancelable:(BOOL)cancelable view:(DOMAbstractView *)view keyIdentifier:(NSString *)keyIdentifier keyLocation:(unsigned)keyLocation ctrlKey:(BOOL)ctrlKey altKey:(BOOL)altKey shiftKey:(BOOL)shiftKey metaKey:(BOOL)metaKey AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
 #endif

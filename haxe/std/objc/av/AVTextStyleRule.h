@@ -19,7 +19,7 @@
 @class AVTextStyleRuleInternal;
 
 NS_CLASS_AVAILABLE(TBD, 6_0)
-@interface AVTextStyleRule : NSObject <NSCopying> {
+extern class AVTextStyleRule extends NSObject <NSCopying> {
 @private
 	AVTextStyleRuleInternal *_textStyleRule;
 }
@@ -86,16 +86,16 @@ NS_CLASS_AVAILABLE(TBD, 6_0)
 - (id)initWithTextMarkupAttributes:(NSDictionary *)textMarkupAttributes textSelector:(NSString *)textSelector;
 
 /*!
- @property		textMarkupAttributes
+ 	public var 		textMarkupAttributes
  @abstract		An NSDictionary with keys representing text style attributes that are specifiable in text markup. Eligible keys and the expected types of their corresponding values are defined in <CoreMedia/CMTextMarkup.h>.
 */
-@property (nonatomic, readonly) NSDictionary *textMarkupAttributes;
+	public var NSDictionary *textMarkupAttributes;
 
 /*!
- @property		textSelector
+ 	public var 		textSelector
  @abstract		A string that identifies the range or ranges of text to which the attributes should be applied. A value of nil indicates that the textMarkupAttributes should be applied as default styles for all text unless overridden by content markup or other applicable text selectors.
  @dicussion		The syntax of text selectors is determined by the format of the legible media. Eligible selectors may be determined by the content of the legible media (e.g. CSS selectors that are valid for a specific WebVTT document).
 */
-@property (nonatomic, readonly) NSString *textSelector;
+	public var NSString *textSelector;
 
-@end
+}

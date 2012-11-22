@@ -5,7 +5,7 @@
 
 #import <QuartzCore/CALayer.h>
 
-@interface CAScrollLayer : CALayer
+extern class CAScrollLayer : CALayer
 
 /* Changes the origin of the layer to point 'p'. */
 
@@ -18,11 +18,11 @@
 /* Defines the axes in which the layer may be scrolled. Possible values
  * are `none', `vertically', `horizontally' or `both' (the default). */
 
-@property(copy) NSString *scrollMode;
+	public var NSString *scrollMode;
 
-@end
+}
 
-@interface CALayer (CALayerScrolling)
+extern class CALayer (CALayerScrolling)
 
 /* These methods search for the closest ancestor CAScrollLayer of the *
  * receiver, and then call either -scrollToPoint: or -scrollToRect: on
@@ -37,9 +37,9 @@
  * space. The visible region is the area not clipped by the containing
  * scroll layer. */
 
-@property(readonly) CGRect visibleRect;
+	public var  (default, null) : CGRect visibleRect;
 
-@end
+}
 
 /* `scrollMode' values. */
 

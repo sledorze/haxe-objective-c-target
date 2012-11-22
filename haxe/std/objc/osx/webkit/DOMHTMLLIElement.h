@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMHTMLLIElement : DOMHTMLElement
-@property(copy) NSString *type;
-@property int value;
-@end
+extern class DOMHTMLLIElement : DOMHTMLElement
+	public var NSString *type;
+	public var  int value;
+}
 
 #endif

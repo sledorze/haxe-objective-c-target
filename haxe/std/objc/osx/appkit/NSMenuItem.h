@@ -13,7 +13,7 @@
 @class NSMenu;
 @class NSImage, NSAttributedString, NSView;
 
-@interface NSMenuItem : NSObject <NSCopying, NSCoding, NSValidatedUserInterfaceItem>
+extern class NSMenuItem extends NSObject <NSCopying, NSCoding, NSValidatedUserInterfaceItem>
 {
     /*All instance variables are private*/
     @private
@@ -155,12 +155,12 @@ When a menu item is copied via NSCopying, any attached view is copied via archiv
 - (void) setToolTip:(NSString*)toolTip;
 - (NSString*)toolTip;
 
-@end
+}
 
-@interface NSView (NSViewEnclosingMenuItem)
+extern class NSView (NSViewEnclosingMenuItem)
 /* Returns the menu item containing the receiver or any of its superviews in the view hierarchy, or nil if the receiver's view hierarchy is not in a menu item. */
 - (NSMenuItem *)enclosingMenuItem NS_AVAILABLE_MAC(10_5);
-@end
+}
 
 // The NSMenuItem protocol is deprecated.  Use the NSMenuItem class in your code.
 #if defined(__GNUC__) && (__GNUC__ >= 4) && (__GNUC_MINOR__ >= 2)
@@ -169,10 +169,10 @@ NS_DEPRECATED_MAC(10_0, 10_6)
 @protocol NSMenuItem;
 
 /* The following methods are deprecated.  They have never done anything useful in Mac OS X. */
-@interface NSMenuItem (NSDeprecated)
+extern class NSMenuItem (NSDeprecated)
 
 - (void)setMnemonicLocation:(NSUInteger)location NS_DEPRECATED_MAC(10_0, 10_6);
 - (NSUInteger)mnemonicLocation NS_DEPRECATED_MAC(10_0, 10_6);
 - (NSString *)mnemonic NS_DEPRECATED_MAC(10_0, 10_6);
 
-@end
+}

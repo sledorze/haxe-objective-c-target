@@ -44,11 +44,11 @@ extern class UIColor extends NSObject {
 + (UIColor *)clearColor;      // 0.0 white, 0.0 alpha 
 
 // Set the color: Sets the fill and stroke colors in the current drawing context. Should be implemented by subclassers.
-- (void)set;
+	public function set;
 
 // Set the fill or stroke colors individually. These should be implemented by subclassers.
-- (void)setFill;
-- (void)setStroke;
+	public function setFill;
+	public function setStroke;
 
 // Convenience methods for getting components.
 // If the receiver is of a compatible color space, any non-NULL parameters are populated and 'YES' is returned. Otherwise, the parameters are left unchanged and 'NO' is returned.
@@ -60,14 +60,14 @@ extern class UIColor extends NSObject {
 - (UIColor *)colorWithAlphaComponent:(CGFloat)alpha;
 
 // Access the underlying CGColor or CIColor.
-@property(nonatomic,readonly) CGColorRef CGColor;
-@property(nonatomic,readonly) CIColor   *CIColor;
+	public var (default, null) CGColorRef CGColor;
+	public var (default, null) CIColor   *CIColor;
 
-@end
+}
 
-@interface CIColor(UIKitAdditions)
+extern class CIColor(UIKitAdditions)
 
 - (id)initWithColor:(UIColor *)color NS_AVAILABLE_IOS(5_0);
 
-@end
+}
 */

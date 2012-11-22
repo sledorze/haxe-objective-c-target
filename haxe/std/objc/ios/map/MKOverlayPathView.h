@@ -11,7 +11,7 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKOverlayPathView : MKOverlayView {
+extern class MKOverlayPathView : MKOverlayView {
 @package
     UIColor *_fillColor;
     UIColor *_strokeColor;
@@ -25,21 +25,21 @@ MK_CLASS_AVAILABLE(NA, 4_0)
     CGPathRef _path;
 }
 
-@property (retain) UIColor *fillColor;
-@property (retain) UIColor *strokeColor;
+	public var  (retain) UIColor *fillColor;
+	public var  (retain) UIColor *strokeColor;
 
-@property CGFloat lineWidth; // defaults to 0, which is MKRoadWidthAtZoomScale(currentZoomScale)
-@property CGLineJoin lineJoin; // defaults to kCGLineJoinRound
-@property CGLineCap lineCap; // defaults to kCGLineCapRound
-@property CGFloat miterLimit; // defaults to 10
-@property CGFloat lineDashPhase; // defaults to 0
-@property (copy) NSArray *lineDashPattern; // an array of NSNumbers, defaults to nil
+	public var  CGFloat lineWidth; // defaults to 0, which is MKRoadWidthAtZoomScale(currentZoomScale)
+	public var  CGLineJoin lineJoin; // defaults to kCGLineJoinRound
+	public var  CGLineCap lineCap; // defaults to kCGLineCapRound
+	public var  CGFloat miterLimit; // defaults to 10
+	public var  CGFloat lineDashPhase; // defaults to 0
+	public var  (copy) NSArray *lineDashPattern; // an array of NSNumbers, defaults to nil
 
 // subclassers should override this to create a path and then set it on
 // themselves with self.path = newPath;
 - (void)createPath;
 // returns cached path or calls createPath if path has not yet been created
-@property CGPathRef path; // path will be retained
+	public var  CGPathRef path; // path will be retained
 - (void)invalidatePath;
 
 // subclassers may override these
@@ -50,4 +50,4 @@ MK_CLASS_AVAILABLE(NA, 4_0)
 - (void)strokePath:(CGPathRef)path inContext:(CGContextRef)context;
 - (void)fillPath:(CGPathRef)path inContext:(CGContextRef)context;
 
-@end
+}

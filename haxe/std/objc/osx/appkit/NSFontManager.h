@@ -56,7 +56,7 @@ enum {
 };
 typedef NSUInteger NSFontAction;
 
-@interface NSFontManager : NSObject
+extern class NSFontManager extends NSObject
 {
 /*All instance variables are private*/
 @private
@@ -140,9 +140,9 @@ typedef NSUInteger NSFontAction;
 - (void)setTarget:(id)aTarget NS_AVAILABLE_MAC(10_5);
 - (id)target NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
-@interface NSFontManager(NSFontManagerMenuActionMethods)
+extern class NSFontManager(NSFontManagerMenuActionMethods)
 
 - (BOOL)fontNamed:(NSString *)fName hasTraits:(NSFontTraitMask)someTraits;
 
@@ -159,17 +159,17 @@ typedef NSUInteger NSFontAction;
 - (void)orderFrontFontPanel:(id)sender;
 - (void)orderFrontStylesPanel:(id)sender;
 
-@end
+}
 
 /* This method is perhaps inappropriately named; it is sent to the delegate of the shared NSFontPanel instance, not to the delegate of the NSFontManager.
 */
-@interface NSObject(NSFontManagerDelegate)
+extern class NSObject(NSFontManagerDelegate)
 - (BOOL)fontManager:(id)sender willIncludeFont:(NSString *)fontName;
-@end
+}
 
 /* This is the message that's propagated up the responder chain.
 */
-@interface NSObject(NSFontManagerResponderMethod)
+extern class NSObject(NSFontManagerResponderMethod)
 - (void)changeFont:(id)sender;
-@end
+}
 

@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMHTMLBaseElement : DOMHTMLElement
-@property(copy) NSString *href;
-@property(copy) NSString *target;
-@end
+extern class DOMHTMLBaseElement : DOMHTMLElement
+	public var NSString *href;
+	public var NSString *target;
+}
 
 #endif

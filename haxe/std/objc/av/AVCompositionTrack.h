@@ -26,7 +26,7 @@
 @class AVCompositionTrackInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCompositionTrack : AVAssetTrack
+extern class AVCompositionTrack : AVAssetTrack
 {
 @private
     AVCompositionTrackInternal    *_priv;
@@ -39,9 +39,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
   	-validateTrackSegments:error: will perform a test to ensure that an array of AVCompositionTrackSegments
   	conforms to this rule.
 */
-@property (nonatomic, readonly, copy) NSArray *segments;
+	public var (default, null) NSArray *segments;
 
-@end
+}
 
 
 /*!
@@ -54,7 +54,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 @class AVMutableCompositionTrackInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVMutableCompositionTrack : AVCompositionTrack
+extern class AVMutableCompositionTrack : AVCompositionTrack
 {
 @private
     AVMutableCompositionTrackInternal    *_mutablePriv;
@@ -63,19 +63,19 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 /* Indicates a timescale in which time values for the track can be operated upon without extraneous numerical conversion.
    If not set, returns the naturalTimeScale of the first non-empty edit, or 600 if there are no non-empty edits.
    Set to 0 to revert to default behavior. */
-@property (nonatomic) CMTimeScale naturalTimeScale;
+	public var CMTimeScale naturalTimeScale;
 
 /* indicates the language associated with the track, as an ISO 639-2/T language code; if not set, returns nil */
-@property (nonatomic, copy) NSString *languageCode;
+	public var NSString *languageCode;
 
 /* indicates the language tag associated with the track, as an RFC 4646 language tag; if not set, returns nil */
-@property (nonatomic, copy) NSString *extendedLanguageTag;
+	public var NSString *extendedLanguageTag;
 
 /* the preferred transformation of the visual media data for display purposes; if not set, returns CGAffineTransformIdentity */
-@property (nonatomic) CGAffineTransform preferredTransform;
+	public var CGAffineTransform preferredTransform;
 
 /* the preferred volume of the audible media data; if not set, returns 1.0 */
-@property (nonatomic) float preferredVolume;
+	public var float preferredVolume;
 
 /* Provides read/write access to the array of track segments, each an instance of AVCompositionTrackSegment.
   	Note that timeMapping.target.start of the first AVCompositionTrackSegment must be kCMTimeZero,
@@ -84,7 +84,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
   	-validateTrackSegments:error: will perform a test to ensure that an array of AVCompositionTrackSegments
   	conforms to this rule.
 */
-@property (nonatomic, copy) NSArray *segments;
+	public var NSArray *segments;
 
 /*!
 	@method			insertTimeRange:ofTrack:atTime:error:
@@ -189,4 +189,4 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (BOOL)validateTrackSegments:(NSArray *)trackSegments error:(NSError **)error;
 
-@end
+}

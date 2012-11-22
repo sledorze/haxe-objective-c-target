@@ -1,6 +1,6 @@
 //
 //  UIPasteboard.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -13,7 +13,7 @@ UIKIT_EXTERN NSString *const UIPasteboardNameFind;
 
 @class UIColor, UIImage;
 
-NS_CLASS_AVAILABLE_IOS(3_0) @interface UIPasteboard : NSObject { 
+NS_CLASS_AVAILABLE_IOS(3_0)extern class UIPasteboard extends NSObject { 
   @private
     NSString *_name;
 }
@@ -22,12 +22,12 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UIPasteboard : NSObject {
 + (UIPasteboard *)pasteboardWithName:(NSString *)pasteboardName create:(BOOL)create;
 + (UIPasteboard *)pasteboardWithUniqueName;
 
-@property(readonly,nonatomic) NSString *name;
+	public var (default, null) NSString *name;
 
 + (void)removePasteboardWithName:(NSString *)pasteboardName;
 
-@property(getter=isPersistent,nonatomic) BOOL persistent;
-@property(readonly,nonatomic) NSInteger changeCount;
+	public var (getter=isPersistent,nonatomic) BOOL persistent;
+	public var (default, null) NSInteger changeCount;
 
 // First item
 
@@ -37,12 +37,12 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UIPasteboard : NSObject {
 
 - (id)valueForPasteboardType:(NSString *)pasteboardType;
 
-- (void)setValue:(id)value forPasteboardType:(NSString *)pasteboardType;
-- (void)setData:(NSData *)data forPasteboardType:(NSString *)pasteboardType;
+	public function setValue:(id)value forPasteboardType:(NSString *)pasteboardType;
+	public function setData:(NSData *)data forPasteboardType:(NSString *)pasteboardType;
 
 // Multiple items
 
-@property(readonly,nonatomic) NSInteger numberOfItems;
+	public var (default, null) NSInteger numberOfItems;
 - (NSArray *)pasteboardTypesForItemSet:(NSIndexSet*)itemSet;		
 - (BOOL)containsPasteboardTypes:(NSArray *)pasteboardTypes inItemSet:(NSIndexSet *)itemSet;	
 - (NSIndexSet *)itemSetWithPasteboardTypes:(NSArray *)pasteboardTypes;
@@ -51,10 +51,10 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UIPasteboard : NSObject {
 
 // Direct access
 
-@property(nonatomic,copy) NSArray *items;
-- (void)addItems:(NSArray *)items;
+public var  NSArray *items;
+	public function addItems:(NSArray *)items;
 
-@end
+}
 
 // Notification
 
@@ -71,18 +71,18 @@ UIKIT_EXTERN NSArray *UIPasteboardTypeListURL;
 UIKIT_EXTERN NSArray *UIPasteboardTypeListImage;
 UIKIT_EXTERN NSArray *UIPasteboardTypeListColor;
 
-@interface UIPasteboard(UIPasteboardDataExtensions)
+extern class UIPasteboard(UIPasteboardDataExtensions)
 
-@property(nonatomic,copy) NSString *string;
-@property(nonatomic,copy) NSArray *strings;
+public var  NSString *string;
+public var  NSArray *strings;
 
-@property(nonatomic,copy) NSURL *URL;
-@property(nonatomic,copy) NSArray *URLs;
+public var  NSURL *URL;
+public var  NSArray *URLs;
 
-@property(nonatomic,copy) UIImage *image;
-@property(nonatomic,copy) NSArray *images;
+public var  UIImage *image;
+public var  NSArray *images;
 
-@property(nonatomic,copy) UIColor *color;
-@property(nonatomic,copy) NSArray *colors;
+public var  UIColor *color;
+public var  NSArray *colors;
 
-@end
+}

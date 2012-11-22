@@ -53,7 +53,7 @@
 @class AVAssetInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVAsset : NSObject <NSCopying, AVAsynchronousKeyValueLoading>
+extern class AVAsset extends NSObject <NSCopying, AVAsynchronousKeyValueLoading>
 {
 @private
 	AVAssetInternal *_assetInternal;
@@ -71,32 +71,32 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 /*	Indicates the duration of the asset. If @"providesPreciseDurationAndTiming" is NO, a best-available estimate of the duration is returned. The degree of precision preferred for timing-related properties can be set at initialization time for assets initialized with URLs. See AVURLAssetPreferPreciseDurationAndTimingKey for AVURLAsset below.
 */
-@property (nonatomic, readonly) CMTime duration;
+	public var CMTime duration;
 
 /*	indicates the natural rate at which the asset is to be played; often but not always 1.0
 */
-@property (nonatomic, readonly) float preferredRate;
+	public var float preferredRate;
 
 /*	indicates the preferred volume at which the audible media of an asset is to be played; often but not always 1.0
 */
-@property (nonatomic, readonly) float preferredVolume;
+	public var float preferredVolume;
 
 /*	indicates the preferred transform to apply to the visual content of the asset for presentation or processing; the value is often but not always the identity transform
 */
-@property (nonatomic, readonly) CGAffineTransform preferredTransform;
+	public var CGAffineTransform preferredTransform;
 
 /*	The following property is deprecated. Instead, use the naturalSize and preferredTransform, as appropriate, of the receiver's video tracks. See -tracksWithMediaType: below.
 */
-@property (nonatomic, readonly) CGSize naturalSize NS_DEPRECATED(10_7, 10_8, 4_0, 5_0);
+	public var CGSize naturalSize NS_DEPRECATED(10_7, 10_8, 4_0, 5_0);
 
-@end
+}
 
 
-@interface AVAsset (AVAssetAsynchronousLoading)
+extern class AVAsset (AVAssetAsynchronousLoading)
 
 /*	indicates that the asset provides precise timing. See @"duration" above and AVURLAssetPreferPreciseDurationAndTimingKey below.
 */
-@property (nonatomic, readonly) BOOL providesPreciseDurationAndTiming;
+	public var BOOL providesPreciseDurationAndTiming;
 
 /*!
   @method		cancelLoading
@@ -105,14 +105,14 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)cancelLoading;
 
-@end
+}
 
 
-@interface AVAsset (AVAssetReferenceRestrictions)
+extern class AVAsset (AVAssetReferenceRestrictions)
 
 /*!
   @enum			AVAssetReferenceRestrictions
-  @abstract		These constants can be passed in to AVURLAssetReferenceRestrictionsKey to control the resolution of references to external media data.
+  @abstract		These constants can be passed in to AVURLAssetReferenceRestrictionsKey to control the resolution of references toexternal media data.
  
   @constant		AVAssetReferenceRestrictionForbidNone
 	Indicates that all types of references should be followed.
@@ -138,21 +138,21 @@ enum {
 typedef NSUInteger AVAssetReferenceRestrictions;
 
 /*!
-  @property		referenceRestrictions
+  	public var 		referenceRestrictions
   @abstract		Indicates the reference restrictions being used by the receiver.
   @discussion
 	For AVURLAsset, this property reflects the value passed in for AVURLAssetReferenceRestrictionsKey, if any. See AVURLAssetReferenceRestrictionsKey below for a full discussion of reference restrictions. The default value for this property is AVAssetReferenceRestrictionForbidNone.
 */
-@property (nonatomic, readonly) AVAssetReferenceRestrictions referenceRestrictions NS_AVAILABLE(10_7, 5_0);
+	public var AVAssetReferenceRestrictions referenceRestrictions NS_AVAILABLE(10_7, 5_0);
 
-@end
+}
 
 
-@interface AVAsset (AVAssetTrackInspection)
+extern class AVAsset (AVAssetTrackInspection)
 
 /* provides the array of AVAssetTracks contained by the asset
 */
-@property (nonatomic, readonly) NSArray *tracks;
+	public var NSArray *tracks;
 
 /*!
   @method		trackWithTrackID:
@@ -184,28 +184,28 @@ typedef NSUInteger AVAssetReferenceRestrictions;
 */
 - (NSArray *)tracksWithMediaCharacteristic:(NSString *)mediaCharacteristic;
 
-@end
+}
 
 
-@interface AVAsset (AVAssetMetadataReading)
+extern class AVAsset (AVAssetMetadataReading)
 
 // high-level access to selected metadata of common interest
 
 /* Indicates the creation date of the asset as an AVMetadataItem. May be nil. If a creation date has been stored by the asset in a form that can be converted to an NSDate, the dateValue property of the AVMetadataItem will provide an instance of NSDate. Otherwise the creation date is available only as a string value, via -[AVMetadataItem stringValue].
 */
-@property (nonatomic, readonly) AVMetadataItem *creationDate NS_AVAILABLE(10_8, 5_0);
+	public var AVMetadataItem *creationDate NS_AVAILABLE(10_8, 5_0);
 
 /* Provides access to the lyrics of the asset suitable for the current locale.
 */
-@property (nonatomic, readonly) NSString *lyrics;
+	public var NSString *lyrics;
 
 /* Provides access to an array of AVMetadataItems for each common metadata key for which a value is available; can be filtered according to language via +[AVMetadataItem metadataItemsFromArray:filteredAndSortedAccordingToPreferredLanguages:], according to locale via +[AVMetadataItem metadataItemsFromArray:withLocale:], or according to key via +[AVMetadataItem metadataItemsFromArray:withKey:keySpace:].
 */
-@property (nonatomic, readonly) NSArray *commonMetadata;
+	public var NSArray *commonMetadata;
 
 /* Provides an NSArray of NSStrings, each representing a metadata format that's available to the asset (e.g. ID3, iTunes metadata, etc.). Metadata formats are defined in AVMetadataFormat.h.
 */
-@property (nonatomic, readonly) NSArray *availableMetadataFormats;
+	public var NSArray *availableMetadataFormats;
 
 /*!
   @method		metadataForFormat:
@@ -217,14 +217,14 @@ typedef NSUInteger AVAssetReferenceRestrictions;
 */
 - (NSArray *)metadataForFormat:(NSString *)format;
 
-@end
+}
 
 
-@interface AVAsset (AVAssetChapterInspection)
+extern class AVAsset (AVAssetChapterInspection)
 
 /* array of NSLocale
 */
-@property (readonly) NSArray *availableChapterLocales NS_AVAILABLE(10_7, 4_3);
+	public var NSArray *availableChapterLocales NS_AVAILABLE(10_7, 4_3);
 
 /*!
   @method		chapterMetadataGroupsWithTitleLocale:containingMetadataItemsWithCommonKeys:
@@ -263,16 +263,16 @@ typedef NSUInteger AVAssetReferenceRestrictions;
 - (NSArray *)chapterMetadataGroupsBestMatchingPreferredLanguages:(NSArray *)preferredLanguages NS_AVAILABLE(10_8, 6_0);
 
 
-@end
+}
 
 
 @class AVMediaSelectionGroup;
 
-@interface AVAsset (AVAssetMediaSelection)
+extern class AVAsset (AVAssetMediaSelection)
 
 /* Provides an NSArray of NSStrings, each NSString indicating a media characteristic for which a media selection option is available.
 */
-@property (nonatomic, readonly) NSArray *availableMediaCharacteristicsWithMediaSelectionOptions NS_AVAILABLE(10_8, 5_0);
+	public var NSArray *availableMediaCharacteristicsWithMediaSelectionOptions NS_AVAILABLE(10_8, 5_0);
 
 /*!
   @method		mediaSelectionGroupForMediaCharacteristic:
@@ -293,46 +293,46 @@ typedef NSUInteger AVAssetReferenceRestrictions;
 */
 - (AVMediaSelectionGroup *)mediaSelectionGroupForMediaCharacteristic:(NSString *)mediaCharacteristic NS_AVAILABLE(10_8, 5_0);
 
-@end
+}
 
 
-@interface AVAsset (AVAssetProtectedContent)
+extern class AVAsset (AVAssetProtectedContent)
 
 /* Indicates whether or not the asset has protected content.
 */
-@property (nonatomic, readonly) BOOL hasProtectedContent NS_AVAILABLE(10_7, 4_2);
+	public var BOOL hasProtectedContent NS_AVAILABLE(10_7, 4_2);
 
-@end
+}
 
 
-@interface AVAsset (AVAssetUsability)
+extern class AVAsset (AVAssetUsability)
 
 /* indicates whether an AVPlayerItem can be initialized with the receiver or with its URL
 */
-@property (nonatomic, readonly, getter=isPlayable) BOOL playable NS_AVAILABLE(10_7, 4_3);
+	public var  (nonatomic, readonly, getter=isPlayable) BOOL playable NS_AVAILABLE(10_7, 4_3);
 
 /* indicates whether an AVAssetExportSession can be used with the receiver for export
 */
-@property (nonatomic, readonly, getter=isExportable) BOOL exportable NS_AVAILABLE(10_7, 4_3);
+	public var  (nonatomic, readonly, getter=isExportable) BOOL exportable NS_AVAILABLE(10_7, 4_3);
 
 /* indicates whether an AVAssetReader can be used with the receiver for extracting media data
 */
-@property (nonatomic, readonly, getter=isReadable) BOOL readable NS_AVAILABLE(10_7, 4_3);
+	public var  (nonatomic, readonly, getter=isReadable) BOOL readable NS_AVAILABLE(10_7, 4_3);
 
 /* indicates whether the receiver can be used within a segment of an AVCompositionTrack
 */
-@property (nonatomic, readonly, getter=isComposable) BOOL composable NS_AVAILABLE(10_7, 4_3);
+	public var  (nonatomic, readonly, getter=isComposable) BOOL composable NS_AVAILABLE(10_7, 4_3);
 
 #if TARGET_OS_IPHONE
 
 /* indicates whether the receiver can be written to the saved photos album
 */
-@property (nonatomic, readonly, getter=isCompatibleWithSavedPhotosAlbum) BOOL compatibleWithSavedPhotosAlbum NS_AVAILABLE_IOS(5_0);
+	public var  (nonatomic, readonly, getter=isCompatibleWithSavedPhotosAlbum) BOOL compatibleWithSavedPhotosAlbum NS_AVAILABLE_IOS(5_0);
 
 #endif	// TARGET_OS_IPHONE
 
 
-@end
+}
 
 
 // Keys for options dictionary for use with -[AVURLAsset initWithURL:options:]
@@ -357,7 +357,7 @@ AVF_EXPORT NSString *const AVURLAssetPreferPreciseDurationAndTimingKey NS_AVAILA
 /*!
   @constant		AVURLAssetReferenceRestrictionsKey
   @abstract
-	Indicates the restrictions used by the asset when resolving references to external media data. The value of this key is an NSNumber wrapping an AVAssetReferenceRestrictions enum value or the logical combination of multiple such values.
+	Indicates the restrictions used by the asset when resolving references toexternal media data. The value of this key is an NSNumber wrapping an AVAssetReferenceRestrictions enum value or the logical combination of multiple such values.
   @discussion
 	Some assets can contain references to media data stored outside the asset's container file, for example in another file. This key can be used to specify a policy to use when these references are encountered. If an asset contains one or more references of a type that is forbidden by the reference restrictions, loading of asset properties will fail. In addition, such an asset cannot be used with other AVFoundation modules, such as AVPlayerItem or AVAssetExportSession.
 */
@@ -378,7 +378,7 @@ AVF_EXPORT NSString *const AVURLAssetReferenceRestrictionsKey NS_AVAILABLE(10_7,
 @class AVURLAssetInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVURLAsset : AVAsset
+extern class AVURLAsset : AVAsset
 {
 @private
 	AVURLAssetInternal *_asset;
@@ -430,28 +430,28 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 /* indicates the URL with which the instance of AVURLAsset was initialized
 */
-@property (nonatomic, readonly, copy) NSURL *URL;
+	public var (default, null) NSURL *URL;
 
-@end
+}
 
 
 @class AVAssetResourceLoader;
 
-@interface AVURLAsset (AVURLAssetURLHandling)
+extern class AVURLAsset (AVURLAssetURLHandling)
 
 /*!
- @property resourceLoader
+ 	public var  resourceLoader
  @abstract
     Provides access to an instance of AVAssetResourceLoader, which offers limited control over the handling of URLs that may be loaded in the course of performing operations on the asset, such as playback.
     The loading of file URLs cannot be mediated via use of AVAssetResourceLoader.
     Note that copies of an AVAsset will vend the same instance of AVAssetResourceLoader.
 */
-@property(nonatomic, readonly) AVAssetResourceLoader *resourceLoader NS_AVAILABLE(TBD, 6_0);
+	public var (default, null) AVAssetResourceLoader *resourceLoader NS_AVAILABLE(TBD, 6_0);
 
-@end
+}
 
 
-@interface AVURLAsset (AVAssetCompositionUtility )
+extern class AVURLAsset (AVAssetCompositionUtility )
 
 /*!
   @method		compatibleTrackForCompositionTrack:
@@ -466,4 +466,4 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (AVAssetTrack *)compatibleTrackForCompositionTrack:(AVCompositionTrack *)compositionTrack;
 
-@end
+}

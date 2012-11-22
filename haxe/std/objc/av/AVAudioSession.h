@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, AVAudioSessionInterruptionType)
 
 #pragma mark -- AVAudioSession interface --
 NS_CLASS_AVAILABLE(NA, 3_0)
-@interface AVAudioSession : NSObject {
+extern class AVAudioSession extends NSObject {
 @private
     void * _impl;
 }
@@ -97,62 +97,62 @@ NS_CLASS_AVAILABLE(NA, 3_0)
 
 - (BOOL)setCategory:(NSString *)category error:(NSError **)outError; /* set session category */
 - (BOOL)setCategory:(NSString *)category withOptions: (AVAudioSessionCategoryOptions)options error:(NSError **)outError NS_AVAILABLE_IOS(6_0); /* set session category with options */
-@property(readonly) NSString * category; /* get session category */
-@property(readonly) AVAudioSessionCategoryOptions categoryOptions NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : NSString * category; /* get session category */
+	public var  (default, null) : AVAudioSessionCategoryOptions categoryOptions NS_AVAILABLE_IOS(6_0);
 
 - (BOOL)setMode:(NSString *)mode error:(NSError **)outError NS_AVAILABLE_IOS(5_0); /* set session mode */
-@property(readonly) NSString * mode NS_AVAILABLE_IOS(5_0); /* get session mode */
+	public var  (default, null) : NSString * mode NS_AVAILABLE_IOS(5_0); /* get session mode */
 
 - (BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride  error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
 
-@property(readonly, getter=isOtherAudioPlaying) BOOL otherAudioPlaying  NS_AVAILABLE_IOS(6_0);
+	public var (readonly, getter=isOtherAudioPlaying) BOOL otherAudioPlaying  NS_AVAILABLE_IOS(6_0);
 
-@property(readonly) AVAudioSessionRouteDescription * currentRoute NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : AVAudioSessionRouteDescription * currentRoute NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 
 /* AVAudioSessionHardwareConfiguration manages the set of properties that reflect the current state of
  audio hardware in the current route.  Applications whose functionality depends on these properties should
  reevaluate them any time the route changes. */
-@interface AVAudioSession (AVAudioSessionHardwareConfiguration)
+extern class AVAudioSession (AVAudioSessionHardwareConfiguration)
 
 - (BOOL)setPreferredSampleRate:(double)sampleRate  error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
-@property(readonly) double preferredSampleRate NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : double preferredSampleRate NS_AVAILABLE_IOS(6_0);
 
 - (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration error:(NSError **)outError;
-@property(readonly) NSTimeInterval preferredIOBufferDuration;
+	public var  (default, null) : NSTimeInterval preferredIOBufferDuration;
 
 /* inputGain is key-value observable */
 - (BOOL)setInputGain:(float)gain  error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
-@property(readonly) float inputGain NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
+	public var  (default, null) : float inputGain NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
 
-@property(readonly, getter=isInputGainSettable) BOOL inputGainSettable  NS_AVAILABLE_IOS(6_0);
+	public var (readonly, getter=isInputGainSettable) BOOL inputGainSettable  NS_AVAILABLE_IOS(6_0);
 
-@property(readonly, getter=isInputAvailable) BOOL inputAvailable  NS_AVAILABLE_IOS(6_0); /* is input hardware available or not? */
+	public var (readonly, getter=isInputAvailable) BOOL inputAvailable  NS_AVAILABLE_IOS(6_0); /* is input hardware available or not? */
 
 /* For use with certain accessories, such as some USB audio devices, that support input or output data source selection.
 If the attached accessory supports data source selection, the data source properties/methods provide for discovery and 
 selection of input and/or output data sources. */
-@property(readonly) NSArray * inputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
-@property(readonly) AVAudioSessionDataSourceDescription * inputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
+	public var  (default, null) : NSArray * inputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
+	public var  (default, null) : AVAudioSessionDataSourceDescription * inputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
 - (BOOL)setInputDataSource:(AVAudioSessionDataSourceDescription *)dataSource error:(NSError **)outError; /* Select from one of the available data sources. */
-@property(readonly) NSArray * outputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
-@property(readonly) AVAudioSessionDataSourceDescription * outputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
+	public var  (default, null) : NSArray * outputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
+	public var  (default, null) : AVAudioSessionDataSourceDescription * outputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
 - (BOOL)setOutputDataSource:(AVAudioSessionDataSourceDescription *)dataSource error:(NSError **)outError; /* Select from one of the available data sources. */
 
-@property(readonly) double sampleRate NS_AVAILABLE_IOS(6_0);
-@property(readonly) NSInteger inputNumberOfChannels NS_AVAILABLE_IOS(6_0);
-@property(readonly) NSInteger outputNumberOfChannels NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : double sampleRate NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : NSInteger inputNumberOfChannels NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : NSInteger outputNumberOfChannels NS_AVAILABLE_IOS(6_0);
 /* currentOutputVolume is key-value observable */
-@property(readonly) float outputVolume  NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
-@property(readonly) NSTimeInterval inputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
-@property(readonly) NSTimeInterval outputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
-@property(readonly) NSTimeInterval IOBufferDuration  NS_AVAILABLE_IOS(6_0); /* value in seconds */
+	public var  (default, null) : float outputVolume  NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
+	public var  (default, null) : NSTimeInterval inputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
+	public var  (default, null) : NSTimeInterval outputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
+	public var  (default, null) : NSTimeInterval IOBufferDuration  NS_AVAILABLE_IOS(6_0); /* value in seconds */
 
-@end
+}
 
-@interface AVAudioSession (AVAudioSessionDeprecated)
+extern class AVAudioSession (AVAudioSessionDeprecated)
 
 /* The delegate property is deprecated. Instead, you should register for the NSNotifications named below. */
 /* For example: 
@@ -161,21 +161,21 @@ selection of input and/or output data sources. */
  name:        AVAudioSessionInterruptionNotification 
  object:      [AVAudioSession sharedInstance]]; 
  */
-@property(assign) id<AVAudioSessionDelegate> delegate NS_DEPRECATED_IOS(4_0, 6_0);
+	public var (assign) id<AVAudioSessionDelegate> delegate NS_DEPRECATED_IOS(4_0, 6_0);
 
 
 - (BOOL)setActive:(BOOL)active withFlags:(NSInteger)flags error:(NSError **)outError NS_DEPRECATED_IOS(4_0, 6_0);
 
-@property(readonly) BOOL inputIsAvailable NS_DEPRECATED_IOS(3_0, 6_0); /* is input hardware available or not? */
+	public var  (default, null) : BOOL inputIsAvailable NS_DEPRECATED_IOS(3_0, 6_0); /* is input hardware available or not? */
 
 /* deprecated.  Use the corresponding properties without "Hardware" in their names. */
-@property(readonly) double currentHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
-@property(readonly) NSInteger currentHardwareInputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
-@property(readonly) NSInteger currentHardwareOutputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) : double currentHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) : NSInteger currentHardwareInputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) : NSInteger currentHardwareOutputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
 - (BOOL)setPreferredHardwareSampleRate:(double)sampleRate error:(NSError **)outError NS_DEPRECATED_IOS(3_0, 6_0);
-@property(readonly) double preferredHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) : double preferredHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
 
-@end
+}
 
 #pragma mark -- Names for NSNotifications --
 
@@ -294,48 +294,48 @@ AVF_EXPORT NSString *const AVAudioSessionPortUSBAudio     NS_AVAILABLE_IOS(6_0);
  hardware channels by setting an array of <port UID, channel index> pairs.
  */
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVAudioSessionChannelDescription : NSObject {
+extern class AVAudioSessionChannelDescription extends NSObject {
 @private
     void *_impl;
 }
 
-@property(readonly) NSString *	channelName;
-@property(readonly) NSString *	owningPortUID;  /* the unique identifier (UID) for the channel's owning port */
-@property(readonly) NSUInteger	channelNumber;  /* the index of this channel in its owning port's array of channels */
-@end
+	public var  (default, null) : NSString *	channelName;
+	public var  (default, null) : NSString *	owningPortUID;  /* the unique identifier (UID) for the channel's owning port */
+	public var  (default, null) : NSUInteger	channelNumber;  /* the index of this channel in its owning port's array of channels */
+}
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVAudioSessionPortDescription : NSObject {
+extern class AVAudioSessionPortDescription extends NSObject {
 @private
     void * _impl;
 }
 
 
-@property(readonly) NSString *	portType;	/* Value is one of the AVAudioSessionPort constants declared above. */
-@property(readonly) NSString *	portName;	/* A descriptive name for the port */
-@property(readonly) NSString *	UID;		/* A system-assigned unique identifier for the port */
-@property(readonly) NSArray *	channels;	/* Array of AVAudioSessionChannelDescription objects */
-@end
+	public var  (default, null) : NSString *	portType;	/* Value is one of the AVAudioSessionPort constants declared above. */
+	public var  (default, null) : NSString *	portName;	/* A descriptive name for the port */
+	public var  (default, null) : NSString *	UID;		/* A system-assigned unique identifier for the port */
+	public var  (default, null) : NSArray *	channels;	/* Array of AVAudioSessionChannelDescription objects */
+}
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVAudioSessionRouteDescription : NSObject {
+extern class AVAudioSessionRouteDescription extends NSObject {
 @private
     void * _impl;
 }
 
-@property(readonly) NSArray * inputs;  /* Array of AVAudioSessionPortDescription objects */
-@property(readonly) NSArray * outputs; /* Array of AVAudioSessionPortDescription objects */
-@end
+	public var  (default, null) : NSArray * inputs;  /* Array of AVAudioSessionPortDescription objects */
+	public var  (default, null) : NSArray * outputs; /* Array of AVAudioSessionPortDescription objects */
+}
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVAudioSessionDataSourceDescription : NSObject {
+extern class AVAudioSessionDataSourceDescription extends NSObject {
 @private
     void * _impl;
 }
 
-@property(readonly) NSNumber * dataSourceID;	/* system-assigned ID for the data source */
-@property(readonly) NSString * dataSourceName;  /* human-readable name for the data source */
-@end
+	public var  (default, null) : NSNumber * dataSourceID;	/* system-assigned ID for the data source */
+	public var  (default, null) : NSString * dataSourceName;  /* human-readable name for the data source */
+}
 
 
 #pragma mark -- AVAudioSessionDelegate protocol --
@@ -353,7 +353,7 @@ NS_CLASS_AVAILABLE(NA, 6_0)
 /* notification for input become available or unavailable */
 - (void)inputIsAvailableChanged:(BOOL)isInputAvailable;
 
-@end
+}
 
 
 #pragma mark -- Deprecated enumerations --

@@ -108,7 +108,7 @@ COREDATA_EXTERN NSString * const NSPersistentStoreDidImportUbiquitousContentChan
 COREDATA_EXTERN NSString * const NSPersistentStoreFileProtectionKey NS_AVAILABLE(NA, 5_0);
 
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSPersistentStoreCoordinator : NSObject <NSLocking> {
+extern class NSPersistentStoreCoordinator extends NSObject <NSLocking> {
 @private
     struct _persistentStoreCoordinatorFlags {
         unsigned int _isRegistered:1;
@@ -184,4 +184,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 - (void)unlock;
 - (BOOL)tryLock;
 
-@end
+}

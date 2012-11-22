@@ -65,8 +65,8 @@ enum {
     DOM_CSS_VMIN = 28
 };
 
-@interface DOMCSSPrimitiveValue : DOMCSSValue
-@property(readonly) unsigned short primitiveType;
+extern class DOMCSSPrimitiveValue : DOMCSSValue
+	public var  (default, null) : unsigned short primitiveType;
 
 - (void)setFloatValue:(unsigned short)unitType floatValue:(float)floatValue AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (float)getFloatValue:(unsigned short)unitType;
@@ -75,11 +75,11 @@ enum {
 - (DOMCounter *)getCounterValue;
 - (DOMRect *)getRectValue;
 - (DOMRGBColor *)getRGBColorValue;
-@end
+}
 
-@interface DOMCSSPrimitiveValue (DOMCSSPrimitiveValueDeprecated)
+extern class DOMCSSPrimitiveValue (DOMCSSPrimitiveValueDeprecated)
 - (void)setFloatValue:(unsigned short)unitType :(float)floatValue AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (void)setStringValue:(unsigned short)stringType :(NSString *)stringValue AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

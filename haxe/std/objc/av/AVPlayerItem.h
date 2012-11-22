@@ -81,7 +81,7 @@ typedef NSInteger AVPlayerItemStatus;
 @class AVPlayerItemInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVPlayerItem : NSObject <NSCopying>
+extern class AVPlayerItem extends NSObject <NSCopying>
 {
 @private
 	AVPlayerItemInternal* _playerItem;
@@ -124,7 +124,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (id)initWithAsset:(AVAsset *)asset;
 
 /*!
- @property status
+ 	public var  status
  @abstract
 	The ability of the receiver to be used for playback.
  
@@ -134,10 +134,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 	a new instance needs to be created in its place. When this happens, clients can check the value of the error
 	property to determine the nature of the failure. This property is key value observable.
  */
-@property (nonatomic, readonly) AVPlayerItemStatus status;
+	public var AVPlayerItemStatus status;
 
 /*!
- @property error
+ 	public var  error
  @abstract
 	If the receiver's status is AVPlayerItemStatusFailed, this describes the error that caused the failure.
  
@@ -145,36 +145,36 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 	The value of this property is an NSError that describes what caused the receiver to no longer be able to be played.
 	If the receiver's status is not AVPlayerItemStatusFailed, the value of this property is nil.
  */
-@property (nonatomic, readonly) NSError *error;
+	public var NSError *error;
 
-@end
+}
 
 
-@interface AVPlayerItem (AVPlayerItemInspection)
+extern class AVPlayerItem (AVPlayerItemInspection)
 
 /*!
- @property asset
+ 	public var  asset
  @abstract Accessor for underlying AVAsset.
  */
-@property (nonatomic, readonly) AVAsset *asset;
+	public var AVAsset *asset;
 
 /*!
- @property tracks
+ 	public var  tracks
  @abstract Provides array of AVPlayerItem tracks. Observable (can change dynamically during playback).
  */
-@property (nonatomic, readonly) NSArray *tracks;
+	public var NSArray *tracks;
 
 /*!
- @property duration
+ 	public var  duration
  @abstract Indicates the duration of the item, not considering either its forwardPlaybackEndTime or reversePlaybackEndTime.
  
  @discussion
 	This property is observable. The duration of an item can change dynamically during playback.
  */
-@property (nonatomic, readonly) CMTime duration NS_AVAILABLE(10_7, 4_3);
+	public var CMTime duration NS_AVAILABLE(10_7, 4_3);
 
 /*!
- @property presentationSize
+ 	public var  presentationSize
  @abstract The size of the receiver as presented by the player.
  
  @discussion 
@@ -182,47 +182,47 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 	size to fit within the bounds of an AVPlayerLayer via its videoGravity property. Can be scaled arbitarily for presentation
 	via the frame property of an AVPlayerLayer.
  */
-@property (nonatomic, readonly) CGSize presentationSize;
+	public var CGSize presentationSize;
 
 /*!
- @property timedMetadata
+ 	public var  timedMetadata
  @abstract Provides an NSArray of AVMetadataItems representing the timed metadata encountered most recently within the media as it plays. May be nil.
  @discussion
    Notifications of changes are available via key-value observation.
    As an optimization for playback, AVPlayerItem may omit the processing of timed metadata when no observer of this property is registered. Therefore, when no such observer is registered, the value of the timedMetadata property may remain nil regardless of the contents of the underlying media.
  */
-@property (nonatomic, readonly) NSArray *timedMetadata;
+	public var NSArray *timedMetadata;
 
-@end
+}
 
 
-@interface AVPlayerItem (AVPlayerItemRateAndSteppingSupport)
+extern class AVPlayerItem (AVPlayerItemRateAndSteppingSupport)
 
 /* indicates whether the item can be played at rates greater than 1.0 */
-@property (nonatomic, readonly) BOOL canPlayFastForward NS_AVAILABLE(10_8, 5_0);
+	public var BOOL canPlayFastForward NS_AVAILABLE(10_8, 5_0);
 
 /* indicates whether the item can be played at rates between 0.0 and 1.0 */
-@property (nonatomic, readonly) BOOL canPlaySlowForward NS_AVAILABLE(10_8, 6_0);
+	public var BOOL canPlaySlowForward NS_AVAILABLE(10_8, 6_0);
 
 /* indicates whether the item can be played at rate -1.0 */
-@property (nonatomic, readonly) BOOL canPlayReverse NS_AVAILABLE(10_8, 6_0);
+	public var BOOL canPlayReverse NS_AVAILABLE(10_8, 6_0);
 
 /* indicates whether the item can be played at rates less between 0.0 and -1.0 */
-@property (nonatomic, readonly) BOOL canPlaySlowReverse NS_AVAILABLE(10_8, 6_0);
+	public var BOOL canPlaySlowReverse NS_AVAILABLE(10_8, 6_0);
 
 /* indicates whether the item can be played at rates less than -1.0 */
-@property (nonatomic, readonly) BOOL canPlayFastReverse NS_AVAILABLE(10_8, 5_0);
+	public var BOOL canPlayFastReverse NS_AVAILABLE(10_8, 5_0);
 
 /* Indicates whether the item supports stepping forward; see -stepByCount:. Once the item has become ready to play, the value of canStepForward does not change even when boundary conditions are reached, such as when the item's currentTime is its end time. */
-@property (nonatomic, readonly) BOOL canStepForward NS_AVAILABLE(10_8, 6_0);
+	public var BOOL canStepForward NS_AVAILABLE(10_8, 6_0);
 
 /* indicates whether the item supports stepping backward; see -stepByCount:. Once the item has become ready to play, the value of canStepBackward does not change even when boundary conditions are reached, such as when the item's currentTime is equal to kCMTimeZero. */
-@property (nonatomic, readonly) BOOL canStepBackward NS_AVAILABLE(10_8, 6_0);
+	public var BOOL canStepBackward NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 
-@interface AVPlayerItem (AVPlayerItemTimeControl)
+extern class AVPlayerItem (AVPlayerItemTimeControl)
 
 /*!
  @method			currentTime
@@ -233,7 +233,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (CMTime)currentTime;
 
 /*!
- @property forwardPlaybackEndTime
+ 	public var  forwardPlaybackEndTime
  @abstract
 	The end time for forward playback.
  
@@ -247,10 +247,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 	The value of this property has no effect on playback when the rate is negative.
  */
-@property (nonatomic) CMTime forwardPlaybackEndTime;
+	public var CMTime forwardPlaybackEndTime;
 
 /*!
- @property reversePlaybackEndTime
+ 	public var  reversePlaybackEndTime
  @abstract
 	The end time for reverse playback.
  
@@ -264,14 +264,14 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 	The value of this property has no effect on playback when the rate is positive.
  */
-@property (nonatomic) CMTime reversePlaybackEndTime;
+	public var CMTime reversePlaybackEndTime;
 
 /*!
- @property seekableTimeRanges
+ 	public var  seekableTimeRanges
  @abstract This property provides a collection of time ranges that the player item can seek to. The ranges provided might be discontinous.
  @discussion Returns an NSArray of NSValues containing CMTimeRanges.
  */
-@property (nonatomic, readonly) NSArray *seekableTimeRanges;
+	public var NSArray *seekableTimeRanges;
 
 /*!
  @method			seekToTime:
@@ -380,35 +380,35 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)stepByCount:(NSInteger)stepCount;
 
 /*!
- @property		timebase
+ 	public var 		timebase
  @abstract		The item's timebase.
  @discussion 
    You can examine the timebase to discover the relationship between the item's time and the master clock used for drift synchronization.
    This timebase is read-only; you cannot set its time or rate to affect playback.
  */
-@property (nonatomic, readonly) __attribute__((NSObject)) CMTimebaseRef timebase NS_AVAILABLE(10_8, 6_0);
+	public var __attribute__((NSObject)) CMTimebaseRef timebase NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 
-@interface AVPlayerItem (AVPlayerItemPresentation)
+extern class AVPlayerItem (AVPlayerItemPresentation)
 
 /*!
- @property audioMix
+ 	public var  audioMix
  @abstract Indicates the audio mix parameters to be applied during playback
  @discussion
    The inputParameters of the AVAudioMix must have trackIDs that correspond to a track of the receiver's asset. Otherwise they will be ignored. (See AVAudioMix.h for the declaration of AVAudioMixInputParameters and AVPlayerItem's asset property.)
  */
-@property (nonatomic, copy) AVAudioMix *audioMix;
+	public var AVAudioMix *audioMix;
 
 /*!
- @property videoComposition
+ 	public var  videoComposition
  @abstract Indicates the video composition settings to be applied during playback.
  */
-@property (nonatomic, copy) AVVideoComposition *videoComposition;
+	public var AVVideoComposition *videoComposition;
 
 /*!
- @property seekingWaitsForVideoCompositionRendering
+ 	public var  seekingWaitsForVideoCompositionRendering
  @abstract Indicates whether the item's timing follows the displayed video frame when seeking with a video composition
  @discussion
    By default, item timing is updated as quickly as possible, not waiting for media at new times to be rendered when seeking or 
@@ -422,28 +422,28 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
    This property has no effect on items for which videoComposition is nil.
 
  */
-@property (nonatomic) BOOL seekingWaitsForVideoCompositionRendering NS_AVAILABLE(TBD, 6_0);
+	public var BOOL seekingWaitsForVideoCompositionRendering NS_AVAILABLE(TBD, 6_0);
 
 /*!
- @property textStyleRules
+ 	public var  textStyleRules
  @abstract An array of AVTextStyleRules representing text styling that can be applied to subtitles and other legible media.
 */
-@property (nonatomic, copy) NSArray *textStyleRules NS_AVAILABLE(TBD, 6_0);
+	public var NSArray *textStyleRules NS_AVAILABLE(TBD, 6_0);
 
-@end
+}
 
 
-@interface AVPlayerItem (AVPlayerItemPlayability)
+extern class AVPlayerItem (AVPlayerItemPlayability)
 
 /*!
- @property loadedTimeRanges
+ 	public var  loadedTimeRanges
  @abstract This property provides a collection of time ranges for which the player has the media data readily available. The ranges provided might be discontinous.
  @discussion Returns an NSArray of NSValues containing CMTimeRanges.
  */
-@property (nonatomic, readonly) NSArray *loadedTimeRanges;
+	public var NSArray *loadedTimeRanges;
 
 /*!
- @property playbackLikelyToKeepUp
+ 	public var  playbackLikelyToKeepUp
  @abstract Indicates whether the item will likely play through without stalling.
  @discussion This property communicates a prediction of playability. Factors considered in this prediction
 	include I/O throughput and media decode performance. It is possible for playbackLikelyToKeepUp to
@@ -452,24 +452,24 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 	keep up. It is left to the application programmer to decide to continue media playback or not. 
 	See playbackBufferFull below.
   */
-@property (nonatomic, readonly, getter=isPlaybackLikelyToKeepUp) BOOL playbackLikelyToKeepUp;
+	public var  (nonatomic, readonly, getter=isPlaybackLikelyToKeepUp) BOOL playbackLikelyToKeepUp;
 
 /*! 
- @property playbackBufferFull
+ 	public var  playbackBufferFull
  @abstract Indicates that the internal media buffer is full and that further I/O is suspended.
  @discussion This property reports that the data buffer used for playback has reach capacity.
 	Despite the playback buffer reaching capacity there might not exist sufficient statistical 
 	data to support a playbackLikelyToKeepUp prediction of YES. See playbackLikelyToKeepUp above.
  */
-@property (nonatomic, readonly, getter=isPlaybackBufferFull) BOOL playbackBufferFull;
+	public var  (nonatomic, readonly, getter=isPlaybackBufferFull) BOOL playbackBufferFull;
 
 /* indicates that playback has consumed all buffered media and that playback will stall or end */
-@property (nonatomic, readonly, getter=isPlaybackBufferEmpty) BOOL playbackBufferEmpty;
+	public var  (nonatomic, readonly, getter=isPlaybackBufferEmpty) BOOL playbackBufferEmpty;
 
-@end
+}
 
 
-@interface AVPlayerItem (AVPlayerItemMediaSelection) 
+extern class AVPlayerItem (AVPlayerItemMediaSelection) 
 
 /*!
  @method		selectMediaOption:inMediaSelectionGroup:
@@ -495,7 +495,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  */
 - (AVMediaSelectionOption *)selectedMediaOptionInMediaSelectionGroup:(AVMediaSelectionGroup *)mediaSelectionGroup NS_AVAILABLE(10_8, 5_0);
 
-@end
+}
 
 
 @class AVPlayerItemAccessLog;
@@ -505,7 +505,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 @class AVPlayerItemAccessLogEventInternal;
 @class AVPlayerItemErrorLogEventInternal;
 
-@interface AVPlayerItem (AVPlayerItemLogging)
+extern class AVPlayerItem (AVPlayerItemLogging)
 
 /*!
  @method		accessLog
@@ -525,11 +525,11 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  */
 - (AVPlayerItemErrorLog *)errorLog NS_AVAILABLE(10_7, 4_3); 
 
-@end
+}
 
 @class AVPlayerItemOutput;
 
-@interface AVPlayerItem (AVPlayerItemOutputs)
+extern class AVPlayerItem (AVPlayerItemOutputs)
 
 /*!
  @method		addOutput:
@@ -554,13 +554,13 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)removeOutput:(AVPlayerItemOutput *)output NS_AVAILABLE(10_8, 6_0);
 
 /*!
- @property		outputs
+ 	public var 		outputs
  @abstract		The collection of associated outputs.
  */
 
-@property (nonatomic, readonly) NSArray *outputs NS_AVAILABLE(10_8, 6_0);
+	public var NSArray *outputs NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 /*!
  @class			AVPlayerItemAccessLog
@@ -570,7 +570,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  				that relates to each uninterrupted period of playback.
 */
 NS_CLASS_AVAILABLE(10_7, 4_3)
-@interface AVPlayerItemAccessLog : NSObject <NSCopying>
+extern class AVPlayerItemAccessLog extends NSObject <NSCopying>
 {
 @private
 	AVPlayerItemAccessLogInternal	*_playerItemAccessLog;
@@ -596,15 +596,15 @@ NS_CLASS_AVAILABLE(10_7, 4_3)
  - (NSStringEncoding)extendedLogDataStringEncoding;
 
 /*!
- @property		events
+ 	public var 		events
  @abstract		An ordered collection of AVPlayerItemAccessLogEvent instances.
  @discussion	An ordered collection of AVPlayerItemAccessLogEvent instances that represent the chronological
  				sequence of events contained in the access log.
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSArray *events;
+	public var NSArray *events;
 
-@end
+}
 
 /*!
  @class			AVPlayerItemErrorLog
@@ -612,7 +612,7 @@ NS_CLASS_AVAILABLE(10_7, 4_3)
  @discussion	An AVPlayerItemErrorLog provides data to identify if, and when, network resource playback failures occured.
 */
 NS_CLASS_AVAILABLE(10_7, 4_3)
-@interface AVPlayerItemErrorLog : NSObject <NSCopying>
+extern class AVPlayerItemErrorLog extends NSObject <NSCopying>
 {
 @private
 	AVPlayerItemErrorLogInternal	*_playerItemErrorLog;
@@ -638,15 +638,15 @@ NS_CLASS_AVAILABLE(10_7, 4_3)
  - (NSStringEncoding)extendedLogDataStringEncoding;
 
 /*!
- @property		events
+ 	public var 		events
  @abstract		An ordered collection of AVPlayerItemErrorLogEvent instances.
  @discussion	An ordered collection of AVPlayerItemErrorLogEvent instances that represent the chronological
  				sequence of events contained in the error log.
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSArray *events;
+	public var NSArray *events;
 
-@end
+}
 
 /*!
  @class			AVPlayerItemAccessLogEvent
@@ -656,135 +656,135 @@ NS_CLASS_AVAILABLE(10_7, 4_3)
 */
 
 NS_CLASS_AVAILABLE(10_7, 4_3)
-@interface AVPlayerItemAccessLogEvent : NSObject <NSCopying>
+extern class AVPlayerItemAccessLogEvent extends NSObject <NSCopying>
 {
 @private
 	AVPlayerItemAccessLogEventInternal	*_playerItemAccessLogEvent;
 }
 
 /*!
- @property		numberOfSegmentsDownloaded
+ 	public var 		numberOfSegmentsDownloaded
  @abstract		A count of media segments downloaded.
  @discussion	Value is negative if unknown. A count of media segments downloaded from the server to this client. Corresponds to "sc-count".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSInteger numberOfSegmentsDownloaded;
+	public var NSInteger numberOfSegmentsDownloaded;
 
 /*!
- @property		numberOfMediaRequests
+ 	public var 		numberOfMediaRequests
  @abstract		A count of media read requests.
  @discussion	Value is negative if unknown. A count of media read requests from the server to this client. Corresponds to "sc-count".
 				For HTTP live Streaming, a count of media segments downloaded from the server to this client.
 				For progressive-style HTTP media downloads, a count of HTTP GET (byte-range) requests for the resource.
  				This property is not observable. 
  */
-@property (nonatomic, readonly) NSInteger numberOfMediaRequests;
+	public var NSInteger numberOfMediaRequests;
 
 /*!
- @property		playbackStartDate
+ 	public var 		playbackStartDate
  @abstract		The date/time at which playback began for this event. Can be nil.
  @discussion	If nil is returned the date is unknown. Corresponds to "date".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSDate *playbackStartDate;
+	public var NSDate *playbackStartDate;
 
 /*!
- @property		URI
+ 	public var 		URI
  @abstract		The URI of the playback item. Can be nil.
  @discussion	If nil is returned the URI is unknown. Corresponds to "uri".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *URI;
+	public var NSString *URI;
 
 /*!
- @property		serverAddress
+ 	public var 		serverAddress
  @abstract		The IP address of the server that was the source of the last delivered media segment. Can be nil.
  @discussion	If nil is returned the address is unknown. Can be either an IPv4 or IPv6 address. Corresponds to "s-ip".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *serverAddress;
+	public var NSString *serverAddress;
 
 /*!
- @property		numberOfServerAddressChanges
+ 	public var 		numberOfServerAddressChanges
  @abstract		A count of changes to the property serverAddress, see above, over the last uninterrupted period of playback.
  @discussion	Value is negative if unknown. Corresponds to "s-ip-changes".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSInteger numberOfServerAddressChanges;
+	public var NSInteger numberOfServerAddressChanges;
 
 /*!
- @property		playbackSessionID
+ 	public var 		playbackSessionID
  @abstract		A GUID that identifies the playback session. This value is used in HTTP requests. Can be nil.
  @discussion	If nil is returned the GUID is unknown. Corresponds to "cs-guid".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *playbackSessionID;
+	public var NSString *playbackSessionID;
 
 /*!
- @property		playbackStartOffset
+ 	public var 		playbackStartOffset
  @abstract		An offset into the playlist where the last uninterrupted period of playback began. Measured in seconds.
  @discussion	Value is negative if unknown. Corresponds to "c-start-time".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSTimeInterval playbackStartOffset;
+	public var NSTimeInterval playbackStartOffset;
 
 /*!
- @property		segmentsDownloadedDuration
+ 	public var 		segmentsDownloadedDuration
  @abstract		The accumulated duration of the media downloaded. Measured in seconds.
  @discussion	Value is negative if unknown. Corresponds to "c-duration-downloaded".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSTimeInterval segmentsDownloadedDuration;
+	public var NSTimeInterval segmentsDownloadedDuration;
 
 /*!
- @property		durationWatched
+ 	public var 		durationWatched
  @abstract		The accumulated duration of the media played. Measured in seconds.
  @discussion	Value is negative if unknown. Corresponds to "c-duration-watched".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSTimeInterval durationWatched;
+	public var NSTimeInterval durationWatched;
 
 /*!
- @property		numberOfStalls
+ 	public var 		numberOfStalls
  @abstract		The total number of playback stalls encountered.
  @discussion	Value is negative if unknown. Corresponds to "c-stalls".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSInteger numberOfStalls;
+	public var NSInteger numberOfStalls;
 
 /*!
- @property		numberOfBytesTransferred
+ 	public var 		numberOfBytesTransferred
  @abstract		The accumulated number of bytes transferred.
  @discussion	Value is negative if unknown. Corresponds to "bytes".
  				This property is not observable.
  */
-@property (nonatomic, readonly) long long numberOfBytesTransferred;
+	public var long long numberOfBytesTransferred;
 
 /*!
- @property		observedBitrate
+ 	public var 		observedBitrate
  @abstract		The empirical throughput across all media downloaded. Measured in bits per second.
  @discussion	Value is negative if unknown. Corresponds to "c-observed-bitrate".
  				This property is not observable.
  */
-@property (nonatomic, readonly) double observedBitrate;
+	public var double observedBitrate;
 
 /*!
- @property		indicatedBitrate
+ 	public var 		indicatedBitrate
  @abstract		The throughput required to play the stream, as advertised by the server. Measured in bits per second.
  @discussion	Value is negative if unknown. Corresponds to "sc-indicated-bitrate".
  				This property is not observable.
  */
-@property (nonatomic, readonly) double indicatedBitrate;
+	public var double indicatedBitrate;
 
 /*!
- @property		numberOfDroppedVideoFrames
+ 	public var 		numberOfDroppedVideoFrames
  @abstract		The total number of dropped video frames.
  @discussion	Value is negative if unknown. Corresponds to "c-frames-dropped".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSInteger numberOfDroppedVideoFrames;
+	public var NSInteger numberOfDroppedVideoFrames;
 
-@end
+}
 
 /*!
  @class			AVPlayerItemErrorLogEvent
@@ -793,66 +793,66 @@ NS_CLASS_AVAILABLE(10_7, 4_3)
 				fields of each log event. None of the properties of this class are observable.
 */
 NS_CLASS_AVAILABLE(10_7, 4_3)
-@interface AVPlayerItemErrorLogEvent : NSObject <NSCopying>
+extern class AVPlayerItemErrorLogEvent extends NSObject <NSCopying>
 {
 @private
 	AVPlayerItemErrorLogEventInternal	*_playerItemErrorLogEvent;
 }
 
 /*!
- @property		date
+ 	public var 		date
  @abstract		The date and time when the error occured. Can be nil.
  @discussion	If nil is returned the date is unknown. Corresponds to "date".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSDate *date;
+	public var NSDate *date;
 
 /*!
- @property		URI
+ 	public var 		URI
  @abstract		The URI of the playback item. Can be nil.
  @discussion	If nil is returned the URI is unknown. Corresponds to "uri".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *URI;
+	public var NSString *URI;
 
 /*!
- @property		serverAddress
+ 	public var 		serverAddress
  @abstract		The IP address of the server that was the source of the error. Can be nil.
  @discussion	If nil is returned the address is unknown. Can be either an IPv4 or IPv6 address. Corresponds to "s-ip".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *serverAddress;
+	public var NSString *serverAddress;
 
 /*!
- @property		playbackSessionID
+ 	public var 		playbackSessionID
  @abstract		A GUID that identifies the playback session. This value is used in HTTP requests. Can be nil.
  @discussion	If nil is returned the GUID is unknown. Corresponds to "cs-guid".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *playbackSessionID;
+	public var NSString *playbackSessionID;
 
 /*!
- @property		errorStatusCode
+ 	public var 		errorStatusCode
  @abstract		A unique error code identifier.
  @discussion	Corresponds to "status".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSInteger errorStatusCode;
+	public var NSInteger errorStatusCode;
 
 /*!
- @property		errorDomain
+ 	public var 		errorDomain
  @abstract		The domain of the error.
  @discussion	Corresponds to "domain".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *errorDomain;
+	public var NSString *errorDomain;
 
 /*!
- @property		errorComment
+ 	public var 		errorComment
  @abstract		A description of the error encountered. Can be nil.
  @discussion	If nil is returned further information is not available. Corresponds to "comment".
  				This property is not observable.
  */
-@property (nonatomic, readonly) NSString *errorComment;
+	public var NSString *errorComment;
 
-@end
+}

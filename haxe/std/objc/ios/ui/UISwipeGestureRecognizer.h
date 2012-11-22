@@ -1,6 +1,6 @@
 //
 //  UISwipeGestureRecognizer.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -23,7 +23,7 @@ typedef NS_OPTIONS(NSUInteger, UISwipeGestureRecognizerDirection) {
     UISwipeGestureRecognizerDirectionDown  = 1 << 3
 };
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UISwipeGestureRecognizer : UIGestureRecognizer {
+extern class UISwipeGestureRecognizer : UIGestureRecognizer {
   @package
     CFTimeInterval    _maximumDuration;
     CGFloat           _minimumPrimaryMovement;
@@ -43,7 +43,7 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UISwipeGestureRecognizer : UIGestureRecog
     unsigned int      _failed:1;
 }
 
-@property(nonatomic) NSUInteger                        numberOfTouchesRequired; // default is 1. the number of fingers that must swipe
-@property(nonatomic) UISwipeGestureRecognizerDirection direction;               // default is UISwipeGestureRecognizerDirectionRight. the desired direction of the swipe. multiple directions may be specified if they will result in the same behavior (for example, UITableView swipe delete)
+	public var  NSUInteger                        numberOfTouchesRequired; // default is 1. the number of fingers that must swipe
+	public var  UISwipeGestureRecognizerDirection direction;               // default is UISwipeGestureRecognizerDirectionRight. the desired direction of the swipe. multiple directions may be specified if they will result in the same behavior (for example, UITableView swipe delete)
 
-@end
+}

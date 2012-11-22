@@ -30,13 +30,13 @@
 
 @class NSString;
 
-@interface DOMMediaList : DOMObject
-@property(copy) NSString *mediaText;
-@property(readonly) unsigned length;
+extern class DOMMediaList : DOMObject
+	public var NSString *mediaText;
+	public var  (default, null) : unsigned length;
 
 - (NSString *)item:(unsigned)index;
 - (void)deleteMedium:(NSString *)oldMedium;
 - (void)appendMedium:(NSString *)newMedium;
-@end
+}
 
 #endif

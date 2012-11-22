@@ -11,7 +11,7 @@
 #import <CoreData/NSManagedObject.h>
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSAtomicStore : NSPersistentStore {
+extern class NSAtomicStore : NSPersistentStore {
 	@private
     NSMutableDictionary *_nodeCache;
     NSMutableDictionary *_entityCache;
@@ -60,4 +60,4 @@ NS_CLASS_AVAILABLE(10_5,3_0)
 // Utility method with implementation provided by NSAtomicStore
 - (id)referenceObjectForObjectID:(NSManagedObjectID *)objectID;
 
-@end
+}

@@ -16,7 +16,7 @@
 typedef NSInteger NSCollectionViewDropOperation;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSCollectionViewItem : NSViewController <NSCopying> {
+extern class NSCollectionViewItem : NSViewController <NSCopying> {
 @private
     NSCollectionView *_collectionView;
     struct {
@@ -29,21 +29,21 @@ NS_CLASS_AVAILABLE(10_5, NA)
     void *_reserved2;
 }
 
-@property (readonly) NSCollectionView *collectionView;
+	public var NSCollectionView *collectionView;
 
-@property (getter=isSelected) BOOL selected;
+	public var  (getter=isSelected) BOOL selected;
 
-@property (assign) IBOutlet NSImageView *imageView NS_AVAILABLE_MAC(10_7);
-@property (assign) IBOutlet NSTextField *textField NS_AVAILABLE_MAC(10_7);
+	public var  IBOutlet NSImageView *imageView NS_AVAILABLE_MAC(10_7);
+	public var  IBOutlet NSTextField *textField NS_AVAILABLE_MAC(10_7);
 
 /* Multi-image drag and drop support. The default implementation will return an array of up to two NSDraggingImageComponent instances -- one for the imageView and another for the textField (if not nil). This methods can be subclassed and overridden to provide a custom set of NSDraggingImageComponents to create the drag image. Note: the component frames are relative to a coordinate system that has its origin at the bottom left, so you need to take into account the flippedness of your view when computing the component frames.
  */
-@property (readonly) NSArray *draggingImageComponents NS_AVAILABLE_MAC(10_7);
+	public var NSArray *draggingImageComponents NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSCollectionView : NSView <NSDraggingSource, NSDraggingDestination> {
+extern class NSCollectionView : NSView <NSDraggingSource, NSDraggingDestination> {
 @private
     NSArray *_content;
     NSMutableIndexSet *_selectionIndexes;
@@ -149,7 +149,7 @@ NS_CLASS_AVAILABLE(10_5, NA)
  */
 - (NSImage *)draggingImageForItemsAtIndexes:(NSIndexSet *)indexes withEvent:(NSEvent *)event offset:(NSPointPointer)dragImageOffset NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 
@@ -215,5 +215,5 @@ enum {
  */
 - (void)collectionView:(NSCollectionView *)collectionView updateDraggingItemsForDrag:(id <NSDraggingInfo>)draggingInfo;
 
-@end
+}
 

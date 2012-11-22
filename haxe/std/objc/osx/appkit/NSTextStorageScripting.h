@@ -7,7 +7,7 @@
 
 #import <AppKit/NSTextStorage.h>
 
-@interface NSTextStorage (Scripting)
+extern class NSTextStorage (Scripting)
 
 - (NSArray *)attributeRuns;
 - (void)setAttributeRuns:(NSArray *)attributeRuns;
@@ -27,4 +27,4 @@
 - (NSColor *)foregroundColor;
 - (void)setForegroundColor:(NSColor *)color;
 
-@end
+}

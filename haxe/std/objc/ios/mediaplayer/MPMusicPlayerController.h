@@ -42,7 +42,7 @@ typedef NSInteger MPMusicShuffleMode;
 
 // MPMusicPlayerController allows playback of MPMediaItems through the iPod application.
 
-MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMusicPlayerController : NSObject <MPMediaPlayback>
+MP_EXTERN_CLASS_AVAILABLE(3_0)extern class MPMusicPlayerController extends NSObject <MPMediaPlayback>
 
 // Playing media items with the applicationMusicPlayer will restore the user's iPod state after the application quits.
 + (MPMusicPlayerController *)applicationMusicPlayer;
@@ -50,31 +50,31 @@ MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMusicPlayerController : NSObject <MP
 // Playing media items with the iPodMusicPlayer will replace the user's current iPod state.
 + (MPMusicPlayerController *)iPodMusicPlayer;
 
-@end
+}
 
-@interface MPMusicPlayerController (MPPlaybackControl)
+extern class MPMusicPlayerController (MPPlaybackControl)
 
 // See MPMediaPlayback.h for basic playback control.
 
 // Returns the current playback state of the music player
-@property(nonatomic, readonly) MPMusicPlaybackState playbackState;
+	public var (default, null) MPMusicPlaybackState playbackState;
 
 // Determines how music repeats after playback completes. Defaults to MPMusicRepeatModeDefault.
-@property(nonatomic) MPMusicRepeatMode repeatMode;
+	public var  MPMusicRepeatMode repeatMode;
 
 // Determines how music is shuffled when playing. Defaults to MPMusicShuffleModeDefault.
-@property(nonatomic) MPMusicShuffleMode shuffleMode;
+	public var  MPMusicShuffleMode shuffleMode;
 
 // The current volume of playing music, in the range of 0.0 to 1.0.
-@property(nonatomic) float volume;
+	public var  float volume;
 
 // Returns the currently playing media item, or nil if none is playing.
 // Setting the nowPlayingItem to an item in the current queue will begin playback at that item.
-@property(nonatomic, copy) MPMediaItem *nowPlayingItem;
+	public var  MPMediaItem *nowPlayingItem;
 
 // Returns the index of the now playing item in the current playback queue.
 // May return NSNotFound if the index is not valid (e.g. an empty queue or an infinite playlist).
-@property(nonatomic, readonly) NSUInteger indexOfNowPlayingItem NS_AVAILABLE_IOS(5_0);
+	public var (default, null) NSUInteger indexOfNowPlayingItem NS_AVAILABLE_IOS(5_0);
 
 // Call -play to begin playback after setting an item queue source. Setting a query will implicitly use MPMediaGroupingTitle.
 - (void)setQueueWithQuery:(MPMediaQuery *)query;
@@ -94,7 +94,7 @@ MP_EXTERN_CLASS_AVAILABLE(3_0) @interface MPMusicPlayerController : NSObject <MP
 - (void)beginGeneratingPlaybackNotifications;
 - (void)endGeneratingPlaybackNotifications;
 
-@end
+}
 
 // Posted when the playback state changes, either programatically or by the user.
 MP_EXTERN NSString *const MPMusicPlayerControllerPlaybackStateDidChangeNotification;

@@ -32,21 +32,21 @@
 @class DOMHTMLCollection;
 @class NSString;
 
-@interface DOMHTMLDocument : DOMDocument
-@property(readonly, retain) DOMHTMLCollection *embeds AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, retain) DOMHTMLCollection *plugins AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, retain) DOMHTMLCollection *scripts AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int width AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int height AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *dir AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *designMode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *compatMode AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(readonly, retain) DOMElement *activeElement AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(copy) NSString *bgColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *fgColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *alinkColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *linkColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *vlinkColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMHTMLDocument : DOMDocument
+	public var (default, null) DOMHTMLCollection *embeds AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) DOMHTMLCollection *plugins AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) DOMHTMLCollection *scripts AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int width AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int height AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *dir AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *designMode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *compatMode AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var (default, null) DOMElement *activeElement AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var NSString *bgColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *fgColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *alinkColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *linkColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *vlinkColor AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (void)open;
 - (void)close;
@@ -56,6 +56,6 @@
 - (void)captureEvents AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)releaseEvents AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (BOOL)hasFocus AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+}
 
 #endif

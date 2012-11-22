@@ -7,7 +7,7 @@
 @class NSData, NSDictionary, NSError, NSString, NSURL, NSInputStream;
 @protocol NSXMLParserDelegate;
 
-@interface NSXMLParser : NSObject {
+extern class NSXMLParser extends NSObject {
 @private
     id _reserved0;
     id _delegate;
@@ -35,15 +35,15 @@
 - (void)abortParsing;	// called by the delegate to stop the parse. The delegate will get an error message sent to it.
 
 - (NSError *)parserError;	// can be called after a parse is over to determine parser state.
-@end
+}
 
 // Once a parse has begun, the delegate may be interested in certain parser state. These methods will only return meaningful information during parsing, or after an error has occurred.
-@interface NSXMLParser (NSXMLParserLocatorAdditions)
+extern class NSXMLParser (NSXMLParserLocatorAdditions)
 - (NSString *)publicID;
 - (NSString *)systemID;
 - (NSInteger)lineNumber;
 - (NSInteger)columnNumber;
-@end
+}
 
 /*
  
@@ -119,14 +119,14 @@
     // this reports a CDATA block to the delegate as an NSData.
 
 - (NSData *)parser:(NSXMLParser *)parser resolveExternalEntityName:(NSString *)name systemID:(NSString *)systemID;
-    // this gives the delegate an opportunity to resolve an external entity itself and reply with the resulting data.
+    // this gives the delegate an opportunity to resolve anexternal entity itself and reply with the resulting data.
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError;
     // ...and this reports a fatal error to the delegate. The parser will stop parsing.
 
 - (void)parser:(NSXMLParser *)parser validationErrorOccurred:(NSError *)validationError;
     // If validation is on, this will report a fatal validation error to the delegate. The parser will stop parsing.
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSXMLParserErrorDomain	NS_AVAILABLE(10_3, 2_0);  // for use with NSError.
 

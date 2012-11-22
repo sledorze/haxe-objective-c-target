@@ -110,7 +110,7 @@ enum {
 */
 typedef struct _CGLPixelFormatObject NSOpenGLPixelFormatAuxiliary;
 
-@interface NSOpenGLPixelFormat : NSObject <NSCoding>
+extern class NSOpenGLPixelFormat extends NSObject, implements NSObject>
 {
 @private
     NSOpenGLPixelFormatAuxiliary* _pixelFormatAuxiliary;
@@ -132,7 +132,7 @@ typedef struct _CGLPixelFormatObject NSOpenGLPixelFormatAuxiliary;
 
 - (void *)CGLPixelFormatObj;
 
-@end
+}
 
 /*********************
 ** NSOpenGLPixelBuffer
@@ -140,7 +140,7 @@ typedef struct _CGLPixelFormatObject NSOpenGLPixelFormatAuxiliary;
 
 /* NOTE: PBuffers should be considered deprecated as of 10.7.  Use GL_EXT_framebuffer_object instead.
 */
-@interface NSOpenGLPixelBuffer : NSObject
+extern class NSOpenGLPixelBuffer extends NSObject
 {
 @private
     struct _CGLPBufferObject	*_pixelBufferAuxiliary;
@@ -164,7 +164,7 @@ typedef struct _CGLPixelFormatObject NSOpenGLPixelFormatAuxiliary;
 - (GLenum)textureTarget;
 - (GLenum)textureInternalFormat;
 - (GLint)textureMaxMipMapLevel;
-@end
+}
 
 
 /*****************
@@ -198,7 +198,7 @@ typedef enum {
 */
 typedef struct _CGLContextObject NSOpenGLContextAuxiliary;
 
-@interface NSOpenGLContext : NSObject
+extern class NSOpenGLContext extends NSObject
 {
 @private
 	__weak NSView            *_view;
@@ -272,5 +272,5 @@ typedef struct _CGLContextObject NSOpenGLContextAuxiliary;
 */
 - (void)setTextureImageToPixelBuffer:(NSOpenGLPixelBuffer *)pixelBuffer colorBuffer:(GLenum)source;
 
-@end
+}
 

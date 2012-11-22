@@ -26,7 +26,7 @@ enum {
     NSTextStorageEditedCharacters = 2
 };
 
-@interface NSTextStorage : NSMutableAttributedString {
+extern class NSTextStorage : NSMutableAttributedString {
     /*All instance variables are private*/
     NSRange _editedRange;
     NSInteger _editedDelta;
@@ -77,7 +77,7 @@ enum {
 - (void)setDelegate:(id <NSTextStorageDelegate>)delegate;
 - (id <NSTextStorageDelegate>)delegate;
 
-@end
+}
 
 
 /****  NSTextStorage delegate methods ****/
@@ -90,7 +90,7 @@ enum {
 - (void)textStorageWillProcessEditing:(NSNotification *)notification;	/* Delegate can change the characters or attributes */
 - (void)textStorageDidProcessEditing:(NSNotification *)notification;	/* Delegate can change the attributes */
 
-@end
+}
 
 /**** Notifications ****/
 

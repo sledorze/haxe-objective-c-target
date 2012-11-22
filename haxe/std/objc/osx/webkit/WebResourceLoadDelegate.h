@@ -43,7 +43,7 @@
     resource.  For example, a single resource may generate multiple 
     resource:willSendRequest:redirectResponse:fromDataSource: messages as it's URL is redirected.
 */
-@interface NSObject (WebResourceLoadDelegate)
+extern class NSObject (WebResourceLoadDelegate)
 
 /*!
     @method webView:identifierForInitialRequest:fromDataSource:
@@ -155,4 +155,4 @@
 */
 - (void)webView:(WebView *)sender plugInFailedWithError:(NSError *)error dataSource:(WebDataSource *)dataSource;
 
-@end
+}

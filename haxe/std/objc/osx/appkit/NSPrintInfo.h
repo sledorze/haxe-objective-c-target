@@ -77,7 +77,7 @@ APPKIT_EXTERN NSString *const NSPrintJobSavingFileNameExtensionHidden NS_AVAILAB
 */
 APPKIT_EXTERN NSString *const NSPrintHeaderAndFooter; // a boolean NSNumber for whether the results of -[NSView pageHeader] and -[NSView pageFooter] should be drawn on pages
 
-@interface NSPrintInfo : NSObject<NSCopying, NSCoding> {
+extern class NSPrintInfo extends NSObject<NSCopying, NSCoding> {
     @private
     NSMutableDictionary *_attributes;
     id _moreVars;
@@ -179,9 +179,9 @@ APPKIT_EXTERN NSString *const NSPrintHeaderAndFooter; // a boolean NSNumber for 
 - (void)setSelectionOnly:(BOOL)selectionOnly NS_AVAILABLE_MAC(10_6);
 - (BOOL)isSelectionOnly NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
-@interface NSPrintInfo(NSDeprecated)
+extern class NSPrintInfo(NSDeprecated)
 
 /* A method that was deprecated in Mac OS 10.2. +[NSPrintInfo setDefaultPrinter:] does nothing.
 */
@@ -191,7 +191,7 @@ APPKIT_EXTERN NSString *const NSPrintHeaderAndFooter; // a boolean NSNumber for 
 */
 + (NSSize)sizeForPaperName:(NSString *)name NS_DEPRECATED_MAC(10_0, 10_2);
 
-@end
+}
 
 /* Keys for attributes that were deprecated in Mac OS 10.2. NSPrintInfo does not recognizes these attributes. For backward binary compatibility, -[NSPrintInfo setUpPrintOperationDefaultValues] does however set default values for the NSPrintJobFeatures (an empty dictionary) and NSPrintPagesPerSheet (1) attributes.
 */

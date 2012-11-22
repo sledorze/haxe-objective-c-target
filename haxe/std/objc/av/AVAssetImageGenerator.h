@@ -59,37 +59,37 @@ enum
 typedef NSInteger AVAssetImageGeneratorResult;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVAssetImageGenerator : NSObject
+extern class AVAssetImageGenerator extends NSObject
 {
 @private
 	AVAssetImageGeneratorInternal		*_priv;
 }
 
 /* Indicates the instance of AVAsset with which the AVAssetImageGenerator was initialized  */ 
-@property (nonatomic, readonly) AVAsset *asset NS_AVAILABLE(TBD, 6_0);
+	public var AVAsset *asset NS_AVAILABLE(TBD, 6_0);
 
 /* Specifies whether or not to apply the track's preferredTransform (see -[AVAssetTrack preferredTransform]) when extracting an image from the asset.
    Default is NO.  Only rotation by 90, 180, or 270 degrees is supported. */
-@property (nonatomic) BOOL appliesPreferredTrackTransform;
+	public var BOOL appliesPreferredTrackTransform;
 
 /* Specifies the maximum dimensions for generated image.  Default (CGSizeZero) is the asset's unscaled dimensions.
    AVAssetImageGenerator will scale images such that they fit within the defined bounding box.
    Images will never be scaled up.  The aspect ratio of the scaled image will be defined by the apertureMode property. */
-@property (nonatomic) CGSize maximumSize;
+	public var CGSize maximumSize;
 
 /* Specifies the aperture mode for the generated image.  Default is AVAssetImageGeneratorApertureModeCleanAperture. */
-@property (nonatomic, copy) NSString *apertureMode;
+	public var NSString *apertureMode;
 
 /* Specifies the video composition to use when extracting images from assets with multiple video tracks.
    If no videoComposition is specified, only the first enabled video track will be used.
    If a videoComposition is specified, the value of appliesPreferredTrackTransform is ignored. */
-@property (nonatomic, copy) AVVideoComposition *videoComposition;
+	public var AVVideoComposition *videoComposition;
 
 /* The actual time of the generated images will be within the range [requestedTime-toleranceBefore, requestedTime+toleranceAfter] and may differ from the requested time for efficiency.
    Pass kCMTimeZero for both toleranceBefore and toleranceAfter to request frame-accurate image generation; this may incur additional decoding delay.
    Default is kCMTimePositiveInfinity. */
-@property (nonatomic) CMTime requestedTimeToleranceBefore NS_AVAILABLE(10_7, 5_0);
-@property (nonatomic) CMTime requestedTimeToleranceAfter NS_AVAILABLE(10_7, 5_0);
+	public var CMTime requestedTimeToleranceBefore NS_AVAILABLE(10_7, 5_0);
+	public var CMTime requestedTimeToleranceAfter NS_AVAILABLE(10_7, 5_0);
 
 /*!
 	@method			assetImageGeneratorWithAsset:
@@ -165,4 +165,4 @@ typedef void (^AVAssetImageGeneratorCompletionHandler)(CMTime requestedTime, CGI
 */
 - (void)cancelAllCGImageGeneration;
 
-@end
+}

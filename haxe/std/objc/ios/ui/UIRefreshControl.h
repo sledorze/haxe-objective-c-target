@@ -1,6 +1,6 @@
 //
 //  UIRefreshControl.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2012 Apple Inc. All rights reserved.
 //
@@ -9,7 +9,7 @@
 #import <UIKit/UIControl.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(6_0) @interface UIRefreshControl : UIControl
+NS_CLASS_AVAILABLE_IOS(6_0)extern class UIRefreshControl : UIControl
 
 /* The designated initializer
  * This initializes a UIRefreshControl with a default height and width.
@@ -18,14 +18,14 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface UIRefreshControl : UIControl
  */
 - (id)init;
 
-@property (nonatomic, readonly, getter=isRefreshing) BOOL refreshing;
+	public var  (nonatomic, readonly, getter=isRefreshing) BOOL refreshing;
 
-@property (nonatomic, retain) UIColor *tintColor UI_APPEARANCE_SELECTOR;
-@property (nonatomic, retain) NSAttributedString *attributedTitle UI_APPEARANCE_SELECTOR;
+	public var UIColor *tintColor UI_APPEARANCE_SELECTOR;
+	public var NSAttributedString *attributedTitle UI_APPEARANCE_SELECTOR;
 
-// May be used to indicate to the refreshControl that an external event has initiated the refresh action
-- (void)beginRefreshing NS_AVAILABLE_IOS(6_0);
+// May be used to indicate to the refreshControl that anexternal event has initiated the refresh action
+	public function beginRefreshing NS_AVAILABLE_IOS(6_0);
 // Must be explicitly called when the refreshing has completed
-- (void)endRefreshing NS_AVAILABLE_IOS(6_0);
+	public function endRefreshing NS_AVAILABLE_IOS(6_0);
 
-@end
+}

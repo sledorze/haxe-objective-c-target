@@ -55,7 +55,7 @@ typedef NSInteger AVAssetWriterStatus;
 	A single instance of AVAssetWriter can be used once to write to a single file. Clients that wish to write to files multiple times must use a new instance of AVAssetWriter each time.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetWriter : NSObject
+extern class AVAssetWriter extends NSObject
 {
 @private
 	AVAssetWriterInternal	*_internal;
@@ -104,53 +104,53 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithURL:(NSURL *)outputURL fileType:(NSString *)outputFileType error:(NSError **)outError;
 
 /*!
- @property outputURL
+ 	public var  outputURL
  @abstract
 	The location of the file for which the instance of AVAssetWriter was initialized for writing.
  @discussion
 	You may use UTTypeCopyPreferredTagWithClass(outputFileType, kUTTagClassFilenameExtension) to obtain an appropriate path extension for the outputFileType you have specified. For more information about UTTypeCopyPreferredTagWithClass and kUTTagClassFilenameExtension, on iOS see <MobileCoreServices/UTType.h> and on Mac OS X see <LaunchServices/UTType.h>.
  */
-@property (nonatomic, copy, readonly) NSURL *outputURL;
+	public var NSURL *outputURL;
 
 /*!
- @property outputFileType
+ 	public var  outputFileType
  @abstract
 	The UTI of the file format of the file for which the instance of AVAssetWriter was initialized for writing.
  */
-@property (nonatomic, copy, readonly) NSString *outputFileType;
+	public var NSString *outputFileType;
 
 /*!
- @property availableMediaTypes
+ 	public var  availableMediaTypes
  @abstract
 	The media types for which inputs can be added to the receiver.
 
  @discussion
 	Some media types may not be accepted within the file format with which an AVAssetWriter was initialized.
  */
-@property (nonatomic, readonly) NSArray *availableMediaTypes;
+	public var NSArray *availableMediaTypes;
 
 /*!
- @property status
+ 	public var  status
  @abstract
 	The status of writing samples to the receiver's output file.
 
  @discussion
 	The value of this property is an AVAssetWriterStatus that indicates whether writing is in progress, has completed successfully, has been canceled, or has failed. Clients of AVAssetWriterInput objects should check the value of this property after appending samples fails to determine why no more samples could be written. This property is thread safe.
  */
-@property (readonly) AVAssetWriterStatus status;
+	public var AVAssetWriterStatus status;
 
 /*!
- @property error
+ 	public var  error
  @abstract
 	If the receiver's status is AVAssetWriterStatusFailed, this describes the error that caused the failure.
 
  @discussion
 	The value of this property is an NSError that describes what caused the receiver to no longer be able to write to its output file. If the receiver's status is not AVAssetWriterStatusFailed, the value of this property is nil. This property is thread safe.
  */
-@property (readonly) NSError *error;
+	public var NSError *error;
 
 /*!
- @property metadata
+ 	public var  metadata
  @abstract
 	A collection of metadata to be written to the receiver's output file.
 
@@ -159,10 +159,10 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	
 	This property cannot be set after writing has started.
  */
-@property (nonatomic, copy) NSArray *metadata;
+	public var NSArray *metadata;
 
 /*!
- @property shouldOptimizeForNetworkUse
+ 	public var  shouldOptimizeForNetworkUse
  @abstract
 	Specifies whether the output file should be written in way that makes it more suitable for playback over a network
  
@@ -171,16 +171,16 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	
 	This property cannot be set after writing has started.
  */
-@property (nonatomic) BOOL shouldOptimizeForNetworkUse;
+	public var BOOL shouldOptimizeForNetworkUse;
 
 /*!
- @property inputs
+ 	public var  inputs
  @abstract
 	The inputs from which the asset writer receives media data.
  @discussion
 	The value of this property is an NSArray containing concrete instances of AVAssetWriterInput. Inputs can be added to the receiver using the addInput: method.
  */
-@property (nonatomic, readonly) NSArray *inputs;
+	public var NSArray *inputs;
 
 /*!
  @method canApplyOutputSettings:forMediaType:
@@ -335,13 +335,13 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 */
 - (void)finishWritingWithCompletionHandler:(void (^)(void))handler NS_AVAILABLE(TBD, 6_0);
 
-@end
+}
 
 
-@interface AVAssetWriter (AVAssetWriterFileTypeSpecificProperties)
+extern class AVAssetWriter (AVAssetWriterFileTypeSpecificProperties)
 
 /*!
- @property movieFragmentInterval
+ 	public var  movieFragmentInterval
  @abstract
 	For file types that support movie fragments, specifies the frequency at which movie fragments should be written.
  
@@ -350,10 +350,10 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 
 	This property cannot be set after writing has started.
  */
-@property (nonatomic) CMTime movieFragmentInterval;
+	public var CMTime movieFragmentInterval;
 
 /*!
- @property movieTimeScale
+ 	public var  movieTimeScale
  @abstract
 	For file types that contain a 'moov' atom, such as QuickTime Movie files, specifies the asset-level time scale to be used. 
 
@@ -362,6 +362,6 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  
 	This property cannot be set after writing has started.
  */
-@property (nonatomic) CMTimeScale movieTimeScale NS_AVAILABLE(10_7, 4_3);
+	public var CMTimeScale movieTimeScale NS_AVAILABLE(10_7, 4_3);
 
-@end
+}

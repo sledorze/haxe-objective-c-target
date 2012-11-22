@@ -28,9 +28,9 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_3_0
 
-@interface DOMHTMLMarqueeElement : DOMHTMLElement
+extern class DOMHTMLMarqueeElement : DOMHTMLElement
 - (void)start;
 - (void)stop;
-@end
+}
 
 #endif

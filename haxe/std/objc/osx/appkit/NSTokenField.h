@@ -13,7 +13,7 @@
 @protocol NSTokenFieldDelegate;
 
 
-@interface NSTokenField : NSTextField {    
+extern class NSTokenField : NSTextField {    
     BOOL _reserved1;
     BOOL _reserved2;
     BOOL _reserved3;
@@ -41,7 +41,7 @@
 - (NSCharacterSet *)tokenizingCharacterSet;
 + (NSCharacterSet *)defaultTokenizingCharacterSet;
 
-@end
+}
 
 @protocol NSTokenFieldDelegate <NSTextFieldDelegate>
 
@@ -78,4 +78,4 @@
 // This method allows you to change the style for individual tokens as well as have mixed text and tokens.
 - (NSTokenStyle)tokenField:(NSTokenField *)tokenField styleForRepresentedObject:(id)representedObject;
 
-@end
+}

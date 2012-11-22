@@ -16,7 +16,7 @@
 */
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSPathComponentCell : NSTextFieldCell {
+extern class NSPathComponentCell : NSTextFieldCell {
 @private
     NSImage *_image;
     // The full size width for this component, shown when the mouse is over the cell. The result is cached from [self cellSize].width. The min size width for this component is acquired from [self cellSizeForBounds:NSZeroRect].width, and is always shown, no matter what.
@@ -47,5 +47,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 - (NSURL *)URL;
 - (void)setURL:(NSURL *)url;
 
-@end
+}
 

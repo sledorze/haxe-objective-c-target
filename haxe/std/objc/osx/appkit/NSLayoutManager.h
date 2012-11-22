@@ -78,10 +78,10 @@ typedef NSInteger NSTextLayoutOrientation;
 @protocol NSTextLayoutOrientationProvider
 - (NSTextLayoutOrientation)layoutOrientation NS_AVAILABLE_MAC(10_7);
 // A property describing the receiver's layout orientation.  This property defines the default value for the range of string laid out in the receiver in absence of explicit NSVerticalGlyphFormAttributeName attribute.  For example, when NSTextLayoutOrientationVertical, the default value for NSVerticalGlyphFormAttributeName is 1.  When rendering into the receiver, the Text System assumes the coordinate system is appropriately rotated.  NSTextAttachmentCell determines the image orientation based on the control view's layoutOrientation.  There are two public AppKit classes implementing this interface: NSTextContainer and NSTextView.  The NSTextContainer implementation just returns the value from its text view if non-nil; otherwise, returns NSTextLayoutOrientationHorizontal.  For working with non-NSTextView views, the NSTextContainer implementation can be overridden in order to support the custom layout orientation logic.
-@end
+}
 
 
-@interface NSLayoutManager : NSObject <NSCoding, NSGlyphStorage> {
+extern class NSLayoutManager extends NSObject, implements NSObject, NSGlyphStorage> {
 
   /*All instance variables are private*/
 
@@ -498,9 +498,9 @@ typedef NSInteger NSTextLayoutOrientation;
 - (void)setUsesFontLeading:(BOOL)flag;
     // By default, a layout manager will use leading as specified by the font.  However, this is not appropriate for most UI text, for which a fixed leading is usually specified by UI layout guidelines.  These methods allow the use of the font's leading to be turned off.
 
-@end
+}
 
-@interface NSLayoutManager (NSTextViewSupport)
+extern class NSLayoutManager (NSTextViewSupport)
 
 /***************************** Ruler support *****************************/
 
@@ -544,7 +544,7 @@ typedef NSInteger NSTextLayoutOrientation;
 - (void)strikethroughGlyphRange:(NSRange)glyphRange strikethroughType:(NSInteger)strikethroughVal lineFragmentRect:(NSRect)lineRect lineFragmentGlyphRange:(NSRange)lineGlyphRange containerOrigin:(NSPoint)containerOrigin;
     // These two methods parallel the two corresponding underline methods, but draw strikethroughs instead of underlines.
 
-@end
+}
 
 @protocol NSLayoutManagerDelegate <NSObject>
 @optional
@@ -557,4 +557,4 @@ typedef NSInteger NSTextLayoutOrientation;
 - (NSDictionary *)layoutManager:(NSLayoutManager *)layoutManager shouldUseTemporaryAttributes:(NSDictionary *)attrs forDrawingToScreen:(BOOL)toScreen atCharacterIndex:(NSUInteger)charIndex effectiveRange:(NSRangePointer)effectiveCharRange NS_AVAILABLE_MAC(10_5);
     // This is sent when the layout manager is drawing and needs to decide whether to use temporary attributes or not.  The delegate returns a dictionary of temporary attributes to be used, or nil to suppress the use of temporary attributes altogether.  The effectiveCharRange argument is both an in and out by-reference effective range for those attributes.  The default behavior if this method is not implemented is to use temporary attributes only when drawing to the screen, so an implementation to match that behavior would return attrs if toScreen is YES and nil otherwise, without changing effectiveCharRange.
 
-@end
+}

@@ -31,10 +31,10 @@
 @class DOMStyleSheet;
 @class NSString;
 
-@interface DOMProcessingInstruction : DOMNode
-@property(readonly, copy) NSString *target;
-@property(copy) NSString *data;
-@property(readonly, retain) DOMStyleSheet *sheet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMProcessingInstruction : DOMNode
+	public var (default, null) NSString *target;
+	public var NSString *data;
+	public var (default, null) DOMStyleSheet *sheet AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

@@ -18,7 +18,7 @@ struct CIContextInternal;
 @class CIFilter;
 
 CORE_IMAGE_CLASS_EXPORT
-@interface CIContext : NSObject
+extern class CIContext extends NSObject
 {
     struct CIContextInternal *_priv;
 }
@@ -155,4 +155,4 @@ toCVPixelBuffer:(CVPixelBufferRef)buffer
  * on the currect context. */
 - (CGSize)outputImageMaximumSize __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 
-@end
+}

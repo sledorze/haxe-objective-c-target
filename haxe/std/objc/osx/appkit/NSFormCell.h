@@ -7,7 +7,7 @@
 
 #import <AppKit/NSActionCell.h>
 
-@interface NSFormCell : NSActionCell
+extern class NSFormCell : NSActionCell
 {
     /*All instance variables are private*/
     CGFloat	_titleWidth;
@@ -36,13 +36,13 @@
 - (NSWritingDirection)titleBaseWritingDirection;
 - (void)setTitleBaseWritingDirection:(NSWritingDirection)writingDirection;
 
-@end
+}
 
-@interface NSFormCell(NSKeyboardUI)
+extern class NSFormCell(NSKeyboardUI)
 - (void)setTitleWithMnemonic:(NSString *)stringWithAmpersand;
-@end
+}
 
-@interface NSFormCell(NSFormCellAttributedStringMethods)
+extern class NSFormCell(NSFormCellAttributedStringMethods)
 - (NSAttributedString *)attributedTitle;
 - (void)setAttributedTitle:(NSAttributedString *)obj;
-@end
+}

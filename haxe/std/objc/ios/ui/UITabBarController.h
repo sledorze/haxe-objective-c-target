@@ -1,6 +1,6 @@
 //
 //  UITabBarController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2007-2012, Apple Inc. All rights reserved.
 //
@@ -23,9 +23,9 @@
  */
 
 @class UIView, UIImage, UINavigationController, UITabBarItem;
-@protocol UITabBarControllerDelegate;
+extern interface UITabBarControllerDelegate;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UITabBarController : UIViewController <UITabBarDelegate, NSCoding> {
+extern class UITabBarController extends UIViewController <UITabBarDelegate, NSCoding> {
   @package
     UITabBar               *_tabBar;
     
@@ -54,37 +54,37 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UITabBarController : UIViewController <UI
     } _tabBarControllerFlags;
 }
 
-@property(nonatomic,copy) NSArray *viewControllers;
+public var  NSArray *viewControllers;
 // If the number of view controllers is greater than the number displayable by a tab bar, a "More" navigation controller will automatically be shown.
 // The "More" navigation controller will not be returned by -viewControllers, but it may be returned by -selectedViewController.
-- (void)setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
+	public function setViewControllers:(NSArray *)viewControllers animated:(BOOL)animated;
 
-@property(nonatomic,assign) UIViewController *selectedViewController; // This may return the "More" navigation controller if it exists.
-@property(nonatomic) NSUInteger selectedIndex;
+	public var  UIViewController *selectedViewController; // This may return the "More" navigation controller if it exists.
+	public var  NSUInteger selectedIndex;
 
-@property(nonatomic,readonly) UINavigationController *moreNavigationController; // Returns the "More" navigation controller, creating it if it does not already exist.
-@property(nonatomic,copy) NSArray *customizableViewControllers; // If non-nil, then the "More" view will include an "Edit" button that displays customization UI for the specified controllers. By default, all view controllers are customizable.
+	public var (default, null) UINavigationController *moreNavigationController; // Returns the "More" navigation controller, creating it if it does not already exist.
+public var  NSArray *customizableViewControllers; // If non-nil, then the "More" view will include an "Edit" button that displays customization UI for the specified controllers. By default, all view controllers are customizable.
 
-@property(nonatomic,readonly) UITabBar *tabBar NS_AVAILABLE_IOS(3_0); // Provided for -[UIActionSheet showFromTabBar:]. Attempting to modify the contents of the tab bar directly will throw an exception.
+	public var (default, null) UITabBar *tabBar NS_AVAILABLE_IOS(3_0); // Provided for -[UIActionSheet showFromTabBar:]. Attempting to modify the contents of the tab bar directly will throw an exception.
 
-@property(nonatomic,assign) id<UITabBarControllerDelegate> delegate;
+	public var  id<UITabBarControllerDelegate> delegate;
 
-@end
+}
 
-@protocol UITabBarControllerDelegate <NSObject>
+extern interface UITabBarControllerDelegate <NSObject>
 @optional
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController NS_AVAILABLE_IOS(3_0);
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
+	public function tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController;
 
-- (void)tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray *)viewControllers NS_AVAILABLE_IOS(3_0);
-- (void)tabBarController:(UITabBarController *)tabBarController willEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed NS_AVAILABLE_IOS(3_0);
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed;
-@end
+	public function tabBarController:(UITabBarController *)tabBarController willBeginCustomizingViewControllers:(NSArray *)viewControllers NS_AVAILABLE_IOS(3_0);
+	public function tabBarController:(UITabBarController *)tabBarController willEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed NS_AVAILABLE_IOS(3_0);
+	public function tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed;
+}
 
-@interface UIViewController (UITabBarControllerItem)
+extern class UIViewController (UITabBarControllerItem)
 
-@property(nonatomic,retain) UITabBarItem *tabBarItem; // Automatically created lazily with the view controller's title if it's not set explicitly.
+	public var (nonatomic,retain) UITabBarItem *tabBarItem; // Automatically created lazily with the view controller's title if it's not set explicitly.
 
-@property(nonatomic,readonly,retain) UITabBarController *tabBarController; // If the view controller has a tab bar controller as its ancestor, return it. Returns nil otherwise.
+	public var (default, null) UITabBarController *tabBarController; // If the view controller has a tab bar controller as its ancestor, return it. Returns nil otherwise.
 
-@end
+}

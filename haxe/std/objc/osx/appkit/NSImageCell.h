@@ -33,7 +33,7 @@ enum {
 typedef NSUInteger NSImageFrameStyle;
 
 
-@interface NSImageCell : NSCell <NSCopying, NSCoding>
+extern class NSImageCell : NSCell <NSCopying, NSCoding>
 {
     /*All instance variables are private*/
     id _controlView;      
@@ -55,5 +55,5 @@ typedef NSUInteger NSImageFrameStyle;
 - (NSImageFrameStyle)imageFrameStyle;
 - (void)setImageFrameStyle:(NSImageFrameStyle)newStyle;
 
-@end
+}
 

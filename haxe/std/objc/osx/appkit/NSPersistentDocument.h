@@ -9,7 +9,7 @@
 #import <AppKit/NSDocument.h>
 @class NSManagedObjectModel, NSManagedObjectContext;
 
-@interface NSPersistentDocument : NSDocument {
+extern class NSPersistentDocument : NSDocument {
 @private
     NSManagedObjectModel *_managedObjectModel;
     NSManagedObjectContext *_managedObjectContext;
@@ -39,13 +39,13 @@
 
 - (BOOL)revertToContentsOfURL:(NSURL *)inAbsoluteURL ofType:(NSString *)inTypeName error:(NSError **)outError; //Overridden to clean up the managedObjectContext and controllers during a revert. 
 
-@end
+}
 
-@interface NSPersistentDocument (NSDeprecated)
+extern class NSPersistentDocument (NSDeprecated)
 
 // This method is deprecated. Please use -configurePersistentStoreCoordinatorForURL:ofType:modelConfiguration:storeOptions:error: instead
 - (BOOL)configurePersistentStoreCoordinatorForURL:(NSURL *)url ofType:(NSString *)fileType error:(NSError **)error NS_DEPRECATED_MAC(10_4, 10_5);
 
-@end
+}
 
 

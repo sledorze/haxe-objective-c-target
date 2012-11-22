@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMHTMLQuoteElement : DOMHTMLElement
-@property(copy) NSString *cite;
-@end
+extern class DOMHTMLQuoteElement : DOMHTMLElement
+	public var NSString *cite;
+}
 
 #endif

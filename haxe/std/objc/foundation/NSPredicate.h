@@ -9,7 +9,7 @@
 // Predicates wrap some combination of expressions and operators and when evaluated return a BOOL.
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
-@interface NSPredicate : NSObject <NSCoding, NSCopying> {
+extern class NSPredicate extends NSObject, implements NSObject, NSCopying> {
     void *_reserved;
 }
 
@@ -32,22 +32,22 @@ NS_CLASS_AVAILABLE(10_4, 3_0)
 
 - (BOOL)evaluateWithObject:(id)object substitutionVariables:(NSDictionary *)bindings NS_AVAILABLE(10_5, 3_0); // single pass evaluation substituting variables from the bindings dictionary for any variable expressions encountered
 
-@end
+}
 
-@interface NSArray (NSPredicateSupport)
+extern class NSArray (NSPredicateSupport)
 - (NSArray *)filteredArrayUsingPredicate:(NSPredicate *)predicate;    // evaluate a predicate against an array of objects and return a filtered array
-@end
+}
 
-@interface NSMutableArray (NSPredicateSupport)
+extern class NSMutableArray (NSPredicateSupport)
 - (void)filterUsingPredicate:(NSPredicate *)predicate;    // evaluate a predicate against an array of objects and filter the mutable array directly
-@end
+}
 
 
-@interface NSSet (NSPredicateSupport)
+extern class NSSet (NSPredicateSupport)
 - (NSSet *)filteredSetUsingPredicate:(NSPredicate *)predicate NS_AVAILABLE(10_5, 3_0);    // evaluate a predicate against a set of objects and return a filtered set
-@end
+}
 
-@interface NSMutableSet (NSPredicateSupport)
+extern class NSMutableSet (NSPredicateSupport)
 - (void)filterUsingPredicate:(NSPredicate *)predicate NS_AVAILABLE(10_5, 3_0);    // evaluate a predicate against a set of objects and filter the mutable set directly
-@end
+}
 

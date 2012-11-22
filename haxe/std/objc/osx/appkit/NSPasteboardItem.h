@@ -32,7 +32,7 @@ The pasteboard item API is very similar to the NSPasteboard API for a single ite
 */
 
 NS_CLASS_AVAILABLE(10_6, NA)
-@interface NSPasteboardItem : NSObject <NSPasteboardWriting, NSPasteboardReading> {
+extern class NSPasteboardItem extends NSObject <NSPasteboardWriting, NSPasteboardReading> {
     @private
     NSPasteboard    *_pasteboard;
     NSUInteger	    _index;
@@ -65,7 +65,7 @@ NS_CLASS_AVAILABLE(10_6, NA)
 - (NSString *)stringForType:(NSString *)type;
 - (id)propertyListForType:(NSString *)type;
 
-@end
+}
 
 
 
@@ -80,5 +80,5 @@ NS_CLASS_AVAILABLE(10_6, NA)
 @optional
 - (void)pasteboardFinishedWithDataProvider:(NSPasteboard *)pasteboard;
 
-@end
+}
 

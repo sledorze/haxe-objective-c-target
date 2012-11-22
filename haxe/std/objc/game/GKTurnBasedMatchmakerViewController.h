@@ -15,15 +15,15 @@
 
 // View controller to manage matches, invite friends and perform auto-matching. Present modally from the top view controller.
 NS_CLASS_AVAILABLE(NA, 5_0)
-@interface GKTurnBasedMatchmakerViewController : UINavigationController {
+extern class GKTurnBasedMatchmakerViewController : UINavigationController {
 }
-@property (nonatomic, readwrite, assign) id<GKTurnBasedMatchmakerViewControllerDelegate> turnBasedMatchmakerDelegate;
-@property (nonatomic, readwrite, assign) BOOL showExistingMatches; // defaults to YES
+	public var  (nonatomic, readwrite, assign) id<GKTurnBasedMatchmakerViewControllerDelegate> turnBasedMatchmakerDelegate;
+	public var  (nonatomic, readwrite, assign) BOOL showExistingMatches; // defaults to YES
 
 // Inherited from GKMatchmakerViewControler
 - (id)initWithMatchRequest:(GKMatchRequest *)request;
 
-@end
+}
 
 @protocol GKTurnBasedMatchmakerViewControllerDelegate // <GKMatchmakerViewControllerDelegate>
 @required
@@ -40,5 +40,5 @@ NS_CLASS_AVAILABLE(NA, 5_0)
 // Called when a users chooses to quit a match and that player has the current turn.  The developer should call playerQuitInTurnWithOutcome:nextPlayer:matchData:completionHandler: on the match passing in appropriate values.  They can also update matchOutcome for other players as appropriate.
 - (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController playerQuitForMatch:(GKTurnBasedMatch *)match;
 
-@end
+}
 

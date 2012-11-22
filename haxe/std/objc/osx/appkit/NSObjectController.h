@@ -11,7 +11,7 @@
 
 @class NSArray, NSPredicate, NSManagedObjectContext, NSFetchRequest, NSError;
 
-@interface NSObjectController : NSController {
+extern class NSObjectController : NSController {
 @private
     void *_reserved3;
     id _managedProxy;
@@ -60,10 +60,10 @@
 - (BOOL)canRemove;    // can be used in bindings controlling the enabling of buttons, for example
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item;    // overridden to automatically disable user interface elements sending action methods to the controller (for example if canAdd returns NO, menu items with the add: action are disabled)
 
-@end
+}
 
 
-@interface NSObjectController (NSManagedController)
+extern class NSObjectController (NSManagedController)
 
 - (NSManagedObjectContext *)managedObjectContext;
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
@@ -84,6 +84,6 @@
 - (NSFetchRequest *)defaultFetchRequest NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
 

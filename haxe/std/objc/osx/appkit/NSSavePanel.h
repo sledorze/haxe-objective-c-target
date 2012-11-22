@@ -44,7 +44,7 @@ typedef struct __SPFlags {
 
 @class NSSavePanelAuxiliary;
 
-@interface NSSavePanel : NSPanel {
+extern class NSSavePanel : NSPanel {
 @protected
     // All instance variables should be considered private
     NSView<NSNavFileBrowser> *_navView;
@@ -213,7 +213,7 @@ typedef struct __SPFlags {
  */
 - (NSInteger)runModal;
 
-@end
+}
 
 
 @protocol NSOpenSavePanelDelegate <NSObject>
@@ -247,9 +247,9 @@ typedef struct __SPFlags {
  */
 - (void)panelSelectionDidChange:(id)sender;
 
-@end
+}
 
-@interface NSObject(NSSavePanelDelegateDeprecated)
+extern class NSObject(NSSavePanelDelegateDeprecated)
 
 /* This method is deprecated in 10.6, and will be formally deprecated in a future release. Use panel:validateURL:error: instead. If both methods are implemented, the URL version will be called.
  */
@@ -267,9 +267,9 @@ typedef struct __SPFlags {
  */
 - (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename;
 
-@end
+}
 
-@interface NSSavePanel(NSDeprecated)
+extern class NSSavePanel(NSDeprecated)
 
 /* Use -URL instead.
 */
@@ -297,4 +297,4 @@ typedef struct __SPFlags {
  */
 - (IBAction)selectText:(id)sender NS_DEPRECATED_MAC(10_0, 10_3);
 
-@end
+}

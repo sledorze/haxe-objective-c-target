@@ -43,7 +43,7 @@ extern "C" {
 
 
 #define GL_APIENTRY
-#define GL_API extern
+#define GL_APIextern
 
 
 /*-------------------------------------------------------------------------

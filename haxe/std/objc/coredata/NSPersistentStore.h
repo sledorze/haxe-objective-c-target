@@ -10,7 +10,7 @@
 @class NSPersistentStoreCoordinator;
 
 NS_CLASS_AVAILABLE(10_5, 3_0)
-@interface NSPersistentStore : NSObject {
+extern class NSPersistentStore extends NSObject {
     @private
     __weak NSPersistentStoreCoordinator *_coordinator;
     NSString *_configurationName;
@@ -76,5 +76,5 @@ NS_CLASS_AVAILABLE(10_5, 3_0)
 // before removal.
 - (void)willRemoveFromPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator; 
 
-@end
+}
 

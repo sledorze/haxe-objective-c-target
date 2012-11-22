@@ -37,7 +37,7 @@
 /*!
     @class WebFrameView
 */
-@interface WebFrameView : NSView
+extern class WebFrameView : NSView
 {
 @private
     WebFrameViewPrivate *_private;
@@ -100,4 +100,4 @@
 */
 - (void)printDocumentView;
 
-@end
+}

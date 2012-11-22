@@ -11,7 +11,7 @@
 
 @class NSMutableArray, NSMutableDictionary, NSMutableSet;
 
-@interface NSController : NSObject <NSCoding> {
+extern class NSController extends NSObject, implements NSObject> {
 @private
     void *_reserved;
     void *_reserved2;
@@ -43,5 +43,5 @@
 - (void)commitEditingWithDelegate:(id)delegate didCommitSelector:(SEL)didCommitSelector contextInfo:(void *)contextInfo;
 - (BOOL)isEditing;
 
-@end
+}
 

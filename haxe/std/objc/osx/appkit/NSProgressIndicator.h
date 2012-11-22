@@ -40,7 +40,7 @@ typedef NSUInteger NSProgressIndicatorStyle;
 //================================================================================
 //	NSProgressIndicator interface
 //
-@interface NSProgressIndicator : NSView
+extern class NSProgressIndicator : NSView
 {
 @private
     /* Persitent properties */
@@ -132,10 +132,10 @@ typedef NSUInteger NSProgressIndicatorStyle;
 - (BOOL) isDisplayedWhenStopped;
 - (void) setDisplayedWhenStopped: (BOOL) isDisplayed;
 
-@end
+}
 
-@interface NSProgressIndicator (NSProgressIndicatorDeprecated)
+extern class NSProgressIndicator (NSProgressIndicatorDeprecated)
 - (NSTimeInterval)animationDelay NS_DEPRECATED_MAC(10_0, 10_6);
 - (void)setAnimationDelay:(NSTimeInterval)delay NS_DEPRECATED_MAC(10_0, 10_6);
 - (void)animate:(id)sender NS_DEPRECATED_MAC(10_0, 10_6);
-@end
+}

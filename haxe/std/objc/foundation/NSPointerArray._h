@@ -22,7 +22,7 @@
 */
 
 NS_CLASS_AVAILABLE(10_5, 6_0)
-@interface NSPointerArray : NSObject <NSFastEnumeration, NSCopying, NSCoding>
+extern class NSPointerArray : NSObject <NSFastEnumeration, NSCopying, NSCoding>
 // construction
 - initWithOptions:(NSPointerFunctionsOptions)options;
 - initWithPointerFunctions:(NSPointerFunctions *)functions;
@@ -47,10 +47,10 @@ NS_CLASS_AVAILABLE(10_5, 6_0)
 - (NSUInteger)count;    // the number of elements in the array, including NULLs
 - (void)setCount:(NSUInteger)count;    // set desired number of elements, adding NULLs or removing items as necessary.
 
-@end
+}
 
 
-@interface NSPointerArray (NSPointerArrayConveniences)  
+extern class NSPointerArray (NSPointerArrayConveniences)  
 
 // construction
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
@@ -63,5 +63,5 @@ NS_CLASS_AVAILABLE(10_5, 6_0)
 
 - (NSArray *)allObjects;
 
-@end
+}
 

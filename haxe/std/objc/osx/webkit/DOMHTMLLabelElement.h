@@ -31,10 +31,10 @@
 @class DOMHTMLFormElement;
 @class NSString;
 
-@interface DOMHTMLLabelElement : DOMHTMLElement
-@property(readonly, retain) DOMHTMLFormElement *form;
-@property(copy) NSString *htmlFor;
-@property(copy) NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
-@end
+extern class DOMHTMLLabelElement : DOMHTMLElement
+	public var (default, null) DOMHTMLFormElement *form;
+	public var NSString *htmlFor;
+	public var NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
+}
 
 #endif

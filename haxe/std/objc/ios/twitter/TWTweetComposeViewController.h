@@ -29,7 +29,7 @@ typedef SLComposeViewControllerCompletionHandler TWTweetComposeViewControllerCom
 // content can no longer be changed.
 
 NS_DEPRECATED(NA, NA, 5_0, 6_0) __attribute__((visibility("default")))
-@interface TWTweetComposeViewController : UIViewController
+extern class TWTweetComposeViewController extends UIViewController
 
 // Returns if Twitter is accessible and at least one account has been setup.
 + (BOOL)canSendTweet;
@@ -59,6 +59,6 @@ NS_DEPRECATED(NA, NA, 5_0, 6_0) __attribute__((visibility("default")))
 
 // Specify a block to be called when the user is finished. This block is not guaranteed
 // to be called on any particular thread. It is cleared after being called.
-@property (nonatomic, copy) TWTweetComposeViewControllerCompletionHandler completionHandler;
+	public var TWTweetComposeViewControllerCompletionHandler completionHandler;
 
-@end
+}

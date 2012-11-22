@@ -23,7 +23,7 @@
  */
 
 NS_CLASS_AVAILABLE(TBD,5_0)
-@interface CLPlacemark : NSObject <NSCopying, NSCoding>
+extern class CLPlacemark extends NSObject <NSCopying, NSCoding>
 {
 @private
     CLPlacemarkInternal *_internal;
@@ -43,7 +43,7 @@ NS_CLASS_AVAILABLE(TBD,5_0)
  *  Discussion:
  *    Returns the geographic location associated with the placemark.
  */
-@property (nonatomic, readonly) CLLocation *location;
+	public var CLLocation *location;
 
 /*
  *  region
@@ -51,7 +51,7 @@ NS_CLASS_AVAILABLE(TBD,5_0)
  *  Discussion:
  *    Returns the geographic region associated with the placemark.
  */
-@property (nonatomic, readonly) CLRegion *region;
+	public var CLRegion *region;
 
 /*
  *  addressDictionary
@@ -60,22 +60,22 @@ NS_CLASS_AVAILABLE(TBD,5_0)
  *    This dictionary can be formatted as an address using ABCreateStringWithAddressDictionary,
  *    defined in the AddressBookUI framework.
  */
-@property (nonatomic, readonly) NSDictionary *addressDictionary;
+	public var NSDictionary *addressDictionary;
 
 // address dictionary properties
-@property (nonatomic, readonly) NSString *name; // eg. Apple Inc.
-@property (nonatomic, readonly) NSString *thoroughfare; // street address, eg. 1 Infinite Loop
-@property (nonatomic, readonly) NSString *subThoroughfare; // eg. 1
-@property (nonatomic, readonly) NSString *locality; // city, eg. Cupertino
-@property (nonatomic, readonly) NSString *subLocality; // neighborhood, common name, eg. Mission District
-@property (nonatomic, readonly) NSString *administrativeArea; // state, eg. CA
-@property (nonatomic, readonly) NSString *subAdministrativeArea; // county, eg. Santa Clara
-@property (nonatomic, readonly) NSString *postalCode; // zip code, eg. 95014
-@property (nonatomic, readonly) NSString *ISOcountryCode; // eg. US
-@property (nonatomic, readonly) NSString *country; // eg. United States
-@property (nonatomic, readonly) NSString *inlandWater; // eg. Lake Tahoe
-@property (nonatomic, readonly) NSString *ocean; // eg. Pacific Ocean
-@property (nonatomic, readonly) NSArray *areasOfInterest; // eg. Golden Gate Park
-@end
+	public var NSString *name; // eg. Apple Inc.
+	public var NSString *thoroughfare; // street address, eg. 1 Infinite Loop
+	public var NSString *subThoroughfare; // eg. 1
+	public var NSString *locality; // city, eg. Cupertino
+	public var NSString *subLocality; // neighborhood, common name, eg. Mission District
+	public var NSString *administrativeArea; // state, eg. CA
+	public var NSString *subAdministrativeArea; // county, eg. Santa Clara
+	public var NSString *postalCode; // zip code, eg. 95014
+	public var NSString *ISOcountryCode; // eg. US
+	public var NSString *country; // eg. United States
+	public var NSString *inlandWater; // eg. Lake Tahoe
+	public var NSString *ocean; // eg. Pacific Ocean
+	public var NSArray *areasOfInterest; // eg. Golden Gate Park
+}
 
 #endif //TARGET_OS_IPHONE

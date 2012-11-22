@@ -1,6 +1,6 @@
 //
 //  UITextView.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2007-2012, Apple Inc. All rights reserved.
 //
@@ -26,25 +26,25 @@
 @class UITextView;
 
 
-@protocol UITextViewDelegate <NSObject, UIScrollViewDelegate>
+extern interface UITextViewDelegate <NSObject, UIScrollViewDelegate>
 
 @optional
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView;
 
-- (void)textViewDidBeginEditing:(UITextView *)textView;
-- (void)textViewDidEndEditing:(UITextView *)textView;
+	public function textViewDidBeginEditing:(UITextView *)textView;
+	public function textViewDidEndEditing:(UITextView *)textView;
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text;
-- (void)textViewDidChange:(UITextView *)textView;
+	public function textViewDidChange:(UITextView *)textView;
 
-- (void)textViewDidChangeSelection:(UITextView *)textView;
+	public function textViewDidChangeSelection:(UITextView *)textView;
 
-@end
+}
 
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UITextView : UIScrollView <UITextInput> 
+extern class UITextView : UIScrollView <UITextInput> 
 {
   @package
     WebFrame           *m_frame;
@@ -77,31 +77,31 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UITextView : UIScrollView <UITextInput>
     BOOL                m_clearsOnInsertion;
 }
 
-@property(nonatomic,assign) id<UITextViewDelegate> delegate;
-@property(nonatomic,copy) NSString *text;
-@property(nonatomic,retain) UIFont *font;
-@property(nonatomic,retain) UIColor *textColor;
-@property(nonatomic) NSTextAlignment textAlignment;    // default is NSLeftTextAlignment
-@property(nonatomic) NSRange selectedRange;
-@property(nonatomic,getter=isEditable) BOOL editable;
-@property(nonatomic) UIDataDetectorTypes dataDetectorTypes NS_AVAILABLE_IOS(3_0);
+	public var  id<UITextViewDelegate> delegate;
+public var  NSString *text;
+	public var (nonatomic,retain) UIFont *font;
+	public var (nonatomic,retain) UIColor *textColor;
+	public var  NSTextAlignment textAlignment;    // default is NSLeftTextAlignment
+	public var  NSRange selectedRange;
+	public var (nonatomic,getter=isEditable) BOOL editable;
+	public var  UIDataDetectorTypes dataDetectorTypes NS_AVAILABLE_IOS(3_0);
 
-@property(nonatomic) BOOL allowsEditingTextAttributes NS_AVAILABLE_IOS(6_0); // defaults to NO
-@property(nonatomic,copy) NSAttributedString *attributedText NS_AVAILABLE_IOS(6_0); // default is nil
-@property(nonatomic,copy) NSDictionary *typingAttributes NS_AVAILABLE_IOS(6_0); // automatically resets when the selection changes
+	public var  BOOL allowsEditingTextAttributes NS_AVAILABLE_IOS(6_0); // defaults to NO
+public var  NSAttributedString *attributedText NS_AVAILABLE_IOS(6_0); // default is nil
+public var  NSDictionary *typingAttributes NS_AVAILABLE_IOS(6_0); // automatically resets when the selection changes
 
 - (BOOL)hasText;
-- (void)scrollRangeToVisible:(NSRange)range;
+	public function scrollRangeToVisible:(NSRange)range;
 
 
 // Presented when object becomes first responder.  If set to nil, reverts to following responder chain.  If
 // set while first responder, will not take effect until reloadInputViews is called.
-@property (readwrite, retain) UIView *inputView;             
-@property (readwrite, retain) UIView *inputAccessoryView;
+	public var  (readwrite, retain) UIView *inputView;             
+	public var  (readwrite, retain) UIView *inputAccessoryView;
 
-@property(nonatomic) BOOL clearsOnInsertion NS_AVAILABLE_IOS(6_0); // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
+	public var  BOOL clearsOnInsertion NS_AVAILABLE_IOS(6_0); // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
 
-@end
+}
 
 UIKIT_EXTERN NSString * const UITextViewTextDidBeginEditingNotification;
 UIKIT_EXTERN NSString * const UITextViewTextDidChangeNotification;

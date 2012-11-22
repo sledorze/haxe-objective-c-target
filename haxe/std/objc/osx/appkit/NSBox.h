@@ -31,7 +31,7 @@ enum {
 };
 typedef NSUInteger NSBoxType;
 
-@interface NSBox : NSView
+extern class NSBox : NSView
 {
     /*All instance variables are private*/
     id                  _titleCell;
@@ -77,13 +77,13 @@ typedef NSUInteger NSBoxType;
 - (BOOL)isTransparent NS_AVAILABLE_MAC(10_5);
 - (void)setTransparent:(BOOL)flag NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 
-@interface NSBox(NSKeyboardUI)
+extern class NSBox(NSKeyboardUI)
 - (void)setTitleWithMnemonic:(NSString *)stringWithAmpersand;
-@end
+}
 
-@interface NSBox (NSCustomBoxTypeProperties)
+extern class NSBox (NSCustomBoxTypeProperties)
 /* These properties only apply to boxes with boxType NSBoxCustom.
  */
 
@@ -99,4 +99,4 @@ typedef NSUInteger NSBoxType;
 - (NSColor *)fillColor NS_AVAILABLE_MAC(10_5);
 - (void)setFillColor:(NSColor *)fillColor NS_AVAILABLE_MAC(10_5);	// Only meaningful for boxes configured with NSBoxCustom
 
-@end
+}

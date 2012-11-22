@@ -33,26 +33,26 @@
 @class NSString;
 @class NSURL;
 
-@interface DOMHTMLObjectElement : DOMHTMLElement
-@property(readonly, retain) DOMHTMLFormElement *form;
-@property(copy) NSString *code;
-@property(copy) NSString *align;
-@property(copy) NSString *archive;
-@property(copy) NSString *border;
-@property(copy) NSString *codeBase;
-@property(copy) NSString *codeType;
-@property(copy) NSString *data;
-@property BOOL declare;
-@property(copy) NSString *height;
-@property int hspace;
-@property(copy) NSString *name;
-@property(copy) NSString *standby;
-@property(copy) NSString *type;
-@property(copy) NSString *useMap;
-@property int vspace;
-@property(copy) NSString *width;
-@property(readonly, retain) DOMDocument *contentDocument;
-@property(readonly, copy) NSURL *absoluteImageURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLObjectElement : DOMHTMLElement
+	public var (default, null) DOMHTMLFormElement *form;
+	public var NSString *code;
+	public var NSString *align;
+	public var NSString *archive;
+	public var NSString *border;
+	public var NSString *codeBase;
+	public var NSString *codeType;
+	public var NSString *data;
+	public var  BOOL declare;
+	public var NSString *height;
+	public var  int hspace;
+	public var NSString *name;
+	public var NSString *standby;
+	public var NSString *type;
+	public var NSString *useMap;
+	public var  int vspace;
+	public var NSString *width;
+	public var (default, null) DOMDocument *contentDocument;
+	public var (default, null) NSURL *absoluteImageURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

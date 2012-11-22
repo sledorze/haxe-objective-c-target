@@ -11,7 +11,7 @@
 @class NSPredicateTemplate, NSArray;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSPredicateEditor : NSRuleEditor {
+extern class NSPredicateEditor : NSRuleEditor {
     id _allTemplates;
     NSArray *_rootTrees;
     NSArray *_rootHeaderTrees;
@@ -32,5 +32,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 */
 - (NSArray *)rowTemplates;
 
-@end
+}
 

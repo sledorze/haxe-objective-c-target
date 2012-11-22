@@ -40,13 +40,13 @@
 // methods below.
 // There can be only 1 Action plugin per bundle.
 
-@interface NSObject (ABActionDelegate)
+extern class NSObject (ABActionDelegate)
 - (NSString *)actionProperty;
 - (NSString *)titleForPerson:(ABPerson *)person identifier:(NSString *)identifier;
 - (void)performActionForPerson:(ABPerson *)person identifier:(NSString *)identifier;
 
     // Optional. Your action will always be enabled in the absence of this method.
 - (BOOL)shouldEnableActionForPerson:(ABPerson *)person identifier:(NSString *)identifier;
-@end
+}
 
 #endif

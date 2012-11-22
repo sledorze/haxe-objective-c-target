@@ -100,7 +100,7 @@ enum {
 typedef float NSLayoutPriority;
 
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface NSLayoutConstraint : NSObject <NSAnimatablePropertyContainer>
+extern class NSLayoutConstraint extends NSObject <NSAnimatablePropertyContainer>
 {
     @private
     NSView *_container;
@@ -136,35 +136,35 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
  Constraint satisfaction is not all or nothing.  If a constraint 'a == b' is optional, that means we will attempt to minimize 'abs(a-b)'.
  This property may only be modified as part of initial set up.  An exception will be thrown if it is set after a constraint has been added to a view.
  */
-@property NSLayoutPriority priority;
+	public var  NSLayoutPriority priority;
 
 /* When a view is archived, it archives some but not all constraints in its -constraints array.  The value of shouldBeArchived informs NSView if a particular constraint should be archived by NSView.
  If a constraint is created at runtime in response to the state of the object, it isn't appropriate to archive the constraint - rather you archive the state that gives rise to the constraint.  Since the majority of constraints that should be archived are created in Interface Builder (which is smart enough to set this prop to YES), the default value for this property is NO.
  */
-@property BOOL shouldBeArchived;
+	public var  BOOL shouldBeArchived;
 
 /* accessors
  firstItem.firstAttribute {==,<=,>=} secondItem.secondAttribute * multiplier + constant
  */
-@property (readonly, assign) id firstItem;
-@property (readonly) NSLayoutAttribute firstAttribute;
-@property (readonly) NSLayoutRelation relation;
-@property (readonly, assign) id secondItem;
-@property (readonly) NSLayoutAttribute secondAttribute;
-@property (readonly) CGFloat multiplier;
+	public var (default, null) id firstItem;
+	public var NSLayoutAttribute firstAttribute;
+	public var NSLayoutRelation relation;
+	public var (default, null) id secondItem;
+	public var NSLayoutAttribute secondAttribute;
+	public var CGFloat multiplier;
 
 /* Unlike the other properties, the constant may be modified after constraint creation.  Setting the constant on an existing constraint performs much better than removing the constraint and adding a new one that's just like the old but for having a new constant.
  */
-@property CGFloat constant;
+	public var  CGFloat constant;
 
-@end
+}
 
 #pragma mark Installing Constraints
 
 /* A constraint is typically installed on the closest common ancestor of the views involved in the constraint. 
  It is required that a constraint be installed on _a_ common ancestor of every view involved.  The numbers in a constraint are interpreted in the coordinate system of the view it is installed on.  A view is considered to be an ancestor of itself (as with other NSView API).
  */
-@interface NSView (NSConstraintBasedLayoutInstallingConstraints)
+extern class NSView (NSConstraintBasedLayoutInstallingConstraints)
 
 - (NSArray *)constraints NS_AVAILABLE_MAC(10_7);
 
@@ -173,7 +173,7 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
 - (void)removeConstraint:(NSLayoutConstraint *)constraint NS_AVAILABLE_MAC(10_7);
 - (void)removeConstraints:(NSArray *)constraints NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 #pragma mark Core Layout Methods
 
@@ -186,12 +186,12 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
  Please see the conceptual documentation for a discussion of these methods.
  */
 
-@interface NSWindow (NSConstraintBasedLayoutCoreMethods)
+extern class NSWindow (NSConstraintBasedLayoutCoreMethods)
 - (void)updateConstraintsIfNeeded NS_AVAILABLE_MAC(10_7);
 - (void)layoutIfNeeded NS_AVAILABLE_MAC(10_7);
-@end
+}
 
-@interface NSView (NSConstraintBasedLayoutCoreMethods) 
+extern class NSView (NSConstraintBasedLayoutCoreMethods) 
 - (void)updateConstraintsForSubtreeIfNeeded NS_AVAILABLE_MAC(10_7);
 - (void)updateConstraints NS_AVAILABLE_MAC(10_7);
 - (BOOL)needsUpdateConstraints NS_AVAILABLE_MAC(10_7);
@@ -201,11 +201,11 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
 - (void)layout NS_AVAILABLE_MAC(10_7);
 - (BOOL)needsLayout NS_AVAILABLE_MAC(10_7);
 - (void)setNeedsLayout:(BOOL)flag NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 #pragma mark Compatibility and Adoption
 
-@interface NSView (NSConstraintBasedCompatibility) 
+extern class NSView (NSConstraintBasedCompatibility) 
 
 /* by default, the autoresizing mask on a view gives rise to constraints that fully determine the view's position.  To do anything interesting with constraints, you need to turn that off. IB will turn it off.
  */
@@ -216,11 +216,11 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
  */
 + (BOOL)requiresConstraintBasedLayout NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 #pragma mark Separation of Concerns
 
-@interface NSView (NSConstraintBasedLayoutLayering)
+extern class NSView (NSConstraintBasedLayoutLayering)
 
 /* Constraints do not actually relate the frames of the views, rather they relate the "alignment rects" of views.  This is the same as the frame unless overridden by a subclass of NSView.  Alignment rects are the same as the "layout rects" shown in Interface Builder 3.  Typically the alignment rect of a view is what the end user would think of as the bounding rect around a control, omitting ornamentation like shadows and engraving lines.  The edges of the alignment rect are what is interesting to align, not the shadows and such.  
  */
@@ -267,29 +267,29 @@ APPKIT_EXTERN const CGFloat NSViewNoInstrinsicMetric; // -1
 
 - (NSLayoutPriority)contentCompressionResistancePriorityForOrientation:(NSLayoutConstraintOrientation)orientation NS_AVAILABLE_MAC(10_7);
 - (void)setContentCompressionResistancePriority:(NSLayoutPriority)priority forOrientation:(NSLayoutConstraintOrientation)orientation NS_AVAILABLE_MAC(10_7);
-@end
+}
 
-@interface NSControl (NSConstraintBasedLayoutLayering)
+extern class NSControl (NSConstraintBasedLayoutLayering)
 /* should be called by a cell on its -controlView
  */
 - (void)invalidateIntrinsicContentSizeForCell:(NSCell *)cell NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 #pragma mark Window anchoring
 
-@interface NSWindow (NSConstraintBasedLayoutAnchoring)
+extern class NSWindow (NSConstraintBasedLayoutAnchoring)
 /* If changes in the interior content (and thus, constraints) of a window force the window to get smaller or larger, what part of the window stays motionless?  By default, the top left corner of the window is anchored in place.  
  */
 - (NSLayoutAttribute)anchorAttributeForOrientation:(NSLayoutConstraintOrientation)orientation;
 - (void)setAnchorAttribute:(NSLayoutAttribute)attr forOrientation:(NSLayoutConstraintOrientation)orientation;
-@end
+}
 
 #pragma mark Size To Fit
-@interface NSView (NSConstraintBasedLayoutFittingSize)
+extern class NSView (NSConstraintBasedLayoutFittingSize)
 /* like sizeToFit, but for arbitrary views, and returns the size rather than changing the view's frame.  This considers everything in the receiver's subtree.
  */
 - (NSSize)fittingSize NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 #pragma mark Debugging
 
@@ -299,7 +299,7 @@ APPKIT_EXTERN const CGFloat NSViewNoInstrinsicMetric; // -1
  set default NSViewShowAlignmentRects to YES to see alignment rects drawn.  Useful in conjunction with NSShowAllViews, which shows frames.
  the existing -[NSView _subtreeDescription] is also very useful
  */
-@interface NSView (NSConstraintBasedLayoutDebugging)
+extern class NSView (NSConstraintBasedLayoutDebugging)
 
 /* This returns a list of all the constraints that are affecting the current location of the receiver.  The constraints do not necessarily involve the receiver, they may affect the frame indirectly.
  Pass YES for the constraints affecting NSMinX([self frame]) and NSWidth([self frame]), and NO for the constraints affecting NSMinY([self frame]) and NSHeight([self frame]).
@@ -313,10 +313,10 @@ APPKIT_EXTERN const CGFloat NSViewNoInstrinsicMetric; // -1
  */
 - (BOOL)hasAmbiguousLayout NS_AVAILABLE_MAC(10_7);
 - (void)exerciseAmbiguityInLayout NS_AVAILABLE_MAC(10_7); 
-@end
+}
 
-@interface NSWindow (NSConstraintBasedLayoutDebugging)
+extern class NSWindow (NSConstraintBasedLayoutDebugging)
 /* This draws a visual representation of the given constraints in the receiver window.  It's a nice way to understand exactly what a collection of constraints specifies.  
  */
 - (void)visualizeConstraints:(NSArray *)constraints NS_AVAILABLE_MAC(10_7);
-@end
+}

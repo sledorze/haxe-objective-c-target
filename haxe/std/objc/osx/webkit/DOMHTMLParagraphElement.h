@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMHTMLParagraphElement : DOMHTMLElement
-@property(copy) NSString *align;
-@end
+extern class DOMHTMLParagraphElement : DOMHTMLElement
+	public var NSString *align;
+}
 
 #endif

@@ -68,7 +68,7 @@ typedef struct _NSTypesetterGlyphInfo {
 
 /* A concrete class that does simple left-to-right typesetting with some support for non-spacing marks.
 */
-@interface NSSimpleHorizontalTypesetter : NSTypesetter {
+extern class NSSimpleHorizontalTypesetter : NSTypesetter {
 /* These are read-only ivars */
     /* Global Info */
     NSLayoutManager *layoutManager;	/* Current layout manager */
@@ -217,11 +217,11 @@ typedef struct _NSTypesetterGlyphInfo {
 
 - (void)fullJustifyLineAtGlyphIndex:(NSUInteger)glyphIndexForLineBreak;
 
-@end
+}
 
 /* These methods can be OPTIONALLY implemented by subclasses of NSSimpleHorizontalTypesetter.
 */
-@interface NSSimpleHorizontalTypesetter(NSTypesetterSubclassExtensions)
+extern class NSSimpleHorizontalTypesetter(NSTypesetterSubclassExtensions)
 
 /* If implemented by subclasses, this is called within "layoutGlyphsInHorizontalLineFragment:baseline:" after laying out each glyph, allowing a subclass to hook into the layout machinery directly.  Variables curGlyph, curGlyphInscription, curBidiLevel, curCharacterIndex, curGlyphIsAControlGlyph, curFont, glyphLayoutMode, glyphs[curGlyphIndex] are guaranteed to be up-to-date.
 */
@@ -231,5 +231,5 @@ typedef struct _NSTypesetterGlyphInfo {
 */
 - (void) willSetLineFragmentRect:(NSRect *)aRect forGlyphRange:(NSRange)aRange usedRect:(NSRect *)bRect;
 
-@end
+}
 #endif /* __LP64__ || MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4 */

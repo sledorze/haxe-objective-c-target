@@ -7,7 +7,7 @@
 
 @class NSLocale, NSError, NSMutableDictionary;
 
-@interface NSNumberFormatter : NSFormatter {
+extern class NSNumberFormatter : NSFormatter {
 @private
     NSMutableDictionary	*_attributes;
     __strong CFNumberFormatterRef _formatter;
@@ -242,12 +242,12 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterRoundingMode) {
 - (BOOL)isPartialStringValidationEnabled NS_AVAILABLE(10_5, 2_0);
 - (void)setPartialStringValidationEnabled:(BOOL)b NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 
 @class NSDecimalNumberHandler;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
-@interface NSNumberFormatter (NSNumberFormatterCompatibility)
+extern class NSNumberFormatter (NSNumberFormatterCompatibility)
 
 - (BOOL)hasThousandSeparators;
 - (void)setHasThousandSeparators:(BOOL)flag;
@@ -270,6 +270,6 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterRoundingMode) {
 - (NSDecimalNumberHandler *)roundingBehavior;
 - (void)setRoundingBehavior:(NSDecimalNumberHandler *)newRoundingBehavior;
 
-@end
+}
 #endif
 

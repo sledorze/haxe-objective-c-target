@@ -33,7 +33,7 @@
 // In addition, metadata properties specific to the current playback session
 // may also be specified -- see "Additional metadata properties" below.
 
-MP_EXTERN_CLASS_AVAILABLE(5_0) @interface MPNowPlayingInfoCenter : NSObject
+MP_EXTERN_CLASS_AVAILABLE(5_0)extern class MPNowPlayingInfoCenter extends NSObject
 
 // Returns the default now playing info center.
 // The default center holds now playing info about the current application.
@@ -41,9 +41,9 @@ MP_EXTERN_CLASS_AVAILABLE(5_0) @interface MPNowPlayingInfoCenter : NSObject
 
 // The current now playing info for the center.
 // Setting the info to nil will clear it.
-@property (copy) NSDictionary *nowPlayingInfo;
+	public var  (copy) NSDictionary *nowPlayingInfo;
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // Additional metadata properties

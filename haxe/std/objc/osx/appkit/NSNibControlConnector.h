@@ -7,6 +7,6 @@
 
 #import <AppKit/NSNibConnector.h>
 
-@interface NSNibControlConnector : NSNibConnector
+extern class NSNibControlConnector : NSNibConnector
 - (void)establishConnection;
-@end
+}

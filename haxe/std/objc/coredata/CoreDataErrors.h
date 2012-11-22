@@ -75,7 +75,7 @@ enum {
     NSSQLiteError                                    = 134180,  // general SQLite error 
 
     NSInferredMappingModelError                      = 134190, // inferred mapping model creation error
-    NSExternalRecordImportError                      = 134200 // general error encountered while importing external records
+    NSExternalRecordImportError                      = 134200 // general error encountered while importingexternal records
 
 };
 

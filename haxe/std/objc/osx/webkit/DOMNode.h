@@ -57,25 +57,25 @@ enum {
     DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 0x20
 };
 
-@interface DOMNode : DOMObject <DOMEventTarget>
-@property(readonly, copy) NSString *nodeName;
-@property(copy) NSString *nodeValue;
-@property(readonly) unsigned short nodeType;
-@property(readonly, retain) DOMNode *parentNode;
-@property(readonly, retain) DOMNodeList *childNodes;
-@property(readonly, retain) DOMNode *firstChild;
-@property(readonly, retain) DOMNode *lastChild;
-@property(readonly, retain) DOMNode *previousSibling;
-@property(readonly, retain) DOMNode *nextSibling;
-@property(readonly, retain) DOMNamedNodeMap *attributes;
-@property(readonly, retain) DOMDocument *ownerDocument;
-@property(readonly, copy) NSString *namespaceURI;
-@property(copy) NSString *prefix;
-@property(readonly, copy) NSString *localName;
-@property(readonly, copy) NSString *baseURI AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *textContent AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, retain) DOMElement *parentElement AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) BOOL isContentEditable AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMNode : DOMObject <DOMEventTarget>
+	public var (default, null) NSString *nodeName;
+	public var NSString *nodeValue;
+	public var  (default, null) : unsigned short nodeType;
+	public var (default, null) DOMNode *parentNode;
+	public var (default, null) DOMNodeList *childNodes;
+	public var (default, null) DOMNode *firstChild;
+	public var (default, null) DOMNode *lastChild;
+	public var (default, null) DOMNode *previousSibling;
+	public var (default, null) DOMNode *nextSibling;
+	public var (default, null) DOMNamedNodeMap *attributes;
+	public var (default, null) DOMDocument *ownerDocument;
+	public var (default, null) NSString *namespaceURI;
+	public var NSString *prefix;
+	public var (default, null) NSString *localName;
+	public var (default, null) NSString *baseURI AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *textContent AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) DOMElement *parentElement AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : BOOL isContentEditable AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (DOMNode *)insertBefore:(DOMNode *)newChild refChild:(DOMNode *)refChild AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (DOMNode *)replaceChild:(DOMNode *)newChild oldChild:(DOMNode *)oldChild AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
@@ -93,12 +93,12 @@ enum {
 - (NSString *)lookupNamespaceURI:(NSString *)prefix AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (unsigned short)compareDocumentPosition:(DOMNode *)other AVAILABLE_IN_WEBKIT_VERSION_4_0;
 - (BOOL)contains:(DOMNode *)other AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMNode (DOMNodeDeprecated)
+extern class DOMNode (DOMNodeDeprecated)
 - (DOMNode *)insertBefore:(DOMNode *)newChild :(DOMNode *)refChild AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (DOMNode *)replaceChild:(DOMNode *)newChild :(DOMNode *)oldChild AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
 - (BOOL)isSupported:(NSString *)feature :(NSString *)version AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

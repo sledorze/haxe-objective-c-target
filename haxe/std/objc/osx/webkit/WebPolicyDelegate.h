@@ -105,11 +105,11 @@ extern NSString *WebActionOriginalURLKey; // NSURL
     further with the load, however, the client is still free to handle
     the request in some other way, such as opening a new window,
     opening a new window behind the current one, opening the URL in an
-    external app, revealing the location in Finder if a file URL, etc.
+   external app, revealing the location in Finder if a file URL, etc.
 */
 - (void)ignore;
 
-@end
+}
 
 
 /*!
@@ -133,7 +133,7 @@ extern NSString *WebActionOriginalURLKey; // NSURL
     documents come in one navigation, with each replacing the last. In
     this case, conent policy will be checked for each one.
 */
-@interface NSObject (WebPolicyDelegate)
+extern class NSObject (WebPolicyDelegate)
 
 /*!
    @method webView:decidePolicyForNavigationAction:request:frame:decisionListener:
@@ -195,4 +195,4 @@ extern NSString *WebActionOriginalURLKey; // NSURL
 */
 - (void)webView:(WebView *)webView unableToImplementPolicyWithError:(NSError *)error frame:(WebFrame *)frame;
 
-@end
+}

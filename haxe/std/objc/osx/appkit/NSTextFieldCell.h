@@ -15,7 +15,7 @@ typedef NSUInteger NSTextFieldBezelStyle;
 
 @class NSColor;
 
-@interface NSTextFieldCell : NSActionCell  {
+extern class NSTextFieldCell : NSActionCell  {
     /*All instance variables are private*/
     NSColor *_backgroundColor;
     NSColor *_textColor;
@@ -58,5 +58,5 @@ typedef NSUInteger NSTextFieldBezelStyle;
 - (NSArray *)allowedInputSourceLocales NS_AVAILABLE_MAC(10_5);
 - (void)setAllowedInputSourceLocales:(NSArray *)localeIdentifiers NS_AVAILABLE_MAC(10_5);
 
-@end
+}
 

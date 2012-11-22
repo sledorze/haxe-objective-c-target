@@ -19,16 +19,16 @@
 #import <CoreMedia/CMTimeRange.h>
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVAssetTrackSegment : NSObject
+extern class AVAssetTrackSegment extends NSObject
 {
 @private
 	CMTimeMapping	_timeMapping;
 }
 
 /* indicates the timeRange of the track of the container file of the media presented by the AVAssetTrackSegment */
-@property (nonatomic, readonly) CMTimeMapping timeMapping;
+	public var CMTimeMapping timeMapping;
 
 /* indicates whether the AVAssetTrackSegment is an empty segment */
-@property (nonatomic, readonly, getter=isEmpty) BOOL empty;
+	public var  (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
-@end
+}

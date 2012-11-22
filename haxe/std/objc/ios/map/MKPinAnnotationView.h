@@ -17,14 +17,14 @@ typedef NSUInteger MKPinAnnotationColor;
 @class MKPinAnnotationViewInternal;
 
 MK_CLASS_AVAILABLE(NA, 3_0)
-@interface MKPinAnnotationView : MKAnnotationView
+extern class MKPinAnnotationView : MKAnnotationView
 {
 @private
     MKPinAnnotationViewInternal *_pinInternal;
 }
 
-@property (nonatomic) MKPinAnnotationColor pinColor;
+	public var MKPinAnnotationColor pinColor;
 
-@property (nonatomic) BOOL animatesDrop;
+	public var BOOL animatesDrop;
 
-@end
+}

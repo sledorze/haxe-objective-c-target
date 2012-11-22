@@ -2,8 +2,8 @@
 
 @implementation DateTools
 
-+ (NSString*) __format_get:(Date*)d e:(NSString*)e{
-	return - (NSString*) switch (e){
++ (NSMutableString*) __format_get:(NSDate*)d e:(NSMutableString*)e{
+	return - (NSMutableString*) switch (e){
 		case @"%":{
 			$r = @"%"}break;
 		case @"C":{
@@ -17,11 +17,11 @@
 		case @"H":case @"k":{
 			$r = [StringTools lpad:[Std string:[d getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
 		case @"I":case @"l":{
-			$r = - (NSString*) int hour = [d getHours] % 12
+			$r = - (NSMutableString*) int hour = [d getHours] % 12
 			$r2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
 			return $r2{
 				
-				NSString* $r2}
+				NSMutableString* $r2}
 			}()}break;
 		case @"m":{
 			$r = [StringTools lpad:[Std string:[d getMonth] + 1] c:@"0" l:2]}break;
@@ -44,11 +44,11 @@
 		case @"T":{
 			$r = [DateTools __format:d f:@"%H:%M:%S"]}break;
 		case @"u":{
-			$r = - (NSString*) int t = [d getDay]
+			$r = - (NSMutableString*) int t = [d getDay]
 			$r3 = ( (t == 0) ? @"7" : [Std string:t])
 			return $r3{
 				
-				NSString* $r3}
+				NSMutableString* $r3}
 			}()}break;
 		case @"w":{
 			$r = [Std string:[d getDay]]}break;
@@ -57,18 +57,18 @@
 		case @"Y":{
 			$r = [Std string:[d getFullYear]]}break;
 		default:{
-			$r = - (NSString*) throw @"Date.format %" + e + @"- not implemented yet."
+			$r = - (NSMutableString*) throw @"Date.format %" + e + @"- not implemented yet."
 			return $r4{
 				
-				NSString* $r4}
+				NSMutableString* $r4}
 			}()}break
 	}
 	return $r{
 		
-		NSString* $r}
+		NSMutableString* $r}
 	}();
 }
-+ (NSString*) __format:(Date*)d f:(NSString*)f{
++ (NSMutableString*) __format:(NSDate*)d f:(NSMutableString*)f{
 	
 	StringBuf *r = [[StringBuf alloc] new][];
 	int p = 0;
@@ -82,11 +82,11 @@
 	[r.b objectAtIndex:r.b.length] = [f substringWithRange:substr:p len:f length - p];
 	return [r b join:@""];
 }
-+ (NSString*) format:(Date*)d f:(NSString*)f{
++ (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f{
 	return [DateTools __format:d f:f];
 }
-+ (Date*) delta:(Date*)d t:(float)t{
-	return [Date fromTime:[d getTime] + t];
++ (NSDate*) delta:(NSDate*)d t:(float)t{
+	return [NSDate fromTime:[d getTime] + t];
 }
 + (NSMutabeArray*) DAYS_OF_MONTH:(NSMutabeArray*)val {
 	static NSMutabeArray *_val;
@@ -94,7 +94,7 @@
 	else { if (_val != nil) _val = val; }
 	return _val;
 }
-+ (int) getMonthDays:(Date*)d{
++ (int) getMonthDays:(NSDate*)d{
 	int month = [d getMonth];
 	int year = [d getFullYear];
 	if (month != 1) return [DateTools.DAYS_OF_MONTH objectAtIndex:month];;

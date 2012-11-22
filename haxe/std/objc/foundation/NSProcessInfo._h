@@ -17,7 +17,7 @@ enum {	/* Constants returned by -operatingSystem */
 
 @class NSArray, NSString, NSDictionary;
 
-@interface NSProcessInfo : NSObject {
+extern class NSProcessInfo : NSObject {
     @private	
     NSDictionary	*environment;
     NSArray		*arguments;
@@ -79,5 +79,5 @@ enum {	/* Constants returned by -operatingSystem */
 - (void) setAutomaticTerminationSupportEnabled:(BOOL)flag NS_AVAILABLE(10_7, NA);
 - (BOOL) automaticTerminationSupportEnabled NS_AVAILABLE(10_7, NA);
 
-@end
+}
 

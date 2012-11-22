@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, NSHTTPCookieAcceptPolicy) {
     generate cookie-related HTTP header fields.
 */
 
-@interface NSHTTPCookieStorage : NSObject
+extern class NSHTTPCookieStorage extends NSObject
 {
     @private
     NSHTTPCookieStorageInternal *_internal;
@@ -126,7 +126,7 @@ typedef NS_ENUM(NSUInteger, NSHTTPCookieAcceptPolicy) {
 */
 - (NSArray*)sortedCookiesUsingDescriptors:(NSArray*) sortOrder NS_AVAILABLE(10_7, 5_0);
 
-@end
+}
 
 /*!
     @const NSHTTPCookieManagerAcceptPolicyChangedNotification

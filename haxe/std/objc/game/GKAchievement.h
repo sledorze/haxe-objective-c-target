@@ -8,7 +8,7 @@
 
 // GKAchievement represents a game achievement that the player has started or completely achieved.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKAchievement : NSObject <NSCoding> {
+extern class GKAchievement extends NSObject, implements NSObject> {
 }
 
 // Asynchronously load all achievements for the local player
@@ -39,12 +39,12 @@ NS_CLASS_AVAILABLE(10_8, 4_1)
 // 3. Reported Achievement does not exist
 - (void)reportAchievementWithCompletionHandler:(void(^)(NSError *error))completionHandler;
 
-@property(nonatomic, retain) NSString *identifier;                  // Achievement identifier
-@property(nonatomic, assign) double percentComplete;                // Required, Percentage of achievement complete.
-@property(nonatomic, readonly, getter=isCompleted) BOOL completed;  // Set to NO until percentComplete = 100.
-@property(nonatomic, assign, getter=isHidden, readonly) BOOL hidden __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_4_1,__IPHONE_6_0);    // Set to NO when a report for that achievement is made. Note: to only unhide an achievement, report it with percentComplete = 0
-@property(nonatomic, retain, readonly) NSDate *lastReportedDate;    // Date the achievement was last reported. ReadOnly. Created at initialization
+	public var  NSString *identifier;                  // Achievement identifier
+	public var  double percentComplete;                // Required, Percentage of achievement complete.
+	public var (nonatomic, readonly, getter=isCompleted) BOOL completed;  // Set to NO until percentComplete = 100.
+	public var (nonatomic, assign, getter=isHidden, readonly) BOOL hidden __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_4_1,__IPHONE_6_0);    // Set to NO when a report for that achievement is made. Note: to only unhide an achievement, report it with percentComplete = 0
+	public var (default, null) NSDate *lastReportedDate;    // Date the achievement was last reported. ReadOnly. Created at initialization
 
-@property(nonatomic, assign) BOOL showsCompletionBanner __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);             // A banner will be momentarily displayed after reporting a completed achievement
+	public var  BOOL showsCompletionBanner __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0);             // A banner will be momentarily displayed after reporting a completed achievement
 
-@end
+}

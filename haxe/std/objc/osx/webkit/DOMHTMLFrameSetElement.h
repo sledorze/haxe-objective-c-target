@@ -30,9 +30,9 @@
 
 @class NSString;
 
-@interface DOMHTMLFrameSetElement : DOMHTMLElement
-@property(copy) NSString *cols;
-@property(copy) NSString *rows;
-@end
+extern class DOMHTMLFrameSetElement : DOMHTMLElement
+	public var NSString *cols;
+	public var NSString *rows;
+}
 
 #endif

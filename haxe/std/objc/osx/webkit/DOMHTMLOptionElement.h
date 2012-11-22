@@ -31,15 +31,15 @@
 @class DOMHTMLFormElement;
 @class NSString;
 
-@interface DOMHTMLOptionElement : DOMHTMLElement
-@property BOOL disabled;
-@property(readonly, retain) DOMHTMLFormElement *form;
-@property(copy) NSString *label;
-@property BOOL defaultSelected;
-@property BOOL selected;
-@property(copy) NSString *value;
-@property(readonly, copy) NSString *text;
-@property(readonly) int index;
-@end
+extern class DOMHTMLOptionElement : DOMHTMLElement
+	public var  BOOL disabled;
+	public var (default, null) DOMHTMLFormElement *form;
+	public var NSString *label;
+	public var  BOOL defaultSelected;
+	public var  BOOL selected;
+	public var NSString *value;
+	public var (default, null) NSString *text;
+	public var  (default, null) : int index;
+}
 
 #endif

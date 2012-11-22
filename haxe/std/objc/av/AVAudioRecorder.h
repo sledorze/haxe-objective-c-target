@@ -17,7 +17,7 @@
 @class NSDictionary, NSURL, NSError;
 
 NS_CLASS_AVAILABLE(10_7, 3_0)
-@interface AVAudioRecorder : NSObject {
+extern class AVAudioRecorder extends NSObject {
 @private
     void *_impl;
 }
@@ -40,24 +40,24 @@ NS_CLASS_AVAILABLE(10_7, 3_0)
 
 /* properties */
 
-@property(readonly, getter=isRecording) BOOL recording; /* is it recording or not? */
+	public var (readonly, getter=isRecording) BOOL recording; /* is it recording or not? */
 
-@property(readonly) NSURL *url; /* URL of the recorded file */
+	public var  (default, null) : NSURL *url; /* URL of the recorded file */
 
 /* these settings are fully valid only when prepareToRecord has been called */
-@property(readonly) NSDictionary *settings;
+	public var  (default, null) : NSDictionary *settings;
 
 /* the delegate will be sent messages from the AVAudioRecorderDelegate protocol */ 
-@property(assign) id<AVAudioRecorderDelegate> delegate;  
+	public var (assign) id<AVAudioRecorderDelegate> delegate;  
 
 /* get the current time of the recording - only valid while recording */
-@property(readonly) NSTimeInterval currentTime;
+	public var  (default, null) : NSTimeInterval currentTime;
 /* get the device current time - always valid */
-@property(readonly) NSTimeInterval deviceCurrentTime NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) : NSTimeInterval deviceCurrentTime NS_AVAILABLE_IOS(6_0);
 
 /* metering */
 
-@property(getter=isMeteringEnabled) BOOL meteringEnabled; /* turns level metering on or off. default is off. */
+	public var (getter=isMeteringEnabled) BOOL meteringEnabled; /* turns level metering on or off. default is off. */
 
 - (void)updateMeters; /* call to refresh meter values */
 
@@ -68,10 +68,10 @@ NS_CLASS_AVAILABLE(10_7, 3_0)
 /* The channels property lets you assign the output to record specific channels as described by AVAudioSession's channels property */
 /* This property is nil valued until set. */
 /* The array must have the same number of channels as returned by the numberOfChannels property. */
-@property(nonatomic, copy) NSArray* channelAssignments; /* Array of AVAudioSessionChannelDescription objects */
+	public var  NSArray* channelAssignments; /* Array of AVAudioSessionChannelDescription objects */
 #endif
 
-@end
+}
 
 
 /* A protocol for delegates of AVAudioRecorder */
@@ -100,5 +100,5 @@ NS_CLASS_AVAILABLE(10_7, 3_0)
 
 #endif // TARGET_OS_IPHONE
 
-@end
+}
 

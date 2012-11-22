@@ -1,6 +1,6 @@
 //
 //  UIActivityIndicator.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //
@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, UIActivityIndicatorViewStyle) {
     UIActivityIndicatorViewStyleGray,
 };
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIActivityIndicatorView : UIView <NSCoding>
+extern class UIActivityIndicatorView extends UIView, implements NSObject>
 { 
   @package
     CFTimeInterval               _duration;
@@ -26,12 +26,12 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIActivityIndicatorView : UIView <NSCodin
 
 - (id)initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)style;     // sizes the view according to the style
 
-@property(nonatomic) UIActivityIndicatorViewStyle activityIndicatorViewStyle; // default is UIActivityIndicatorViewStyleWhite
-@property(nonatomic) BOOL                         hidesWhenStopped;           // default is YES. calls -setHidden when animating gets set to NO
+	public var  UIActivityIndicatorViewStyle activityIndicatorViewStyle; // default is UIActivityIndicatorViewStyleWhite
+	public var  BOOL                         hidesWhenStopped;           // default is YES. calls -setHidden when animating gets set to NO
 
-@property (readwrite, nonatomic, retain) UIColor *color NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public var  (readwrite, nonatomic, retain) UIColor *color NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
-- (void)startAnimating;
-- (void)stopAnimating;
+	public function startAnimating;
+	public function stopAnimating;
 - (BOOL)isAnimating;
-@end
+}

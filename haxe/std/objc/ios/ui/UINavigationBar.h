@@ -1,6 +1,6 @@
 //
 //  UINavigationBar.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //
@@ -15,9 +15,9 @@
 #import <UIKit/UIBarButtonItem.h>
 
 @class UINavigationItem, UIBarButtonItem, UIImage, UIColor;
-@protocol UINavigationBarDelegate;
+extern interface UINavigationBarDelegate;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationBar : UIView <NSCoding> {
+extern class UINavigationBar extends UIView, implements NSObject> {
   @private
     NSMutableArray *_itemStack;
     CGFloat         _rightMargin;
@@ -64,22 +64,22 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationBar : UIView <NSCoding> {
     } _navbarFlags;
 }
 
-@property(nonatomic,assign) UIBarStyle barStyle;
-@property(nonatomic,assign) id delegate;
-@property(nonatomic,assign,getter=isTranslucent) BOOL translucent NS_AVAILABLE_IOS(3_0); // Default is NO. Always YES if barStyle is set to UIBarStyleBlackTranslucent
+	public var  UIBarStyle barStyle;
+	public var  id delegate;
+	public var (nonatomic,assign,getter=isTranslucent) BOOL translucent NS_AVAILABLE_IOS(3_0); // Default is NO. Always YES if barStyle is set to UIBarStyleBlackTranslucent
 
 // Pushing a navigation item displays the item's title in the center of the navigation bar.
 // The previous top navigation item (if it exists) is displayed as a "back" button on the left.
-- (void)pushNavigationItem:(UINavigationItem *)item animated:(BOOL)animated;
+	public function pushNavigationItem:(UINavigationItem *)item animated:(BOOL)animated;
 - (UINavigationItem *)popNavigationItemAnimated:(BOOL)animated; // Returns the item that was popped.
 
-@property(nonatomic,readonly,retain) UINavigationItem *topItem;
-@property(nonatomic,readonly,retain) UINavigationItem *backItem;
+	public var (default, null) UINavigationItem *topItem;
+	public var (default, null) UINavigationItem *backItem;
 
-@property(nonatomic,copy) NSArray *items;
-- (void)setItems:(NSArray *)items animated:(BOOL)animated; // If animated is YES, then simulate a push or pop depending on whether the new top item was previously in the stack.
+public var  NSArray *items;
+	public function setItems:(NSArray *)items animated:(BOOL)animated; // If animated is YES, then simulate a push or pop depending on whether the new top item was previously in the stack.
 
-@property(nonatomic,retain) UIColor *tintColor UI_APPEARANCE_SELECTOR;
+	public var (nonatomic,retain) UIColor *tintColor UI_APPEARANCE_SELECTOR;
 
 /* In general, you should specify a value for the normal state to be used by other states which don't have a custom value set.
  
@@ -90,34 +90,34 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationBar : UIView <NSCoding> {
  the bar buttons (unless otherwise customized) will inherit the underlying
  barStyle or tintColor.
  */
-- (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public function setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 - (UIImage *)backgroundImageForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 /* Default is nil. When non-nil, a custom shadow image to show instead of the default shadow image. For a custom shadow to be shown, a custom background image must also be set with -setBackgroundImage:forBarMetrics: (if the default background image is used, the default shadow image will be used).
  */
-@property(nonatomic,retain) UIImage *shadowImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+	public var (nonatomic,retain) UIImage *shadowImage NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 
 /* You may specify the font, text color, text shadow color, and text shadow offset for the title in the text attributes dictionary, using the keys found in UIStringDrawing.h.
  */
-@property(nonatomic,copy) NSDictionary *titleTextAttributes NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+public var  NSDictionary *titleTextAttributes NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
-- (void)setTitleVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public function setTitleVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 - (CGFloat)titleVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
-@end
+}
 
-@protocol UINavigationBarDelegate <NSObject>
+extern interface UINavigationBarDelegate <NSObject>
 
 @optional
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPushItem:(UINavigationItem *)item; // called to push. return NO not to.
-- (void)navigationBar:(UINavigationBar *)navigationBar didPushItem:(UINavigationItem *)item;    // called at end of animation of push or immediately if not animated
+	public function navigationBar:(UINavigationBar *)navigationBar didPushItem:(UINavigationItem *)item;    // called at end of animation of push or immediately if not animated
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item;  // same as push methods
-- (void)navigationBar:(UINavigationBar *)navigationBar didPopItem:(UINavigationItem *)item;
+	public function navigationBar:(UINavigationBar *)navigationBar didPopItem:(UINavigationItem *)item;
 
-@end
+}
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationItem : NSObject <NSCoding> {
+extern class UINavigationItem extends NSObject, implements NSObject> {
  @private
     NSString        *_title;
     NSString        *_backButtonTitle;
@@ -140,14 +140,14 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationItem : NSObject <NSCoding> {
 
 - (id)initWithTitle:(NSString *)title;
 
-@property(nonatomic,copy)   NSString        *title;             // Title when topmost on the stack. default is nil
-@property(nonatomic,retain) UIBarButtonItem *backBarButtonItem; // Bar button item to use for the back button in the child navigation item.
-@property(nonatomic,retain) UIView          *titleView;         // Custom view to use in lieu of a title. May be sized horizontally. Only used when item is topmost on the stack.
+public var    NSString        *title;             // Title when topmost on the stack. default is nil
+	public var (nonatomic,retain) UIBarButtonItem *backBarButtonItem; // Bar button item to use for the back button in the child navigation item.
+	public var (nonatomic,retain) UIView          *titleView;         // Custom view to use in lieu of a title. May be sized horizontally. Only used when item is topmost on the stack.
 
-@property(nonatomic,copy)   NSString *prompt;     // Explanatory text to display above the navigation bar buttons.
+public var    NSString *prompt;     // Explanatory text to display above the navigation bar buttons.
 
-@property(nonatomic,assign) BOOL hidesBackButton; // If YES, this navigation item will hide the back button when it's on top of the stack.
-- (void)setHidesBackButton:(BOOL)hidesBackButton animated:(BOOL)animated;
+	public var  BOOL hidesBackButton; // If YES, this navigation item will hide the back button when it's on top of the stack.
+	public function setHidesBackButton:(BOOL)hidesBackButton animated:(BOOL)animated;
 
 /* Use these properties to set multiple items in a navigation bar.
  The older single properties (leftBarButtonItem and rightBarButtonItem) now refer to 
@@ -161,24 +161,24 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UINavigationItem : NSObject <NSCoding> {
    rightBarButtonItems are placed right to left with the first item in the list at
  the right outside edge and right aligned.
  */
-@property(nonatomic,copy) NSArray *leftBarButtonItems NS_AVAILABLE_IOS(5_0);
-@property(nonatomic,copy) NSArray *rightBarButtonItems NS_AVAILABLE_IOS(5_0);
-- (void)setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated NS_AVAILABLE_IOS(5_0); 
-- (void)setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated NS_AVAILABLE_IOS(5_0);
+public var  NSArray *leftBarButtonItems NS_AVAILABLE_IOS(5_0);
+public var  NSArray *rightBarButtonItems NS_AVAILABLE_IOS(5_0);
+	public function setLeftBarButtonItems:(NSArray *)items animated:(BOOL)animated NS_AVAILABLE_IOS(5_0); 
+	public function setRightBarButtonItems:(NSArray *)items animated:(BOOL)animated NS_AVAILABLE_IOS(5_0);
 
 /* By default, the leftItemsSupplementBackButton property is NO. In this case, 
  the back button is not drawn and the left item or items replace it. If you
  would like the left items to appear in addition to the back button (as opposed to instead of it)
  set leftItemsSupplementBackButton to YES.
  */
-@property(nonatomic) BOOL leftItemsSupplementBackButton NS_AVAILABLE_IOS(5_0);
+	public var  BOOL leftItemsSupplementBackButton NS_AVAILABLE_IOS(5_0);
 
 
 // Some navigation items want to display a custom left or right item when they're on top of the stack.
 // A custom left item replaces the regular back button unless you set leftItemsSupplementBackButton to YES
-@property(nonatomic,retain) UIBarButtonItem *leftBarButtonItem;
-@property(nonatomic,retain) UIBarButtonItem *rightBarButtonItem;
-- (void)setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
-- (void)setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
+	public var (nonatomic,retain) UIBarButtonItem *leftBarButtonItem;
+	public var (nonatomic,retain) UIBarButtonItem *rightBarButtonItem;
+	public function setLeftBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
+	public function setRightBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
 
-@end
+}

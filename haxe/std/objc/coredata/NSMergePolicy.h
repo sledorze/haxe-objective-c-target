@@ -14,10 +14,10 @@
 // Default policy for all managed object contexts - save returns with an error that contains the object IDs of the objects that had conflicts(NSInsertedObjectsKey, NSUpdatedObjectsKey).
 COREDATA_EXTERN id NSErrorMergePolicy NS_AVAILABLE(10_4, 3_0);
 
-// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both the external source and in memory, the external changes trump the in memory ones.
+// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both theexternal source and in memory, theexternal changes trump the in memory ones.
 COREDATA_EXTERN id NSMergeByPropertyStoreTrumpMergePolicy NS_AVAILABLE(10_4, 3_0);    
 
-// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both the external source and in memory, the in memory changes trump the external ones.
+// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both theexternal source and in memory, the in memory changes trump theexternal ones.
 COREDATA_EXTERN id NSMergeByPropertyObjectTrumpMergePolicy NS_AVAILABLE(10_4, 3_0);    
 
 // This singleton policy overwrites all state for the changed objects in conflict The current object's state is pushed upon the persistent store.
@@ -37,7 +37,7 @@ enum {
 typedef NSUInteger NSMergePolicyType;
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSMergeConflict : NSObject {
+extern class NSMergeConflict extends NSObject {
 @private
     id _source;
     id _snapshot1;
@@ -47,12 +47,12 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
     NSUInteger _oldVersion;
 }
 
-@property (readonly, retain) NSManagedObject* sourceObject;
-@property (readonly, retain) NSDictionary* objectSnapshot;
-@property (readonly, retain) NSDictionary* cachedSnapshot;
-@property (readonly, retain) NSDictionary* persistedSnapshot;
-@property (readonly) NSUInteger newVersionNumber;
-@property (readonly) NSUInteger oldVersionNumber;
+	public var (default, null) NSManagedObject* sourceObject;
+	public var (default, null) NSDictionary* objectSnapshot;
+	public var (default, null) NSDictionary* cachedSnapshot;
+	public var (default, null) NSDictionary* persistedSnapshot;
+	public var NSUInteger newVersionNumber;
+	public var NSUInteger oldVersionNumber;
 
 /*
  * There are two situations in which a conflict may occur:
@@ -60,7 +60,7 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
  * 1. Between the NSManagedObjectContext and its in-memory cached state at the NSPersistentStoreCoordinator layer.
  *    In this case, the merge conflict has a source object and a cached snapshot but no persisted snapshot (persnap is nil).
  *
- * 2. Between the cached state at the NSPersistentStoreCoordinator and the external store (file, database, etc.).
+ * 2. Between the cached state at the NSPersistentStoreCoordinator and theexternal store (file, database, etc.).
  *    In this case, the merge conflict has a cached snapshot and a persisted snapshot.  The source object is also provided as a convenience,
  *    but it is not directly involved in the conflict.
  * 
@@ -71,18 +71,18 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
  */
 - (id)initWithSource:(NSManagedObject*)srcObject newVersion:(NSUInteger)newvers oldVersion:(NSUInteger)oldvers cachedSnapshot:(NSDictionary*)cachesnap persistedSnapshot:(NSDictionary*)persnap;
 
-@end
+}
 
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSMergePolicy : NSObject {
+extern class NSMergePolicy extends NSObject {
 @private
     NSUInteger _type;
     void* _reserved2;
     void* _reserved3;
 }
 
-@property (readonly) NSMergePolicyType mergeType;
+	public var NSMergePolicyType mergeType;
 
 /*
  * In a subclass implementation of initWithMergeType:, you should invoke super with the NSMergePolicyType that is closest to the behavior you want.
@@ -97,5 +97,5 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
  */
 - (BOOL)resolveConflicts:(NSArray*)list error:(NSError **)error;
 
-@end
+}
 

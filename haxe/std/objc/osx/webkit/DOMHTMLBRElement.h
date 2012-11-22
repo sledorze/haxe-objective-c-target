@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMHTMLBRElement : DOMHTMLElement
-@property(copy) NSString *clear;
-@end
+extern class DOMHTMLBRElement : DOMHTMLElement
+	public var NSString *clear;
+}
 
 #endif

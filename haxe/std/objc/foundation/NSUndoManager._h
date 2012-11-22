@@ -20,7 +20,7 @@ enum {
 };
 
 NS_CLASS_AVAILABLE(10_0, 3_0)
-@interface NSUndoManager : NSObject {
+extern class NSUndoManager : NSObject {
     @private
     id 			_undoStack;
     id 			_redoStack;
@@ -145,7 +145,7 @@ FOUNDATION_EXPORT NSString * const NSUndoManagerGroupIsDiscardableKey NS_AVAILAB
     // undo.strings. But undo/redoMenuTitleForUndoActionName can also be overridden if
     // localizing the pattern happens to not be sufficient.
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSUndoManagerCheckpointNotification NS_AVAILABLE(10_0, 3_0);
     // This is called before an undo group is begun or ended so any

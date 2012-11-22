@@ -31,27 +31,27 @@
 @class NSString;
 @class NSURL;
 
-@interface DOMHTMLAnchorElement : DOMHTMLElement
-@property(copy) NSString *charset;
-@property(copy) NSString *coords;
-@property(copy) NSString *href;
-@property(copy) NSString *hreflang;
-@property(copy) NSString *name;
-@property(copy) NSString *rel;
-@property(copy) NSString *rev;
-@property(copy) NSString *shape;
-@property(copy) NSString *target;
-@property(copy) NSString *type;
-@property(copy) NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
-@property(readonly, copy) NSString *hashName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *host AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *hostname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *pathname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *port AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *protocol AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *search AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSString *text AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSURL *absoluteLinkURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLAnchorElement : DOMHTMLElement
+	public var NSString *charset;
+	public var NSString *coords;
+	public var NSString *href;
+	public var NSString *hreflang;
+	public var NSString *name;
+	public var NSString *rel;
+	public var NSString *rev;
+	public var NSString *shape;
+	public var NSString *target;
+	public var NSString *type;
+	public var NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
+	public var (default, null) NSString *hashName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *host AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *hostname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *pathname AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *port AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *protocol AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *search AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSString *text AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSURL *absoluteLinkURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

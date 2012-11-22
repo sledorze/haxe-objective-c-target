@@ -21,7 +21,7 @@ enum {
 typedef NSUInteger NSTokenStyle;
 
 
-@interface NSTokenFieldCell : NSTextFieldCell {
+extern class NSTokenFieldCell : NSTextFieldCell {
 @private
     NSCharacterSet *_tokenizingCharacterSet;
     id _delegate;
@@ -66,7 +66,7 @@ typedef NSUInteger NSTokenStyle;
 - (void)setDelegate:(id <NSTokenFieldCellDelegate>)anObject;
 - (id <NSTokenFieldCellDelegate>)delegate;
 
-@end
+}
 
 @protocol NSTokenFieldCellDelegate <NSObject>
 
@@ -103,4 +103,4 @@ typedef NSUInteger NSTokenStyle;
 // This method allows you to change the style for individual tokens as well as have mixed text and tokens.
 - (NSTokenStyle)tokenFieldCell:(NSTokenFieldCell *)tokenFieldCell styleForRepresentedObject:(id)representedObject;
 
-@end
+}

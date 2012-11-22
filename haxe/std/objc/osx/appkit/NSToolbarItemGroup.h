@@ -13,7 +13,7 @@
 /* NSToolbarItemGroup is a subclass of NSToolbarItem which can be used to create sets of NSToolbarItems that are always attached to one another and that are added, removed, or reordered as a single unit.  Properties that get set on the parent toolbar item, such as label or view, apply to the entire item.  Otherwise, the individual properties are displayed adjacent to one another.  */
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSToolbarItemGroup : NSToolbarItem {
+extern class NSToolbarItemGroup : NSToolbarItem {
     @private
     id _groupItems;
     struct {
@@ -28,5 +28,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 - (void)setSubitems:(NSArray *)subitems;
 - (NSArray *)subitems;
 
-@end
+}
 

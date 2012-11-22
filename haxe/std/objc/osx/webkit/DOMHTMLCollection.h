@@ -32,12 +32,12 @@
 @class DOMNodeList;
 @class NSString;
 
-@interface DOMHTMLCollection : DOMObject
-@property(readonly) unsigned length;
+extern class DOMHTMLCollection : DOMObject
+	public var  (default, null) : unsigned length;
 
 - (DOMNode *)item:(unsigned)index;
 - (DOMNode *)namedItem:(NSString *)name;
 - (DOMNodeList *)tags:(NSString *)name AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+}
 
 #endif

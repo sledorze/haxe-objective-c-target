@@ -12,7 +12,7 @@ enum {
 };
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-@interface NSFetchRequestExpression : NSExpression {
+extern class NSFetchRequestExpression : NSExpression {
 @private
     void* _reserved1;
     void* _reserved2;
@@ -45,4 +45,4 @@ NS_CLASS_AVAILABLE(10_5,3_0)
 */
 - (BOOL)isCountOnlyRequest;
 
-@end
+}

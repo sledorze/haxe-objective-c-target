@@ -1,6 +1,6 @@
 //
 //  UIPinchGestureRecognizer.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -12,7 +12,7 @@
 // Changes: when a finger moves while two fingers remain down
 // Ends:    when both fingers have lifted
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIPinchGestureRecognizer : UIGestureRecognizer {
+extern class UIPinchGestureRecognizer : UIGestureRecognizer {
   @package
     CGFloat           _initialTouchDistance;
     CGFloat           _initialTouchScale;
@@ -28,7 +28,7 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIPinchGestureRecognizer : UIGestureRecog
     unsigned int      _endsOnSingleTouch:1;
 }
 
-@property (nonatomic)          CGFloat scale;               // scale relative to the touch points in screen coordinates
-@property (nonatomic,readonly) CGFloat velocity;            // velocity of the pinch in scale/second
+	public var          CGFloat scale;               // scale relative to the touch points in screen coordinates
+	public var  (nonatomic,readonly) CGFloat velocity;            // velocity of the pinch in scale/second
 
-@end
+}

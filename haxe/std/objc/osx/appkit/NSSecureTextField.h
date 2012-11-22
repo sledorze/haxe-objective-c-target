@@ -8,12 +8,12 @@
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSTextFieldCell.h>
 
-@interface NSSecureTextField : NSTextField {
+extern class NSSecureTextField : NSTextField {
 /*All instance variables are private*/
 }
-@end
+}
 
-@interface NSSecureTextFieldCell : NSTextFieldCell {
+extern class NSSecureTextFieldCell : NSTextFieldCell {
 /*All instance variables are private*/
     @private
     BOOL _echosBullets;
@@ -23,4 +23,4 @@
 - (void)setEchosBullets:(BOOL)flag;
 - (BOOL)echosBullets;
 
-@end
+}

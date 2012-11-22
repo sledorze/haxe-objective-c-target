@@ -1,6 +1,6 @@
 //
 //  UITextInput.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -14,13 +14,13 @@
 // Responders that implement the UIKeyInput protocol will be driven by the system-provided keyboard,
 // which will be made available whenever a conforming responder becomes first responder.
 
-@protocol UIKeyInput <UITextInputTraits>
+extern interface UIKeyInput <UITextInputTraits>
 
 - (BOOL)hasText;
-- (void)insertText:(NSString *)text;
-- (void)deleteBackward;
+	public function insertText:(NSString *)text;
+	public function deleteBackward;
 
-@end
+}
 
 //===================================================================================================
 // Responders that implement the UITextInput protocol allow the system-provided keyboard to
@@ -30,8 +30,8 @@
 @class UITextRange;
 @class UITextSelectionRect;
 
-@protocol UITextInputTokenizer;
-@protocol UITextInputDelegate;
+extern interface UITextInputTokenizer;
+extern interface UITextInputDelegate;
 
 typedef NS_ENUM(NSInteger, UITextStorageDirection) {
     UITextStorageDirectionForward = 0,
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, UITextGranularity) {
     UITextGranularityDocument
 };
 
-NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
+NS_CLASS_AVAILABLE_IOS(5_1)extern class UIDictationPhrase extends NSObject {
     @private
         NSString *_text;
         NSArray *_alternativeInterpretations;
@@ -71,22 +71,22 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
 /* -text returns the most likely interpretation for a phrase. If there are other 
  * interpretations, -alternativeInterpretations will return an array of them, with 
  * the first being most likely and the last being least likely. */
-@property (nonatomic, readonly) NSString *text;
-@property (nonatomic, readonly) NSArray *alternativeInterpretations;
+	public var NSString *text;
+	public var NSArray *alternativeInterpretations;
 
-@end
+}
 
-@protocol UITextInput <UIKeyInput>
+extern interface UITextInput <UIKeyInput>
 @required
 
 /* Methods for manipulating text. */
 - (NSString *)textInRange:(UITextRange *)range;
-- (void)replaceRange:(UITextRange *)range withText:(NSString *)text;
+	public function replaceRange:(UITextRange *)range withText:(NSString *)text;
 
 /* Text may have a selection, either zero-length (a caret) or ranged.  Editing operations are
  * always performed on the text from this selection.  nil corresponds to no selection. */
 
-@property (readwrite, copy) UITextRange *selectedTextRange;
+	public var  UITextRange *selectedTextRange;
 
 /* If text can be selected, it can be marked. Marked text represents provisionally
  * inserted text that has yet to be confirmed by the user.  It requires unique visual
@@ -96,14 +96,14 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
  * Setting marked text either replaces the existing marked text or, if none is present,
  * inserts it from the current selection. */ 
 
-@property (nonatomic, readonly) UITextRange *markedTextRange;                       // Nil if no marked text.
-@property (nonatomic, copy) NSDictionary *markedTextStyle;                          // Describes how the marked text should be drawn.
-- (void)setMarkedText:(NSString *)markedText selectedRange:(NSRange)selectedRange;  // selectedRange is a range within the markedText
-- (void)unmarkText;
+	public var UITextRange *markedTextRange;                       // Nil if no marked text.
+	public var NSDictionary *markedTextStyle;                          // Describes how the marked text should be drawn.
+	public function setMarkedText:(NSString *)markedText selectedRange:(NSRange)selectedRange;  // selectedRange is a range within the markedText
+	public function unmarkText;
 
 /* The end and beginning of the the text document. */
-@property (nonatomic, readonly) UITextPosition *beginningOfDocument;
-@property (nonatomic, readonly) UITextPosition *endOfDocument;
+	public var UITextPosition *beginningOfDocument;
+	public var UITextPosition *endOfDocument;
 
 /* Methods for creating ranges and positions. */
 - (UITextRange *)textRangeFromPosition:(UITextPosition *)fromPosition toPosition:(UITextPosition *)toPosition;
@@ -115,10 +115,10 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
 - (NSInteger)offsetFromPosition:(UITextPosition *)from toPosition:(UITextPosition *)toPosition;
 
 /* A system-provied input delegate is assigned when the system is interested in input changes. */
-@property (nonatomic, assign) id <UITextInputDelegate> inputDelegate;
+	public var id <UITextInputDelegate> inputDelegate;
 
 /* A tokenizer must be provided to inform the text input system about text units of varying granularity. */
-@property (nonatomic, readonly) id <UITextInputTokenizer> tokenizer;
+	public var id <UITextInputTokenizer> tokenizer;
 
 /* Layout questions. */
 - (UITextPosition *)positionWithinRange:(UITextRange *)range farthestInDirection:(UITextLayoutDirection)direction;
@@ -126,7 +126,7 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
 
 /* Writing direction */
 - (UITextWritingDirection)baseWritingDirectionForPosition:(UITextPosition *)position inDirection:(UITextStorageDirection)direction;
-- (void)setBaseWritingDirection:(UITextWritingDirection)writingDirection forRange:(UITextRange *)range;
+	public function setBaseWritingDirection:(UITextWritingDirection)writingDirection forRange:(UITextRange *)range;
 
 /* Geometry used to provide, for example, a correction rect. */
 - (CGRect)firstRectForRange:(UITextRange *)range;
@@ -151,22 +151,22 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
 
 /* An affiliated view that provides a coordinate system for all geometric values in this protocol.
  * If unimplmeented, the first view in the responder chain will be selected. */
-@property (nonatomic, readonly) UIView *textInputView;
+	public var UIView *textInputView;
 
 /* Selection affinity determines whether, for example, the insertion point appears after the last
  * character on a line or before the first character on the following line in cases where text
  * wraps across line boundaries. */
-@property (nonatomic) UITextStorageDirection selectionAffinity;
+	public var UITextStorageDirection selectionAffinity;
 
 /* This is an optional method for clients that wish to support dictation phrase alternatives. If 
  * they do not implement this method, dictation will just insert the most likely interpretation 
  * of what was spoken via -insertText:.
  * dictationResult is an array of UIDictationPhrases. */
-- (void)insertDictationResult:(NSArray *)dictationResult;
+	public function insertDictationResult:(NSArray *)dictationResult;
 
 /* These are optional methods for clients that wish to know when there are pending dictation results. */
-- (void)dictationRecordingDidEnd;
-- (void)dictationRecognitionFailed;
+	public function dictationRecordingDidEnd;
+	public function dictationRecognitionFailed;
 
 /* The following three optional methods are for clients that wish to support a placeholder for 
  * pending dictation results. -insertDictationPlaceholder must return a reference to the 
@@ -175,9 +175,9 @@ NS_CLASS_AVAILABLE_IOS(5_1) @interface UIDictationPhrase : NSObject {
 - (id)insertDictationResultPlaceholder;
 - (CGRect)frameForDictationResultPlaceholder:(id)placeholder;
 /* willInsertResult will be NO if the recognition failed. */
-- (void)removeDictationResultPlaceholder:(id)placeholder willInsertResult:(BOOL)willInsertResult;
+	public function removeDictationResultPlaceholder:(id)placeholder willInsertResult:(BOOL)willInsertResult;
 
-@end
+}
 
 //---------------------------------------------------------------------------------------------------
 
@@ -191,44 +191,44 @@ UIKIT_EXTERN NSString *const UITextInputTextFontKey;            // Key to a UIFo
  * evaluating characters at indices is an expensive proposition, a position within a text input
  * document is represented as an object, not an integer.  UITextRange and UITextPosition are abstract
  * classes provided to be subclassed when adopting UITextInput */
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UITextPosition : NSObject
+extern class UITextPosition extends NSObject
 
-@end
+}
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UITextRange : NSObject
+extern class UITextRange extends NSObject
 
-@property (nonatomic, readonly, getter=isEmpty) BOOL empty;     //  Whether the range is zero-length.
-@property (nonatomic, readonly) UITextPosition *start;
-@property (nonatomic, readonly) UITextPosition *end;
+	public var  (nonatomic, readonly, getter=isEmpty) BOOL empty;     //  Whether the range is zero-length.
+	public var UITextPosition *start;
+	public var UITextPosition *end;
 
-@end
+}
 
 /* UITextSelectionRect defines an annotated selection rect used by the system to
  * offer rich text interaction experience.  It also serves as an abstract class
  * provided to be subclassed when adopting UITextInput */
-NS_CLASS_AVAILABLE_IOS(6_0) @interface UITextSelectionRect : NSObject
+NS_CLASS_AVAILABLE_IOS(6_0)extern class UITextSelectionRect extends NSObject
 
-@property (nonatomic, readonly) CGRect rect;
-@property (nonatomic, readonly) UITextWritingDirection writingDirection;
-@property (nonatomic, readonly) BOOL containsStart; // Returns YES if the rect contains the start of the selection.
-@property (nonatomic, readonly) BOOL containsEnd; // Returns YES if the rect contains the end of the selection.
-@property (nonatomic, readonly) BOOL isVertical; // Returns YES if the rect is for vertically oriented text.
+	public var CGRect rect;
+	public var UITextWritingDirection writingDirection;
+	public var BOOL containsStart; // Returns YES if the rect contains the start of the selection.
+	public var BOOL containsEnd; // Returns YES if the rect contains the end of the selection.
+	public var BOOL isVertical; // Returns YES if the rect is for vertically oriented text.
 
-@end
+}
 
 /* The input delegate must be notified of changes to the selection and text. */
-@protocol UITextInputDelegate <NSObject>
+extern interface UITextInputDelegate <NSObject>
 
-- (void)selectionWillChange:(id <UITextInput>)textInput;
-- (void)selectionDidChange:(id <UITextInput>)textInput;
-- (void)textWillChange:(id <UITextInput>)textInput;
-- (void)textDidChange:(id <UITextInput>)textInput;
+	public function selectionWillChange:(id <UITextInput>)textInput;
+	public function selectionDidChange:(id <UITextInput>)textInput;
+	public function textWillChange:(id <UITextInput>)textInput;
+	public function textDidChange:(id <UITextInput>)textInput;
 
-@end
+}
 
 
 /* A tokenizer allows the text input system to evaluate text units of varying granularity. */
-@protocol UITextInputTokenizer <NSObject>
+extern interface UITextInputTokenizer <NSObject>
 
 @required
 
@@ -237,27 +237,27 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface UITextSelectionRect : NSObject
 - (UITextPosition *)positionFromPosition:(UITextPosition *)position toBoundary:(UITextGranularity)granularity inDirection:(UITextDirection)direction;   // Returns the next boundary position of a text unit of the given granularity in the given direction, or nil if there is no such position.
 - (BOOL)isPosition:(UITextPosition *)position withinTextUnit:(UITextGranularity)granularity inDirection:(UITextDirection)direction;                         // Returns YES if position is within a text unit of the given granularity.  If the position is at a boundary, returns YES only if the boundary is part of the text unit in the given direction.
 
-@end
+}
 
 
 /* A recommended base implementation of the tokenizer protocol. Subclasses are responsible
  * for handling directions and granularities affected by layout.*/
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UITextInputStringTokenizer : NSObject <UITextInputTokenizer> {
+extern class UITextInputStringTokenizer extends NSObject <UITextInputTokenizer> {
   @package
     UIResponder <UITextInput> *_textInput;
 }
 
 - (id)initWithTextInput:(UIResponder <UITextInput> *)textInput;
 
-@end
+}
 
-NS_CLASS_AVAILABLE_IOS(4_2) @interface UITextInputMode : NSObject
+NS_CLASS_AVAILABLE_IOS(4_2)extern class UITextInputMode extends NSObject
 
-@property (nonatomic, readonly, retain) NSString *primaryLanguage; // The primary language, if any, of the input mode.  A BCP 47 language identifier such as en-US
+	public var (default, null) NSString *primaryLanguage; // The primary language, if any, of the input mode.  A BCP 47 language identifier such as en-US
 
 + (UITextInputMode *)currentInputMode; // The current input mode.  Nil if unset.
 + (NSArray *)activeInputModes; // The activate input modes.
 
-@end
+}
 
 UIKIT_EXTERN NSString *const UITextInputCurrentInputModeDidChangeNotification NS_AVAILABLE_IOS(4_2);

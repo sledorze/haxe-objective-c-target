@@ -32,10 +32,10 @@
 @class DOMMediaList;
 @class NSString;
 
-@interface DOMCSSImportRule : DOMCSSRule
-@property(readonly, copy) NSString *href;
-@property(readonly, retain) DOMMediaList *media;
-@property(readonly, retain) DOMCSSStyleSheet *styleSheet;
-@end
+extern class DOMCSSImportRule : DOMCSSRule
+	public var (default, null) NSString *href;
+	public var (default, null) DOMMediaList *media;
+	public var (default, null) DOMCSSStyleSheet *styleSheet;
+}
 
 #endif

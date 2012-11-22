@@ -59,7 +59,7 @@ enum {
 typedef NSUInteger NSTextTableLayoutAlgorithm;
 
 /* NSTextBlock is the basic object for text block layout, and the superclass of the other classes. */
-@interface NSTextBlock : NSObject <NSCoding, NSCopying> {
+extern class NSTextBlock extends NSObject, implements NSObject, NSCopying> {
     /*All instance variables are private*/
     void *_propVals;
     NSUInteger _propMask;
@@ -106,10 +106,10 @@ typedef NSUInteger NSTextTableLayoutAlgorithm;
 /* This method will be called during drawing to draw any colors and other decorations before the text is drawn. */
 - (void)drawBackgroundWithFrame:(NSRect)frameRect inView:(NSView *)controlView characterRange:(NSRange)charRange layoutManager:(NSLayoutManager *)layoutManager;
 
-@end
+}
 
 /* NSTextTableBlock is a subclass of NSTextBlock used for a block that appears as a cell in a text table. */
-@interface NSTextTableBlock : NSTextBlock {
+extern class NSTextTableBlock : NSTextBlock {
     NSTextTable *_table;
     NSInteger _rowNum;
     NSInteger _colNum;
@@ -128,10 +128,10 @@ typedef NSUInteger NSTextTableLayoutAlgorithm;
 - (NSInteger)startingColumn;
 - (NSInteger)columnSpan;
 
-@end
+}
 
 /* NSTextTable represents a table as a whole. */
-@interface NSTextTable : NSTextBlock {
+extern class NSTextTable : NSTextBlock {
     NSUInteger _numCols;
     NSUInteger _tableFlags;
     id _lcache;
@@ -154,5 +154,5 @@ typedef NSUInteger NSTextTableLayoutAlgorithm;
 - (NSRect)boundsRectForBlock:(NSTextTableBlock *)block contentRect:(NSRect)contentRect inRect:(NSRect)rect textContainer:(NSTextContainer *)textContainer characterRange:(NSRange)charRange;
 - (void)drawBackgroundForBlock:(NSTextTableBlock *)block withFrame:(NSRect)frameRect inView:(NSView *)controlView characterRange:(NSRange)charRange layoutManager:(NSLayoutManager *)layoutManager;
 
-@end
+}
 

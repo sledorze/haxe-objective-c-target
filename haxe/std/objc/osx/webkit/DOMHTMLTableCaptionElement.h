@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMHTMLTableCaptionElement : DOMHTMLElement
-@property(copy) NSString *align;
-@end
+extern class DOMHTMLTableCaptionElement : DOMHTMLElement
+	public var NSString *align;
+}
 
 #endif

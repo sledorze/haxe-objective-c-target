@@ -1,6 +1,6 @@
 //
 //  UIStoryboardPopoverSegue.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2011-2012, Apple Inc. All rights reserved.
 //
@@ -9,9 +9,9 @@
 
 @class UIPopoverController;
 
-NS_CLASS_AVAILABLE_IOS(5_0) @interface UIStoryboardPopoverSegue : UIStoryboardSegue {
+@:require(ios_5_0) extern class UIStoryboardPopoverSegue : UIStoryboardSegue {
 }
 
-@property (nonatomic, retain, readonly) UIPopoverController *popoverController;
+	public var (default, null) UIPopoverController *popoverController;
 
-@end
+}

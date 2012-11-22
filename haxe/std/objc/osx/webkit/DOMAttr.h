@@ -32,12 +32,12 @@
 @class DOMElement;
 @class NSString;
 
-@interface DOMAttr : DOMNode
-@property(readonly, copy) NSString *name;
-@property(readonly) BOOL specified;
-@property(copy) NSString *value;
-@property(readonly, retain) DOMElement *ownerElement;
-@property(readonly, retain) DOMCSSStyleDeclaration *style AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMAttr : DOMNode
+	public var (default, null) NSString *name;
+	public var  (default, null) : BOOL specified;
+	public var NSString *value;
+	public var (default, null) DOMElement *ownerElement;
+	public var (default, null) DOMCSSStyleDeclaration *style AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

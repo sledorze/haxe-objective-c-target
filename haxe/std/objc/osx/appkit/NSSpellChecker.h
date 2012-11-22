@@ -20,7 +20,7 @@ The string being spell-checked need only be valid for the duration of the call t
 The usual usage of this is to implement a checkSpelling: method in an object that has text to check, then, upon receiving checkSpelling:, the object calls [[NSSpellChecker sharedInstance] checkSpellingOfString:...] with an NSString object consisting of the text that should be checked.  The caller is responsible for selecting the misspelled word that is found and for updating the panel UI if desired with the updateSpellPanelWithMisspelledWord: method.
 */
 
-@interface NSSpellChecker : NSObject  {
+extern class NSSpellChecker extends NSObject  {
 
 /*All instance variables are private*/
 
@@ -192,13 +192,13 @@ typedef NSInteger NSCorrectionIndicatorType;
 - (NSString *)language;
 - (BOOL)setLanguage:(NSString *)language;
 
-@end
+}
 
 /* These notifications are made available via the default notification center when the global user preference settings mentioned above are changed. */
 APPKIT_EXTERN NSString * const NSSpellCheckerDidChangeAutomaticSpellingCorrectionNotification NS_AVAILABLE_MAC(10_7);
 APPKIT_EXTERN NSString * const NSSpellCheckerDidChangeAutomaticTextReplacementNotification NS_AVAILABLE_MAC(10_7);
 
-@interface NSSpellChecker(NSDeprecated)
+extern class NSSpellChecker(NSDeprecated)
 
 /* This is the pre-10.6 equivalent of guessesForWordRange:inString:language:inSpellDocumentWithTag:. */
 - (NSArray *)guessesForWord:(NSString *)word;
@@ -206,4 +206,4 @@ APPKIT_EXTERN NSString * const NSSpellCheckerDidChangeAutomaticTextReplacementNo
 /* This is the deprecated pre-10.5 equivalent of unlearnWord:. */
 - (void)forgetWord:(NSString *)word NS_DEPRECATED_MAC(10_0, 10_5);
 
-@end
+}

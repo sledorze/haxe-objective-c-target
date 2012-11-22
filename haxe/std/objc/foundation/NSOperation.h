@@ -8,7 +8,7 @@
 @class NSArray, NSSet;
 
 NS_CLASS_AVAILABLE(10_5, 2_0)
-@interface NSOperation : NSObject {
+extern class NSOperation extends NSObject {
 @private
     id _private;
     int32_t _private1;
@@ -58,12 +58,12 @@ typedef NS_ENUM(NSInteger, NSOperationQueuePriority) {
 - (double)threadPriority NS_AVAILABLE(10_6, 4_0);
 - (void)setThreadPriority:(double)p NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 
 
 NS_CLASS_AVAILABLE(10_6, 4_0)
-@interface NSBlockOperation : NSOperation {
+extern class NSBlockOperation : NSOperation {
 @private
     id _private2;
     void *_reserved2;
@@ -76,11 +76,11 @@ NS_CLASS_AVAILABLE(10_6, 4_0)
 - (NSArray *)executionBlocks;
 #endif
 
-@end
+}
 
 
 NS_CLASS_AVAILABLE(10_5, 2_0)
-@interface NSInvocationOperation : NSOperation {
+extern class NSInvocationOperation : NSOperation {
 @private
     id _inv;
     id _exception;
@@ -94,13 +94,13 @@ NS_CLASS_AVAILABLE(10_5, 2_0)
 
 - (id)result;
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSInvocationOperationVoidResultException NS_AVAILABLE(10_5, 2_0);
 FOUNDATION_EXPORT NSString * const NSInvocationOperationCancelledException NS_AVAILABLE(10_5, 2_0);
 
 NS_CLASS_AVAILABLE(10_5, 2_0)
-@interface NSOperationQueue : NSObject {
+extern class NSOperationQueue extends NSObject {
 @private
     id _private;
     void *_reserved;
@@ -136,6 +136,6 @@ enum {
 + (id)currentQueue NS_AVAILABLE(10_6, 4_0);
 + (id)mainQueue NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 

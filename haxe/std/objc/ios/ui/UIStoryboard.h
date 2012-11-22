@@ -1,6 +1,6 @@
 //
 //  UIStoryboard.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2011-2012, Apple Inc. All rights reserved.
 //
@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(5_0) @interface UIStoryboard : NSObject {
+@:require(ios_5_0) extern class UIStoryboard extends NSObject {
 }
 
 + (UIStoryboard *)storyboardWithName:(NSString *)name bundle:(NSBundle *)storyboardBundleOrNil;
@@ -16,4 +16,4 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIStoryboard : NSObject {
 - (id)instantiateInitialViewController;
 - (id)instantiateViewControllerWithIdentifier:(NSString *)identifier;
 
-@end
+}

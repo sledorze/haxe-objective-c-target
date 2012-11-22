@@ -27,10 +27,8 @@ extern class UIAlertView extends UIView {
 	public function show () :Void;
 	public function dismissWithClickedButtonIndex (buttonIndex:Int, animated:Bool) :Void;
 
-	#if ios_5_0
-	public var alertViewStyle :UIAlertViewStyle;
-	public function textFieldAtIndex (textFieldIndex:Int) :UITextField;
-	#end
+	@:require(ios_5_0) public var alertViewStyle :UIAlertViewStyle;
+	@:require(ios_5_0) public function textFieldAtIndex (textFieldIndex:Int) :UITextField;
 }
 
 extern interface UIAlertViewDelegate {

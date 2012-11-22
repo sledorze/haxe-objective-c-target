@@ -83,7 +83,7 @@ enum {
 };
 typedef NSUInteger NSSaveOperationType;
 
-@interface NSDocument : NSObject<NSFilePresenter, NSUserInterfaceValidations> {
+extern class NSDocument extends NSObject<NSFilePresenter, NSUserInterfaceValidations> {
     @private
     NSWindow *_window;
     id _windowControllers;
@@ -706,9 +706,9 @@ You can override this method to customize the appending of extensions to file na
 */
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem;
 
-@end
+}
 
-@interface NSDocument(NSDeprecated)
+extern class NSDocument(NSDeprecated)
 
 #pragma mark *** Backward Compatibility ***
 
@@ -739,4 +739,4 @@ You can override this method to customize the appending of extensions to file na
 - (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)type NS_DEPRECATED_MAC(10_0, 10_4);
 - (BOOL)writeWithBackupToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName saveOperation:(NSSaveOperationType)saveOperationType NS_DEPRECATED_MAC(10_0, 10_4);
 
-@end
+}

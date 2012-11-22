@@ -7,7 +7,7 @@
 
 @class NSArray, NSMutableDictionary, NSDate;
 
-@interface NSThread : NSObject  {
+extern class NSThread extends NSObject  {
 @private
     id _private;
     uint8_t _bytes[44];
@@ -58,13 +58,13 @@
 
 - (void)main NS_AVAILABLE(10_5, 2_0);	// thread body method
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSWillBecomeMultiThreadedNotification;
 FOUNDATION_EXPORT NSString * const NSDidBecomeSingleThreadedNotification;
 FOUNDATION_EXPORT NSString * const NSThreadWillExitNotification;
 
-@interface NSObject (NSThreadPerformAdditions)
+extern class NSObject (NSThreadPerformAdditions)
 
 - (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait modes:(NSArray *)array;
 - (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
@@ -75,5 +75,5 @@ FOUNDATION_EXPORT NSString * const NSThreadWillExitNotification;
 	// equivalent to the first method with kCFRunLoopCommonModes
 - (void)performSelectorInBackground:(SEL)aSelector withObject:(id)arg NS_AVAILABLE(10_5, 2_0);
 
-@end
+}
 

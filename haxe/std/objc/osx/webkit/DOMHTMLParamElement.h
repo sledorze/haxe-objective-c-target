@@ -30,11 +30,11 @@
 
 @class NSString;
 
-@interface DOMHTMLParamElement : DOMHTMLElement
-@property(copy) NSString *name;
-@property(copy) NSString *type;
-@property(copy) NSString *value;
-@property(copy) NSString *valueType;
-@end
+extern class DOMHTMLParamElement : DOMHTMLElement
+	public var NSString *name;
+	public var NSString *type;
+	public var NSString *value;
+	public var NSString *valueType;
+}
 
 #endif

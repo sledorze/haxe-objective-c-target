@@ -9,15 +9,15 @@
 
 /****************	Immutable Set	****************/
 
-@interface NSSet : NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSSet extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)member:(id)object;
 - (NSEnumerator *)objectEnumerator;
 
-@end
+}
 
-@interface NSSet (NSExtendedSet)
+extern class NSSet (NSExtendedSet)
 
 - (NSArray *)allObjects;
 - (id)anyObject;
@@ -43,9 +43,9 @@
 - (NSSet *)objectsWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
 #endif
 
-@end
+}
 
-@interface NSSet (NSSetCreation)
+extern class NSSet (NSSetCreation)
 
 + (id)set;
 + (id)setWithObject:(id)object;
@@ -60,18 +60,18 @@
 - (id)initWithSet:(NSSet *)set copyItems:(BOOL)flag;
 - (id)initWithArray:(NSArray *)array;
 
-@end
+}
 
 /****************	Mutable Set	****************/
 
-@interface NSMutableSet : NSSet
+extern class NSMutableSet : NSSet
 
 - (void)addObject:(id)object;
 - (void)removeObject:(id)object;
 
-@end
+}
 
-@interface NSMutableSet (NSExtendedMutableSet)
+extern class NSMutableSet (NSExtendedMutableSet)
 
 - (void)addObjectsFromArray:(NSArray *)array;
 - (void)intersectSet:(NSSet *)otherSet;
@@ -81,18 +81,18 @@
 
 - (void)setSet:(NSSet *)otherSet;
 
-@end
+}
 
-@interface NSMutableSet (NSMutableSetCreation)
+extern class NSMutableSet (NSMutableSetCreation)
 
 + (id)setWithCapacity:(NSUInteger)numItems;
 - (id)initWithCapacity:(NSUInteger)numItems;
     
-@end
+}
 
 /****************	Counted Set	****************/
 
-@interface NSCountedSet : NSMutableSet {
+extern class NSCountedSet : NSMutableSet {
     @private
     id _table;
     void *_reserved;
@@ -109,5 +109,5 @@
 - (void)addObject:(id)object;
 - (void)removeObject:(id)object;
 
-@end
+}
 

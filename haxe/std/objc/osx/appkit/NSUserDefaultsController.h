@@ -10,7 +10,7 @@
 
 @class NSDictionary, NSUserDefaults;
 
-@interface NSUserDefaultsController : NSController {
+extern class NSUserDefaultsController : NSController {
 @private
 	void *_reserved3;
 	void *_reserved4;
@@ -43,5 +43,5 @@
 - (void)save:(id)sender;    // no effect if applies immediately
 - (void)revertToInitialValues:(id)sender;    // no effect if no initial values are specified
 
-@end
+}
 

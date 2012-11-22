@@ -33,14 +33,14 @@
 @class DOMStyleSheet;
 @class NSString;
 
-@interface DOMStyleSheet : DOMObject
-@property(readonly, copy) NSString *type;
-@property BOOL disabled;
-@property(readonly, retain) DOMNode *ownerNode;
-@property(readonly, retain) DOMStyleSheet *parentStyleSheet;
-@property(readonly, copy) NSString *href;
-@property(readonly, copy) NSString *title;
-@property(readonly, retain) DOMMediaList *media;
-@end
+extern class DOMStyleSheet : DOMObject
+	public var (default, null) NSString *type;
+	public var  BOOL disabled;
+	public var (default, null) DOMNode *ownerNode;
+	public var (default, null) DOMStyleSheet *parentStyleSheet;
+	public var (default, null) NSString *href;
+	public var (default, null) NSString *title;
+	public var (default, null) DOMMediaList *media;
+}
 
 #endif

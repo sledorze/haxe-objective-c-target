@@ -26,7 +26,7 @@ typedef NS_OPTIONS(NSUInteger, NSJSONWritingOptions) {
     - NSNumbers are not NaN or infinity
 */
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSJSONSerialization : NSObject {
+extern class NSJSONSerialization extends NSObject {
 @private
     void *reserved[6];
 }
@@ -57,5 +57,5 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
  */
 + (id)JSONObjectWithStream:(NSInputStream *)stream options:(NSJSONReadingOptions)opt error:(NSError **)error;
 
-@end
+}
 

@@ -31,21 +31,21 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 	public var position :CGPoint;
 	public var zPosition :Float;
 
-/*@property CGPoint anchorPoint;
-@property CGFloat anchorPointZ;
-@property CATransform3D transform;
+/*	public var  CGPoint anchorPoint;
+	public var  CGFloat anchorPointZ;
+	public var  CATransform3D transform;
 
 - (CGAffineTransform)affineTransform;
 - (void)setAffineTransform:(CGAffineTransform)m;
 
-@property CGRect frame;
-@property(getter=isHidden) BOOL hidden;
-@property(getter=isDoubleSided) BOOL doubleSided;
-@property(getter=isGeometryFlipped) BOOL geometryFlipped;
+	public var  CGRect frame;
+	public var (getter=isHidden) BOOL hidden;
+	public var (getter=isDoubleSided) BOOL doubleSided;
+	public var (getter=isGeometryFlipped) BOOL geometryFlipped;
 - (BOOL)contentsAreFlipped;
-@property(readonly) CALayer *superlayer; 
+	public var  (default, null) : CALayer *superlayer; 
 - (void)removeFromSuperlayer;
- @property(copy) NSArray *sublayers;
+ 	public var NSArray *sublayers;
  - (void)addSublayer:(CALayer *)layer;
  - (void)insertSublayer:(CALayer *)layer atIndex:(unsigned)idx;
  - (void)insertSublayer:(CALayer *)layer below:(CALayer *)sibling;
@@ -53,11 +53,11 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 - (void)replaceSublayer:(CALayer *)layer with:(CALayer *)layer2;
 
-@property CATransform3D sublayerTransform;
+	public var  CATransform3D sublayerTransform;
 
-@property(retain) CALayer *mask;
+	public var CALayer *mask;
 
-@property BOOL masksToBounds;
+	public var  BOOL masksToBounds;
 
 //Mapping between layer coordinate and time spaces. 
 
@@ -75,21 +75,21 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 - (BOOL)containsPoint:(CGPoint)p;
 
 
-@property(retain) id contents;
+	public var id contents;
 
-@property CGRect contentsRect;
+	public var  CGRect contentsRect;
 
-@property(copy) NSString *contentsGravity;
+	public var NSString *contentsGravity;
 
-@property CGFloat contentsScale;
+	public var  CGFloat contentsScale;
 
-@property CGRect contentsCenter;
+	public var  CGRect contentsCenter;
 
-@property(copy) NSString *minificationFilter, *magnificationFilter;
+	public var NSString *minificationFilter, *magnificationFilter;
 
-@property float minificationFilterBias;
+	public var  float minificationFilterBias;
 
-@property(getter=isOpaque) BOOL opaque;
+	public var (getter=isOpaque) BOOL opaque;
 
 - (void)display;
 
@@ -100,45 +100,45 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 - (void)displayIfNeeded;
 
-@property BOOL needsDisplayOnBoundsChange;
+	public var  BOOL needsDisplayOnBoundsChange;
 
-@property BOOL drawsAsynchronously;
+	public var  BOOL drawsAsynchronously;
 
 - (void)drawInContext:(CGContextRef)ctx;
 
 - (void)renderInContext:(CGContextRef)ctx;
 
-@property unsigned int edgeAntialiasingMask;
+	public var  unsigned int edgeAntialiasingMask;
 
-@property CGColorRef backgroundColor;
+	public var  CGColorRef backgroundColor;
 
-@property CGFloat cornerRadius;
+	public var  CGFloat cornerRadius;
 
-@property CGFloat borderWidth;
+	public var  CGFloat borderWidth;
 
-@property CGColorRef borderColor;
+	public var  CGColorRef borderColor;
 
-@property float opacity;
+	public var  float opacity;
 
-@property(retain) id compositingFilter;
+	public var id compositingFilter;
 
-@property(copy) NSArray *filters;
+	public var NSArray *filters;
+	
+	public var NSArray *backgroundFilters;
 
-@property(copy) NSArray *backgroundFilters;
+	public var  BOOL shouldRasterize;
 
-@property BOOL shouldRasterize;
+	public var  CGFloat rasterizationScale;
 
-@property CGFloat rasterizationScale;
+	public var  CGColorRef shadowColor;
 
-@property CGColorRef shadowColor;
+	public var  float shadowOpacity;
 
-@property float shadowOpacity;
+	public var  CGSize shadowOffset;
 
-@property CGSize shadowOffset;
+	public var  CGFloat shadowRadius;
 
-@property CGFloat shadowRadius;
-
-@property CGPathRef shadowPath;
+	public var  CGPathRef shadowPath;
 
 - (CGSize)preferredFrameSize;
 
@@ -154,7 +154,7 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 - (id<CAAction>)actionForKey:(NSString *)event;
 
-@property(copy) NSDictionary *actions;
+	public var NSDictionary *actions;
 
 - (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key;
 
@@ -166,11 +166,11 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 - (CAAnimation *)animationForKey:(NSString *)key;
 
-@property(copy) NSString *name;
+	public var NSString *name;
 
-@property(assign) id delegate;
+	public var (assign) id delegate;
 
-@property(copy) NSDictionary *style;
+	public var NSDictionary *style;
 
 
 
@@ -179,11 +179,11 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 - (void)runActionForKey:(NSString *)event object:(id)anObject
     arguments:(NSDictionary *)dict;
 
-@end
+}
 
 Delegate methods. 
 
-@interface NSObject (CALayerDelegate)
+extern class NSObject (CALayerDelegate)
 
 
 - (void)displayLayer:(CALayer *)layer;
@@ -194,7 +194,7 @@ Delegate methods.
 
 - (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event;
 
-@end
+}
 
 CA_EXTERN NSString * const kCAGravityCenter
     __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);

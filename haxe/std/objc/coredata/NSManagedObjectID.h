@@ -13,7 +13,7 @@
 
 // Managed object IDs are opaque identifiers for managed objects.
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSManagedObjectID : NSObject <NSCopying> {
+extern class NSManagedObjectID extends NSObject <NSCopying> {
 }
 
 - (NSEntityDescription *)entity;    // entity for the object identified by an ID
@@ -23,4 +23,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 
 - (NSURL *)URIRepresentation;    // URI which provides an archivable reference to the object which this ID refers
 
-@end
+}

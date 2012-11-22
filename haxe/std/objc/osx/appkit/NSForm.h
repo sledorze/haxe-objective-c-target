@@ -9,7 +9,7 @@
 
 @class NSFormCell;
 
-@interface  NSForm : NSMatrix
+extern class  NSForm : NSMatrix
 
 - (NSInteger)indexOfSelectedItem;
 - (void)setEntryWidth:(CGFloat)width;
@@ -30,4 +30,4 @@
 - (void)setFrameSize:(NSSize)newSize;
 - (void)setTitleBaseWritingDirection:(NSWritingDirection)writingDirection;
 - (void)setTextBaseWritingDirection:(NSWritingDirection)writingDirection;
-@end
+}

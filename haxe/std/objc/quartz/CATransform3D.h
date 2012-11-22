@@ -120,13 +120,13 @@ CA_EXTERN_C_END
 
 #ifdef __OBJC__
 
-@interface NSValue (CATransform3DAdditions)
+extern class NSValue (CATransform3DAdditions)
 
 + (NSValue *)valueWithCATransform3D:(CATransform3D)t;
 
 - (CATransform3D)CATransform3DValue;
 
-@end
+}
 
 #endif /* __OBJC__ */
 

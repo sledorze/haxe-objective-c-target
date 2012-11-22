@@ -30,8 +30,8 @@
 
 @class DOMDocument;
 
-@interface DOMAbstractView : DOMObject
-@property(readonly, retain) DOMDocument *document;
-@end
+extern class DOMAbstractView : DOMObject
+	public var (default, null) DOMDocument *document;
+}
 
 #endif

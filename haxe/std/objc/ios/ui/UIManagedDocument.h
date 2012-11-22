@@ -1,6 +1,6 @@
 //
 //  UIManagedDocument.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2011-2012, Apple Inc.
 //  All rights reserved.
@@ -12,7 +12,7 @@
 @class NSManagedObjectContext;
 @class NSPersistentStoreCoordinator;
 
-NS_CLASS_AVAILABLE_IOS(5_0) @interface UIManagedDocument : UIDocument {
+@:require(ios_5_0) extern class UIManagedDocument : UIDocument {
 @private
     NSManagedObjectContext *_managedObjectContext;
     NSPersistentStoreCoordinator *_persistentStoreCoordinator;
@@ -31,19 +31,19 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIManagedDocument : UIDocument {
 
 /* Persistent documents always have a managed object context and a persistent store coordinator through that context.  The managed object context is required to be initialized with the concurrency type NSMainQueueConcurrencyType and it must have a parent context initialized with the concurrency type NSPrivateQueueConcurrencyType.
  */
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+	public var (default, null) NSManagedObjectContext *managedObjectContext;
 
 /* Persistent documents always have a managed object model.  The default model is the union of all models in the main bundle.
  */
-@property (nonatomic, retain, readonly) NSManagedObjectModel* managedObjectModel;
+	public var (default, null) NSManagedObjectModel* managedObjectModel;
 
 /* Optionally provide a collection of store options to be passed when configuring the persistent store
  */
-@property (nonatomic, copy) NSDictionary *persistentStoreOptions;
+	public var NSDictionary *persistentStoreOptions;
 
 /* Optionally specify a model configuration name to be passed when configuring the persistent store
  */
-@property (nonatomic, copy) NSString *modelConfiguration;
+	public var NSString *modelConfiguration;
 
 /* Customize the loading or creation of a persistent store to the coordinator.
  */
@@ -65,4 +65,4 @@ NS_CLASS_AVAILABLE_IOS(5_0) @interface UIManagedDocument : UIDocument {
  */
 - (BOOL)writeAdditionalContent:(id)content toURL:(NSURL *)absoluteURL originalContentsURL:(NSURL *)absoluteOriginalContentsURL error:(NSError **)error;
 
-@end
+}

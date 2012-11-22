@@ -21,14 +21,14 @@ You can extend this functionality by introducing a new set of protocols that are
         - (void)setImage:(NSImage *)theImage
         - (NSString *)toolTip;
         - (void)setToolTip:(NSString *)theToolTip;
-        @end
+        }
 
  2) Declare validation method for validators
     You should declare your new selector that takes your object as the argument.
     i.e.
         @protocol NSToolbarItemValidations
         - (BOOL)validateToolbarItem:(id <NSValidatedToobarItem>)theItem;
-        @end
+        }
 
  3) Implement your -update method
     You should first check if your current validator responds to your validation method,
@@ -61,16 +61,16 @@ You can extend this functionality by introducing a new set of protocols that are
         
             return returnValue;
         }
-        @end
+        }
 */
 
 /* Protocol implemented by validated objects */
 @protocol NSValidatedUserInterfaceItem
 - (SEL)action;
 - (NSInteger)tag;
-@end
+}
 
 /* Protocol implemented by validator objects */
 @protocol NSUserInterfaceValidations
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem;
-@end
+}

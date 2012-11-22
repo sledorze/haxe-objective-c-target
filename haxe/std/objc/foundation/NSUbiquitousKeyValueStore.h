@@ -7,7 +7,7 @@
 @class NSArray, NSDictionary, NSData, NSString;
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSUbiquitousKeyValueStore : NSObject {
+extern class NSUbiquitousKeyValueStore extends NSObject {
 @private
     id _private1;
     id _private2;
@@ -42,7 +42,7 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
 
 - (BOOL)synchronize;
 
-@end
+}
 
 FOUNDATION_EXPORT NSString * const NSUbiquitousKeyValueStoreDidChangeExternallyNotification NS_AVAILABLE(10_7, 5_0);
 FOUNDATION_EXPORT NSString * const NSUbiquitousKeyValueStoreChangeReasonKey NS_AVAILABLE(10_7, 5_0);

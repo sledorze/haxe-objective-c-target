@@ -31,22 +31,22 @@
 @class DOMAbstractView;
 @class NSString;
 
-@interface DOMUIEvent : DOMEvent
-@property(readonly, retain) DOMAbstractView *view;
-@property(readonly) int detail;
-@property(readonly) int keyCode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int charCode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int layerX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
-@property(readonly) int layerY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
-@property(readonly) int pageX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int pageY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int which AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMUIEvent : DOMEvent
+	public var (default, null) DOMAbstractView *view;
+	public var  (default, null) : int detail;
+	public var  (default, null) : int keyCode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int charCode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int layerX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
+	public var  (default, null) : int layerY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
+	public var  (default, null) : int pageX AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int pageY AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int which AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (void)initUIEvent:(NSString *)type canBubble:(BOOL)canBubble cancelable:(BOOL)cancelable view:(DOMAbstractView *)view detail:(int)detail AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMUIEvent (DOMUIEventDeprecated)
+extern class DOMUIEvent (DOMUIEventDeprecated)
 - (void)initUIEvent:(NSString *)type :(BOOL)canBubble :(BOOL)cancelable :(DOMAbstractView *)view :(int)detail AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

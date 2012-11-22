@@ -30,8 +30,8 @@
 
 @class NSString;
 
-@interface DOMFile : DOMBlob
-@property(readonly, copy) NSString *name;
-@end
+extern class DOMFile : DOMBlob
+	public var (default, null) NSString *name;
+}
 
 #endif

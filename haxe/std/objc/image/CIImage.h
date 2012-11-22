@@ -12,7 +12,7 @@
 @class CIContext, CIFilter, CIFilterShape, CIColor;
 
 CORE_IMAGE_CLASS_EXPORT
-@interface CIImage : NSObject <NSCoding, NSCopying>
+extern class CIImage extends NSObject, implements NSObject, NSCopying>
 {
 #if !TARGET_OS_IPHONE
     __strong void *_state;
@@ -157,9 +157,9 @@ format:(CIFormat)f colorSpace:(CGColorSpaceRef)c;
  * This method will return nil, if the color space cannot be determined. */
 - (CGColorSpaceRef)colorSpace __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
 
-@end
+}
 
-@interface CIImage (AutoAdjustment)
+extern class CIImage (AutoAdjustment)
 
 /* Image auto adjustment keys. */
 
@@ -196,4 +196,4 @@ CORE_IMAGE_EXPORT NSString *kCIImageAutoAdjustFeatures __OSX_AVAILABLE_STARTING(
 - (NSArray *)autoAdjustmentFilters __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
 - (NSArray *)autoAdjustmentFiltersWithOptions:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
 
-@end
+}

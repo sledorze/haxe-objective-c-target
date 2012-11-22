@@ -19,24 +19,24 @@ typedef enum /*: NSInteger */ {
 } GKGameCenterViewControllerState;
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface GKGameCenterViewController : UINavigationController
+extern class GKGameCenterViewController : UINavigationController
 
-@property (nonatomic, assign)   id<GKGameCenterControllerDelegate>      gameCenterDelegate;
-@property (nonatomic, assign)   GKGameCenterViewControllerState         viewState;
+	public var   id<GKGameCenterControllerDelegate>      gameCenterDelegate;
+	public var   GKGameCenterViewControllerState         viewState;
 
-@end
+}
 
-@interface GKGameCenterViewController (Leaderboards)
+extern class GKGameCenterViewController (Leaderboards)
 
-@property (nonatomic, assign)   GKLeaderboardTimeScope                  leaderboardTimeScope;   // Implies showing leaderboards
-@property (nonatomic, retain)   NSString                                *leaderboardCategory;   // Implies showing leaderboards
+	public var   GKLeaderboardTimeScope                  leaderboardTimeScope;   // Implies showing leaderboards
+	public var   NSString                                *leaderboardCategory;   // Implies showing leaderboards
 
-@end
+}
 
 @protocol GKGameCenterControllerDelegate <NSObject>
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController;
 
-@end
+}
 
 

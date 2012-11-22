@@ -26,11 +26,11 @@ UIKIT_EXTERN NSString *const UIApplicationStateRestorationUserInterfaceIdiomKey 
 #pragma mark -- State Restoration protocols adopted by UIView and UIViewController --
 
 // For a class to be specified as the restoration class of a view controller it must implement this protocol.
-@protocol UIViewControllerRestoration
+extern interface UIViewControllerRestoration
 + (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder;
-@end
+}
 
-@protocol UIDataSourceModelAssociation
+extern interface UIDataSourceModelAssociation
 - (NSString *) modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view;
 - (NSIndexPath *) indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view;
-@end
+}

@@ -37,7 +37,7 @@ Deny by calling -denyConnectionFromPeer:
 */
 - (void)session:(GKSession *)session didFailWithError:(NSError *)error;
 
-@end
+}
 
 
 @class GKVoiceChatService;
@@ -66,6 +66,6 @@ Deny by calling -denyConnectionFromPeer:
 
 - (void)voiceChatService:(GKVoiceChatService *)voiceChatService didReceiveInvitationFromParticipantID:(NSString *)participantID callID:(NSInteger)callID;
 
-@end
+}
 
 

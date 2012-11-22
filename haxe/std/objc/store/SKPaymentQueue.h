@@ -12,7 +12,7 @@
 @protocol SKPaymentTransactionObserver;
 
 // SKPaymentQueue interacts with the server-side payment queue
-SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKPaymentQueue : NSObject {
+SK_EXTERN_CLASS_AVAILABLE(3_0)extern class SKPaymentQueue extends NSObject {
 @private
     id _internal;
 }
@@ -46,9 +46,9 @@ SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKPaymentQueue : NSObject {
 - (void)removeTransactionObserver:(id <SKPaymentTransactionObserver>)observer __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
 // Array of unfinished SKPaymentTransactions.  Only valid while the queue has observers.  Updated asynchronously.
-@property(nonatomic, readonly) NSArray *transactions __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var (default, null) NSArray *transactions __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
 
-@end
+}
 
 
 @protocol SKPaymentTransactionObserver <NSObject>
@@ -69,4 +69,4 @@ SK_EXTERN_CLASS_AVAILABLE(3_0) @interface SKPaymentQueue : NSObject {
 // Sent when the download state has changed.
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
-@end
+}

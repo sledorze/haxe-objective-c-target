@@ -44,7 +44,7 @@ enum {
 };
 typedef NSUInteger NSFontRenderingMode;
 
-@interface NSFont : NSObject <NSCopying, NSCoding> {
+extern class NSFont extends NSObject <NSCopying, NSCoding> {
     /* All instance variables are private */
     NSString *_name;
     CGFloat _size;
@@ -159,7 +159,7 @@ typedef NSUInteger NSFontRenderingMode;
 
 /* Returns YES if a vertical variant */
 - (BOOL)isVertical NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 /********* Glyph packing *********/
 /* Take a buffer of NSGlyphs, of some given length, and a packing type, and a place to put some packed glyphs.  Pack up the NSGlyphs according to the NSMultibyteGlyphPacking, null-terminate the bytes, and then put them into the output buffer.  Return the count of bytes output, including the null-terminator.  The output buffer (packedGlyphs) provided by the caller is guaranteed to be at least "count*4+1" bytes long. This function only supports NSNativeShortGlyphPacking on Mac OS X.
@@ -197,7 +197,7 @@ enum _NSGlyphRelation {
 #endif /* MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4 */
 typedef NSUInteger  NSGlyphRelation;
 
-@interface NSFont (NSFontDeprecated)
+extern class NSFont (NSFontDeprecated)
 + (void)useFont:(NSString *)fontName NS_DEPRECATED_MAC(10_0, 10_4); // This is now automatically handled by Quartz.
 - (CGFloat)widthOfString:(NSString *)string NS_DEPRECATED_MAC(10_0, 10_4); // This API never returns correct value. Use NSStringDrawing API instead.
 - (BOOL)isBaseFont NS_DEPRECATED_MAC(10_0, 10_4);
@@ -216,7 +216,7 @@ typedef NSUInteger  NSGlyphRelation;
 - (NSPoint)positionOfGlyph:(NSGlyph)aGlyph struckOverRect:(NSRect)aRect metricsExist:(BOOL *)exist NS_DEPRECATED_MAC(10_0, 10_4);
 - (NSPoint)positionOfGlyph:(NSGlyph)aGlyph forCharacter:(unichar)aChar struckOverRect:(NSRect)aRect NS_DEPRECATED_MAC(10_0, 10_4);
 - (NSPoint)positionOfGlyph:(NSGlyph)thisGlyph withRelation:(NSGlyphRelation)rel toBaseGlyph:(NSGlyph)baseGlyph totalAdvancement:(NSSizePointer)adv metricsExist:(BOOL *)exist NS_DEPRECATED_MAC(10_0, 10_4);
-@end
+}
 
 APPKIT_EXTERN NSString *NSAFMFamilyName         NS_DEPRECATED_MAC(10_0, 10_4);
 APPKIT_EXTERN NSString *NSAFMFontName           NS_DEPRECATED_MAC(10_0, 10_4);

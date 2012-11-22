@@ -35,7 +35,7 @@ enum {
     NSExclude10_4ElementsIconCreationOption	    = 1 << 2
 };
 
-@interface NSWorkspace : NSObject {
+extern class NSWorkspace extends NSObject {
   /*All instance variables are private*/
   @private
     NSNotificationCenter *notificationCenter;
@@ -211,11 +211,11 @@ Use this method instead of merely comparing UTIs for equality.
 - (BOOL)type:(NSString *)firstTypeName conformsToType:(NSString *)secondTypeName NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
 
 /* Desktop images */
-@interface NSWorkspace (NSDesktopImages)
+extern class NSWorkspace (NSDesktopImages)
 
 /* Sets the desktop image for the given screen to the image at the given URL.  The URL must be a file URL and may not be nil.  The options dictionary may contain any of the NSWorkspaceDesktopImage keys, which control how the image is scaled on the screen.  This returns YES if the image was successfully set; otherwise, NO is returned and an error is returned by reference.
 
@@ -231,7 +231,7 @@ Use this method instead of merely comparing UTIs for equality.
  */
 - (NSDictionary *)desktopImageOptionsForScreen:(NSScreen *)screen NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 /* The following keys may be specified or returned in the options dictionary for setDesktopImageURL:forScreen:options:error: and desktopImageURLForScreen:options:. */
 
@@ -332,7 +332,7 @@ APPKIT_EXTERN NSString * NSWorkspaceDuplicateOperation;
 
 /* Everything remaining in this header is deprecated and should not be used. */
 
-@interface NSWorkspace (NSDeprecated)
+extern class NSWorkspace (NSDeprecated)
 - (BOOL)openTempFile:(NSString *)fullPath NS_DEPRECATED_MAC(10_0, 10_6);
 - (void)findApplications NS_DEPRECATED_MAC(10_0, 10_6);
 - (void)noteUserDefaultsChanged NS_DEPRECATED_MAC(10_0, 10_6);
@@ -368,7 +368,7 @@ APPKIT_EXTERN NSString * NSWorkspaceDuplicateOperation;
  */
 - (NSArray *)launchedApplications NS_DEPRECATED_MAC(10_0, 10_7);
 
-@end
+}
 
 APPKIT_EXTERN NSString *NSPlainFileType NS_DEPRECATED_MAC(10_0, 10_6);
 APPKIT_EXTERN NSString *NSDirectoryFileType NS_DEPRECATED_MAC(10_0, 10_6);

@@ -13,7 +13,7 @@ enum {
     NSOpenStepUnicodeReservedBase = 0xF400
 };
 
-@interface NSCharacterSet : NSObject <NSCopying, NSMutableCopying, NSCoding>
+extern class NSCharacterSet extends NSObject <NSCopying, NSMutableCopying, NSCoding>
 
 + (id)controlCharacterSet;
 + (id)whitespaceCharacterSet;
@@ -44,9 +44,9 @@ enum {
 
 - (BOOL)isSupersetOfSet:(NSCharacterSet *)theOtherSet;
 - (BOOL)hasMemberInPlane:(uint8_t)thePlane;
-@end
+}
 
-@interface NSMutableCharacterSet : NSCharacterSet <NSCopying, NSMutableCopying>
+extern class NSMutableCharacterSet : NSCharacterSet <NSCopying, NSMutableCopying>
 
 - (void)addCharactersInRange:(NSRange)aRange;
 - (void)removeCharactersInRange:(NSRange)aRange;
@@ -56,5 +56,5 @@ enum {
 - (void)formIntersectionWithCharacterSet:(NSCharacterSet *)otherSet;
 - (void)invert;
 
-@end
+}
 

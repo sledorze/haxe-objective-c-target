@@ -66,7 +66,7 @@ APPKIT_EXTERN NSString* NSImageProgressive          ;	// JPEG input/output (BOOL
 APPKIT_EXTERN NSString* NSImageEXIFData             ;	// JPEG input/output (NSDictionary)
 APPKIT_EXTERN NSString* NSImageFallbackBackgroundColor  NS_AVAILABLE_MAC(10_5); // JPEG output (NSColor)
 
-@interface NSBitmapImageRep : NSImageRep {
+extern class NSBitmapImageRep : NSImageRep {
     /*All instance variables are private*/
     struct __bitmapRepFlags {
         unsigned int bitsPerPixel:8;	
@@ -147,10 +147,10 @@ Works on images with 8-bit SPP; thus either 8-bit gray or 24-bit color (with opt
 - (NSBitmapImageRep *)bitmapImageRepByConvertingToColorSpace:(NSColorSpace *)targetSpace renderingIntent:(NSColorRenderingIntent)renderingIntent NS_AVAILABLE_MAC(10_6);
 - (NSBitmapImageRep *)bitmapImageRepByRetaggingWithColorSpace:(NSColorSpace *)newSpace NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 
-@interface NSBitmapImageRep (NSBitmapImageFileTypeExtensions)
+extern class NSBitmapImageRep (NSBitmapImageFileTypeExtensions)
 
 + (NSData *)representationOfImageRepsInArray:(NSArray *)imageReps usingType:(NSBitmapImageFileType)storageType properties:(NSDictionary *)properties;
 
@@ -159,4 +159,4 @@ Works on images with 8-bit SPP; thus either 8-bit gray or 24-bit color (with opt
 - (void)setProperty:(NSString *)property withValue:(id)value;
 - (id)valueForProperty:(NSString *)property;
 
-@end
+}

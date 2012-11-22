@@ -31,12 +31,12 @@
 @class DOMNode;
 @class DOMXPathResult;
 
-@interface DOMXPathExpression : DOMObject
+extern class DOMXPathExpression : DOMObject
 - (DOMXPathResult *)evaluate:(DOMNode *)contextNode type:(unsigned short)type inResult:(DOMXPathResult *)inResult AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMXPathExpression (DOMXPathExpressionDeprecated)
+extern class DOMXPathExpression (DOMXPathExpressionDeprecated)
 - (DOMXPathResult *)evaluate:(DOMNode *)contextNode :(unsigned short)type :(DOMXPathResult *)inResult AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER_BUT_DEPRECATED;
-@end
+}
 
 #endif

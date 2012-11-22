@@ -42,10 +42,10 @@ COREDATA_EXTERN NSString * const NSInvalidatedAllObjectsKey NS_AVAILABLE(10_5, 3
 // Default policy for all managed object contexts - save returns with an error that contains the object IDs of the objects that had conflicts(NSInsertedObjectsKey, NSUpdatedObjectsKey).
 COREDATA_EXTERN id NSErrorMergePolicy NS_AVAILABLE(10_4, 3_0);
 
-// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both the external source and in memory, the external changes trump the in memory ones.
+// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both theexternal source and in memory, theexternal changes trump the in memory ones.
 COREDATA_EXTERN id NSMergeByPropertyStoreTrumpMergePolicy NS_AVAILABLE(10_4, 3_0);    
 
-// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both the external source and in memory, the in memory changes trump the external ones.
+// This singleton policy merges conflicts between the persistent store's version of the object and the current in memory version. The merge occurs by individual property. For properties which have been changed in both theexternal source and in memory, the in memory changes trump theexternal ones.
 COREDATA_EXTERN id NSMergeByPropertyObjectTrumpMergePolicy NS_AVAILABLE(10_4, 3_0);    
 
 // This singleton policy overwrites all state for the changed objects in conflict The current object's state is pushed upon the persistent store.
@@ -62,7 +62,7 @@ enum {
 typedef NSUInteger NSManagedObjectContextConcurrencyType;
 
 NS_CLASS_AVAILABLE(10_4,3_0)
-@interface NSManagedObjectContext : NSObject <NSCoding, NSLocking> {
+extern class NSManagedObjectContext extends NSObject, implements NSObject, NSLocking> {
 @private
   int32_t _spinLock;
   id _parentObjectStore;
@@ -211,4 +211,4 @@ NS_CLASS_AVAILABLE(10_4,3_0)
 */
 - (void)mergeChangesFromContextDidSaveNotification:(NSNotification *)notification NS_AVAILABLE(10_5, 3_0);
 
-@end
+}

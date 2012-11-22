@@ -6,7 +6,7 @@
 */
 #import <AppKit/NSTextFieldCell.h>
 
-@interface NSTableHeaderCell : NSTextFieldCell {
+extern class NSTableHeaderCell : NSTextFieldCell {
 
 }
 
@@ -18,4 +18,4 @@
 */
 - (NSRect)sortIndicatorRectForBounds:(NSRect)theRect;
 
-@end
+}

@@ -33,37 +33,37 @@
 @class NSString;
 @class NSURL;
 
-@interface DOMHTMLInputElement : DOMHTMLElement
-@property(copy) NSString *accept;
-@property(copy) NSString *alt;
-@property BOOL autofocus AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property BOOL defaultChecked;
-@property BOOL checked;
-@property BOOL disabled;
-@property(readonly, retain) DOMHTMLFormElement *form;
-@property(readonly, retain) DOMFileList *files AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property BOOL indeterminate AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property int maxLength;
-@property BOOL multiple AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property(copy) NSString *name;
-@property BOOL readOnly;
-@property(copy) NSString *size;
-@property(copy) NSString *src;
-@property(copy) NSString *type;
-@property(copy) NSString *defaultValue;
-@property(copy) NSString *value;
-@property(readonly) BOOL willValidate AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property int selectionStart AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property int selectionEnd AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *align;
-@property(copy) NSString *useMap;
-@property(copy) NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
-@property(readonly, copy) NSString *altDisplayString AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly, copy) NSURL *absoluteImageURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMHTMLInputElement : DOMHTMLElement
+	public var NSString *accept;
+	public var NSString *alt;
+	public var  BOOL autofocus AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  BOOL defaultChecked;
+	public var  BOOL checked;
+	public var  BOOL disabled;
+	public var (default, null) DOMHTMLFormElement *form;
+	public var (default, null) DOMFileList *files AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  BOOL indeterminate AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  int maxLength;
+	public var  BOOL multiple AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var NSString *name;
+	public var  BOOL readOnly;
+	public var NSString *size;
+	public var NSString *src;
+	public var NSString *type;
+	public var NSString *defaultValue;
+	public var NSString *value;
+	public var  (default, null) : BOOL willValidate AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  int selectionStart AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  int selectionEnd AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *align;
+	public var NSString *useMap;
+	public var NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
+	public var (default, null) NSString *altDisplayString AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var (default, null) NSURL *absoluteImageURL AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (void)select;
 - (void)setSelectionRange:(int)start end:(int)end AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)click;
-@end
+}
 
 #endif

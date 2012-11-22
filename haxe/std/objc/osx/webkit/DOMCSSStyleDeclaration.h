@@ -32,10 +32,10 @@
 @class DOMCSSValue;
 @class NSString;
 
-@interface DOMCSSStyleDeclaration : DOMObject
-@property(copy) NSString *cssText;
-@property(readonly) unsigned length;
-@property(readonly, retain) DOMCSSRule *parentRule;
+extern class DOMCSSStyleDeclaration : DOMObject
+	public var NSString *cssText;
+	public var  (default, null) : unsigned length;
+	public var (default, null) DOMCSSRule *parentRule;
 
 - (NSString *)getPropertyValue:(NSString *)propertyName;
 - (DOMCSSValue *)getPropertyCSSValue:(NSString *)propertyName;
@@ -45,10 +45,10 @@
 - (NSString *)item:(unsigned)index;
 - (NSString *)getPropertyShorthand:(NSString *)propertyName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (BOOL)isPropertyImplicit:(NSString *)propertyName AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
-@interface DOMCSSStyleDeclaration (DOMCSSStyleDeclarationDeprecated)
+extern class DOMCSSStyleDeclaration (DOMCSSStyleDeclarationDeprecated)
 - (void)setProperty:(NSString *)propertyName :(NSString *)value :(NSString *)priority AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

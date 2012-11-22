@@ -15,7 +15,7 @@
 FOUNDATION_EXPORT NSString * const NSInvalidArchiveOperationException;
 FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 
-@interface NSKeyedArchiver : NSCoder {
+extern class NSKeyedArchiver : NSCoder {
 @private
     void *_stream;
     NSUInteger _flags;
@@ -67,9 +67,9 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 - (void)encodeDouble:(double)realv forKey:(NSString *)key;
 - (void)encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key;
 
-@end
+}
 
-@interface NSKeyedUnarchiver : NSCoder {
+extern class NSKeyedUnarchiver : NSCoder {
 @private
     id _delegate;
     uint32_t _flags;
@@ -118,7 +118,7 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 - (double)decodeDoubleForKey:(NSString *)key;
 - (const uint8_t *)decodeBytesForKey:(NSString *)key returnedLength:(NSUInteger *)lengthp NS_RETURNS_INNER_POINTER;	// returned bytes immutable, and they go away with the unarchiver, not the containing autorlease pool
 
-@end
+}
 
 @protocol NSKeyedArchiverDelegate <NSObject>
 @optional
@@ -154,7 +154,7 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 - (void)archiverDidFinish:(NSKeyedArchiver *)archiver;
 	// Notifies the delegate that encoding has finished.
 
-@end
+}
 
 @protocol NSKeyedUnarchiverDelegate <NSObject>
 @optional
@@ -189,9 +189,9 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 - (void)unarchiverDidFinish:(NSKeyedUnarchiver *)unarchiver;
 	// Notifies the delegate that decoding has finished.
 
-@end
+}
 
-@interface NSObject (NSKeyedArchiverObjectSubstitution)
+extern class NSObject (NSKeyedArchiverObjectSubstitution)
 
 - (Class)classForKeyedArchiver;
 	// Implemented by classes to substitute a new class for instances during
@@ -217,9 +217,9 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 + (NSArray *)classFallbacksForKeyedArchiver;
 
 
-@end
+}
 
-@interface NSObject (NSKeyedUnarchiverObjectSubstitution)
+extern class NSObject (NSKeyedUnarchiverObjectSubstitution)
 
 + (Class)classForKeyedUnarchiver;
 	// Implemented by classes to substitute a new class during decoding.
@@ -227,6 +227,6 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
         // class.  This method overrides the results of the unarchiver's class and
         // instance name<->class encoding tables.  Returns self by default.
 
-@end
+}
 
 

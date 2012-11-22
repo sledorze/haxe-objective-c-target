@@ -41,33 +41,33 @@ typedef NS_ENUM(NSInteger, ADAdType) {
 // loaded, presented, and refreshed. When a banner view is tapped, the iAd will begin its
 // action. In most cases, the action displays a fullscreen interactive iAd.
 // NOTE: ADBannerView must be added to a view hierarchy managed by a UIViewController.
-NS_CLASS_AVAILABLE(NA, 4_0) @interface ADBannerView : UIView
+NS_CLASS_AVAILABLE(NA, 4_0)extern class ADBannerView extends UIView
 
 // Initialize the view with a specific ad type. The ad type cannot be changed after initialization.
 - (id)initWithAdType:(ADAdType)type __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
 
 // Returns the view's ad type.
-@property (nonatomic, readonly) ADAdType adType __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
+	public var ADAdType adType __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
 
 // The banner view delegate is notified when advertisements are loaded, when errors occur in
 // getting ads, and when banner actions begin end. On iOS 5 and later, this property is a weak
 // reference and cannot be used with objects that modify the behavior of release or retain.
-@property (nonatomic, assign) id <ADBannerViewDelegate> delegate;
+	public var id <ADBannerViewDelegate> delegate;
 
 // YES if an advertisement is loaded, NO otherwise.
-@property (nonatomic, readonly, getter=isBannerLoaded) BOOL bannerLoaded;
+	public var  (nonatomic, readonly, getter=isBannerLoaded) BOOL bannerLoaded;
 
 // YES if the user is currently engaged with a fullscreen interactive advertisement.
-@property (nonatomic, readonly, getter=isBannerViewActionInProgress) BOOL bannerViewActionInProgress;
+	public var  (nonatomic, readonly, getter=isBannerViewActionInProgress) BOOL bannerViewActionInProgress;
 
 // Cancels the current in-progress banner view action. This should only be used in cases where the
 // user's attention is required immediately.
 - (void)cancelBannerViewAction;
 
 // Reserved for future use.
-@property (nonatomic, copy) NSString *advertisingSection;
+	public var NSString *advertisingSection;
 
-@end
+}
 
 @protocol ADBannerViewDelegate <NSObject>
 @optional
@@ -99,6 +99,6 @@ NS_CLASS_AVAILABLE(NA, 4_0) @interface ADBannerView : UIView
 // of the action should resume at this point.
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner;
 
-@end
+}
 
 extern NSString * const ADErrorDomain;

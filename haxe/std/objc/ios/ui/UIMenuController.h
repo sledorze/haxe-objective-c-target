@@ -1,6 +1,6 @@
 //
 //  UIMenuController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, UIMenuControllerArrowDirection) {
 
 @class UIView;
 
-NS_CLASS_AVAILABLE_IOS(3_0) @interface UIMenuController : NSObject {
+NS_CLASS_AVAILABLE_IOS(3_0)extern class UIMenuController extends NSObject {
   @private
     CGRect _targetRect;
     UIMenuControllerArrowDirection _arrowDirection;
@@ -29,19 +29,19 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UIMenuController : NSObject {
 
 + (UIMenuController *)sharedMenuController;
 
-@property(nonatomic,getter=isMenuVisible) BOOL menuVisible;	    // default is NO
-- (void)setMenuVisible:(BOOL)menuVisible animated:(BOOL)animated;
+	public var (nonatomic,getter=isMenuVisible) BOOL menuVisible;	    // default is NO
+	public function setMenuVisible:(BOOL)menuVisible animated:(BOOL)animated;
 
-- (void)setTargetRect:(CGRect)targetRect inView:(UIView *)targetView;
-@property(nonatomic) UIMenuControllerArrowDirection arrowDirection NS_AVAILABLE_IOS(3_2); // default is UIMenuControllerArrowDefault
+	public function setTargetRect:(CGRect)targetRect inView:(UIView *)targetView;
+	public var  UIMenuControllerArrowDirection arrowDirection NS_AVAILABLE_IOS(3_2); // default is UIMenuControllerArrowDefault
 		
-@property(nonatomic,copy) NSArray *menuItems NS_AVAILABLE_IOS(3_2); // default is nil. these are in addition to the standard items
+public var  NSArray *menuItems NS_AVAILABLE_IOS(3_2); // default is nil. these are in addition to the standard items
 
-- (void)update;	
+	public function update;	
 
-@property(nonatomic,readonly) CGRect menuFrame;
+	public var (default, null) CGRect menuFrame;
 
-@end
+}
 
 UIKIT_EXTERN NSString *const UIMenuControllerWillShowMenuNotification;
 UIKIT_EXTERN NSString *const UIMenuControllerDidShowMenuNotification;
@@ -49,7 +49,7 @@ UIKIT_EXTERN NSString *const UIMenuControllerWillHideMenuNotification;
 UIKIT_EXTERN NSString *const UIMenuControllerDidHideMenuNotification;
 UIKIT_EXTERN NSString *const UIMenuControllerMenuFrameDidChangeNotification;
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIMenuItem : NSObject {
+extern class UIMenuItem extends NSObject {
   @private
     NSString *_title;
     SEL       _action;
@@ -58,7 +58,7 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIMenuItem : NSObject {
 
 - (id)initWithTitle:(NSString *)title action:(SEL)action;
 
-@property(nonatomic,copy) NSString *title;     // default is nil
-@property(nonatomic)      SEL       action;    // default is NULL
+public var  NSString *title;     // default is nil
+	public var       SEL       action;    // default is NULL
 
-@end
+}

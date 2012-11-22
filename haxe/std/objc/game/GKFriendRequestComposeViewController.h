@@ -11,7 +11,7 @@
 
 // Standard view controller for sending friend requests to other players. Present modally from the top view controller.
 NS_CLASS_AVAILABLE(NA, 4_2)
-@interface GKFriendRequestComposeViewController : UINavigationController
+extern class GKFriendRequestComposeViewController : UINavigationController
 // Get the maximum number of recipients permitted
 + (NSUInteger)maxNumberOfRecipients;
 
@@ -24,11 +24,11 @@ NS_CLASS_AVAILABLE(NA, 4_2)
 - (void)addRecipientsWithPlayerIDs:(NSArray *)playerIDs;
 - (void)addRecipientsWithEmailAddresses:(NSArray *)emailAddresses;
 
-@property (nonatomic, assign) id<GKFriendRequestComposeViewControllerDelegate> composeViewDelegate;
-@end
+	public var id<GKFriendRequestComposeViewControllerDelegate> composeViewDelegate;
+}
 
 // Optional delegate
 @protocol GKFriendRequestComposeViewControllerDelegate
 // The compose view has finished
 - (void)friendRequestComposeViewControllerDidFinish:(GKFriendRequestComposeViewController *)viewController;
-@end
+}

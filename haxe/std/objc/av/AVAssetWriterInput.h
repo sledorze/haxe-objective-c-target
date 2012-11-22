@@ -27,7 +27,7 @@
 	AVAssetWriterInput also supports writing per-track metadata collections to the output file.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetWriterInput : NSObject
+extern class AVAssetWriterInput extends NSObject
 {
 @private
 	AVAssetWriterInputInternal	*_internal;
@@ -122,37 +122,37 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithMediaType:(NSString *)mediaType outputSettings:(NSDictionary *)outputSettings sourceFormatHint:(CMFormatDescriptionRef)sourceFormatHint NS_AVAILABLE(10_8, 6_0);
 
 /*!
- @property mediaType
+ 	public var  mediaType
  @abstract
 	The media type of the samples that can be appended to the receiver.
  
  @discussion
 	The value of this property is one of the media type strings defined in AVMediaFormat.h.
  */
-@property (nonatomic, readonly) NSString *mediaType;
+	public var NSString *mediaType;
 
 /*!
- @property outputSettings
+ 	public var  outputSettings
  @abstract
 	The settings used for encoding the media appended to the output.
  
  @discussion
 	The value of this property is an NSDictionary that contains values for keys as specified by either AVAudioSettings.h for AVMediaTypeAudio or AVVideoSettings.h for AVMediaTypeVideo.  A value of nil indicates that the receiver will pass through appended samples, doing no processing before they are written to the output file.
 */
-@property (nonatomic, readonly) NSDictionary *outputSettings;
+	public var NSDictionary *outputSettings;
 
 /*!
- @property sourceFormatHint
+ 	public var  sourceFormatHint
  @abstract
 	 The hint given at initialization time about the format of incoming media data.
  
  @discussion
 	AVAssetWriterInput may be able to use this hint to fill in missing output settings or perform more upfront validation.  To guarantee successful file writing, clients who specify a format hint should ensure that subsequently-appended media data are of the specified format.
  */
-@property (nonatomic, readonly) __attribute__((NSObject)) CMFormatDescriptionRef sourceFormatHint NS_AVAILABLE(10_8, 6_0);
+	public var __attribute__((NSObject)) CMFormatDescriptionRef sourceFormatHint NS_AVAILABLE(10_8, 6_0);
 
 /*!
- @property metadata
+ 	public var  metadata
  @abstract
 	A collection of metadata to be written to the track corresponding to the receiver. 
 
@@ -161,10 +161,10 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 
 	This property cannot be set after writing on the receiver's AVAssetWriter has started.
  */
-@property (nonatomic, copy) NSArray *metadata;
+	public var NSArray *metadata;
 
 /*!
- @property readyForMoreMediaData
+ 	public var  readyForMoreMediaData
  @abstract
 	Indicates the readiness of the input to accept more media data.
  
@@ -181,10 +181,10 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	
     This property is key value observable. Observers should not assume that they will be notified of changes on a specific thread.
  */
-@property (nonatomic, readonly, getter=isReadyForMoreMediaData) BOOL readyForMoreMediaData;
+	public var  (nonatomic, readonly, getter=isReadyForMoreMediaData) BOOL readyForMoreMediaData;
 
 /*!
- @property expectsMediaDataInRealTime
+ 	public var  expectsMediaDataInRealTime
  @abstract
 	Indicates whether the input should tailor its processing of media data for real-time sources.
 
@@ -193,7 +193,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 
 	This property cannot be set after writing on the receiver's AVAssetWriter has started.
  */
-@property (nonatomic) BOOL expectsMediaDataInRealTime;
+	public var BOOL expectsMediaDataInRealTime;
 
 /*!
  @method requestMediaDataWhenReadyOnQueue:usingBlock:
@@ -280,13 +280,13 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  */
 - (void)markAsFinished;
 
-@end
+}
 
 
-@interface AVAssetWriterInput (AVAssetWriterInputPropertiesForVisualCharacteristic)
+extern class AVAssetWriterInput (AVAssetWriterInputPropertiesForVisualCharacteristic)
 
 /*!
- @property transform
+ 	public var  transform
  @abstract
 	The transform specified in the output file as the preferred transformation of the visual media data for display purposes.
  
@@ -295,15 +295,15 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 
 	This property cannot be set after writing on the receiver's AVAssetWriter has started.
 */
-@property (nonatomic) CGAffineTransform transform;
+	public var CGAffineTransform transform;
 
-@end
+}
 
 
-@interface AVAssetWriterInput (AVAssetWriterInputFileTypeSpecificProperties)
+extern class AVAssetWriterInput (AVAssetWriterInputFileTypeSpecificProperties)
 
 /*!
- @property mediaTimeScale
+ 	public var  mediaTimeScale
  @abstract
 	For file types that support media time scales, such as QuickTime Movie files, specifies the media time scale to be used.
 
@@ -312,9 +312,9 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 
 	This property cannot be set after writing has started.
  */
-@property (nonatomic) CMTimeScale mediaTimeScale NS_AVAILABLE(10_7, 4_3);
+	public var CMTimeScale mediaTimeScale NS_AVAILABLE(10_7, 4_3);
 
-@end
+}
 
 
 @class AVAssetWriterInputPixelBufferAdaptorInternal;
@@ -328,7 +328,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	Instances of AVAssetWriterInputPixelBufferAdaptor provide a CVPixelBufferPool that can be used to allocate pixel buffers for writing to the output file.  Using the provided pixel buffer pool for buffer allocation is typically more efficient than appending pixel buffers allocated using a separate pool.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVAssetWriterInputPixelBufferAdaptor : NSObject
+extern class AVAssetWriterInputPixelBufferAdaptor extends NSObject
 {
 @private
 	AVAssetWriterInputPixelBufferAdaptorInternal	*_internal;
@@ -381,24 +381,24 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 - (id)initWithAssetWriterInput:(AVAssetWriterInput *)input sourcePixelBufferAttributes:(NSDictionary *)sourcePixelBufferAttributes;
 
 /*!
- @property assetWriterInput
+ 	public var  assetWriterInput
  @abstract
 	The asset writer input to which the receiver should append pixel buffers.
  */
-@property (nonatomic, readonly) AVAssetWriterInput *assetWriterInput;
+	public var AVAssetWriterInput *assetWriterInput;
 
 /*!
- @property sourcePixelBufferAttributes
+ 	public var  sourcePixelBufferAttributes
  @abstract
 	The pixel buffer attributes of pixel buffers that will be vended by the receiver's CVPixelBufferPool.
 
  @discussion
 	The value of this property is a dictionary containing pixel buffer attributes keys defined in <CoreVideo/CVPixelBuffer.h>.
  */
-@property (nonatomic, readonly) NSDictionary *sourcePixelBufferAttributes;
+	public var NSDictionary *sourcePixelBufferAttributes;
 
 /*!
- @property pixelBufferPool
+ 	public var  pixelBufferPool
  @abstract
 	A pixel buffer pool that will vend and efficiently recycle CVPixelBuffer objects that can be appended to the receiver.
 
@@ -409,7 +409,7 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 	
 	This property is key value observable.
  */
-@property (nonatomic, readonly) CVPixelBufferPoolRef pixelBufferPool;
+	public var CVPixelBufferPoolRef pixelBufferPool;
 
 /*!
  @method appendPixelBuffer:withPresentationTime:
@@ -440,4 +440,4 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
  */
 - (BOOL)appendPixelBuffer:(CVPixelBufferRef)pixelBuffer withPresentationTime:(CMTime)presentationTime;
 
-@end
+}

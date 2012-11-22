@@ -30,10 +30,10 @@
 
 @class DOMStyleSheet;
 
-@interface DOMStyleSheetList : DOMObject
-@property(readonly) unsigned length;
+extern class DOMStyleSheetList : DOMObject
+	public var  (default, null) : unsigned length;
 
 - (DOMStyleSheet *)item:(unsigned)index;
-@end
+}
 
 #endif

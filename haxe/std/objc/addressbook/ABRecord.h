@@ -15,7 +15,7 @@
 // ================================================================================
 // ABRecord represents a row in the AddressBook database
 
-@interface ABRecord : NSObject
+extern class ABRecord extends NSObject
 {
 @private
 	id		_databaseImpl;
@@ -63,15 +63,15 @@
 - (BOOL)isReadOnly AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
     // Returns whether or not the record is read only.
 
-@end
+}
 
 // ================================================================================
 //	interface ABRecord(ABRecord_Convenience)
 // ================================================================================
 
-@interface ABRecord(ABRecord_Convenience)
+extern class ABRecord(ABRecord_Convenience)
 
 - (NSString *)uniqueId;
     // Convenience method to return the unique ID of a record.
     // Equivalent to -valueForProperty:kABUIDProperty
-@end
+}

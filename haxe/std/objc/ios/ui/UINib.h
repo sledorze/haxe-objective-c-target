@@ -1,6 +1,6 @@
 //
 //  UINib.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(4_0) @interface UINib : NSObject {
+NS_CLASS_AVAILABLE_IOS(4_0)extern class UINib extends NSObject {
   @private
     id storage;
 }
@@ -25,4 +25,4 @@ NS_CLASS_AVAILABLE_IOS(4_0) @interface UINib : NSObject {
 // If the owner parameter is nil, connections to File's Owner are not permitted.
 // Options are identical to the options specified with -[NSBundle loadNibNamed:owner:options:]
 - (NSArray *)instantiateWithOwner:(id)ownerOrNil options:(NSDictionary *)optionsOrNil;
-@end
+}

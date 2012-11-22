@@ -9,7 +9,7 @@
 #import <AppKit/NSLevelIndicatorCell.h>
 
 
-@interface NSLevelIndicator : NSControl {
+extern class NSLevelIndicator : NSControl {
 }
 
 - (double)minValue;
@@ -36,5 +36,5 @@
 - (double)tickMarkValueAtIndex:(NSInteger)index;
 - (NSRect)rectOfTickMarkAtIndex:(NSInteger)index;
 
-@end
+}
 

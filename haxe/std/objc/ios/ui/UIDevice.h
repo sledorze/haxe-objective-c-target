@@ -1,6 +1,6 @@
 //
 //  UIDevice.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2007-2012, Apple Inc. All rights reserved.
 //
@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, UIUserInterfaceIdiom) {
 #define UIDeviceOrientationIsPortrait(orientation)  ((orientation) == UIDeviceOrientationPortrait || (orientation) == UIDeviceOrientationPortraitUpsideDown)
 #define UIDeviceOrientationIsLandscape(orientation) ((orientation) == UIDeviceOrientationLandscapeLeft || (orientation) == UIDeviceOrientationLandscapeRight)
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIDevice : NSObject {
+extern class UIDevice extends NSObject {
  @private
     NSInteger _numDeviceOrientationObservers;
     float     _batteryLevel;
@@ -55,41 +55,41 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIDevice : NSObject {
 
 + (UIDevice *)currentDevice;
 
-@property(nonatomic,readonly,retain) NSString    *name;              // e.g. "My iPhone"
-@property(nonatomic,readonly,retain) NSString    *model;             // e.g. @"iPhone", @"iPod touch"
-@property(nonatomic,readonly,retain) NSString    *localizedModel;    // localized version of model
-@property(nonatomic,readonly,retain) NSString    *systemName;        // e.g. @"iOS"
-@property(nonatomic,readonly,retain) NSString    *systemVersion;     // e.g. @"4.0"
-@property(nonatomic,readonly) UIDeviceOrientation orientation;       // return current device orientation.  this will return UIDeviceOrientationUnknown unless device orientation notifications are being generated.
-@property(nonatomic,readonly,retain) NSString    *uniqueIdentifier  NS_DEPRECATED_IOS(2_0, 5_0);  // a string unique to each device based on various hardware info.
+	public var (default, null) NSString    *name;              // e.g. "My iPhone"
+	public var (default, null) NSString    *model;             // e.g. @"iPhone", @"iPod touch"
+	public var (default, null) NSString    *localizedModel;    // localized version of model
+	public var (default, null) NSString    *systemName;        // e.g. @"iOS"
+	public var (default, null) NSString    *systemVersion;     // e.g. @"4.0"
+	public var (default, null) UIDeviceOrientation orientation;       // return current device orientation.  this will return UIDeviceOrientationUnknown unless device orientation notifications are being generated.
+	public var (default, null) NSString    *uniqueIdentifier  NS_DEPRECATED_IOS(2_0, 5_0);  // a string unique to each device based on various hardware info.
 
-@property(nonatomic,readonly,retain) NSUUID      *identifierForVendor NS_AVAILABLE_IOS(6_0);      // a UUID that may be used to uniquely identify the device, same across apps from a single vendor.
+	public var (default, null) NSUUID      *identifierForVendor NS_AVAILABLE_IOS(6_0);      // a UUID that may be used to uniquely identify the device, same across apps from a single vendor.
 
-@property(nonatomic,readonly,getter=isGeneratingDeviceOrientationNotifications) BOOL generatesDeviceOrientationNotifications;
-- (void)beginGeneratingDeviceOrientationNotifications;      // nestable
-- (void)endGeneratingDeviceOrientationNotifications;
+	public var (nonatomic,readonly,getter=isGeneratingDeviceOrientationNotifications) BOOL generatesDeviceOrientationNotifications;
+	public function beginGeneratingDeviceOrientationNotifications;      // nestable
+	public function endGeneratingDeviceOrientationNotifications;
 
-@property(nonatomic,getter=isBatteryMonitoringEnabled) BOOL batteryMonitoringEnabled NS_AVAILABLE_IOS(3_0);  // default is NO
-@property(nonatomic,readonly) UIDeviceBatteryState          batteryState NS_AVAILABLE_IOS(3_0);  // UIDeviceBatteryStateUnknown if monitoring disabled
-@property(nonatomic,readonly) float                         batteryLevel NS_AVAILABLE_IOS(3_0);  // 0 .. 1.0. -1.0 if UIDeviceBatteryStateUnknown
+	public var (nonatomic,getter=isBatteryMonitoringEnabled) BOOL batteryMonitoringEnabled NS_AVAILABLE_IOS(3_0);  // default is NO
+	public var (default, null) UIDeviceBatteryState          batteryState NS_AVAILABLE_IOS(3_0);  // UIDeviceBatteryStateUnknown if monitoring disabled
+	public var (default, null) float                         batteryLevel NS_AVAILABLE_IOS(3_0);  // 0 .. 1.0. -1.0 if UIDeviceBatteryStateUnknown
 
-@property(nonatomic,getter=isProximityMonitoringEnabled) BOOL proximityMonitoringEnabled NS_AVAILABLE_IOS(3_0); // default is NO
-@property(nonatomic,readonly)                            BOOL proximityState NS_AVAILABLE_IOS(3_0);  // always returns NO if no proximity detector
+	public var (nonatomic,getter=isProximityMonitoringEnabled) BOOL proximityMonitoringEnabled NS_AVAILABLE_IOS(3_0); // default is NO
+	public var (default, null)                            BOOL proximityState NS_AVAILABLE_IOS(3_0);  // always returns NO if no proximity detector
 
-@property(nonatomic,readonly,getter=isMultitaskingSupported) BOOL multitaskingSupported NS_AVAILABLE_IOS(4_0);
+	public var (nonatomic,readonly,getter=isMultitaskingSupported) BOOL multitaskingSupported NS_AVAILABLE_IOS(4_0);
 
-@property(nonatomic,readonly) UIUserInterfaceIdiom userInterfaceIdiom NS_AVAILABLE_IOS(3_2);
+	public var (default, null) UIUserInterfaceIdiom userInterfaceIdiom NS_AVAILABLE_IOS(3_2);
 
-- (void)playInputClick NS_AVAILABLE_IOS(4_2);  // Plays a click only if an enabling input view is on-screen and user has enabled input clicks.
+	public function playInputClick NS_AVAILABLE_IOS(4_2);  // Plays a click only if an enabling input view is on-screen and user has enabled input clicks.
 
-@end
+}
 
-@protocol UIInputViewAudioFeedback <NSObject>
+extern interface UIInputViewAudioFeedback <NSObject>
 @optional
 
-@property (nonatomic, readonly) BOOL enableInputClicksWhenVisible; // If YES, an input view will enable playInputClick.
+	public var BOOL enableInputClicksWhenVisible; // If YES, an input view will enable playInputClick.
 
-@end
+}
 
 UIKIT_EXTERN NSString *const UIDeviceOrientationDidChangeNotification;
 UIKIT_EXTERN NSString *const UIDeviceBatteryStateDidChangeNotification   NS_AVAILABLE_IOS(3_0);

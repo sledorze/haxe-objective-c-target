@@ -94,7 +94,7 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
 
 @class _NSOVRowEntry;
 
-@interface NSOutlineView : NSTableView {
+extern class NSOutlineView : NSTableView {
   @private
     NSInteger		 _numberOfRows;    
     _NSOVRowEntry       *_rowEntryTree;
@@ -232,7 +232,7 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
 - (void)removeRowsAtIndexes:(NSIndexSet *)indexes withAnimation:(NSTableViewAnimationOptions)animationOptions UNAVAILABLE_ATTRIBUTE;
 - (void)moveRowAtIndex:(NSInteger)oldIndex toIndex:(NSInteger)newIndex UNAVAILABLE_ATTRIBUTE;
 
-@end
+}
 
 #pragma mark -
 
@@ -302,7 +302,7 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
 */
 - (NSArray *)outlineView:(NSOutlineView *)outlineView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedItems:(NSArray *)items;
 
-@end
+}
 
 #pragma mark -
 
@@ -440,7 +440,7 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
 - (void)outlineViewItemWillCollapse:(NSNotification *)notification;
 - (void)outlineViewItemDidCollapse:(NSNotification *)notification;
 
-@end
+}
 
 
 /* Notifications 

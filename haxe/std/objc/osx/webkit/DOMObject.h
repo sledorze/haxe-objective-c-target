@@ -35,15 +35,15 @@ typedef unsigned long long DOMTimeStamp;
 
 typedef struct DOMObjectInternal DOMObjectInternal;
 
-@interface DOMObject : WebScriptObject <NSCopying>
+extern class DOMObject : WebScriptObject <NSCopying>
 {
 @private
     DOMObjectInternal *_internal;
 }
-@end
+}
 
-@interface DOMObject (DOMLinkStyle)
-@property(readonly, retain) DOMStyleSheet *sheet;
-@end
+extern class DOMObject (DOMLinkStyle)
+	public var (default, null) DOMStyleSheet *sheet;
+}
 
 #endif

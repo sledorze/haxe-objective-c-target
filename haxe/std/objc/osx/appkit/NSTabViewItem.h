@@ -18,7 +18,7 @@ enum {
 };
 typedef NSUInteger NSTabState;
 
-@interface NSTabViewItem : NSObject <NSCoding>
+extern class NSTabViewItem extends NSObject, implements NSObject>
 {
     @private
     
@@ -87,5 +87,5 @@ typedef NSUInteger NSTabState;
 */
 - (NSSize)sizeOfLabel:(BOOL)computeMin;
 
-@end
+}
 

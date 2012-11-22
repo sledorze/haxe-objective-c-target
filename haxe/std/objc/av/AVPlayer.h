@@ -60,7 +60,7 @@ enum {
 typedef NSInteger AVPlayerStatus;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVPlayer : NSObject 
+extern class AVPlayer extends NSObject 
 {
 @private
 	AVPlayerInternal     *_player;
@@ -103,7 +103,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (id)initWithPlayerItem:(AVPlayerItem *)item;
 
 /*!
- @property status
+ 	public var  status
  @abstract
 	The ability of the receiver to be used for playback.
  
@@ -113,10 +113,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 	instance needs to be created in its place. When this happens, clients can check the value of the error property to
 	determine the nature of the failure. This property is key value observable.
  */
-@property (nonatomic, readonly) AVPlayerStatus status;
+	public var AVPlayerStatus status;
 
 /*!
- @property error
+ 	public var  error
  @abstract
 	If the receiver's status is AVPlayerStatusFailed, this describes the error that caused the failure.
  
@@ -124,15 +124,15 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 	The value of this property is an NSError that describes what caused the receiver to no longer be able to play items.
 	If the receiver's status is not AVPlayerItemStatusFailed, the value of this property is nil.
  */
-@property (nonatomic, readonly) NSError *error;
+	public var NSError *error;
 
-@end
+}
 
 
-@interface AVPlayer (AVPlayerPlaybackControl)
+extern class AVPlayer (AVPlayerPlaybackControl)
 
 /* indicates the current rate of playback; 0.0 means "stopped", 1.0 means "play at the natural rate of the current item" */
-@property (nonatomic) float rate;
+	public var float rate;
 
 /*!
 	@method			play
@@ -148,13 +148,13 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)pause;
 
-@end
+}
 
 
-@interface AVPlayer (AVPlayerItemControl)
+extern class AVPlayer (AVPlayerItemControl)
 
 /* indicates the current item of the player */
-@property (nonatomic, readonly) AVPlayerItem *currentItem;
+	public var AVPlayerItem *currentItem;
 
 /*!
 	@method			replaceCurrentItemWithPlayerItem:
@@ -196,12 +196,12 @@ enum
 typedef NSInteger AVPlayerActionAtItemEnd;
 
 /* indicates the action that the player should perform when playback of an item reaches its end time */
-@property (nonatomic) AVPlayerActionAtItemEnd actionAtItemEnd;
+	public var AVPlayerActionAtItemEnd actionAtItemEnd;
 
-@end
+}
 
 
-@interface AVPlayer (AVPlayerTimeControl)
+extern class AVPlayer (AVPlayerTimeControl)
 /*!
  @method			currentTime
  @abstract			Returns the current time of the current item.
@@ -281,15 +281,15 @@ typedef NSInteger AVPlayerActionAtItemEnd;
  */
 - (void)seekToTime:(CMTime)time toleranceBefore:(CMTime)toleranceBefore toleranceAfter:(CMTime)toleranceAfter completionHandler:(void (^)(BOOL finished))completionHandler NS_AVAILABLE(10_7, 5_0);
 
-@end
+}
 
 
-@interface AVPlayer (AVPlayerAdvancedRateControl)
+extern class AVPlayer (AVPlayerAdvancedRateControl)
 
 /*!
 	@method			setRate:time:atHostTime:
 	@abstract		Simultaneously sets the playback rate and the relationship between the current item's current time and host time.
-	@discussion		You can use this function to synchronize playback with an external activity.
+	@discussion		You can use this function to synchronize playback with anexternal activity.
 	
 					The current item's timebase is adjusted so that its time will be (or was) itemTime when host time is (or was) hostClockTime.
 					In other words: if hostClockTime is in the past, the timebase's time will be interpolated as though the timebase has been running at the requested rate since that time.  If hostClockTime is in the future, the timebase will immediately start running at the requested rate from an earlier time so that it will reach the requested itemTime at the requested hostClockTime.  (Note that the item's time will not jump backwards, but instead will sit at itemTime until the timebase reaches that time.)
@@ -300,7 +300,7 @@ typedef NSInteger AVPlayerActionAtItemEnd;
 	@param hostClockTime
 					The host time at which to start playback.
 					If hostClockTime is specified, the player will not ensure that media data is loaded before the timebase starts moving.
-					If hostClockTime is kCMTimeInvalid, the rate and time will be set together, but without external synchronization;
+					If hostClockTime is kCMTimeInvalid, the rate and time will be set together, but withoutexternal synchronization;
 					a host time in the near future will be used, allowing some time for data media loading.
 */
 - (void)setRate:(float)rate time:(CMTime)itemTime atHostTime:(CMTime)hostClockTime NS_AVAILABLE(10_8, 6_0);
@@ -327,12 +327,12 @@ typedef NSInteger AVPlayerActionAtItemEnd;
 - (void)cancelPendingPrerolls NS_AVAILABLE(10_8, 6_0);
 
 /* NULL by default.  if not NULL, overrides the automatic choice of master clock for item timebases. This is most useful for synchronizing video-only movies with audio played via other means. IMPORTANT: If you specify a master clock other than the appropriate audio device clock, audio may drift out of sync. */
-@property (nonatomic, retain) __attribute__((NSObject)) CMClockRef masterClock NS_AVAILABLE(10_8, 6_0);
+	public var __attribute__((NSObject)) CMClockRef masterClock NS_AVAILABLE(10_8, 6_0);
 
-@end
+}
 
 
-@interface AVPlayer (AVPlayerTimeObservation)
+extern class AVPlayer (AVPlayerTimeObservation)
 
 /*!
 	@method			addPeriodicTimeObserverForInterval:queue:usingBlock:
@@ -389,25 +389,25 @@ typedef NSInteger AVPlayerActionAtItemEnd;
 */
 - (void)removeTimeObserver:(id)observer;
 
-@end
+}
 
 
-@interface AVPlayer (AVPlayerMediaControl)
+extern class AVPlayer (AVPlayerMediaControl)
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /* indicates the current audio volume of the player; 0.0 means "silence all audio", 1.0 means "play at the full volume of the current item" */
-@property (nonatomic) float volume NS_AVAILABLE(10_7, NA);
+	public var float volume NS_AVAILABLE(10_7, NA);
 
 /* indicates whether or not audio output of the player is muted */
-@property (nonatomic, getter=isMuted) BOOL muted NS_AVAILABLE(10_7, NA);
+	public var  (nonatomic, getter=isMuted) BOOL muted NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /* indicates whether display of closed captions is enabled */
-@property (nonatomic, getter=isClosedCaptionDisplayEnabled) BOOL closedCaptionDisplayEnabled;
+	public var  (nonatomic, getter=isClosedCaptionDisplayEnabled) BOOL closedCaptionDisplayEnabled;
 
-@end
+}
 
 
 #if TARGET_OS_IPHONE
@@ -420,12 +420,12 @@ typedef NSInteger AVPlayerActionAtItemEnd;
 	Methods for supporting "external playback" of video 
  
  @discussion
-	"External playback" is a mode where video data is sent to an external device such as Apple TV via AirPlay
+	"External playback" is a mode where video data is sent to anexternal device such as Apple TV via AirPlay
 	and the mini-connector-based HDMI/VGA adapters for full screen playback at its original fidelity. AirPlay 
 	Video playback is also considered as an "external playback" mode.
  
 	In "external screen" mode (also known as mirroring and second display), video data is rendered on the host 
-	device (e.g. iPhone), rendered video is recompressed and transferred to the external device, and the 
+	device (e.g. iPhone), rendered video is recompressed and transferred to theexternal device, and the 
 	external device decompresses and displays the video.
  
 	AVPlayerExternalPlaybackSupport properties affect AirPlay Video playback and are the replacement for the 
@@ -434,68 +434,68 @@ typedef NSInteger AVPlayerActionAtItemEnd;
 	AVPlayerExternalPlaybackSupport properties do not apply to 30-pin-connector-based video output cables and adapters.
  */
 
-@interface AVPlayer (AVPlayerExternalPlaybackSupport)
+extern class AVPlayer (AVPlayerExternalPlaybackSupport)
 
 /* Indicates whether the player allows switching to "external playback" mode. The default value is YES. */
-@property (nonatomic) BOOL allowsExternalPlayback NS_AVAILABLE_IOS(6_0);
+	public var BOOL allowsExternalPlayback NS_AVAILABLE_IOS(6_0);
 
 /* Indicates whether the player is currently playing video in "external playback" mode. */
-@property (nonatomic, readonly, getter=isExternalPlaybackActive) BOOL externalPlaybackActive NS_AVAILABLE_IOS(6_0);
+	public var  (nonatomic, readonly, getter=isExternalPlaybackActive) BOOLexternalPlaybackActive NS_AVAILABLE_IOS(6_0);
 
 /* Indicates whether the player should automatically switch to "external playback" mode while the "external 
 	screen" mode is active in order to play video content and switching back to "external screen" mode as soon 
-	as playback is done. Brief transition may be visible on the external display when automatically switching 
+	as playback is done. Brief transition may be visible on theexternal display when automatically switching 
 	between the two modes. The default value is NO. Has no effect if allowsExternalPlayback is NO. */
-@property (nonatomic) BOOL usesExternalPlaybackWhileExternalScreenIsActive NS_AVAILABLE_IOS(6_0);
+	public var BOOL usesExternalPlaybackWhileExternalScreenIsActive NS_AVAILABLE_IOS(6_0);
 
 /* Video gravity strictly for "external playback" mode, one of AVLayerVideoGravity* defined in AVAnimation.h */
-@property (nonatomic, copy) NSString *externalPlaybackVideoGravity NS_AVAILABLE_IOS(6_0);
+	public var NSString *externalPlaybackVideoGravity NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
-@interface AVPlayer (AVPlayerAirPlaySupport)
+extern class AVPlayer (AVPlayerAirPlaySupport)
 
 /* Indicates whether the player allows AirPlay Video playback. The default value is YES. 
 	This property is deprecated. Use AVPlayer's -allowsExternalPlayback instead. */
-@property (nonatomic) BOOL allowsAirPlayVideo NS_DEPRECATED_IOS(5_0, 6_0);
+	public var BOOL allowsAirPlayVideo NS_DEPRECATED_IOS(5_0, 6_0);
 
 /* Indicates whether the player is currently playing video via AirPlay. 
 	This property is deprecated. Use AVPlayer's -externalPlaybackActive instead.*/
-@property (nonatomic, readonly, getter=isAirPlayVideoActive) BOOL airPlayVideoActive NS_DEPRECATED_IOS(5_0, 6_0);
+	public var  (nonatomic, readonly, getter=isAirPlayVideoActive) BOOL airPlayVideoActive NS_DEPRECATED_IOS(5_0, 6_0);
 
 /* Indicates whether the player should automatically switch to AirPlay Video while AirPlay Screen is active in order to play video content, switching back to AirPlay Screen as soon as playback is done. 
 	The default value is NO. Has no effect if allowsAirPlayVideo is NO.
 	This property is deprecated. Use AVPlayer's -usesExternalPlaybackWhileExternalScreenIsActive instead. */
-@property (nonatomic) BOOL usesAirPlayVideoWhileAirPlayScreenIsActive NS_DEPRECATED_IOS(5_0, 6_0);
+	public var BOOL usesAirPlayVideoWhileAirPlayScreenIsActive NS_DEPRECATED_IOS(5_0, 6_0);
 
-@end
+}
 
 /*
 	@category		AVPlayer (AVPlayerProtectedContent)
 	@abstract		Methods supporting protected content.
 */
 
-@interface AVPlayer (AVPlayerProtectedContent)
+extern class AVPlayer (AVPlayerProtectedContent)
 
 /*!
-	@property outputObscuredDueToInsufficientExternalProtection
+		public var  outputObscuredDueToInsufficientExternalProtection
 	@abstract
-		Whether or not decoded output is being obscured due to insufficient external protection.
+		Whether or not decoded output is being obscured due to insufficientexternal protection.
  
 	@discussion
 		The value of this property indicates whether the player is purposefully obscuring the visual output
-		of the current item because the requirement for an external protection mechanism is not met by the
-		current device configuration. It is highly recommended that clients whose content requires external
+		of the current item because the requirement for anexternal protection mechanism is not met by the
+		current device configuration. It is highly recommended that clients whose content requiresexternal
 		protection observe this property and set the playback rate to zero and display an appropriate user
 		interface when the value changes to YES. This property is key value observable.
 
-		Note that the value of this property is dependent on the external protection requirements of the
-		current item. These requirements are inherent to the content itself and cannot be externally specified.
-		If the current item does not require external protection, the value of this property will be NO.
+		Note that the value of this property is dependent on theexternal protection requirements of the
+		current item. These requirements are inherent to the content itself and cannot beexternally specified.
+		If the current item does not requireexternal protection, the value of this property will be NO.
  */
-@property (nonatomic, readonly) BOOL outputObscuredDueToInsufficientExternalProtection NS_AVAILABLE_IOS(6_0);
+	public var BOOL outputObscuredDueToInsufficientExternalProtection NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 #endif // TARGET_OS_IPHONE
 
@@ -519,7 +519,7 @@ typedef NSInteger AVPlayerActionAtItemEnd;
 @class AVQueuePlayerInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_1)
-@interface AVQueuePlayer : AVPlayer 
+extern class AVQueuePlayer : AVPlayer 
 {
 @private
     AVQueuePlayerInternal   *_queuePlayer;
@@ -600,6 +600,6 @@ NS_CLASS_AVAILABLE(10_7, 4_1)
 */
 - (void)removeAllItems;
 
-@end
+}
 
 

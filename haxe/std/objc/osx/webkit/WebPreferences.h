@@ -71,7 +71,7 @@ extern NSString *WebPreferencesChangedNotification;
 /*!
     @class WebPreferences
 */
-@interface WebPreferences: NSObject <NSCoding>
+extern class WebPreferencesextends NSObject, implements NSObject>
 {
 @private
     WebPreferencesPrivate *_private;
@@ -444,4 +444,4 @@ caching behavior.
 */
 - (BOOL)suppressesIncrementalRendering;
 
-@end
+}

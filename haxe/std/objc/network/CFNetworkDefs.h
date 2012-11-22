@@ -27,12 +27,12 @@
 /* Standard incantation for exporting/importing DLL symbols */
 #if defined(__WIN32__)
   #if defined(CFNETWORK_BUILDING_DLL)
-		#define CFN_EXPORT __declspec(dllexport) extern
+		#define CFN_EXPORT __declspec(dllexport)extern
  #else
-	  #define CFN_EXPORT __declspec(dllimport) extern
+	  #define CFN_EXPORT __declspec(dllimport)extern
  #endif
 #else
-	#define CFN_EXPORT extern
+	#define CFN_EXPORTextern
 #endif
 
 #if __cplusplus

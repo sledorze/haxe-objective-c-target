@@ -39,7 +39,7 @@ enum {
 };
 typedef NSUInteger NSBezierPathElement;
 
-@interface NSBezierPath : NSObject <NSCopying, NSCoding>
+extern class NSBezierPath extends NSObject <NSCopying, NSCoding>
 {
     @private
     NSInteger _elementCount;
@@ -196,10 +196,10 @@ typedef NSUInteger NSBezierPathElement;
 
 // Hit detection.
 - (BOOL)containsPoint:(NSPoint)point;
-@end
+}
 
-@interface NSBezierPath (NSBezierPathDeprecated)
+extern class NSBezierPath (NSBezierPathDeprecated)
 - (BOOL)cachesBezierPath NS_DEPRECATED_MAC(10_0, 10_0);
 - (void)setCachesBezierPath:(BOOL)flag NS_DEPRECATED_MAC(10_0, 10_0);
-@end
+}
 

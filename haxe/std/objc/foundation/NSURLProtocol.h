@@ -145,7 +145,7 @@ implementors.
      */
 - (void)URLProtocol:(NSURLProtocol *)protocol didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 
-@end
+}
 
 
 /*!
@@ -156,7 +156,7 @@ implementors.
     data. Concrete subclasses handle the specifics associated with one
     or more protocols or URL schemes.
 */
-@interface NSURLProtocol : NSObject
+extern class NSURLProtocol extends NSObject
 {
     @private
     NSURLProtocolInternal *_internal;
@@ -345,5 +345,5 @@ implementors.
 */
 + (void)unregisterClass:(Class)protocolClass;
 
-@end
+}
 

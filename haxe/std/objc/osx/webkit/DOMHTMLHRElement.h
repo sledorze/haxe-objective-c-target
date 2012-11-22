@@ -30,11 +30,11 @@
 
 @class NSString;
 
-@interface DOMHTMLHRElement : DOMHTMLElement
-@property(copy) NSString *align;
-@property BOOL noShade;
-@property(copy) NSString *size;
-@property(copy) NSString *width;
-@end
+extern class DOMHTMLHRElement : DOMHTMLElement
+	public var NSString *align;
+	public var  BOOL noShade;
+	public var NSString *size;
+	public var NSString *width;
+}
 
 #endif

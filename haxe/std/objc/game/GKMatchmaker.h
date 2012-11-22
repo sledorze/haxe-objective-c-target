@@ -12,20 +12,20 @@
 
 // GKMatchRequest represents the parameters needed to create the match.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKMatchRequest : NSObject {
+extern class GKMatchRequest extends NSObject {
 }
 
-@property(nonatomic, assign) NSUInteger minPlayers;     // Minimum number of players for the match
-@property(nonatomic, assign) NSUInteger maxPlayers;     // Maximum number of players for the match
-@property(nonatomic, assign) NSUInteger playerGroup;    // The player group identifier. Matchmaking will only take place between players in the same group.
-@property(nonatomic, assign) uint32_t playerAttributes; // optional flags such that when all player flags are OR'ed together in a match they evaluate to 0xFFFFFFFF
-@property(nonatomic, retain) NSArray *playersToInvite;  // Array of player IDs to invite, or nil if none
+	public var  NSUInteger minPlayers;     // Minimum number of players for the match
+	public var  NSUInteger maxPlayers;     // Maximum number of players for the match
+	public var  NSUInteger playerGroup;    // The player group identifier. Matchmaking will only take place between players in the same group.
+	public var  uint32_t playerAttributes; // optional flags such that when all player flags are OR'ed together in a match they evaluate to 0xFFFFFFFF
+	public var  NSArray *playersToInvite;  // Array of player IDs to invite, or nil if none
 
 // Message sent to invited players, may be modified if using GKMatchmakerViewController
-@property(nonatomic, copy)   NSString *inviteMessage __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_6_0);
+	public var    NSString *inviteMessage __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_6_0);
 
 // Default number of players to to use during matchmaking.  If not set we default to maxPlayers
-@property(nonatomic, assign) NSUInteger defaultNumberOfPlayers __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_6_0);
+	public var  NSUInteger defaultNumberOfPlayers __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_6_0);
 
 // Possible invitee responses
 enum {
@@ -39,7 +39,7 @@ enum {
 typedef NSInteger GKInviteeResponse;
 
 // An inviteeResponseHandler can be set in order to receive responses from programmatically invited players.
-@property(nonatomic, copy) void(^inviteeResponseHandler)(NSString *playerID, GKInviteeResponse response) __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public var  void(^inviteeResponseHandler)(NSString *playerID, GKInviteeResponse response) __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 enum {
     GKMatchTypePeerToPeer,
@@ -51,32 +51,32 @@ typedef NSUInteger GKMatchType;
 // To determine the maximum allowed players for each type of match supported.
 + (NSUInteger)maxPlayersAllowedForMatchOfType:(GKMatchType)matchType __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
-@end
+}
 
 // GKInvite represents an accepted game invite, it is used to create a GKMatchmakerViewController
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKInvite : NSObject {
+extern class GKInvite extends NSObject {
 }
 
-@property(nonatomic, readonly, retain) NSString *inviter;
-@property(nonatomic, readonly, getter=isHosted) BOOL hosted;
-@property(nonatomic, readonly) NSUInteger playerGroup __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);      // player group from inviter's match request
-@property(nonatomic, readonly) uint32_t playerAttributes __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);   // player attributes from inviter's match request
+	public var (default, null) NSString *inviter;
+	public var (nonatomic, readonly, getter=isHosted) BOOL hosted;
+	public var (default, null) NSUInteger playerGroup __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);      // player group from inviter's match request
+	public var (default, null) uint32_t playerAttributes __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);   // player attributes from inviter's match request
 
-@end
+}
 
 
 // GKMatchmaker is a singleton object to manage match creation from invites and auto-matching.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKMatchmaker : NSObject {
+extern class GKMatchmaker extends NSObject {
 }
 
 // The shared matchmaker
 + (GKMatchmaker*)sharedMatchmaker;
 
-// An inviteHandler must be set in order to receive game invites or respond to external requests to initiate an invite. The inviteHandler will be called when an invite or request is received. It may be called immediately if there is a pending invite or request when the application is launched. The inviteHandler may be called multiple times.
+// An inviteHandler must be set in order to receive game invites or respond toexternal requests to initiate an invite. The inviteHandler will be called when an invite or request is received. It may be called immediately if there is a pending invite or request when the application is launched. The inviteHandler may be called multiple times.
 // Either acceptedInvite or playersToInvite will be present, but never both.
-@property(nonatomic, copy) void(^inviteHandler)(GKInvite *acceptedInvite, NSArray *playersToInvite);
+	public var  void(^inviteHandler)(GKInvite *acceptedInvite, NSArray *playersToInvite);
 
 
 // Get a match for an accepted invite
@@ -134,4 +134,4 @@ NS_CLASS_AVAILABLE(10_8, 4_1)
 - (void)stopBrowsingForNearbyPlayers __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 
-@end
+}

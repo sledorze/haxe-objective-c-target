@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, NSCompoundPredicateType) {
 };
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
-@interface NSCompoundPredicate : NSPredicate {
+extern class NSCompoundPredicate : NSPredicate {
     @private
     void *_reserved2;
     NSUInteger _type;
@@ -31,5 +31,5 @@ NS_CLASS_AVAILABLE(10_4, 3_0)
 + (NSPredicate *)andPredicateWithSubpredicates:(NSArray *)subpredicates;
 + (NSPredicate *)orPredicateWithSubpredicates:(NSArray *)subpredicates;
 + (NSPredicate *)notPredicateWithSubpredicate:(NSPredicate *)predicate;
-@end
+}
 

@@ -27,7 +27,7 @@ enum {
 typedef NSInteger NSColorSpaceModel;
 
 
-@interface NSColorSpace : NSObject <NSCoding> {
+extern class NSColorSpace extends NSObject, implements NSObject> {
     id _profile;
     struct {
 	unsigned int colorSpaceID:8;
@@ -76,7 +76,7 @@ typedef NSInteger NSColorSpaceModel;
 */
 + (NSArray *)availableColorSpacesWithModel:(NSColorSpaceModel)model  NS_AVAILABLE_MAC(10_6);	
 
-@end
+}
 
 
 

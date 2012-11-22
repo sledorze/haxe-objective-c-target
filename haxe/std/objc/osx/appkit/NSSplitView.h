@@ -22,7 +22,7 @@ enum {
 typedef NSInteger NSSplitViewDividerStyle;
 
 
-@interface NSSplitView : NSView {
+extern class NSSplitView : NSView {
     @private
     id _variables;
 }
@@ -85,7 +85,7 @@ typedef NSInteger NSSplitViewDividerStyle;
 - (void)setPosition:(CGFloat)position ofDividerAtIndex:(NSInteger)dividerIndex NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
 @protocol NSSplitViewDelegate <NSObject>
 @optional
@@ -150,7 +150,7 @@ Delegates that respond to this message should adjust the frames of the uncollaps
 - (void)splitViewWillResizeSubviews:(NSNotification *)notification;
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification;
 
-@end
+}
 
 /* A notification that is posted to the default notification center by NSSplitView when a split view is about to resize its subviews either as a result of its own resizing or during the dragging of one of its dividers by the user. Starting in Mac OS 10.5, if the notification is being sent because the user is dragging a divider, the notification's user info dictionary contains an entry whose key is @"NSSplitViewDividerIndex" and whose value is an NSInteger-wrapping NSNumber that is the index of the divider being dragged.
 */
@@ -161,11 +161,11 @@ APPKIT_EXTERN NSString *NSSplitViewWillResizeSubviewsNotification;
 APPKIT_EXTERN NSString *NSSplitViewDidResizeSubviewsNotification;
 
 
-@interface NSSplitView (NSDeprecated)
+extern class NSSplitView (NSDeprecated)
 
 /* Set or get whether the split view is a "pane splitter" (YES) or "grabber" (NO) split view. In Mac OS 10.5 the value of this property has no effect. These methods are deprecated in Mac OS 10.6.
  */
 - (void)setIsPaneSplitter:(BOOL)flag NS_DEPRECATED_MAC(10_0, 10_6);
 - (BOOL)isPaneSplitter NS_DEPRECATED_MAC(10_0, 10_6);
 
-@end
+}

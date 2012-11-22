@@ -7,7 +7,7 @@
 
 #import <Foundation/NSObject.h>
 
-@interface NSNibConnector : NSObject <NSCoding>
+extern class NSNibConnector extends NSObject, implements NSObject>
 {
     @private
     id _source;		/* The source of the connection. */
@@ -22,4 +22,4 @@
 - (void)setLabel:(NSString *)label;
 - (void)replaceObject:(id)oldObject withObject:(id)newObject;
 - (void)establishConnection;
-@end
+}

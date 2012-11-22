@@ -12,7 +12,7 @@
 
 @class NSToolbarItemViewer, NSMenuItem, NSView, NSImage;
 
-@interface NSToolbarItem : NSObject <NSCopying, NSValidatedUserInterfaceItem> {
+extern class NSToolbarItem extends NSObject <NSCopying, NSValidatedUserInterfaceItem> {
 @private
     NSToolbar *		_toolbar;
     NSImage *		_image;
@@ -151,14 +151,14 @@ enum {
 - (BOOL)allowsDuplicatesInToolbar;
      /* Return YES to allow dragging duplicate items into the toolbar.  By default, if an item with the same identifier is already in the toolbar, dragging in will act as a move of this item.  However, for instance, the separator item drags in as a duplicate always. */
 
-@end
+}
 
 
-@interface NSObject (NSToolbarItemValidation)
+extern class NSObject (NSToolbarItemValidation)
 - (BOOL)validateToolbarItem:(NSToolbarItem *)theItem;
     /* NSToolbarItemValidation extends the standard validation idea by introducing this new method which is sent to validators for each visible standard NSToolbarItem with a valid target/action pair.  Note: This message is sent from NSToolbarItem's validate method, howevever validate will not send this message for items that have custom views. */
 
-@end
+}
 
 
 /* standard toolbar item identifiers */

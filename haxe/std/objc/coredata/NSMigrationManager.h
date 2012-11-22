@@ -18,7 +18,7 @@
 @class NSMigrationContext;
 
 NS_CLASS_AVAILABLE(10_5, 3_0)
-@interface NSMigrationManager : NSObject {
+extern class NSMigrationManager extends NSObject {
     @private
     NSManagedObjectModel *_sourceModel;
     NSDictionary *_sourceEntitiesByVersionHash;
@@ -92,4 +92,4 @@ implementation of NSEntityMigrationPolicy's createDestinationInstancesForSourceI
 /* Cancels the migration with the specified error. Calling this method causes migrateStoreFromURL:type:options:withMappingModel:toDestinationURL:destinationType:destinationOptions:error: to abort the migration and return the specified error.  */
 - (void)cancelMigrationWithError:(NSError *)error;
 
-@end
+}

@@ -16,14 +16,14 @@ extern class UIFont extends NSObject {
 	public static function italicSystemFontOfSize (fontSize:Float) :UIFont;
 
 	// Font attributes
-	 public var familyName :String;
-	 public var fontName :String;
-	 public var pointSize :Float;
-	 public var ascender :Float;
-	 public var descender :Float;
-	 public var capHeight :Float;
-	 public var xHeight :Float;
-	 public var lineHeight :Float;
+	public var familyName :String;
+	public var fontName :String;
+	public var pointSize :Float;
+	public var ascender :Float;
+	public var descender :Float;
+	public var capHeight :Float;
+	public var xHeight :Float;
+	public var lineHeight :Float;
 
 	 // Create a new font that is identical to the current font except the specified size
 	public function fontWithSize (fontSize:Float) :UIFont;

@@ -26,12 +26,12 @@ typedef NSInteger GKPlayerConnectionState;
 
 // GKMatch represents an active networking sessions between players. It handles network communications and can report player connection status. All matches are created by a GKMatchmaker.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKMatch : NSObject {
+extern class GKMatch extends NSObject {
 }
 
-@property(nonatomic, readonly) NSArray *playerIDs;    // NSStrings of player identifiers in the match
-@property(nonatomic, assign) id<GKMatchDelegate> delegate;
-@property(nonatomic, readonly) NSUInteger expectedPlayerCount;
+	public var (default, null) NSArray *playerIDs;    // NSStrings of player identifiers in the match
+	public var  id<GKMatchDelegate> delegate;
+	public var (default, null) NSUInteger expectedPlayerCount;
 
 // Asynchronously send data to one or more players. Returns YES if delivery started, NO if unable to start sending and error will be set.
 - (BOOL)sendData:(NSData *)data toPlayers:(NSArray *)playerIDs withDataMode:(GKMatchSendDataMode)mode error:(NSError **)error;
@@ -54,7 +54,7 @@ NS_CLASS_AVAILABLE(10_8, 4_1)
 // 2. Timeout
 - (void)rematchWithCompletionHandler:(void(^)(GKMatch *match, NSError *error))completionHandler __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
-@end
+}
 
 @protocol GKMatchDelegate <NSObject>
 @required
@@ -71,4 +71,4 @@ NS_CLASS_AVAILABLE(10_8, 4_1)
 // This method is called when the match is interrupted; if it returns YES, a new invite will be sent to attempt reconnection. This is supported only for 1v1 games
 - (BOOL)match:(GKMatch *)match shouldReinvitePlayer:(NSString *)playerID;
 
-@end
+}

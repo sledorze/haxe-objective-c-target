@@ -12,7 +12,7 @@
 @class NSScriptObjectSpecifier;
 @class NSString;
 
-@interface NSDocument (NSScripting)
+extern class NSDocument (NSScripting)
 
 - (NSString *)lastComponentOfFileName;
 - (void)setLastComponentOfFileName:(NSString *)str;
@@ -23,4 +23,4 @@
 
 - (NSScriptObjectSpecifier *)objectSpecifier;
 
-@end
+}

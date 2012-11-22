@@ -48,7 +48,7 @@
 @class AVSynchronizedLayerInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVSynchronizedLayer : CALayer
+extern class AVSynchronizedLayer : CALayer
 {
 	AVSynchronizedLayerInternal		*_syncLayer;
 }
@@ -61,6 +61,6 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 + (AVSynchronizedLayer *)synchronizedLayerWithPlayerItem:(AVPlayerItem *)playerItem;
 
 /* indicates the instance of AVPlayerItem to which the timing of the AVSynchronizedLayer is synchronized */
-@property (nonatomic, retain) AVPlayerItem *playerItem;
+	public var AVPlayerItem *playerItem;
 
-@end
+}

@@ -103,7 +103,7 @@ FOUNDATION_EXPORT NSString * const NSHTTPCookiePort;
     attributes of a cookie.
 */
 
-@interface NSHTTPCookie : NSObject
+extern class NSHTTPCookie extends NSObject
 {
 @private
     NSHTTPCookieInternal * _cookiePrivate;
@@ -410,5 +410,5 @@ FOUNDATION_EXPORT NSString * const NSHTTPCookiePort;
 */
 - (NSArray *)portList;
 
-@end
+}
 

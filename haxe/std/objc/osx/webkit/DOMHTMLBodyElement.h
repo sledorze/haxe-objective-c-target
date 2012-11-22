@@ -30,13 +30,13 @@
 
 @class NSString;
 
-@interface DOMHTMLBodyElement : DOMHTMLElement
-@property(copy) NSString *aLink;
-@property(copy) NSString *background;
-@property(copy) NSString *bgColor;
-@property(copy) NSString *link;
-@property(copy) NSString *text;
-@property(copy) NSString *vLink;
-@end
+extern class DOMHTMLBodyElement : DOMHTMLElement
+	public var NSString *aLink;
+	public var NSString *background;
+	public var NSString *bgColor;
+	public var NSString *link;
+	public var NSString *text;
+	public var NSString *vLink;
+}
 
 #endif

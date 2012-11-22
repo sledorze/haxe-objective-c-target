@@ -1,6 +1,6 @@
 //
 //  UIBezierPath.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -17,7 +17,7 @@ typedef NS_OPTIONS(NSUInteger, UIRectCorner) {
     UIRectCornerAllCorners  = ~0UL
 };
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCoding> {
+extern class UIBezierPath extends NSObject<NSCopying, NSCoding> {
 @private
     CGPathRef _path;
     CGFloat *_lineDashPattern;
@@ -40,22 +40,22 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCodi
 
 // Returns an immutable CGPathRef which is only valid until the UIBezierPath is further mutated.
 // Setting the path will create an immutable copy of the provided CGPathRef, so any further mutations on a provided CGMutablePathRef will be ignored.
-@property(nonatomic) CGPathRef CGPath;
+	public var  CGPathRef CGPath;
 
 // Path construction
 
-- (void)moveToPoint:(CGPoint)point;
-- (void)addLineToPoint:(CGPoint)point;
-- (void)addCurveToPoint:(CGPoint)endPoint controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2;
-- (void)addQuadCurveToPoint:(CGPoint)endPoint controlPoint:(CGPoint)controlPoint;
-- (void)addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise NS_AVAILABLE_IOS(4_0);
-- (void)closePath;
+	public function moveToPoint:(CGPoint)point;
+	public function addLineToPoint:(CGPoint)point;
+	public function addCurveToPoint:(CGPoint)endPoint controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2;
+	public function addQuadCurveToPoint:(CGPoint)endPoint controlPoint:(CGPoint)controlPoint;
+	public function addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise NS_AVAILABLE_IOS(4_0);
+	public function closePath;
 
-- (void)removeAllPoints;
+	public function removeAllPoints;
 
 // Appending paths
 
-- (void)appendPath:(UIBezierPath *)bezierPath;
+	public function appendPath:(UIBezierPath *)bezierPath;
 
 // Modified paths
 
@@ -63,36 +63,36 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCodi
 
 // Transforming paths
 
-- (void)applyTransform:(CGAffineTransform)transform;
+	public function applyTransform:(CGAffineTransform)transform;
 
 // Path info
 
-@property(readonly,getter=isEmpty) BOOL empty;
-@property(nonatomic,readonly) CGRect bounds;
-@property(nonatomic,readonly) CGPoint currentPoint;
+	public var (readonly,getter=isEmpty) BOOL empty;
+	public var (default, null) CGRect bounds;
+	public var (default, null) CGPoint currentPoint;
 - (BOOL)containsPoint:(CGPoint)point;
 
 // Drawing properties
 
-@property(nonatomic) CGFloat lineWidth;
-@property(nonatomic) CGLineCap lineCapStyle;
-@property(nonatomic) CGLineJoin lineJoinStyle;
-@property(nonatomic) CGFloat miterLimit; // Used when lineJoinStyle is kCGLineJoinMiter
-@property(nonatomic) CGFloat flatness;
-@property(nonatomic) BOOL usesEvenOddFillRule; // Default is NO. When YES, the even-odd fill rule is used for drawing, clipping, and hit testing.
+	public var  CGFloat lineWidth;
+	public var  CGLineCap lineCapStyle;
+	public var  CGLineJoin lineJoinStyle;
+	public var  CGFloat miterLimit; // Used when lineJoinStyle is kCGLineJoinMiter
+	public var  CGFloat flatness;
+	public var  BOOL usesEvenOddFillRule; // Default is NO. When YES, the even-odd fill rule is used for drawing, clipping, and hit testing.
 
-- (void)setLineDash:(const CGFloat *)pattern count:(NSInteger)count phase:(CGFloat)phase;
-- (void)getLineDash:(CGFloat *)pattern count:(NSInteger *)count phase:(CGFloat *)phase;
+	public function setLineDash:(const CGFloat *)pattern count:(NSInteger)count phase:(CGFloat)phase;
+	public function getLineDash:(CGFloat *)pattern count:(NSInteger *)count phase:(CGFloat *)phase;
 
 // Path operations on the current graphics context
 
-- (void)fill;
-- (void)stroke;
+	public function fill;
+	public function stroke;
 
 // These methods do not affect the blend mode or alpha of the current graphics context
-- (void)fillWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
-- (void)strokeWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function fillWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function strokeWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
 
-- (void)addClip;
+	public function addClip;
 
-@end
+}

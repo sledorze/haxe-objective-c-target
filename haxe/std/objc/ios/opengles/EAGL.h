@@ -10,9 +10,9 @@
 #include <Foundation/Foundation.h>
 
 #ifdef __cplusplus
-#define EAGL_EXTERN extern "C" __attribute__((visibility ("default")))
+#define EAGL_EXTERNextern "C" __attribute__((visibility ("default")))
 #else
-#define EAGL_EXTERN extern __attribute__((visibility ("default")))
+#define EAGL_EXTERNextern __attribute__((visibility ("default")))
 #endif
 
 #define EAGL_EXTERN_CLASS __attribute__((visibility("default")))
@@ -47,22 +47,22 @@ EAGL_EXTERN void EAGLGetVersion(unsigned int* major, unsigned int* minor);
 /************************************************************************/
 
 EAGL_EXTERN_CLASS
-@interface EAGLSharegroup : NSObject
+extern class EAGLSharegroup extends NSObject
 {
 @package
 	struct _EAGLSharegroupPrivate *_private;
 }
 
-@property (copy, nonatomic) NSString* debugLabel NS_AVAILABLE_IOS(6_0);
+	public var  (copy, nonatomic) NSString* debugLabel NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 /************************************************************************/
 /* EAGL Context                                                         */
 /************************************************************************/
 
 EAGL_EXTERN_CLASS
-@interface EAGLContext : NSObject
+extern class EAGLContext extends NSObject
 {
 @public
 	struct _EAGLContextPrivate *_private;
@@ -74,12 +74,12 @@ EAGL_EXTERN_CLASS
 + (BOOL)            setCurrentContext:(EAGLContext*) context;
 + (EAGLContext*)    currentContext;
 
-@property (readonly) EAGLRenderingAPI   API;
-@property (readonly) EAGLSharegroup*    sharegroup;
+	public var EAGLRenderingAPI   API;
+	public var EAGLSharegroup*    sharegroup;
 
-@property (copy, nonatomic) NSString* debugLabel NS_AVAILABLE_IOS(6_0);
+	public var  (copy, nonatomic) NSString* debugLabel NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 
 #endif /* _EAGL_H_ */

@@ -1,6 +1,6 @@
 //
 //  UIRotationGestureRecognizer.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -12,7 +12,7 @@
 // Changes: when a finger moves while two fingers are down
 // Ends:    when both fingers have lifted
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIRotationGestureRecognizer : UIGestureRecognizer {
+extern class UIRotationGestureRecognizer : UIGestureRecognizer {
   @package
     double            _initialTouchDistance;
     double            _initialTouchAngle;
@@ -26,7 +26,7 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIRotationGestureRecognizer : UIGestureRe
     UITouch          *_touches[2];
 }
 
-@property (nonatomic)          CGFloat rotation;            // rotation in radians
-@property (nonatomic,readonly) CGFloat velocity;            // velocity of the pinch in radians/second
+	public var          CGFloat rotation;            // rotation in radians
+	public var  (nonatomic,readonly) CGFloat velocity;            // velocity of the pinch in radians/second
 
-@end
+}

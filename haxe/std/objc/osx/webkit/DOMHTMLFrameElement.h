@@ -32,20 +32,20 @@
 @class DOMDocument;
 @class NSString;
 
-@interface DOMHTMLFrameElement : DOMHTMLElement
-@property(copy) NSString *frameBorder;
-@property(copy) NSString *longDesc;
-@property(copy) NSString *marginHeight;
-@property(copy) NSString *marginWidth;
-@property(copy) NSString *name;
-@property BOOL noResize;
-@property(copy) NSString *scrolling;
-@property(copy) NSString *src;
-@property(readonly, retain) DOMDocument *contentDocument;
-@property(readonly, retain) DOMAbstractView *contentWindow AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *location AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int width AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) int height AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+extern class DOMHTMLFrameElement : DOMHTMLElement
+	public var NSString *frameBorder;
+	public var NSString *longDesc;
+	public var NSString *marginHeight;
+	public var NSString *marginWidth;
+	public var NSString *name;
+	public var  BOOL noResize;
+	public var NSString *scrolling;
+	public var NSString *src;
+	public var (default, null) DOMDocument *contentDocument;
+	public var (default, null) DOMAbstractView *contentWindow AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *location AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int width AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : int height AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+}
 
 #endif

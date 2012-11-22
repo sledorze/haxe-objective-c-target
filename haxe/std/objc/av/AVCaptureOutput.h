@@ -34,14 +34,14 @@
     method.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureOutput : NSObject
+extern class AVCaptureOutput extends NSObject
 {
 @private
     AVCaptureOutputInternal *_outputInternal;
 }
 
 /*!
- @property connections
+ 	public var  connections
  @abstract
     The connections that describe the flow of media data to the receiver from AVCaptureInputs.
 
@@ -49,10 +49,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an NSArray of AVCaptureConnection objects, each describing the mapping between the
     receiver and the AVCaptureInputPorts of one or more AVCaptureInputs.
 */
-@property(nonatomic, readonly) NSArray *connections;
+	public var (default, null) NSArray *connections;
 
 /*!
- @property connectionWithMediaType:
+ 	public var  connectionWithMediaType:
  @abstract
     Returns the first connection in the connections array with an inputPort of the specified mediaType.
 
@@ -103,7 +103,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (AVMetadataObject *)transformedMetadataObjectForMetadataObject:(AVMetadataObject *)metadataObject connection:(AVCaptureConnection *)connection NS_AVAILABLE(NA, 6_0);
 
-@end
+}
 
 
 @class AVCaptureVideoDataOutputInternal;
@@ -120,7 +120,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     Applications can access the frames with the captureOutput:didOutputSampleBuffer:fromConnection: delegate method.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureVideoDataOutput : AVCaptureOutput 
+extern class AVCaptureVideoDataOutput : AVCaptureOutput 
 {
 @private
 	AVCaptureVideoDataOutputInternal *_internal;
@@ -161,7 +161,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)setSampleBufferDelegate:(id<AVCaptureVideoDataOutputSampleBufferDelegate>)sampleBufferDelegate queue:(dispatch_queue_t)sampleBufferCallbackQueue;
 
 /*!
- @property sampleBufferDelegate
+ 	public var  sampleBufferDelegate
  @abstract
     The receiver's delegate.
 
@@ -170,20 +170,20 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     will receive sample buffers after they are captured. The delegate is set using the setSampleBufferDelegate:queue:
     method.
 */
-@property(nonatomic, readonly) id<AVCaptureVideoDataOutputSampleBufferDelegate> sampleBufferDelegate;
+	public var (default, null) id<AVCaptureVideoDataOutputSampleBufferDelegate> sampleBufferDelegate;
 
 /*!
- @property sampleBufferCallbackQueue
+ 	public var  sampleBufferCallbackQueue
  @abstract
     The dispatch queue on which all sample buffer delegate methods will be called.
 
  @discussion
     The value of this property is a dispatch_queue_t. The queue is set using the setSampleBufferDelegate:queue: method.
 */
-@property(nonatomic, readonly) dispatch_queue_t sampleBufferCallbackQueue;
+	public var (default, null) dispatch_queue_t sampleBufferCallbackQueue;
 
 /*!
- @property videoSettings
+ 	public var  videoSettings
  @abstract
     Specifies the settings used to decode or re-encode video before it is output by the receiver.
 
@@ -195,10 +195,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     Currently, the only supported key is kCVPixelBufferPixelFormatTypeKey. Supported pixel formats are
     kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, kCVPixelFormatType_420YpCbCr8BiPlanarFullRange and kCVPixelFormatType_32BGRA.
 */
-@property(nonatomic, copy) NSDictionary *videoSettings;
+	public var  NSDictionary *videoSettings;
 
 /*!
- @property availableVideoCVPixelFormatTypes
+ 	public var  availableVideoCVPixelFormatTypes
  @abstract
     Indicates the supported video pixel formats that can be specified in videoSettings.
 
@@ -207,10 +207,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     kCVPixelBufferPixelFormatTypeKey in the receiver's videoSettings property.  The first
     format in the returned list is the most efficient output format.
 */
-@property(nonatomic, readonly) NSArray *availableVideoCVPixelFormatTypes NS_AVAILABLE(10_7, 5_0);
+	public var (default, null) NSArray *availableVideoCVPixelFormatTypes NS_AVAILABLE(10_7, 5_0);
 
 /*!
- @property availableVideoCodecTypes
+ 	public var  availableVideoCodecTypes
  @abstract
     Indicates the supported video codec formats that can be specified in videoSettings.
 
@@ -218,10 +218,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an NSArray of NSStrings that can be used as values for the 
     AVVideoCodecKey in the receiver's videoSettings property.
 */
-@property(nonatomic, readonly) NSArray *availableVideoCodecTypes NS_AVAILABLE(10_7, 5_0);
+	public var (default, null) NSArray *availableVideoCodecTypes NS_AVAILABLE(10_7, 5_0);
 
 /*!
- @property minFrameDuration
+ 	public var  minFrameDuration
  @abstract
     Specifies the minimum time interval between which the receiver should output consecutive video frames.
 
@@ -232,10 +232,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     rate. The default value is kCMTimeInvalid.  As of iOS 5.0, minFrameDuration is deprecated.  Use AVCaptureConnection's
     videoMinFrameDuration property instead.
 */
-@property(nonatomic) CMTime minFrameDuration NS_DEPRECATED_IOS(4_0, 5_0);
+	public var  CMTime minFrameDuration NS_DEPRECATED_IOS(4_0, 5_0);
 
 /*!
- @property alwaysDiscardsLateVideoFrames
+ 	public var  alwaysDiscardsLateVideoFrames
  @abstract
     Specifies whether the receiver should always discard any video frame that is not processed before the next frame is
     captured.
@@ -247,9 +247,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     before new frames are discarded, but application memory usage may increase significantly as a result. The default
     value is YES.
 */
-@property(nonatomic) BOOL alwaysDiscardsLateVideoFrames;
+	public var  BOOL alwaysDiscardsLateVideoFrames;
 
-@end
+}
 
 /*!
  @protocol AVCaptureVideoDataOutputSampleBufferDelegate
@@ -320,7 +320,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
  */
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didDropSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection NS_AVAILABLE(10_7, 6_0);
 
-@end
+}
 
 
 @class AVCaptureAudioDataOutputInternal;
@@ -338,7 +338,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     method.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureAudioDataOutput : AVCaptureOutput 
+extern class AVCaptureAudioDataOutput : AVCaptureOutput 
 {
 @private
 	AVCaptureAudioDataOutputInternal *_internal;
@@ -375,7 +375,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)setSampleBufferDelegate:(id<AVCaptureAudioDataOutputSampleBufferDelegate>)sampleBufferDelegate queue:(dispatch_queue_t)sampleBufferCallbackQueue;
 
 /*!
- @property sampleBufferDelegate
+ 	public var  sampleBufferDelegate
  @abstract
     The receiver's delegate.
 
@@ -384,22 +384,22 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     will receive sample buffers after they are captured. The delegate is set using the setSampleBufferDelegate:queue:
     method.
 */
-@property(nonatomic, readonly) id<AVCaptureAudioDataOutputSampleBufferDelegate> sampleBufferDelegate;
+	public var (default, null) id<AVCaptureAudioDataOutputSampleBufferDelegate> sampleBufferDelegate;
 
 /*!
- @property sampleBufferCallbackQueue
+ 	public var  sampleBufferCallbackQueue
  @abstract
     The dispatch queue on which all sample buffer delegate methods will be called.
 
  @discussion
     The value of this property is a dispatch_queue_t. The queue is set using the setSampleBufferDelegate:queue: method.
 */
-@property(nonatomic, readonly) dispatch_queue_t sampleBufferCallbackQueue;
+	public var (default, null) dispatch_queue_t sampleBufferCallbackQueue;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property	 audioSettings
+ 	public var 	 audioSettings
  @abstract
     Specifies the settings used to decode or re-encode audio before it is output by the receiver.
 
@@ -408,11 +408,11 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     in AVAudioSettings.h.  When audioSettings is set to nil, the AVCaptureAudioDataOutput vends samples
     in their device native format.
 */
-@property(nonatomic, copy) NSDictionary *audioSettings NS_AVAILABLE(10_7, NA);
+	public var  NSDictionary *audioSettings NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@end
+}
 
 /*!
  @protocol AVCaptureAudioDataOutputSampleBufferDelegate
@@ -448,7 +448,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection;
 
-@end
+}
 
 
 @class AVCaptureFileOutputInternal;
@@ -475,7 +475,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     file, and AVCaptureAudioFileOutput, which writes audio media to a variety of audio file formats.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureFileOutput : AVCaptureOutput 
+extern class AVCaptureFileOutput : AVCaptureOutput 
 {
 @private
 	AVCaptureFileOutputInternal *_fileOutputInternal;
@@ -484,7 +484,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property delegate
+ 	public var  delegate
  @abstract
     The receiver's delegate.
 
@@ -492,12 +492,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an object conforming to the AVCaptureFileOutputDelegate protocol that will be able to
     monitor and control recording along exact sample boundaries.
 */
-@property(nonatomic, assign) id<AVCaptureFileOutputDelegate> delegate NS_AVAILABLE(10_7, NA);
+	public var  id<AVCaptureFileOutputDelegate> delegate NS_AVAILABLE(10_7, NA);
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property outputFileURL
+ 	public var  outputFileURL
  @abstract
     The file URL of the file to which the receiver is currently recording incoming buffers.
 
@@ -505,7 +505,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an NSURL object containing the file URL of the file currently being written by the
     receiver. Returns nil if the receiver is not recording to any file.
 */
-@property(nonatomic, readonly) NSURL *outputFileURL;
+	public var (default, null) NSURL *outputFileURL;
 
 /*!
  @method startRecordingToOutputFileURL:recordingDelegate:
@@ -567,7 +567,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (void)stopRecording;
 
 /*!
- @property recording
+ 	public var  recording
  @abstract
     Indicates whether the receiver is currently recording.
 
@@ -575,12 +575,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is YES when the receiver currently has a file to which it is writing new samples, NO
     otherwise.
 */
-@property(nonatomic, readonly, getter=isRecording) BOOL recording;
+	public var (nonatomic, readonly, getter=isRecording) BOOL recording;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property recordingPaused
+ 	public var  recordingPaused
  @abstract
     Indicates whether recording to the current output file is paused.
 
@@ -589,7 +589,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     pauseRecording method. When a recording is paused, captured samples are not written to the output file, but new
     samples can be written to the same file in the future by calling resumeRecording.
 */
-@property(nonatomic, readonly, getter=isRecordingPaused) BOOL recordingPaused NS_AVAILABLE(10_7, NA);
+	public var (nonatomic, readonly, getter=isRecordingPaused) BOOL recordingPaused NS_AVAILABLE(10_7, NA);
 
 /*!
  @method pauseRecording
@@ -626,27 +626,27 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
 /*!
- @property recordedDuration
+ 	public var  recordedDuration
  @abstract
     Indicates the duration of the media recorded to the current output file.
 
  @discussion
     If recording is in progress, this property returns the total time recorded so far.
 */
-@property(nonatomic, readonly) CMTime recordedDuration;
+	public var (default, null) CMTime recordedDuration;
 
 /*!
- @property recordedFileSize
+ 	public var  recordedFileSize
  @abstract
     Indicates the size, in bytes, of the data recorded to the current output file.
 
  @discussion
     If a recording is in progress, this property returns the size in bytes of the data recorded so far.
 */
-@property(nonatomic, readonly) int64_t recordedFileSize;	
+	public var (default, null) int64_t recordedFileSize;	
 
 /*!
- @property maxRecordedDuration
+ 	public var  maxRecordedDuration
  @abstract
     Specifies the maximum duration of the media that should be recorded by the receiver.
 
@@ -655,10 +655,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     reached and the captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error: delegate method is invoked
     with an appropriate error. The default value of this property is kCMTimeInvalid, which indicates no limit.
 */
-@property(nonatomic) CMTime maxRecordedDuration;
+	public var  CMTime maxRecordedDuration;
 
 /*!
- @property maxRecordedFileSize
+ 	public var  maxRecordedFileSize
  @abstract
     Specifies the maximum size, in bytes, of the data that should be recorded by the receiver.
  
@@ -667,10 +667,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     reached and the captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error: delegate method is invoked
     with an appropriate error. The default value of this property is 0, which indicates no limit.
 */
-@property(nonatomic) int64_t maxRecordedFileSize;
+	public var  int64_t maxRecordedFileSize;
 
 /*!
- @property minFreeDiskSpaceLimit
+ 	public var  minFreeDiskSpaceLimit
  @abstract
     Specifies the minimum amount of free space, in bytes, required for recording to continue on a given volume.
 
@@ -680,9 +680,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error: delegate method is invoked with an
     appropriate error.
 */
-@property(nonatomic) int64_t minFreeDiskSpaceLimit;
+	public var  int64_t minFreeDiskSpaceLimit;
 
-@end
+}
 
 /*!
  @protocol AVCaptureFileOutputRecordingDelegate
@@ -826,7 +826,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)error;
 
-@end
+}
 
 /*!
  @protocol AVCaptureFileOutputDelegate
@@ -910,7 +910,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@end
+}
 
 
 @class AVCaptureMovieFileOutputInternal;
@@ -928,14 +928,14 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     specify media encoding options for each track (Mac OS X), and specify an interval at which movie fragments should be written.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureMovieFileOutput : AVCaptureFileOutput
+extern class AVCaptureMovieFileOutput : AVCaptureFileOutput
 {
 @private
 	AVCaptureMovieFileOutputInternal *_internal;
 }
 
 /*!
- @property movieFragmentInterval
+ 	public var  movieFragmentInterval
  @abstract
     Specifies the frequency with which movie fragments should be written.
 
@@ -948,10 +948,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     Changing the value of this property will not affect the movie fragment interval of the file currently being written,
     if there is one.
 */
-@property(nonatomic) CMTime movieFragmentInterval;
+	public var  CMTime movieFragmentInterval;
 
 /*!
- @property metadata
+ 	public var  metadata
  @abstract
     A collection of metadata to be written to the receiver's output files.
 
@@ -959,7 +959,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an array of AVMetadataItem objects representing the collection of top-level metadata to
     be written in each output file.
 */
-@property(nonatomic, copy) NSArray *metadata;
+	public var  NSArray *metadata;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -1003,7 +1003,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
-@end
+}
 
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
@@ -1023,7 +1023,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     audio encoding options.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface AVCaptureAudioFileOutput : AVCaptureFileOutput
+extern class AVCaptureAudioFileOutput : AVCaptureFileOutput
 {
 @private
 	AVCaptureAudioFileOutputInternal *_internal;
@@ -1078,7 +1078,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
 - (void)startRecordingToOutputFileURL:(NSURL*)outputFileURL outputFileType:(NSString *)fileType recordingDelegate:(id<AVCaptureFileOutputRecordingDelegate>)delegate;
 
 /*!
- @property metadata
+ 	public var  metadata
  @abstract
     A collection of metadata to be written to the receiver's output files.
 
@@ -1086,10 +1086,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     The value of this property is an array of AVMetadataItem objects representing the collection of top-level metadata to
     be written in each output file. Only ID3 v2.2, v2.3, or v2.4 style metadata items are supported.
 */
-@property(nonatomic, copy) NSArray *metadata; 
+	public var  NSArray *metadata; 
 
 /*!
- @property audioSettings
+ 	public var  audioSettings
  @abstract
     Specifies the options the receiver uses to re-encode audio as it is being recorded.
 
@@ -1097,9 +1097,9 @@ NS_CLASS_AVAILABLE(10_7, NA)
     The output settings dictionary can contain values for keys from AVAudioSettings.h. A value of nil indicates that the
     format of the audio should not be changed before being written to the file.
 */
-@property(nonatomic, copy) NSDictionary *audioSettings;
+	public var  NSDictionary *audioSettings;
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -1119,14 +1119,14 @@ NS_CLASS_AVAILABLE(10_7, NA)
     outputs to produce still images in specific image formats.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureStillImageOutput : AVCaptureOutput 
+extern class AVCaptureStillImageOutput : AVCaptureOutput 
 {
 @private
 	AVCaptureStillImageOutputInternal *_internal;
 }
 
 /*!
- @property outputSettings
+ 	public var  outputSettings
  @abstract
     Specifies the options the receiver uses to encode still images before they are delivered.
 
@@ -1138,10 +1138,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     codec keys and pixel formats are supported. AVVideoQualityKey is supported on iOS 6.0 and later
     and may only be used when AVVideoCodecKey is set to AVVideoCodecJPEG.
 */
-@property(nonatomic, copy) NSDictionary *outputSettings;
+	public var  NSDictionary *outputSettings;
 
 /*!
- @property availableImageDataCVPixelFormatTypes
+ 	public var  availableImageDataCVPixelFormatTypes
  @abstract
     Indicates the supported image pixel formats that can be specified in outputSettings.
 
@@ -1150,10 +1150,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     kCVPixelBufferPixelFormatTypeKey in the receiver's outputSettings property.  The first
     format in the returned list is the most efficient output format.
 */
-@property(nonatomic, readonly) NSArray *availableImageDataCVPixelFormatTypes;
+	public var (default, null) NSArray *availableImageDataCVPixelFormatTypes;
 
 /*!
- @property availableImageDataCodecTypes
+ 	public var  availableImageDataCodecTypes
  @abstract
     Indicates the supported image codec formats that can be specified in outputSettings.
 
@@ -1161,10 +1161,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an NSArray of NSStrings that can be used as values for the 
     AVVideoCodecKey in the receiver's outputSettings property.
 */
-@property(nonatomic, readonly) NSArray *availableImageDataCodecTypes;
+	public var (default, null) NSArray *availableImageDataCodecTypes;
 
 /*!
- @property capturingStillImage
+ 	public var  capturingStillImage
  @abstract
     A boolean value that becomes true when a still image is being captured.
 
@@ -1173,7 +1173,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     captured, and false when no still image capture is underway.  This property is
     key-value observable.
 */
-@property(readonly, getter=isCapturingStillImage) BOOL capturingStillImage NS_AVAILABLE(10_8, 5_0);
+	public var (readonly, getter=isCapturingStillImage) BOOL capturingStillImage NS_AVAILABLE(10_8, 5_0);
 
 /*!
  @method captureStillImageAsynchronouslyFromConnection:completionHandler:
@@ -1215,7 +1215,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 + (NSData *)jpegStillImageNSDataRepresentation:(CMSampleBufferRef)jpegSampleBuffer;
 
-@end
+}
 
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
@@ -1234,14 +1234,14 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     kAudioDevicePropertyDeviceUID property.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface AVCaptureAudioPreviewOutput : AVCaptureOutput 
+extern class AVCaptureAudioPreviewOutput : AVCaptureOutput 
 {
 @private
 	AVCaptureAudioPreviewOutputInternal *_internal;
 }
 
 /*!
- @property outputDeviceUniqueID
+ 	public var  outputDeviceUniqueID
  @abstract
     Specifies the unique ID of the Core Audio output device being used to play preview audio.
 
@@ -1249,19 +1249,19 @@ NS_CLASS_AVAILABLE(10_7, NA)
     The value of this property is an NSString containing the unique ID of the Core Audio device to be used for output, or
     nil if the default system output should be used
 */
-@property(nonatomic, copy) NSString *outputDeviceUniqueID;
+	public var  NSString *outputDeviceUniqueID;
 
 /*!
- @property volume
+ 	public var  volume
  @abstract
     Specifies the preview volume of the output.
 
  @discussion
     The value of this property is the preview volume of the receiver, where 1.0 is the maximum volume and 0.0 is muted. 
 */
-@property(nonatomic) float volume;
+	public var  float volume;
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 
@@ -1281,7 +1281,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
     delegate method.
 */
 NS_CLASS_AVAILABLE(NA, 6_0)
-@interface AVCaptureMetadataOutput : AVCaptureOutput 
+extern class AVCaptureMetadataOutput : AVCaptureOutput 
 {
 @private
 	AVCaptureMetadataOutputInternal *_internal;
@@ -1314,7 +1314,7 @@ NS_CLASS_AVAILABLE(NA, 6_0)
 - (void)setMetadataObjectsDelegate:(id<AVCaptureMetadataOutputObjectsDelegate>)objectsDelegate queue:(dispatch_queue_t)objectsCallbackQueue;
 
 /*!
- @property metadataObjectsDelegate
+ 	public var  metadataObjectsDelegate
  @abstract
     The receiver's delegate.
  
@@ -1323,20 +1323,20 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     will receive metadata objects after they are captured. The delegate is set using the setMetadataObjectsDelegate:queue:
     method.
 */
-@property(nonatomic, readonly) id<AVCaptureMetadataOutputObjectsDelegate> metadataObjectsDelegate;
+	public var (default, null) id<AVCaptureMetadataOutputObjectsDelegate> metadataObjectsDelegate;
 
 /*!
- @property metadataObjectsCallbackQueue
+ 	public var  metadataObjectsCallbackQueue
  @abstract
     The dispatch queue on which all metadata object delegate methods will be called.
 
  @discussion
     The value of this property is a dispatch_queue_t. The queue is set using the setMetadataObjectsDelegate:queue: method.
 */
-@property(nonatomic, readonly) dispatch_queue_t metadataObjectsCallbackQueue;
+	public var (default, null) dispatch_queue_t metadataObjectsCallbackQueue;
 
 /*!
- @property availableMetadataObjectTypes
+ 	public var  availableMetadataObjectTypes
  @abstract
     Indicates the receiver's supported metadata object types.
  
@@ -1347,10 +1347,10 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     AVCaptureConnection is connected.  Clients may specify the types of objects they would like to process
     by calling setMetadataObjectTypes:.  This property is key-value observable.
 */
-@property(nonatomic, readonly) NSArray *availableMetadataObjectTypes;
+	public var (default, null) NSArray *availableMetadataObjectTypes;
 
 /*!
- @property metadataObjectTypes
+ 	public var  metadataObjectTypes
  @abstract
     Specifies the types of metadata objects that the receiver should present to the client.
 
@@ -1362,9 +1362,9 @@ NS_CLASS_AVAILABLE(NA, 6_0)
     throws an NSInvalidArgumentException if any elements in the array are not present in the
     -availableMetadataObjectTypes array.
 */
-@property(nonatomic, copy) NSArray *metadataObjectTypes;
+	public var  NSArray *metadataObjectTypes;
 
-@end
+}
 
 /*!
  @protocol AVCaptureMetadataOutputObjectsDelegate
@@ -1399,4 +1399,4 @@ NS_CLASS_AVAILABLE(NA, 6_0)
 */
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection;
 
-@end
+}

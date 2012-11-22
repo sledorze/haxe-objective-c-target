@@ -101,7 +101,7 @@
 
 // GKVoiceChatService provides voice chat capabilities depending on your networking situation.
 NS_CLASS_AVAILABLE(NA, 4_1)
-GK_EXTERN_CLASS @interface GKVoiceChatService : NSObject {
+GK_EXTERN_CLASSextern class GKVoiceChatService extends NSObject {
 	@private
 	id _voiceChatService;
 }
@@ -110,7 +110,7 @@ GK_EXTERN_CLASS @interface GKVoiceChatService : NSObject {
 
 + (BOOL)isVoIPAllowed;
 
-@property(assign) id<GKVoiceChatClient> client;
+	public var (assign) id<GKVoiceChatClient> client;
 
 // May fail if you already in a chat, or if there is no peer-to-peer channel that can be made to the participant.
 - (BOOL)startVoiceChatWithParticipantID:(NSString *)participantID error:(NSError **)error;
@@ -129,24 +129,24 @@ GK_EXTERN_CLASS @interface GKVoiceChatService : NSObject {
 // will be called by the client otherwise.
 - (void)receivedData:(NSData *)arbitraryData fromParticipantID:(NSString *)participantID;
 
-@property(nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;  // default is NO
+	public var (nonatomic, getter=isMicrophoneMuted) BOOL microphoneMuted;  // default is NO
 
 // Applies a value to raise or lower the voice of the remote peer.
-@property(nonatomic) float remoteParticipantVolume; //default 1.0 (max is 1.0, min is 0.0)
+	public var  float remoteParticipantVolume; //default 1.0 (max is 1.0, min is 0.0)
 
 // set to YES if you want to use the outputMeterLevel to implement a meter for the output signal.
-@property(nonatomic, getter=isOutputMeteringEnabled) BOOL outputMeteringEnabled; //default NO
+	public var (nonatomic, getter=isOutputMeteringEnabled) BOOL outputMeteringEnabled; //default NO
 
 // set to YES if you want to use the inputMeterLevel to implement a meter for the input (microphone) signal.
-@property(nonatomic, getter=isInputMeteringEnabled) BOOL inputMeteringEnabled;  //default NO
+	public var (nonatomic, getter=isInputMeteringEnabled) BOOL inputMeteringEnabled;  //default NO
 
 // A value in dB to indicate how loud the other participants are at this moment in time.
-@property(readonly) float outputMeterLevel;  //changes frequently as the far-end participant speaks
+	public var  (default, null) : float outputMeterLevel;  //changes frequently as the far-end participant speaks
 
 // A value in dB to indicate how loud the the near-end participant is speaking
-@property(readonly) float inputMeterLevel;  //changes frequently as the near-end participant speaks
+	public var  (default, null) : float inputMeterLevel;  //changes frequently as the near-end participant speaks
 
-@end
+}
 
 GK_EXTERN_WEAK	NSString *  const GKVoiceChatServiceErrorDomain;
 

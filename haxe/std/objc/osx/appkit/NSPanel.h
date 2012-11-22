@@ -78,7 +78,7 @@ enum {
 };
 #endif
 
-@interface NSPanel : NSWindow
+extern class NSPanel : NSWindow
 {
 /*All instance variables are private*/
 }
@@ -90,5 +90,5 @@ enum {
 - (BOOL)worksWhenModal;
 - (void)setWorksWhenModal:(BOOL)flag;
 
-@end
+}
 

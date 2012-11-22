@@ -1,6 +1,6 @@
 //
 //  UINibDeclarations.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //

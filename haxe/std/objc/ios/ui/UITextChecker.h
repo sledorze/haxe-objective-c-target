@@ -1,6 +1,6 @@
 //
 //  UITextChecker.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2009-2012, Apple Inc. All rights reserved.
 //
@@ -11,7 +11,7 @@
 /* A UITextChecker object is used by a client (e.g. a document in an application) to check a given NSString. Generally one UITextChecker instance should be created per document.  Multiple related pieces of text may share a single UITextChecker instance, if they are intended to share ignored words and other similar state.
 */
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UITextChecker : NSObject {
+extern class UITextChecker extends NSObject {
 @private
     id _checker;
     id _reserved;
@@ -28,9 +28,9 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UITextChecker : NSObject {
 - (NSArray *)completionsForPartialWordRange:(NSRange)range inString:(NSString *)string language:(NSString *)language;
 
 /* Methods for dealing with ignored words. */
-- (void)ignoreWord:(NSString *)wordToIgnore;
+	public function ignoreWord:(NSString *)wordToIgnore;
 - (NSArray *)ignoredWords;
-- (void)setIgnoredWords:(NSArray *)words;
+	public function setIgnoredWords:(NSArray *)words;
 
 /* These allow clients to programmatically instruct the checker to learn and unlearn words, and to determine whether a word has been learned (and hence can potentially be unlearned). */
 + (void)learnWord:(NSString *)word;
@@ -40,4 +40,4 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UITextChecker : NSObject {
 /* Entries in the availableLanguages list are all available spellchecking languages in user preference order, usually language abbreviations such as en_US. */
 + (NSArray *)availableLanguages;
 
-@end
+}

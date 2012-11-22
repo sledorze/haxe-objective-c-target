@@ -88,26 +88,26 @@ FOUNDATION_EXPORT NSString * const NSURLKeysOfUnsetValuesKey NS_AVAILABLE(10_7, 
 
 + (NSData *)bookmarkDataWithContentsOfURL:(NSURL *)bookmarkFileURL error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
-@interface NSString (NSURLUtilities)
+extern class NSString (NSURLUtilities)
 
 - (NSString *)stringByAddingPercentEscapesUsingEncoding:(NSStringEncoding)enc;
 - (NSString *)stringByReplacingPercentEscapesUsingEncoding:(NSStringEncoding)enc;
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 // Client informal protocol for use with the deprecated loadResourceDataNotifyingClient: below.  
-@interface NSObject(NSURLClient)
+extern class NSObject(NSURLClient)
 - (void)URL:(NSURL *)sender resourceDataDidBecomeAvailable:(NSData *)newBytes NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 - (void)URLResourceDidFinishLoading:(NSURL *)sender NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 - (void)URLResourceDidCancelLoading:(NSURL *)sender NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
 - (void)URL:(NSURL *)sender resourceDidFailLoadingWithReason:(NSString *)reason NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
-@end
+}
 
 //  This entire protocol is deprecated; use NSURLConnection instead.
-@interface NSURL (NSURLLoading)
+extern class NSURL (NSURLLoading)
 - (NSData *)resourceDataUsingCache:(BOOL)shouldUseCache NS_DEPRECATED(10_0, 10_4, 2_0, 2_0); // Blocks to load the data if necessary.  If shouldUseCache is YES, then if an equivalent URL has already been loaded and cached, its resource data will be returned immediately.  If shouldUseCache is NO, a new load will be started
 - (void)loadResourceDataNotifyingClient:(id)client usingCache:(BOOL)shouldUseCache NS_DEPRECATED(10_0, 10_4, 2_0, 2_0); // Starts an asynchronous load of the data, registering delegate to receive notification.  Only one such background load can proceed at a time.
 - (id)propertyForKey:(NSString *)propertyKey NS_DEPRECATED(10_0, 10_4, 2_0, 2_0);
@@ -118,10 +118,10 @@ FOUNDATION_EXPORT NSString * const NSURLKeysOfUnsetValuesKey NS_AVAILABLE(10_7, 
 
 - (NSURLHandle *)URLHandleUsingCache:(BOOL)shouldUseCache NS_DEPRECATED(10_0, 10_4, 2_0, 2_0); // Sophisticated clients will want to ask for this, then message the handle directly.  If shouldUseCache is NO, a newly instantiated handle is returned, even if an equivalent URL has been loaded
 
-@end
+}
 #endif
 
-@interface NSURL(NSURLPathUtilities)
+extern class NSURL(NSURLPathUtilities)
     
 + (NSURL *)fileURLWithPathComponents:(NSArray *)components NS_AVAILABLE(10_6, 4_0);
 - (NSArray *)pathComponents NS_AVAILABLE(10_6, 4_0);

@@ -14,7 +14,7 @@
  * to define the pacing of an animation over its duration (or over the
  * duration of one keyframe). */
 
-@interface CAMediaTimingFunction : NSObject <NSCoding>
+extern class CAMediaTimingFunction extends NSObject, implements NSObject>
 {
 @private
   struct CAMediaTimingFunctionPrivate *_priv;
@@ -40,7 +40,7 @@
 
 - (void)getControlPointAtIndex:(size_t)idx values:(float[2])ptr;
 
-@end
+}
 
 /** Timing function names. **/
 

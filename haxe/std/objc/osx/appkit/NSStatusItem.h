@@ -17,7 +17,7 @@
 @class NSWindow;
 
 
-@interface NSStatusItem : NSObject
+extern class NSStatusItem extends NSObject
 {
  @private
     NSStatusBar* _fStatusBar;
@@ -45,9 +45,9 @@
 - (CGFloat)length;
 - (void)setLength:(CGFloat)length;
 
-@end
+}
 
-@interface NSStatusItem (NSStatusItemCommon)
+extern class NSStatusItem (NSStatusItemCommon)
 
 - (SEL)action;
 - (void)setAction:(SEL)action;
@@ -87,12 +87,12 @@
 - (void)popUpStatusItemMenu:(NSMenu*)menu;
 - (void)drawStatusBarBackgroundInRect:(NSRect)rect withHighlight:(BOOL)highlight;
 
-@end
+}
 
-@interface NSStatusItem (NSStatusItemView)
+extern class NSStatusItem (NSStatusItemView)
 
 - (NSView* )view;
 - (void)setView:(NSView*)view;
 
-@end
+}
 

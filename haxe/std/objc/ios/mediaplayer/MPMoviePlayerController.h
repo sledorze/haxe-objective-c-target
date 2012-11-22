@@ -84,84 +84,84 @@ typedef NSInteger MPMovieSourceType;
 // 
 // See MPMediaPlayback.h for the playback methods.
 
-MP_EXTERN_CLASS_AVAILABLE(2_0) @interface MPMoviePlayerController : NSObject <MPMediaPlayback> {
+MP_EXTERN_CLASS_AVAILABLE(2_0)extern class MPMoviePlayerController extends NSObject <MPMediaPlayback> {
 @private
     void *_internal;
 }
 
 - (id)initWithContentURL:(NSURL *)url;
 
-@property(nonatomic, copy) NSURL *contentURL;
+	public var  NSURL *contentURL;
 
 // The view in which the media and playback controls are displayed.
-@property(nonatomic, readonly) UIView *view;
+	public var (default, null) UIView *view;
 
 // A view for customization which is always displayed behind movie content.
-@property(nonatomic, readonly) UIView *backgroundView;
+	public var (default, null) UIView *backgroundView;
 
 // Returns the current playback state of the movie player.
-@property(nonatomic, readonly) MPMoviePlaybackState playbackState;
+	public var (default, null) MPMoviePlaybackState playbackState;
 
 // Returns the network load state of the movie player.
-@property(nonatomic, readonly) MPMovieLoadState loadState;
+	public var (default, null) MPMovieLoadState loadState;
 
 // The style of the playback controls. Defaults to MPMovieControlStyleDefault.
-@property(nonatomic) MPMovieControlStyle controlStyle;
+	public var  MPMovieControlStyle controlStyle;
 
 // Determines how the movie player repeats when reaching the end of playback. Defaults to MPMovieRepeatModeNone.
-@property(nonatomic) MPMovieRepeatMode repeatMode;
+	public var  MPMovieRepeatMode repeatMode;
 
 // Indicates if a movie should automatically start playback when it is likely to finish uninterrupted based on e.g. network conditions. Defaults to YES.
-@property(nonatomic) BOOL shouldAutoplay;
+	public var  BOOL shouldAutoplay;
 
 // Determines if the movie is presented in the entire screen (obscuring all other application content). Default is NO.
 // Setting this property to YES before the movie player's view is visible will have no effect.
-@property(nonatomic, getter=isFullscreen) BOOL fullscreen;
+	public var (nonatomic, getter=isFullscreen) BOOL fullscreen;
 - (void)setFullscreen:(BOOL)fullscreen animated:(BOOL)animated;
 
 // Determines how the content scales to fit the view. Defaults to MPMovieScalingModeAspectFit.
-@property(nonatomic) MPMovieScalingMode scalingMode;
+	public var  MPMovieScalingMode scalingMode;
 
 // Returns YES if the first video frame has been made ready for display for the current item.
 // Will remain NO for items that do not have video tracks associated.
-@property(nonatomic, readonly) BOOL readyForDisplay NS_AVAILABLE_IOS(6_0);
+	public var (default, null) BOOL readyForDisplay NS_AVAILABLE_IOS(6_0);
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // Movie properties of the current movie prepared for playback.
 
-@interface MPMoviePlayerController (MPMovieProperties)
+extern class MPMoviePlayerController (MPMovieProperties)
 
 // The types of media in the movie, or MPMovieMediaTypeNone if not known.
-@property(nonatomic, readonly) MPMovieMediaTypeMask movieMediaTypes;
+	public var (default, null) MPMovieMediaTypeMask movieMediaTypes;
 
 // The playback type of the movie. Defaults to MPMovieSourceTypeUnknown.
 // Specifying a playback type before playing the movie can result in faster load times.
-@property(nonatomic) MPMovieSourceType movieSourceType;
+	public var  MPMovieSourceType movieSourceType;
 
 // The duration of the movie, or 0.0 if not known.
-@property(nonatomic, readonly) NSTimeInterval duration;
+	public var (default, null) NSTimeInterval duration;
 
 // The currently playable duration of the movie, for progressively downloaded network content.
-@property(nonatomic, readonly) NSTimeInterval playableDuration;
+	public var (default, null) NSTimeInterval playableDuration;
 
 // The natural size of the movie, or CGSizeZero if not known/applicable.
-@property(nonatomic, readonly) CGSize naturalSize;
+	public var (default, null) CGSize naturalSize;
 
 // The start time of movie playback. Defaults to NaN, indicating the natural start time of the movie.
-@property(nonatomic) NSTimeInterval initialPlaybackTime;
+	public var  NSTimeInterval initialPlaybackTime;
 
 // The end time of movie playback. Defaults to NaN, which indicates natural end time of the movie.
-@property(nonatomic) NSTimeInterval endPlaybackTime;
+	public var  NSTimeInterval endPlaybackTime;
 
 // Indicates whether the movie player allows AirPlay video playback. Defaults to YES on iOS 5.0 and later.
-@property(nonatomic) BOOL allowsAirPlay NS_AVAILABLE_IOS(4_3);
+	public var  BOOL allowsAirPlay NS_AVAILABLE_IOS(4_3);
 
 // Indicates whether the movie player is currently playing video via AirPlay.
-@property(nonatomic, readonly, getter=isAirPlayVideoActive) BOOL airPlayVideoActive NS_AVAILABLE_IOS(5_0);
+	public var (nonatomic, readonly, getter=isAirPlayVideoActive) BOOL airPlayVideoActive NS_AVAILABLE_IOS(5_0);
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // Movie Player Notifications
@@ -217,7 +217,7 @@ enum {
 typedef NSInteger MPMovieTimeOption;
 
 
-@interface MPMoviePlayerController (MPMoviePlayerThumbnailGeneration)
+extern class MPMoviePlayerController (MPMoviePlayerThumbnailGeneration)
 
 // Returns a thumbnail at the given time.
 - (UIImage *)thumbnailImageAtTime:(NSTimeInterval)playbackTime timeOption:(MPMovieTimeOption)option;
@@ -229,7 +229,7 @@ typedef NSInteger MPMovieTimeOption;
 // Cancels all pending asynchronous thumbnail requests.
 - (void)cancelAllThumbnailImageRequests;
 
-@end
+}
 
 // Posted when each thumbnail image request is completed.
 MP_EXTERN NSString *const MPMoviePlayerThumbnailImageRequestDidFinishNotification NS_AVAILABLE_IOS(3_2);
@@ -240,34 +240,34 @@ MP_EXTERN NSString *const MPMoviePlayerThumbnailErrorKey NS_AVAILABLE_IOS(3_2); 
 // -----------------------------------------------------------------------------
 // Timed Metadata
 
-@interface MPMoviePlayerController (MPMoviePlayerTimedMetadataAdditions)
+extern class MPMoviePlayerController (MPMoviePlayerTimedMetadataAdditions)
 
 // Returns an array of the most recent MPTimedMetadata objects provided by the media stream.
 - (NSArray *)timedMetadata NS_AVAILABLE_IOS(4_0);
 
-@end
+}
 
-MP_EXTERN_CLASS_AVAILABLE(4_0) @interface MPTimedMetadata : NSObject {
+MP_EXTERN_CLASS_AVAILABLE(4_0)extern class MPTimedMetadata extends NSObject {
 @private
     void *_internal;
 }
 
 // A key which identifies a piece of timed metadata.
-@property(nonatomic, readonly) NSString *key;
+	public var (default, null) NSString *key;
 
 // The namespace of the identifying key.
-@property(nonatomic, readonly) NSString *keyspace;
+	public var (default, null) NSString *keyspace;
 
 // The object value of the metadata.
-@property(nonatomic, readonly) id value;
+	public var (default, null) id value;
 
 // The timestamp of the metadata, in the timebase of the media stream.
-@property(nonatomic, readonly) NSTimeInterval timestamp;
+	public var (default, null) NSTimeInterval timestamp;
 
 // A dictionary containing all metadata information associated with this object, which may hold additional key-specific data (see below).
-@property(nonatomic, readonly) NSDictionary *allMetadata;
+	public var (default, null) NSDictionary *allMetadata;
 
-@end
+}
 
 // Posted when new timed metadata arrives.
 MP_EXTERN NSString *const MPMoviePlayerTimedMetadataUpdatedNotification NS_AVAILABLE_IOS(4_0);
@@ -282,127 +282,127 @@ MP_EXTERN NSString *const MPMoviePlayerTimedMetadataKeyLanguageCode NS_AVAILABLE
 
 // -----------------------------------------------------------------------------
 
-@interface MPMoviePlayerController (MPMovieLogging)
+extern class MPMoviePlayerController (MPMovieLogging)
 
 // Returns an object that represents a snapshot of the network access log. Can be nil.
-@property (nonatomic, readonly) MPMovieAccessLog *accessLog NS_AVAILABLE_IOS(4_3);
+	public var MPMovieAccessLog *accessLog NS_AVAILABLE_IOS(4_3);
 
 // Returns an object that represents a snapshot of the error log. Can be nil.
-@property (nonatomic, readonly) MPMovieErrorLog *errorLog NS_AVAILABLE_IOS(4_3);
+	public var MPMovieErrorLog *errorLog NS_AVAILABLE_IOS(4_3);
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // An MPMovieAccessLog accumulates key metrics about network playback and presents them as a collection of MPMovieAccessLogEvent instances.
 // Each MPMovieAccessLogEvent instance collates the data that relates to each uninterrupted period of playback.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3) @interface MPMovieAccessLog : NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLog extends NSObject <NSCopying>
 
 // Returns the webserver access log into a textual format that conforms to the W3C Extended Log File Format for web server log files.
 // For more information see: http://www.w3.org/pub/WWW/TR/WD-logfile.html
-@property (nonatomic, readonly) NSData *extendedLogData;
+	public var NSData *extendedLogData;
 
 // Returns the string encoding of the extendedLogData property.
-@property (nonatomic, readonly) NSStringEncoding extendedLogDataStringEncoding;
+	public var NSStringEncoding extendedLogDataStringEncoding;
 
 // An ordered collection of MPMovieAccessLogEvent instances that represent the chronological sequence of events contained in the access log.
-@property (nonatomic, readonly) NSArray *events;
+	public var NSArray *events;
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // An MPMovieErrorLog provides data to identify if, and when, network resource playback failures occured.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3) @interface MPMovieErrorLog : NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLog extends NSObject <NSCopying>
 
 // Returns the webserver error log into a textual format that conforms to the W3C Extended Log File Format for web server log files.
 // For more information see: http://www.w3.org/pub/WWW/TR/WD-logfile.html
-@property (nonatomic, readonly) NSData *extendedLogData;
+	public var NSData *extendedLogData;
 
 // Returns the string encoding of the extendedLogData property.
-@property (nonatomic, readonly) NSStringEncoding extendedLogDataStringEncoding;
+	public var NSStringEncoding extendedLogDataStringEncoding;
 
 // An ordered collection of MPMovieErrorLogEvent instances that represent the chronological sequence of events contained in the error log.
-@property (nonatomic, readonly) NSArray *events;
+	public var NSArray *events;
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // An MPMovieAccessLogEvent repesents a single access log entry.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3) @interface MPMovieAccessLogEvent : NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLogEvent extends NSObject <NSCopying>
 
 // A count of media segments downloaded from the server to this client.
-@property (nonatomic, readonly) NSUInteger numberOfSegmentsDownloaded;
+	public var NSUInteger numberOfSegmentsDownloaded;
 
 // The date/time at which playback began for this event.
-@property (nonatomic, readonly) NSDate *playbackStartDate;
+	public var NSDate *playbackStartDate;
 
 // The URI of the playback item.
-@property (nonatomic, readonly) NSString *URI;
+	public var NSString *URI;
 
 // The IP address of the server that was the source of the last delivered media segment. Can be either an IPv4 or IPv6 address.
-@property (nonatomic, readonly) NSString *serverAddress;
+	public var NSString *serverAddress;
 
 // A count of changes to the serverAddress property over the last uninterrupted period of playback.
-@property (nonatomic, readonly) NSUInteger numberOfServerAddressChanges;
+	public var NSUInteger numberOfServerAddressChanges;
 
 // A GUID that identifies the playback session. This value is used in HTTP requests.
-@property (nonatomic, readonly) NSString *playbackSessionID;
+	public var NSString *playbackSessionID;
 
 // An offset into the playlist where the last uninterrupted period of playback began, in seconds. The value is negative if unknown.
-@property (nonatomic, readonly) NSTimeInterval playbackStartOffset;
+	public var NSTimeInterval playbackStartOffset;
 
 // The accumulated duration of the media downloaded, in seconds. The value is negative if unknown.
-@property (nonatomic, readonly) NSTimeInterval segmentsDownloadedDuration;
+	public var NSTimeInterval segmentsDownloadedDuration;
 
 // The accumulated duration of the media played, in seconds.
-@property (nonatomic, readonly) NSTimeInterval durationWatched;
+	public var NSTimeInterval durationWatched;
 
 // The total number of playback stalls encountered. The value is negative if unknown.
-@property (nonatomic, readonly) NSInteger numberOfStalls;
+	public var NSInteger numberOfStalls;
 
 // The accumulated number of bytes transferred. The value is negative if unknown.
-@property (nonatomic, readonly) int64_t numberOfBytesTransferred;
+	public var int64_t numberOfBytesTransferred;
 
 // The empirical throughput across all media downloaded, in bits per second.
-@property (nonatomic, readonly) double observedBitrate;
+	public var double observedBitrate;
 
 // The throughput required to play the stream, as advertised by the server, in bits per second.
-@property (nonatomic, readonly) double indicatedBitrate;
+	public var double indicatedBitrate;
 
 // The total number of dropped video frames.
-@property (nonatomic, readonly) NSInteger numberOfDroppedVideoFrames;
+	public var NSInteger numberOfDroppedVideoFrames;
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // An MPMovieErrorLogEvent repesents a single error log entry.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3) @interface MPMovieErrorLogEvent : NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLogEvent extends NSObject <NSCopying>
 
 // The date and time when the error occured.
-@property (nonatomic, readonly) NSDate *date;
+	public var NSDate *date;
 
 // The URI of the playback item.
-@property (nonatomic, readonly) NSString *URI;
+	public var NSString *URI;
 
 // The IP address of the server that was the source of the error.
-@property (nonatomic, readonly) NSString *serverAddress;
+	public var NSString *serverAddress;
 
 // A GUID that identifies the playback session. This value is used in HTTP requests.
-@property (nonatomic, readonly) NSString *playbackSessionID;
+	public var NSString *playbackSessionID;
 
 // A unique error code identifier. The value is negative if unknown.
-@property (nonatomic, readonly) NSInteger errorStatusCode;
+	public var NSInteger errorStatusCode;
 
 // The domain of the error.
-@property (nonatomic, readonly) NSString *errorDomain;
+	public var NSString *errorDomain;
 
 // A description of the error encountered.
-@property (nonatomic, readonly) NSString *errorComment;
+	public var NSString *errorComment;
 
-@end
+}
 
 // -----------------------------------------------------------------------------
 // Deprecated methods and properties
@@ -414,11 +414,11 @@ typedef enum {
     MPMovieControlModeHidden
 } MPMovieControlMode;
 
-@interface MPMoviePlayerController (MPMoviePlayerDeprecated)
+extern class MPMoviePlayerController (MPMoviePlayerDeprecated)
 
 // Indicates if the movie player should inherit the application's audio session instead of creating a new session (which would interrupt the application's session).
 // Defaults to YES. Setting this property during playback will not take effect until playback is stopped and started again.
-@property(nonatomic) BOOL useApplicationAudioSession NS_DEPRECATED_IOS(3_2, 6_0);
+	public var  BOOL useApplicationAudioSession NS_DEPRECATED_IOS(3_2, 6_0);
 
 // Use the backgroundView property instead.
 - (void)setBackgroundColor:(UIColor *)backgroundColor NS_DEPRECATED_IOS(2_0, 3_2);
@@ -428,7 +428,7 @@ typedef enum {
 - (void)setMovieControlMode:(MPMovieControlMode)movieControlMode NS_DEPRECATED_IOS(2_0, 3_2);
 - (MPMovieControlMode)movieControlMode NS_DEPRECATED_IOS(2_0, 3_2);
 
-@end
+}
 
 // This notification is superseded by MPMediaPlaybackIsPreparedToPlayDidChangeNotification.
 MP_EXTERN NSString *const MPMoviePlayerContentPreloadDidFinishNotification NS_DEPRECATED_IOS(2_0, 3_2);

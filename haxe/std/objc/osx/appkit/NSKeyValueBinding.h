@@ -22,7 +22,7 @@ APPKIT_EXTERN NSString *NSObservedObjectKey;
 APPKIT_EXTERN NSString *NSObservedKeyPathKey;
 APPKIT_EXTERN NSString *NSOptionsKey;
 
-@interface NSObject (NSKeyValueBindingCreation)
+extern class NSObject (NSKeyValueBindingCreation)
 
 + (void)exposeBinding:(NSString *)binding;    // bindings specified here will be exposed automatically in -exposedBindings (unless implementations explicitly filter them out, for example in subclasses)
 - (NSArray *)exposedBindings;   // for a new key exposed through this method, the default implementation simply falls back to key-value coding
@@ -49,25 +49,25 @@ APPKIT_EXTERN NSString *NSOptionsKey;
 - (NSArray *)optionDescriptionsForBinding:(NSString *)aBinding NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
-@interface NSObject (NSPlaceholders)
+extern class NSObject (NSPlaceholders)
 
 + (void)setDefaultPlaceholder:(id)placeholder forMarker:(id)marker withBinding:(NSString *)binding;    // marker can be nil or one of NSMultipleValuesMarker, NSNoSelectionMarker, NSNotApplicableMarker
 + (id)defaultPlaceholderForMarker:(id)marker withBinding:(NSString *)binding;    // marker can be nil or one of NSMultipleValuesMarker, NSNoSelectionMarker, NSNotApplicableMarker
 
-@end
+}
 
 // methods implemented by controllers, CoreData's managed object contexts (and potentially documents)
-@interface NSObject (NSEditorRegistration)
+extern class NSObject (NSEditorRegistration)
 
 - (void)objectDidBeginEditing:(id)editor;
 - (void)objectDidEndEditing:(id)editor;
 
-@end
+}
 
 // methods implemented by controllers, CoreData's managed object contexts, and user interface elements
-@interface NSObject (NSEditor)
+extern class NSObject (NSEditor)
 
 - (void)discardEditing;    // forces changing to end (reverts back to the original value)
 - (BOOL)commitEditing;    // returns whether end editing was successful (while trying to apply changes to a model object, there might be validation problems or so that prevent the operation from being successful
@@ -88,7 +88,7 @@ If an error occurs while attempting to commit, because key-value coding validati
  */
 - (BOOL)commitEditingAndReturnError:(NSError **)error   NS_AVAILABLE_MAC(10_7);
 
-@end
+}
 
 // constants for binding names
 APPKIT_EXTERN NSString *NSAlignmentBinding;

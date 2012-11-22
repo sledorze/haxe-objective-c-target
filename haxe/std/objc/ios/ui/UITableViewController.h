@@ -1,6 +1,6 @@
 //
 //  UITableViewController.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 //
@@ -14,7 +14,7 @@
 // In -viewDidAppear:, it flashes the table's scroll indicators.
 // Implements -setEditing:animated: to toggle the editing state of the table.
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UITableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+extern class UITableViewController extends UIViewController <UITableViewDelegate, UITableViewDataSource> {
   @private
     UITableViewStyle _tableViewStyle;
     id               _keyboardSupport;
@@ -28,9 +28,9 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UITableViewController : UIViewController 
 
 - (id)initWithStyle:(UITableViewStyle)style;
 
-@property(nonatomic,retain) UITableView *tableView;
-@property(nonatomic) BOOL clearsSelectionOnViewWillAppear NS_AVAILABLE_IOS(3_2); // defaults to YES. If YES, any selection is cleared in viewWillAppear:
+	public var (nonatomic,retain) UITableView *tableView;
+	public var  BOOL clearsSelectionOnViewWillAppear NS_AVAILABLE_IOS(3_2); // defaults to YES. If YES, any selection is cleared in viewWillAppear:
 
-@property (nonatomic,retain) UIRefreshControl *refreshControl NS_AVAILABLE_IOS(6_0);
+	public var  UIRefreshControl *refreshControl NS_AVAILABLE_IOS(6_0);
 
-@end
+}

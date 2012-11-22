@@ -32,19 +32,19 @@
 @class DOMDocument;
 @class NSString;
 
-@interface DOMHTMLIFrameElement : DOMHTMLElement
-@property(copy) NSString *align;
-@property(copy) NSString *frameBorder;
-@property(copy) NSString *height;
-@property(copy) NSString *longDesc;
-@property(copy) NSString *marginHeight;
-@property(copy) NSString *marginWidth;
-@property(copy) NSString *name;
-@property(copy) NSString *scrolling;
-@property(copy) NSString *src;
-@property(copy) NSString *width;
-@property(readonly, retain) DOMDocument *contentDocument;
-@property(readonly, retain) DOMAbstractView *contentWindow AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@end
+extern class DOMHTMLIFrameElement : DOMHTMLElement
+	public var NSString *align;
+	public var NSString *frameBorder;
+	public var NSString *height;
+	public var NSString *longDesc;
+	public var NSString *marginHeight;
+	public var NSString *marginWidth;
+	public var NSString *name;
+	public var NSString *scrolling;
+	public var NSString *src;
+	public var NSString *width;
+	public var (default, null) DOMDocument *contentDocument;
+	public var (default, null) DOMAbstractView *contentWindow AVAILABLE_IN_WEBKIT_VERSION_4_0;
+}
 
 #endif

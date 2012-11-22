@@ -11,7 +11,7 @@
 #import <Availability.h>
 
 //
-//  Platform specific defs for externs
+//  Platform specific defs forexterns
 //
 
 //
@@ -44,7 +44,7 @@
 #define COREDATA_EXTERN		extern "C" _NSWINDOWS_DLL_GOOP
 #define COREDATA_PRIVATE_EXTERN	extern
 #else
-#define COREDATA_EXTERN		_NSWINDOWS_DLL_GOOP extern
+#define COREDATA_EXTERN		_NSWINDOWS_DLL_GOOPextern
 #define COREDATA_PRIVATE_EXTERN	extern
 #endif
 

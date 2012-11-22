@@ -27,5 +27,5 @@
  * their sublayers, applying the effects of the transform layer's
  * geometry when hit-testing each sublayer. */
 
-@interface CATransformLayer : CALayer
-@end
+extern class CATransformLayer : CALayer
+}

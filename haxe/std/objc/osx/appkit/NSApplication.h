@@ -90,7 +90,7 @@ typedef struct _NSModalSession *NSModalSession;
 // threading information
 typedef struct NSThreadPrivate _NSThreadPrivate;
 
-@interface NSApplication : NSResponder <NSUserInterfaceValidations>
+extern class NSApplication : NSResponder <NSUserInterfaceValidations>
 {
     /*All instance variables are private*/
     NSEvent            *_currentEvent;
@@ -269,9 +269,9 @@ typedef NSUInteger NSApplicationDelegateReply;
 */
 - (NSApplicationPresentationOptions)currentSystemPresentationOptions NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
-@interface NSApplication(NSWindowsMenu)
+extern class NSApplication(NSWindowsMenu)
 - (void)setWindowsMenu:(NSMenu *)aMenu;
 - (NSMenu *)windowsMenu;
 - (void)arrangeInFront:(id)sender;
@@ -280,13 +280,13 @@ typedef NSUInteger NSApplicationDelegateReply;
 - (void)changeWindowsItem:(NSWindow *)win title:(NSString *)aString filename:(BOOL)isFilename;
 - (void)updateWindowsItem:(NSWindow *)win;
 - (void)miniaturizeAll:(id)sender;
-@end
+}
 
-@interface NSApplication(NSFullKeyboardAccess)
+extern class NSApplication(NSFullKeyboardAccess)
 /* Use this method to get the status of Full Keyboard Access, as configured in the Keyboard preference pane. You may use this status to implement your own key loop or to implement in-control tabbing behavior similar to NSTableView. Because of the nature of the preference storage, you will not be notified of changes to the key if you attempt to observe it via key-value observing; however, calling this method is fairly inexpensive, so you should always call it when you need the underlying value instead of caching it.
  */
 - (BOOL)isFullKeyboardAccessEnabled NS_AVAILABLE_MAC(10_6);
-@end
+}
 
 // return values for -applicationShouldTerminate:
 enum {
@@ -359,25 +359,25 @@ typedef NSUInteger NSApplicationPrintReply;
 - (void)applicationWillTerminate:(NSNotification *)notification;
 - (void)applicationDidChangeScreenParameters:(NSNotification *)notification;
 
-@end
+}
 
-@interface NSApplication(NSServicesMenu)
+extern class NSApplication(NSServicesMenu)
 - (void)setServicesMenu:(NSMenu *)aMenu;
 - (NSMenu *)servicesMenu;
 - (void)registerServicesMenuSendTypes:(NSArray *)sendTypes returnTypes:(NSArray *)returnTypes;
-@end
+}
 
-@interface NSObject(NSServicesRequests)
+extern class NSObject(NSServicesRequests)
 - (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pboard types:(NSArray *)types;
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard;
-@end
+}
 
-@interface NSApplication(NSServicesHandling)
+extern class NSApplication(NSServicesHandling)
 - (void)setServicesProvider:(id)provider;
 - (id)servicesProvider;
-@end
+}
 
-@interface NSApplication(NSStandardAboutPanel)
+extern class NSApplication(NSStandardAboutPanel)
 - (void)orderFrontStandardAboutPanel:(id)sender;
 - (void)orderFrontStandardAboutPanelWithOptions:(NSDictionary *)optionsDictionary;
 
@@ -405,7 +405,7 @@ If not specified, obtain from the CFBundleVersion key in infoDictionary; if not 
 If not specified, obtain from CFBundleShortVersionString key in infoDictionary. Prefixed with word "Version" if it looks like a number.
 */
 
-@end
+}
 
 /* Bi-directional User Interface
 */
@@ -415,11 +415,11 @@ enum {
 };
 typedef NSInteger NSUserInterfaceLayoutDirection;
 
-@interface NSApplication (NSApplicationLayoutDirection)
+extern class NSApplication (NSApplicationLayoutDirection)
 - (NSUserInterfaceLayoutDirection)userInterfaceLayoutDirection NS_AVAILABLE_MAC(10_6); // Returns the application-wide user interface layout direction.
-@end
+}
 
-@interface NSApplication (NSRestorableUserInterface)
+extern class NSApplication (NSRestorableUserInterface)
 
 /* Disable or reenable relaunching this app on login, if the app was running at the time the user logged out.  These methods increment and decrement a counter respectively; if the counter is 0 at the time the user logs out, then the app may be relaunched when the user logs back in.  The counter is initially zero, so by default apps are relaunched.
  
@@ -431,7 +431,7 @@ typedef NSInteger NSUserInterfaceLayoutDirection;
  */
 - (void)disableRelaunchOnLogin NS_AVAILABLE_MAC(10_7);
 - (void)enableRelaunchOnLogin NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_7
 enum {
@@ -441,12 +441,12 @@ enum {
 #endif
 typedef NSUInteger NSRemoteNotificationType;
 
-@interface NSApplication (NSRemoteNotifications)
+extern class NSApplication (NSRemoteNotifications)
 - (void)registerForRemoteNotificationTypes:(NSRemoteNotificationType)types NS_AVAILABLE_MAC(10_7);
 - (void)unregisterForRemoteNotifications NS_AVAILABLE_MAC(10_7);
 
 - (NSRemoteNotificationType)enabledRemoteNotificationTypes NS_AVAILABLE_MAC(10_7);
-@end
+}
 
 /* An Application's startup function */
 
@@ -494,7 +494,7 @@ APPKIT_EXTERN NSString * const NSApplicationLaunchRemoteNotificationKey NS_AVAIL
 APPKIT_EXTERN NSString * const NSApplicationLaunchIsDefaultLaunchKey NS_AVAILABLE_MAC(10_7);
 
 /* Deprecated Methods */
-@interface NSApplication (NSDeprecated)
+extern class NSApplication (NSDeprecated)
 
 /*
  ** runModalForWindow:relativeToWindow: was deprecated in Mac OS 10.0.  
@@ -511,4 +511,4 @@ APPKIT_EXTERN NSString * const NSApplicationLaunchIsDefaultLaunchKey NS_AVAILABL
 // -application:printFiles: was deprecated in Mac OS 10.4. Implement application:printFiles:withSettings:showPrintPanels: in your application delegate instead.
 - (void)application:(NSApplication *)sender printFiles:(NSArray *)filenames NS_DEPRECATED_MAC(10_3, 10_4);
 
-@end
+}

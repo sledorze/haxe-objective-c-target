@@ -37,7 +37,7 @@ typedef NSUInteger NSImageCacheMode;
 
 @class _NSImageAuxiliary;
 
-@interface NSImage : NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
+extern class NSImage extends NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
 {
     /*All instance variables are private*/
     NSString *_name;
@@ -197,7 +197,7 @@ typedef NSUInteger NSImageCacheMode;
  */
 - (BOOL)hitTestRect:(NSRect)testRectDestSpace withImageDestinationRect:(NSRect)imageRectDestSpace context:(NSGraphicsContext *)context hints:(NSDictionary *)hints flipped:(BOOL)flipped NS_AVAILABLE_MAC(10_6); 
 
-@end
+}
 
 APPKIT_EXTERN NSString *const NSImageHintCTM NS_AVAILABLE_MAC(10_6); // value is NSAffineTransform
 APPKIT_EXTERN NSString *const NSImageHintInterpolation NS_AVAILABLE_MAC(10_6); // value is NSNumber with NSImageInterpolation enum value
@@ -211,15 +211,15 @@ APPKIT_EXTERN NSString *const NSImageHintInterpolation NS_AVAILABLE_MAC(10_6); /
 - (void)image:(NSImage*)image didLoadRepresentationHeader:(NSImageRep*)rep;
 - (void)image:(NSImage*)image didLoadPartOfRepresentation:(NSImageRep*)rep withValidRows:(NSInteger)rows; 
 - (void)image:(NSImage*)image didLoadRepresentation:(NSImageRep*)rep withStatus:(NSImageLoadStatus)status;
-@end
+}
 
-@interface NSBundle(NSBundleImageExtension)
+extern class NSBundle(NSBundleImageExtension)
 - (NSString *)pathForImageResource:(NSString *)name;	/* May return nil if no file found */
 - (NSURL *)URLForImageResource:(NSString *)name NS_AVAILABLE_MAC(10_6); /* May return nil if no file found */
 - (NSImage *)imageForResource:(NSString *)name NS_AVAILABLE_MAC(10_7); /* May return nil if no file found */
-@end
+}
 
-@interface NSImage (NSDeprecated)
+extern class NSImage (NSDeprecated)
 
 // the concept of flippedness for NSImage is deprecated.  Please see the AppKit 10.6 release notes for a discussion of why, and for how to replace existing usage.
 - (void)setFlipped:(BOOL)flag;
@@ -246,7 +246,7 @@ APPKIT_EXTERN NSString *const NSImageHintInterpolation NS_AVAILABLE_MAC(10_6); /
 - (void)setCacheDepthMatchesImageDepth:(BOOL)flag;
 - (BOOL)cacheDepthMatchesImageDepth;
 
-@end
+}
 
 #pragma mark -
 #pragma mark Standard Images

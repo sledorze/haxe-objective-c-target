@@ -8,7 +8,7 @@
 #import <AppKit/NSControl.h>
 #import <AppKit/NSImageCell.h>
 
-@interface NSImageView : NSControl
+extern class NSImageView : NSControl
 {
     /*All instance variables are private*/
     struct __IVFlags {
@@ -43,6 +43,6 @@
 - (BOOL)allowsCutCopyPaste;
 - (void)setAllowsCutCopyPaste:(BOOL)allow;
 
-@end
+}
 
 

@@ -23,8 +23,8 @@
 #endif
 
 #ifdef __cplusplus
-#define CL_EXTERN extern "C" __attribute__((visibility ("default")))
+#define CL_EXTERNextern "C" __attribute__((visibility ("default")))
 #else
-#define CL_EXTERN extern __attribute__((visibility ("default")))
+#define CL_EXTERNextern __attribute__((visibility ("default")))
 #endif
 

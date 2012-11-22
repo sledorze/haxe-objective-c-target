@@ -10,7 +10,7 @@
 #if !__LP64__
 #import <AppKit/NSView.h>
 
-@interface NSQuickDrawView : NSView
+extern class NSQuickDrawView : NSView
 {
 @private
     void*  _qdPort;
@@ -20,5 +20,5 @@
 
 - (void*) qdPort NS_DEPRECATED_MAC(10_0, 10_4);
 
-@end
+}
 #endif /* !__LP64__ */

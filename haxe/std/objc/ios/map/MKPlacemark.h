@@ -12,7 +12,7 @@
 #import <CoreLocation/CLPlacemark.h>
 
 MK_CLASS_AVAILABLE(NA, 3_0)
-@interface MKPlacemark : CLPlacemark <MKAnnotation> {
+extern class MKPlacemark : CLPlacemark <MKAnnotation> {
     
 }
 
@@ -24,6 +24,6 @@ MK_CLASS_AVAILABLE(NA, 3_0)
 // To create an MKPlacemark from a CLPlacemark, call [MKPlacemark initWithPlacemark:] passing the CLPlacemark instance that is returned by CLGeocoder.
 // See CLGeocoder.h and CLPlacemark.h in CoreLocation for more information.
 
-@property (nonatomic, readonly) NSString *countryCode;
+	public var NSString *countryCode;
 
-@end
+}

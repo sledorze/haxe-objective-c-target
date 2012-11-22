@@ -12,7 +12,7 @@
 @class UIViewController;
 
 NS_CLASS_AVAILABLE(10_8, 4_1)
-GK_EXTERN_CLASS @interface GKLocalPlayer : GKPlayer {
+GK_EXTERN_CLASSextern class GKLocalPlayer : GKPlayer {
 }
 
 // Obtain the GKLocalPlayer object.
@@ -20,8 +20,8 @@ GK_EXTERN_CLASS @interface GKLocalPlayer : GKPlayer {
 // A temporary player is created if no account is set up.
 + (GKLocalPlayer *)localPlayer;
 
-@property(nonatomic, readonly, getter=isAuthenticated)  BOOL authenticated; // Authentication state
-@property(nonatomic, readonly, getter=isUnderage)       BOOL underage;      // Underage state
+	public var (nonatomic, readonly, getter=isAuthenticated)  BOOL authenticated; // Authentication state
+	public var (nonatomic, readonly, getter=isUnderage)       BOOL underage;      // Underage state
 
 
 // The authenticate handler will be called whenever the authentication process finishes or needs to show UI. The handler may be called multiple times. Authentication will happen automatically when the handler is first set and whenever the app returns to the foreground.
@@ -30,10 +30,10 @@ GK_EXTERN_CLASS @interface GKLocalPlayer : GKPlayer {
 // 1. Communications problem
 // 2. User credentials invalid
 // 3. User cancelled
-@property(nonatomic, copy) void(^authenticateHandler)(UIViewController *viewController, NSError *error) __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public var  void(^authenticateHandler)(UIViewController *viewController, NSError *error) __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 
-@property(nonatomic, readonly, retain) NSArray *friends;  // Array of player identifiers of friends for the local player. Not valid until loadFriendsWithCompletionHandler: has completed.
+	public var (default, null) NSArray *friends;  // Array of player identifiers of friends for the local player. Not valid until loadFriendsWithCompletionHandler: has completed.
 
 // Asynchronously load the friends list as an array of player identifiers. Calls completionHandler when finished. Error will be nil on success.
 // Possible reasons for error:
@@ -59,7 +59,7 @@ GK_EXTERN_CLASS @interface GKLocalPlayer : GKPlayer {
 // Deprecated, set the authenticateHandler instead. Authentication happens automatically when the handler is set and when the app returns to foreground.
 - (void)authenticateWithCompletionHandler:(void(^)(NSError *error))completionHandler __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA, __MAC_NA, __IPHONE_4_1, __IPHONE_6_0);
 
-@end
+}
 
 // Notification will be posted whenever authentication status changes.
 GK_EXTERN NSString *GKPlayerAuthenticationDidChangeNotificationName __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_4_1);

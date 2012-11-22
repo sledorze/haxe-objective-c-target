@@ -7,7 +7,7 @@
 
 #import <AppKit/NSColorPicking.h>
 
-@interface NSColorPicker : NSObject <NSColorPickingDefault>
+extern class NSColorPicker extends NSObject <NSColorPickingDefault>
 {
     /*All instance variables are private*/
     id _imageObject;
@@ -26,4 +26,4 @@
 - (NSString *)buttonToolTip;
 // The default implementation of minContentSize will look at your view's Autosizing behavior and do the right thing based on that.
 - (NSSize)minContentSize;
-@end
+}

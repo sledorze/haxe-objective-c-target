@@ -28,8 +28,8 @@
 
 #if WEBKIT_VERSION_MAX_ALLOWED >= WEBKIT_VERSION_1_3
 
-@interface DOMHTMLDirectoryElement : DOMHTMLElement
-@property BOOL compact;
-@end
+extern class DOMHTMLDirectoryElement : DOMHTMLElement
+	public var  BOOL compact;
+}
 
 #endif

@@ -11,7 +11,7 @@
 
 
 NS_CLASS_AVAILABLE(10_6, NA)
-@interface NSOpenGLLayer : CAOpenGLLayer
+extern class NSOpenGLLayer : CAOpenGLLayer
 {
 @private
     NSOpenGLPixelFormat *_openGLPixelFormat;
@@ -21,15 +21,15 @@ NS_CLASS_AVAILABLE(10_6, NA)
 
 /* Provides access to the layer's associated view.  Subclasses shouldn't invoke -setView:, but can override it if desired to intercept the layer's association to, or dissociation from, a view.
 */
-@property(assign) NSView *view;
+	public var (assign) NSView *view;
 
 /* Provides access to the layer's associated NSOpenGLPixelFormat.  Subclasses shouldn't invoke -setOpenGLPixelFormat:, but can override it if desired to intercept assignment of the layer's pixel format.
 */
-@property(retain) NSOpenGLPixelFormat *openGLPixelFormat;
+	public var NSOpenGLPixelFormat *openGLPixelFormat;
 
 /* Provides access to the layer's associated NSOpenGLContext.  Subclasses shouldn't invoke -setOpenGLContext:, but can override it if desired to intercept assignment of the layer's context.
 */
-@property(retain) NSOpenGLContext *openGLContext;
+	public var NSOpenGLContext *openGLContext;
 
 /* Invoked by AppKit to ask for the pixel format to use.  Should return an autoreleased NSOpenGLPixelFormat suitable for the displays specified by "mask".  (In practice, this means including an NSOpenGLPFAScreenMask specification in the pixel format attribute list that's used to instantiate the NSOpenGLPixelFormat.)
 */
@@ -47,5 +47,5 @@ NS_CLASS_AVAILABLE(10_6, NA)
 */
 - (void)drawInOpenGLContext:(NSOpenGLContext *)context pixelFormat:(NSOpenGLPixelFormat *)pixelFormat forLayerTime:(CFTimeInterval)t displayTime:(const CVTimeStamp *)ts;
 
-@end
+}
 

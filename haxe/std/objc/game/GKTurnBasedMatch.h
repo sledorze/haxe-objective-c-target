@@ -57,16 +57,16 @@ typedef NSInteger GKTurnBasedMatchOutcome;
 // By default turn based events will badge your app.  To opt out of this add GKGameCenterBadgingDisabled  with a boolean value of YES to your info plist
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-@interface GKTurnBasedParticipant : NSObject {
+extern class GKTurnBasedParticipant extends NSObject {
 }
 
-@property(nonatomic, readonly, retain)  NSString                        *playerID;
-@property(nonatomic, readonly, retain)  NSDate                          *lastTurnDate;
-@property(nonatomic, readonly, retain)  NSDate                          *timeoutDate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
-@property(nonatomic, readonly)          GKTurnBasedParticipantStatus    status;
-@property(nonatomic, assign)            GKTurnBasedMatchOutcome         matchOutcome;
+	public var (default, null)  NSString                        *playerID;
+	public var (default, null)  NSDate                          *lastTurnDate;
+	public var (default, null)  NSDate                          *timeoutDate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public var (default, null)          GKTurnBasedParticipantStatus    status;
+	public var             GKTurnBasedMatchOutcome         matchOutcome;
 
-@end
+}
 
 
 @protocol GKTurnBasedEventHandlerDelegate
@@ -82,16 +82,16 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 // handleMatchEnded is called when the match has ended.
 - (void)handleMatchEnded:(GKTurnBasedMatch *)match;
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-@interface GKTurnBasedEventHandler : NSObject {
+extern class GKTurnBasedEventHandler extends NSObject {
 }
 + (GKTurnBasedEventHandler *)sharedTurnBasedEventHandler;
 
-@property (nonatomic, assign) 		NSObject<GKTurnBasedEventHandlerDelegate>	*delegate;
+	public var 		NSObject<GKTurnBasedEventHandlerDelegate>	*delegate;
 
-@end
+}
 
 
 // Turn timeout constants
@@ -100,26 +100,26 @@ extern NSTimeInterval		GKTurnTimeoutDefault __OSX_AVAILABLE_STARTING(__MAC_NA,__
 extern NSTimeInterval		GKTurnTimeoutNone __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-@interface GKTurnBasedMatch : NSObject {
+extern class GKTurnBasedMatch extends NSObject {
 }
 
-@property(nonatomic, readonly, retain)  NSString                *matchID;
-@property(nonatomic, readonly, retain)  NSDate                  *creationDate;
-@property(nonatomic, readonly, retain)  NSArray                 *participants;          // array of GKTurnBasedParticipant objects
-@property(nonatomic, readonly)          GKTurnBasedMatchStatus  status;
+	public var (default, null)  NSString                *matchID;
+	public var (default, null)  NSDate                  *creationDate;
+	public var (default, null)  NSArray                 *participants;          // array of GKTurnBasedParticipant objects
+	public var (default, null)          GKTurnBasedMatchStatus  status;
 
 // This indicates the participant who has the current turn.  This is set by passing the next participant into endTurnWithNextParticipant:matchData:completionHandler:
-@property(nonatomic, readonly, retain)  GKTurnBasedParticipant  *currentParticipant;
+	public var (default, null)  GKTurnBasedParticipant  *currentParticipant;
 
 // Developer-defined data representing the current state of the game. This propery is nil until loaded by loadMatchDataWithCompletionHandler:
 // The developer can submit updated matchData by passing it into endTurnWithNextParticipant:matchData:completionHandler: or endMatchInTurnWithMatchData:completionHandler:
-@property(nonatomic, readonly, retain)  NSData                  *matchData;            
+	public var (default, null)  NSData                  *matchData;            
 
 // If the developer wishes to display a message in GKTurnBasedMatchmakerViewController at the end of a turn or end of the match.  Only the current participant can set this.
-@property(nonatomic, readwrite, copy)   NSString                *message;
+	public var (nonatomic, readwrite, copy)   NSString                *message;
 
 // Returns the maximum size for the match data.
-@property(nonatomic, readonly)  NSUInteger                      matchDataMaximumSize __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public var (default, null)  NSUInteger                      matchDataMaximumSize __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
 // Attempt to find a turn-based match for the specified request. Error will be nil on success.
 // Possible reasons for error:
@@ -172,4 +172,4 @@ NS_CLASS_AVAILABLE(10_8, 5_0)
 
 // saves the matchData for the current turn without ending the turn.  If other players have the game running they will receive a handleTurnEventForMatch to indicate that the matchData has changed.  This is useful to initialize the game state for the first player when they take their turn or for updating the turn data due to the user taking an irreversible action within their turn.  
 - (void)saveCurrentTurnWithMatchData:(NSData *)matchData completionHandler:(void(^)(NSError *error))completionHandler __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
-@end
+}

@@ -9,7 +9,7 @@
 
 @class NSOpenGLContext, NSOpenGLPixelFormat;
 
-@interface NSOpenGLView : NSView {
+extern class NSOpenGLView : NSView {
   @private
     NSOpenGLContext*     _openGLContext;
     NSOpenGLPixelFormat* _pixelFormat;
@@ -33,9 +33,9 @@
 - (NSOpenGLPixelFormat*)pixelFormat;
 
 - (void)prepareOpenGL;
-@end
+}
 
-@interface NSView (NSOpenGLSurfaceResolution)
+extern class NSView (NSOpenGLSurfaceResolution)
 
 /* Specifies whether a given view instance wants, and is capable of correctly handling, an OpenGL backing surface (framebuffer) with resolution greater than 1 pixel per point.  This property is relevant only for views to which an NSOpenGLContext is bound (including, but not limited to, NSOpenGLViews); its value does not affect the behavior of other views, including CALayer-backed views (which may choose to render at a higher surface resolution independent of this property's value.  For compatibility, wantsBestResolutionOpenGLSurface defaults to NO, providing a 1 pixel per point framebuffer regardless of the backing scale factor for the display the view occupies.  (When the backing scale factor is > 1.0, the rendered surface contents are scaled up to the appropriate apparent size.)  Setting this property to YES for a given view gives AppKit permission to allocate a higher-resolution framebuffer when appropriate for the backing scale factor and target display.  AppKit may vary the surface resolution when the display mode is changed or the view is moved to a different display, but with this property set to YES it is capable of allocating a surface of greater than 1 pixel per point for the view.
 
@@ -48,4 +48,4 @@ For testing purposes only, the effect of this property can be overridden globall
 - (BOOL)wantsBestResolutionOpenGLSurface NS_AVAILABLE_MAC(10_7);
 - (void)setWantsBestResolutionOpenGLSurface:(BOOL)flag NS_AVAILABLE_MAC(10_7);
 
-@end
+}

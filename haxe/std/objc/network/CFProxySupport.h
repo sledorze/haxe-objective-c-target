@@ -56,7 +56,7 @@
 	
 	The keys for username and password are optional and will only be present if the username 
 	or password could be extracted from the information passed in (i.e. either the URL itself
-	or the proxy dictionary supplied).  These APIs do not consult any external credential stores
+	or the proxy dictionary supplied).  These APIs do not consult anyexternal credential stores
 	(such as the Keychain).
 */
 
@@ -334,7 +334,7 @@ CFN_EXPORT const CFStringRef kCFProxyAutoConfigurationJavaScriptKey			 __OSX_AVA
  *  Discussion:
  *	Key for the username to be used with the proxy; value is a
  *	CFString. Note that this key will only be present if the username
- *	could be extracted from the information passed in.  No external
+ *	could be extracted from the information passed in.  Noexternal
  *	credential stores (like the Keychain) are consulted.
  *  
  *  Availability:
@@ -350,7 +350,7 @@ CFN_EXPORT const CFStringRef kCFProxyUsernameKey						 __OSX_AVAILABLE_STARTING(
  *  Discussion:
  *	Key for the password to be used with the proxy; value is a
  *	CFString. Note that this key will only be present if the username
- *	could be extracted from the information passed in.  No external
+ *	could be extracted from the information passed in.  Noexternal
  *	credential stores (like the Keychain) are consulted.
  *  
  *  Availability:

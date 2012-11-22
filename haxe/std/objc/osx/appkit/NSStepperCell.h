@@ -7,7 +7,7 @@
 
 #import <AppKit/NSActionCell.h>
 
-@interface NSStepperCell : NSActionCell {
+extern class NSStepperCell : NSActionCell {
   @private
     double _value;
     double _minValue;
@@ -40,5 +40,5 @@
 - (BOOL)autorepeat;
 - (void)setAutorepeat:(BOOL)autorepeat;
 
-@end
+}
 

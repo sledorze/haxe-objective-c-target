@@ -14,7 +14,7 @@
 // In general, the dictionary controller's validation logic will prevent duplicate keys (but developers need to turn on "Validates Immediately" for the value bindings of the controls editing keys to run that validation). For insertions of new entries, the controller will enumerate the key by default (so if the initialKey is "key", the inserted keys will be "key", "key1", "key2", and so on). To customize that behavior, override the -newObject method.
 
 // The key-value pair objects respond to the following methods (the class itself is private), so controls can be bound for example to arrangedObjects.localizedKey, arrangedObjects.key, arrangedObjects.value, and arrangedObjects.explicitlyIncluded of the controller. Mutating a key-value-pair object immediately results in the corresponding change in the content dictionary of the controller. 
-@interface NSObject (NSDictionaryControllerKeyValuePair)
+extern class NSObject (NSDictionaryControllerKeyValuePair)
 
 - (void)setLocalizedKey:(NSString *)localizedKey;
 - (NSString *)localizedKey;
@@ -24,10 +24,10 @@
 - (id)value;
 - (BOOL)isExplicitlyIncluded;
 
-@end
+}
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSDictionaryController : NSArrayController {
+extern class NSDictionaryController : NSArrayController {
 @private
     void *_reserved5;
     void *_reserved6;
@@ -68,5 +68,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
 - (void)setLocalizedKeyTable:(NSString *)stringsFileName;
 - (NSString *)localizedKeyTable;
 
-@end
+}
 

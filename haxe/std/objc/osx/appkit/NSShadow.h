@@ -13,7 +13,7 @@
 @class NSColor;
 
 
-@interface NSShadow : NSObject <NSCopying, NSCoding> {
+extern class NSShadow extends NSObject <NSCopying, NSCoding> {
     /*All instance variables are private*/
     NSUInteger _shadowFlags;
     NSSize _shadowOffset;
@@ -36,5 +36,5 @@
 
 - (void)set;
 
-@end
+}
 

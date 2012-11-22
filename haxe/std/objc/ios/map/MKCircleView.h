@@ -11,10 +11,10 @@
 #import <MapKit/MKOverlayPathView.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKCircleView : MKOverlayPathView
+extern class MKCircleView : MKOverlayPathView
 
 - (id)initWithCircle:(MKCircle *)circle;
 
-@property (nonatomic, readonly) MKCircle *circle;
+	public var MKCircle *circle;
 
-@end
+}

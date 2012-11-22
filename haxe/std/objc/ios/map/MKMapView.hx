@@ -31,7 +31,7 @@ extern class MKMapView extends UIView {
 
 /*
 // Access the visible region of the map in projected coordinates.
-@property (nonatomic) MKMapRect visibleMapRect;
+	public var MKMapRect visibleMapRect;
 - (void)setVisibleMapRect:(MKMapRect)mapRect animated:(BOOL)animate;
 
 // Returns an MKMapRect modified to fit the aspect ratio of the map.
@@ -47,20 +47,20 @@ extern class MKMapView extends UIView {
 - (MKCoordinateRegion)convertRect:(CGRect)rect toRegionFromView:(UIView *)view;
 
 // Disable user interaction from zooming or scrolling the map, or both.
-@property(nonatomic, getter=isZoomEnabled) BOOL zoomEnabled;
-@property(nonatomic, getter=isScrollEnabled) BOOL scrollEnabled;
+	public var (nonatomic, getter=isZoomEnabled) BOOL zoomEnabled;
+	public var (nonatomic, getter=isScrollEnabled) BOOL scrollEnabled;
 
 // Set to YES to add the user location annotation to the map and start updating its location
-@property (nonatomic) BOOL showsUserLocation;
+	public var BOOL showsUserLocation;
 
 // The annotation representing the user's location
-@property (nonatomic, readonly) MKUserLocation *userLocation;
+	public var MKUserLocation *userLocation;
 
-@property (nonatomic) MKUserTrackingMode userTrackingMode NS_AVAILABLE(NA, 5_0);
+	public var MKUserTrackingMode userTrackingMode NS_AVAILABLE(NA, 5_0);
 - (void)setUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated NS_AVAILABLE(NA, 5_0);
 
 // Returns YES if the user's location is displayed within the currently visible map region.
-@property (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
+	public var  (nonatomic, readonly, getter=isUserLocationVisible) BOOL userLocationVisible;
 
 // Annotations are models used to annotate coordinates on the map. 
 // Implement mapView:viewForAnnotation: on MKMapViewDelegate to return the annotation view for each annotation.
@@ -70,7 +70,7 @@ extern class MKMapView extends UIView {
 - (void)removeAnnotation:(id <MKAnnotation>)annotation;
 - (void)removeAnnotations:(NSArray *)annotations;
 
-@property (nonatomic, readonly) NSArray *annotations;
+	public var NSArray *annotations;
 - (NSSet *)annotationsInMapRect:(MKMapRect)mapRect NS_AVAILABLE(NA, 4_2);
 
 // Currently displayed view for an annotation; returns nil if the view for the annotation isn't being displayed.
@@ -82,15 +82,15 @@ extern class MKMapView extends UIView {
 // Select or deselect a given annotation.  Asks the delegate for the corresponding annotation view if necessary.
 - (void)selectAnnotation:(id <MKAnnotation>)annotation animated:(BOOL)animated;
 - (void)deselectAnnotation:(id <MKAnnotation>)annotation animated:(BOOL)animated;
-@property (nonatomic, copy) NSArray *selectedAnnotations;
+	public var NSArray *selectedAnnotations;
 
 // annotationVisibleRect is the visible rect where the annotations views are currently displayed.
 // The delegate can use annotationVisibleRect when animating the adding of the annotations views in mapView:didAddAnnotationViews:
-@property (nonatomic, readonly) CGRect annotationVisibleRect;
+	public var CGRect annotationVisibleRect;
 
-@end
+}
 
-@interface MKMapView (OverlaysAPI)
+extern class MKMapView (OverlaysAPI)
 
 // Overlays are models used to represent areas to be drawn on top of the map.
 // This is in contrast to annotations, which represent points on the map.
@@ -107,12 +107,12 @@ extern class MKMapView extends UIView {
 - (void)insertOverlay:(id <MKOverlay>)overlay aboveOverlay:(id <MKOverlay>)sibling NS_AVAILABLE(NA, 4_0);
 - (void)insertOverlay:(id <MKOverlay>)overlay belowOverlay:(id <MKOverlay>)sibling NS_AVAILABLE(NA, 4_0);
 
-@property (nonatomic, readonly) NSArray *overlays NS_AVAILABLE(NA, 4_0);
+	public var NSArray *overlays NS_AVAILABLE(NA, 4_0);
 
 // Currently displayed view for overlay; returns nil if the view has not been created yet.
 - (MKOverlayView *)viewForOverlay:(id <MKOverlay>)overlay NS_AVAILABLE(NA, 4_0);
 
-@end
+}
 
 @protocol MKMapViewDelegate <NSObject>
 @optional
@@ -155,5 +155,5 @@ extern class MKMapView extends UIView {
 
 - (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated NS_AVAILABLE(NA, 5_0);
 
-@end
+}
 */

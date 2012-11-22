@@ -31,13 +31,13 @@
 @class DOMNamedNodeMap;
 @class NSString;
 
-@interface DOMDocumentType : DOMNode
-@property(readonly, copy) NSString *name;
-@property(readonly, retain) DOMNamedNodeMap *entities;
-@property(readonly, retain) DOMNamedNodeMap *notations;
-@property(readonly, copy) NSString *publicId;
-@property(readonly, copy) NSString *systemId;
-@property(readonly, copy) NSString *internalSubset;
-@end
+extern class DOMDocumentType : DOMNode
+	public var (default, null) NSString *name;
+	public var (default, null) DOMNamedNodeMap *entities;
+	public var (default, null) DOMNamedNodeMap *notations;
+	public var (default, null) NSString *publicId;
+	public var (default, null) NSString *systemId;
+	public var (default, null) NSString *internalSubset;
+}
 
 #endif

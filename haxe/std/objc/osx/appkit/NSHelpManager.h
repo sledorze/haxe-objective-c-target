@@ -14,7 +14,7 @@
 
 @class NSAttributedString, NSWindow;
 
-@interface NSHelpManager : NSObject
+extern class NSHelpManager extends NSObject
 {
     /*All instance variables are private*/
     NSMapTable		*_helpMapTable;
@@ -42,7 +42,7 @@
 /* Register one or more help books in the given bundle.  The main bundle is automatically registered by -openHelpAnchor:inBook: and -findString:inBook:.  You can use -registerBooksInBundle: to register help books in a plugin bundle, for example.  The Info.plist in the bundle should contain a help book directory path, which specifies one or more folders containing help books.  Returns NO if the bundle doesn't contain any help books or if registration fails.  Returns YES on successful registration. */
 - (BOOL)registerBooksInBundle:(NSBundle *)bundle NS_AVAILABLE_MAC(10_6);
 
-@end
+}
 
 //
 // Notifications for the activation/deactivation of the context help mode
@@ -55,16 +55,16 @@ APPKIT_EXTERN NSString *NSContextHelpModeDidDeactivateNotification;
 //  Conveniences for accessing Help.plist
 //
 
-@interface NSBundle(NSBundleHelpExtension)
+extern class NSBundle(NSBundleHelpExtension)
 - (NSAttributedString *)contextHelpForKey:(NSString *)key;	/* return nil if not found */
-@end
+}
 
 //
 //  Convenience methods on NSApplication
 //
 
-@interface NSApplication(NSApplicationHelpExtension)
+extern class NSApplication(NSApplicationHelpExtension)
 - (void)activateContextHelpMode:(id)sender;
   // Target method cover for [NSHelpManager setContextHelpModeActive:YES];
 - (void)showHelp:(id)sender;
-@end
+}

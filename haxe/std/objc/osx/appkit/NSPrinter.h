@@ -19,7 +19,7 @@ enum {
 };
 typedef NSUInteger NSPrinterTableStatus;
 
-@interface NSPrinter: NSObject<NSCopying, NSCoding> {
+extern class NSPrinterextends NSObject<NSCopying, NSCoding> {
     @private
     NSString *_printerName;
     void *_printer;
@@ -85,9 +85,9 @@ typedef NSUInteger NSPrinterTableStatus;
 */
 - (NSDictionary *)deviceDescription;
 
-@end
+}
 
-@interface NSPrinter(NSDeprecated)
+extern class NSPrinter(NSDeprecated)
 
 /* A method that was deprecated in Mac OS 10.2. -[NSPrinter imageRectForPaper:] will attempt to determine and return the bounds of the imageable area for a particular paper name, but querying such information by paper name alone is not reliable. Use -[NSPrintInfo imageablePageBounds], which was introduced in Mac OS 10.2, instead.
 */
@@ -107,4 +107,4 @@ typedef NSUInteger NSPrinterTableStatus;
 - (NSString *)host NS_DEPRECATED_MAC(10_0, 10_2);
 - (NSString *)note NS_DEPRECATED_MAC(10_0, 10_2);
 
-@end
+}

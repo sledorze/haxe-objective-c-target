@@ -12,9 +12,9 @@
     // data will be in an NSImage/QuickTime compatible format or nil if no image could be found.
     // This is always called on the main thread.
 	// Use the tag returned by the -beginLoadingImageDataForClient: method
-@end
+}
 
-@interface ABPerson (ABPersonImageAdditions)
+extern class ABPerson (ABPersonImageAdditions)
 
 - (BOOL)setImageData:(NSData *)data;
     // Set the image of a person to data. data should be in an NSImage/QuickTime compatible format.
@@ -33,4 +33,4 @@
     // Cancels an asynchronous fetch for a specific tag
     // Use the tag returned by the -beginLoadingImageDataForClient: method
 
-@end
+}

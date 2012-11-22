@@ -5,7 +5,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
 
-@interface NSString (NSStringPathExtensions)
+extern class NSString (NSStringPathExtensions)
 
 + (NSString *)pathWithComponents:(NSArray *)components;
 - (NSArray *)pathComponents;
@@ -34,13 +34,13 @@
 - (__strong const char *)fileSystemRepresentation NS_RETURNS_INNER_POINTER;
 - (BOOL)getFileSystemRepresentation:(char *)cname maxLength:(NSUInteger)max;
 
-@end
+}
 
-@interface NSArray (NSArrayPathExtensions)
+extern class NSArray (NSArrayPathExtensions)
 
 - (NSArray *)pathsMatchingExtensions:(NSArray *)filterTypes;
 
-@end
+}
 
 FOUNDATION_EXPORT NSString *NSUserName(void);
 FOUNDATION_EXPORT NSString *NSFullUserName(void);

@@ -31,24 +31,24 @@
 @class DOMHTMLFormElement;
 @class NSString;
 
-@interface DOMHTMLTextAreaElement : DOMHTMLElement
-@property BOOL autofocus AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property int cols;
-@property BOOL disabled;
-@property(readonly, retain) DOMHTMLFormElement *form;
-@property(copy) NSString *name;
-@property BOOL readOnly;
-@property int rows;
-@property(readonly, copy) NSString *type;
-@property(copy) NSString *defaultValue;
-@property(copy) NSString *value;
-@property(readonly) BOOL willValidate AVAILABLE_IN_WEBKIT_VERSION_4_0;
-@property int selectionStart AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property int selectionEnd AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(copy) NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
+extern class DOMHTMLTextAreaElement : DOMHTMLElement
+	public var  BOOL autofocus AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  int cols;
+	public var  BOOL disabled;
+	public var (default, null) DOMHTMLFormElement *form;
+	public var NSString *name;
+	public var  BOOL readOnly;
+	public var  int rows;
+	public var (default, null) NSString *type;
+	public var NSString *defaultValue;
+	public var NSString *value;
+	public var  (default, null) : BOOL willValidate AVAILABLE_IN_WEBKIT_VERSION_4_0;
+	public var  int selectionStart AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  int selectionEnd AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var NSString *accessKey AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_AFTER_WEBKIT_VERSION_5_1;
 
 - (void)select;
 - (void)setSelectionRange:(int)start end:(int)end AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@end
+}
 
 #endif

@@ -30,10 +30,10 @@
 
 @class NSString;
 
-@interface DOMHTMLOListElement : DOMHTMLElement
-@property BOOL compact;
-@property int start;
-@property(copy) NSString *type;
-@end
+extern class DOMHTMLOListElement : DOMHTMLElement
+	public var  BOOL compact;
+	public var  int start;
+	public var NSString *type;
+}
 
 #endif

@@ -46,7 +46,7 @@ An NSGradient has a color space.  When initialized, all colors provided are conv
 */
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSGradient : NSObject <NSCopying, NSCoding> {
+extern class NSGradient extends NSObject <NSCopying, NSCoding> {
 @private
     NSArray *_colorArray;
     NSColorSpace *_colorSpace;
@@ -144,5 +144,5 @@ You should not need to override this method, it reports the color value of the g
 - (NSColor *)interpolatedColorAtLocation:(CGFloat)location;
 
 
-@end
+}
 

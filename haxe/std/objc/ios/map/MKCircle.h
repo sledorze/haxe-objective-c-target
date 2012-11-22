@@ -11,7 +11,7 @@
 #import <MapKit/MKFoundation.h>
 
 MK_CLASS_AVAILABLE(NA, 4_0)
-@interface MKCircle : MKShape <MKOverlay> {
+extern class MKCircle : MKShape <MKOverlay> {
 @package
     CLLocationCoordinate2D _coordinate;
     CLLocationDistance _radius;
@@ -24,9 +24,9 @@ MK_CLASS_AVAILABLE(NA, 4_0)
 
 + (MKCircle *)circleWithMapRect:(MKMapRect)mapRect; // radius will be determined from MAX(width, height)
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property (nonatomic, readonly) CLLocationDistance radius;
+	public var CLLocationCoordinate2D coordinate;
+	public var CLLocationDistance radius;
 
-@property (nonatomic, readonly) MKMapRect boundingMapRect; 
+	public var MKMapRect boundingMapRect; 
 
-@end
+}

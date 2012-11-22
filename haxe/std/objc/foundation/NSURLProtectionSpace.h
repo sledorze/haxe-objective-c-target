@@ -109,7 +109,7 @@ FOUNDATION_EXPORT NSString * const NSURLAuthenticationMethodServerTrust NS_AVAIL
     @discussion This class represents a protection space requiring authentication.
 */
 
-@interface NSURLProtectionSpace : NSObject <NSCoding, NSCopying>
+extern class NSURLProtectionSpace extends NSObject, implements NSObject, NSCopying>
 {
 @private
     NSURLProtectionSpaceInternal *_internal;
@@ -206,13 +206,13 @@ FOUNDATION_EXPORT NSString * const NSURLAuthenticationMethodServerTrust NS_AVAIL
 */
 - (NSString *)authenticationMethod;
 
-@end
+}
 
 /*!
     @class NSURLProtectionSpace(NSClientCertificateSpace)
     @discussion This category supplies additional information for use when a client certificate is required by the server in order to complete authentication.
  */
-@interface NSURLProtectionSpace(NSClientCertificateSpace)
+extern class NSURLProtectionSpace(NSClientCertificateSpace)
 
 /*!
     @method distinguishedNames
@@ -221,13 +221,13 @@ FOUNDATION_EXPORT NSString * const NSURLAuthenticationMethodServerTrust NS_AVAIL
  */
 - (NSArray *)distinguishedNames NS_AVAILABLE(10_6, 3_0);
 
-@end
+}
 
 /*!
     @class NSURLProtectionSpace(NSServerTrustValidationSpace)
     @discussion This category supplies additional information for use by the client to evaluate whether to trust a given server during a security handshake.
  */
-@interface NSURLProtectionSpace(NSServerTrustValidationSpace)
+extern class NSURLProtectionSpace(NSServerTrustValidationSpace)
 
 /*!
     @method serverTrust
@@ -236,4 +236,4 @@ FOUNDATION_EXPORT NSString * const NSURLAuthenticationMethodServerTrust NS_AVAIL
  */
 - (SecTrustRef)serverTrust NS_AVAILABLE(10_6, 3_0);
 
-@end
+}

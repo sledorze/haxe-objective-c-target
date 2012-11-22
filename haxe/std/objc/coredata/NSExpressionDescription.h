@@ -16,7 +16,7 @@
    directly as an attribute or relationship on an entity. Examples would be: upper(attribute) or
    max(attribute). NSExpressionDescriptions cannot be set as properties on NSEntityDescription. */
 NS_CLASS_AVAILABLE(10_6,3_0)
-@interface NSExpressionDescription : NSPropertyDescription {
+extern class NSExpressionDescription : NSPropertyDescription {
 	@private
 	id _reservedtype1_1;
 	id _reservedtype1_2;
@@ -37,5 +37,5 @@ NS_CLASS_AVAILABLE(10_6,3_0)
 - (NSAttributeType)expressionResultType;
 - (void)setExpressionResultType:(NSAttributeType)type;
 
-@end
+}
 

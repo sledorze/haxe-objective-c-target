@@ -7,7 +7,7 @@
 
 @class NSLocale, NSDate, NSCalendar, NSTimeZone, NSError, NSArray, NSMutableDictionary;
 
-@interface NSDateFormatter : NSFormatter {
+extern class NSDateFormatter : NSFormatter {
 @private
     NSMutableDictionary *_attributes;
     __strong CFDateFormatterRef _formatter;
@@ -153,14 +153,14 @@ typedef NS_ENUM(NSUInteger, NSDateFormatterBehavior) {
 - (BOOL)doesRelativeDateFormatting NS_AVAILABLE(10_6, 4_0);
 - (void)setDoesRelativeDateFormatting:(BOOL)b NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
-@interface NSDateFormatter (NSDateFormatterCompatibility)
+extern class NSDateFormatter (NSDateFormatterCompatibility)
 
 - (id)initWithDateFormat:(NSString *)format allowNaturalLanguage:(BOOL)flag;
 - (BOOL)allowsNaturalLanguage;
 
-@end
+}
 #endif
 

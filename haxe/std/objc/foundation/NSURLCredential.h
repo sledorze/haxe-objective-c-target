@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
     @discussion This class is an immutable object representing an authentication credential.  The actual type of the credential is determined by the constructor called in the categories declared below.
 */
 
-@interface NSURLCredential : NSObject <NSCoding, NSCopying>
+extern class NSURLCredential extends NSObject, implements NSObject, NSCopying>
 {
     @private
     __strong NSURLCredentialInternal *_internal;
@@ -45,13 +45,13 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
  */
 - (NSURLCredentialPersistence)persistence;
 
-@end
+}
 
 /*!
     @class NSURLCredential(NSInternetPassword)
     @discussion This category defines the methods available to an NSURLCredential created to represent an internet password credential.  These are most commonly used for resources that require a username and password combination.
  */
-@interface NSURLCredential(NSInternetPassword)
+extern class NSURLCredential(NSInternetPassword)
 
 /*!
     @method initWithUser:password:persistence:
@@ -85,7 +85,7 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
     @abstract Get the password
     @result The password string
     @discussion This method might actually attempt to retrieve the
-    password from an external store, possible resulting in prompting,
+    password from anexternal store, possible resulting in prompting,
     so do not call it unless needed.
 */
 - (NSString *)password;
@@ -95,19 +95,19 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
     @abstract Find out if this credential has a password, without trying to get it
     @result YES if this credential has a password, otherwise NO
     @discussion If this credential's password is actually kept in an
-    external store, the password method may return nil even if this
+   external store, the password method may return nil even if this
     method returns YES, since getting the password may fail, or the
     user may refuse access.
 */
 - (BOOL)hasPassword;
 
-@end
+}
 
 /*!
     @class NSURLCredential(NSClientCertificate)
     @discussion This category defines the methods available to an NSURLCredential created to represent a client certificate credential.  Client certificates are commonly stored on the users computer in the keychain and must be presented to the server during a handshake.
 */
-@interface NSURLCredential(NSClientCertificate)
+extern class NSURLCredential(NSClientCertificate)
 
 /*!
     @method initWithIdentity:certificateArray:persistence:
@@ -143,9 +143,9 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
  */
 - (NSArray *)certificates NS_AVAILABLE(10_6, 3_0);
 
-@end
+}
 
-@interface NSURLCredential(NSServerTrust)
+extern class NSURLCredential(NSServerTrust)
 
 /*!
     @method initWithTrust:(SecTrustRef) trust
@@ -161,5 +161,5 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
  */
 + (NSURLCredential *)credentialForTrust:(SecTrustRef)trust NS_AVAILABLE(10_6, 3_0);
 
-@end
+}
 

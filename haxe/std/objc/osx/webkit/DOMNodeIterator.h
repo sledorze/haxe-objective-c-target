@@ -31,17 +31,17 @@
 @class DOMNode;
 @protocol DOMNodeFilter;
 
-@interface DOMNodeIterator : DOMObject
-@property(readonly, retain) DOMNode *root;
-@property(readonly) unsigned whatToShow;
-@property(readonly, retain) id <DOMNodeFilter> filter;
-@property(readonly) BOOL expandEntityReferences;
-@property(readonly, retain) DOMNode *referenceNode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
-@property(readonly) BOOL pointerBeforeReferenceNode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+extern class DOMNodeIterator : DOMObject
+	public var (default, null) DOMNode *root;
+	public var  (default, null) : unsigned whatToShow;
+	public var (default, null) id <DOMNodeFilter> filter;
+	public var  (default, null) : BOOL expandEntityReferences;
+	public var (default, null) DOMNode *referenceNode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
+	public var  (default, null) : BOOL pointerBeforeReferenceNode AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 
 - (DOMNode *)nextNode;
 - (DOMNode *)previousNode;
 - (void)detach;
-@end
+}
 
 #endif

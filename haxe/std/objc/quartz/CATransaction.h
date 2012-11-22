@@ -26,7 +26,7 @@
 
 @class CAMediaTimingFunction;
 
-@interface CATransaction : NSObject
+extern class CATransaction extends NSObject
 
 /* Begin a new transaction for the current thread; nests. */
 
@@ -104,7 +104,7 @@
 + (id)valueForKey:(NSString *)key;
 + (void)setValue:(id)anObject forKey:(NSString *)key;
 
-@end
+}
 
 /** Transaction property ids. **/
 

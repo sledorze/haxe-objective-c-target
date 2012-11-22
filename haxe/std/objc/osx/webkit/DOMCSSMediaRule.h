@@ -32,16 +32,16 @@
 @class DOMMediaList;
 @class NSString;
 
-@interface DOMCSSMediaRule : DOMCSSRule
-@property(readonly, retain) DOMMediaList *media;
-@property(readonly, retain) DOMCSSRuleList *cssRules;
+extern class DOMCSSMediaRule : DOMCSSRule
+	public var (default, null) DOMMediaList *media;
+	public var (default, null) DOMCSSRuleList *cssRules;
 
 - (unsigned)insertRule:(NSString *)rule index:(unsigned)index AVAILABLE_WEBKIT_VERSION_3_0_AND_LATER;
 - (void)deleteRule:(unsigned)index;
-@end
+}
 
-@interface DOMCSSMediaRule (DOMCSSMediaRuleDeprecated)
+extern class DOMCSSMediaRule (DOMCSSMediaRuleDeprecated)
 - (unsigned)insertRule:(NSString *)rule :(unsigned)index AVAILABLE_WEBKIT_VERSION_1_3_AND_LATER_BUT_DEPRECATED_IN_WEBKIT_VERSION_3_0;
-@end
+}
 
 #endif

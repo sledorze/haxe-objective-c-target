@@ -15,7 +15,7 @@ enum {
 typedef NSUInteger NSPersistentStoreRequestType;
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-@interface NSPersistentStoreRequest : NSObject <NSCopying> {
+extern class NSPersistentStoreRequest extends NSObject <NSCopying> {
 	@private
 	NSArray *_affectedStores;
 }
@@ -27,5 +27,5 @@ NS_CLASS_AVAILABLE(10_7, 5_0)
 // The type of the request.
 - (NSPersistentStoreRequestType)requestType;
 
-@end
+}
 

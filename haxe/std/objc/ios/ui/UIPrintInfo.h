@@ -1,6 +1,6 @@
 //
 //  UIPrintInfo.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright 2010-2012, Apple Inc. All rights reserved.
 //
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, UIPrintInfoDuplex) {
     UIPrintInfoDuplexShortEdge,      // flip back page along short edge (flipped orientation for portrait, same in landscape)
 };
 
-NS_CLASS_AVAILABLE_IOS(4_2) @interface UIPrintInfo : NSObject <NSCopying, NSCoding> { 
+NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintInfo extends NSObject <NSCopying, NSCoding> { 
   @private
     NSString                *_printerID;
     NSString                *_jobName;
@@ -42,10 +42,10 @@ NS_CLASS_AVAILABLE_IOS(4_2) @interface UIPrintInfo : NSObject <NSCopying, NSCodi
 
 - (NSDictionary *)dictionaryRepresentation;
 
-@property(nonatomic,copy)     NSString                *printerID;         // default is nil. set after user selects printer
-@property(nonatomic,copy)     NSString                *jobName;           // default is application name
-@property(nonatomic)          UIPrintInfoOutputType    outputType;        // default is UIPrintInfoOutputGeneral
-@property(nonatomic)          UIPrintInfoOrientation   orientation;       // default is UIPrintInfoOrientationPortrait
-@property(nonatomic)          UIPrintInfoDuplex        duplex;            // default is based on document type (none for photo, long edge for other)
+public var      NSString                *printerID;         // default is nil. set after user selects printer
+public var      NSString                *jobName;           // default is application name
+	public var           UIPrintInfoOutputType    outputType;        // default is UIPrintInfoOutputGeneral
+	public var           UIPrintInfoOrientation   orientation;       // default is UIPrintInfoOrientationPortrait
+	public var           UIPrintInfoDuplex        duplex;            // default is based on document type (none for photo, long edge for other)
 
-@end
+}

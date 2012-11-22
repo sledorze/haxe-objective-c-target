@@ -2,12 +2,6 @@
 
 @implementation Array
 
-- (void) new{
-	self = [super init];
-	self.nativeArray = [[NSMutableArray alloc] new][];
-	self.length = 0;
-	return self;
-}
 @synthesize nativeArray;
 @synthesize length;
 - (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array{
@@ -21,7 +15,7 @@
 	return nil;
 }
 - (NSMutabeArray*) copy{
-	return [[[Array alloc] new][].initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];
+	return [[[NSMutabeArray alloc] new][].initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];
 }
 - (id) iterator{
 	return nil;
@@ -30,10 +24,10 @@
 	[self.nativeArray insertObject:x atIndex:pos];
 	self.length = [self.nativeArray count];
 }
-- (NSString*) join:(NSString*)sep{
+- (NSMutableString*) join:(NSMutableString*)sep{
 	return [self.nativeArray componentsJoinedByString:sep];
 }
-- (NSString*) toString{
+- (NSMutableString*) toString{
 	return @"[" + [self.nativeArray componentsJoinedByString:@","] + @"]";
 }
 - (id) pop{
@@ -80,7 +74,13 @@
 	NSMutableArray *newArray = [self.nativeArray subarrayWithRange:NSMakeRange (pos,len)];
 	[self.nativeArray removeObjectsInArray:newArray];
 	self.length = [self.nativeArray count];
-	return [[[Array alloc] new][].initWithNSMutableArray:newArray];
+	return [[[NSMutabeArray alloc] new][].initWithNSMutableArray:newArray];
+}
+- (id) new{
+	self = [super init];
+	self.nativeArray = [[NSMutableArray alloc] new][];
+	self.length = 0;
+	return self;
 }
 
 @end

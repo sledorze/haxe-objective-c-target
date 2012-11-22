@@ -155,4 +155,4 @@
 - (void)locationManager:(CLLocationManager *)manager
 	didFinishDeferredUpdatesWithError:(NSError *)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
 
-@end
+}

@@ -128,7 +128,7 @@ typedef struct __BCFlags2 {
 #endif
 } _BCFlags2;
 
-@interface NSButtonCell : NSActionCell
+extern class NSButtonCell : NSActionCell
 {
     /*All instance variables are private*/
     NSString	       *_altContents;
@@ -178,15 +178,15 @@ typedef struct __BCFlags2 {
 - (void)drawImage:(NSImage*)image withFrame:(NSRect)frame inView:(NSView*)controlView;
 - (NSRect)drawTitle:(NSAttributedString*)title withFrame:(NSRect)frame inView:(NSView*)controlView;
 - (void)drawBezelWithFrame:(NSRect)frame inView:(NSView*)controlView;
-@end
+}
 
-@interface NSButtonCell(NSKeyboardUI)
+extern class NSButtonCell(NSKeyboardUI)
 - (void)setTitleWithMnemonic:(NSString *)stringWithAmpersand;
 - (void)setAlternateTitleWithMnemonic:(NSString *)stringWithAmpersand;
 - (void)setAlternateMnemonicLocation:(NSUInteger)location;
 - (NSUInteger)alternateMnemonicLocation;
 - (NSString *)alternateMnemonic;
-@end
+}
 
 // NSGradientType :
 //
@@ -204,7 +204,7 @@ enum {
 };
 typedef NSUInteger NSGradientType;
 
-@interface NSButtonCell(NSButtonCellExtensions)
+extern class NSButtonCell(NSButtonCellExtensions)
 - (NSGradientType)gradientType;
 - (void)setGradientType:(NSGradientType)type;
 
@@ -222,24 +222,24 @@ typedef NSUInteger NSGradientType;
 - (NSColor*)backgroundColor;
 - (void)setBackgroundColor:(NSColor*)color;
 
-@end
+}
 
-@interface NSButtonCell(NSButtonCellAttributedStringMethods)
+extern class NSButtonCell(NSButtonCellAttributedStringMethods)
 - (NSAttributedString *)attributedTitle;
 - (void)setAttributedTitle:(NSAttributedString *)obj;
 - (NSAttributedString *)attributedAlternateTitle;
 - (void)setAttributedAlternateTitle:(NSAttributedString *)obj;
-@end
+}
 
-@interface NSButtonCell(NSButtonCellBezelStyles)
+extern class NSButtonCell(NSButtonCellBezelStyles)
 
 - (void) setBezelStyle:(NSBezelStyle)bezelStyle;
 - (NSBezelStyle)bezelStyle;
 
-@end
+}
 
-@interface NSButtonCell (NSButtonCellSoundExtensions)
+extern class NSButtonCell (NSButtonCellSoundExtensions)
 - (void)setSound:(NSSound *)aSound;
 - (NSSound *)sound;
-@end
+}
 

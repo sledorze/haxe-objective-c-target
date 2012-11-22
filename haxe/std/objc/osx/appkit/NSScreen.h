@@ -13,7 +13,7 @@
 
 typedef struct NSScreenAuxiliary NSScreenAuxiliaryOpaque;
 
-@interface NSScreen : NSObject {
+extern class NSScreen extends NSObject {
 /*All instance variables are private*/
 @private
     NSRect _frame;          // cached value, possibly stale
@@ -47,17 +47,17 @@ typedef struct NSScreenAuxiliary NSScreenAuxiliaryOpaque;
  */
 - (CGFloat)backingScaleFactor NS_AVAILABLE_MAC(10_7); 
 
-@end
+}
 
 /* Notifications */
 APPKIT_EXTERN NSString * const NSScreenColorSpaceDidChangeNotification NS_AVAILABLE_MAC(10_6);  // the notification object is the screen whose profile has changed
 
 
-@interface NSScreen(NSDeprecated)
+extern class NSScreen(NSDeprecated)
 
 /*  This method is deprecated and should not be used by applications targeting Mac OS X 10.7 or later.
  The implementation of this method will always return 1.0.  Please use -convertRectToBacking: or -backingScaleFactor instead.
  */
 - (CGFloat)userSpaceScaleFactor;
 
-@end
+}

@@ -1,6 +1,6 @@
 //
 //  UIProgressView.h
-//  UIKit
+package objc.ios.ui;
 //
 //  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
 //
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, UIProgressViewStyle) {
     UIProgressViewStyleBar,         // for use in a toolbar
 };
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIProgressView : UIView <NSCoding>
+extern class UIProgressView extends UIView, implements NSObject>
 { 
   @private
     UIProgressViewStyle _progressViewStyle;
@@ -31,13 +31,13 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIProgressView : UIView <NSCoding>
 
 - (id)initWithProgressViewStyle:(UIProgressViewStyle)style; // sets the view height according to the style
 
-@property(nonatomic) UIProgressViewStyle progressViewStyle; // default is UIProgressViewStyleDefault
-@property(nonatomic) float progress;                        // 0.0 .. 1.0, default is 0.0. values outside are pinned.
-@property(nonatomic, retain) UIColor* progressTintColor     NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
-@property(nonatomic, retain) UIColor* trackTintColor     NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
-@property(nonatomic, retain) UIImage* progressImage NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
-@property(nonatomic, retain) UIImage* trackImage NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public var  UIProgressViewStyle progressViewStyle; // default is UIProgressViewStyleDefault
+	public var  float progress;                        // 0.0 .. 1.0, default is 0.0. values outside are pinned.
+	public var  UIColor* progressTintColor     NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public var  UIColor* trackTintColor     NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public var  UIImage* progressImage NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public var  UIImage* trackImage NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
-- (void)setProgress:(float)progress animated:(BOOL)animated NS_AVAILABLE_IOS(5_0);
+	public function setProgress:(float)progress animated:(BOOL)animated NS_AVAILABLE_IOS(5_0);
 
-@end
+}

@@ -34,7 +34,7 @@ enum {
 typedef NSUInteger NSLineMovementDirection;
 
 
-@interface NSTextContainer : NSObject <NSCoding, NSTextLayoutOrientationProvider> {
+extern class NSTextContainer extends NSObject, implements NSObject, NSTextLayoutOrientationProvider> {
     
   /*All instance variables are private*/
     
@@ -97,4 +97,4 @@ typedef NSUInteger NSLineMovementDirection;
 - (BOOL)containsPoint:(NSPoint)point;
     // Returns YES if the point (given in the coordinate system of the container) falls within the region of the container.
 
-@end
+}

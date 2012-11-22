@@ -70,10 +70,10 @@ APPKIT_EXTERN NSString *const NSPrintPanelAccessorySummaryItemDescriptionKey NS_
 - (NSSet *)keyPathsForValuesAffectingPreview;
 
 #endif
-@end
+}
 
 
-@interface NSPrintPanel : NSObject {
+extern class NSPrintPanel extends NSObject {
     @private
     NSMutableArray *_accessoryControllers;
     id _previewController;
@@ -145,9 +145,9 @@ APPKIT_EXTERN NSString *const NSPrintPanelAccessorySummaryItemDescriptionKey NS_
 - (NSPrintInfo *)printInfo NS_AVAILABLE_MAC(10_5);
 
 
-@end
+}
 
-@interface NSPrintPanel(NSDeprecated)
+extern class NSPrintPanel(NSDeprecated)
 
 /* Methods that were deprecated in Mac OS 10.5. -setAccessoryView: replaces all of the accessory controllers that have been added so far by -addAccessoryController:. -accessoryView merely returns the view of the first accessory controller, or nil.
 */
@@ -159,4 +159,4 @@ APPKIT_EXTERN NSString *const NSPrintPanelAccessorySummaryItemDescriptionKey NS_
 - (void)updateFromPrintInfo NS_DEPRECATED_MAC(10_0, 10_5);
 - (void)finalWritePrintInfo NS_DEPRECATED_MAC(10_0, 10_5);
 
-@end
+}

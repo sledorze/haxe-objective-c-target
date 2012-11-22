@@ -151,7 +151,7 @@ enum {
 #endif
 typedef NSUInteger NSEventSwipeTrackingOptions;
 
-@interface NSEvent : NSObject <NSCopying, NSCoding> {
+extern class NSEvent extends NSObject <NSCopying, NSCoding> {
     /*All instance variables are private*/
     NSEventType _type;
     NSPoint _location;
@@ -445,7 +445,7 @@ typedef NSUInteger NSEventSwipeTrackingOptions;
 + (void)removeMonitor:(id)eventMonitor NS_AVAILABLE_MAC(10_6);
 #endif
 
-@end
+}
 
 
 /* Unicodes we reserve for function keys on the keyboard,  OpenStep reserves the range 0xF700-0xF8FF for this purpose.  The availability of various keys will be system dependent. */

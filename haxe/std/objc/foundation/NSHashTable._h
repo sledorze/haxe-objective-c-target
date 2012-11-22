@@ -29,7 +29,7 @@ enum {
 typedef NSUInteger NSHashTableOptions;
 
 NS_CLASS_AVAILABLE(10_5, 6_0)
-@interface NSHashTable : NSObject <NSCopying, NSCoding, NSFastEnumeration>
+extern class NSHashTable : NSObject <NSCopying, NSCoding, NSFastEnumeration>
 
 - (id)initWithOptions:(NSPointerFunctionsOptions)options capacity:(NSUInteger)initialCapacity;
 - (id)initWithPointerFunctions:(NSPointerFunctions *)functions capacity:(NSUInteger)initialCapacity;
@@ -73,7 +73,7 @@ NS_CLASS_AVAILABLE(10_5, 6_0)
 
 - (NSSet *)setRepresentation;  // create a set of the contents
 
-@end
+}
 
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32

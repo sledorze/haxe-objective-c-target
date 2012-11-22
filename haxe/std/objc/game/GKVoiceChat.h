@@ -18,7 +18,7 @@ typedef NSInteger GKVoiceChatPlayerState;
 
 // GKVoiceChat represents an instance of a named voice communications channel
 NS_CLASS_AVAILABLE(10_8, 4_1)
-@interface GKVoiceChat : NSObject {
+extern class GKVoiceChat extends NSObject {
 }
 	
 - (void)start;  // start receiving audio from the chat
@@ -26,14 +26,14 @@ NS_CLASS_AVAILABLE(10_8, 4_1)
 
 - (void)setMute:(BOOL)isMuted forPlayer:(NSString *)playerID;
 
-@property(nonatomic, copy) void(^playerStateUpdateHandler)(NSString *playerID, GKVoiceChatPlayerState state);
-@property(nonatomic, readonly) NSString *name;  // name the chat was created with
-@property(nonatomic, assign, getter=isActive) BOOL active; // make this session active and route the microphone 
-@property(nonatomic, assign) float volume; // default 1.0 (max is 1.0, min is 0.0)
+	public var  void(^playerStateUpdateHandler)(NSString *playerID, GKVoiceChatPlayerState state);
+	public var (default, null) NSString *name;  // name the chat was created with
+	public var (nonatomic, assign, getter=isActive) BOOL active; // make this session active and route the microphone 
+	public var  float volume; // default 1.0 (max is 1.0, min is 0.0)
 
 
-@property(nonatomic, readonly) NSArray *playerIDs __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0); // list of GKPlayerIDs
+	public var (default, null) NSArray *playerIDs __OSX_AVAILABLE_STARTING(__MAC_10_8,__IPHONE_5_0); // list of GKPlayerIDs
 
 + (BOOL)isVoIPAllowed;
 
-@end
+}

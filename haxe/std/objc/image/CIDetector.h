@@ -17,7 +17,7 @@
  This class potentially holds onto a lot of state. Hence it may be beneficial from a performance perspective to re-use the same CIDetector instance. Specifying a CIContext when creating a detector may have an impact on performance since this context may be used when analyzing an image.
  */
 CORE_IMAGE_CLASS_EXPORT
-@interface CIDetector : NSObject {}
+extern class CIDetector extends NSObject {}
 
 /** Returns a new detector instance of the given type.
  
@@ -41,7 +41,7 @@ CORE_IMAGE_CLASS_EXPORT
  The options dictionary can contain a CIDetectorImageOrientation key value. */
 - (NSArray *)featuresInImage:(CIImage *)image options:(NSDictionary *)options __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
 
-@end
+}
 
 
 // Types to be used for +[CIDetector detectorOfType:context:options:]

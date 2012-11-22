@@ -26,7 +26,7 @@
 @class AVCompositionTrackSegmentInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCompositionTrackSegment : AVAssetTrackSegment
+extern class AVCompositionTrackSegment : AVAssetTrackSegment
 {
 @private
 	AVCompositionTrackSegmentInternal	*_priv;
@@ -86,12 +86,12 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 
 /* indicates whether the AVCompositionTrackSegment is an empty segment;
    an empty segment has a valid target time range but nil sourceURL and kCMTimeInvalid source start time; all other fields are undefined */
-@property (nonatomic, readonly, getter=isEmpty) BOOL empty;
+	public var  (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
 /* indicates the container file of the media presented by the AVCompositionTrackSegment */
-@property (nonatomic, readonly) NSURL *sourceURL;
+	public var NSURL *sourceURL;
 
 /* indicates the track of the container file of the media presented by the AVCompositionTrackSegment */
-@property (nonatomic, readonly) CMPersistentTrackID sourceTrackID;
+	public var CMPersistentTrackID sourceTrackID;
 
-@end
+}

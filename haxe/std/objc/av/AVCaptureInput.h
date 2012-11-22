@@ -31,14 +31,14 @@
     between a set of AVCaptureInputPort objects and a single AVCaptureOutput.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureInput : NSObject 
+extern class AVCaptureInput extends NSObject 
 {
 @private
 	AVCaptureInputInternal *_inputInternal;
 }
 
 /*!
- @property ports
+ 	public var  ports
  @abstract
     The ports owned by the receiver.
 
@@ -46,9 +46,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is an array of AVCaptureInputPort objects, each exposing an interface to a single stream
     of media data provided by an input.
 */
-@property(nonatomic, readonly) NSArray *ports;
+	public var (default, null) NSArray *ports;
 
-@end
+}
 
 
 /*!
@@ -76,24 +76,24 @@ AVF_EXPORT NSString *const AVCaptureInputPortFormatDescriptionDidChangeNotificat
     are used by an AVCaptureConnection to define the mapping between inputs and outputs in an AVCaptureSession.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureInputPort : NSObject
+extern class AVCaptureInputPort extends NSObject
 {
 @private
     AVCaptureInputPortInternal *_internal;
 }
 
 /*!
- @property input
+ 	public var  input
  @abstract
     The input that owns the receiver.
 
  @discussion
     The value of this property is an AVCaptureInput instance that owns the receiver.
 */
-@property(nonatomic, readonly) AVCaptureInput *input;
+	public var (default, null) AVCaptureInput *input;
 
 /*!
- @property mediaType
+ 	public var  mediaType
  @abstract
     The media type of the data provided by the receiver.
 
@@ -101,10 +101,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     The value of this property is a constant describing the type of media, such as AVMediaTypeVideo or AVMediaTypeAudio,
     provided by the receiver. Media type constants are defined in AVMediaFormat.h.
 */
-@property(nonatomic, readonly) NSString *mediaType;
+	public var (default, null) NSString *mediaType;
 
 /*!
- @property formatDescription
+ 	public var  formatDescription
  @abstract
     The format of the data provided by the receiver.
 
@@ -113,10 +113,10 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     by the receiver. Clients can be notified of changes to the format by observing the
     AVCaptureInputPortFormatDescriptionDidChangeNotification.
 */
-@property(nonatomic, readonly) CMFormatDescriptionRef formatDescription;
+	public var (default, null) CMFormatDescriptionRef formatDescription;
 
 /*!
- @property enabled
+ 	public var  enabled
  @abstract
     Whether the receiver should provide data.
 
@@ -125,9 +125,9 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     session is running. Clients can set this property to fine tune which media streams from a given input will be used
     during capture. The default value is YES.
 */
-@property(nonatomic, getter=isEnabled) BOOL enabled;
+	public var (nonatomic, getter=isEnabled) BOOL enabled;
 
-@end
+}
 
 @class AVCaptureDevice;
 @class AVCaptureDeviceInputInternal;
@@ -143,7 +143,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     connected to the system, represented by instances of AVCaptureDevice.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-@interface AVCaptureDeviceInput : AVCaptureInput 
+extern class AVCaptureDeviceInput : AVCaptureInput 
 {
 @private
 	AVCaptureDeviceInputInternal *_internal;
@@ -192,16 +192,16 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 - (id)initWithDevice:(AVCaptureDevice *)device error:(NSError **)outError;
 
 /*!
- @property device
+ 	public var  device
  @abstract
     The device from which the receiver provides data.
 
  @discussion
     The value of this property is the AVCaptureDevice instance that was used to create the receiver.
 */
-@property(nonatomic, readonly) AVCaptureDevice *device;
+	public var (default, null) AVCaptureDevice *device;
 
-@end
+}
 
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
@@ -219,7 +219,7 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
     one of the screens connected to the system, represented by CGDirectDisplayIDs.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-@interface AVCaptureScreenInput : AVCaptureInput 
+extern class AVCaptureScreenInput : AVCaptureInput 
 {
 @private
 	AVCaptureScreenInputInternal *_internal;
@@ -244,7 +244,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
 - (id)initWithDisplayID:(CGDirectDisplayID)displayID;
 
 /*!
- @property minFrameDuration
+ 	public var  minFrameDuration
  @abstract
     A property indicating the screen input's minimum frame duration.
 
@@ -253,10 +253,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     may be used to request a maximum frame rate at which the input produces video frames.  The requested
     rate may not be achievable due to overall bandwidth, so actual frame rates may be lower.
 */
-@property(nonatomic) CMTime minFrameDuration;
+	public var  CMTime minFrameDuration;
 
 /*!
- @property cropRect
+ 	public var  cropRect
  @abstract
     A property indicating the bounding rectangle of the screen area to be captured in pixels.
 
@@ -266,10 +266,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     defines a smaller section of the screen in the screen's coordinate system.  The origin (0,0) is
     the bottom-left corner of the screen.
 */
-@property(nonatomic) CGRect cropRect;
+	public var  CGRect cropRect;
 
 /*!
- @property scaleFactor
+ 	public var  scaleFactor
  @abstract
     A property indicating the factor by which video buffers captured from the screen are to be scaled.
 
@@ -278,10 +278,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     of 1.0 (no scaling).  Set this property to scale the buffers by a given factor.  For instance,
     a 320x240 capture area with a scaleFactor of 2.0f produces video buffers at 640x480.
 */
-@property(nonatomic) CGFloat scaleFactor;
+	public var  CGFloat scaleFactor;
 
 /*!
- @property capturesMouseClicks
+ 	public var  capturesMouseClicks
  @abstract
     A property indicating whether mouse clicks should be highlighted in the captured output.
 
@@ -290,10 +290,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     property is set to YES, mouse clicks are highlighted (a circle is drawn around the mouse for the
     duration of the click) in the captured output.
 */
-@property(nonatomic) BOOL capturesMouseClicks;
+	public var  BOOL capturesMouseClicks;
 
 /*!
- @property capturesCursor
+ 	public var  capturesCursor
  @abstract
     A property indicating whether the cursor should be rendered to the captured output.
 
@@ -304,10 +304,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
     preserved in CMSampleBuffers emitted from AVCaptureScreenInput.  See the inline documentation
     for kCMIOSampleBufferAttachmentKey_MouseAndKeyboardModifiers in <CoreMediaIO/CMIOSampleBuffer.h>
 */
-@property(nonatomic) BOOL capturesCursor NS_AVAILABLE(10_8, NA);
+	public var  BOOL capturesCursor NS_AVAILABLE(10_8, NA);
 
 /*!
- @property removesDuplicateFrames
+ 	public var  removesDuplicateFrames
  @abstract
     A property indicating whether duplicate frames should be removed by the input.
 
@@ -316,8 +316,8 @@ NS_CLASS_AVAILABLE(10_7, NA)
     frames, it drops them.  If this property is set to NO, the captured output receives all frames
     from the input.
 */
-@property(nonatomic) BOOL removesDuplicateFrames NS_AVAILABLE(10_8, NA);
+	public var  BOOL removesDuplicateFrames NS_AVAILABLE(10_8, NA);
 
-@end
+}
 
 #endif // (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))

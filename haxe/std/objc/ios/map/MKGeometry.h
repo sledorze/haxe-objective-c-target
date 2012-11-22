@@ -171,7 +171,7 @@ MK_EXTERN BOOL MKMapRectSpans180thMeridian(MKMapRect rect) NS_AVAILABLE(NA, 4_0)
 MK_EXTERN MKMapRect MKMapRectRemainder(MKMapRect rect) NS_AVAILABLE(NA, 4_0);
 
 
-@interface NSValue (NSValueMapKitGeometryExtensions)
+extern class NSValue (NSValueMapKitGeometryExtensions)
 
 + (NSValue *)valueWithMKCoordinate:(CLLocationCoordinate2D)coordinate;
 + (NSValue *)valueWithMKCoordinateSpan:(MKCoordinateSpan)span;
@@ -179,4 +179,4 @@ MK_EXTERN MKMapRect MKMapRectRemainder(MKMapRect rect) NS_AVAILABLE(NA, 4_0);
 - (CLLocationCoordinate2D)MKCoordinateValue;
 - (MKCoordinateSpan)MKCoordinateSpanValue;
 
-@end
+}

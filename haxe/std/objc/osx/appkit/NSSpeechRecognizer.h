@@ -12,7 +12,7 @@
 @protocol NSSpeechRecognizerDelegate;
 
 
-@interface NSSpeechRecognizer : NSObject {
+extern class NSSpeechRecognizer extends NSObject {
 @private // All instance variables are private
     id	_privateNSSpeechRecognizerVars;
 }
@@ -37,11 +37,11 @@
 - (BOOL)blocksOtherRecognizers;
 - (void)setBlocksOtherRecognizers:(BOOL)flag;
 
-@end
+}
 
 @protocol NSSpeechRecognizerDelegate <NSObject>
 @optional
 - (void)speechRecognizer:(NSSpeechRecognizer *)sender didRecognizeCommand:(id)command;
 
-@end
+}
 

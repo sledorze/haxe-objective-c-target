@@ -45,14 +45,14 @@ typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 
 /****************	Immutable Data		****************/
 
-@interface NSData : NSObject <NSCopying, NSMutableCopying, NSSecureCoding>
+extern class NSData : NSObject <NSCopying, NSMutableCopying, NSSecureCoding>
 
 - (NSUInteger)length;
 - (const void *)bytes NS_RETURNS_INNER_POINTER;
 
-@end
+}
 
-@interface NSData (NSExtendedData)
+extern class NSData (NSExtendedData)
 
 - (NSString *)description;
 - (void)getBytes:(void *)buffer length:(NSUInteger)length;
@@ -65,9 +65,9 @@ typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 - (BOOL)writeToURL:(NSURL *)url options:(NSDataWritingOptions)writeOptionsMask error:(NSError **)errorPtr;
 - (NSRange)rangeOfData:(NSData *)dataToFind options:(NSDataSearchOptions)mask range:(NSRange)searchRange NS_AVAILABLE(10_6, 4_0);
 
-@end
+}
 
-@interface NSData (NSDataCreation)
+extern class NSData (NSDataCreation)
 
 + (id)data;
 + (id)dataWithBytes:(const void *)bytes length:(NSUInteger)length;
@@ -87,9 +87,9 @@ typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 - (id)initWithData:(NSData *)data;
 + (id)dataWithData:(NSData *)data;
 
-@end
+}
 
-@interface NSData (NSDeprecated)
+extern class NSData (NSDeprecated)
 
 /* This method is unsafe because it could potentially cause buffer overruns. You should use -getBytes:length: or -getBytes:range: instead.
 */
@@ -100,18 +100,18 @@ typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 + (id)dataWithContentsOfMappedFile:(NSString *)path;
 - (id)initWithContentsOfMappedFile:(NSString *)path;
 
-@end
+}
 
 /****************	Mutable Data		****************/
 
-@interface NSMutableData : NSData
+extern class NSMutableData : NSData
 
 - (void *)mutableBytes NS_RETURNS_INNER_POINTER;
 - (void)setLength:(NSUInteger)length;
 
-@end
+}
 
-@interface NSMutableData (NSExtendedMutableData)
+extern class NSMutableData (NSExtendedMutableData)
 
 - (void)appendBytes:(const void *)bytes length:(NSUInteger)length;
 - (void)appendData:(NSData *)other;
@@ -121,21 +121,21 @@ typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 - (void)setData:(NSData *)data;
 - (void)replaceBytesInRange:(NSRange)range withBytes:(const void *)replacementBytes length:(NSUInteger)replacementLength;
 
-@end
+}
 
-@interface NSMutableData (NSMutableDataCreation)
+extern class NSMutableData (NSMutableDataCreation)
 
 + (id)dataWithCapacity:(NSUInteger)aNumItems;
 + (id)dataWithLength:(NSUInteger)length;
 - (id)initWithCapacity:(NSUInteger)capacity;
 - (id)initWithLength:(NSUInteger)length;
 
-@end
+}
 
 /****************	    Purgeable Data	****************/
 
 NS_CLASS_AVAILABLE(10_6, 4_0)
-@interface NSPurgeableData : NSMutableData <NSDiscardableContent> {
+extern class NSPurgeableData : NSMutableData <NSDiscardableContent> {
 @private
     NSUInteger _length;
     int32_t _accessCount;
@@ -143,6 +143,6 @@ NS_CLASS_AVAILABLE(10_6, 4_0)
     void *_reserved;
 }
 
-@end
+}
 
 

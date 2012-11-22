@@ -8,7 +8,7 @@
 #import <AppKit/NSTypesetter.h>
 #import <AppKit/NSParagraphStyle.h>
 
-@interface NSATSTypesetter : NSTypesetter {
+extern class NSATSTypesetter : NSTypesetter {
 /* Ivars used for primitive typesetting */
     NSAttributedString *attributedString; // The text backing-store (usually NSTextStorage)
 
@@ -37,17 +37,17 @@
 
 // Factory methods
 + (id)sharedTypesetter;
-@end
+}
 
-@interface NSATSTypesetter (NSPantherCompatibility)
+extern class NSATSTypesetter (NSPantherCompatibility)
 // This interface is deprecated.
 // Use -getLineFragmentRect:usedRect:forStartingGlyphAtIndex:proposedRect:lineSpacing:paragraphSpacingBefore:paragraphSpacingAfter:remainingRect: instead
 - (NSRect)lineFragmentRectForProposedRect:(NSRect)proposedRect remainingRect:(NSRectPointer)remainingRect NS_DEPRECATED_MAC(10_3, 10_4);
-@end
+}
 
 // The following interfaces are moved to the abstract NSTypesetter class
 
-@interface NSATSTypesetter (NSPrimitiveInterface)
+extern class NSATSTypesetter (NSPrimitiveInterface)
 /* Privmitive typesetting methods */
 // NSLayoutManager attributes
 - (BOOL)usesFontLeading;
@@ -98,10 +98,10 @@
 // This method calculates the line fragment rect/line fragment used rect for blank lines
 // theParagraphSeparatorGlyphRange with length == 0 indicates extra line fragment
 - (void)getLineFragmentRect:(NSRect *)lineFragmentRect usedRect:(NSRect *)lineFragmentUsedRect forParagraphSeparatorGlyphRange:(NSRange)paragraphSeparatorGlyphRange atProposedOrigin:(NSPoint)lineOrigin;
-@end
+}
 
 /* NSLayoutPhaseInterface declares various subclass override points that are invoked if implemented */
-@interface NSATSTypesetter (NSLayoutPhaseInterface)
+extern class NSATSTypesetter (NSLayoutPhaseInterface)
 // Called right before setLineFragmentRect:forGlyphRange:usedRect:
 - (void)willSetLineFragmentRect:(NSRect *)lineRect forGlyphRange:(NSRange)glyphRange usedRect:(NSRect *)usedRect baselineOffset:(CGFloat *)baselineOffset;
 
@@ -112,10 +112,10 @@
 - (UTF32Char)hyphenCharacterForGlyphAtIndex:(NSUInteger)glyphIndex;
 
 - (NSRect)boundingBoxForControlGlyphAtIndex:(NSUInteger)glyphIndex forTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)proposedRect glyphPosition:(NSPoint)glyphPosition characterIndex:(NSUInteger)charIndex;
-@end
+}
 
 /* NSGlyphStorageInterface declares all primitives interfacing to the glyph storage (usually NSLayoutManager). By overriding all the methods, you can implement an NSATSTypesetter subclass that interacts with custom glyph storage. */
-@interface NSATSTypesetter (NSGlyphStorageInterface)
+extern class NSATSTypesetter (NSGlyphStorageInterface)
 // Glyph/character range mappings
 - (NSRange)characterRangeForGlyphRange:(NSRange)glyphRange actualGlyphRange:(NSRangePointer)actualGlyphRange;
 - (NSRange)glyphRangeForCharacterRange:(NSRange)charRange actualCharacterRange:(NSRangePointer)actualCharRange;
@@ -133,5 +133,5 @@
 - (void)setLocation:(NSPoint)location withAdvancements:(const CGFloat *)advancements forStartOfGlyphRange:(NSRange)glyphRange;
 - (void)setAttachmentSize:(NSSize)attachmentSize forGlyphRange:(NSRange)glyphRange;
 - (void)setBidiLevels:(const uint8_t *)levels forGlyphRange:(NSRange)glyphRange;
-@end
+}
 

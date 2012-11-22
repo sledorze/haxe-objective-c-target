@@ -32,6 +32,6 @@
 
 @protocol DOMXPathNSResolver <NSObject>
 - (NSString *)lookupNamespaceURI:(NSString *)prefix;
-@end
+}
 
 #endif

@@ -31,7 +31,7 @@ enum {
 typedef NSUInteger NSMapTableOptions;
 
 NS_CLASS_AVAILABLE(10_5, 6_0)
-@interface NSMapTable : NSObject <NSCopying, NSCoding, NSFastEnumeration>
+extern class NSMapTable : NSObject <NSCopying, NSCoding, NSFastEnumeration>
 
 - (id)initWithKeyOptions:(NSPointerFunctionsOptions)keyOptions valueOptions:(NSPointerFunctionsOptions)valueOptions capacity:(NSUInteger)initialCapacity;
 - (id)initWithKeyPointerFunctions:(NSPointerFunctions *)keyFunctions valuePointerFunctions:(NSPointerFunctions *)valueFunctions capacity:(NSUInteger)initialCapacity;
@@ -67,7 +67,7 @@ NS_CLASS_AVAILABLE(10_5, 6_0)
 - (void)removeAllObjects;
 
 - (NSDictionary *)dictionaryRepresentation;  // create a dictionary of contents
-@end
+}
 
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32

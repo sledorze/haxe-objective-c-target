@@ -29,7 +29,7 @@ typedef NS_OPTIONS(NSUInteger, NSStreamEvent) {
 
 // NSStream is an abstract class encapsulating the common API to NSInputStream and NSOutputStream.
 // Subclassers of NSInputStream and NSOutputStream must also implement these methods.
-@interface NSStream : NSObject
+extern class NSStream extends NSObject
 - (void)open;
 - (void)close;
 
@@ -45,11 +45,11 @@ typedef NS_OPTIONS(NSUInteger, NSStreamEvent) {
 
 - (NSStreamStatus)streamStatus;
 - (NSError *)streamError;
-@end
+}
 
 // NSInputStream is an abstract class representing the base functionality of a read stream.
 // Subclassers are required to implement these methods.
-@interface NSInputStream : NSStream
+extern class NSInputStream : NSStream
 - (NSInteger)read:(uint8_t *)buffer maxLength:(NSUInteger)len;
     // reads up to length bytes into the supplied buffer, which must be at least of size len. Returns the actual number of bytes read.
 
@@ -58,26 +58,26 @@ typedef NS_OPTIONS(NSUInteger, NSStreamEvent) {
 
 - (BOOL)hasBytesAvailable;
     // returns YES if the stream has bytes available or if it impossible to tell without actually doing the read.
-@end
+}
 
 // NSOutputStream is an abstract class representing the base functionality of a write stream.
 // Subclassers are required to implement these methods.
-@interface NSOutputStream : NSStream
+extern class NSOutputStream : NSStream
 - (NSInteger)write:(const uint8_t *)buffer maxLength:(NSUInteger)len;
     // writes the bytes from the specified buffer to the stream up to len bytes. Returns the number of bytes actually written.
 
 - (BOOL)hasSpaceAvailable;
     // returns YES if the stream can be written to or if it is impossible to tell without actually doing the write.
-@end
+}
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
-@interface NSStream (NSSocketStreamCreationExtensions)
+extern class NSStream (NSSocketStreamCreationExtensions)
 + (void)getStreamsToHost:(NSHost *)host port:(NSInteger)port inputStream:(NSInputStream **)inputStream outputStream:(NSOutputStream **)outputStream;
-@end
+}
 #endif
 
 // The NSInputStreamExtensions category contains additional initializers and convenience routines for dealing with NSInputStreams.
-@interface NSInputStream (NSInputStreamExtensions)
+extern class NSInputStream (NSInputStreamExtensions)
 - (id)initWithData:(NSData *)data;
 - (id)initWithFileAtPath:(NSString *)path;
 - (id)initWithURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
@@ -85,10 +85,10 @@ typedef NS_OPTIONS(NSUInteger, NSStreamEvent) {
 + (id)inputStreamWithData:(NSData *)data;
 + (id)inputStreamWithFileAtPath:(NSString *)path;
 + (id)inputStreamWithURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
-@end
+}
 
 // The NSOutputStreamExtensions category contains additional initializers and convenience routines for dealing with NSOutputStreams.
-@interface NSOutputStream (NSOutputStreamExtensions)
+extern class NSOutputStream (NSOutputStreamExtensions)
 - (id)initToMemory;
 - (id)initToBuffer:(uint8_t *)buffer capacity:(NSUInteger)capacity;
 - (id)initToFileAtPath:(NSString *)path append:(BOOL)shouldAppend;
@@ -98,12 +98,12 @@ typedef NS_OPTIONS(NSUInteger, NSStreamEvent) {
 + (id)outputStreamToBuffer:(uint8_t *)buffer capacity:(NSUInteger)capacity;
 + (id)outputStreamToFileAtPath:(NSString *)path append:(BOOL)shouldAppend;
 + (id)outputStreamWithURL:(NSURL *)url append:(BOOL)shouldAppend NS_AVAILABLE(10_6, 4_0);
-@end
+}
 
 @protocol NSStreamDelegate <NSObject>
 @optional
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
-@end
+}
 
 // NSString constants for the propertyForKey/setProperty:forKey: API
 // String constants for the setting of the socket security level.

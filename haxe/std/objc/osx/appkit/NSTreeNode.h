@@ -11,7 +11,7 @@
 @class NSArray, NSMutableArray, NSIndexPath, NSTreeController;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-@interface NSTreeNode : NSObject {
+extern class NSTreeNode extends NSObject {
     id _childNodesProxy;
     id _representedObject;
     __strong void *_observationInfo;
@@ -42,5 +42,5 @@ NS_CLASS_AVAILABLE(10_5, NA)
     // sorts the entire subtree
 - (void)sortWithSortDescriptors:(NSArray *)sortDescriptors recursively:(BOOL)recursively;
 
-@end
+}
 
