@@ -1,114 +1,113 @@
-/* CoreGraphics - CGAffineTransform.h
-   Copyright (c) 1998-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
 
-#ifndef CGAFFINETRANSFORM_H_
-#define CGAFFINETRANSFORM_H_
+extern class CGAffineTransform {
+    
+	public var a :Float;
+    public var b :Float;
+    public var c :Float;
+    public var d :Float;
+    public var tx :Float;
+    public var ty :Float;
+	
+	public function new (a:Float, b:Float, c:Float, d:Float, tx:Float, ty:Float) :Void;
+}
 
-typedef struct CGAffineTransform CGAffineTransform;
 
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGGeometry.h>
-
-struct CGAffineTransform {
-  CGFloat a, b, c, d;
-  CGFloat tx, ty;
-};
-
-/* The identity transform: [ 1 0 0 1 0 0 ]. */
+/*
+ The identity transform: [ 1 0 0 1 0 0 ]. 
 
 CG_EXTERN const CGAffineTransform CGAffineTransformIdentity
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return the transform [ a b c d tx ty ]. */
+ Return the transform [ a b c d tx ty ]. 
 
 CG_EXTERN CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b,
   CGFloat c, CGFloat d, CGFloat tx, CGFloat ty)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return a transform which translates by `(tx, ty)':
-     t' = [ 1 0 0 1 tx ty ] */
+ Return a transform which translates by `(tx, ty)':
+     t' = [ 1 0 0 1 tx ty ] 
 
 CG_EXTERN CGAffineTransform CGAffineTransformMakeTranslation(CGFloat tx,
   CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return a transform which scales by `(sx, sy)':
-     t' = [ sx 0 0 sy 0 0 ] */
+ Return a transform which scales by `(sx, sy)':
+     t' = [ sx 0 0 sy 0 0 ] 
 
 CG_EXTERN CGAffineTransform CGAffineTransformMakeScale(CGFloat sx, CGFloat sy)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return a transform which rotates by `angle' radians:
-     t' = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] */
+ Return a transform which rotates by `angle' radians:
+     t' = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] 
 
 CG_EXTERN CGAffineTransform CGAffineTransformMakeRotation(CGFloat angle)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return true if `t' is the identity transform, false otherwise. */
+ Return true if `t' is the identity transform, false otherwise. 
 
 CG_EXTERN bool CGAffineTransformIsIdentity(CGAffineTransform t)
   CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
-/* Translate `t' by `(tx, ty)' and return the result:
-     t' = [ 1 0 0 1 tx ty ] * t */
+ Translate `t' by `(tx, ty)' and return the result:
+     t' = [ 1 0 0 1 tx ty ] * t 
 
 CG_EXTERN CGAffineTransform CGAffineTransformTranslate(CGAffineTransform t,
   CGFloat tx, CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Scale `t' by `(sx, sy)' and return the result:
-     t' = [ sx 0 0 sy 0 0 ] * t */
+ Scale `t' by `(sx, sy)' and return the result:
+     t' = [ sx 0 0 sy 0 0 ] * t 
 
 CG_EXTERN CGAffineTransform CGAffineTransformScale(CGAffineTransform t,
   CGFloat sx, CGFloat sy) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Rotate `t' by `angle' radians and return the result:
-     t' =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */
+ Rotate `t' by `angle' radians and return the result:
+     t' =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t 
 
 CG_EXTERN CGAffineTransform CGAffineTransformRotate(CGAffineTransform t,
   CGFloat angle) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Invert `t' and return the result. If `t' has zero determinant, then `t'
-   is returned unchanged. */
+ Invert `t' and return the result. If `t' has zero determinant, then `t'
+   is returned unchanged. 
 
 CG_EXTERN CGAffineTransform CGAffineTransformInvert(CGAffineTransform t)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Concatenate `t2' to `t1' and return the result:
-     t' = t1 * t2 */
+ Concatenate `t2' to `t1' and return the result:
+     t' = t1 * t2 
 
 CG_EXTERN CGAffineTransform CGAffineTransformConcat(CGAffineTransform t1,
   CGAffineTransform t2) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return true if `t1' and `t2' are equal, false otherwise. */
+ Return true if `t1' and `t2' are equal, false otherwise. 
 
 CG_EXTERN bool CGAffineTransformEqualToTransform(CGAffineTransform t1,
   CGAffineTransform t2) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
-/* Transform `point' by `t' and return the result:
+ Transform `point' by `t' and return the result:
      p' = p * t
-   where p = [ x y 1 ]. */
+   where p = [ x y 1 ]. 
 
 CG_EXTERN CGPoint CGPointApplyAffineTransform(CGPoint point,
   CGAffineTransform t) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Transform `size' by `t' and return the result:
+ Transform `size' by `t' and return the result:
      s' = s * t
-   where s = [ width height 0 ]. */
+   where s = [ width height 0 ]. 
 
 CG_EXTERN CGSize CGSizeApplyAffineTransform(CGSize size, CGAffineTransform t)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Transform `rect' by `t' and return the result. Since affine transforms do
+ Transform `rect' by `t' and return the result. Since affine transforms do
    not preserve rectangles in general, this function returns the smallest
    rectangle which contains the transformed corner points of `rect'. If `t'
    consists solely of scales, flips and translations, then the returned
    rectangle coincides with the rectangle constructed from the four
-   transformed corners. */
+   transformed corners. 
 
 CG_EXTERN CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform t)
   CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
-/*** Definitions of inline functions. ***/
+** Definitions of inline functions. **
 
 CG_INLINE CGAffineTransform
 __CGAffineTransformMake(CGFloat a, CGFloat b, CGFloat c, CGFloat d,
@@ -140,4 +139,5 @@ __CGSizeApplyAffineTransform(CGSize size, CGAffineTransform t)
 }
 #define CGSizeApplyAffineTransform __CGSizeApplyAffineTransform
 
-#endif /* CGAFFINETRANSFORM_H_ */
+#endif  CGAFFINETRANSFORM_H_ 
+*/
