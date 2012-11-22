@@ -10,7 +10,9 @@
 
 @interface Tests : NSObject<Interface2, Interface1>
 
-@property (nonatomic, strong) NSString *staticVar1; = @"abcd"
++ (NSString*) staticVar1:(NSString*)val;
++ (int) staticVar2:(int)val;
++ (int) staticVar3:(int)val;
 
 @property (nonatomic) int interfaceVar1;
 @property (nonatomic) float interfaceVar2;

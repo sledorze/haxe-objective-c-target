@@ -1122,25 +1122,47 @@ and generateValue ctx e =
 
 let final m = if has_meta ":final" m then "final " else ""
 
-let generateProperty ctx field pos =
+let generateProperty ctx field pos is_static =
 	let id = field.cf_name in
-	if ctx.generating_header then begin
 	let t = typeToString ctx field.cf_type pos in
-	let getter = match field.cf_kind with
+	let class_name = (snd ctx.class_def.cl_path) in
+	if ctx.generating_header then begin
+		if is_static then begin
+			ctx.writer#write ("+ ("^t^(addPointerIfNeeded t)^") "^id^":("^t^(addPointerIfNeeded t)^")val;")
+		end
+	else begin
+		let getter = match field.cf_kind with
 		| Var v -> (match v.v_read with
 			| AccCall s -> Printf.sprintf ", getter=%s" s;
 			| _ -> "")
 		| _ -> "" in
-	let setter = match field.cf_kind with
+		let setter = match field.cf_kind with
 		| Var v -> (match v.v_write with
 			| AccCall s -> Printf.sprintf ", setter=%s" s;
 			| _ -> "")
 		| _ -> "" in
-	let strong = if (isPointer t) then ", strong" else "" in
-	let readonly = if false then ", readonly" else "" in
-	ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id)
-	end else
-	ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
+		let strong = if (isPointer t) then ", strong" else "" in
+		let readonly = if false then ", readonly" else "" in
+		ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id)
+	end
+	end
+	else begin
+		if is_static then begin
+			let gen_init_value () = match field.cf_expr with
+			| None -> ()
+			| Some e -> generateValue ctx e in
+		
+			ctx.writer#write ("+ ("^t^(addPointerIfNeeded t)^") "^id^":("^t^(addPointerIfNeeded t)^")val {
+	static "^t^" "^(addPointerIfNeeded t)^"_val;
+	if (val == nil) { if (_val == nil) _val = ");
+			gen_init_value();
+			ctx.writer#write ("; }
+	else { if (_val != nil) _val = val; }
+	return _val;
+}")
+		end
+		else ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
+	end
 	(* Generate functions located in the hx interfaces *)
 	(* let rec loop = function
 		| [] -> field.cf_name
@@ -1307,19 +1329,30 @@ let generateField ctx is_static field =
 		let is_getset = (match field.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		match follow field.cf_type with
 		| TFun (args,r) -> ()
-		| _ when is_getset -> if ctx.generating_header then generateProperty ctx field pos
-		| _ -> ();
+		| _ when is_getset -> if ctx.generating_header then generateProperty ctx field pos is_static
+		| _ -> (); generateProperty ctx field pos is_static;
 		
 		(* TODO: Store the default values of properties and use them in the init method in order to assign them to the propety *)
 		(* TODO: Not sure how to solve for statics *)
-		let gen_init () = match field.cf_expr with
+		(* if is_static then begin
+			let gen_init_value () = match field.cf_expr with
 			| None -> ()
-			| Some e ->
-				ctx.writer#write " = ";
-				generateValue ctx e
-		in
-		generateProperty ctx field pos;
-		gen_init()
+			| Some e -> generateValue ctx e in
+		
+			ctx.writer#write ("+ (NSString*) set_static_string:(NSString*)val {
+	static NSString *_val;
+	if (val == nil) {
+		if (_val == nil) {
+			_val = ");
+			gen_init_value();
+			ctx.writer#write (";
+		}
+	}
+	else
+		_val = val;
+	return _val;
+}")
+		end *)
 ;;
 
 let rec defineGetSet ctx is_static c =

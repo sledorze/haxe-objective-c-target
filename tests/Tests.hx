@@ -8,11 +8,13 @@
 
 class Tests implements Interface1, implements Interface2 {
 	
-	public var interfaceVar1 :Int;// Generate a @property (nonatomic, strong) NSNumber *float1; + a @synthesizer
+	public var interfaceVar1 :Int = 6;// Generate a @property (nonatomic, strong) NSNumber *float1; + a @synthesizer
 	public var interfaceVar2 :Float;
 	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
 	public static var staticVar1 :String = "abcd";
+	public static var staticVar2 :Int = 5;
+	inline public static var staticVar3 :Int = 5;
 	
 	public function new () {
 		

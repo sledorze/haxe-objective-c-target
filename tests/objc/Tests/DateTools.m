@@ -87,7 +87,12 @@
 + (Date*) delta:(Date*)d t:(float)t{
 	return [Date fromTime:[d getTime] + t];
 }
-@synthesize DAYS_OF_MONTH; = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]
++ (NSMutabeArray*) DAYS_OF_MONTH:(NSMutabeArray*)val {
+	static NSMutabeArray *_val;
+	if (val == nil) { if (_val == nil) _val = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]; }
+	else { if (_val != nil) _val = val; }
+	return _val;
+}
 + (int) getMonthDays:(Date*)d{
 	int month = [d getMonth];
 	int year = [d getFullYear];
