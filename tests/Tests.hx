@@ -17,7 +17,7 @@ class Tests implements Interface1, implements Interface2 {
 	inline public static var staticVar3 :Int = 5;
 	
 	public function new () {
-		
+		// The constructor automaticall call the method init
 	}
 	
 	function tests () :Void {

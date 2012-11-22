@@ -4,8 +4,9 @@
 #import "Date.h"
 #import "Array.h"
 
-@interface Date : NSObject
+@interface NSDate ( Date )
 
+- (void) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec;
 + (Date*) now;
 + (Date*) fromTime:(float)t;
 + (Date*) fromString:(NSString*)s;

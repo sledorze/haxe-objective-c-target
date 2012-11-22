@@ -1,6 +1,7 @@
 #import "DateTools.h"
 
 @implementation DateTools
+
 + (NSString*) __format_get:(Date*)d e:(NSString*)e{
 	return - (NSString*) switch (e){
 		case @"%":{
@@ -69,7 +70,7 @@
 }
 + (NSString*) __format:(Date*)d f:(NSString*)f{
 	
-	StringBuf *r = [[StringBuf alloc] init];
+	StringBuf *r = [[StringBuf alloc] new][];
 	int p = 0;
 	while (YES) {
 		int np = [f rangeOfString:@"%" startIndex:p];

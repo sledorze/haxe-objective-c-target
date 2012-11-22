@@ -10,6 +10,7 @@
 
 @interface Tests : NSObject<Interface2, Interface1>
 
+- (void) new;
 + (NSString*) staticVar1:(NSString*)val;
 + (int) staticVar2:(int)val;
 + (int) staticVar3:(int)val;

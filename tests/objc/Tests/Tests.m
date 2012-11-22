@@ -2,6 +2,11 @@
 
 @implementation Tests
 
+- (void) new{
+	self = [super init];
+	self.interfaceVar1 = 6;
+	return self;
+}
 + (NSString*) staticVar1:(NSString*)val {
 	static NSString *_val;
 	if (val == nil) { if (_val == nil) _val = @"abcd"; }
@@ -26,7 +31,7 @@
 
 - (void) tests{
 	
-	NSMutabeArray *a = [[Array alloc] init];
+	NSMutabeArray *a = [[Array alloc] new][];
 	
 	NSMutabeArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 	float aaa = [aa objectAtIndex:2];
@@ -45,7 +50,7 @@
 	if (a.length > 3) f = 3;
 	else f = a.length;
 	f = ( (a.length > 3) ? 3 : a.length);
-	int x = [[[Tests alloc] init] add:1 b:1];
+	int x = [[[Tests alloc] new][].add:1 b:1];
 }
 - (void) testingFor{
 	
@@ -102,14 +107,14 @@
 }
 - (void) testDate{
 	
-	Date *d = [[Date alloc] init]2012,11,13,19,30,0;
+	Date *d = [[Date alloc] new:2012,11,13,19,30,0][];
 	
 	Date *d2 = [Date now];
 	int x = [DateTools getMonthDays:d2];
 }
 - (void) testString{
 	
-	NSString *string = [[String alloc] init]@"abcdefghijklmnopqrstuvwxyz";
+	NSString *string = [[String alloc] new:@"abcdefghijklmnopqrstuvwxyz"][];
 	int len = string.length;
 	
 	NSString *s = [string characterAtIndex:5];
@@ -132,7 +137,7 @@
 }
 - (void) testFrameworksImport{
 	
-	MKMapView *m = [[MKMapView alloc] init];
+	MKMapView *m = [[MKMapView alloc] new][];
 }
 - (int) getWidth{
 	return 0;

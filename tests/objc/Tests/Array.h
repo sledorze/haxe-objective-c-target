@@ -2,8 +2,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface NSArray ( Array )
+@interface NSMutableArray ( Array )
 
+- (void) new;
 @property (nonatomic, strong) NSMutableArray *nativeArray;
 @property (nonatomic) int length;
 - (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array;

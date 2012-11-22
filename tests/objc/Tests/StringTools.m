@@ -1,6 +1,7 @@
 #import "StringTools.h"
 
 @implementation StringTools
+
 + (NSString*) urlEncode:(NSString*)s{
 	return nil;
 }

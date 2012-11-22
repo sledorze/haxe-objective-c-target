@@ -231,6 +231,7 @@ type context = {
 	mutable in_static : bool;
 	mutable handle_break : bool;
 	mutable generating_header : bool;
+	mutable generating_constructor : bool;
 	mutable generating_call : bool;
 	mutable generating_self_access : bool;
 	mutable require_pointer : bool;
@@ -248,6 +249,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	in_static = false;
 	handle_break = false;
 	generating_header = false;
+	generating_constructor = false;
 	generating_call = false;
 	generating_self_access = false;
 	require_pointer = false;
@@ -759,10 +761,19 @@ and generateExpression ctx e =
 		ctx.writer#write "continue"
 	| TBlock expr_list ->
 		ctx.writer#begin_block;
+		if ctx.generating_constructor then begin
+			ctx.writer#write "self = [super init];";
+			ctx.writer#new_line
+		end;
 		List.iter (fun e ->
 			generateExpression ctx e;
 			ctx.writer#terminate_line
 		) expr_list;
+		if ctx.generating_constructor then begin
+			ctx.writer#write "return self;";
+			ctx.writer#new_line;
+			ctx.generating_constructor <- false
+		end;
 		ctx.writer#end_block;
 	| TFunction f ->
 		let h = generateFunctionHeader ctx None f [] e.epos in
@@ -848,8 +859,16 @@ and generateExpression ctx e =
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
 			| _ ->
-				ctx.writer#write (Printf.sprintf "[[%s alloc] init]" (snd c.cl_path));
-				concat ctx "," (generateValue ctx) el
+				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (snd c.cl_path));
+				if List.length el > 0 then ctx.writer#write ":";
+				concat ctx "," (generateValue ctx) el;
+				ctx.writer#write "]";
+				
+				ctx.writer#write "[";
+				ctx.generating_call <- true;
+				(* generateCall ctx c params e.etype; *)
+				ctx.generating_call <- false;
+				ctx.writer#write "]"
 		)
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write "if";
@@ -1307,30 +1326,26 @@ let generateField ctx is_static field =
 	match field.cf_expr, field.cf_kind with
 	(* MethDynamic not sure if must be here *)
 	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline | MethDynamic) ->
-		(* Do not generate init methods, for now *)
-		if field.cf_name <> "init" then begin
-			(* Find the static main method and generate a main.m file from it. *)
-			if field.cf_name = "main" && is_static then begin
-				if not ctx.generating_header then generateMain ctx fd;
-			end
-			else begin
-				ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
-				(* Generate function header *)
-				let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos in
-				(* Generate function content if is not a header file *)
-				if not ctx.generating_header then
-					generateExpression ctx fd.tf_expr
-				else
-					ctx.writer#write ";";
-				h();
-			end;
+		(* Find the static main method and generate a main.m file from it. *)
+		if field.cf_name = "main" && is_static then begin
+			if not ctx.generating_header then generateMain ctx fd;
+		end
+		else begin
+			ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
+			(* Generate function header *)
+			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
+			(* Generate function content if is not a header file *)
+			if not ctx.generating_header then
+				generateExpression ctx fd.tf_expr
+			else
+				ctx.writer#write ";";
 		end
 	| _ ->
 		let is_getset = (match field.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		match follow field.cf_type with
-		| TFun (args,r) -> ()
-		| _ when is_getset -> if ctx.generating_header then generateProperty ctx field pos is_static
-		| _ -> (); generateProperty ctx field pos is_static;
+			| TFun (args,r) -> ()
+			| _ when is_getset -> if ctx.generating_header then generateProperty ctx field pos is_static
+			| _ -> generateProperty ctx field pos is_static;
 		
 		(* TODO: Store the default values of properties and use them in the init method in order to assign them to the propety *)
 		(* TODO: Not sure how to solve for statics *)
@@ -1984,15 +1999,24 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	ctx.writer#import_header class_def.cl_path;
 	ctx.writer#new_line;
 	output_m ("@implementation " ^ (snd class_def.cl_path));
-	
+
+	m_file#new_line;
 	(match class_def.cl_constructor with
-	| None -> ()
-	| Some f ->
-		let f = { f with
-			cf_name = "init"(* Rename the class constructor to 'init' snd class_def.cl_path *);
+	| None -> ();
+		(* ctx.generating_constructor <- true; *)
+		(* let f = {
+			cf_name = "new"(* Rename the class constructor to 'init' snd class_def.cl_path *);
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in
+		generateField ctx false f; *)
+	| Some f ->
+		let f = { f with
+			cf_name = "new";
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		ctx.generating_constructor <- true;
 		generateField ctx false f;
 	);
 	
@@ -2033,10 +2057,10 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	if isCategory then begin
 		
 		let category_class = (match (snd class_path) with
-			| "String" -> "NSString"
-			| "Array" -> "NSArray"
+			| "String" -> "NSMutableString"
+			| "Array" -> "NSMutableArray"
 			| "Date" -> "NSDate"
-			| "Hash" -> "NSDictionary"
+			| "Hash" -> "NSMutableDictionary"
 			| _ -> ""
 		) in
 		h_file#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
@@ -2065,6 +2089,23 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 	
 	
 	h_file#new_line;
+	(match class_def.cl_constructor with
+	| None -> ();
+		(* ctx.generating_constructor <- true; *)
+		(* let f = {
+			cf_name = "new"(* Rename the class constructor to 'init' snd class_def.cl_path *);
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		generateField ctx false f; *)
+	| Some f ->
+		let f = { f with
+			cf_name = "new";
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		generateField ctx false f;
+	);
 	
 	List.iter (generateField ctx true) class_def.cl_ordered_statics;
 	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);

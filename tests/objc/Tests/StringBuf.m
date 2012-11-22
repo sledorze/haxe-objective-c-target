@@ -2,6 +2,11 @@
 
 @implementation StringBuf
 
+- (void) new{
+	self = [super init];
+	self.b = [[Array alloc] new][];
+	return self;
+}
 @synthesize b;
 - (void) add:(id)x{
 	[self.b objectAtIndex:self.b.length] = x;

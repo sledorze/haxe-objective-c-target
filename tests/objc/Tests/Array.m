@@ -2,6 +2,12 @@
 
 @implementation Array
 
+- (void) new{
+	self = [super init];
+	self.nativeArray = [[NSMutableArray alloc] new][];
+	self.length = 0;
+	return self;
+}
 @synthesize nativeArray;
 @synthesize length;
 - (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array{
@@ -15,7 +21,7 @@
 	return nil;
 }
 - (NSMutabeArray*) copy{
-	return [[[Array alloc] init] initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];
+	return [[[Array alloc] new][].initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];
 }
 - (id) iterator{
 	return nil;
@@ -74,7 +80,7 @@
 	NSMutableArray *newArray = [self.nativeArray subarrayWithRange:NSMakeRange (pos,len)];
 	[self.nativeArray removeObjectsInArray:newArray];
 	self.length = [self.nativeArray count];
-	return [[[Array alloc] init] initWithNSMutableArray:newArray];
+	return [[[Array alloc] new][].initWithNSMutableArray:newArray];
 }
 
 @end
