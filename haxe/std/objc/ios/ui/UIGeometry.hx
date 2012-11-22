@@ -1,24 +1,21 @@
-//
-//  UIGeometry.h
-//  UIKit
-//
-//  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
-//
+package objc.ios.ui;
 
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import <UIKit/UIKitDefines.h>
+extern class UIEdgeInsets {
+	public var top :Float;
+	public var left :Float;
+	public var bottom :Float;
+	public var right :Float;
+    public function new (top:Float, left:Float, bottom:Float, right:Float) :Void;
+}
 
-typedef struct UIEdgeInsets {
-    CGFloat top, left, bottom, right;  // specify amount to inset (positive) for each of the edges. values can be negative to 'outset'
-} UIEdgeInsets;
+extern class UIOffset {
+	public var horizontal :Float;
+	public var vertical :Float;
+	public function new (horizontal:Float, vertical:Float) :Void;
+}
 
-typedef struct UIOffset {
-    CGFloat horizontal, vertical; // specify amount to offset a position, positive for right or down, negative for left or up
-} UIOffset;
-
-UIKIT_STATIC_INLINE UIEdgeInsets UIEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+/*UIKIT_STATIC_INLINE UIEdgeInsets UIEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
     UIEdgeInsets insets = {top, left, bottom, right};
     return insets;
 }
@@ -59,9 +56,9 @@ UIKIT_EXTERN CGSize CGSizeFromString(NSString *string);
 UIKIT_EXTERN CGRect CGRectFromString(NSString *string);
 UIKIT_EXTERN CGAffineTransform CGAffineTransformFromString(NSString *string);
 UIKIT_EXTERN UIEdgeInsets UIEdgeInsetsFromString(NSString *string);
-UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
+UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);*/
 
-@interface NSValue (NSValueUIGeometryExtensions)
+/*@interface NSValue (NSValueUIGeometryExtensions)
 
 + (NSValue *)valueWithCGPoint:(CGPoint)point;
 + (NSValue *)valueWithCGSize:(CGSize)size;
@@ -95,4 +92,4 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
 - (UIEdgeInsets)decodeUIEdgeInsetsForKey:(NSString *)key;
 - (UIOffset)decodeUIOffsetForKey:(NSString *)key NS_AVAILABLE_IOS(5_0);
 
-@end
+@end*/

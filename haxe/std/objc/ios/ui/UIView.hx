@@ -3,11 +3,15 @@ import objc.graphics.CGGeometry;
 import objc.graphics.CGAffineTransform;
 import objc.quartz.CALayer;
 import objc.foundation.NSObject;
+import objc.foundation.NSCoder;
+import objc.ios.ui.UIGeometry;
+import objc.ios.ui.NSLayoutConstraint;
 
 typedef UIViewContentMode = Int;
 typedef UIViewAnimationCurve = Int;
 typedef UIViewAnimationTransition = Int;
 typedef UIViewAnimationOptions = Int;
+typedef UILayoutConstraintAxis = Int;
 
 
 extern class UIView extends UIResponder, implements NSCoding/*, implements UIAppearance, implements UIAppearanceContainer*/ {
@@ -126,53 +130,48 @@ extern class UIView extends UIResponder, implements NSCoding/*, implements UIApp
 	public function addGestureRecognizer (gestureRecognizer:UIGestureRecognizer) :Void;
 	public function removeGestureRecognizer (gestureRecognizer:UIGestureRecognizer) :Void;
 
-	#if ios_6_0
-	public function gestureRecognizerShouldBegin (gestureRecognizer:UIGestureRecognizer) :Bool;
+	@:require(ios_6_0) public function gestureRecognizerShouldBegin (gestureRecognizer:UIGestureRecognizer) :Bool;
 
 
-/*typedef NS_ENUM(Int, UILayoutConstraintAxis) {
-    UILayoutConstraintAxisHorizontal = 0,
-    UILayoutConstraintAxisVertical = 1
-};*/
+	inline static var UILayoutConstraintAxisHorizontal :UILayoutConstraintAxis = 0;
+	inline static var UILayoutConstraintAxisVertical :UILayoutConstraintAxis = 1;
+	
+	@:require(ios_6_0) public function constraints () :Array<UILayoutConstraintAxis>;
 
-// UIConstraintBasedLayoutInstallingConstraints
-
-- (NSArray)constraints NS_AVAILABLE_IOS(6_0);
-
-	public function addConstraint (constraint:NSLayoutConstraint) :Void;
-	public function addConstraints (constraint:Array<NSLayoutConstraint>) :Void;
-	public function removeConstraint (constraint:NSLayoutConstraint) :Void;
-	public function removeConstraints (constraint:Array<NSLayoutConstraint>) :Void;
+	@:require(ios_6_0) public function addConstraint (constraint:NSLayoutConstraint) :Void;
+	@:require(ios_6_0) public function addConstraints (constraint:Array<NSLayoutConstraint>) :Void;
+	@:require(ios_6_0) public function removeConstraint (constraint:NSLayoutConstraint) :Void;
+	@:require(ios_6_0) public function removeConstraints (constraint:Array<NSLayoutConstraint>) :Void;
 
 // UIConstraintBasedLayoutCoreMethods) 
-	public function updateConstraintsIfNeeded () :Void;
-	public function updateConstraints () :Void;
-	public function needsUpdateConstraints () :Bool;
-	public function setNeedsUpdateConstraints () :Void;
+	@:require(ios_6_0) public function updateConstraintsIfNeeded () :Void;
+	@:require(ios_6_0) public function updateConstraints () :Void;
+	@:require(ios_6_0) public function needsUpdateConstraints () :Bool;
+	@:require(ios_6_0) public function setNeedsUpdateConstraints () :Void;
 
 // UIConstraintBasedCompatibility) 
 
-	public function translatesAutoresizingMaskIntoConstraints () :Bool;
-	public function setTranslatesAutoresizingMaskIntoConstraints (flag:Bool) :Void;
+	@:require(ios_6_0) public function translatesAutoresizingMaskIntoConstraints () :Bool;
+	@:require(ios_6_0) public function setTranslatesAutoresizingMaskIntoConstraints (flag:Bool) :Void;
 
-	public static function requiresConstraintBasedLayout () :Bool;
+	@:require(ios_6_0) public static function requiresConstraintBasedLayout () :Bool;
 
 // UIConstraintBasedLayoutLayering
-	public function alignmentRectForFrame (frame:CGRect) :CGRect;
-	public function frameForAlignmentRect (alignmentRect:CGRect) :CGRect;
-	public function alignmentRectInsets () :UIEdgeInsets;
-	public function viewForBaselineLayout () :UIView;
+	@:require(ios_6_0) public function alignmentRectForFrame (frame:CGRect) :CGRect;
+	@:require(ios_6_0) public function frameForAlignmentRect (alignmentRect:CGRect) :CGRect;
+	@:require(ios_6_0) public function alignmentRectInsets () :UIEdgeInsets;
+	@:require(ios_6_0) public function viewForBaselineLayout () :UIView;
 
 
 //UIKIT_EXTERN const CGFloat UIViewNoIntrinsicMetric NS_AVAILABLE_IOS(6_0); // -1
-	public function intrinsicContentSize () :CGSize;
-	public function invalidateIntrinsicContentSize () :Void;
+	@:require(ios_6_0) public function intrinsicContentSize () :CGSize;
+	@:require(ios_6_0) public function invalidateIntrinsicContentSize () :Void;
 
-	public function contentHuggingPriorityForAxis (axis:UILayoutConstraintAxis) :UILayoutPriority;
-	public function setContentHuggingPriority (priority:UILayoutPriority, forAxis:UILayoutConstraintAxis) :Void;
+	@:require(ios_6_0) public function contentHuggingPriorityForAxis (axis:UILayoutConstraintAxis) :UILayoutPriority;
+	@:require(ios_6_0) public function setContentHuggingPriority (priority:UILayoutPriority, forAxis:UILayoutConstraintAxis) :Void;
 
-	public function contentCompressionResistancePriorityForAxis (axis:UILayoutConstraintAxis) :UILayoutPriority;
-	public function setContentCompressionResistancePriority (priority:UILayoutPriority, forAxis:UILayoutConstraintAxis) :Void;
+	@:require(ios_6_0) public function contentCompressionResistancePriorityForAxis (axis:UILayoutConstraintAxis) :UILayoutPriority;
+	@:require(ios_6_0) public function setContentCompressionResistancePriority (priority:UILayoutPriority, forAxis:UILayoutConstraintAxis) :Void;
 
 
 // Size To Fit
@@ -181,18 +180,18 @@ extern class UIView extends UIResponder, implements NSCoding/*, implements UIApp
 //UIKIT_EXTERN const CGSize UILayoutFittingExpandedSize NS_AVAILABLE_IOS(6_0);
 
 // UIConstraintBasedLayoutFittingSize
-	public function systemLayoutSizeFittingSize (targetSize:CGSize) :CGSize;
+	@:require(ios_6_0) public function systemLayoutSizeFittingSize (targetSize:CGSize) :CGSize;
 
 // UIConstraintBasedLayoutDebugging
-	public function constraintsAffectingLayoutForAxis (axis:UILayoutConstraintAxis) :Array;
-	public function hasAmbiguousLayout () :Bool
-	public function exerciseAmbiguityInLayout () :Void;
+	@:require(ios_6_0) public function constraintsAffectingLayoutForAxis (axis:UILayoutConstraintAxis) :Array<UILayoutConstraintAxis>;
+	@:require(ios_6_0) public function hasAmbiguousLayout () :Bool;
+	@:require(ios_6_0) public function exerciseAmbiguityInLayout () :Void;
 
 //UIStateRestoration)
-	public var restorationIdentifier :String;
-	public function encodeRestorableStateWithCoder (code:NSCoder) :Void;
-	public function decodeRestorableStateWithCoder (code:NSCoder) :Void;
-	#end
+	@:require(ios_6_0) public var restorationIdentifier :String;
+	@:require(ios_6_0) public function encodeRestorableStateWithCoder (code:NSCoder) :Void;
+	@:require(ios_6_0) public function decodeRestorableStateWithCoder (code:NSCoder) :Void;
+	
 }
 
 
