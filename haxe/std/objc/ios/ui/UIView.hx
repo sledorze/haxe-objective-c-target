@@ -1,4 +1,5 @@
 package objc.ios.ui;
+import objc.graphics.CGGeometry;
 
 extern class UIView {
 	
