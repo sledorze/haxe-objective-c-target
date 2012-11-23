@@ -7,7 +7,7 @@
 #import <Foundation/Foundation.h>
 
 CORE_IMAGE_CLASS_EXPORT
-extern class CIVector extends NSObject <NSCopying, NSCoding>
+extern class CIVector extends NSObject, implements NSCopying, NSCoding>
 {
     size_t _count;
     

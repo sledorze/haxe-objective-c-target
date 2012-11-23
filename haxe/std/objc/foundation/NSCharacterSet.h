@@ -13,7 +13,7 @@ enum {
     NSOpenStepUnicodeReservedBase = 0xF400
 };
 
-extern class NSCharacterSet extends NSObject <NSCopying, NSMutableCopying, NSCoding>
+extern class NSCharacterSet extends NSObject, implements NSCopying, NSMutableCopying, NSCoding>
 
 + (id)controlCharacterSet;
 + (id)whitespaceCharacterSet;

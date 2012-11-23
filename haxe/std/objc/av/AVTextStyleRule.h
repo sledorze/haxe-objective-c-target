@@ -19,7 +19,7 @@
 @class AVTextStyleRuleInternal;
 
 NS_CLASS_AVAILABLE(TBD, 6_0)
-extern class AVTextStyleRule extends NSObject <NSCopying> {
+extern class AVTextStyleRule extends NSObject, implements NSCopying> {
 @private
 	AVTextStyleRuleInternal *_textStyleRule;
 }

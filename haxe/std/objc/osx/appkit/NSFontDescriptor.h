@@ -56,7 +56,7 @@ enum {
 
 @class NSMutableDictionary, NSDictionary, NSArray, NSSet, NSAffineTransform;
 
-extern class NSFontDescriptorextends NSObject <NSCopying, NSCoding> {
+extern class NSFontDescriptorextends NSObject, implements NSCopying, NSCoding> {
 /* All instance variables are private */
     NSMutableDictionary *_attributes;
     id _reserved1;

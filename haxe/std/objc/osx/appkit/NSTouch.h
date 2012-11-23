@@ -29,7 +29,7 @@ typedef NSUInteger NSTouchPhase;
 /* Unlike the iPhone, NSTouch objects do not persist for the life of the touch.
 */
 NS_CLASS_AVAILABLE(10_6, NA)
-extern class NSTouch extends NSObject <NSCopying> {
+extern class NSTouch extends NSObject, implements NSCopying> {
 @private
     NSInteger _index;
     id _identity;

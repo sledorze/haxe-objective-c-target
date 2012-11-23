@@ -9,7 +9,7 @@
 @class NSAttributedString;
 @class NSDictionary;
 
-extern class NSFormatter extends NSObject <NSCopying, NSCoding>
+extern class NSFormatter extends NSObject, implements NSCopying, NSCoding>
 
 - (NSString *)stringForObjectValue:(id)obj;
 

@@ -46,7 +46,7 @@ An NSGradient has a color space.  When initialized, all colors provided are conv
 */
 
 NS_CLASS_AVAILABLE(10_5, NA)
-extern class NSGradient extends NSObject <NSCopying, NSCoding> {
+extern class NSGradient extends NSObject, implements NSCopying, NSCoding> {
 @private
     NSArray *_colorArray;
     NSColorSpace *_colorSpace;

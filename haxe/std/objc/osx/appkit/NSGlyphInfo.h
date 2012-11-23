@@ -17,7 +17,7 @@ enum {
 };
 typedef NSUInteger NSCharacterCollection;
 
-extern class NSGlyphInfo extends NSObject <NSCopying, NSCoding> {
+extern class NSGlyphInfo extends NSObject, implements NSCopying, NSCoding> {
     NSString *_baseString;
 }
 

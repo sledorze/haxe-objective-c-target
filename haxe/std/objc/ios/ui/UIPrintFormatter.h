@@ -15,7 +15,7 @@ package objc.ios.ui;
 @class UIPrintPageRenderer;
 @class UIView, UIFont, UIColor;
 
-NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintFormatter extends NSObject <NSCopying> {
+NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintFormatter extends NSObject, implements NSCopying> {
   @private
     UIPrintPageRenderer *_printPageRenderer;
     CGFloat              _maximumContentHeight;

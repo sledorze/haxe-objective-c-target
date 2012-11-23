@@ -17,7 +17,7 @@
  *    A geographic area.
  */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class CLRegion extends NSObject <NSCopying, NSCoding>
+extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
 {
 @private
 	id _internal;

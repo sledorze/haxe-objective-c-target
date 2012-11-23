@@ -7,7 +7,7 @@
 
 @class NSString, NSArray, NSDictionary, NSDate, NSData, NSLocale;
 
-extern class NSTimeZone extends NSObject <NSCopying, NSSecureCoding>
+extern class NSTimeZone extends NSObject, implements NSCopying, NSSecureCoding>
 
 - (NSString *)name;
 - (NSData *)data;

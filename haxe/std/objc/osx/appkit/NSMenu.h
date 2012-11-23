@@ -15,7 +15,7 @@
 @class NSMutableArray, NSArray;
 @protocol NSMenuDelegate;
 
-extern class NSMenu extends NSObject <NSCopying, NSCoding>
+extern class NSMenu extends NSObject, implements NSCopying, NSCoding>
 {
     /*All instance variables are private*/
     @private

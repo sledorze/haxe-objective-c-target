@@ -37,7 +37,7 @@ enum {
 typedef NSUInteger NSTrackingAreaOptions;
 
 NS_CLASS_AVAILABLE(10_5, NA)
-extern class NSTrackingArea extends NSObject <NSCopying, NSCoding>
+extern class NSTrackingArea extends NSObject, implements NSCopying, NSCoding>
 {
 @private
     NSRect _rect;

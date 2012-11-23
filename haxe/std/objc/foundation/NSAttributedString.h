@@ -7,7 +7,7 @@
 #import <Foundation/NSDictionary.h>
 
 NS_CLASS_AVAILABLE(10_0, 3_2)
-extern class NSAttributedString extends NSObject <NSCopying, NSMutableCopying, NSCoding>
+extern class NSAttributedString extends NSObject, implements NSCopying, NSMutableCopying, NSCoding>
 
 - (NSString *)string;
 - (NSDictionary *)attributesAtIndex:(NSUInteger)location effectiveRange:(NSRangePointer)range;

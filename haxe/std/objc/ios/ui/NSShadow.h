@@ -13,7 +13,7 @@ package objc.ios.ui;
  To set a shadow on an NSAttributedString use it as a value for NSShadowAttributeName.
  */
 
-NS_CLASS_AVAILABLE_IOS(6_0)extern class NSShadow extends NSObject <NSCopying, NSCoding>
+NS_CLASS_AVAILABLE_IOS(6_0)extern class NSShadow extends NSObject, implements NSCopying, NSCoding>
 
 	public var CGSize shadowOffset;      // offset in user space of the shadow from the original drawing
 	public var CGFloat shadowBlurRadius; // blur radius of the shadow in default user space units

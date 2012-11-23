@@ -9,7 +9,7 @@
 
 /****************	Immutable Set	****************/
 
-extern class NSSet extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSSet extends NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)member:(id)object;

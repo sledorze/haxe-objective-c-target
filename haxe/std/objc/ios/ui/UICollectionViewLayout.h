@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, UICollectionElementCategory) {
 @class UICollectionView;
 @class UINib;
 
-NS_CLASS_AVAILABLE_IOS(6_0)extern class UICollectionViewLayoutAttributes extends NSObject <NSCopying>
+NS_CLASS_AVAILABLE_IOS(6_0)extern class UICollectionViewLayoutAttributes extends NSObject, implements NSCopying>
 
 	public var CGRect frame;
 	public var CGPoint center;

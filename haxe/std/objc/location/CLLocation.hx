@@ -1,4 +1,6 @@
 package objc.location;
+import objc.foundation.NSObject;
+import objc.foundation.NSDate;
 
 typedef CLLocationDegrees = Float;
 typedef CLLocationAccuracy = Float;

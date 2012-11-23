@@ -19,7 +19,7 @@
 @class AVVideoCompositionInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVVideoComposition extends NSObject <NSCopying, NSMutableCopying> {
+extern class AVVideoComposition extends NSObject, implements NSCopying, NSMutableCopying> {
 @private
     AVVideoCompositionInternal    *_videoComposition;
 }

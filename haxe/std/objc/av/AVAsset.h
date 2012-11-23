@@ -53,7 +53,7 @@
 @class AVAssetInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVAsset extends NSObject <NSCopying, AVAsynchronousKeyValueLoading>
+extern class AVAsset extends NSObject, implements NSCopying, AVAsynchronousKeyValueLoading>
 {
 @private
 	AVAssetInternal *_assetInternal;

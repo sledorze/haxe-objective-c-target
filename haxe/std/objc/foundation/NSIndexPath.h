@@ -4,7 +4,7 @@
 
 #import <Foundation/NSObject.h>
 
-extern class NSIndexPath extends NSObject <NSCopying, NSCoding> {
+extern class NSIndexPath extends NSObject, implements NSCopying, NSCoding> {
 	@private
 	__strong NSUInteger *_indexes;
 	NSUInteger _hash;

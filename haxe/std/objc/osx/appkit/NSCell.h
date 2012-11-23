@@ -159,7 +159,7 @@ typedef struct __CFlags {
 
 
 
-extern class NSCell extends NSObject <NSCopying, NSCoding, NSUserInterfaceItemIdentification>
+extern class NSCell extends NSObject, implements NSCopying, NSCoding, NSUserInterfaceItemIdentification>
 {
     /*All instance variables are private*/
     id _contents;

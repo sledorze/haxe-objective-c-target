@@ -6,7 +6,7 @@
 
 @class NSString, NSCharacterSet, NSDictionary;
 
-extern class NSScanner extends NSObject <NSCopying>
+extern class NSScanner extends NSObject, implements NSCopying>
 
 - (NSString *)string;
 - (NSUInteger)scanLocation;

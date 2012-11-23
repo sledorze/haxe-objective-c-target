@@ -23,7 +23,7 @@
  */
 
 NS_CLASS_AVAILABLE(TBD,5_0)
-extern class CLPlacemark extends NSObject <NSCopying, NSCoding>
+extern class CLPlacemark extends NSObject, implements NSCopying, NSCoding>
 {
 @private
     CLPlacemarkInternal *_internal;

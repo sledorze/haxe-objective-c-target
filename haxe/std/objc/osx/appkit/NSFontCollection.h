@@ -35,7 +35,7 @@ typedef NSUInteger NSFontCollectionVisibility;
  NSFontCollection - immutable font list
  */
 NS_CLASS_AVAILABLE(10_7, NA)
-extern class NSFontCollection extends NSObject <NSCopying, NSMutableCopying, NSCoding>
+extern class NSFontCollection extends NSObject, implements NSCopying, NSMutableCopying, NSCoding>
 
 /*
  Creating collections

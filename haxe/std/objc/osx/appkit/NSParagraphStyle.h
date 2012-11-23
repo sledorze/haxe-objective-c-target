@@ -31,7 +31,7 @@ typedef NSUInteger NSLineBreakMode;
 */
 APPKIT_EXTERN NSString *NSTabColumnTerminatorsAttributeName;
 
-extern class NSTextTab extends NSObject <NSCopying, NSCoding> {
+extern class NSTextTab extends NSObject, implements NSCopying, NSCoding> {
     /*All instance variables are private*/
     struct {
 	NSTextAlignment alignment:4;
@@ -70,7 +70,7 @@ NSDecimalTabStopType -> NSRightTextAlignment with the decimal character for the 
 - (NSTextTabType)tabStopType;
 }
 
-extern class NSParagraphStyle extends NSObject <NSCopying, NSMutableCopying, NSCoding> {
+extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableCopying, NSCoding> {
     /*All instance variables are private*/
     CGFloat _lineSpacing;
     CGFloat _paragraphSpacing;

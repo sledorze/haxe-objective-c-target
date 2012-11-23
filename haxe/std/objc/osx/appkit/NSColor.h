@@ -41,7 +41,7 @@ Subclassers of NSColor need to implement the methods colorSpaceName, set, the va
 
 
 
-extern class NSColor extends NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
+extern class NSColor extends NSObject, implements NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
 
 /* Create NSCalibratedWhiteColorSpace colors.
 */

@@ -1,3 +1,6 @@
+
+import objc.ios.Lib;
+
 @:orientation("UIInterfaceOrientationPortrait")
 @:orientation("UIInterfaceOrientationLandscapeLeft")
 @:identifier("com.ralcr.HelloWorld")
@@ -46,6 +49,8 @@ class Tests implements Interface1, implements Interface2 {
 		f = a.length > 3 ? 3 : a.length;
 		
 		var x = new Tests().add (1, 1);
+		
+		Lib.isIpad();
 	}
 	function testingFor(){
 		var aa = [1, 2, 3, 4, 5];

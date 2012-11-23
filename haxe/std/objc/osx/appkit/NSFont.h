@@ -44,7 +44,7 @@ enum {
 };
 typedef NSUInteger NSFontRenderingMode;
 
-extern class NSFont extends NSObject <NSCopying, NSCoding> {
+extern class NSFont extends NSObject, implements NSCopying, NSCoding> {
     /* All instance variables are private */
     NSString *_name;
     CGFloat _size;

@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, NSLineBreakMode) {		/* What to do with long lines */
     NSLineBreakByTruncatingMiddle	/* Truncate middle of line:  "ab...yz" */
 } NS_ENUM_AVAILABLE_IOS(6_0);
 
-NS_CLASS_AVAILABLE_IOS(6_0)extern class NSParagraphStyle extends NSObject <NSCopying, NSMutableCopying, NSCoding> 
+NS_CLASS_AVAILABLE_IOS(6_0)extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableCopying, NSCoding> 
 
 + (NSParagraphStyle *)defaultParagraphStyle;
 

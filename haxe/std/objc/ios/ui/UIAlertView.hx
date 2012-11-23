@@ -1,8 +1,8 @@
 package objc.ios.ui;
 
 
-/*typedef NS_ENUM(NSInteger, UIAlertViewStyle) {
-    UIAlertViewStyleDefault = 0,
+typedef UIAlertViewStyle = Int;
+/*    UIAlertViewStyleDefault = 0,
     UIAlertViewStyleSecureTextInput,
     UIAlertViewStylePlainTextInput,
     UIAlertViewStyleLoginAndPasswordInput
@@ -28,7 +28,7 @@ extern class UIAlertView extends UIView {
 	public function dismissWithClickedButtonIndex (buttonIndex:Int, animated:Bool) :Void;
 
 	@:require(ios_5_0) public var alertViewStyle :UIAlertViewStyle;
-	@:require(ios_5_0) public function textFieldAtIndex (textFieldIndex:Int) :UITextField;
+	//@:require(ios_5_0) public function textFieldAtIndex (textFieldIndex:Int) :UITextField;
 }
 
 extern interface UIAlertViewDelegate {

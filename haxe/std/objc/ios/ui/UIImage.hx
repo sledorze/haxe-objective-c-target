@@ -1,6 +1,7 @@
 package objc.ios.ui;
+import objc.foundation.NSObject;
 
-#import <Foundation/Foundation.h>
+/*#import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <CoreImage/CoreImage.h>
 #import <UIKit/UIKitDefines.h>
@@ -18,19 +19,17 @@ typedef NS_ENUM(NSInteger, UIImageOrientation) {
     UIImageOrientationRightMirrored, // vertical flip
 };
 
-/* UIImage will implement the resizing mode the fastest way possible while
- retaining the desired visual appearance.
- Note that if an image's resizable area is one point then UIImageResizingModeTile
- is visually indistinguishable from UIImageResizingModeStretch.
- */
+
 typedef NS_ENUM(NSInteger, UIImageResizingMode) {
     UIImageResizingModeTile,
     UIImageResizingModeStretch,
-};
+};*/
 
 extern class UIImage extends NSObject, implements NSObject {
+	
+}
 
-+ (UIImage *)imageNamed:(NSString *)name;      // load from main bundle
+/*+ (UIImage *)imageNamed:(NSString *)name;      // load from main bundle
 
 + (UIImage *)imageWithContentsOfFile:(NSString *)path;
 + (UIImage *)imageWithData:(NSData *)data;
@@ -99,4 +98,4 @@ extern class CIImage(UIKitAdditions)
 }
 
 UIKIT_EXTERN NSData *UIImagePNGRepresentation(UIImage *image);                               // return image as PNG. May return nil if image has no CGImageRef or invalid bitmap format
-UIKIT_EXTERN NSData *UIImageJPEGRepresentation(UIImage *image, CGFloat compressionQuality);  // return image as JPEG. May return nil if image has no CGImageRef or invalid bitmap format. compression is 0(most)..1(least)
+UIKIT_EXTERN NSData *UIImageJPEGRepresentation(UIImage *image, CGFloat compressionQuality); */

@@ -37,7 +37,7 @@ typedef NSUInteger NSImageCacheMode;
 
 @class _NSImageAuxiliary;
 
-extern class NSImage extends NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
+extern class NSImage extends NSObject, implements NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
 {
     /*All instance variables are private*/
     NSString *_name;

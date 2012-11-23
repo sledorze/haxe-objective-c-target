@@ -15,7 +15,7 @@
 
 APPKIT_EXTERN NSString * const NSSoundPboardType;
 
-extern class NSSound extends NSObject <NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
+extern class NSSound extends NSObject, implements NSCopying, NSCoding, NSPasteboardReading, NSPasteboardWriting>
 {
 @private
     id _delegate;

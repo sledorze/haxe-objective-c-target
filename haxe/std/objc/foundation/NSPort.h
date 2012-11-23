@@ -13,7 +13,7 @@ typedef int NSSocketNativeHandle;
 
 FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 
-extern class NSPort extends NSObject <NSCopying, NSCoding>
+extern class NSPort extends NSObject, implements NSCopying, NSCoding>
 
 // For backwards compatibility on Mach, +allocWithZone: returns
 // an instance of the NSMachPort class when sent to the NSPort

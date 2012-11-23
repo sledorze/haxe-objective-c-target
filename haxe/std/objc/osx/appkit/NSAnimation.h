@@ -32,7 +32,7 @@ typedef float NSAnimationProgress;
 extern NSString* NSAnimationProgressMarkNotification;   // has single entry in user info dictionary
 extern NSString*    NSAnimationProgressMark;		    // NSNumber(float) with NSAnimationProgress
 
-extern class NSAnimation extends NSObject <NSCopying, NSCoding> {
+extern class NSAnimation extends NSObject, implements NSCopying, NSCoding> {
   @private
     NSTimeInterval       _duration;
     NSAnimationProgress  _currentProgress;

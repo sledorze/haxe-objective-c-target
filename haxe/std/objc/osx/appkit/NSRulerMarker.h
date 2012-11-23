@@ -10,7 +10,7 @@
 
 @class NSEvent, NSImage, NSRulerView;
 
-extern class NSRulerMarker extends NSObject <NSCopying, NSCoding> {
+extern class NSRulerMarker extends NSObject, implements NSCopying, NSCoding> {
     /*All instance variables are private*/
     NSRulerView *_ruler;
     CGFloat _location;

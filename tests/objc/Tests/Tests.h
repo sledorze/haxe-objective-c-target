@@ -6,6 +6,7 @@
 #import "Float.h"
 #import "Int.h"
 #import "Tests.h"
+#import "Lib.h"
 #import "Log.h"
 #import "Date.h"
 #import "DateTools.h"

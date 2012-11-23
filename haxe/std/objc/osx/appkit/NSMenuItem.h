@@ -13,7 +13,7 @@
 @class NSMenu;
 @class NSImage, NSAttributedString, NSView;
 
-extern class NSMenuItem extends NSObject <NSCopying, NSCoding, NSValidatedUserInterfaceItem>
+extern class NSMenuItem extends NSObject, implements NSCopying, NSCoding, NSValidatedUserInterfaceItem>
 {
     /*All instance variables are private*/
     @private

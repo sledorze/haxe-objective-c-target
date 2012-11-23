@@ -9,7 +9,7 @@
 
 // Toll-free bridged with CFLocaleRef
 
-extern class NSLocale extends NSObject <NSCopying, NSSecureCoding>
+extern class NSLocale extends NSObject, implements NSCopying, NSSecureCoding>
 
 - (id)objectForKey:(id)key;
 

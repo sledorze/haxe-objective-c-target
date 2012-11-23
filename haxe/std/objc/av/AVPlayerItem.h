@@ -81,7 +81,7 @@ typedef NSInteger AVPlayerItemStatus;
 @class AVPlayerItemInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVPlayerItem extends NSObject <NSCopying>
+extern class AVPlayerItem extends NSObject, implements NSCopying>
 {
 @private
 	AVPlayerItemInternal* _playerItem;
@@ -570,7 +570,7 @@ extern class AVPlayerItem (AVPlayerItemOutputs)
  				that relates to each uninterrupted period of playback.
 */
 NS_CLASS_AVAILABLE(10_7, 4_3)
-extern class AVPlayerItemAccessLog extends NSObject <NSCopying>
+extern class AVPlayerItemAccessLog extends NSObject, implements NSCopying>
 {
 @private
 	AVPlayerItemAccessLogInternal	*_playerItemAccessLog;
@@ -612,7 +612,7 @@ extern class AVPlayerItemAccessLog extends NSObject <NSCopying>
  @discussion	An AVPlayerItemErrorLog provides data to identify if, and when, network resource playback failures occured.
 */
 NS_CLASS_AVAILABLE(10_7, 4_3)
-extern class AVPlayerItemErrorLog extends NSObject <NSCopying>
+extern class AVPlayerItemErrorLog extends NSObject, implements NSCopying>
 {
 @private
 	AVPlayerItemErrorLogInternal	*_playerItemErrorLog;
@@ -656,7 +656,7 @@ extern class AVPlayerItemErrorLog extends NSObject <NSCopying>
 */
 
 NS_CLASS_AVAILABLE(10_7, 4_3)
-extern class AVPlayerItemAccessLogEvent extends NSObject <NSCopying>
+extern class AVPlayerItemAccessLogEvent extends NSObject, implements NSCopying>
 {
 @private
 	AVPlayerItemAccessLogEventInternal	*_playerItemAccessLogEvent;
@@ -793,7 +793,7 @@ extern class AVPlayerItemAccessLogEvent extends NSObject <NSCopying>
 				fields of each log event. None of the properties of this class are observable.
 */
 NS_CLASS_AVAILABLE(10_7, 4_3)
-extern class AVPlayerItemErrorLogEvent extends NSObject <NSCopying>
+extern class AVPlayerItemErrorLogEvent extends NSObject, implements NSCopying>
 {
 @private
 	AVPlayerItemErrorLogEventInternal	*_playerItemErrorLogEvent;

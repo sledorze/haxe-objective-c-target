@@ -11,7 +11,7 @@
 
 /****************	Immutable Array		****************/
 
-extern class NSArray extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSArray extends NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)index;

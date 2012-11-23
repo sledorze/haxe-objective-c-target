@@ -20,7 +20,7 @@
 // point to the wrong pair. Identifiers are unique Ids.
 //
 
-extern class ABMultiValue extends NSObject <NSCopying, NSMutableCopying, NSFastEnumeration>
+extern class ABMultiValue extends NSObject, implements NSCopying, NSMutableCopying, NSFastEnumeration>
 {
 @protected
     NSMutableArray      *_identifiers;

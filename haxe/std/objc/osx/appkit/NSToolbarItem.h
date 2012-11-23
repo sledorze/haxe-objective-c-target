@@ -12,7 +12,7 @@
 
 @class NSToolbarItemViewer, NSMenuItem, NSView, NSImage;
 
-extern class NSToolbarItem extends NSObject <NSCopying, NSValidatedUserInterfaceItem> {
+extern class NSToolbarItem extends NSObject, implements NSCopying, NSValidatedUserInterfaceItem> {
 @private
     NSToolbar *		_toolbar;
     NSImage *		_image;

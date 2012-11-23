@@ -296,7 +296,7 @@ extern class MPMoviePlayerController (MPMovieLogging)
 // An MPMovieAccessLog accumulates key metrics about network playback and presents them as a collection of MPMovieAccessLogEvent instances.
 // Each MPMovieAccessLogEvent instance collates the data that relates to each uninterrupted period of playback.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLog extends NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLog extends NSObject, implements NSCopying>
 
 // Returns the webserver access log into a textual format that conforms to the W3C Extended Log File Format for web server log files.
 // For more information see: http://www.w3.org/pub/WWW/TR/WD-logfile.html
@@ -313,7 +313,7 @@ MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLog extends NSObject <NS
 // -----------------------------------------------------------------------------
 // An MPMovieErrorLog provides data to identify if, and when, network resource playback failures occured.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLog extends NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLog extends NSObject, implements NSCopying>
 
 // Returns the webserver error log into a textual format that conforms to the W3C Extended Log File Format for web server log files.
 // For more information see: http://www.w3.org/pub/WWW/TR/WD-logfile.html
@@ -330,7 +330,7 @@ MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLog extends NSObject <NSC
 // -----------------------------------------------------------------------------
 // An MPMovieAccessLogEvent repesents a single access log entry.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLogEvent extends NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLogEvent extends NSObject, implements NSCopying>
 
 // A count of media segments downloaded from the server to this client.
 	public var NSUInteger numberOfSegmentsDownloaded;
@@ -379,7 +379,7 @@ MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieAccessLogEvent extends NSObjec
 // -----------------------------------------------------------------------------
 // An MPMovieErrorLogEvent repesents a single error log entry.
 
-MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLogEvent extends NSObject <NSCopying>
+MP_EXTERN_CLASS_AVAILABLE(4_3)extern class MPMovieErrorLogEvent extends NSObject, implements NSCopying>
 
 // The date and time when the error occured.
 	public var NSDate *date;

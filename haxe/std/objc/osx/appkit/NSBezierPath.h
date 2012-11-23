@@ -39,7 +39,7 @@ enum {
 };
 typedef NSUInteger NSBezierPathElement;
 
-extern class NSBezierPath extends NSObject <NSCopying, NSCoding>
+extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
 {
     @private
     NSInteger _elementCount;

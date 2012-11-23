@@ -45,7 +45,7 @@ typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 
 /****************	Immutable Data		****************/
 
-extern class NSData : NSObject <NSCopying, NSMutableCopying, NSSecureCoding>
+extern class NSData : NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding>
 
 - (NSUInteger)length;
 - (const void *)bytes NS_RETURNS_INNER_POINTER;

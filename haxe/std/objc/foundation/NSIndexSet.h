@@ -26,7 +26,7 @@ To enumerate without doing a call per index, you can use the method getIndexes:m
 #import <Foundation/NSObject.h>
 #import <Foundation/NSRange.h>
 
-extern class NSIndexSet extends NSObject <NSCopying, NSMutableCopying, NSCoding> {
+extern class NSIndexSet extends NSObject, implements NSCopying, NSMutableCopying, NSCoding> {
     @protected   // all instance variables are private
     struct {
         NSUInteger _isEmpty:1;

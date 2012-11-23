@@ -31,7 +31,7 @@ enum {
 typedef NSUInteger NSMapTableOptions;
 
 NS_CLASS_AVAILABLE(10_5, 6_0)
-extern class NSMapTable : NSObject <NSCopying, NSCoding, NSFastEnumeration>
+extern class NSMapTable : NSObject, implements NSCopying, NSCoding, NSFastEnumeration>
 
 - (id)initWithKeyOptions:(NSPointerFunctionsOptions)keyOptions valueOptions:(NSPointerFunctionsOptions)valueOptions capacity:(NSUInteger)initialCapacity;
 - (id)initWithKeyPointerFunctions:(NSPointerFunctions *)keyFunctions valuePointerFunctions:(NSPointerFunctions *)valueFunctions capacity:(NSUInteger)initialCapacity;

@@ -13,7 +13,7 @@
 @class NSColor;
 
 
-extern class NSShadow extends NSObject <NSCopying, NSCoding> {
+extern class NSShadow extends NSObject, implements NSCopying, NSCoding> {
     /*All instance variables are private*/
     NSUInteger _shadowFlags;
     NSSize _shadowOffset;

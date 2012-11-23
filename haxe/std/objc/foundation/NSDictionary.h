@@ -9,7 +9,7 @@
 
 /****************	Immutable Dictionary	****************/
 
-extern class NSDictionary extends NSObject <NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSDictionary extends NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)objectForKey:(id)aKey;

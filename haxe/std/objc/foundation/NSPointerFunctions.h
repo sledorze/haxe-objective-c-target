@@ -54,7 +54,7 @@ enum {
 typedef NSUInteger NSPointerFunctionsOptions;
 
 NS_CLASS_AVAILABLE(10_5, 6_0)
-extern class NSPointerFunctions extends NSObject <NSCopying>
+extern class NSPointerFunctions extends NSObject, implements NSCopying>
 // construction
 - (id)initWithOptions:(NSPointerFunctionsOptions)options;
 + (id)pointerFunctionsWithOptions:(NSPointerFunctionsOptions)options;

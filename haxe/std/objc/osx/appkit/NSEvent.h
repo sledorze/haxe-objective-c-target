@@ -151,7 +151,7 @@ enum {
 #endif
 typedef NSUInteger NSEventSwipeTrackingOptions;
 
-extern class NSEvent extends NSObject <NSCopying, NSCoding> {
+extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
     /*All instance variables are private*/
     NSEventType _type;
     NSPoint _location;

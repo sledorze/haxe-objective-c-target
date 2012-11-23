@@ -27,30 +27,43 @@ package objc.ios;
 typedef ALAssetsGroup = Dynamic;
 typedef ALAsset = Dynamic;
 import objc.location.CLLocation;
+import objc.ios.ui.UIAlertView;
+import objc.ios.ui.UIDevice;
+import objc.ios.ui.UIImageView;
  
 class Lib {
 	
-	static function log (v : Dynamic) : Void {}
-	static function getURL (url :String, ?target : String) : Bool {
+	public static function log (v : Dynamic) : Void {}
+	public static function getURL (url :String, ?target : String) : Bool {
 		return untyped __objc__ ("AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:NSURL]");
 	}
-	static function attach (name : String) :UIImageView {
+	public static function attach (name : String) :UIImageView {
 		return untyped __objc__ ("[[UIImageView alloc] initWithImage:[UIImage imageNamed:@\"name\"]]");
 	}
-	static function enumerateLibraryGroups () :Array<ALAssetsGroup> {
+	public static function enumerateLibraryGroups () :Array<ALAssetsGroup> {
 		//library = [[ALAssetsLibrary alloc] init];
 		//[library enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:groupsEnumerator failureBlock:failHandler];
 		return null;
 	}
-	static function fetchCameraItemsInGroup (group:String) :Array<ALAsset> {
+	public static function fetchCameraItemsInGroup (group:String) :Array<ALAsset> {
 		return null;
 	}
-	static function location () :CLLocation;
-	static function deviceIsIpad () :Bool {
-		return false;
+	public static function location () :CLLocation {
+		return null;
 	}
-	static function alert (title:String, message:String) :UIAlertView {
-		var a = new UIAlertView();
+	public static function isIpad () :Bool {
+		var deviceType:String = UIDevice.currentDevice().model;
+		return deviceType == "iPad";
+		return untyped __objc__("UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad");
+	}
+	public static function isIpod () :Bool {
+		var deviceType:String = UIDevice.currentDevice().model;
+		return deviceType == "iPod touch";
+		return untyped __objc__("UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad");
+	}
+	public static function alert (title:String, message:String) :UIAlertView {
+		var a = new UIAlertView().initWithTitle (title, message, null, "Cancel", null);
+		a.show();
 		return a;
 	}
 }

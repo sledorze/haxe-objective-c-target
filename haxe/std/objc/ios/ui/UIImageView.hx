@@ -7,7 +7,7 @@ extern class UIImageView extends UIView {
 
 	public var image :UIImage;
 	public var highlightedImage :UIImage;
-	public var userInteractionEnabled :Bool;
+	//public var userInteractionEnabled :Bool;
 
 	public var highlighted :Bool;
 

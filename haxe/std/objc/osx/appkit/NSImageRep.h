@@ -19,7 +19,7 @@ enum {
     NSImageRepMatchesDevice = 0
 };
 
-extern class NSImageRep extends NSObject <NSCopying, NSCoding> {
+extern class NSImageRep extends NSObject, implements NSCopying, NSCoding> {
     /*All instance variables are private*/
     struct __repFlags {
 	unsigned int hasAlpha:1;

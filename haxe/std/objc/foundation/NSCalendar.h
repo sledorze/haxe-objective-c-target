@@ -29,7 +29,7 @@ typedef NS_ENUM(NSUInteger, NSCalendarUnit) {
         NSTimeZoneCalendarUnit NS_ENUM_AVAILABLE(10_7, 4_0) = (1 << 21),
 };
 
-extern class NSCalendar extends NSObject <NSCopying, NSSecureCoding>
+extern class NSCalendar extends NSObject, implements NSCopying, NSSecureCoding>
 
 + (id)currentCalendar; // users preferred calendar, tracks changes
 + (id)autoupdatingCurrentCalendar NS_AVAILABLE(10_5, 2_0);
@@ -95,7 +95,7 @@ enum {
 	NSUndefinedDateComponent = NSIntegerMax
 };
 
-extern class NSDateComponents extends NSObject <NSCopying, NSSecureCoding>
+extern class NSDateComponents extends NSObject, implements NSCopying, NSSecureCoding>
 
 - (NSCalendar *)calendar NS_AVAILABLE(10_7, 4_0);
 - (NSTimeZone *)timeZone NS_AVAILABLE(10_7, 4_0);
