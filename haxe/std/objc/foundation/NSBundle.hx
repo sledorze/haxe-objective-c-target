@@ -1,124 +1,104 @@
-/*	NSBundle.h
-	Copyright (c) 1994-2011, Apple Inc.  All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
+extern class NSBundle extends NSObject {
 
-@class NSArray, NSDictionary, NSString, NSURL, NSError;
+	public static function mainBundle () :NSBundle;
+	public static function bundleWithPath (path:String) :NSBundle;
+	public function initWithPath (path:String) :NSBundle;
 
-/* Because NSBundle caches allocated instances, subclasses should be prepared
-   to receive an already initialized object back from [super initWithPath:] */
-extern class NSBundle : NSObject {
-@private
-    NSUInteger		_flags;
-    id		        _cfBundle;
-    NSUInteger		_reserved2;
-    Class		_principalClass;
-    id                  _tmp1;
-    id                  _tmp2;
-    void		*_reserved1;
-    void		*_reserved0;
-}
+	public static function bundleWithURL (url:NSURL) :NSBundle;
+	public function initWithURL (url:NSURL) :NSBundle;
 
-/* Methods for creating or retrieving bundle instances. */
-+ (NSBundle *)mainBundle;
-+ (NSBundle *)bundleWithPath:(NSString *)path;
-- (id)initWithPath:(NSString *)path;
+	public static function bundleForClass (aClass:Class<Dynamic>) :NSBundle;
+	public static function bundleWithIdentifier (identifier:String) :NSBundle;
 
-+ (NSBundle *)bundleWithURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
-- (id)initWithURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
-
-+ (NSBundle *)bundleForClass:(Class)aClass;
-+ (NSBundle *)bundleWithIdentifier:(NSString *)identifier;
-
-+ (NSArray *)allBundles;
-+ (NSArray *)allFrameworks;
+	public static function allBundles () :Array<NSBundle>;
+	public static function allFrameworks () :Array<Dynamic>;
 
 /* Methods for loading and unloading bundles. */
-- (BOOL)load;
-- (BOOL)isLoaded;
-- (BOOL)unload;
+	public function load () :Bool;
+	public function isLoaded () :Bool;
+	public function unload () :Bool;
 
-- (BOOL)preflightAndReturnError:(NSError **)error NS_AVAILABLE(10_5, 2_0);
-- (BOOL)loadAndReturnError:(NSError **)error NS_AVAILABLE(10_5, 2_0);
+	public function preflightAndReturnError (error:NSError) :Bool
+	public function loadAndReturnError (error:NSError) :Bool
 
 /* Methods for locating various components of a bundle. */
-- (NSURL *)bundleURL NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)resourceURL NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)executableURL NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)URLForAuxiliaryExecutable:(NSString *)executableName NS_AVAILABLE(10_6, 4_0);
+	public function bundleURL () :NSURL;
+	public function resourceURL () :NSURL;
+	public function executableURL () :NSURL;
+	public function URLForAuxiliaryExecutable (executableName:String) :NSURL;
 
-- (NSURL *)privateFrameworksURL NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)sharedFrameworksURL NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)sharedSupportURL NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)builtInPlugInsURL NS_AVAILABLE(10_6, 4_0);
+	public function privateFrameworksURL () :NSURL;
+	public function sharedFrameworksURL () :NSURL;
+	public function sharedSupportURL () :NSURL;
+	public function builtInPlugInsURL () :NSURL;
 
-- (NSURL *)appStoreReceiptURL NS_AVAILABLE_MAC(10_7);
+	@:require("osx_10_7") public function appStoreReceiptURL () :NSURL;
 
-- (NSString *)bundlePath;
-- (NSString *)resourcePath;
-- (NSString *)executablePath;
-- (NSString *)pathForAuxiliaryExecutable:(NSString *)executableName;
+	public function bundlePath () :String;
+	public function resourcePath () :String;
+	public function executablePath () :String;
+	public function pathForAuxiliaryExecutable (executableName:String) :String;
 
-- (NSString *)privateFrameworksPath;
-- (NSString *)sharedFrameworksPath;
-- (NSString *)sharedSupportPath;
-- (NSString *)builtInPlugInsPath;
+	public function privateFrameworksPath () :String;
+	public function sharedFrameworksPath () :String;
+	public function sharedSupportPath () :String;
+	public function builtInPlugInsPath () :String;
 
 /* Methods for locating bundle resources.  Instance methods locate resources in the bundle indicated by the receiver; class methods take an argument pointing to a bundle on disk.  In the class methods, bundleURL is a URL pointing to the location of a bundle on disk, and may not be nil; bundlePath is the path equivalent of bundleURL, an absolute path pointing to the location of a bundle on disk.  By contrast, subpath is a relative path to a subdirectory inside the relevant global or localized resource directory, and should be nil if the resource file in question is not in a subdirectory.  Where appropriate, localizationName is the name of a .lproj directory in the bundle, minus the .lproj extension; passing nil for localizationName retrieves only global resources, whereas using a method without this argument retrieves both global and localized resources (using the standard localization search algorithm).  */
 
-+ (NSURL *)URLForResource:(NSString *)name withExtension:(NSString *)ext subdirectory:(NSString *)subpath inBundleWithURL:(NSURL *)bundleURL NS_AVAILABLE(10_6, 4_0);
-+ (NSArray *)URLsForResourcesWithExtension:(NSString *)ext subdirectory:(NSString *)subpath inBundleWithURL:(NSURL *)bundleURL NS_AVAILABLE(10_6, 4_0);
+	public static function URLForResource (name:String, withExtension:String, subdirectory:String, inBundleWithURL:NSURL) :NSURL;
+	public static function URLsForResourcesWithExtension (ext:String, subdirectory:String, inBundleWithURL:NSURL) :Array<NSURL>;
 
-- (NSURL *)URLForResource:(NSString *)name withExtension:(NSString *)ext NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)URLForResource:(NSString *)name withExtension:(NSString *)ext subdirectory:(NSString *)subpath NS_AVAILABLE(10_6, 4_0);
-- (NSURL *)URLForResource:(NSString *)name withExtension:(NSString *)ext subdirectory:(NSString *)subpath localization:(NSString *)localizationName NS_AVAILABLE(10_6, 4_0);
+	public function URLForResource (name:String, withExtension:String) :NSURL;
+	//public function URLForResource (name:String, withExtension:String, subdirectory:String) :NSURL;
+	//public function URLForResource (name:String, withExtension:String, subdirectory:String, localization:String) :NSURL;
 
-- (NSArray *)URLsForResourcesWithExtension:(NSString *)ext subdirectory:(NSString *)subpath NS_AVAILABLE(10_6, 4_0);
-- (NSArray *)URLsForResourcesWithExtension:(NSString *)ext subdirectory:(NSString *)subpath localization:(NSString *)localizationName NS_AVAILABLE(10_6, 4_0);
+	public function URLsForResourcesWithExtension (ext:String, subdirectory:String) :Array<NSURL>;
+	//public function URLsForResourcesWithExtension (ext:String, subdirectory:String, localization:String) :Array<NSURL>;
 
-+ (NSString *)pathForResource:(NSString *)name ofType:(NSString *)ext inDirectory:(NSString *)bundlePath;
-+ (NSArray *)pathsForResourcesOfType:(NSString *)ext inDirectory:(NSString *)bundlePath;
+	public static function pathForResource (name:String, ofType:String, inDirectory:String) :String;
+	public static function pathsForResourcesOfType (ext:String, inDirectory:String) :Array<String>;
 
-- (NSString *)pathForResource:(NSString *)name ofType:(NSString *)ext;
-- (NSString *)pathForResource:(NSString *)name ofType:(NSString *)ext inDirectory:(NSString *)subpath;
-- (NSString *)pathForResource:(NSString *)name ofType:(NSString *)ext inDirectory:(NSString *)subpath forLocalization:(NSString *)localizationName;
+	public function pathForResource (name:String, ofType:String) :String;
+	//public function pathForResource (name:String, ofType:String, inDirectory:String) :String;
+	//public function pathForResource (name:String, ofType:String, inDirectory:String, forLocalization:String) :String;
 
-- (NSArray *)pathsForResourcesOfType:(NSString *)ext inDirectory:(NSString *)subpath;
-- (NSArray *)pathsForResourcesOfType:(NSString *)ext inDirectory:(NSString *)subpath forLocalization:(NSString *)localizationName;
+	public function pathsForResourcesOfType (ext:String, inDirectory:String) :Array<String>;
+	public function pathsForResourcesOfType (ext:String, inDirectory:String, forLocalization:String) :Array<String>;
 
 /* Method for retrieving localized strings. */
-- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)tableName;
+	public function localizedStringForKey (key:String, value:String, table:String) :String;
 
 /* Methods for obtaining various information about a bundle. */
-- (NSString *)bundleIdentifier;
-- (NSDictionary *)infoDictionary;
-- (NSDictionary *)localizedInfoDictionary;
-- (id)objectForInfoDictionaryKey:(NSString *)key;
-- (Class)classNamed:(NSString *)className;
-- (Class)principalClass;
+	public function bundleIdentifier () :String;
+	public function infoDictionary () :NSDictionary;
+	public function localizedInfoDictionary () :NSDictionary;
+	public function objectForInfoDictionaryKey (key:String) :Dynamic;
+	public function classNamed (className:String) :Class<Dynamic>;
+	public function principalClass () :Class<Dynamic>;
 
 /* Methods for dealing with localizations. */
-- (NSArray *)localizations;
-- (NSArray *)preferredLocalizations;
-- (NSString *)developmentLocalization;
+	public function localizations () :Array<String>;
+	public function preferredLocalizations () :Array<String>;
+	public function developmentLocalization () :String;
 
-+ (NSArray *)preferredLocalizationsFromArray:(NSArray *)localizationsArray;
-+ (NSArray *)preferredLocalizationsFromArray:(NSArray *)localizationsArray forPreferences:(NSArray *)preferencesArray;
+	public static function preferredLocalizationsFromArray (localizationsArray:Array<String>) :Array<String>;
+	//public static function preferredLocalizationsFromArray (localizationsArray:Array<String>, forPreferences:Array<String>) :Array<String>;
 
 /* Method for determining executable architectures. */
-enum {
+/*enum {
     NSBundleExecutableArchitectureI386      = 0x00000007,
     NSBundleExecutableArchitecturePPC       = 0x00000012,
     NSBundleExecutableArchitectureX86_64    = 0x01000007,
     NSBundleExecutableArchitecturePPC64     = 0x01000012
-};
+};*/
 
-- (NSArray *)executableArchitectures NS_AVAILABLE(10_5, 2_0);
-
+	public function executableArchitectures () :Array<Int>;
 }
 
-#define NSLocalizedString(key, comment) \
+/*#define NSLocalizedString(key, comment) \
 	    [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 #define NSLocalizedStringFromTable(key, tbl, comment) \
 	    [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:(tbl)]
@@ -127,6 +107,7 @@ enum {
 #define NSLocalizedStringWithDefaultValue(key, tbl, bundle, val, comment) \
 	    [bundle localizedStringForKey:(key) value:(val) table:(tbl)]
 
-FOUNDATION_EXPORT NSString * const NSBundleDidLoadNotification;
-FOUNDATION_EXPORT NSString * const NSLoadedClasses;	// notification key
+FOUNDATION_EXPORT String * const NSBundleDidLoadNotification;
+FOUNDATION_EXPORT String * const NSLoadedClasses;	// notification key
 
+*/
