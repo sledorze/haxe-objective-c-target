@@ -1,3 +1,4 @@
+// This class is used to test the various features of Haxe and study the generated code
 
 import objc.ios.Lib;
 
@@ -11,10 +12,15 @@ import objc.ios.Lib;
 
 class Tests implements Interface1, implements Interface2 {
 	
-	public var interfaceVar1 :Int = 6;// Generate a @property (nonatomic, strong) NSNumber *float1; + a @synthesizer
+	public var interfaceVar1 :Int;// Generate a @property (nonatomic) int float1; + a @synthesize float1
 	public var interfaceVar2 :Float;
 	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
+	var d1 = 34;
+	var d2 = 4.5;
+	var s = "str";
+	
+	// Static vars
 	public static var staticVar1 :String = "abcd";
 	public static var staticVar2 :Int = 5;
 	inline public static var staticVar3 :Int = 5;
@@ -52,12 +58,18 @@ class Tests implements Interface1, implements Interface2 {
 		
 		Lib.isIpad();
 	}
+	
+	// For statements
+	
 	function testingFor(){
 		var aa = [1, 2, 3, 4, 5];
 		for (i in 0...5) aa.push ( i );
 		for (i in 0...aa.length) aa.push ( i );
 		for (i in aa) aa.push ( i );
 	}
+	
+	// While statements
+	
 	function testingWhile(){
 		var aa = 5;
 		do {
@@ -66,6 +78,9 @@ class Tests implements Interface1, implements Interface2 {
 		}
 		while (aa < 10);
 	}
+	
+	// Try catch
+	
 	function testTry () {
 		try {
 			var a = 1+2;
@@ -77,17 +92,26 @@ class Tests implements Interface1, implements Interface2 {
 					trace("finally");
 				}*/
 	}
+	
+	// Switch statement
+	
 	function testSwitch(){
 		switch (true) {
 			case true : var x = 0;
 			case false : var y = 0;
 		}
 	}
+	
+	// Date
+	
 	function testDate (){
 		var d = new Date (2012,11,13, 19,30,0);
 		var d2 = Date.now();
 		var x = DateTools.getMonthDays ( d2 );
 	}
+	
+	// String and string operations
+	
 	function testString () {
 		// Convert String API to NSString api
 		var string = new String ("abcdefghijklmnopqrstuvwxyz");
@@ -107,24 +131,74 @@ class Tests implements Interface1, implements Interface2 {
 		s2 = string.toString();
 		var s3:String = String.fromCharCode ( 9 );
 	}
+	
+	// Test Hashes
+	
+	function testHash () {
+		var h = new Hash<String>();// NSMutableDictionary
+			h.set ("key", "value");
+			h.get ("key");
+			h.remove ("key");
+		var b = h.exists ("key");
+		var arr = h.keys();
+		var iter = h.iterator();
+		var str = h.toString();
+		
+		var hi = new IntHash<String>();
+			hi.set (0, "value");
+			hi.get (0);
+			hi.remove (0);
+		var bi = hi.exists (0);
+		var arri = hi.keys();
+		var iteri = hi.iterator();
+		var stri = hi.toString();
+	}
+	
+	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
+	
 	function testFrameworksImport(){
+		// When using native classes do not call 'new' method but call 'init': [[MKMapView alloc] init]
 		var m = new objc.ios.map.MKMapView();
 	}
+	
+	// Getter setter
+	
 	function getWidth():Int{return 0;}
 	function setWidth(v:Int):Int{return 0;}
 	
 	
+	
 	// Interface methods
+	
 	public function add (a:Int, b:Int) :Int {
 		return a+b;
 	}
 	public function minus (a:Int, b:Int) :Int {
 		return a-b;
 	}
-	public function callLotsOfArguments (arg1:Int, t:Int, t:Int, arg4:Int) :Void {}
+	
+	// Various methods
+	
+	public function callLotsOfArguments (arg1:Int, arg2:Int, arg3:Int, arg4:Int) :Void {}
+	public function optionalArguments (arg1:Int, arg2:Int, arg3:Int, ?arg4:Int) :Void {}
+	public function optionalArguments1 (arg1:Int, arg2:Int, arg3:Int, arg4:Int=5) :Void {}
+	public function optionalArguments2 (arg1:Int, ?arg2:Int, ?arg3:Int, arg4:Int) :Void {}
+	public function optionalArguments3 (arg1:Int, arg2:Int=6, ?arg3:Int, arg4:Int) :Void {}
+	
+	// When an init method is present make a call to super.init and make the new method to call this init instead the super.init
+	public function init () {
+		var x = 6;
+		s = "init";
+	}
+	
+	// Trace is converted to NSLog, but Lib.print is converted to C printf
+	
 	public function printHello () :Void {
 		trace("Hello from Haxe Objective-C");
 	}
+	
+	// The main entry point is converted to a main.m file
+	
 	public static function main() {
 		//return new UIApplicationMain ( Tests );
 	}

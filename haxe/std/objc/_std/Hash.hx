@@ -23,35 +23,37 @@
  * DAMAGE.
  */
 
+// This class is a category for NSMutableDictionary
+ 
+import objc.foundation.NSDictionary;
+	
 @:category @:core_api class Hash<T>  {
-	private var __Internal : Dynamic;
-
+	
 	public function new() : Void {
-		__Internal = {};
+		
 	}
 
 	public function set( key : String, value : T ) : Void {
-		untyped __Internal.__SetField(key,value,true);
+		untyped this.setObject (value, key);
 	}
 
 	public function get( key : String ) : Null<T> {
-		return untyped __Internal.__Field(key,true);
+		return untyped this.objectForKey ( key );
 	}
 
 	public function exists( key : String ) : Bool {
-		return untyped __Internal.__HasField(key);
+		return untyped this.objectForKey ( key ) != null;
 	}
 
 	public function remove( key : String ) : Bool {
-		return untyped __global__.__hxcpp_anon_remove(__Internal,key);
+		return untyped this.removeObjectForKey ( key );
 	}
 
 	/**
 		Returns an iterator of all keys in the hashtable.
 	**/
 	public function keys() : Iterator<String> {
-		var a:Array<String> = [];
-		untyped __Internal.__GetFields(a);
+		var a:Array<String> = untyped this.allKeys();
 		return a.iterator();
 	}
 
@@ -59,8 +61,7 @@
 		Returns an iterator of all values in the hashtable.
 	**/
 	public function iterator() : Iterator<T> {
-		var a:Array<String> = [];
-		untyped __Internal.__GetFields(a);
+		var a:Array<String> = untyped this.allValues();
 		var it = a.iterator();
 		var me = this;
 		return untyped {
@@ -74,7 +75,8 @@
 	**/
 
 	public function toString() : String {
-		var s = new StringBuf();
+		return untyped this.description();
+/*		var s = new StringBuf();
 		s.add("{");
 		var it = keys();
 		for( i in it ) {
@@ -85,6 +87,6 @@
 				s.add(", ");
 		}
 		s.add("}");
-		return s.toString();
+		return s.toString();*/
 	}
 }

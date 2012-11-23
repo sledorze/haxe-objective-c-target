@@ -7,67 +7,85 @@ typedef NSEnumerationOptions = Dynamic;
 
 extern class NSDictionary extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding, implements NSFastEnumeration {
 
-	//Constants
+	public function count () :Int;
+	public function objectForKey (aKey:Dynamic) :Dynamic;
+	public function keyEnumerator () :NSEnumerator;
 
-	//Static Methods
-	public static function dictionaryWithObject( object:Dynamic, key:NSCopying) :NSDictionary;
-	public static function dictionaryWithContentsOfFile( path:String) :NSDictionary;
-	public static function sharedKeySetForKeys (keys:Array<String>) :NSDictionary;
+	// NSExtendedDictionary
+	public function allKeys () :Array<Dynamic>;
+	public function allKeysForObject (anObject:Dynamic) :Array<Dynamic>;
+	public function allValues () :Array<Dynamic>;
+	public function description () :String;
+	public function descriptionInStringsFileFormat () :String;
+	public function descriptionWithLocale (locale:Dynamic) :String;
+	//public  function descriptionWithLocale1 (locale:Dynamic, indent:Int) :String;
+	public function isEqualToDictionary (otherDictionary:NSDictionary) :Bool;
+	public function objectEnumerator () :NSEnumerator;
+	public function objectsForKeys (keys:Array<String>, notFoundMarker:Dynamic):NSArray;
+	public function writeToFile (path:String, atomically:Bool) :Bool;
+	public function writeToURL (url:NSURL, atomically:Bool) :Bool;
+	
+	public function keysSortedByValueUsingSelector (comparator:SEL) :Array<Dynamic>;
+	public function getObjects (objects:Array<Dynamic>, andKeys:Array<Dynamic>) :Void;
+
+	@:require(osx_10_8) @:require(ios_6_0) public function objectForKeyedSubscript (key:Dynamic) :Dynamic;
+	
+	
+
+	// NSDictionaryCreation
+	public static function dictionary () :NSDictionary;
+	public static function dictionaryWithObject (object:Dynamic, forKey:NSCopying) :NSDictionary;
+	public static function dictionaryWithDictionary (dict:NSDictionary) :NSDictionary;
+	public static function dictionaryWithObjects (objects:Array<Dynamic>, forKeys:Array<Dynamic>) :NSDictionary;
+	
+	
+/*#if NS_BLOCKS_AVAILABLE
+- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(id key, id obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateKeysAndObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id key, id obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+
+- (NSArray *)keysSortedByValueUsingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
+- (NSArray *)keysSortedByValueWithOptions:(NSSortOptions)opts usingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
+
+- (NSSet *)keysOfEntriesPassingTest:(BOOL (^)(id key, id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSSet *)keysOfEntriesWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(id key, id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
+#endif*/
+
+
+	public function initWithObjectsAndKeys (object:Dynamic, key:Dynamic) :NSDictionary;
+	public function initWithDictionary (otherDictionary:NSDictionary) :NSDictionary;
+	//public function initWithDictionary (otherDictionary:NSDictionary, copyItems:Bool) :NSDictionary;
+	public function initWithObjects (objects:Array<Dynamic>, forKeys:Array<Dynamic>) :NSDictionary;
+
+	public static function dictionaryWithContentsOfFile (path:String) :NSDictionary;
 	public static function dictionaryWithContentsOfURL (url:NSURL) :NSDictionary;
-	public static function dictionaryWithObjects( objects:Array<Dynamic>, keys:Array<String>, cnt:Int) :NSDictionary;
-	//public static function dictionaryWithObjects1( objects:Array<Dynamic>, keys:Array<NSCopying>, cnt:Int) :Dynamic;
-	//public static function dictionaryWithObjects2( objects:NSArray, keys:NSArray):Dynamic;
-	public static function dictionaryWithDictionary( dict:NSDictionary) :NSDictionary;
-	public static function dictionaryWithSharedKeySet( keyset:Dynamic) :NSDictionary;
-	public static function dictionary():NSDictionary;
-	public static function dictionaryWithObjectsAndKeys( firstObject:Dynamic) :NSDictionary;
-	public static function dictionaryWithCapacity( numItems:Int) :NSDictionary;
+	public function initWithContentsOfFile (path:String) :NSDictionary;
+	public function initWithContentsOfURL (url:NSURL) :NSDictionary;
+	
+	//NSSharedKeySetDictionary)
+	public static function sharedKeySetForKeys (keys:Array<Dynamic>) :NSDictionary;//NS_AVAILABLE(10_8, 6_0);
 
-	//Properties
-
-	//Methods
-	public  function objectForKey (aKey:String) :Dynamic;
-	public  function enumerateKeysAndObjectsUsingBlock (block:Dynamic) :Void;
-	public  function addEntriesFromDictionary( otherDictionary:NSDictionary):Void;
-	public  function descriptionInStringsFileFormat():String;
-	public  function keysSortedByValueUsingComparator( cmptr:NSComparator):NSArray;
-	public  function objectEnumerator():NSEnumerator;
-	public  function keysSortedByValueWithOptions( opts:NSSortOptions,  cmptr:NSComparator):NSArray;
-	public  function initWithContentsOfFile (path:String) :NSDictionary;
-	public  function setObject (anObject:Dynamic, aKey:NSCopying) :Void;
-	//public  function setObject1(obj:Dynamic, key:NSCopying) :Void;
-	public  function initWithDictionary( otherDictionary:NSDictionary) :NSDictionary;
-	//public  function initWithDictionary1( otherDictionary:NSDictionary,  flag:Bool):Dynamic;
-	public  function count():Int;
-	public  function getObjects( objects:Dynamic, keys:Dynamic):Void;
-	//public  function initWithObjects( objects:Array<Dynamic>, keys:Array<String>, cnt:Int):Dynamic;
-	//@:overload !!NEED CUSTOM META DATA !!
-	//public  function initWithObjects1( objects:Array<Dynamic>, keys:Array<String>, cnt:Int):Dynamic;
-	//@:overload !!NEED CUSTOM META DATA !!
-	public  function initWithObjects (objects:Array<Dynamic>, keys:Array<String>) :Dynamic;
-	public  function allKeys() :Array<String>;
-	public  function setDictionary( otherDictionary:NSDictionary):Void;
-	public  function initWithCapacity( numItems:Int):Dynamic;
-	public  function keysSortedByValueUsingSelector( comparator:SEL):NSArray;
-	public  function allKeysForObject( anObject:Dynamic):NSArray;
-	public  function removeAllObjects():Void;
-	public  function isEqualToDictionary( otherDictionary:NSDictionary):Bool;
-	public  function objectsForKeys( keys:Array<String>,  marker:Dynamic):NSArray;
-	public  function objectForKeyedSubscript( key:Dynamic):Dynamic;
-	//public  function initWithObjectsAndKeys( firstObject:Dynamic):Dynamic;
-	public  function removeObjectsForKeys( keyArray:Array<String>) :Void;
-	public  function keysOfEntriesPassingTest( predicate:Dynamic):NSSet;
-	public  function enumerateKeysAndObjectsWithOptions( opts:NSEnumerationOptions,  block:Dynamic):Void;
-	public  function description():String;
-	public  function initWithContentsOfURL (url:NSURL) :NSDictionary;
-	public  function keyEnumerator():NSEnumerator;
-	public  function writeToFile (path:String, useAuxiliaryFile:Bool) :Bool;
-	public  function allValues() :Array<Dynamic>;
-	public  function writeToURL (url:NSURL, atomically:Bool) :Bool;
-	public  function removeObjectForKey (aKey:String) :Void;
-	public  function keysOfEntriesWithOptions (opts:NSEnumerationOptions, predicate:Dynamic) :NSSet;
-	public  function descriptionWithLocale (locale:Dynamic) :String;
-	//@:overload !!NEED CUSTOM META DATA !!
-	//public  function descriptionWithLocale1 (locale:Dynamic, level:Int) :String;
+	//NSSharedKeySetDictionary)
+	public static function dictionaryWithSharedKeySet (keyset:Dynamic) :NSDictionary;//NS_AVAILABLE(10_8, 6_0);
 }
 
+/****************	Mutable Dictionary	****************/
+
+extern class NSMutableDictionary extends NSDictionary {
+
+	public function removeObjectForKey (aKey:Dynamic) :Void;
+	public function setObject (anObject:Dynamic, forKey:Dynamic) :Void;
+
+	// NSExtendedMutableDictionary)
+
+	public function addEntriesFromDictionary (otherDictionary:NSDictionary) :Void;
+	public function removeAllObjects () :Void;
+	public function removeObjectsForKeys (keyArray:Array<Dynamic>) :Void;
+	public function setDictionary (otherDictionary:NSDictionary) :Void;
+	//public function setObject (obj:Dynamic, forKeyedSubscript:Dynamic) :Void;// NS_AVAILABLE(10_8, 6_0);
+
+	// NSMutableDictionaryCreation)
+
+	public static function dictionaryWithCapacity (numItems:Int) :NSDictionary;
+	public function initWithCapacity (numItems:Int) :NSDictionary;
+
+}

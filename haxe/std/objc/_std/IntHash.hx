@@ -24,52 +24,39 @@
  */
 
 @:category @:core_api class IntHash<T> {
-
-	private var h : Dynamic;
-
+	
 	public function new() : Void {
-		h = untyped __global__.__int_hash_create();
+		
 	}
 
 	public function set( key : Int, value : T ) : Void {
-		untyped __global__.__int_hash_set(h,key,value);
+		untyped this.setObject (value, key);
 	}
 
 	public function get( key : Int ) : Null<T> {
-		return untyped __global__.__int_hash_get(h,key);
+		return untyped this.objectForKey ( key );
 	}
 
 	public function exists( key : Int ) : Bool {
-		return untyped __global__.__int_hash_exists(h,key);
+		return untyped this.objectForKey ( key ) != null;
 	}
 
 	public function remove( key : Int ) : Bool {
-		return untyped __global__.__int_hash_remove(h,key);
+		return untyped this.removeObjectForKey ( key );
 	}
 
 	public function keys() : Iterator<Int> {
-		var a:Array<Int> = untyped __global__.__int_hash_keys(h);
+		var a:Array<Int> = untyped this.allKeys();
 		return a.iterator();
 	}
 
 	public function iterator() : Iterator<T> {
-		var a:Array<Dynamic> = untyped __global__.__int_hash_values(h);
+		var a:Array<Dynamic> = untyped this.allValues();
 		return a.iterator();
 	}
 
 	public function toString() : String {
-		var s = new StringBuf();
-		s.add("{");
-		var it = keys();
-		for( i in it ) {
-			s.add(i);
-			s.add(" => ");
-			s.add(Std.string(get(i)));
-			if( it.hasNext() )
-				s.add(", ");
-		}
-		s.add("}");
-		return s.toString();
+		return untyped this.description();
 	}
 
 }

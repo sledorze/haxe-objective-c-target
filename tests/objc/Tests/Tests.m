@@ -24,6 +24,9 @@
 @synthesize interfaceVar1;
 @synthesize interfaceVar2;
 
+@synthesize d1;
+@synthesize d2;
+@synthesize s;
 - (void) tests{
 	
 	NSMutabeArray *a = [[NSMutabeArray alloc] new][];
@@ -77,7 +80,7 @@
 - (void) testingWhile{
 	int aa = 5;
 	do {
-		[Log trace:@"something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"64",@"Tests",@"testingWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"76",@"Tests",@"testingWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
 }
@@ -86,7 +89,7 @@
 		int a = 3;
 	}
 	@catch (NSException *e) {
-		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"74",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"89",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
 - (void) testSwitch{
@@ -131,6 +134,28 @@
 	
 	NSMutableString *s3 = @"\t";
 }
+- (void) testHash{
+	
+	Hash *h = [[Hash alloc] new][];
+	[h set:@"key" value:@"value"];
+	[h get:@"key"];
+	[h remove:@"key"];
+	BOOL b = [h exists:@"key"];
+	id arr = [h keys];
+	id iter = [h iterator];
+	
+	NSMutableString *str = [h toString];
+	
+	IntHash *hi = [[IntHash alloc] new][];
+	[hi set:0 value:@"value"];
+	[hi get:0];
+	[hi remove:0];
+	BOOL bi = [hi exists:0];
+	id arri = [hi keys];
+	id iteri = [hi iterator];
+	
+	NSMutableString *stri = [hi toString];
+}
 - (void) testFrameworksImport{
 	
 	MKMapView *m = [[MKMapView alloc] new][];
@@ -147,14 +172,28 @@
 - (int) minus:(int)a b:(int)b{
 	return a - b;
 }
-- (void) callLotsOfArguments:(int)arg1 t:(int)t t1:(int)t1 arg4:(int)arg4{
+- (void) callLotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+}
+- (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(id)arg4{
+}
+- (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+}
+- (void) optionalArguments2:(int)arg1 arg2:(id)arg2 arg3:(id)arg3 arg4:(int)arg4{
+}
+- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(id)arg3 arg4:(int)arg4{
+}
+- (void) init{
+	int x = 6;
+	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"126",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"197",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) new{
 	self = [super init];
-	self.interfaceVar1 = 6;
+	self.s = @"str";
+	self.d2 = 4.5;
+	self.d1 = 34;
 	return self;
 }
 
