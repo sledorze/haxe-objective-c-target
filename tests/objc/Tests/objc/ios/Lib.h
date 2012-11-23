@@ -1,7 +1,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "String.h"
 #import "Array.h"
 #import "CLLocation.h"
 

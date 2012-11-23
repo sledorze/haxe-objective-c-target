@@ -1,7 +1,5 @@
 
 
-#import "String.h"
-#import "Int.h"
 #import "StringTools.h"
 
 @interface StringTools : NSObject

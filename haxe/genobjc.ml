@@ -81,8 +81,13 @@ class importsManager =
 	val mutable all_frameworks : string list = []
 	val mutable class_frameworks : string list = []
 	val mutable class_imports : path list = []
-	method add_class_path class_path =
-		let f_name = getFrameworkOfPath class_path in
+	method add_class_path class_path = match class_path with
+		| ([],"Int")
+		| ([],"Float")
+		| ([],"String")
+		| ([],"Dynamic")
+		| ([],"Bool") -> ();
+		| _ -> let f_name = getFrameworkOfPath class_path in
 		if f_name <> "" then begin
 			if not (List.mem f_name all_frameworks) then all_frameworks <- List.append all_frameworks [f_name];
 			if not (List.mem f_name class_frameworks) then class_frameworks <- List.append class_frameworks [f_name];
@@ -299,13 +304,7 @@ let addPointerIfNeeded t =
 
 (* Generating correct type *)
 let processClassPath ctx is_static path pos =
-	(match path with
-		| ([],"Int")
-		| ([],"Float")
-		| ([],"Dynamic")
-		| ([],"Bool") -> ();
-		| _ -> ctx.imports_manager#add_class_path path);
-		
+	ctx.imports_manager#add_class_path path;
 	match path with
 	| ([],name) ->
 		(match name with

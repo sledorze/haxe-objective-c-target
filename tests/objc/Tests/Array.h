@@ -2,7 +2,6 @@
 #import <Foundation/Foundation.h>
 
 #import "Array.h"
-#import "String.h"
 
 @interface NSMutableArray ( Array )
 

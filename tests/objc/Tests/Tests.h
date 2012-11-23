@@ -1,10 +1,7 @@
 
 #import <MapKit/MapKit.h>
 
-#import "String.h"
 #import "Array.h"
-#import "Float.h"
-#import "Int.h"
 #import "Tests.h"
 #import "Lib.h"
 #import "Log.h"

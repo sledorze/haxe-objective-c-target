@@ -1,7 +1,6 @@
 
 
 #import "Array.h"
-#import "String.h"
 
 @interface StringBuf : NSObject
 
