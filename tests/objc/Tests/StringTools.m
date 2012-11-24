@@ -3,10 +3,10 @@
 @implementation StringTools
 
 + (NSMutableString*) urlEncode:(NSMutableString*)s{
-	return nil;
+	return [s stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 }
 + (NSMutableString*) urlDecode:(NSMutableString*)s{
-	return nil;
+	return [s stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 + (NSMutableString*) htmlEscape:(NSMutableString*)s{
 	return [[[[[[s componentsSeparatedByString:split:@"&"].join:@"&amp;"] componentsSeparatedByString:split:@"<"].join:@"&lt;"] componentsSeparatedByString:split:@">"].join:@"&gt;"];
@@ -75,7 +75,7 @@
 	return ns + s;
 }
 + (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by{
-	return [[s componentsSeparatedByString:split:sub].join:by];
+	return [s replaceOccurrencesOfString:sub withString:by options:nil range:nil];
 }
 + (NSMutableString*) hex:(int)n digits:(id)digits{
 	
@@ -90,10 +90,10 @@
 	return s;
 }
 + (int) fastCodeAt:(NSMutableString*)s index:(int)index{
-	return [s.charCodeAt-non-];
+	return [s.charCodeAt -dynamic_param- ];
 }
 + (BOOL) isEOF:(int)c{
-	return NO;
+	return c == -1;
 }
 
 @end

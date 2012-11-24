@@ -9,6 +9,9 @@
 #import "DateTools.h"
 #import "Hash.h"
 #import "IntHash.h"
+#import "Reflect.h"
+#import "StringBuf.h"
+#import "StringTools.h"
 
 @interface Tests : NSObject<Interface2, Interface1>
 
@@ -22,14 +25,25 @@
 @property (nonatomic) int d1;
 @property (nonatomic) float d2;
 @property (nonatomic, strong) NSMutableString *s;
-- (void) tests;
+- (void) testVariables;
 - (void) testingFor;
-- (void) testingWhile;
+- (void) testWhile;
 - (void) testTry;
 - (void) testSwitch;
+- (void) testArray;
 - (void) testDate;
-- (void) testString;
+- (void) testEnum;
+- (void) testEReg;
 - (void) testHash;
+- (void) testLambda;
+- (void) testList;
+- (void) testMath;
+- (void) testReflect;
+- (void) testStd;
+- (void) testString;
+- (void) testSys;
+- (void) testType;
+- (void) testXml;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;

@@ -4,6 +4,13 @@
 
 + (void) log:(id)v{
 }
++ (void) print:(id)v{
+	printf ( [[v description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy] );
+}
++ (void) println:(id)v{
+	[Lib print:v];
+	printf ( "\n" );
+}
 + (BOOL) getURL:(NSMutableString*)url target:(NSMutableString*)target{
 	return AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:NSURL];
 }

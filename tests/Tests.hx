@@ -26,15 +26,12 @@ class Tests implements Interface1, implements Interface2 {
 	inline public static var staticVar3 :Int = 5;
 	
 	public function new () {
-		// The constructor automaticall call the method init
+		// The constructor automaticall call the method init and init variables
 	}
 	
-	function tests () :Void {
+	function testVariables () :Void {
 		// declare some random variables
 		var a = new Array<String>();
-		var aa = [1.0, 2, 3, 4, 5];
-		var aaa = aa[2];
-		aa[3];
 		var b :Int = 5;
 		var c :Float = 5.0;
 		var d = "xyz";
@@ -54,7 +51,7 @@ class Tests implements Interface1, implements Interface2 {
 		}
 		f = a.length > 3 ? 3 : a.length;
 		
-		var x = new Tests().add (1, 1);
+		var x = new Tests().add (1, 1);// [[[Tests alloc] new] add:1 b:1]
 		
 		Lib.isIpad();
 	}
@@ -70,7 +67,7 @@ class Tests implements Interface1, implements Interface2 {
 	
 	// While statements
 	
-	function testingWhile(){
+	function testWhile(){
 		var aa = 5;
 		do {
 			trace("something");
@@ -102,35 +99,42 @@ class Tests implements Interface1, implements Interface2 {
 		}
 	}
 	
+	
+	// Test Array
+	
+	function testArray(){
+		var as = new Array<String>();
+		var aa = [1.0, 2, 3, 4, 5];
+		var aaa = aa[2];
+		aa[3];
+	}
+	
 	// Date
 	
 	function testDate (){
 		var d = new Date (2012,11,13, 19,30,0);
 		var d2 = Date.now();
+		
 		var x = DateTools.getMonthDays ( d2 );
+		
 	}
 	
-	// String and string operations
 	
-	function testString () {
-		// Convert String API to NSString api
-		var string = new String ("abcdefghijklmnopqrstuvwxyz");
-		var len:Int = string.length;
-		var s:String = string.charAt ( 5 );
-		var ch:Null<Int> = string.charCodeAt ( 5 );
-		var i:Int = string.indexOf ( "abc" );
-		var i:Int = string.indexOf ( "abc", 2 );
-		var li:Int = string.lastIndexOf ( "abc" );
-		var components:Array<String> = string.split("-");
-		var s2:String = string.substr(5);
-		s2 = string.substr(5, len);
-		s2 = string.substring(5);
-		s2 = string.substring(1, len);
-		s2 = string.toLowerCase();//
-		s2 = string.toUpperCase();//
-		s2 = string.toString();
-		var s3:String = String.fromCharCode ( 9 );
+	
+	// Test Enum
+	
+	function testEnum(){
+		
 	}
+	
+	
+	
+	// Test EReg
+	
+	function testEReg(){
+		
+	}
+	
 	
 	// Test Hashes
 	
@@ -153,6 +157,129 @@ class Tests implements Interface1, implements Interface2 {
 		var iteri = hi.iterator();
 		var stri = hi.toString();
 	}
+	
+	
+	
+	// Test Lambda
+	
+	function testLambda(){
+		
+	}
+	
+	
+	
+	// Test List
+	
+	function testList(){
+		
+	}
+	
+	
+	
+	// Test Math
+	
+	function testMath(){
+		var pi = Math.PI;
+		var max = Math.NEGATIVE_INFINITY;
+		var min = Math.POSITIVE_INFINITY;
+		var nan = Math.NaN;
+		
+		var x = Math.sqrt(5);
+		x = Math.abs(5);
+		x = Math.max (5, 45555);
+		x = Math.min (5, 45555);
+		x = Math.sin(5);
+		x = Math.cos(5);
+		x = Math.atan2(5, 3);
+		x = Math.tan(5);
+		x = Math.exp(5);
+		x = Math.log(5);
+		x = Math.sqrt(5);
+		var xr = Math.round(5);
+		xr = Math.floor(5);
+		xr = Math.ceil(5);
+		x = Math.atan(5);
+		x = Math.asin(5);
+		x = Math.acos(5);
+		x = Math.pow(5, 4);
+		x = Math.random()*5;
+		var b = Math.isFinite (45454 );
+		b = Math.isNaN (45454 );
+	}
+	
+	
+	// Test Reflect
+	
+	function testReflect(){
+		Reflect.hasField (this, "interfaceVar1");
+	}
+	
+	
+	
+	// Test Std
+	
+	function testStd () {
+	
+	}
+	
+	
+	// String and string operations
+	
+	function testString () {
+		// Convert String API to NSString api
+		var string = new String ("abcdefghijklmnopqrstuvwxyz");
+		var len:Int = string.length;
+		var s:String = string.charAt ( 5 );
+		var ch:Null<Int> = string.charCodeAt ( 5 );
+		var i:Int = string.indexOf ( "abc" );
+		var i:Int = string.indexOf ( "abc", 2 );
+		var li:Int = string.lastIndexOf ( "abc" );
+		var components:Array<String> = string.split("-");
+		var s2:String = string.substr(5);
+		s2 = string.substr(5, len);
+		s2 = string.substring(5);
+		s2 = string.substring(1, len);
+		s2 = string.toLowerCase();//
+		s2 = string.toUpperCase();//
+		s2 = string.toString();
+		var s3:String = String.fromCharCode ( 9 );
+		
+		var buf = new StringBuf();
+		buf.add("abc");
+		buf.addChar(1);
+		buf.addSub("abcdefghijklmnopqerstuvwxyz", 5);
+		buf.addSub("abcdefghijklmnopqerstuvwxyz", 5, 10);
+		var strbuf = buf.toString();
+		
+		var st = StringTools.urlEncode ("http://imagin.ro/Gorgeous Elena/2");
+		st = StringTools.urlDecode ("http://imagin.ro/Gorgeous Elena/2");
+	}
+	
+	
+	
+	// Test Sys
+	
+	function testSys () {
+	
+	}
+	
+	
+	// Test Type
+	
+	function testType () {
+	
+	}
+	
+	
+	
+	
+	// Test Xml
+	
+	function testXml () {
+	
+	}
+	
+	
 	
 	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
 	

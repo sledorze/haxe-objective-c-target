@@ -27,13 +27,9 @@
 @synthesize d1;
 @synthesize d2;
 @synthesize s;
-- (void) tests{
+- (void) testVariables{
 	
 	NSMutabeArray *a = [[NSMutabeArray alloc] new][];
-	
-	NSMutabeArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
-	float aaa = [aa objectAtIndex:2];
-	[aa objectAtIndex:3];
 	int b = 5;
 	float c = 5.0;
 	
@@ -77,10 +73,10 @@
 		}
 	}
 }
-- (void) testingWhile{
+- (void) testWhile{
 	int aa = 5;
 	do {
-		[Log trace:@"something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"76",@"Tests",@"testingWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"73",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
 }
@@ -89,7 +85,7 @@
 		int a = 3;
 	}
 	@catch (NSException *e) {
-		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"89",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"86",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
 - (void) testSwitch{
@@ -104,12 +100,82 @@
 			}}break;
 	}
 }
+- (void) testArray{
+	
+	NSMutabeArray *as = [[NSMutabeArray alloc] new][];
+	
+	NSMutabeArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
+	float aaa = [aa objectAtIndex:2];
+	[aa objectAtIndex:3];
+}
 - (void) testDate{
 	
 	NSDate *d = [[NSDate alloc] new:2012,11,13,19,30,0][];
 	
 	NSDate *d2 = [NSDate now];
 	int x = [DateTools getMonthDays:d2];
+}
+- (void) testEnum{
+}
+- (void) testEReg{
+}
+- (void) testHash{
+	
+	Hash *h = [[Hash alloc] new][];
+	[h set:@"key" value:@"value"];
+	[h get:@"key"];
+	[h remove:@"key"];
+	BOOL b = [h exists:@"key"];
+	id arr = [h keys];
+	id iter = [h iterator];
+	
+	NSMutableString *str = [h toString];
+	
+	IntHash *hi = [[IntHash alloc] new][];
+	[hi set:0 value:@"value"];
+	[hi get:0];
+	[hi remove:0];
+	BOOL bi = [hi exists:0];
+	id arri = [hi keys];
+	id iteri = [hi iterator];
+	
+	NSMutableString *stri = [hi toString];
+}
+- (void) testLambda{
+}
+- (void) testList{
+}
+- (void) testMath{
+	float pi = M_PI;
+	float max = -DBL_MAX;
+	float min = DBL_MAX;
+	float nan = NaN;
+	float x = sqrtf(5);
+	x = absf(5);
+	x = fmaxf(5, 45555);
+	x = fminf(5, 45555);
+	x = sinf(5);
+	x = cosf(5);
+	x = atan2f(5, 3);
+	x = tanf(5);
+	x = expf(5);
+	x = logf(5);
+	x = sqrtf(5);
+	int xr =  round(5);
+	xr = floorf(5);
+	xr = ceilf(5);
+	x = atanf(5);
+	x = asinf(5);
+	x = acosf(5);
+	x = powf(5, 4);
+	x = rand() * 5;
+	BOOL b = ["isFinite"](45454);
+	b = ["isNaN"](45454);
+}
+- (void) testReflect{
+	[Reflect hasField:self field:@"interfaceVar1"];
+}
+- (void) testStd{
 }
 - (void) testString{
 	
@@ -133,28 +199,23 @@
 	s2 = [string description];
 	
 	NSMutableString *s3 = @"\t";
+	
+	StringBuf *buf = [[StringBuf alloc] new][];
+	buf.b += @"abc";
+	buf.b += @"";
+	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:substr:5 len:nil];
+	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:substr:5 len:10];
+	
+	NSMutableString *strbuf = buf.b;
+	
+	NSMutableString *st = [StringTools urlEncode:@"http://imagin.ro/Gorgeous Elena/2"];
+	st = [StringTools urlDecode:@"http://imagin.ro/Gorgeous Elena/2"];
 }
-- (void) testHash{
-	
-	Hash *h = [[Hash alloc] new][];
-	[h set:@"key" value:@"value"];
-	[h get:@"key"];
-	[h remove:@"key"];
-	BOOL b = [h exists:@"key"];
-	id arr = [h keys];
-	id iter = [h iterator];
-	
-	NSMutableString *str = [h toString];
-	
-	IntHash *hi = [[IntHash alloc] new][];
-	[hi set:0 value:@"value"];
-	[hi get:0];
-	[hi remove:0];
-	BOOL bi = [hi exists:0];
-	id arri = [hi keys];
-	id iteri = [hi iterator];
-	
-	NSMutableString *stri = [hi toString];
+- (void) testSys{
+}
+- (void) testType{
+}
+- (void) testXml{
 }
 - (void) testFrameworksImport{
 	
@@ -187,7 +248,7 @@
 	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"197",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"324",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) new{
 	self = [super init];

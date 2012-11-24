@@ -29,7 +29,8 @@ extern class NSObject {
 	public static function initialize () :Void;
 	public function init () :NSObject;
 
-	public function new () :Void;
+	public function new () :Void;// This is used by the compiler only
+	
 	public static function allocWithZone (zone:NSZone) :NSObject;
 	public static function alloc () :NSObject;
 	//public function dealloc () :Void;

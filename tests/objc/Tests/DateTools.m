@@ -75,12 +75,12 @@
 	while (YES) {
 		int np = [f rangeOfString:@"%" startIndex:p];
 		if (np < 0) break;;
-		[r.b objectAtIndex:r.b.length] = [f substringWithRange:substr:p len:np - p];
-		[r.b objectAtIndex:r.b.length] = [DateTools __format_get:d e:[f substringWithRange:substr:np + 1 len:1]];
+		r.b += [f substringWithRange:substr:p len:np - p];
+		r.b += [Std string:[DateTools __format_get:d e:[f substringWithRange:substr:np + 1 len:1]]];
 		p = np + 2;
 	}
-	[r.b objectAtIndex:r.b.length] = [f substringWithRange:substr:p len:f length - p];
-	return [r b join:@""];
+	r.b += [f substringWithRange:substr:p len:f length - p];
+	return r.b;
 }
 + (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f{
 	return [DateTools __format:d f:f];

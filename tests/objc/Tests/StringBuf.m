@@ -4,20 +4,20 @@
 
 @synthesize b;
 - (void) add:(id)x{
-	[self.b objectAtIndex:self.b.length] = x;
-}
-- (void) addSub:(NSMutableString*)s pos:(int)pos len:(id)len{
-	[self.b objectAtIndex:self.b.length] = [s substringWithRange:substr:pos len:len];
+	self.b += [Std string:x];
 }
 - (void) addChar:(int)c{
-	[self.b objectAtIndex:self.b.length] = [NSMutableString fromCharCode:c];
+	self.b += [NSMutableString fromCharCode:c];
+}
+- (void) addSub:(NSMutableString*)s pos:(int)pos len:(id)len{
+	self.b += [s substringWithRange:substr:pos len:len];
 }
 - (NSMutableString*) toString{
-	return [self.b join:@""];
+	return self.b;
 }
 - (id) new{
 	self = [super init];
-	self.b = [[NSMutabeArray alloc] new][];
+	self.b = @"";
 	return self;
 }
 

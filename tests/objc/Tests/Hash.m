@@ -3,16 +3,16 @@
 @implementation Hash
 
 - (void) set:(NSMutableString*)key value:(id)value{
-	[self.setObject-non-];
+	[self.setObject -dynamic_param- ];
 }
 - (id) get:(NSMutableString*)key{
-	return [self.objectForKey-non-];
+	return [self.objectForKey -dynamic_param- ];
 }
 - (BOOL) exists:(NSMutableString*)key{
-	return [self.objectForKey-non-] != nil;
+	return [self.objectForKey -dynamic_param- ] != nil;
 }
 - (BOOL) remove:(NSMutableString*)key{
-	return [self.removeObjectForKey-non-];
+	return [self.removeObjectForKey -dynamic_param- ];
 }
 - (id) keys{
 	
@@ -29,7 +29,7 @@
 	return {hasNext:(BOOL){
 		return [[it objectAtIndex:0] GFA2 .hasNext];
 	} ,next:(id){
-		return [[me objectAtIndex:0].__Internal GFA2 .__Field-non-];
+		return [[me objectAtIndex:0].__Internal GFA2 .__Field -dynamic_param- ];
 	}};
 }
 - (NSMutableString*) toString{

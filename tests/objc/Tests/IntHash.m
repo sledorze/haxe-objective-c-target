@@ -3,16 +3,16 @@
 @implementation IntHash
 
 - (void) set:(int)key value:(id)value{
-	[self.setObject-non-];
+	[self.setObject -dynamic_param- ];
 }
 - (id) get:(int)key{
-	return [self.objectForKey-non-];
+	return [self.objectForKey -dynamic_param- ];
 }
 - (BOOL) exists:(int)key{
-	return [self.objectForKey-non-] != nil;
+	return [self.objectForKey -dynamic_param- ] != nil;
 }
 - (BOOL) remove:(int)key{
-	return [self.removeObjectForKey-non-];
+	return [self.removeObjectForKey -dynamic_param- ];
 }
 - (id) keys{
 	

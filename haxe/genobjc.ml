@@ -239,6 +239,7 @@ type context = {
 	mutable generating_constructor : bool;
 	mutable generating_call : bool;
 	mutable generating_self_access : bool;
+	mutable generating_c_call : bool;
 	mutable require_pointer : bool;
 	mutable gen_uid : int;
 	mutable local_types : t list;
@@ -257,6 +258,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	generating_constructor = false;
 	generating_call = false;
 	generating_self_access = false;
+	generating_c_call = false;
 	require_pointer = false;
 	gen_uid = 0;
 	local_types = [];
@@ -571,26 +573,34 @@ let generateFunctionHeader ctx name f params p =
 
 (* arg_list is of type Type.texpr list *)
 let rec generateCall ctx func arg_list etype (* ctx e el r *) =
-	(* debug ctx ("-CALL-"^(Type.s_expr_kind func)^">"); *)
-	(* match func.eexpr, arg_list with
-	| TCall (x,_) , el ->
-		ctx.writer#write "generateCall TCAll";
-		generateValue ctx e;
-		ctx.writer#write "-GCE-";
-		ctx.writer#write " ";
-		concat ctx " " (generateValue ctx) el;
-		ctx.writer#write "-GCE2-"
-	| TField(ee,v),args when isVarField ee v ->
-		ctx.writer#write "generateCall TField (";
-		generateValue ctx e;
-		ctx.writer#write ")";
-		ctx.writer#write "(";
-		concat ctx "," (generateValue ctx) el;
-		ctx.writer#write ")"
-	| _ ->
-		generateValue ctx e;
-		ctx.writer#write ":";
-		concat ctx " otherArgName:" (generateValue ctx) el *)
+	debug ctx (" -CALL-"^(Type.s_expr_kind func)^"> ");
+	
+	if ctx.generating_c_call then begin
+		
+	match func.eexpr, arg_list with
+		| TCall (x,_) , el ->
+			ctx.writer#write "(";
+			generateValue ctx func;
+			ctx.writer#write ")";
+			ctx.writer#write "(";
+			concat ctx ", " (generateValue ctx) arg_list;
+			ctx.writer#write ")";
+		| TField(ee,v),args when isVarField ee v ->
+			ctx.writer#write "TField(";
+			generateValue ctx func;
+			ctx.writer#write ")";
+			ctx.writer#write "(";
+			concat ctx ", " (generateValue ctx) arg_list;
+			ctx.writer#write ")"
+		| _ ->
+			generateValue ctx func;
+			ctx.writer#write "(";
+			concat ctx ", " (generateValue ctx) arg_list;
+			ctx.writer#write ")";
+	
+	end
+	else begin
+		
 	generateValue ctx func;	
 	(* if List.length arg_list > 0 then ctx.writer#write ":"; *)
 	(* concat ctx " otherArgName:" (generateValue ctx) arg_list *)
@@ -609,16 +619,17 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 	let args_array_e = Array.of_list arg_list in
 	let index = ref 0 in
 	(match func.etype with
-	| TFun(args, ret) ->
+		| TFun(args, ret) ->
 		List.iter (
 			fun (name, b, t) ->
 				ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
 				generateValue ctx args_array_e.(!index);
 				index := !index + 1;
 		) args;
-	(* Dynamic value call function with a dynamic parameter *)
-	| _ -> ctx.writer#write "-non-");
+		(* Dynamic value call function with a dynamic parameter *)
+		| _ -> ctx.writer#write " -dynamic_param- ");
 	
+	end
 	end
 	
 and generateValueOp ctx e =
@@ -632,11 +643,31 @@ and generateValueOp ctx e =
 		generateValue ctx e
 
 and generateFieldAccess ctx etype s to_method =
+	debug ctx " -FA- ";
 	(* ctx.writer#write (Printf.sprintf ">%s<" t); *)
 	let field c = match fst c.cl_path, snd c.cl_path, s with
-		| [], "Math", "NaN"
-		| [], "Math", "NEGATIVE_INFINITY"
-		| [], "Math", "POSITIVE_INFINITY"
+		| [], "Math", "PI" -> ctx.writer#write "M_PI"
+		| [], "Math", "NaN" -> ctx.writer#write "NaN"
+		| [], "Math", "NEGATIVE_INFINITY" -> ctx.writer#write "-DBL_MAX"
+		| [], "Math", "POSITIVE_INFINITY" -> ctx.writer#write "DBL_MAX"
+		| [], "Math", "sqrt"
+		| [], "Math", "sin"
+		| [], "Math", "cos"
+		| [], "Math", "atan2"
+		| [], "Math", "tan"
+		| [], "Math", "exp"
+		| [], "Math", "log"
+		| [], "Math", "sqrt"
+		| [], "Math", "floor"
+		| [], "Math", "ceil"
+		| [], "Math", "atan"
+		| [], "Math", "asin"
+		| [], "Math", "acos"
+		| [], "Math", "pow"
+		| [], "Math", "abs" -> ctx.writer#write (s ^ "f")
+		| [], "Math", "min"
+		| [], "Math", "max" -> ctx.writer#write ("f" ^ s ^ "f")
+		| [], "Math", "random" -> ctx.writer#write ("rand")
 		| [], "Math", "isFinite"
 		| [], "Math", "isNaN" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s)
 		
@@ -682,7 +713,7 @@ and generateFieldAccess ctx etype s to_method =
 		ctx.writer#write (Printf.sprintf " %s" (s))
 	
 and generateExpression ctx e =
-	debug ctx ("-E-"^(Type.s_expr_kind e)^">");
+	debug ctx (" -E-"^(Type.s_expr_kind e)^"> ");
 	(* ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
@@ -736,7 +767,11 @@ and generateExpression ctx e =
    		generateValue ctx e;
 		generateFieldAccess ctx e.etype s true
 	| TTypeExpr t ->
-		ctx.writer#write (processClassPath ctx true (t_path t) e.epos)
+		(* Do not generate the Math class, make calls like in C *)
+		let p = t_path t in
+		(match p with
+		| ([], "Math") -> ctx.generating_c_call <- true;
+		| _ -> ctx.writer#write (processClassPath ctx true p e.epos));
 	| TParenthesis e ->
 		ctx.writer#write " (";
 		generateValue ctx e;
@@ -796,11 +831,23 @@ and generateExpression ctx e =
 			| [{ eexpr = TConst (TString code) }] -> ctx.writer#write code;
 			| _ -> error "__objc__ accepts only one string as an argument" func.epos;)
 	| TCall (func, arg_list) ->
-		ctx.writer#write "[";
+		(match func.eexpr with
+		| TField (e,s) ->
+			(match e.eexpr with
+			| TTypeExpr t ->
+				(* Do not generate the Math class, make calls like in C *)
+				(match (t_path t) with
+				| ([], "Math") -> ctx.generating_c_call <- true;
+				| _ -> ctx.writer#write "[")
+			| _ -> ctx.writer#write "[")
+		| _ -> ctx.writer#write "[");
+		
 		ctx.generating_call <- true;
 		generateCall ctx func arg_list e.etype;
 		ctx.generating_call <- false;
-		ctx.writer#write "]"
+		
+		if not ctx.generating_c_call then ctx.writer#write "]";
+		ctx.generating_c_call <- false
 	| TObjectDecl (
 		("fileName" , { eexpr = (TConst (TString file)) }) ::
 		("lineNumber" , { eexpr = (TConst (TInt line)) }) ::
@@ -1011,7 +1058,7 @@ and generateBlock ctx e =
 	ctx.writer#end_block
 	
 and generateValue ctx e =
-	debug ctx ("-V-"^(Type.s_expr_kind e)^">");
+	debug ctx (" -V-"^(Type.s_expr_kind e)^"> ");
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,

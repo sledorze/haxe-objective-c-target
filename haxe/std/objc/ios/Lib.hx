@@ -34,6 +34,13 @@ import objc.ios.ui.UIImageView;
 class Lib {
 	
 	public static function log (v : Dynamic) : Void {}
+	public static function print (v : Dynamic) : Void {
+		untyped __objc__ ("printf ( [[v description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy] )");
+	}
+	public static function println (v : Dynamic) : Void {
+		Lib.print ( v );
+		untyped __objc__ ("printf ( \"\\n\" )");
+	}
 	public static function getURL (url :String, ?target : String) : Bool {
 		return untyped __objc__ ("AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:NSURL]");
 	}
