@@ -664,12 +664,13 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "Math", "asin"
 		| [], "Math", "acos"
 		| [], "Math", "pow"
+		| [], "Math", "round"
 		| [], "Math", "abs" -> ctx.writer#write (s ^ "f")
 		| [], "Math", "min"
 		| [], "Math", "max" -> ctx.writer#write ("f" ^ s ^ "f")
-		| [], "Math", "random" -> ctx.writer#write ("rand")
-		| [], "Math", "isFinite"
-		| [], "Math", "isNaN" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s)
+		| [], "Math", "random" -> ctx.writer#write "rand"
+		| [], "Math", "isFinite" -> ctx.writer#write "isfinite"
+		| [], "Math", "isNaN" -> ctx.writer#write "isnan"
 		
 		| [], "String", "toLowerCase" -> ctx.writer#write " lowercaseString"
 		| [], "String", "toUpperCase" -> ctx.writer#write " uppercaseString"

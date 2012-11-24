@@ -161,7 +161,7 @@
 	x = expf(5);
 	x = logf(5);
 	x = sqrtf(5);
-	int xr =  round(5);
+	int xr = roundf(5);
 	xr = floorf(5);
 	xr = ceilf(5);
 	x = atanf(5);
@@ -169,8 +169,8 @@
 	x = acosf(5);
 	x = powf(5, 4);
 	x = rand() * 5;
-	BOOL b = ["isFinite"](45454);
-	b = ["isNaN"](45454);
+	BOOL b = isfinite(45454);
+	b = isnan(45454);
 }
 - (void) testReflect{
 	[Reflect hasField:self field:@"interfaceVar1"];
