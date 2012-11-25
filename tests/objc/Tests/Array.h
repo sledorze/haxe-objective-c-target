@@ -1,13 +1,10 @@
 
-#import <Foundation/Foundation.h>
 
 #import "Array.h"
 
 @interface NSMutableArray ( Array )
 
-@property (nonatomic, strong) NSMutableArray *nativeArray;
 @property (nonatomic) int length;
-- (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array;
 - (NSMutabeArray*) concat:(NSMutabeArray*)a;
 - (NSMutabeArray*) copy;
 - (id) iterator;

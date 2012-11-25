@@ -2,64 +2,50 @@
 
 @implementation Array
 
-@synthesize nativeArray;
 @synthesize length;
-- (NSMutabeArray*) initWithNSMutableArray:(NSMutableArray*)array{
-	self.nativeArray = array;
-	self.length = [array count];
-	return self;
-}
 - (NSMutabeArray*) concat:(NSMutabeArray*)a{
-	
-	NSMutableArray *nat = a.nativeArray;
-	return nil;
+	return [self.arrayByAddingObjectsFromArray -dynamic_param- ];
 }
 - (NSMutabeArray*) copy{
-	return [[[NSMutabeArray alloc] new][].initWithNSMutableArray:[NSMutableArray arrayWithArray:self.nativeArray]];
+	return [NSMutabeArray arrayWithArray -dynamic_param- ];
 }
 - (id) iterator{
 	return nil;
 }
 - (void) insert:(int)pos x:(id)x{
-	[self.nativeArray insertObject:x atIndex:pos];
-	self.length = [self.nativeArray count];
+	[self.insertObject -dynamic_param- ];
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
-	return [self.nativeArray componentsJoinedByString:sep];
+	return [self.componentsJoinedByString -dynamic_param- ];
 }
 - (NSMutableString*) toString{
-	return @"[" + [self.nativeArray componentsJoinedByString:@","] + @"]";
+	return @"[" +  ([self.componentsJoinedByString -dynamic_param- ] + @"]");
 }
 - (id) pop{
 	if (self.length == 0) return nil;;
-	id theLastObject = [self.nativeArray lastObject];
-	[self.nativeArray removeLastObject];
-	self.length = [self.nativeArray count];
+	id theLastObject = [self.lastObject];
+	[self.removeLastObject];
 	return theLastObject;
 }
 - (int) push:(id)x{
-	[self.nativeArray addObject:x];
-	self.length = [self.nativeArray count];
-	return [self.nativeArray count];
+	[self.addObject -dynamic_param- ];
+	return [self.count];
 }
 - (void) unshift:(id)x{
-	[self.nativeArray insertObject:x atIndex:0];
-	self.length = [self.nativeArray count];
+	[self.insertObject -dynamic_param- ];
 }
 - (BOOL) remove:(id)x{
-	BOOL containsObject = [self.nativeArray containsObject:x];
-	if (containsObject) [self.nativeArray removeObject:x];;
-	self.length = [self.nativeArray count];
+	BOOL containsObject = [self.containsObject -dynamic_param- ];
+	if (containsObject) [self.removeObject -dynamic_param- ];;
 	return containsObject;
 }
 - (void) reverse{
-	nativeArray = [[nativeArray reverseObjectEnumerator] allObjects];
+	self = [[self reverseObjectEnumerator] allObjects];
 }
 - (id) shift{
-	if (self.length > 0) {
-		id obj = [self.nativeArray objectAtIndex:0];
-		[self.nativeArray removeObjectAtIndex:0];
-		self.length = [self.nativeArray count];
+	if ([self.count] > 0) {
+		id obj = [self.objectAtIndex -dynamic_param- ];
+		[self.removeObjectAtIndex -dynamic_param- ];
 		return obj;
 	};;
 	return nil;
@@ -71,15 +57,12 @@
 }
 - (NSMutabeArray*) splice:(int)pos len:(int)len{
 	
-	NSMutableArray *newArray = [self.nativeArray subarrayWithRange:NSMakeRange (pos,len)];
-	[self.nativeArray removeObjectsInArray:newArray];
-	self.length = [self.nativeArray count];
-	return [[[NSMutabeArray alloc] new][].initWithNSMutableArray:newArray];
+	NSMutabeArray *newArray = [self.subarrayWithRange -dynamic_param- ];
+	[self.removeObjectsInArray -dynamic_param- ];
+	return [NSMutabeArray arrayWithArray -dynamic_param- ];
 }
 - (id) new{
 	self = [super init];
-	self.nativeArray = [[NSMutableArray alloc] new][];
-	self.length = 0;
 	return self;
 }
 

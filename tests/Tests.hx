@@ -211,7 +211,12 @@ class Tests implements Interface1, implements Interface2 {
 	// Test Reflect
 	
 	function testReflect(){
-		Reflect.hasField (this, "interfaceVar1");
+		var obj = { a: "aaaaa" };
+		var b = Reflect.hasField (obj, "a");
+		var f = Reflect.field (obj, "a");
+		Reflect.setField (obj, "a", "bbbbb");
+		Reflect.setProperty (this, "interfaceVar1", "bbbbb");
+		var p = Reflect.getProperty (this, "interfaceVar1");
 	}
 	
 	
@@ -246,13 +251,25 @@ class Tests implements Interface1, implements Interface2 {
 		
 		var buf = new StringBuf();
 		buf.add("abc");
-		buf.addChar(1);
+		buf.addChar(18);
 		buf.addSub("abcdefghijklmnopqerstuvwxyz", 5);
 		buf.addSub("abcdefghijklmnopqerstuvwxyz", 5, 10);
 		var strbuf = buf.toString();
 		
 		var st = StringTools.urlEncode ("http://imagin.ro/Gorgeous Elena/2");
 		st = StringTools.urlDecode ("http://imagin.ro/Gorgeous Elena/2");
+		st = StringTools.htmlEscape ("<a href= &>");
+		st = StringTools.htmlUnescape ("<a href= &>");
+		st = StringTools.ltrim (" abcdefgh");
+		st = StringTools.rtrim ("abcdefgh ");
+		st = StringTools.trim (" abcdefgh ");
+		st = StringTools.rpad ("abcdefgh", "0", 10);
+		st = StringTools.lpad ("abcdefgh", "0", 10);
+		st = StringTools.replace ("abcdefgh", "abc", "_abc");
+		var b = StringTools.startsWith ("abcdefg", "abc");
+		b = StringTools.endsWith ("abcdefg", "efg");
+		b = StringTools.isSpace ("abcdefg", 3);
+		var i = StringTools.hex (345345, 10);
 	}
 	
 	

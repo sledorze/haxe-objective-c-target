@@ -173,7 +173,12 @@
 	b = isnan(45454);
 }
 - (void) testReflect{
-	[Reflect hasField:self field:@"interfaceVar1"];
+	id obj = {a:@"aaaaa"};
+	BOOL b = [Reflect hasField:obj field:@"a"];
+	id f = [Reflect field:obj field:@"a"];
+	if (obj != nil) [obj GFA2 .__SetField -dynamic_param- ];;
+	[self.__SetField -dynamic_param- ];
+	id p = (id)[self.__Field -dynamic_param- ];
 }
 - (void) testStd{
 }
@@ -202,7 +207,7 @@
 	
 	StringBuf *buf = [[StringBuf alloc] new][];
 	buf.b += @"abc";
-	buf.b += @"";
+	buf.b += @"";
 	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:substr:5 len:nil];
 	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:substr:5 len:10];
 	
@@ -210,6 +215,19 @@
 	
 	NSMutableString *st = [StringTools urlEncode:@"http://imagin.ro/Gorgeous Elena/2"];
 	st = [StringTools urlDecode:@"http://imagin.ro/Gorgeous Elena/2"];
+	st = [StringTools htmlEscape:@"<a href= &>"];
+	st = [StringTools htmlUnescape:@"<a href= &>"];
+	st = [StringTools ltrim:@" abcdefgh"];
+	st = [StringTools rtrim:@"abcdefgh "];
+	st = [StringTools trim:@" abcdefgh "];
+	st = [StringTools rpad:@"abcdefgh" c:@"0" l:10];
+	st = [StringTools lpad:@"abcdefgh" c:@"0" l:10];
+	st = [StringTools replace:@"abcdefgh" sub:@"abc" by:@"_abc"];
+	BOOL b = [StringTools startsWith:@"abcdefg" start:@"abc"];
+	b = [StringTools endsWith:@"abcdefg" end:@"efg"];
+	b = [StringTools isSpace:@"abcdefg" pos:3];
+	
+	NSMutableString *i2 = [StringTools hex:345345 digits:10];
 }
 - (void) testSys{
 }
@@ -248,7 +266,7 @@
 	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"324",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"341",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) new{
 	self = [super init];
