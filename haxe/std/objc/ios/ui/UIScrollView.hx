@@ -106,7 +106,7 @@ extern class UIScrollView extends UIView, implements NSObject> {
         unsigned int hasScrolled:1;
         unsigned int wantsConstrainedContentSize:1;
     } _scrollViewFlags;
-    CGFloat           _farthestDistance;
+    Float           _farthestDistance;
     CGPoint           _initialTouchPosition;
     CGPoint           _startTouchPosition;
     CFTimeInterval    _startTouchTime;
@@ -141,16 +141,16 @@ extern class UIScrollView extends UIView, implements NSObject> {
     id                _pinch;
     id                _pan;
     id                _swipe;
-    CGFloat           _pagingSpringPull;
-    CGFloat           _pagingFriction;
+    Float           _pagingSpringPull;
+    Float           _pagingFriction;
     NSInteger         _fastScrollCount;
-    CGFloat           _fastScrollMultiplier;
-    CGFloat           _fastScrollStartMultiplier;
+    Float           _fastScrollMultiplier;
+    Float           _fastScrollStartMultiplier;
     CFTimeInterval    _fastScrollEndTime;
     CGPoint           _parentAdjustment;
     CGPoint           _rotationCenterPoint;
-    CGFloat           _accuracy;
-    CGFloat           _hysteresis;
+    Float           _accuracy;
+    Float           _hysteresis;
     NSUInteger        _zoomAnimationCount;
 }
 

@@ -27,10 +27,10 @@ extern class NSStatusBar extends NSObject
 
 + (NSStatusBar*)systemStatusBar;
 
-- (NSStatusItem*)statusItemWithLength:(CGFloat)length;
+- (NSStatusItem*)statusItemWithLength:(Float)length;
 - (void)removeStatusItem:(NSStatusItem*)item;
 
 - (BOOL)isVertical;
-- (CGFloat)thickness;
+- (Float)thickness;
 
 }

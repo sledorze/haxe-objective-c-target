@@ -798,9 +798,10 @@ and generateExpression ctx e =
    		generateValue ctx e;
 		generateFieldAccess ctx e.etype s false;
 	| TClosure (e,s) ->
-		ctx.writer#write "TClosure(e,s) ";
-   		generateValue ctx e;
-		generateFieldAccess ctx e.etype s true
+		(* Used in Reflect.isFunction *)
+		ctx.writer#write (Printf.sprintf "@selector(%s)" s);
+   		(* generateValue ctx e; *)
+		(* generateFieldAccess ctx e.etype s true *)
 	| TTypeExpr t ->
 		(* Do not generate the Math class, make calls like in C *)
 		let p = t_path t in

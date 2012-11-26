@@ -63,8 +63,8 @@ extern class NSSliderCell : NSActionCell
 - (void)setTitle:(NSString *)aString;
 - (void)setTitleCell:(NSCell *)aCell;
 - (id)titleCell;
-- (void)setKnobThickness:(CGFloat)aFloat;
-- (CGFloat)knobThickness;
+- (void)setKnobThickness:(Float)aFloat;
+- (Float)knobThickness;
 - (NSRect)knobRectFlipped:(BOOL)flipped;
 - (void)drawKnob:(NSRect)knobRect;
 - (void)drawKnob;

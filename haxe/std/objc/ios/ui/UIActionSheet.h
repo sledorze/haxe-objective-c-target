@@ -29,7 +29,7 @@ extern class UIActionSheet extends UIView {
     UILabel   *_subtitleLabel;
     UILabel   *_bodyTextLabel;
     UILabel   *_taglineTextLabel;
-    CGFloat    _startY;
+    Float    _startY;
     id         _context;
     NSInteger  _cancelButton;
     NSInteger  _defaultButton;
@@ -39,7 +39,7 @@ extern class UIActionSheet extends UIView {
     UIWindow  *_dimWindow;
     NSInteger  _suspendTag;
     NSInteger  _dismissButtonIndex;
-    CGFloat    _bodyTextHeight;
+    Float    _bodyTextHeight;
     NSMutableArray *_buttons;
     NSMutableArray *_buttonsInTable;
     NSMutableArray *_textFields;
@@ -48,11 +48,11 @@ extern class UIActionSheet extends UIView {
     UIView *_buttonTableView;
     UIView *_dimView;
     UIPopoverController * _popoverController;
-    CGFloat _fontSizeInTableView; // font size for 'complex' buttons (phone numbers || doc interaction controller)
-    CGFloat _iconOffset; // doc interaction controller app icon
-    CGFloat _labelOffset; // phone numbers layout 
-    CGFloat _labelWidth;
-    CGFloat _titleWidth;
+    Float _fontSizeInTableView; // font size for 'complex' buttons (phone numbers || doc interaction controller)
+    Float _iconOffset; // doc interaction controller app icon
+    Float _labelOffset; // phone numbers layout 
+    Float _labelWidth;
+    Float _titleWidth;
     BOOL _oldIgnoreTapsValue;
     
     struct {

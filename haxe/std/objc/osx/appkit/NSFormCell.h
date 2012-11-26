@@ -10,16 +10,16 @@
 extern class NSFormCell : NSActionCell
 {
     /*All instance variables are private*/
-    CGFloat	_titleWidth;
+    Float	_titleWidth;
     id		_titleCell;
-    CGFloat	_titleEndPoint;
+    Float	_titleEndPoint;
 }
 
 - (id)initTextCell:(NSString *)aString;
 
-- (CGFloat)titleWidth:(NSSize)aSize;
-- (CGFloat)titleWidth;
-- (void)setTitleWidth:(CGFloat)width;
+- (Float)titleWidth:(NSSize)aSize;
+- (Float)titleWidth;
+- (void)setTitleWidth:(Float)width;
 - (NSString *)title;
 - (void)setTitle:(NSString *)aString;
 - (NSFont *)titleFont;

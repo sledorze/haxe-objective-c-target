@@ -15,7 +15,7 @@ extern class UIOffset {
 	public function new (horizontal:Float, vertical:Float) :Void;
 }
 
-/*UIKIT_STATIC_INLINE UIEdgeInsets UIEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+/*UIKIT_STATIC_INLINE UIEdgeInsets UIEdgeInsetsMake(Float top, Float left, Float bottom, Float right) {
     UIEdgeInsets insets = {top, left, bottom, right};
     return insets;
 }
@@ -28,7 +28,7 @@ UIKIT_STATIC_INLINE CGRect UIEdgeInsetsInsetRect(CGRect rect, UIEdgeInsets inset
     return rect;
 }
 
-UIKIT_STATIC_INLINE UIOffset UIOffsetMake(CGFloat horizontal, CGFloat vertical) {
+UIKIT_STATIC_INLINE UIOffset UIOffsetMake(Float horizontal, Float vertical) {
     UIOffset offset = {horizontal, vertical};
     return offset;
 }

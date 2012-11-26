@@ -23,11 +23,11 @@ extern class NSRulerView : NSView {
     NSRulerOrientation _orientation;
 
     NSString *_units;
-    CGFloat _originOffset;
+    Float _originOffset;
 
-    CGFloat _ruleThickness;
-    CGFloat _thicknessForMarkers;
-    CGFloat _thicknessForAccessoryView;
+    Float _ruleThickness;
+    Float _thicknessForMarkers;
+    Float _thicknessForAccessoryView;
 
     NSView *_clientView;
     NSMutableArray *_markers;
@@ -35,7 +35,7 @@ extern class NSRulerView : NSView {
 
     // Hash dict related caching
     NSDictionary *_cachedHashDict;
-    CGFloat _cachedDocViewToRulerConversion;
+    Float _cachedDocViewToRulerConversion;
 
     // Scroll optimization related caching
     NSPoint _cachedContentBoundsOrigin;
@@ -48,7 +48,7 @@ extern class NSRulerView : NSView {
 
 /************************* Registering new units *************************/
 
-+ (void)registerUnitWithName:(NSString *)unitName abbreviation:(NSString *)abbreviation unitToPointsConversionFactor:(CGFloat)conversionFactor stepUpCycle:(NSArray *)stepUpCycle stepDownCycle:(NSArray *)stepDownCycle;
++ (void)registerUnitWithName:(NSString *)unitName abbreviation:(NSString *)abbreviation unitToPointsConversionFactor:(Float)conversionFactor stepUpCycle:(NSArray *)stepUpCycle stepDownCycle:(NSArray *)stepDownCycle;
 
 /**************************** Initialization ****************************/
 
@@ -68,22 +68,22 @@ extern class NSRulerView : NSView {
 
 /**************************** Ruler geometry ****************************/
 
-- (CGFloat)baselineLocation;
+- (Float)baselineLocation;
     // Returns the location of the baseline.  The location is a y position for horizontal rulers and an x position for vertical ones.  The value is based on the sizes of the various areas of the ruler, some of which can be set below.
 
-- (CGFloat)requiredThickness;
+- (Float)requiredThickness;
     // The required height for a horizontal ruler or the required width for a vertical ruler.  Used by the scrollview when tiling.  The value is based on the sizes of the various areas of the ruler, some of which can be set below.
 
-- (void)setRuleThickness:(CGFloat)thickness;
-- (CGFloat)ruleThickness;
+- (void)setRuleThickness:(Float)thickness;
+- (Float)ruleThickness;
     // The rule size is the height of the area used to draw the ruler hash-marks in a horizontal ruler or the width of that area in a vertical ruler.  This value will be interpretted in the coordinate system of the ruler's superview (like the ruler's frame).
 
-- (void)setReservedThicknessForMarkers:(CGFloat)thickness;
-- (CGFloat)reservedThicknessForMarkers;
+- (void)setReservedThicknessForMarkers:(Float)thickness;
+- (Float)reservedThicknessForMarkers;
     // This indicates to the ruler how much room it should leave for objects which sit above or to the left of the rule (such as tab stops, margins, etc...).  Default is 15.0.  If you expect that no view in your document view will ever put objects on the ruler, you can set this to 0.0.  If objects are ever set on the ruler, and not enough space was reserved for them, the ruler grows itself and retiles the scroll view.
 
-- (void)setReservedThicknessForAccessoryView:(CGFloat)thickness;
-- (CGFloat)reservedThicknessForAccessoryView;
+- (void)setReservedThicknessForAccessoryView:(Float)thickness;
+- (Float)reservedThicknessForAccessoryView;
     // This indicates to the ruler how much room it should leave for the accessory view.  Default is 0.0.  If you expect that a view in your document view will put an accessory view in the ruler, you can set this to make room fror it from the start.  If an accessory view is ever set for the ruler, and space was not reserved for it or it is bigger than the space reserved, the ruler grows the reserved space to be big enough and retiles the scroll view.  If you know that several different accessory views will be used it is best to set this to the height of the tallest one for horizontal rulers or the width of the widest one for vertical rulers.  If the reserved thickness is larger than an actual accessory view set into the ruler, the accessory view is centered in the thickness.
 
 /**************************** Rule configuration ****************************/
@@ -92,8 +92,8 @@ extern class NSRulerView : NSView {
 - (NSString *)measurementUnits;
     // The units of the ruler start out with the user's preferred measurement.  They can be changed if desired.  The units set must be registered with the ruler factory.  By default Inches, Centimeters, Picas, and Points are supported.
 
-- (void)setOriginOffset:(CGFloat)offset;
-- (CGFloat)originOffset;
+- (void)setOriginOffset:(Float)offset;
+- (Float)originOffset;
     // How far to offset the ruler's zero hashmark (and label) from the document view's bounds origin.
 
 /**************************** Client view setup ****************************/
@@ -114,7 +114,7 @@ extern class NSRulerView : NSView {
 - (NSView *)accessoryView;
     // A rulers accessory view is drawn below or to the right of the rule.  It can contain arbitrary controls.
 
-- (void)moveRulerlineFromLocation:(CGFloat)oldLocation toLocation:(CGFloat)newLocation;
+- (void)moveRulerlineFromLocation:(Float)oldLocation toLocation:(Float)newLocation;
 // This method can be used to draw temporary lines in the rule.  NSRulerMarkers use this during dragging to draw the part of the line they draw from themselves across the scroll views contents which appears in the rule area.  You can use this method to draw ticks in the ruler (for example) to show the position or extent of an object while it is being dragged in the document.  oldLocation is the last position that the line was at or -1.0 if this is the first time it is being drawn.  newLocation is where the line should be or -1.0 if you are just trying to get an old line erased. 
 
 /*********************** Drawing and hash invalidation ***********************/
@@ -141,7 +141,7 @@ extern class NSView (NSRulerMarkerClientViewDelegation)
 - (BOOL)rulerView:(NSRulerView *)ruler shouldMoveMarker:(NSRulerMarker *)marker;
     // This is sent when a drag operation is just beginning for a ruler marker already on the ruler.  If the ruler object should be allowed to either move or remove, return YES.  If you return NO, all tracking is abandoned and nothing happens.
 
-- (CGFloat)rulerView:(NSRulerView *)ruler willMoveMarker:(NSRulerMarker *)marker toLocation:(CGFloat)location;
+- (Float)rulerView:(NSRulerView *)ruler willMoveMarker:(NSRulerMarker *)marker toLocation:(Float)location;
     // This is sent continuously while the mouse is being dragged.  The client can constrian the movement by returning a different location.  Receipt of one or more of these messages does not guarantee that the corresponding "did" method will be called.  Only movable objects will send this message.
 
 - (void)rulerView:(NSRulerView *)ruler didMoveMarker:(NSRulerMarker *)marker;
@@ -156,7 +156,7 @@ extern class NSView (NSRulerMarkerClientViewDelegation)
 - (BOOL)rulerView:(NSRulerView *)ruler shouldAddMarker:(NSRulerMarker *)marker;
     // This is sent when a drag operation is just beginning for a ruler marker that is being added.  If the ruler object should be allowed to add, return YES.  If you return NO, all tracking is abandoned and nothing happens.
 
-- (CGFloat)rulerView:(NSRulerView *)ruler willAddMarker:(NSRulerMarker *)marker atLocation:(CGFloat)location;
+- (Float)rulerView:(NSRulerView *)ruler willAddMarker:(NSRulerMarker *)marker atLocation:(Float)location;
     // This is sent continuously while the mouse is being dragged during an add operation and the new object is stuck on the baseline.  The client can constrian the movement by returning a different location.  Receipt of one or more of these messages does not guarantee that the corresponding "did" method will be called.  Any object sending these messages is not yet added to the ruler it is being dragged on.
 
 - (void)rulerView:(NSRulerView *)ruler didAddMarker:(NSRulerMarker *)marker;
@@ -169,6 +169,6 @@ extern class NSView (NSRulerMarkerClientViewDelegation)
     // This is sent to the existing client before it is replaced by the new client.  The existing client can catch this to clean up any cached state it keeps while it is the client of a ruler.
 
 // This additional mapping allows mapping between location and point for clients with rotated coordinate system (i.e. vertical text view)
-- (CGFloat)rulerView:(NSRulerView *)ruler locationForPoint:(NSPoint)aPoint NS_AVAILABLE_MAC(10_7);
-- (NSPoint)rulerView:(NSRulerView *)ruler pointForLocation:(CGFloat)aPoint NS_AVAILABLE_MAC(10_7);
+- (Float)rulerView:(NSRulerView *)ruler locationForPoint:(NSPoint)aPoint NS_AVAILABLE_MAC(10_7);
+- (NSPoint)rulerView:(NSRulerView *)ruler pointForLocation:(Float)aPoint NS_AVAILABLE_MAC(10_7);
 }

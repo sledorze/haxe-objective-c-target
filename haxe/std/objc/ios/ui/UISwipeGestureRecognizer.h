@@ -26,12 +26,12 @@ typedef NS_OPTIONS(NSUInteger, UISwipeGestureRecognizerDirection) {
 extern class UISwipeGestureRecognizer : UIGestureRecognizer {
   @package
     CFTimeInterval    _maximumDuration;
-    CGFloat           _minimumPrimaryMovement;
-    CGFloat           _maximumPrimaryMovement;
-    CGFloat           _minimumSecondaryMovement;
-    CGFloat           _maximumSecondaryMovement;
-    CGFloat           _rateOfMinimumMovementDecay;
-    CGFloat           _rateOfMaximumMovementDecay;
+    Float           _minimumPrimaryMovement;
+    Float           _maximumPrimaryMovement;
+    Float           _minimumSecondaryMovement;
+    Float           _maximumSecondaryMovement;
+    Float           _rateOfMinimumMovementDecay;
+    Float           _rateOfMaximumMovementDecay;
     NSUInteger        _numberOfTouchesRequired;
     NSMutableArray   *_touches;
     UISwipeGestureRecognizerDirection _direction;

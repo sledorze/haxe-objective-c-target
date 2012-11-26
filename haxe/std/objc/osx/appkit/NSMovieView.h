@@ -86,8 +86,8 @@ extern class NSMovieView : NSView <NSUserInterfaceValidations>
 
     // size
 
-- (void)resizeWithMagnification:(CGFloat)magnification NS_DEPRECATED_MAC(10_0, 10_5);
-- (NSSize)sizeForMagnification:(CGFloat)magnification NS_DEPRECATED_MAC(10_0, 10_5);
+- (void)resizeWithMagnification:(Float)magnification NS_DEPRECATED_MAC(10_0, 10_5);
+- (NSSize)sizeForMagnification:(Float)magnification NS_DEPRECATED_MAC(10_0, 10_5);
 
     // editing
 

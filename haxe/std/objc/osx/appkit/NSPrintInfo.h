@@ -101,22 +101,22 @@ extern class NSPrintInfo extends NSObject<NSCopying, NSCoding> {
 - (void)setPaperName:(NSString *)name;
 - (void)setPaperSize:(NSSize)size;
 - (void)setOrientation:(NSPrintingOrientation)orientation;
-- (void)setScalingFactor:(CGFloat)scalingFactor NS_AVAILABLE_MAC(10_6);
+- (void)setScalingFactor:(Float)scalingFactor NS_AVAILABLE_MAC(10_6);
 - (NSString *)paperName;
 - (NSSize)paperSize;
 - (NSPrintingOrientation)orientation;
-- (CGFloat)scalingFactor NS_AVAILABLE_MAC(10_6);
+- (Float)scalingFactor NS_AVAILABLE_MAC(10_6);
 
 /* Set or get the values of the pagination attributes.
 */
-- (void)setLeftMargin:(CGFloat)margin;
-- (void)setRightMargin:(CGFloat)margin;
-- (void)setTopMargin:(CGFloat)margin;
-- (void)setBottomMargin:(CGFloat)margin;
-- (CGFloat)leftMargin;
-- (CGFloat)rightMargin;
-- (CGFloat)topMargin;
-- (CGFloat)bottomMargin;
+- (void)setLeftMargin:(Float)margin;
+- (void)setRightMargin:(Float)margin;
+- (void)setTopMargin:(Float)margin;
+- (void)setBottomMargin:(Float)margin;
+- (Float)leftMargin;
+- (Float)rightMargin;
+- (Float)topMargin;
+- (Float)bottomMargin;
 - (void)setHorizontallyCentered:(BOOL)flag;
 - (void)setVerticallyCentered:(BOOL)flag;
 - (BOOL)isHorizontallyCentered;

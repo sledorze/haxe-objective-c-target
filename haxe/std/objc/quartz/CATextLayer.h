@@ -29,7 +29,7 @@ extern class CATextLayer : CALayer
 /* The font size. Defaults to 36. Only used when the `string' property
  * is not an NSAttributedString. Animatable (Mac OS X 10.6 and later.) */
 
-	public var  CGFloat fontSize;
+	public var  Float fontSize;
 
 /* The color object used to draw the text. Defaults to opaque white.
  * Only used when the `string' property is not an NSAttributedString.

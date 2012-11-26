@@ -65,11 +65,11 @@
 
 /* Returns the fraction of distance for aPoint from the left side of the character. This allows caller to perform precise selection handling.
 */
-- (CGFloat)fractionOfDistanceThroughGlyphForPoint:(NSPoint)aPoint;
+- (Float)fractionOfDistanceThroughGlyphForPoint:(NSPoint)aPoint;
 
 /* Returns the baseline position relative to the origin of rectangle returned by -firstRectForCharacterRange:actualRange:. This information allows the caller to access finer-grained character position inside the NSTextInputClient document.
 */
-- (CGFloat)baselineDeltaForCharacterAtIndex:(NSUInteger)anIndex;
+- (Float)baselineDeltaForCharacterAtIndex:(NSUInteger)anIndex;
 
 /* Returns the window level of the receiver. An NSTextInputClient can implement this interface to specify its window level if it is higher than NSFloatingWindowLevel.
 */

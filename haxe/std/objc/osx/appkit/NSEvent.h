@@ -167,8 +167,8 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
             int clickCount;
             float pressure;
 #if __LP64__
-            CGFloat deltaX;
-            CGFloat deltaY;
+            Float deltaX;
+            Float deltaY;
             int subtype;
             short buttonNumber;
             short reserved1;
@@ -194,9 +194,9 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
 #endif
         } tracking;
         struct {
-            CGFloat deltaX;
-            CGFloat deltaY;
-            CGFloat deltaZ; 
+            Float deltaX;
+            Float deltaY;
+            Float deltaZ; 
 #if __LP64__
             short subtype;
             short reserved1;
@@ -204,9 +204,9 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
 #endif
         } scrollWheel;
         struct {
-            CGFloat deltaX;
-            CGFloat deltaY;
-            CGFloat deltaZ; 
+            Float deltaX;
+            Float deltaY;
+            Float deltaZ; 
 #if __LP64__
             int reserved[7];
 #endif
@@ -263,9 +263,9 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
 
 /* these messages are valid for scroll wheel events and mouse move/drag events.  As of 10.5.2, deltaX and deltaY are also valid for swipe events.  A non-0 deltaX will represent a horizontal swipe, -1 for swipe right and 1 for swipe left.  A non-0 deltaY will represent a vertical swipe, -1 for swipe down and 1 for swipe up. As of 10.7, the preferred methods for scroll wheel events are scrollingDeltaX and scrollingDeltaY defined below.
 */
-- (CGFloat)deltaX;    
-- (CGFloat)deltaY;    
-- (CGFloat)deltaZ;    // 0 for most scroll wheel and mouse events
+- (Float)deltaX;    
+- (Float)deltaY;    
+- (Float)deltaZ;    // 0 for most scroll wheel and mouse events
 
 /* This message is valid for NSScrollWheel events. A generic scroll wheel issues rather coarse scroll deltas. Some Apple mice and trackpads provide much more precise delta. This method determines the resolution of the scrollDeltaX and scrollDeltaY values.
 */
@@ -273,8 +273,8 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
 
 /* The following two message are the preferred API for accessing NSScrollWheel deltas. When -hasPreciseScrollDeltas reutrns NO, multiply the returned value by line or row height. When -hasPreciseScrollDeltas returns YES, scroll by the returned value (in points). 
 */
-- (CGFloat)scrollingDeltaX NS_AVAILABLE_MAC(10_7);
-- (CGFloat)scrollingDeltaY NS_AVAILABLE_MAC(10_7);
+- (Float)scrollingDeltaX NS_AVAILABLE_MAC(10_7);
+- (Float)scrollingDeltaY NS_AVAILABLE_MAC(10_7);
 
 /* This message is valid for NSScrollWheel events. With the Magic Mouse and some trackpads, the user can flick thier finger resulting in a stream of scroll events that dissipate over time. The location of these scroll wheel events changes as the user moves the cursor. AppKit latches these scroll wheel events to the view that is under the cursor when the flick occurs. A custom view can use this method to recognize these momentum scroll events and further route the event to the appropriate sub component.
 */
@@ -330,7 +330,7 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
 
 
 /* This message is valid for events of type NSEventTypeMagnify, on 10.5.2 or later */
-- (CGFloat)magnification NS_AVAILABLE_MAC(10_5);       // change in magnification.   This value should be added to the current scaling of an item to get the new scale factor.
+- (Float)magnification NS_AVAILABLE_MAC(10_5);       // change in magnification.   This value should be added to the current scaling of an item to get the new scale factor.
 
 /* this message is valid for mouse events with subtype NSTabletPointEventSubtype or NSTabletProximityEventSubtype, and for NSTabletPoint and NSTabletProximity events */
 - (NSUInteger)deviceID;
@@ -400,7 +400,7 @@ extern class NSEvent extends NSObject, implements NSCopying, NSCoding> {
 
    Valid for Scroll events with a phase of NSEventPhaseBegan or NSEventPhaseChanged
 */
-- (void)trackSwipeEventWithOptions:(NSEventSwipeTrackingOptions)options dampenAmountThresholdMin:(CGFloat)minDampenThreshold max:(CGFloat)maxDampenThreshold usingHandler:(void (^)(CGFloat gestureAmount, NSEventPhase phase, BOOL isComplete, BOOL *stop))trackingHandler NS_AVAILABLE_MAC(10_7);
+- (void)trackSwipeEventWithOptions:(NSEventSwipeTrackingOptions)options dampenAmountThresholdMin:(Float)minDampenThreshold max:(Float)maxDampenThreshold usingHandler:(void (^)(Float gestureAmount, NSEventPhase phase, BOOL isComplete, BOOL *stop))trackingHandler NS_AVAILABLE_MAC(10_7);
 
 /* used for initial delay and periodic behavior in tracking loops */
 + (void)startPeriodicEventsAfterDelay:(NSTimeInterval)delay withPeriod:(NSTimeInterval)period;

@@ -128,7 +128,7 @@ extern class NSBitmapImageRep : NSImageRep {
 Gray value of midPoint -> midPointColor, black -> shadowColor, white -> lightColor.
 Works on images with 8-bit SPP; thus either 8-bit gray or 24-bit color (with optional alpha).
 */
-- (void)colorizeByMappingGray:(CGFloat)midPoint toColor:(NSColor *)midPointColor blackMapping:(NSColor *)shadowColor whiteMapping:(NSColor *)lightColor;
+- (void)colorizeByMappingGray:(Float)midPoint toColor:(NSColor *)midPointColor blackMapping:(NSColor *)shadowColor whiteMapping:(NSColor *)lightColor;
 
 - (id)initForIncrementalLoad;
 - (NSInteger)incrementalLoadFromData:(NSData*)data complete:(BOOL)complete;

@@ -34,14 +34,14 @@ extern class CAEmitterLayer : CALayer
 /* The center of the emission shape. Defaults to (0, 0, 0). Animatable. */
 
 	public var  CGPoint emitterPosition;
-	public var  CGFloat emitterZPosition;
+	public var  Float emitterZPosition;
 
 /* The size of the emission shape. Defaults to (0, 0, 0). Animatable.
  * Depending on the `emitterShape' property some of the values may be
  * ignored. */
 
 	public var  CGSize emitterSize;
-	public var  CGFloat emitterDepth;
+	public var  Float emitterDepth;
 
 /* A string defining the type of emission shape used. Current options are:
  * `point' (the default), `line', `rectangle', `circle', `cuboid' and

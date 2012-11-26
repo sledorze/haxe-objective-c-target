@@ -25,7 +25,7 @@ enum {
 /********* Font Matrix *********/
 /* This is a font matrix value representing [1 0 0 1 0 0].
 */
-APPKIT_EXTERN const CGFloat *NSFontIdentityMatrix;
+APPKIT_EXTERN const Float *NSFontIdentityMatrix;
 
 /********* Glyph packing *********/
 /* Other glyph packing modes are deprecated.
@@ -47,7 +47,7 @@ typedef NSUInteger NSFontRenderingMode;
 extern class NSFont extends NSObject, implements NSCopying, NSCoding> {
     /* All instance variables are private */
     NSString *_name;
-    CGFloat _size;
+    Float _size;
     NSInteger _retainCount;
     struct __fFlags {
         unsigned int _isScreenFont:1;
@@ -62,11 +62,11 @@ extern class NSFont extends NSObject, implements NSCopying, NSCoding> {
 }
 
 /********* Factory *********/
-+ (NSFont *)fontWithName:(NSString *)fontName size:(CGFloat)fontSize;
-+ (NSFont *)fontWithName:(NSString *)fontName matrix:(const CGFloat *)fontMatrix;
++ (NSFont *)fontWithName:(NSString *)fontName size:(Float)fontSize;
++ (NSFont *)fontWithName:(NSString *)fontName matrix:(const Float *)fontMatrix;
 /* Instantiates an NSFont object matching fontDescriptor. If fontSize is greater than 0.0, it has precedence over NSFontSizeAttribute in fontDescriptor.
 */
-+ (NSFont *)fontWithDescriptor:(NSFontDescriptor *)fontDescriptor size:(CGFloat)fontSize;
++ (NSFont *)fontWithDescriptor:(NSFontDescriptor *)fontDescriptor size:(Float)fontSize;
 
 /* Instantiates an NSFont object matching fontDescriptor. If textTransform is non-nil, it has precedence over NSFontMatrixAttribute in fontDescriptor.
 */
@@ -75,37 +75,37 @@ extern class NSFont extends NSObject, implements NSCopying, NSCoding> {
 /********* Meta Font *********/
 /* User font settings
 */
-+ (NSFont *)userFontOfSize:(CGFloat)fontSize;	// Aqua Application font
-+ (NSFont *)userFixedPitchFontOfSize:(CGFloat)fontSize; // Aqua fixed-pitch font
++ (NSFont *)userFontOfSize:(Float)fontSize;	// Aqua Application font
++ (NSFont *)userFixedPitchFontOfSize:(Float)fontSize; // Aqua fixed-pitch font
 + (void)setUserFont:(NSFont *)aFont;	// set preference for Application font.
 + (void)setUserFixedPitchFont:(NSFont *)aFont; // set preference for fixed-pitch.
 
 /* UI font settings
 */
-+ (NSFont *)systemFontOfSize:(CGFloat)fontSize;	// Aqua System font
-+ (NSFont *)boldSystemFontOfSize:(CGFloat)fontSize; // Aqua System font (emphasized)
-+ (NSFont *)labelFontOfSize:(CGFloat)fontSize; // Aqua label font
++ (NSFont *)systemFontOfSize:(Float)fontSize;	// Aqua System font
++ (NSFont *)boldSystemFontOfSize:(Float)fontSize; // Aqua System font (emphasized)
++ (NSFont *)labelFontOfSize:(Float)fontSize; // Aqua label font
 
-+ (NSFont *)titleBarFontOfSize:(CGFloat)fontSize;
-+ (NSFont *)menuFontOfSize:(CGFloat)fontSize;
-+ (NSFont *)menuBarFontOfSize:(CGFloat)fontSize;
-+ (NSFont *)messageFontOfSize:(CGFloat)fontSize;
-+ (NSFont *)paletteFontOfSize:(CGFloat)fontSize;
-+ (NSFont *)toolTipsFontOfSize:(CGFloat)fontSize;
-+ (NSFont *)controlContentFontOfSize:(CGFloat)fontSize;
++ (NSFont *)titleBarFontOfSize:(Float)fontSize;
++ (NSFont *)menuFontOfSize:(Float)fontSize;
++ (NSFont *)menuBarFontOfSize:(Float)fontSize;
++ (NSFont *)messageFontOfSize:(Float)fontSize;
++ (NSFont *)paletteFontOfSize:(Float)fontSize;
++ (NSFont *)toolTipsFontOfSize:(Float)fontSize;
++ (NSFont *)controlContentFontOfSize:(Float)fontSize;
 
 /* UI font size settings
 */
-+ (CGFloat)systemFontSize; // size of the standard System font.
-+ (CGFloat)smallSystemFontSize; // size of standard small System font.
-+ (CGFloat)labelFontSize;	// size of the standard Label Font.
++ (Float)systemFontSize; // size of the standard System font.
++ (Float)smallSystemFontSize; // size of standard small System font.
++ (Float)labelFontSize;	// size of the standard Label Font.
 
-+ (CGFloat)systemFontSizeForControlSize:(NSControlSize)controlSize;
++ (Float)systemFontSizeForControlSize:(NSControlSize)controlSize;
 
 /********* Core font attribute *********/
 - (NSString *)fontName;
-- (CGFloat)pointSize;
-- (const CGFloat *)matrix;
+- (Float)pointSize;
+- (const Float *)matrix;
 - (NSString *)familyName;
 - (NSString *)displayName;
 - (NSFontDescriptor *)fontDescriptor;
@@ -123,15 +123,15 @@ extern class NSFont extends NSObject, implements NSCopying, NSCoding> {
 - (NSRect)boundingRectForFont;
 - (NSSize)maximumAdvancement;
 
-- (CGFloat)ascender;
-- (CGFloat)descender;
-- (CGFloat)leading;
+- (Float)ascender;
+- (Float)descender;
+- (Float)leading;
 
-- (CGFloat)underlinePosition;
-- (CGFloat)underlineThickness;
-- (CGFloat)italicAngle;
-- (CGFloat)capHeight;
-- (CGFloat)xHeight;
+- (Float)underlinePosition;
+- (Float)underlineThickness;
+- (Float)italicAngle;
+- (Float)capHeight;
+- (Float)xHeight;
 - (BOOL)isFixedPitch;
 
 /********* Glyph metrics *********/
@@ -199,11 +199,11 @@ typedef NSUInteger  NSGlyphRelation;
 
 extern class NSFont (NSFontDeprecated)
 + (void)useFont:(NSString *)fontName NS_DEPRECATED_MAC(10_0, 10_4); // This is now automatically handled by Quartz.
-- (CGFloat)widthOfString:(NSString *)string NS_DEPRECATED_MAC(10_0, 10_4); // This API never returns correct value. Use NSStringDrawing API instead.
+- (Float)widthOfString:(NSString *)string NS_DEPRECATED_MAC(10_0, 10_4); // This API never returns correct value. Use NSStringDrawing API instead.
 - (BOOL)isBaseFont NS_DEPRECATED_MAC(10_0, 10_4);
 - (NSDictionary *)afmDictionary NS_DEPRECATED_MAC(10_0, 10_4);
 - (BOOL)glyphIsEncoded:(NSGlyph)aGlyph NS_DEPRECATED_MAC(10_0, 10_4); // Can be deduced by aGlyph < [NSFont numberOfGlyphs] since only NSNativeShortGlyphPacking is supported.
-- (CGFloat)defaultLineHeightForFont NS_DEPRECATED_MAC(10_0, 10_4); // Use -[NSLayoutManager defaultLineHeightForFont:] instead.
+- (Float)defaultLineHeightForFont NS_DEPRECATED_MAC(10_0, 10_4); // Use -[NSLayoutManager defaultLineHeightForFont:] instead.
 + (NSArray *)preferredFontNames NS_DEPRECATED_MAC(10_0, 10_4); // NSFontCascadeListAttribute offers more powerful font substitution management
 + (void)setPreferredFontNames:(NSArray *)fontNameArray NS_DEPRECATED_MAC(10_0, 10_4);
 - (NSString *)encodingScheme NS_DEPRECATED_MAC(10_0, 10_4);

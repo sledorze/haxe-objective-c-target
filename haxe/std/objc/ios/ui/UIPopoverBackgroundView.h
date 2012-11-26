@@ -20,7 +20,7 @@ extern class UIPopoverBackgroundView extends UIView {}
  
  This method is called inside an animation block managed by the `UIPopoverController`.
  */
-	public var  (nonatomic, readwrite) CGFloat arrowOffset;
+	public var  (nonatomic, readwrite) Float arrowOffset;
 
 /* `arrowDirection` manages which direction the popover arrow is pointing. You may be required to change the direction of the arrow while the popover is still visible on-screen.
  */
@@ -28,8 +28,8 @@ extern class UIPopoverBackgroundView extends UIView {}
 
 /* These methods must be overridden and the values they return may not be changed during use of the `UIPopoverBackgroundView`. `arrowHeight` represents the height of the arrow in points from its base to its tip. `arrowBase` represents the the length of the base of the arrow's triangle in points. `contentViewInset` describes the distance between each edge of the background view and the corresponding edge of its content view (i.e. if it were strictly a rectangle). `arrowHeight` and `arrowBase` are also used for the drawing of the standard popover shadow.
  */
-+ (CGFloat)arrowHeight;
-+ (CGFloat)arrowBase;
++ (Float)arrowHeight;
++ (Float)arrowBase;
 + (UIEdgeInsets)contentViewInsets;        
 
 /* This method may be overridden to prevent the drawing of the content inset and drop shadow inside the popover. The default implementation of this method returns YES.

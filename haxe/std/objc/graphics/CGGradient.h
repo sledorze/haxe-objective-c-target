@@ -39,7 +39,7 @@ CG_EXTERN CFTypeID CGGradientGetTypeID(void)
    NULL, the first color in `colors' will be at location 0, the last color
    in `colors' will be at location 1, and intervening colors will be at
    equal intervals in between. Otherwise, each location in `locations'
-   should be a CGFloat between 0 and 1. Each set of color components should
+   should be a Float between 0 and 1. Each set of color components should
    specify a color in the color space `space' (which may not be a pattern or
    indexed color space). The number of locations is specified by `count';
    the number of color components is the product of `count' and the number
@@ -48,7 +48,7 @@ CG_EXTERN CFTypeID CGGradientGetTypeID(void)
    for those values. */
 
 CG_EXTERN CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef
-  space, const CGFloat components[], const CGFloat locations[], size_t count)
+  space, const Float components[], const Float locations[], size_t count)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Creates a gradient by pairing the colors provided in `colors' with the
@@ -61,14 +61,14 @@ CG_EXTERN CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef
    pattern or indexed color space. If `locations' is NULL, the first color
    in `colors' will be at location 0, the last color in `colors' will be at
    location 1, and intervening colors will be at equal intervals in between.
-   Otherwise, each location in `locations' should be a CGFloat between 0 and
+   Otherwise, each location in `locations' should be a Float between 0 and
    1; the array of locations should should contain the same number of items
    as `colors'. If no color is provided for 0 or 1, the gradient will use
    the color provided at the locations closest to 0 and 1 for those
    values. */
 
 CG_EXTERN CGGradientRef CGGradientCreateWithColors(CGColorSpaceRef space,
-  CFArrayRef colors, const CGFloat locations[])
+  CFArrayRef colors, const Float locations[])
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Equivalent to `CFRetain' except that it doesn't crash (as `CFRetain'

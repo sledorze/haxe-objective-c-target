@@ -89,7 +89,7 @@ extern class NSFontManager extends NSObject
 - (void)setFontMenu:(NSMenu *)newMenu;
 - (NSMenu *)fontMenu:(BOOL)create;
 - (NSFontPanel *)fontPanel:(BOOL)create;
-- (NSFont *)fontWithFamily:(NSString *)family traits:(NSFontTraitMask)traits weight:(NSInteger)weight size:(CGFloat)size;
+- (NSFont *)fontWithFamily:(NSString *)family traits:(NSFontTraitMask)traits weight:(NSInteger)weight size:(Float)size;
 - (NSFontTraitMask)traitsOfFont:(NSFont *)fontObj;
 - (NSInteger)weightOfFont:(NSFont *)fontObj;
 
@@ -100,7 +100,7 @@ extern class NSFontManager extends NSObject
 - (NSArray *)availableMembersOfFontFamily:(NSString *)fam;
 
 - (NSFont *)convertFont:(NSFont *)fontObj;
-- (NSFont *)convertFont:(NSFont *)fontObj toSize:(CGFloat)size;
+- (NSFont *)convertFont:(NSFont *)fontObj toSize:(Float)size;
 - (NSFont *)convertFont:(NSFont *)fontObj toFace:(NSString *)typeface;
 - (NSFont *)convertFont:(NSFont *)fontObj toFamily:(NSString *)family;
 - (NSFont *)convertFont:(NSFont *)fontObj toHaveTrait:(NSFontTraitMask)trait;

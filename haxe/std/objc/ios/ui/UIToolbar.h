@@ -38,7 +38,7 @@ extern class UIToolbar extends UIView {
     NSArray               *_buttonItems;
     NSInteger              _currentButtonGroup;
     NSInteger              _pressedTag;
-    CGFloat                _extraEdgeInsets;
+    Float                _extraEdgeInsets;
     UIView                *_backgroundView;
     id                     _appearanceStorage;
     id                     _currentAlert;

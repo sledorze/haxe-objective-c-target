@@ -68,7 +68,7 @@ extern class NSGradient extends NSObject, implements NSCopying, NSCoding> {
 - (id)initWithColors:(NSArray *)colorArray;
 
 
-/* This initializer takes the first color, then the first location as a CGFloat, then an alternating list of colors and CGFloats, terminated by nil.  If no color is provided for 0.0 or 1.0, the created color gradient will use the color provided at the locations closest to 0.0 and 1.0 for those values.  The color space returned by [NSColorSpace genericRGBColorSpace] is used.
+/* This initializer takes the first color, then the first location as a Float, then an alternating list of colors and Floats, terminated by nil.  If no color is provided for 0.0 or 1.0, the created color gradient will use the color provided at the locations closest to 0.0 and 1.0 for those values.  The color space returned by [NSColorSpace genericRGBColorSpace] is used.
 
     For example:
     NSGradient *gradient = [[NSGradient alloc] initWithColorsAndLocations: [NSColor blackColor], 0.0, [NSColor blueColor], 0.33, [NSColor cyanColor], 0.45, [NSColor orangeColor], 0.72, [NSColor redColor], 1.0, nil];
@@ -77,9 +77,9 @@ extern class NSGradient extends NSObject, implements NSCopying, NSCoding> {
 - (id)initWithColorsAndLocations:(NSColor *)firstColor, ... NS_REQUIRES_NIL_TERMINATION;
 
 
-/* Initializes a gradient by pairing the colors provided in the color array with the locations provided in the locations array.    Each location should be a CGFloat between 0.0 and 1.0.  The color array and location array should not be empty, and should contain the same number of items.  If no color is provided for 0.0 or 1.0, the created color gradient will use the color provided at the locations closest to 0.0 and 1.0 for those values.  This is the designated initializer.
+/* Initializes a gradient by pairing the colors provided in the color array with the locations provided in the locations array.    Each location should be a Float between 0.0 and 1.0.  The color array and location array should not be empty, and should contain the same number of items.  If no color is provided for 0.0 or 1.0, the created color gradient will use the color provided at the locations closest to 0.0 and 1.0 for those values.  This is the designated initializer.
 */
-- (id)initWithColors:(NSArray *)colorArray atLocations:(const CGFloat *)locations colorSpace:(NSColorSpace *)colorSpace;
+- (id)initWithColors:(NSArray *)colorArray atLocations:(const Float *)locations colorSpace:(NSColorSpace *)colorSpace;
 
 
 /* DRAWING LINEAR GRADIENTS */
@@ -91,19 +91,19 @@ extern class NSGradient extends NSObject, implements NSCopying, NSCoding> {
 
 /* Convenience method for drawing a linear gradient to fill a rectangle.  Draws a linear gradient clipped to the provided rect.  The start point and end point are calculated with respect to the provided rect so that the gradient is drawn at the provided angle in degrees.  The end points are located such that both the start and end color in the gradient are visible in the rect.
 */
-- (void)drawInRect:(NSRect)rect angle:(CGFloat)angle;
+- (void)drawInRect:(NSRect)rect angle:(Float)angle;
 
 
 /* Convenience method for drawing a linear gradient to fill a path.  Draws a linear gradient clipped by the provided path.  The start point and end point are calculated with respect to the provided path so that the gradient is drawn at the provided angle in degrees. The end points are located such that both the start and end color in the gradient are visible in the path.
 */
-- (void)drawInBezierPath:(NSBezierPath *)path angle:(CGFloat)angle;
+- (void)drawInBezierPath:(NSBezierPath *)path angle:(Float)angle;
 
 
 /* DRAWING RADIAL GRADIENTS */
 
 /* Draws a radial gradient between two circles defined by the center point and radius of each circle.  The option flags control whether the gradient draws itself before the start point, or after the end point.  The gradient is drawn in the current graphics context without performing any additinal clipping.  This is the primitive method for drawing a radial gradient.
 */
-- (void)drawFromCenter:(NSPoint)startCenter radius:(CGFloat)startRadius toCenter:(NSPoint)endCenter radius:(CGFloat)endRadius options:(NSGradientDrawingOptions)options;
+- (void)drawFromCenter:(NSPoint)startCenter radius:(Float)startRadius toCenter:(NSPoint)endCenter radius:(Float)endRadius options:(NSGradientDrawingOptions)options;
 
 
 /* Convenience method for drawing a radial gradient to fill a rect.  Draws a radial gradient clipped by the provided rect.  The starting circle is always a single point located at the center of the ending circle which encloses the drawn rect.  The radius of the ending circle is determined by the relative center position.
@@ -134,14 +134,14 @@ extern class NSGradient extends NSObject, implements NSCopying, NSCoding> {
 
 
 /* Returns the color and location at a particular index in the color gradient */
-- (void)getColor:(NSColor **)color location:(CGFloat *)location atIndex:(NSInteger)index;
+- (void)getColor:(NSColor **)color location:(Float *)location atIndex:(NSInteger)index;
 
 
 /* This method will return the interpolated gradient value at the given location.  For example, in a two color gradient with white at location 0.0 and black at location 1.0, the interpolated color at location 0.5 would be 50% gray.
 
 You should not need to override this method, it reports the color value of the gradient at a particular location, and does not affect the drawn color values.
 */
-- (NSColor *)interpolatedColorAtLocation:(CGFloat)location;
+- (NSColor *)interpolatedColorAtLocation:(Float)location;
 
 
 }

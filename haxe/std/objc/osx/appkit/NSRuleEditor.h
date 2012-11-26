@@ -61,8 +61,8 @@ extern class NSRuleEditor : NSControl {
     NSMutableArray *_rowCache;
     NSView *_slicesHolder;
     NSMutableArray *_slices;
-    CGFloat _sliceHeight;
-    CGFloat _alignmentGridWidth;
+    Float _sliceHeight;
+    Float _alignmentGridWidth;
     NSInteger _subviewIndexOfDropLine;
     id _dropLineView;
     NSViewAnimation *_currentAnimation;
@@ -121,8 +121,8 @@ extern class NSRuleEditor : NSControl {
 - (NSRuleEditorNestingMode)nestingMode;
 
 /* Clients call this to set and get the height of each row.  This method changes the receiver's frame and marks it for redisplay.  */
-- (void)setRowHeight:(CGFloat)height;
-- (CGFloat)rowHeight;
+- (void)setRowHeight:(Float)height;
+- (Float)rowHeight;
 
 /* Clients call this to set the editable property of the control.  Users can only interact with editable NSRuleEditors.  The default is YES. */
 - (void)setEditable:(BOOL)editable;

@@ -17,7 +17,7 @@ extern class UISlider : UIControl, implements NSObject> {
     float _value;
     float _minValue;
     float _maxValue;
-    CGFloat _alpha;
+    Float _alpha;
 
     CFMutableDictionaryRef _contentLookup;
 
@@ -39,7 +39,7 @@ extern class UISlider : UIControl, implements NSObject> {
 	unsigned int minTrackHidden:1;
     } _sliderFlags;
 
-    CGFloat _hitOffset;
+    Float _hitOffset;
     
     UIColor *_minTintColor;
     UIColor *_maxTintColor;

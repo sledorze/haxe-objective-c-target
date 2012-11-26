@@ -63,9 +63,9 @@ extern class UITableViewCell extends UIView, implements NSObject, UIGestureRecog
     SEL          _accessoryAction;
     id           _oldEditingData;
     id           _editingData;
-    CGFloat      _rightMargin;
+    Float      _rightMargin;
     NSInteger    _indentationLevel;
-    CGFloat      _indentationWidth;
+    Float      _indentationWidth;
     NSString    *_reuseIdentifier;
     UIView      *_contentView;
     UIImageView *_imageView;
@@ -75,7 +75,7 @@ extern class UITableViewCell extends UIView, implements NSObject, UIGestureRecog
     UIView      *_selectedBackgroundView;
     UIView      *_multipleSelectionBackgroundView;
     UIView      *_selectedOverlayView;
-    CGFloat      _selectionFadeDuration;
+    Float      _selectionFadeDuration;
     UIColor     *_backgroundColor;
     UIColor     *_separatorColor;
     UIColor     *_topShadowColor;
@@ -136,7 +136,7 @@ extern class UITableViewCell extends UIView, implements NSObject, UIGestureRecog
     UITextField *_editableTextField;
     CFAbsoluteTime _lastSelectionTime;
     NSTimer *_deselectTimer;
-    CGFloat _textFieldOffset;
+    Float _textFieldOffset;
     SEL _returnAction;
     UIColor *_selectionTintColor;
     UIColor *_accessoryTintColor;
@@ -186,7 +186,7 @@ extern class UITableViewCell extends UIView, implements NSObject, UIGestureRecog
 	public var (nonatomic,retain) UIView                 *editingAccessoryView;       // if set, use custom view. ignore editingAccessoryType. tracks if enabled can calls accessory action
 
 	public var  NSInteger                      indentationLevel;           // adjust content indent. default is 0
-	public var  CGFloat                        indentationWidth;           // width for each level. default is 10.0
+	public var  Float                        indentationWidth;           // width for each level. default is 10.0
 
 	public var (nonatomic,getter=isEditing) BOOL          editing;                    // show appropriate edit controls (+/- & reorder). By default -setEditing: calls setEditing:animated: with NO for animated.
 	public function setEditing:(BOOL)editing animated:(BOOL)animated;

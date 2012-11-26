@@ -95,9 +95,9 @@ extern class NSImage extends NSObject, implements NSCopying, NSCoding, NSPastebo
 - (BOOL)prefersColorMatch;
 - (void)setMatchesOnMultipleResolution:(BOOL)flag;
 - (BOOL)matchesOnMultipleResolution;
-- (void)drawAtPoint:(NSPoint)point fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-- (void)drawInRect:(NSRect)dstSpacePortionRect fromRect:(NSRect)srcSpacePortionRect operation:(NSCompositingOperation)op fraction:(CGFloat)requestedAlpha respectFlipped:(BOOL)respectContextIsFlipped hints:(NSDictionary *)hints NS_AVAILABLE_MAC(10_6);
+- (void)drawAtPoint:(NSPoint)point fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(Float)delta;
+- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(Float)delta;
+- (void)drawInRect:(NSRect)dstSpacePortionRect fromRect:(NSRect)srcSpacePortionRect operation:(NSCompositingOperation)op fraction:(Float)requestedAlpha respectFlipped:(BOOL)respectContextIsFlipped hints:(NSDictionary *)hints NS_AVAILABLE_MAC(10_6);
 - (BOOL)drawRepresentation:(NSImageRep *)imageRep inRect:(NSRect)rect;
 - (void)recache;
 - (NSData *)TIFFRepresentation;
@@ -226,12 +226,12 @@ extern class NSImage (NSDeprecated)
 - (BOOL)isFlipped;
 
 // these methods have surprising semantics.  Prefer to use the 'draw' methods (and note the new draw method taking respectContextIsFlipped as a parameter).  Please see the AppKit 10.6 release notes for exactly what's going on.
-- (void)dissolveToPoint:(NSPoint)point fraction:(CGFloat)aFloat;
-- (void)dissolveToPoint:(NSPoint)point fromRect:(NSRect)rect fraction:(CGFloat)aFloat;
+- (void)dissolveToPoint:(NSPoint)point fraction:(Float)aFloat;
+- (void)dissolveToPoint:(NSPoint)point fromRect:(NSRect)rect fraction:(Float)aFloat;
 - (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op;
 - (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op;
-- (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-- (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
+- (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op fraction:(Float)delta;
+- (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op fraction:(Float)delta;
 
 // this method doesn't do what people expect.  See AppKit 10.6 release notes.  Briefly, you can replace invocation of this method with code that locks focus on the image and then draws the rep in the image.
 - (void)lockFocusOnRepresentation:(NSImageRep *)imageRepresentation;

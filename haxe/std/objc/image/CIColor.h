@@ -18,8 +18,8 @@ extern class CIColor extends NSObject, implements NSObject, NSCopying>
 
 /* Create a new color object.
  It's created using the GenericRGB color space. To create a CIColor with a different color space, use +colorWithCGColor:. */
-+ (CIColor *)colorWithRed:(CGFloat)r green:(CGFloat)g blue:(CGFloat)b alpha:(CGFloat)a;
-+ (CIColor *)colorWithRed:(CGFloat)r green:(CGFloat)g blue:(CGFloat)b;
++ (CIColor *)colorWithRed:(Float)r green:(Float)g blue:(Float)b alpha:(Float)a;
++ (CIColor *)colorWithRed:(Float)r green:(Float)g blue:(Float)b;
 
 /* Create a new color object, 'representation' should be a string in one of
  * the formats returned by the stringRepresentation method. */
@@ -33,18 +33,18 @@ extern class CIColor extends NSObject, implements NSObject, NSCopying>
 - (size_t)numberOfComponents;
 
 /* Return the color components (including alpha). */
-- (const CGFloat *)components;
+- (const Float *)components;
 
 /* Return the alpha value of the color. */
-- (CGFloat)alpha;
+- (Float)alpha;
 
 /* Return the color space object associated with the color. */
 - (CGColorSpaceRef)colorSpace;
 
 /* Return the (unpremultiplied) red, green or blue components of the color. */
-- (CGFloat)red;
-- (CGFloat)green;
-- (CGFloat)blue;
+- (Float)red;
+- (Float)green;
+- (Float)blue;
 
 /* Returns a formatted string with the components of the color. */
 - (NSString *)stringRepresentation;

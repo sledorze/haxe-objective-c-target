@@ -178,8 +178,8 @@ extern class NSOutlineView : NSTableView {
 
 /* Controls the amount of indentation per level. Negative values are ignored, and only integral values are accepted. The default value is 16.0. An indentationPerLevel of 0 can be used to eliminate all indentation and make an NSOutlineView appear more like an NSTableView.
 */
-- (void)setIndentationPerLevel:(CGFloat)indentationPerLevel;
-- (CGFloat)indentationPerLevel;
+- (void)setIndentationPerLevel:(Float)indentationPerLevel;
+- (Float)indentationPerLevel;
 
 /* The indentation marker is the visual indicator that shows an item is expandable (i.e. disclosure triangle). The default value is YES.
 */
@@ -359,7 +359,7 @@ extern class NSOutlineView : NSTableView {
 /* Optional - Variable Row Heights
     Implement this method to support a table with varying row heights. The height returned by this method should not include intercell spacing and must be greater than zero. Performance Considerations: For large tables in particular, you should make sure that this method is efficient. NSTableView may cache the values this method returns, but this should NOT be depended on, as all values may not be cached. To signal a row height change, call -noteHeightOfRowsWithIndexesChanged:. For a given row, the same row height should always be returned until -noteHeightOfRowsWithIndexesChanged: is called, otherwise unpredicable results will happen. NSTableView automatically invalidates its entire row height cache in -reloadData, and -noteNumberOfRowsChanged.
  */
-- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item;
+- (Float)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item;
 
 /* Optional - Type select support
     Implement this method if you want to control the string that is used for type selection. You may want to change what is searched for based on what is displayed, or simply return nil for that row and/or column to not be searched. By default, all cells with text in them are searched. The default value when this delegate method is not implemented is [[outlineView preparedCellForColumn:tableColumn row:[outlineView rowForItem:item]] stringValue], and this value can be returned from the delegate method if desired.
@@ -417,7 +417,7 @@ extern class NSOutlineView : NSTableView {
  Implement this method if you want to control how wide a column is made when the user double clicks on the resize divider. By default, NSTableView iterates every row in the table, accesses a cell via preparedCellAtRow:column:, and requests the "cellSize" to find the appropriate largest width to use. For large row counts, a monte carlo simulation is done instead of interating every row. For accurate performance, it is recommended that this method is implemented when using large tables. 
 */
 
-- (CGFloat)outlineView:(NSOutlineView *)outlineView sizeToFitWidthOfColumn:(NSInteger)column NS_AVAILABLE_MAC(10_6);
+- (Float)outlineView:(NSOutlineView *)outlineView sizeToFitWidthOfColumn:(NSInteger)column NS_AVAILABLE_MAC(10_6);
 
 /*  Optional - Control of column reordering.
  Specifies if the column can be reordered to a new location, or not. 'columnIndex' is the column that is being dragged. The actual NSTableColumn instance can be retrieved from the [tableView tableColumns] array. 'newColumnIndex' is the new proposed target location for 'columnIndex'. When a column is initially dragged by the user, the delegate is first called with a 'newColumnIndex' of -1. Returning NO will disallow that column from being reordered at all. Returning YES allows it to be reordered, and the delegate will be called again when the column reaches a new location. If this method is not implemented, all columns are considered reorderable. 

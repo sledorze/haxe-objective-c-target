@@ -24,8 +24,8 @@ extern class NSSlider : NSControl
 - (NSFont *)titleFont;
 - (NSString *)title;
 - (void)setTitle:(NSString *)aString;
-- (void)setKnobThickness:(CGFloat)aFloat;
-- (CGFloat)knobThickness;
+- (void)setKnobThickness:(Float)aFloat;
+- (Float)knobThickness;
 - (void)setImage:(NSImage *)backgroundImage;
 - (NSImage *)image;
 - (NSInteger)isVertical;

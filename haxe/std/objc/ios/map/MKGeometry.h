@@ -63,7 +63,7 @@ typedef struct {
 // MKZoomScale provides a conversion factor between MKMapPoints and screen points.
 // When MKZoomScale = 1, 1 screen point = 1 MKMapPoint.  When MKZoomScale is
 // 0.5, 1 screen point = 2 MKMapPoints.
-typedef CGFloat MKZoomScale;
+typedef Float MKZoomScale;
 #endif
 
 MK_EXTERN const MKMapSize MKMapSizeWorld NS_AVAILABLE(NA, 4_0);
@@ -85,7 +85,7 @@ MK_EXTERN const MKMapRect MKMapRectNull NS_AVAILABLE(NA, 4_0);
 #if (__IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED)
 
 // Geometric operations on MKMapPoint/Size/Rect.  See CGGeometry.h for 
-// information on the CGFloat versions of these functions.
+// information on the Float versions of these functions.
 NS_INLINE MKMapPoint MKMapPointMake(double x, double y) {
     return (MKMapPoint){x, y};
 }

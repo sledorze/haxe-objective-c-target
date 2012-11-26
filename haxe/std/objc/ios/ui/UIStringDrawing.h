@@ -58,11 +58,11 @@ extern class NSString(UIStringDrawing)
 
 // Single line, no wrapping. Truncation based on the NSLineBreakMode.
 - (CGSize)sizeWithFont:(UIFont *)font; // Uses NSLineBreakByWordWrapping
-- (CGSize)sizeWithFont:(UIFont *)font forWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)lineBreakMode;
+- (CGSize)sizeWithFont:(UIFont *)font forWidth:(Float)width lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 // Single line, no wrapping. Truncation based on the NSLineBreakMode.
 - (CGSize)drawAtPoint:(CGPoint)point withFont:(UIFont *)font; // Uses NSLineBreakByWordWrapping
-- (CGSize)drawAtPoint:(CGPoint)point forWidth:(CGFloat)width withFont:(UIFont *)font lineBreakMode:(NSLineBreakMode)lineBreakMode;
+- (CGSize)drawAtPoint:(CGPoint)point forWidth:(Float)width withFont:(UIFont *)font lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 // Wrapping to fit horizontal and vertical size. Text will be wrapped and truncated using the NSLineBreakMode. If the height is less than a line of text, it may return
 // a vertical size that is bigger than the one passed in.
@@ -80,10 +80,10 @@ extern class NSString(UIStringDrawing)
 // size is reached and the string still won't fit, the string will be truncated and drawn at the minimum font size.
 // The first two methods are used together, and the actualFontSize returned in the sizeWithFont method should be passed to the drawAtPoint method.
 // The last method will do the sizing calculation and drawing in one operation.
-- (CGSize)sizeWithFont:(UIFont *)font minFontSize:(CGFloat)minFontSize actualFontSize:(CGFloat *)actualFontSize forWidth:(CGFloat)width lineBreakMode:(NSLineBreakMode)lineBreakMode;
+- (CGSize)sizeWithFont:(UIFont *)font minFontSize:(Float)minFontSize actualFontSize:(Float *)actualFontSize forWidth:(Float)width lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
-- (CGSize)drawAtPoint:(CGPoint)point forWidth:(CGFloat)width withFont:(UIFont *)font fontSize:(CGFloat)fontSize lineBreakMode:(NSLineBreakMode)lineBreakMode baselineAdjustment:(UIBaselineAdjustment)baselineAdjustment; // default is UIBaselineAdjustmentAlignBaselines
+- (CGSize)drawAtPoint:(CGPoint)point forWidth:(Float)width withFont:(UIFont *)font fontSize:(Float)fontSize lineBreakMode:(NSLineBreakMode)lineBreakMode baselineAdjustment:(UIBaselineAdjustment)baselineAdjustment; // default is UIBaselineAdjustmentAlignBaselines
 
-- (CGSize)drawAtPoint:(CGPoint)point forWidth:(CGFloat)width withFont:(UIFont *)font minFontSize:(CGFloat)minFontSize actualFontSize:(CGFloat *)actualFontSize lineBreakMode:(NSLineBreakMode)lineBreakMode baselineAdjustment:(UIBaselineAdjustment)baselineAdjustment; // default is UIBaselineAdjustmentAlignBaselines
+- (CGSize)drawAtPoint:(CGPoint)point forWidth:(Float)width withFont:(UIFont *)font minFontSize:(Float)minFontSize actualFontSize:(Float *)actualFontSize lineBreakMode:(NSLineBreakMode)lineBreakMode baselineAdjustment:(UIBaselineAdjustment)baselineAdjustment; // default is UIBaselineAdjustmentAlignBaselines
 
 }

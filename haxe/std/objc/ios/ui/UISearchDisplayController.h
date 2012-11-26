@@ -27,8 +27,8 @@ NS_CLASS_AVAILABLE_IOS(3_0)extern class UISearchDisplayController extends NSObje
     id<UITableViewDataSource>   _tableViewDataSource;
     id<UITableViewDelegate>     _tableViewDelegate;
     CFMutableArrayRef           _containingScrollViews;
-    CGFloat                     _lastKeyboardAdjustment;
-    CGFloat                     _lastFooterAdjustment;
+    Float                     _lastKeyboardAdjustment;
+    Float                     _lastFooterAdjustment;
     UIPopoverController        *_popoverController;
     UITableViewStyle            _searchResultsTableViewStyle;
     id                          _navigationControllerBookkeeper;

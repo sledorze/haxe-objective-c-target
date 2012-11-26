@@ -23,7 +23,7 @@ extern class UIPanGestureRecognizer : UIGestureRecognizer {
     NSUInteger      _lastTouchCount;
     NSUInteger      _minimumNumberOfTouches;
     NSUInteger      _maximumNumberOfTouches;
-    CGFloat         _hysteresis;
+    Float         _hysteresis;
     CGPoint         _lastUnadjustedScreenLocation;
     unsigned int    _failsPastMaxTouches:1;
     unsigned int    _canPanHorizontally:1;

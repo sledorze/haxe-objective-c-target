@@ -18,8 +18,8 @@ package objc.ios.ui;
 NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintFormatter extends NSObject, implements NSCopying> {
   @private
     UIPrintPageRenderer *_printPageRenderer;
-    CGFloat              _maximumContentHeight;
-    CGFloat              _maximumContentWidth;
+    Float              _maximumContentHeight;
+    Float              _maximumContentWidth;
     UIEdgeInsets         _contentInsets;
     NSInteger            _startPage;
     NSInteger            _pageCount;
@@ -29,8 +29,8 @@ NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintFormatter extends NSObject, imple
 	public var (default, null) UIPrintPageRenderer *printPageRenderer; // default is nil. set when formatter added to a print page renderer
 	public function removeFromPrintPageRenderer;
 
-	public var  CGFloat      maximumContentHeight;      // default is 0.0. limits content to width
-	public var  CGFloat      maximumContentWidth;       // default is 0.0. limits content to height
+	public var  Float      maximumContentHeight;      // default is 0.0. limits content to width
+	public var  Float      maximumContentWidth;       // default is 0.0. limits content to height
 	public var  UIEdgeInsets contentInsets;             // default is UIEdgeInsetsZero. from edge of printableRect. applies to whole content. bottom inset unused
 
 	public var           NSInteger startPage;           // default is NSNotFound

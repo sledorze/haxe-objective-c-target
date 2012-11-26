@@ -96,7 +96,7 @@ CG_EXTERN CGPathRef CGPathCreateWithEllipseInRect(CGRect rect,
    added to the path. */
 
 CG_EXTERN CGPathRef CGPathCreateCopyByDashingPath(CGPathRef path,
-  const CGAffineTransform *transform, CGFloat phase, const CGFloat *lengths,
+  const CGAffineTransform *transform, Float phase, const Float *lengths,
   size_t count) CG_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_5_0);
 
 /* Create a stroked path from `path'. The parameters `lineWidth', `lineCap',
@@ -106,8 +106,8 @@ CG_EXTERN CGPathRef CGPathCreateCopyByDashingPath(CGPathRef path,
    added to the path. */
 
 CG_EXTERN CGPathRef CGPathCreateCopyByStrokingPath(CGPathRef path,
-  const CGAffineTransform *transform, CGFloat lineWidth, CGLineCap lineCap,
-  CGLineJoin lineJoin, CGFloat miterLimit)
+  const CGAffineTransform *transform, Float lineWidth, CGLineCap lineCap,
+  CGLineJoin lineJoin, Float miterLimit)
   CG_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_5_0);
 
 /* Equivalent to `CFRetain(path)', except it doesn't crash (as CFRetain
@@ -133,7 +133,7 @@ CG_EXTERN bool CGPathEqualToPath(CGPathRef path1, CGPathRef path2)
    `m' is non-NULL, then transform `(x, y)' by `m' first. */
 
 CG_EXTERN void CGPathMoveToPoint(CGMutablePathRef path,
-  const CGAffineTransform *m, CGFloat x, CGFloat y)
+  const CGAffineTransform *m, Float x, Float y)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Append a straight line segment from the current point to `(x, y)' in
@@ -141,7 +141,7 @@ CG_EXTERN void CGPathMoveToPoint(CGMutablePathRef path,
    transform `(x, y)' by `m' first. */
 
 CG_EXTERN void CGPathAddLineToPoint(CGMutablePathRef path,
-  const CGAffineTransform *m, CGFloat x, CGFloat y)
+  const CGAffineTransform *m, Float x, Float y)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Append a quadratic curve from the current point to `(x, y)' with control
@@ -149,7 +149,7 @@ CG_EXTERN void CGPathAddLineToPoint(CGMutablePathRef path,
    `m' is non-NULL, then transform all points by `m' first. */
 
 CG_EXTERN void CGPathAddQuadCurveToPoint(CGMutablePathRef path,
-  const CGAffineTransform *m, CGFloat cpx, CGFloat cpy, CGFloat x, CGFloat y)
+  const CGAffineTransform *m, Float cpx, Float cpy, Float x, Float y)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Append a cubic Bézier curve from the current point to `(x,y)' with
@@ -158,8 +158,8 @@ CG_EXTERN void CGPathAddQuadCurveToPoint(CGMutablePathRef path,
    by `m' first. */
 
 CG_EXTERN void CGPathAddCurveToPoint(CGMutablePathRef path,
-  const CGAffineTransform *m, CGFloat cp1x, CGFloat cp1y,
-  CGFloat cp2x, CGFloat cp2y, CGFloat x, CGFloat y)
+  const CGAffineTransform *m, Float cp1x, Float cp1y,
+  Float cp2x, Float cp2y, Float x, Float y)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Append a line from the current point to the starting point of the current
@@ -219,8 +219,8 @@ CG_EXTERN void CGPathAddEllipseInRect(CGMutablePathRef path,
    are added to the path. */
 
 CG_EXTERN void CGPathAddRelativeArc(CGMutablePathRef path,
-  const CGAffineTransform *matrix, CGFloat x, CGFloat y, CGFloat radius,
-  CGFloat startAngle, CGFloat delta)
+  const CGAffineTransform *matrix, Float x, Float y, Float radius,
+  Float startAngle, Float delta)
   CG_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_5_0);
 
 /* Add an arc of a circle to `path', possibly preceded by a straight line
@@ -246,7 +246,7 @@ CG_EXTERN void CGPathAddRelativeArc(CGMutablePathRef path,
    the instability problems discussed above. */
 
 CG_EXTERN void CGPathAddArc(CGMutablePathRef path, const CGAffineTransform *m,
-  CGFloat x, CGFloat y, CGFloat radius, CGFloat startAngle, CGFloat endAngle,
+  Float x, Float y, Float radius, Float startAngle, Float endAngle,
   bool clockwise) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Add an arc of a circle to `path', possibly preceded by a straight line
@@ -258,8 +258,8 @@ CG_EXTERN void CGPathAddArc(CGMutablePathRef path, const CGAffineTransform *m,
    `path'. */
 
 CG_EXTERN void CGPathAddArcToPoint(CGMutablePathRef path,
-  const CGAffineTransform *m, CGFloat x1, CGFloat y1, CGFloat x2, CGFloat y2,
-  CGFloat radius) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+  const CGAffineTransform *m, Float x1, Float y1, Float x2, Float y2,
+  Float radius) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Add `path2' to `path1'. If `m' is non-NULL, then the points in `path2'
    will be transformed by `m' before they are added to `path1'. */

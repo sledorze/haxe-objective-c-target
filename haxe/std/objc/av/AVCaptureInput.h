@@ -278,7 +278,7 @@ extern class AVCaptureScreenInput : AVCaptureInput
     of 1.0 (no scaling).  Set this property to scale the buffers by a given factor.  For instance,
     a 320x240 capture area with a scaleFactor of 2.0f produces video buffers at 640x480.
 */
-	public var  CGFloat scaleFactor;
+	public var  Float scaleFactor;
 
 /*!
  	public var  capturesMouseClicks

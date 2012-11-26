@@ -12,20 +12,20 @@ extern class CIVector extends NSObject, implements NSCopying, NSCoding>
     size_t _count;
     
     union {
-        CGFloat vec[4];
-        CGFloat *ptr;
+        Float vec[4];
+        Float *ptr;
     }
     _u;
 }
 
 /* Create a new vector object. */
 
-+ (CIVector *)vectorWithValues:(const CGFloat *)values count:(size_t)count;
++ (CIVector *)vectorWithValues:(const Float *)values count:(size_t)count;
 
-+ (CIVector *)vectorWithX:(CGFloat)x;
-+ (CIVector *)vectorWithX:(CGFloat)x Y:(CGFloat)y;
-+ (CIVector *)vectorWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
-+ (CIVector *)vectorWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z W:(CGFloat)w;
++ (CIVector *)vectorWithX:(Float)x;
++ (CIVector *)vectorWithX:(Float)x Y:(Float)y;
++ (CIVector *)vectorWithX:(Float)x Y:(Float)y Z:(Float)z;
++ (CIVector *)vectorWithX:(Float)x Y:(Float)y Z:(Float)z W:(Float)w;
 
 /* the CGPoint x and y values are stored in the first X and Y values of the CIVector. */
 + (CIVector *)vectorWithCGPoint:(CGPoint)p __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
@@ -40,12 +40,12 @@ extern class CIVector extends NSObject, implements NSCopying, NSCoding>
 
 /* Initializers. */
 
-- (id)initWithValues:(const CGFloat *)values count:(size_t)count;
+- (id)initWithValues:(const Float *)values count:(size_t)count;
 
-- (id)initWithX:(CGFloat)x;
-- (id)initWithX:(CGFloat)x Y:(CGFloat)y;
-- (id)initWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z;
-- (id)initWithX:(CGFloat)x Y:(CGFloat)y Z:(CGFloat)z W:(CGFloat)w;
+- (id)initWithX:(Float)x;
+- (id)initWithX:(Float)x Y:(Float)y;
+- (id)initWithX:(Float)x Y:(Float)y Z:(Float)z;
+- (id)initWithX:(Float)x Y:(Float)y Z:(Float)z W:(Float)w;
 - (id)initWithCGPoint:(CGPoint)p __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 - (id)initWithCGRect:(CGRect)r __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 - (id)initWithCGAffineTransform:(CGAffineTransform)r __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
@@ -55,17 +55,17 @@ extern class CIVector extends NSObject, implements NSCopying, NSCoding>
 /* Return the value from the vector at position 'index' (zero-based).
  * Any 'index' value is valid, if the component would otherwise be
  * undefined, zero is returned. */
-- (CGFloat)valueAtIndex:(size_t)index;
+- (Float)valueAtIndex:(size_t)index;
 
 /* Return the number of values stored in the vector. */
 - (size_t)count;
 
 /* Getters. */
 
-- (CGFloat)X;
-- (CGFloat)Y;
-- (CGFloat)Z;
-- (CGFloat)W;
+- (Float)X;
+- (Float)Y;
+- (Float)Z;
+- (Float)W;
 - (CGPoint)CGPointValue __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 - (CGRect)CGRectValue __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 - (CGAffineTransform)CGAffineTransformValue __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);

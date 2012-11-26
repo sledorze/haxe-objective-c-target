@@ -23,8 +23,8 @@ extern class NSComboBox : NSTextField {
 - (void)setHasVerticalScroller:(BOOL)flag;
 - (NSSize)intercellSpacing;
 - (void)setIntercellSpacing:(NSSize)aSize;
-- (CGFloat)itemHeight;
-- (void)setItemHeight:(CGFloat)itemHeight;
+- (Float)itemHeight;
+- (void)setItemHeight:(Float)itemHeight;
 - (NSInteger)numberOfVisibleItems;
 - (void)setNumberOfVisibleItems:(NSInteger)visibleItems;
 

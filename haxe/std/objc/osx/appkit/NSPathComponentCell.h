@@ -20,11 +20,11 @@ extern class NSPathComponentCell : NSTextFieldCell {
 @private
     NSImage *_image;
     // The full size width for this component, shown when the mouse is over the cell. The result is cached from [self cellSize].width. The min size width for this component is acquired from [self cellSizeForBounds:NSZeroRect].width, and is always shown, no matter what.
-    CGFloat _fullWidth;
+    Float _fullWidth;
     // The resized width, when there isn't a mouse over it, or set to the full width for items that can't be shrunk, or don't need to be
-    CGFloat _resizedWidth;
+    Float _resizedWidth;
     // The current width is the size we are using when drawing
-    CGFloat _currentWidth;
+    Float _currentWidth;
     NSURL *_url;
     struct {
         unsigned int shouldDrawArrow:1;

@@ -152,7 +152,7 @@ extern class NSMenu extends NSObject, implements NSCopying, NSCoding>
 
 /* If called on the main menu, returns the height of the menu bar in pixels.  If called on any other menu, returns 0.
  */
-- (CGFloat)menuBarHeight;
+- (Float)menuBarHeight;
 
 /* Dismisses the menu and ends all menu tracking */
 - (void)cancelTracking NS_AVAILABLE_MAC(10_5);
@@ -165,8 +165,8 @@ extern class NSMenu extends NSObject, implements NSCopying, NSCoding>
 
 /* Set the minimum width of the menu, in screen coordinates. The menu will prefer to not draw smaller than its minimum width, but may draw larger if it needs more space. The default value is 0.
 */
-- (CGFloat)minimumWidth NS_AVAILABLE_MAC(10_6);
-- (void)setMinimumWidth:(CGFloat)width NS_AVAILABLE_MAC(10_6);
+- (Float)minimumWidth NS_AVAILABLE_MAC(10_6);
+- (void)setMinimumWidth:(Float)width NS_AVAILABLE_MAC(10_6);
 
 /* Returns the size of the menu, in screen coordinates.  The menu may draw at a smaller size when shown, depending on its positioning and display configuration.
 */

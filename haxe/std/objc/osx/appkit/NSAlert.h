@@ -33,11 +33,11 @@ extern class NSAlert extends NSObject
     id  _messageField;
     id  _imageView;
     NSSize _minButtonSize;
-    CGFloat _buttonSpacing;
-    CGFloat _buttonPadding;
-    CGFloat _messagePadding;
-    CGFloat _buttonSpacingMaxX;
-    CGFloat _buttonSpacingY;
+    Float _buttonSpacing;
+    Float _buttonPadding;
+    Float _messagePadding;
+    Float _buttonSpacingMaxX;
+    Float _buttonSpacingY;
     id _modalDelegate;
     NSWindow *_docWindow;
     SEL _didEndSelector;

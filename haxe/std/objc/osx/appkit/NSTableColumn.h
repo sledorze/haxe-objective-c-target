@@ -17,9 +17,9 @@
 extern class NSTableColumn extends NSObject, implements NSObject, NSUserInterfaceItemIdentification> {
     /*All instance variables are private */
     id		_identifier;
-    CGFloat	_width;
-    CGFloat	_minWidth;
-    CGFloat	_maxWidth;
+    Float	_width;
+    Float	_minWidth;
+    Float	_maxWidth;
     NSTableView *_tableView;
     NSCell	*_headerCell;
     NSCell	*_dataCell;
@@ -50,18 +50,18 @@ extern class NSTableColumn extends NSObject, implements NSObject, NSUserInterfac
 
 /* Gets and sets the current width of the NSTableColumn. The default for is 100.0. Calling setWidth: with a width that is less than the minWidth or larger than the maxWidth will automatically be constrained to minWidth or maxWidth as appropriate.
  */
-- (void)setWidth:(CGFloat)width;
-- (CGFloat)width;
+- (void)setWidth:(Float)width;
+- (Float)width;
 
 /* Gets and sets the minimum width of the NSTableColumn. The default for is 10.0. If -[self width] is less than the 'minWidth' value when -setMinWidth: is called, the width will automatically be increased to the minWidth and [tableView tile] will be called.
  */
-- (void)setMinWidth:(CGFloat)minWidth;
-- (CGFloat)minWidth;
+- (void)setMinWidth:(Float)minWidth;
+- (Float)minWidth;
 
 /* Gets and sets the maximum width of the NSTableColumn. The default for is MAXFLOAT on Leopard and higher. If -[self width] is greater than the 'maxWidth' value when -setMaxWidth: is called, the width will automatically be decreased to the maxWidth and [tableView tile] will be called.
  */
-- (void)setMaxWidth:(CGFloat)maxWidth;
-- (CGFloat)maxWidth;
+- (void)setMaxWidth:(Float)maxWidth;
+- (Float)maxWidth;
 
 /* Gets and sets the headerCell associated with this NSTableColumn. 'cell' must be non nil, and should be a member of the NSTableHeaderCell class. The 'headerCell' is a strong reference, and will be retained.
  */

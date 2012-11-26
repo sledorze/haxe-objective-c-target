@@ -21,26 +21,26 @@ CG_EXTERN const CGAffineTransform CGAffineTransformIdentity
 
  Return the transform [ a b c d tx ty ]. 
 
-CG_EXTERN CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b,
-  CGFloat c, CGFloat d, CGFloat tx, CGFloat ty)
+CG_EXTERN CGAffineTransform CGAffineTransformMake(Float a, Float b,
+  Float c, Float d, Float tx, Float ty)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Return a transform which translates by `(tx, ty)':
      t' = [ 1 0 0 1 tx ty ] 
 
-CG_EXTERN CGAffineTransform CGAffineTransformMakeTranslation(CGFloat tx,
-  CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+CG_EXTERN CGAffineTransform CGAffineTransformMakeTranslation(Float tx,
+  Float ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Return a transform which scales by `(sx, sy)':
      t' = [ sx 0 0 sy 0 0 ] 
 
-CG_EXTERN CGAffineTransform CGAffineTransformMakeScale(CGFloat sx, CGFloat sy)
+CG_EXTERN CGAffineTransform CGAffineTransformMakeScale(Float sx, Float sy)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Return a transform which rotates by `angle' radians:
      t' = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] 
 
-CG_EXTERN CGAffineTransform CGAffineTransformMakeRotation(CGFloat angle)
+CG_EXTERN CGAffineTransform CGAffineTransformMakeRotation(Float angle)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Return true if `t' is the identity transform, false otherwise. 
@@ -52,19 +52,19 @@ CG_EXTERN bool CGAffineTransformIsIdentity(CGAffineTransform t)
      t' = [ 1 0 0 1 tx ty ] * t 
 
 CG_EXTERN CGAffineTransform CGAffineTransformTranslate(CGAffineTransform t,
-  CGFloat tx, CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  Float tx, Float ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Scale `t' by `(sx, sy)' and return the result:
      t' = [ sx 0 0 sy 0 0 ] * t 
 
 CG_EXTERN CGAffineTransform CGAffineTransformScale(CGAffineTransform t,
-  CGFloat sx, CGFloat sy) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  Float sx, Float sy) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Rotate `t' by `angle' radians and return the result:
      t' =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t 
 
 CG_EXTERN CGAffineTransform CGAffineTransformRotate(CGAffineTransform t,
-  CGFloat angle) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  Float angle) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
  Invert `t' and return the result. If `t' has zero determinant, then `t'
    is returned unchanged. 
@@ -110,8 +110,8 @@ CG_EXTERN CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform t)
 ** Definitions of inline functions. **
 
 CG_INLINE CGAffineTransform
-__CGAffineTransformMake(CGFloat a, CGFloat b, CGFloat c, CGFloat d,
-  CGFloat tx, CGFloat ty)
+__CGAffineTransformMake(Float a, Float b, Float c, Float d,
+  Float tx, Float ty)
 {
   CGAffineTransform t;
   t.a = a; t.b = b; t.c = c; t.d = d; t.tx = tx; t.ty = ty;
@@ -123,8 +123,8 @@ CG_INLINE CGPoint
 __CGPointApplyAffineTransform(CGPoint point, CGAffineTransform t)
 {
   CGPoint p;
-  p.x = (CGFloat)((double)t.a * point.x + (double)t.c * point.y + t.tx);
-  p.y = (CGFloat)((double)t.b * point.x + (double)t.d * point.y + t.ty);
+  p.x = (Float)((double)t.a * point.x + (double)t.c * point.y + t.tx);
+  p.y = (Float)((double)t.b * point.x + (double)t.d * point.y + t.ty);
   return p;
 }
 #define CGPointApplyAffineTransform __CGPointApplyAffineTransform
@@ -133,8 +133,8 @@ CG_INLINE CGSize
 __CGSizeApplyAffineTransform(CGSize size, CGAffineTransform t)
 {
   CGSize s;
-  s.width = (CGFloat)((double)t.a * size.width + (double)t.c * size.height);
-  s.height = (CGFloat)((double)t.b * size.width + (double)t.d * size.height);
+  s.width = (Float)((double)t.a * size.width + (double)t.c * size.height);
+  s.height = (Float)((double)t.b * size.width + (double)t.d * size.height);
   return s;
 }
 #define CGSizeApplyAffineTransform __CGSizeApplyAffineTransform

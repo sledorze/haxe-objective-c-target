@@ -119,10 +119,10 @@ APPKIT_EXTERN const NSWindowDepth *NSAvailableWindowDepths (void); /* 0 terminat
 
 /* Standard gray values for the 2-bit deep grayscale colorspace.
 */
-APPKIT_EXTERN const CGFloat NSWhite;
-APPKIT_EXTERN const CGFloat NSLightGray;
-APPKIT_EXTERN const CGFloat NSDarkGray;
-APPKIT_EXTERN const CGFloat NSBlack;
+APPKIT_EXTERN const Float NSWhite;
+APPKIT_EXTERN const Float NSLightGray;
+APPKIT_EXTERN const Float NSDarkGray;
+APPKIT_EXTERN const Float NSBlack;
 
 
 /* Keys for deviceDescription dictionaries.
@@ -139,17 +139,17 @@ APPKIT_EXTERN NSString *NSDeviceSize;			/* NSValue containing NSSize */
 */
 APPKIT_EXTERN void NSRectFill(NSRect aRect);
 APPKIT_EXTERN void NSRectFillList(const NSRect *rects, NSInteger count);
-APPKIT_EXTERN void NSRectFillListWithGrays(const NSRect *rects, const CGFloat *grays, NSInteger num);
+APPKIT_EXTERN void NSRectFillListWithGrays(const NSRect *rects, const Float *grays, NSInteger num);
 APPKIT_EXTERN void NSRectFillListWithColors(const NSRect *rects, NSColor * const *colors, NSInteger num);
 APPKIT_EXTERN void NSRectFillUsingOperation(NSRect aRect, NSCompositingOperation op);
 APPKIT_EXTERN void NSRectFillListUsingOperation(const NSRect *rects, NSInteger count, NSCompositingOperation op);
 APPKIT_EXTERN void NSRectFillListWithColorsUsingOperation(const NSRect *rects, NSColor * const *colors, NSInteger num, NSCompositingOperation op);
 APPKIT_EXTERN void NSFrameRect(NSRect aRect);
-APPKIT_EXTERN void NSFrameRectWithWidth(NSRect aRect, CGFloat frameWidth);
-APPKIT_EXTERN void NSFrameRectWithWidthUsingOperation(NSRect aRect, CGFloat frameWidth, NSCompositingOperation op);
+APPKIT_EXTERN void NSFrameRectWithWidth(NSRect aRect, Float frameWidth);
+APPKIT_EXTERN void NSFrameRectWithWidthUsingOperation(NSRect aRect, Float frameWidth, NSCompositingOperation op);
 APPKIT_EXTERN void NSRectClip(NSRect aRect);
 APPKIT_EXTERN void NSRectClipList(const NSRect *rects, NSInteger count);
-APPKIT_EXTERN NSRect NSDrawTiledRects(NSRect boundsRect, NSRect clipRect, const NSRectEdge *sides, const CGFloat *grays, NSInteger count);
+APPKIT_EXTERN NSRect NSDrawTiledRects(NSRect boundsRect, NSRect clipRect, const NSRectEdge *sides, const Float *grays, NSInteger count);
 APPKIT_EXTERN void NSDrawGrayBezel(NSRect aRect, NSRect clipRect);
 APPKIT_EXTERN void NSDrawGroove(NSRect aRect, NSRect clipRect);
 APPKIT_EXTERN void NSDrawWhiteBezel(NSRect aRect, NSRect clipRect);

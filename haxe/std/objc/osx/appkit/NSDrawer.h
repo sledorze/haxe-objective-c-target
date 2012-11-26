@@ -38,8 +38,8 @@ extern class NSDrawer : NSResponder
     NSRectEdge 		_drawerPreferredEdge;
     float 		_drawerPercent;
     float 		_drawerPercentSaved;
-    CGFloat		_drawerLeadingOffset;
-    CGFloat		_drawerTrailingOffset;
+    Float		_drawerLeadingOffset;
+    Float		_drawerTrailingOffset;
     NSLock 		*_drawerLock;
     NSWindow		*_drawerWindow;
     NSWindow 		*_drawerParentWindow;
@@ -83,10 +83,10 @@ extern class NSDrawer : NSResponder
 - (void)setMaxContentSize:(NSSize)size;
 - (NSSize)maxContentSize;
 
-- (void)setLeadingOffset:(CGFloat)offset;
-- (CGFloat)leadingOffset;
-- (void)setTrailingOffset:(CGFloat)offset;
-- (CGFloat)trailingOffset;
+- (void)setLeadingOffset:(Float)offset;
+- (Float)leadingOffset;
+- (void)setTrailingOffset:(Float)offset;
+- (Float)trailingOffset;
 
 }
 

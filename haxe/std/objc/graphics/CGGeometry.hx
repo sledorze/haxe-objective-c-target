@@ -59,47 +59,47 @@ typedef enum CGRectEdge CGRectEdge;*/
 
 /* Make a point from `(x, y)'. */
 
-/*CG_INLINE CGPoint CGPointMake(CGFloat x, CGFloat y);*/
+/*CG_INLINE CGPoint CGPointMake(Float x, Float y);*/
 
 /* Make a size from `(width, height)'. */
 
-/*CG_INLINE CGSize CGSizeMake(CGFloat width, CGFloat height);*/
+/*CG_INLINE CGSize CGSizeMake(Float width, Float height);*/
 
 /* Make a rect from `(x, y; width, height)'. */
 
-/*CG_INLINE CGRect CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height);*/
+/*CG_INLINE CGRect CGRectMake(Float x, Float y, Float width, Float height);*/
 
 /* Return the leftmost x-value of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetMinX(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetMinX(CGRect rect)*/
 
 /* Return the midpoint x-value of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetMidX(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetMidX(CGRect rect)*/
 
 /* Return the rightmost x-value of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetMaxX(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetMaxX(CGRect rect)*/
 
 /* Return the bottommost y-value of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetMinY(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetMinY(CGRect rect)*/
 
 /* Return the midpoint y-value of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetMidY(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetMidY(CGRect rect)*/
 
 /* Return the topmost y-value of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetMaxY(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetMaxY(CGRect rect)*/
 
 /* Return the width of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetWidth(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetWidth(CGRect rect)*/
 
 /* Return the height of `rect'. */
 
-/*CG_EXTERN CGFloat CGRectGetHeight(CGRect rect)*/
+/*CG_EXTERN Float CGRectGetHeight(CGRect rect)*/
 
 /* Return true if `point1' and `point2' are the same, false otherwise. */
 
@@ -134,7 +134,7 @@ typedef enum CGRectEdge CGRectEdge;*/
 /* Inset `rect' by `(dx, dy)' -- i.e., offset its origin by `(dx, dy)', and
    decrease its size by `(2*dx, 2*dy)'. */
 
-/*CG_EXTERN CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)*/
+/*CG_EXTERN CGRect CGRectInset(CGRect rect, Float dx, Float dy)*/
 
 /* Expand `rect' to the smallest rect containing it with integral origin and
    size. */
@@ -151,7 +151,7 @@ typedef enum CGRectEdge CGRectEdge;*/
 
 /* Offset `rect' by `(dx, dy)'. */
 
-/*CG_EXTERN CGRect CGRectOffset(CGRect rect, CGFloat dx, CGFloat dy)*/
+/*CG_EXTERN CGRect CGRectOffset(CGRect rect, Float dx, Float dy)*/
 
 /* Make two new rectangles, `slice' and `remainder', by dividing `rect' with
    a line that's parallel to one of its sides, specified by `edge' -- either
@@ -159,7 +159,7 @@ typedef enum CGRectEdge CGRectEdge;*/
    `CGRectMaxYEdge'. The size of `slice' is determined by `amount', which
    measures the distance from the specified edge. */
 
-/*	   CG_EXTERN void CGRectDivide(CGRect rect, CGRect *slice, CGRect *remainder, CGFloat amount, CGRectEdge edge)*/
+/*	   CG_EXTERN void CGRectDivide(CGRect rect, CGRect *slice, CGRect *remainder, Float amount, CGRectEdge edge)*/
 
 /* Return true if `point' is contained in `rect', false otherwise. */
 
@@ -212,19 +212,19 @@ typedef enum CGRectEdge CGRectEdge;*/
 /*** Definitions of inline functions. ***/
 
 /*CG_INLINE CGPoint
-CGPointMake(CGFloat x, CGFloat y)
+CGPointMake(Float x, Float y)
 {
   CGPoint p; p.x = x; p.y = y; return p;
 }
 
 CG_INLINE CGSize
-CGSizeMake(CGFloat width, CGFloat height)
+CGSizeMake(Float width, Float height)
 {
   CGSize size; size.width = width; size.height = height; return size;
 }
 
 CG_INLINE CGRect
-CGRectMake(CGFloat x, CGFloat y, CGFloat width, CGFloat height)
+CGRectMake(Float x, Float y, Float width, Float height)
 {
   CGRect rect;
   rect.origin.x = x; rect.origin.y = y;

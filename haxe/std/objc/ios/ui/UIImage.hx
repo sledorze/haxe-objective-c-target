@@ -33,25 +33,25 @@ extern class UIImage extends NSObject, implements NSObject {
 
 + (UIImage *)imageWithContentsOfFile:(NSString *)path;
 + (UIImage *)imageWithData:(NSData *)data;
-+ (UIImage *)imageWithData:(NSData *)data scale:(CGFloat)scale NS_AVAILABLE_IOS(6_0);
++ (UIImage *)imageWithData:(NSData *)data scale:(Float)scale NS_AVAILABLE_IOS(6_0);
 + (UIImage *)imageWithCGImage:(CGImageRef)cgImage;
-+ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
++ (UIImage *)imageWithCGImage:(CGImageRef)cgImage scale:(Float)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
 + (UIImage *)imageWithCIImage:(CIImage *)ciImage NS_AVAILABLE_IOS(5_0);
-+ (UIImage *)imageWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
++ (UIImage *)imageWithCIImage:(CIImage *)ciImage scale:(Float)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
 
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithData:(NSData *)data;
-- (id)initWithData:(NSData *)data scale:(CGFloat)scale NS_AVAILABLE_IOS(6_0);
+- (id)initWithData:(NSData *)data scale:(Float)scale NS_AVAILABLE_IOS(6_0);
 - (id)initWithCGImage:(CGImageRef)cgImage;
-- (id)initWithCGImage:(CGImageRef)cgImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
+- (id)initWithCGImage:(CGImageRef)cgImage scale:(Float)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(4_0);
 - (id)initWithCIImage:(CIImage *)ciImage NS_AVAILABLE_IOS(5_0);
-- (id)initWithCIImage:(CIImage *)ciImage scale:(CGFloat)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
+- (id)initWithCIImage:(CIImage *)ciImage scale:(Float)scale orientation:(UIImageOrientation)orientation NS_AVAILABLE_IOS(6_0);
 
 	public var (default, null) CGSize             size;             // reflects orientation setting. In iOS 4.0 and later, this is measured in points. In 3.x and earlier, measured in pixels
 	public var (default, null) CGImageRef         CGImage;          // returns underlying CGImageRef or nil if CIImage based
 	public var (default, null) CIImage           *CIImage NS_AVAILABLE_IOS(5_0); // returns underlying CIImage or nil if CGImageRef based
 	public var (default, null) UIImageOrientation imageOrientation; // this will affect how the image is composited
-	public var (default, null) CGFloat            scale NS_AVAILABLE_IOS(4_0);
+	public var (default, null) Float            scale NS_AVAILABLE_IOS(4_0);
 
 // animated images. When set as UIImageView.image, animation will play in an infinite loop until removed. Drawing will render the first image
 
@@ -66,9 +66,9 @@ extern class UIImage extends NSObject, implements NSObject {
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 
 	public function drawAtPoint:(CGPoint)point;                                                        // mode = kCGBlendModeNormal, alpha = 1.0
-	public function drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function drawAtPoint:(CGPoint)point blendMode:(CGBlendMode)blendMode alpha:(Float)alpha;
 	public function drawInRect:(CGRect)rect;                                                           // mode = kCGBlendModeNormal, alpha = 1.0
-	public function drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function drawInRect:(CGRect)rect blendMode:(CGBlendMode)blendMode alpha:(Float)alpha;
 
 	public function drawAsPatternInRect:(CGRect)rect; // draws the image as a CGPattern
 
@@ -98,4 +98,4 @@ extern class CIImage(UIKitAdditions)
 }
 
 UIKIT_EXTERN NSData *UIImagePNGRepresentation(UIImage *image);                               // return image as PNG. May return nil if image has no CGImageRef or invalid bitmap format
-UIKIT_EXTERN NSData *UIImageJPEGRepresentation(UIImage *image, CGFloat compressionQuality); */
+UIKIT_EXTERN NSData *UIImageJPEGRepresentation(UIImage *image, Float compressionQuality); */

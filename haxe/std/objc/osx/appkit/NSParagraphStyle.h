@@ -41,7 +41,7 @@ extern class NSTextTab extends NSObject, implements NSCopying, NSCoding> {
         unsigned int :32;
 #endif
     } _flags;
-    CGFloat _location;
+    Float _location;
     id _reserved;
 }
 
@@ -61,24 +61,24 @@ NSRightTabStopType -> NSRightTextAlignment
 NSCenterTabStopType -> NSCenterTextAlignment
 NSDecimalTabStopType -> NSRightTextAlignment with the decimal character for the user setting
 */
-- (id)initWithTextAlignment:(NSTextAlignment)alignment location:(CGFloat)loc options:(NSDictionary *)options;
+- (id)initWithTextAlignment:(NSTextAlignment)alignment location:(Float)loc options:(NSDictionary *)options;
 
 - (NSTextAlignment)alignment;
 - (NSDictionary *)options;
-- (id)initWithType:(NSTextTabType)type location:(CGFloat)loc;
-- (CGFloat)location;
+- (id)initWithType:(NSTextTabType)type location:(Float)loc;
+- (Float)location;
 - (NSTextTabType)tabStopType;
 }
 
 extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableCopying, NSCoding> {
     /*All instance variables are private*/
-    CGFloat _lineSpacing;
-    CGFloat _paragraphSpacing;
-    CGFloat _headIndent;
-    CGFloat _tailIndent;
-    CGFloat _firstLineHeadIndent;
-    CGFloat _minimumLineHeight;
-    CGFloat _maximumLineHeight;
+    Float _lineSpacing;
+    Float _paragraphSpacing;
+    Float _headIndent;
+    Float _tailIndent;
+    Float _firstLineHeadIndent;
+    Float _minimumLineHeight;
+    Float _maximumLineHeight;
     NSArray *_tabStops;
     struct {
 	NSTextAlignment alignment:4;
@@ -92,7 +92,7 @@ extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableC
         unsigned int :32;
 #endif
     } _flags;
-    CGFloat _defaultTabInterval;
+    Float _defaultTabInterval;
     id _extraData;
 }
 
@@ -100,27 +100,27 @@ extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableC
 
 + (NSWritingDirection)defaultWritingDirectionForLanguage:(NSString *)languageName;  // languageName is in ISO lang region format
 
-- (CGFloat)lineSpacing;		/* "Leading": distance between the bottom of one line fragment and top of next (applied between lines in the same container). Can't be negative. This value is included in the line fragment heights in layout manager. */
-- (CGFloat)paragraphSpacing; 	/* Distance between the bottom of this paragraph and top of next (or the beginning of its paragraphSpacingBefore, if any). */
+- (Float)lineSpacing;		/* "Leading": distance between the bottom of one line fragment and top of next (applied between lines in the same container). Can't be negative. This value is included in the line fragment heights in layout manager. */
+- (Float)paragraphSpacing; 	/* Distance between the bottom of this paragraph and top of next (or the beginning of its paragraphSpacingBefore, if any). */
 - (NSTextAlignment)alignment;
 
 /* The following values are relative to the appropriate margin (depending on the paragraph direction) */
    
-- (CGFloat)headIndent;		/* Distance from margin to front edge of paragraph */
-- (CGFloat)tailIndent;		/* Distance from margin to back edge of paragraph; if negative or 0, from other margin */
-- (CGFloat)firstLineHeadIndent;	/* Distance from margin to edge appropriate for text direction */
+- (Float)headIndent;		/* Distance from margin to front edge of paragraph */
+- (Float)tailIndent;		/* Distance from margin to back edge of paragraph; if negative or 0, from other margin */
+- (Float)firstLineHeadIndent;	/* Distance from margin to edge appropriate for text direction */
 - (NSArray *)tabStops;		/* Distance from margin to tab stops */
 
-- (CGFloat)minimumLineHeight;	/* Line height is the distance from bottom of descenders to top of ascenders; basically the line fragment height. Does not include lineSpacing (which is added after this computation). */
-- (CGFloat)maximumLineHeight;	/* 0 implies no maximum. */ 
+- (Float)minimumLineHeight;	/* Line height is the distance from bottom of descenders to top of ascenders; basically the line fragment height. Does not include lineSpacing (which is added after this computation). */
+- (Float)maximumLineHeight;	/* 0 implies no maximum. */ 
 
 - (NSLineBreakMode)lineBreakMode;
 
 - (NSWritingDirection)baseWritingDirection;
 
-- (CGFloat)lineHeightMultiple;	/* Natural line height is multiplied by this factor (if positive) before being constrained by minimum and maximum line height. */
-- (CGFloat)paragraphSpacingBefore;/* Distance between the bottom of the previous paragraph (or the end of its paragraphSpacing, if any) and the top of this paragraph. */
-- (CGFloat)defaultTabInterval;	/* Tabs after the last specified in tabStops are placed at integral multiples of this distance (if positive). */ 
+- (Float)lineHeightMultiple;	/* Natural line height is multiplied by this factor (if positive) before being constrained by minimum and maximum line height. */
+- (Float)paragraphSpacingBefore;/* Distance between the bottom of the previous paragraph (or the end of its paragraphSpacing, if any) and the top of this paragraph. */
+- (Float)defaultTabInterval;	/* Tabs after the last specified in tabStops are placed at integral multiples of this distance (if positive). */ 
 
 - (NSArray *)textBlocks;    /* Array to specify the text blocks containing the paragraph, nested from outermost to innermost. */
 - (NSArray *)textLists;     /* Array to specify the text lists containing the paragraph, nested from outermost to innermost. */
@@ -140,23 +140,23 @@ extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableC
 
 extern class NSMutableParagraphStyle : NSParagraphStyle
 
-- (void)setLineSpacing:(CGFloat)aFloat;
-- (void)setParagraphSpacing:(CGFloat)aFloat;
+- (void)setLineSpacing:(Float)aFloat;
+- (void)setParagraphSpacing:(Float)aFloat;
 - (void)setAlignment:(NSTextAlignment)alignment;
-- (void)setFirstLineHeadIndent:(CGFloat)aFloat;
-- (void)setHeadIndent:(CGFloat)aFloat;
-- (void)setTailIndent:(CGFloat)aFloat;
+- (void)setFirstLineHeadIndent:(Float)aFloat;
+- (void)setHeadIndent:(Float)aFloat;
+- (void)setTailIndent:(Float)aFloat;
 - (void)setLineBreakMode:(NSLineBreakMode)mode;
-- (void)setMinimumLineHeight:(CGFloat)aFloat;
-- (void)setMaximumLineHeight:(CGFloat)aFloat;
+- (void)setMinimumLineHeight:(Float)aFloat;
+- (void)setMaximumLineHeight:(Float)aFloat;
 - (void)addTabStop:(NSTextTab *)anObject;
 - (void)removeTabStop:(NSTextTab *)anObject;
 - (void)setTabStops:(NSArray *)array;
 - (void)setParagraphStyle:(NSParagraphStyle *)obj;
 - (void)setBaseWritingDirection:(NSWritingDirection)writingDirection;
-- (void)setLineHeightMultiple:(CGFloat)aFloat;
-- (void)setParagraphSpacingBefore:(CGFloat)aFloat;
-- (void)setDefaultTabInterval:(CGFloat)aFloat;
+- (void)setLineHeightMultiple:(Float)aFloat;
+- (void)setParagraphSpacingBefore:(Float)aFloat;
+- (void)setDefaultTabInterval:(Float)aFloat;
 - (void)setTextBlocks:(NSArray *)array;
 - (void)setTextLists:(NSArray *)array;
 - (void)setHyphenationFactor:(float)aFactor;

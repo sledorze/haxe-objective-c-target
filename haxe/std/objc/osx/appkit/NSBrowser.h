@@ -154,8 +154,8 @@ extern class NSBrowser : NSControl
 - (BOOL)separatesColumns;
 - (void)setTitled:(BOOL)flag;
 - (BOOL)isTitled;
-- (void)setMinColumnWidth:(CGFloat)columnWidth;
-- (CGFloat)minColumnWidth;
+- (void)setMinColumnWidth:(Float)columnWidth;
+- (Float)minColumnWidth;
 
 - (void)setMaxVisibleColumns:(NSInteger)columnCount;
 - (NSInteger)maxVisibleColumns;
@@ -291,7 +291,7 @@ extern class NSBrowser : NSControl
 
 - (NSRect)titleFrameOfColumn:(NSInteger)column;
 - (void)drawTitleOfColumn:(NSInteger)column inRect:(NSRect)aRect;
-- (CGFloat)titleHeight;
+- (Float)titleHeight;
 - (NSRect)frameOfColumn:(NSInteger)column;
 - (NSRect)frameOfInsideOfColumn:(NSInteger)column;
 
@@ -305,8 +305,8 @@ extern class NSBrowser : NSControl
 
 /* These methods convert between column width (the column's scrollview), and the content width (the matrix in the scrollview).  For example, to guarantee that 16 pixels of your browser cell are always visible, call [browser setMinColumnWidth:[browser columnWidthForColumnContentWidth:16]] 
 */
-- (CGFloat)columnWidthForColumnContentWidth:(CGFloat)columnContentWidth;
-- (CGFloat)columnContentWidthForColumnWidth:(CGFloat)columnWidth;
+- (Float)columnWidthForColumnContentWidth:(Float)columnContentWidth;
+- (Float)columnContentWidthForColumnWidth:(Float)columnWidth;
 
 /* Default is NSBrowserAutoColumnResizing.  This setting is persistent. 
  */
@@ -320,13 +320,13 @@ extern class NSBrowser : NSControl
 
 /* setWidth:ofColumn: does nothing if columnResizingType is NSBrowserAutoColumnResizing.  Otherwise, Sets the width of the specified column.  Due to binary compatibility constraints, you may still set the default width for new columns by passing a columnIndex of -1; you are encouraged to use -setDefaultColumnWidth: instead.  NSBrowserColumnConfigurationDidChangeNotification will be posted (not immediately) if necessary.  The receiver will autosave its column configuration if necessary. 
  */
-- (void)setWidth:(CGFloat)columnWidth ofColumn:(NSInteger)columnIndex;
-- (CGFloat)widthOfColumn:(NSInteger)column;
+- (void)setWidth:(Float)columnWidth ofColumn:(NSInteger)columnIndex;
+- (Float)widthOfColumn:(NSInteger)column;
 
 /* Get and set the rowHeight. The value must be greater than 0. Calling -setRowHeight: with a non-pixel aligning (fractional) value will be forced to a pixel aligning (integral) value. For variable row height browsers (ones that have the delegate implement -browser:heightOfRow:column:), -rowHeight will be used to draw alternating rows past the last row in each browser column. The default value is 17.0. Note: The rowHeight methods are only valid when using the item delegate methods introduced in Mac OS 10.6. (see NSObject(NSBrowserDelegate)). An exception is thrown if using the older matrix delegate methods 
  */
-- (void)setRowHeight:(CGFloat)height NS_AVAILABLE_MAC(10_6);
-- (CGFloat)rowHeight NS_AVAILABLE_MAC(10_6);
+- (void)setRowHeight:(Float)height NS_AVAILABLE_MAC(10_6);
+- (Float)rowHeight NS_AVAILABLE_MAC(10_6);
 
 /* If the delegate implements -browser:heightOfRow:inColumn:, this method immediately re-tiles the browser columns using row heights it provides.
 */
@@ -335,8 +335,8 @@ extern class NSBrowser : NSControl
 
 /* Persistently sets the default width for new columns which don't otherwise have initial width from either defaults or the delegate. This method replaces -setWidth:ofColumn: with a columnIndex of -1. 
  */
-- (void)setDefaultColumnWidth:(CGFloat)columnWidth NS_AVAILABLE_MAC(10_6);
-- (CGFloat)defaultColumnWidth NS_AVAILABLE_MAC(10_6);
+- (void)setDefaultColumnWidth:(Float)columnWidth NS_AVAILABLE_MAC(10_6);
+- (Float)defaultColumnWidth NS_AVAILABLE_MAC(10_6);
 
 /* Sets the name used to automatically save the receivers column configuration.  This setting is persistent.  If name is different from the current name, this method also reads in the saved column configuration for the new name and applies the values to the browser.  Column configuration is defined as an array of column content widths.  One width is saved for each level the user has reached.  That is, browser saves column width based on depth, not based on unique paths.  To do more complex column persistence, you should register for NSBrowserColumnConfigurationDidChangeNotifications and handle persistence yourself. 
  */
@@ -429,7 +429,7 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification;
 /* Optional - Variable Row Heights
     Implement this method to support varying row heights per column.  The height returned by this method should not include intercell spacing and must be greater than zero.  NSBrowser may cache the values this method returns.  So if you would like to change a row's height make sure to invalidate the row height by calling -noteHeightOfRowsWithIndexesChanged:inColumn:.
 */
-- (CGFloat)browser:(NSBrowser *)browser heightOfRow:(NSInteger)row inColumn:(NSInteger)columnIndex NS_AVAILABLE_MAC(10_6);
+- (Float)browser:(NSBrowser *)browser heightOfRow:(NSInteger)row inColumn:(NSInteger)columnIndex NS_AVAILABLE_MAC(10_6);
 
 #pragma mark -
 
@@ -479,12 +479,12 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification;
 /* Optional for browsers with resize type NSBrowserNoColumnResizing, and NSBrowserUserColumnResizing.
  This method is used for both constraining column resize, and determining a columns initial size.  If 'forUserResize' is NO, this method should return the initial width for a newly added column.  If 'forUserResize' is YES, this method can be used to constrain resizing on a per-column basis.  (Currently per-column constraining is not implemented, so forUserResize will always be NO).
  */
-- (CGFloat)browser:(NSBrowser *)browser shouldSizeColumn:(NSInteger)columnIndex forUserResize:(BOOL)forUserResize toWidth:(CGFloat)suggestedWidth;
+- (Float)browser:(NSBrowser *)browser shouldSizeColumn:(NSInteger)columnIndex forUserResize:(BOOL)forUserResize toWidth:(Float)suggestedWidth;
 
 /* Optional for browsers with resize type NSBrowserUserColumnResizing only.
  This method returns the "ideal" width for a column.  This method is used when performing a "right-size-each" or "right-size-one" operation.  If columnIndex is -1, the result is used for a "right-size-all-simultaneous" operation.  In this case, you should return a best uniform right size for all column (every column will be set to this size).  You can opt out on a per column basis by returning -1 for that column. It is assumed that the implementation may be expensive, so it will be called only when necessary.  (See documentation for definitions of right-size one/each/all). 
  */
-- (CGFloat)browser:(NSBrowser *)browser sizeToFitWidthOfColumn:(NSInteger)columnIndex;
+- (Float)browser:(NSBrowser *)browser sizeToFitWidthOfColumn:(NSInteger)columnIndex;
 
 /* Optional and used for browsers with resize type NSBrowserUserColumnResizing only.
  This method is intended to be used by clients wishing to implement their own column width persistence.  It is called when the width of any browser columns has changed.  User column resizing will cause a single notification to be posted when the user is finished resizing.  (See NSBrowserColumnConfigurationDidChangeNotification for more information.)  

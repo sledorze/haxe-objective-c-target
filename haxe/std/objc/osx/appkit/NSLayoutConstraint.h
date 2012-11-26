@@ -69,13 +69,13 @@ enum {
 typedef NSInteger NSLayoutConstraintOrientation;
 
 typedef struct {
-    CGFloat top; 
-    CGFloat left; 
-    CGFloat bottom;
-    CGFloat right;
+    Float top; 
+    Float left; 
+    Float bottom;
+    Float right;
 } NSEdgeInsets;
 
-NS_INLINE NSEdgeInsets NSEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) {
+NS_INLINE NSEdgeInsets NSEdgeInsetsMake(Float top, Float left, Float bottom, Float right) {
     NSEdgeInsets e;
     e.top = top;
     e.left = left;
@@ -106,8 +106,8 @@ extern class NSLayoutConstraint extends NSObject <NSAnimatablePropertyContainer>
     NSView *_container;
     id _firstItem;
     id _secondItem;
-    CGFloat _constant;
-    CGFloat _loweredConstant;
+    Float _constant;
+    Float _loweredConstant;
     id _marker;
     id _negativeError;    
     float _coefficient;
@@ -130,7 +130,7 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
 /* Create constraints explicitly.  Constraints are of the form "view1.attr1 = view2.attr2 * multiplier + constant" 
  If your equation does not have a second view and attribute, use nil and NSLayoutAttributeNotAnAttribute.
  */
-+(id)constraintWithItem:(id)view1 attribute:(NSLayoutAttribute)attr1 relatedBy:(NSLayoutRelation)relation toItem:(id)view2 attribute:(NSLayoutAttribute)attr2 multiplier:(CGFloat)multiplier constant:(CGFloat)c;
++(id)constraintWithItem:(id)view1 attribute:(NSLayoutAttribute)attr1 relatedBy:(NSLayoutRelation)relation toItem:(id)view2 attribute:(NSLayoutAttribute)attr2 multiplier:(Float)multiplier constant:(Float)c;
 
 /* If a constraint's priority level is less than NSLayoutPriorityRequired, then it is optional.  Higher priority constraints are met before lower priority constraints.
  Constraint satisfaction is not all or nothing.  If a constraint 'a == b' is optional, that means we will attempt to minimize 'abs(a-b)'.
@@ -151,11 +151,11 @@ APPKIT_EXTERN NSDictionary *_NSDictionaryOfVariableBindings(NSString *commaSepar
 	public var NSLayoutRelation relation;
 	public var (default, null) id secondItem;
 	public var NSLayoutAttribute secondAttribute;
-	public var CGFloat multiplier;
+	public var Float multiplier;
 
 /* Unlike the other properties, the constant may be modified after constraint creation.  Setting the constant on an existing constraint performs much better than removing the constraint and adding a new one that's just like the old but for having a new constant.
  */
-	public var  CGFloat constant;
+	public var  Float constant;
 
 }
 
@@ -240,7 +240,7 @@ extern class NSView (NSConstraintBasedLayoutLayering)
 
 /* override this to provide the distance between NSLayoutAttributeBottom and NSLayoutAttributeBaseline.  NSView's implementation returns zero.
  */
-- (CGFloat)baselineOffsetFromBottom NS_AVAILABLE_MAC(10_7);
+- (Float)baselineOffsetFromBottom NS_AVAILABLE_MAC(10_7);
 
 
 /* Override this method to tell the layout system that there is something it doesn't natively understand in this view, and this is how large it intrinsically is.  A typical example would be a single line text field.  The layout system does not understand text - it must just be told that there's something in the view, and that that something will take a certain amount of space if not clipped.  
@@ -258,7 +258,7 @@ extern class NSView (NSConstraintBasedLayoutLayering)
  
  Note that not all views have an intrinsicContentSize.  A horizontal slider has an intrinsic height, but no intrinsic width - the slider artwork has no intrinsic best width.  A horizontal NSSlider returns (NSViewNoInstrinsicMetric, <slider height>) for intrinsicContentSize.  An NSBox returns (NSViewNoInstrinsicMetric, NSViewNoInstrinsicMetric).  The _intrinsic_ content size is concerned only with data that is in the view itself, not in other views.
  */
-APPKIT_EXTERN const CGFloat NSViewNoInstrinsicMetric; // -1
+APPKIT_EXTERN const Float NSViewNoInstrinsicMetric; // -1
 - (NSSize)intrinsicContentSize NS_AVAILABLE_MAC(10_7);
 - (void)invalidateIntrinsicContentSize NS_AVAILABLE_MAC(10_7); // call this when something changes that affects the intrinsicContentSize.  Otherwise AppKit won't notice that it changed.  
 

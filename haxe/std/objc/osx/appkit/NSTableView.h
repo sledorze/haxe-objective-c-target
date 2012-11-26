@@ -77,7 +77,7 @@ extern class NSTableView : NSControl <NSUserInterfaceValidations, NSTextViewDele
     id                  _delegate;
     id                  _dataSource;
     NSSize              _intercellSpacing;
-    CGFloat             _rowHeight;
+    Float             _rowHeight;
     NSInteger           _lastSelectedColumn;
     NSInteger           _lastSelectedRow;
     NSInteger           _editingRow;
@@ -228,8 +228,8 @@ typedef NSInteger NSTableViewRowSizeStyle;
 
 /* Get and set the rowHeight. The value must be greater than 0. Calling -setRowHeight: with a non-pixel aligning (fractional) value will be forced to a pixel aligning (integral) value. For variable row height tableViews (ones that have the delegate implement -tableView:heightOfRow:), -rowHeight will be used to draw alternating rows past the last row in the tableView. The actual -rectOfRow: is equal to the -rowHeight plus the intercellSpacing.height. The default value is 17.0 for applications linked on 10.5 and higher (the height acceptable for [NSFont systemFontSize]). The default value is 16.0 for 10.4 and lower.
  */
-- (void)setRowHeight:(CGFloat)rowHeight;
-- (CGFloat)rowHeight;
+- (void)setRowHeight:(Float)rowHeight;
+- (Float)rowHeight;
 
 /* If the delegate implements -tableView:heightOfRow:, this method immediately re-tiles the table view using row heights it provides.
 */
@@ -724,7 +724,7 @@ typedef NSUInteger NSTableViewAnimationOptions;
 /* Optional - Variable Row Heights
     Implement this method to support a table with varying row heights. The height returned by this method should not include intercell spacing and must be greater than zero. Performance Considerations: For large tables in particular, you should make sure that this method is efficient. NSTableView may cache the values this method returns, but this should NOT be depended on, as all values may not be cached. To signal a row height change, call -noteHeightOfRowsWithIndexesChanged:. For a given row, the same row height should always be returned until -noteHeightOfRowsWithIndexesChanged: is called, otherwise unpredicable results will happen. NSTableView automatically invalidates its entire row height cache in -reloadData, and -noteNumberOfRowsChanged.
 */
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row;
+- (Float)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row;
 
 /* Optional - Type select support
     Implement this method if you want to control the string that is used for type selection. You may want to change what is searched for based on what is displayed, or simply return nil for that 'tableColumn' or 'row' to not be searched. By default, all cells with text in them are searched. The default value when this delegate method is not implemented is [[tableView preparedCellAtColumn:tableColumn row:row] stringValue], and this value can be returned from the delegate method if desired.
@@ -749,7 +749,7 @@ typedef NSUInteger NSTableViewAnimationOptions;
 /* Optional - Autosizing table columns
  Implement this method if you want to control how wide a column is made when the user double clicks on the resize divider. By default, NSTableView iterates every row in the table, accesses a cell via preparedCellAtRow:column:, and requests the "cellSize" to find the appropriate largest width to use. For large row counts, a monte carlo simulation is done instead of interating every row. For performance and accurate results, it is recommended that this method is implemented when using large tables.
  */
-- (CGFloat)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)column NS_AVAILABLE_MAC(10_6);
+- (Float)tableView:(NSTableView *)tableView sizeToFitWidthOfColumn:(NSInteger)column NS_AVAILABLE_MAC(10_6);
 
 /*  Optional - Control of column reordering.
  Specifies if the column can be reordered to a new location, or not. 'columnIndex' is the column that is being dragged. The actual NSTableColumn instance can be retrieved from the [tableView tableColumns] array. 'newColumnIndex' is the new proposed target location for 'columnIndex'. When a column is initially dragged by the user, the delegate is first called with a 'newColumnIndex' of -1. Returning NO will disallow that column from being reordered at all. Returning YES allows it to be reordered, and the delegate will be called again when the column reaches a new location. If this method is not implemented, all columns are considered reorderable. 

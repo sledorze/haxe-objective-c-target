@@ -49,34 +49,34 @@ extern class CAEmitterCell extends NSObject, implements NSObject, CAMediaTiming>
  * relative to the emission shape's direction. Both values are
  * animatable. */
 
-	public var  CGFloat emissionLatitude, emissionLongitude;
+	public var  Float emissionLatitude, emissionLongitude;
 
 /* An angle (in radians) defining a cone around the emission angle.
  * Emitted objects are uniformly distributed across this cone. Defaults
  * to zero.  Animatable. */
 
-	public var  CGFloat emissionRange;
+	public var  Float emissionRange;
 
 /* The initial mean velocity of each emitted object, and its range. Both
  * values default to zero. Animatable. */
 
-	public var  CGFloat velocity, velocityRange;
+	public var  Float velocity, velocityRange;
 
 /* The acceleration vector applied to emitted objects. Defaults to
  * (0, 0, 0). Animatable. */
 
-	public var  CGFloat xAcceleration, yAcceleration, zAcceleration;
+	public var  Float xAcceleration, yAcceleration, zAcceleration;
 
 /* The scale factor applied to each emitted object, defined as mean and
  * range about the mean. Scale defaults to one, range to zero.
  * Animatable. */
 
-	public var  CGFloat scale, scaleRange, scaleSpeed;
+	public var  Float scale, scaleRange, scaleSpeed;
 
 /* The rotation speed applied to each emitted object, defined as mean
  * and range about the mean. Defaults to zero. Animatable. */
 
-	public var  CGFloat spin, spinRange;
+	public var  Float spin, spinRange;
 
 /* The mean color of each emitted object, and the range from that mean
  * color. `color' defaults to opaque white, `colorRange' to (0, 0, 0,

@@ -20,7 +20,7 @@ extern interface UINavigationBarDelegate;
 extern class UINavigationBar extends UIView, implements NSObject> {
   @private
     NSMutableArray *_itemStack;
-    CGFloat         _rightMargin;
+    Float         _rightMargin;
     unsigned        _state;
     id              _delegate;
     UIView         *_backgroundView;
@@ -101,8 +101,8 @@ public var  NSArray *items;
  */
 public var  NSDictionary *titleTextAttributes NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
-	public function setTitleVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
-- (CGFloat)titleVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public function setTitleVerticalPositionAdjustment:(Float)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+- (Float)titleVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 }
 

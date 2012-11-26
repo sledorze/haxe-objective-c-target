@@ -221,6 +221,17 @@ class Tests implements Interface1, implements Interface2 {
 		Reflect.setField (obj, "a", "bbbbb");
 		Reflect.setProperty (this, "interfaceVar1", "bbbbb");
 		var p = Reflect.getProperty (this, "interfaceVar1");
+		Reflect.callMethod (this, testStd, []);
+		Reflect.callMethod (this, callLotsOfArguments, [1,2,3,4]);
+		var fs = Reflect.fields ( obj );
+		var isf = Reflect.isFunction ( testStd );
+		var i = Reflect.compare ( 1, 2 );
+		var cm = Reflect.compareMethods ( testStd, testString );
+		var isobj = Reflect.isObject ( obj );
+		isobj = Reflect.isObject ( testStd );
+		Reflect.deleteField ( obj, "a" );
+		var obj2 = Reflect.copy ( obj );
+		// makeVarArgs
 	}
 	
 	

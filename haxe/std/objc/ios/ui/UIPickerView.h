@@ -86,8 +86,8 @@ extern interface UIPickerViewDelegate<NSObject>
 @optional
 
 // returns width of column and height of row for each component. 
-- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component;
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
+- (Float)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component;
+- (Float)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
 
 // these methods return either a plain NSString, a NSAttributedString, or a view (e.g UILabel) to display the row for the component.
 // for the view versions, we cache any hidden and thus unused views and pass them back for reuse. 

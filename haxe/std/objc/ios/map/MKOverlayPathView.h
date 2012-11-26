@@ -15,11 +15,11 @@ extern class MKOverlayPathView : MKOverlayView {
 @package
     UIColor *_fillColor;
     UIColor *_strokeColor;
-    CGFloat _lineWidth;
+    Float _lineWidth;
     CGLineJoin _lineJoin;
     CGLineCap _lineCap;
-    CGFloat _miterLimit;
-    CGFloat _lineDashPhase;
+    Float _miterLimit;
+    Float _lineDashPhase;
     NSArray *_lineDashPattern;
     
     CGPathRef _path;
@@ -28,11 +28,11 @@ extern class MKOverlayPathView : MKOverlayView {
 	public var  (retain) UIColor *fillColor;
 	public var  (retain) UIColor *strokeColor;
 
-	public var  CGFloat lineWidth; // defaults to 0, which is MKRoadWidthAtZoomScale(currentZoomScale)
+	public var  Float lineWidth; // defaults to 0, which is MKRoadWidthAtZoomScale(currentZoomScale)
 	public var  CGLineJoin lineJoin; // defaults to kCGLineJoinRound
 	public var  CGLineCap lineCap; // defaults to kCGLineCapRound
-	public var  CGFloat miterLimit; // defaults to 10
-	public var  CGFloat lineDashPhase; // defaults to 0
+	public var  Float miterLimit; // defaults to 10
+	public var  Float lineDashPhase; // defaults to 0
 	public var  (copy) NSArray *lineDashPattern; // an array of NSNumbers, defaults to nil
 
 // subclassers should override this to create a path and then set it on

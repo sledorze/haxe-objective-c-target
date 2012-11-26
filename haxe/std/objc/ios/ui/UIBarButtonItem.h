@@ -66,7 +66,7 @@ extern class UIBarButtonItem : UIBarItem, implements NSObject> {
     UIImage      *_landscapeImagePhone;
     UIEdgeInsets  _imageInsets;
     UIEdgeInsets  _landscapeImagePhoneInsets;
-    CGFloat       _width;   
+    Float       _width;   
     UIView       *_view;
     NSInteger     _tag;
     id            _appearanceStorage;
@@ -90,7 +90,7 @@ extern class UIBarButtonItem : UIBarItem, implements NSObject> {
 - (id)initWithCustomView:(UIView *)customView;
 
 	public var          UIBarButtonItemStyle style;            // default is UIBarButtonItemStylePlain
-	public var          CGFloat              width;            // default is 0.0
+	public var          Float              width;            // default is 0.0
 public var     NSSet               *possibleTitles;   // default is nil
 	public var (nonatomic,retain)  UIView              *customView;       // default is nil
 	public var          SEL                  action;           // default is NULL
@@ -121,8 +121,8 @@ public var     NSSet               *possibleTitles;   // default is nil
 
 /* For adjusting the vertical centering of bordered bar buttons within the bar 
  */
-	public function setBackgroundVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR; 
-- (CGFloat)backgroundVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public function setBackgroundVerticalPositionAdjustment:(Float)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR; 
+- (Float)backgroundVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 /* For adjusting the position of a title (if any) within a bordered bar button 
  */
@@ -142,8 +142,8 @@ public var     NSSet               *possibleTitles;   // default is nil
 
 /* For adjusting the vertical centering of bordered bar buttons within the bar 
  */
-	public function setBackButtonBackgroundVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR; 
-- (CGFloat)backButtonBackgroundVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+	public function setBackButtonBackgroundVerticalPositionAdjustment:(Float)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR; 
+- (Float)backButtonBackgroundVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 }
 

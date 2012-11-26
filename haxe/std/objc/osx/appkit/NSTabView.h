@@ -45,7 +45,7 @@ extern class NSTabView : NSView
     NSTabViewItem	*_pressedTabViewItem;		// using during tracking
     NSInteger		_endTabWidth;			// Width of the end tab. It depends on the font used.
     NSInteger		_maxOverlap;			// Maximum tab overlap. Function of _enTabWidth
-    CGFloat		_tabHeight;			// Cache height of tabs
+    Float		_tabHeight;			// Cache height of tabs
     NSTabViewItem	*_tabViewItemWithKeyView;	// the tabViewItem with the keyView "outline"
     NSView 		*_originalNextKeyView;		// Original nextKeyView of the tabView. Needed to restore the keyViewLoop.
     struct __NSTabViewDelegateRespondTo {

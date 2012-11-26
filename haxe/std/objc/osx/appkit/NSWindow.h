@@ -144,7 +144,7 @@ enum {
 typedef NSUInteger NSWindowNumberListOptions;
 
 #define NSNormalWindowLevel              kCGNormalWindowLevel
-#define NSFloatingWindowLevel		 kCGFloatingWindowLevel
+#define NSFloatingWindowLevel		 kFloatingWindowLevel
 #define NSSubmenuWindowLevel		 kCGTornOffMenuWindowLevel
 #define NSTornOffMenuWindowLevel	 kCGTornOffMenuWindowLevel
 #define NSMainMenuWindowLevel		 kCGMainMenuWindowLevel
@@ -280,7 +280,7 @@ extern class NSWindow : NSResponder <NSAnimatablePropertyContainer, NSUserInterf
 
 + (NSRect)frameRectForContentRect:(NSRect)cRect styleMask:(NSUInteger)aStyle;
 + (NSRect)contentRectForFrameRect:(NSRect)fRect styleMask:(NSUInteger)aStyle;
-+ (CGFloat)minFrameWidthWithTitle:(NSString *)aTitle styleMask:(NSUInteger)aStyle;
++ (Float)minFrameWidthWithTitle:(NSString *)aTitle styleMask:(NSUInteger)aStyle;
 + (NSWindowDepth)defaultDepthLimit;
 
 - (NSRect)frameRectForContentRect:(NSRect)contentRect;
@@ -379,8 +379,8 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (void)setBackgroundColor:(NSColor *)color;
 - (NSColor *)backgroundColor;
 
-- (void)setContentBorderThickness:(CGFloat)thickness forEdge:(NSRectEdge)edge NS_AVAILABLE_MAC(10_5);
-- (CGFloat)contentBorderThicknessForEdge:(NSRectEdge)edge NS_AVAILABLE_MAC(10_5);
+- (void)setContentBorderThickness:(Float)thickness forEdge:(NSRectEdge)edge NS_AVAILABLE_MAC(10_5);
+- (Float)contentBorderThicknessForEdge:(NSRectEdge)edge NS_AVAILABLE_MAC(10_5);
 
 - (void)setAutorecalculatesContentBorderThickness:(BOOL)flag forEdge:(NSRectEdge)edge NS_AVAILABLE_MAC(10_5);
 - (BOOL)autorecalculatesContentBorderThicknessForEdge:(NSRectEdge)edge NS_AVAILABLE_MAC(10_5);
@@ -446,7 +446,7 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (NSRect)backingAlignedRect:(NSRect)aRect options:(NSAlignmentOptions)options NS_AVAILABLE_MAC(10_7);
 
 /* Returns the scale factor representing the number of backing store pixels corresponding to each linear unit in window space on this NSWindow. This method is provided for rare cases when the explicit scale factor is needed. Please use -convert*ToBacking: methods whenever possible. */
-- (CGFloat)backingScaleFactor NS_AVAILABLE_MAC(10_7); 
+- (Float)backingScaleFactor NS_AVAILABLE_MAC(10_7); 
 
 /* The base/screen conversion methods are deprecated in 10.7 and later. Please use convertRectToScreen: or convertRectFromScreen: instead.  */
 - (NSPoint)convertBaseToScreen:(NSPoint)aPoint;
@@ -489,8 +489,8 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (void)setHasShadow:(BOOL)hasShadow;
 - (BOOL)hasShadow;
 - (void)invalidateShadow;
-- (void)setAlphaValue:(CGFloat)windowAlpha;
-- (CGFloat)alphaValue;
+- (void)setAlphaValue:(Float)windowAlpha;
+- (Float)alphaValue;
 - (void)setOpaque:(BOOL)isOpaque;
 - (BOOL)isOpaque;
 
@@ -610,7 +610,7 @@ If the url represents a filename or other resource with a known icon, that icon 
 /* This method is deprecated and should not be used by applications targeting Mac OS X 10.7 or later.
  The implementation of this method will always return 1.0.  Please use -convertRectToBacking: and -backingScaleFactor instead.
  */
-- (CGFloat)userSpaceScaleFactor;
+- (Float)userSpaceScaleFactor;
 
 
 - (void)setColorSpace:(NSColorSpace *)colorSpace NS_AVAILABLE_MAC(10_6);

@@ -45,7 +45,7 @@ extern class NSScreen extends NSObject {
 
 /* Returns the scale factor representing the number of backing store pixels corresponding to each linear unit in screen space on this NSScreen. This method is provided for rare cases when the explicit scale factor is needed.  Please use -convert*ToBacking: methods whenever possible. 
  */
-- (CGFloat)backingScaleFactor NS_AVAILABLE_MAC(10_7); 
+- (Float)backingScaleFactor NS_AVAILABLE_MAC(10_7); 
 
 }
 
@@ -58,6 +58,6 @@ extern class NSScreen(NSDeprecated)
 /*  This method is deprecated and should not be used by applications targeting Mac OS X 10.7 or later.
  The implementation of this method will always return 1.0.  Please use -convertRectToBacking: or -backingScaleFactor instead.
  */
-- (CGFloat)userSpaceScaleFactor;
+- (Float)userSpaceScaleFactor;
 
 }

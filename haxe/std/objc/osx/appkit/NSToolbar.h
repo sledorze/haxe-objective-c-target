@@ -125,10 +125,10 @@ extern class NSToolbar extends NSObject {
  
  By default, the min height is 0 and the max height gets set to the height of the accessory view's frame when it is set.
 */
-- (void)setFullScreenAccessoryViewMinHeight:(CGFloat)minHeight  NS_AVAILABLE_MAC(10_7);
-- (void)setFullScreenAccessoryViewMaxHeight:(CGFloat)maxHeight  NS_AVAILABLE_MAC(10_7);
-- (CGFloat)fullScreenAccessoryViewMinHeight                     NS_AVAILABLE_MAC(10_7);
-- (CGFloat)fullScreenAccessoryViewMaxHeight                     NS_AVAILABLE_MAC(10_7);
+- (void)setFullScreenAccessoryViewMinHeight:(Float)minHeight  NS_AVAILABLE_MAC(10_7);
+- (void)setFullScreenAccessoryViewMaxHeight:(Float)maxHeight  NS_AVAILABLE_MAC(10_7);
+- (Float)fullScreenAccessoryViewMinHeight                     NS_AVAILABLE_MAC(10_7);
+- (Float)fullScreenAccessoryViewMaxHeight                     NS_AVAILABLE_MAC(10_7);
 
 
        

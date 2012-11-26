@@ -98,8 +98,8 @@ CG_EXTERN CGColorSpaceRef CGColorSpaceCreateDeviceCMYK(void)
    the tristimulus value, in CIE 1931 XYZ-space, of the diffuse black point.
    `gamma' defines the gamma for the gray component. */
 
-CG_EXTERN CGColorSpaceRef CGColorSpaceCreateCalibratedGray(const CGFloat
-  whitePoint[3], const CGFloat blackPoint[3], CGFloat gamma)
+CG_EXTERN CGColorSpaceRef CGColorSpaceCreateCalibratedGray(const Float
+  whitePoint[3], const Float blackPoint[3], Float gamma)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Create a calibrated RGB color space. `whitePoint' is an array of 3
@@ -111,9 +111,9 @@ CG_EXTERN CGColorSpaceRef CGColorSpaceCreateCalibratedGray(const CGFloat
    specifying the linear interpretation of the gamma-modified RGB values of
    the color space with respect to the final XYZ representation. */
 
-CG_EXTERN CGColorSpaceRef CGColorSpaceCreateCalibratedRGB(const CGFloat
-  whitePoint[3], const CGFloat blackPoint[3], const CGFloat gamma[3],
-  const CGFloat matrix[9]) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+CG_EXTERN CGColorSpaceRef CGColorSpaceCreateCalibratedRGB(const Float
+  whitePoint[3], const Float blackPoint[3], const Float gamma[3],
+  const Float matrix[9]) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
     
 /* Create an L*a*b* color space. `whitePoint' is an array of 3 numbers
    specifying the tristimulus value, in the CIE 1931 XYZ-space, of the
@@ -122,8 +122,8 @@ CG_EXTERN CGColorSpaceRef CGColorSpaceCreateCalibratedRGB(const CGFloat
    `range' is an array of four numbers specifying the range of valid values
    for the a* and b* components of the color space. */
 
-CG_EXTERN CGColorSpaceRef CGColorSpaceCreateLab(const CGFloat whitePoint[3],
-  const CGFloat blackPoint[3], const CGFloat range[4])
+CG_EXTERN CGColorSpaceRef CGColorSpaceCreateLab(const Float whitePoint[3],
+  const Float blackPoint[3], const Float range[4])
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Create an ICC-based color space using the ICC profile specified by
@@ -146,7 +146,7 @@ CG_EXTERN CGColorSpaceRef CGColorSpaceCreateWithICCProfile(CFDataRef data)
    on whether `nComponents' is 1, 3, or 4, respectively. */
 
 CG_EXTERN CGColorSpaceRef CGColorSpaceCreateICCBased(size_t nComponents,
-  const CGFloat *range, CGDataProviderRef profile, CGColorSpaceRef alternate)
+  const Float *range, CGDataProviderRef profile, CGColorSpaceRef alternate)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Create an indexed color space. A sample value in an indexed color space

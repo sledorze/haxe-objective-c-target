@@ -59,7 +59,7 @@ extern class NSProgressIndicator : NSView
 
     id			_timer;
 
-    CGFloat     _drawingWidth;
+    Float     _drawingWidth;
 
     id		_roundColor;
     id          _reserved;

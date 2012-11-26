@@ -16,22 +16,22 @@ typedef struct CGColor *CGColorRef;
    space except a pattern color space. */
 
 CG_EXTERN CGColorRef CGColorCreate(CGColorSpaceRef space,
-  const CGFloat components[]) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
+  const Float components[]) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Create a color in the "Generic" gray color space. */
 
-CG_EXTERN CGColorRef CGColorCreateGenericGray(CGFloat gray, CGFloat alpha)
+CG_EXTERN CGColorRef CGColorCreateGenericGray(Float gray, Float alpha)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
 
 /* Create a color in the "Generic" RGB color space. */
 
-CG_EXTERN CGColorRef CGColorCreateGenericRGB(CGFloat red, CGFloat green,
-  CGFloat blue, CGFloat alpha) CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
+CG_EXTERN CGColorRef CGColorCreateGenericRGB(Float red, Float green,
+  Float blue, Float alpha) CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
 
 /* Create a color in the "Generic" CMYK color space. */
 
-CG_EXTERN CGColorRef CGColorCreateGenericCMYK(CGFloat cyan, CGFloat magenta,
-  CGFloat yellow, CGFloat black, CGFloat alpha)
+CG_EXTERN CGColorRef CGColorCreateGenericCMYK(Float cyan, Float magenta,
+  Float yellow, Float black, Float alpha)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
 
 /* Return a constant color. As `CGColorGetConstantColor' is not a "Copy" or
@@ -48,7 +48,7 @@ CG_EXTERN CGColorRef CGColorGetConstantColor(CFStringRef colorName)
    components `components'. `space' must be a pattern color space. */
 
 CG_EXTERN CGColorRef CGColorCreateWithPattern(CGColorSpaceRef space,
-  CGPatternRef pattern, const CGFloat components[])
+  CGPatternRef pattern, const Float components[])
   CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Create a copy of `color'. */
@@ -59,7 +59,7 @@ CG_EXTERN CGColorRef CGColorCreateCopy(CGColorRef color)
 /* Create a copy of `color' with alpha set to `alpha'. */
 
 CG_EXTERN CGColorRef CGColorCreateCopyWithAlpha(CGColorRef color,
-  CGFloat alpha) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
+  Float alpha) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Equivalent to `CFRetain(color)', except it doesn't crash (as CFRetain
    does) if `color' is NULL. */
@@ -86,12 +86,12 @@ CG_EXTERN size_t CGColorGetNumberOfComponents(CGColorRef color)
 
 /* Return the color components (including alpha) associated with `color'. */
 
-CG_EXTERN const CGFloat *CGColorGetComponents(CGColorRef color)
+CG_EXTERN const Float *CGColorGetComponents(CGColorRef color)
   CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Return the alpha component associated with `color'. */
 
-CG_EXTERN CGFloat CGColorGetAlpha(CGColorRef color)
+CG_EXTERN Float CGColorGetAlpha(CGColorRef color)
   CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Return the color space associated with `color'. */

@@ -60,9 +60,9 @@ typedef NSInteger NSScrollerKnobStyle;
 extern class NSScroller : NSControl
 {
     /*All instance variables are private*/
-    CGFloat _curValue;
-    CGFloat _percent;
-    CGFloat _knobSize;
+    Float _curValue;
+    Float _percent;
+    Float _knobSize;
     struct __sFlags2 {
         unsigned int hitPart:4;
         unsigned int controlSize:2;
@@ -115,15 +115,15 @@ When it opts in in this manner, an NSScroller subclass certifies that:
 
 /* Returns the with for scrollers of the receiving class, given the specified controlSize and scrollerStyle.  This method should be used in preference to +scrollerWidthForControlSize:, which assumes a scrollerStyle of NSScrollerStyleLegacy, and +scrollerWidth:, which assumes that and a controlSize of NSRegularControlSize.
 */
-+ (CGFloat)scrollerWidthForControlSize:(NSControlSize)controlSize scrollerStyle:(NSScrollerStyle)scrollerStyle NS_AVAILABLE_MAC(10_7);
++ (Float)scrollerWidthForControlSize:(NSControlSize)controlSize scrollerStyle:(NSScrollerStyle)scrollerStyle NS_AVAILABLE_MAC(10_7);
 
 /* Returns the with for scrollers of the receiving class, given the specified controlSize and assuming a scrollerStyle of NSScrollerStyleLegacy.  This method should be considered deprecated; use +scrollerWidthForControlSize:scrollerStyle: instead.
 */
-+ (CGFloat)scrollerWidthForControlSize:(NSControlSize)controlSize; /* deprecated in 10.7 */
++ (Float)scrollerWidthForControlSize:(NSControlSize)controlSize; /* deprecated in 10.7 */
 
 /* Returns the width for scrollers of the receiving class, assuming a controlSize NSRegularControlSize, and a scrollerStyle of NSScrollerStyleLecgacy.  This method should be considered deprecated; use +scrollerWidthForControlSize:scrollerStyle: instead.
 */
-+ (CGFloat)scrollerWidth; /* deprecated in 10.7 */
++ (Float)scrollerWidth; /* deprecated in 10.7 */
 
 /* Returns the style of scrollers that applications should use wherever possible.  This value is determined by the Appearance preference panel's "Show scroll bars" setting for the current user, and -- when the user's prefernce is set to "Automatically based on input device" -- by the set of built-in and connected pointing devices and the user's scroll capability preference settings for them.  The preferredScrollerStyle will therefore change over time, and applications should be prepared to adapt their user interfaces to the new scroller style if needed.  In most cases, the updating is automatic: When the preferredScrollerStyle changes, AppKit notifies all NSScrollView instances, sending -setScrollerStyle: to each with the new style, which causees each NSScrollView to automatically re-tile (update its layout) to adapt to the new scroller style.  Some NSScrollView instances may refuse the new scroller style setting if they cannot accommodate it for compatibility reasons (presence of accessory views or legacy scroller subclasses prevent use of Overlay scrollers), but most instances will switch to the specified new preferredScrollerStyle.  Clients that wish to be notified of changes to +preferredScrollerStyle's return value can subscribe to NSPreferredScrollerStyleDidChangeNotification (declared below).
 */
@@ -157,15 +157,15 @@ When it opts in in this manner, an NSScroller subclass certifies that:
 - (void)trackKnob:(NSEvent *)theEvent;
 - (void)trackScrollButtons:(NSEvent *)theEvent;                     // not invoked on 10.7
 - (NSScrollerPart)hitPart;
-- (CGFloat)knobProportion;
-- (void)setKnobProportion:(CGFloat)proportion NS_AVAILABLE_MAC(10_5);
+- (Float)knobProportion;
+- (void)setKnobProportion:(Float)proportion NS_AVAILABLE_MAC(10_5);
 
 }
 
 extern class NSScroller(NSDeprecated)
 /* A method that was deprecated in Mac OS 10.5. To maintain binary compatibility, AppKit will continue to invoke overrides of this method. Code that targets Mac OS 10.5 and later should use -setDoubleValue: and -setKnobProportion: instead, and eliminate any overrides of -setFloatValue:knobProportion:. Code that needs to remain compatible with Mac OS 10.4 and earlier should continue to use -setFloatValue:knobProportion:. 
 */
-- (void)setFloatValue:(float)aFloat knobProportion:(CGFloat)proportion NS_DEPRECATED_MAC(10_0, 10_5);
+- (void)setFloatValue:(float)aFloat knobProportion:(Float)proportion NS_DEPRECATED_MAC(10_0, 10_5);
 }
 
 /* Posted when the preferred scroller style changes.  The notification object is private; disregard it.  Consult NSScroller's +preferredScrollerStyle method when this notification is received, or thereafter, to determine the new scroller style to use.

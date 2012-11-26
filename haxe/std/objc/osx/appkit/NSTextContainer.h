@@ -42,7 +42,7 @@ extern class NSTextContainer extends NSObject, implements NSObject, NSTextLayout
     NSLayoutManager *_layoutManager;
     NSTextView *_textView;
     NSSize _size;
-    CGFloat _lineFragmentPadding;
+    Float _lineFragmentPadding;
     struct __tcFlags {
         unsigned short widthTracksTextView:1;
         unsigned short heightTracksTextView:1;
@@ -80,8 +80,8 @@ extern class NSTextContainer extends NSObject, implements NSObject, NSTextLayout
 - (NSSize)containerSize;
     // Sets/returns the current size of the container.  This size has nothing to do with how much text is in the container and how much space it takes up (which the container is not in a position to know).  It is basically the maximum flowable area of the container.  The NSTextView's size will not generally have much connection to this size.  The NSTextView will generally want to be big enough to display all the text which has been laid in the container at the moment and no bigger.  The NSLayoutManager will generally be in charge of telling the view what size it should be.
 
-- (void)setLineFragmentPadding:(CGFloat)pad;
-- (CGFloat)lineFragmentPadding;
+- (void)setLineFragmentPadding:(Float)pad;
+- (Float)lineFragmentPadding;
     // This value is used by the typesetter to inset the line fragment rects it gets along the sweep direction to give a little default pad to each fragment.
 
 /**************************** Line fragments ****************************/

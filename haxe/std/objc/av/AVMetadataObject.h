@@ -135,11 +135,11 @@ extern class AVMetadataFaceObject : AVMetadataObject
     The roll angle of the face in degrees.
  
  @discussion
-    The value of this property is a CGFloat indicating the face's angle of roll (or tilt) in degrees.
+    The value of this property is a Float indicating the face's angle of roll (or tilt) in degrees.
     A value of 0.0 indicates that the face is level in the picture.  If -hasRollAngle returns NO,
     then reading this property throws an NSGenericException.
 */
-	public var  (default, null) : CGFloat rollAngle;
+	public var  (default, null) : Float rollAngle;
 
 /*!
  	public var  hasYawAngle
@@ -156,10 +156,10 @@ extern class AVMetadataFaceObject : AVMetadataObject
     The yaw angle of the face in degrees.
  
  @discussion
-    The value of this property is a CGFloat indicating the face's angle of yaw (or turn) in degrees.
+    The value of this property is a Float indicating the face's angle of yaw (or turn) in degrees.
     A value of 0.0 indicates that the face is straight on in the picture.  If -hasYawAngle returns NO,
     then reading this property throws an NSGenericException.
 */
-	public var  (default, null) : CGFloat yawAngle;
+	public var  (default, null) : Float yawAngle;
 
 }

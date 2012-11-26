@@ -87,11 +87,11 @@ extern class NSBox (NSCustomBoxTypeProperties)
 /* These properties only apply to boxes with boxType NSBoxCustom.
  */
 
-- (CGFloat)borderWidth NS_AVAILABLE_MAC(10_5);
-- (void)setBorderWidth:(CGFloat)borderWidth NS_AVAILABLE_MAC(10_5);	// Only meaningful for boxes configured with NSBoxCustom
+- (Float)borderWidth NS_AVAILABLE_MAC(10_5);
+- (void)setBorderWidth:(Float)borderWidth NS_AVAILABLE_MAC(10_5);	// Only meaningful for boxes configured with NSBoxCustom
 
-- (CGFloat)cornerRadius NS_AVAILABLE_MAC(10_5);
-- (void)setCornerRadius:(CGFloat)cornerRadius NS_AVAILABLE_MAC(10_5);	// Only meaningful for boxes configured with NSBoxCustom
+- (Float)cornerRadius NS_AVAILABLE_MAC(10_5);
+- (void)setCornerRadius:(Float)cornerRadius NS_AVAILABLE_MAC(10_5);	// Only meaningful for boxes configured with NSBoxCustom
 
 - (NSColor *)borderColor NS_AVAILABLE_MAC(10_5);
 - (void)setBorderColor:(NSColor *)borderColor NS_AVAILABLE_MAC(10_5);	// Only meaningful for boxes configured with NSBoxCustom

@@ -24,7 +24,7 @@ package objc.ios.ui;
  Navigation between controllers with non-uniform rotatability is currently not supported.
 */
 
-UIKIT_EXTERN const CGFloat UINavigationControllerHideShowBarDuration;
+UIKIT_EXTERN const Float UINavigationControllerHideShowBarDuration;
 
 @class UIView, UINavigationBar, UINavigationItem, UIToolbar, UILayoutContainerView;
 extern interface UINavigationControllerDelegate;
@@ -39,8 +39,8 @@ extern class UINavigationController extends UIViewController {
 
     UIEdgeInsets      _currentScrollContentInsetDelta;
     UIEdgeInsets      _previousScrollContentInsetDelta;
-    CGFloat           _previousScrollContentOffsetDelta;
-    CGFloat			  _bottomInsetDelta;
+    Float           _previousScrollContentOffsetDelta;
+    Float			  _bottomInsetDelta;
     
     UIViewController *_disappearingViewController;
     

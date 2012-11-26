@@ -29,7 +29,7 @@ NS_CLASS_AVAILABLE_IOS(6_0)extern class UICollectionViewLayoutAttributes extends
 	public var CGPoint center;
 	public var CGSize size;
 	public var CATransform3D transform3D;
-	public var CGFloat alpha;
+	public var Float alpha;
 	public var NSInteger zIndex; // default is 0
 	public var  (nonatomic, getter=isHidden) BOOL hidden; // As an optimization, UICollectionView might not create a view for items whose hidden attribute is YES
 	public var NSIndexPath *indexPath;

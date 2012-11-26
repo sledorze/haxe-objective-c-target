@@ -182,6 +182,17 @@
 	if (obj != nil) [obj GFA2 .__SetField "-dynamic_param-" ];;
 	[self.__SetField "-dynamic_param-" ];
 	id p = (id)[self.__Field "-dynamic_param-" ];
+	[Reflect callMethod:self func:@selector(testStd) args:[[NSMutableArray alloc] initWithObjects:, nil]]];
+	[Reflect.callMethod:self func:@selector(callLotsOfArguments) args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
+	
+	NSMutabeArray *fs = [Reflect.fields:obj];
+	BOOL isf = [Reflect isFunction:@selector(testStd)];
+	int i = [Reflect compare:1 b:2];
+	BOOL cm = [Reflect compareMethods:@selector(testStd) f2:@selector(testString)];
+	BOOL isobj = [Reflect isObject:obj];
+	isobj = [Reflect isObject:@selector(testStd)];
+	[Reflect deleteField:obj f:@"a"];
+	id obj2 = [Reflect copy:obj];
 }
 - (void) testStd{
 }
@@ -275,7 +286,7 @@
 	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"351",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"362",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) new{
 	self = [super init];

@@ -15,14 +15,14 @@ NS_CLASS_AVAILABLE_IOS(6_0)extern class NSStringDrawingContext extends NSObject 
 }
 
 // Minimum scale factor for drawWithRect:options:context: and boundingRectWithSize:options:context: methods. If this property is set, the extended string drawing methods will attempt to draw the attributed string in the giv'en bounds by proportionally scaling the font(s) in the attributed string
-	public var  CGFloat minimumScaleFactor;
+	public var  Float minimumScaleFactor;
 // Minimum tracking adjustment for drawWithRect:options:context: and boundingRectWithSize:options:context: methods. If this property is set, the extended string drawing methods will attempt to draw the attributed string in the given bounds by adjusting the tracking between the glyphs in the attributed string
-	public var  CGFloat minimumTrackingAdjustment;
+	public var  Float minimumTrackingAdjustment;
 
 // actual scale factor used by the last drawing call where minimum scale factor was specified
-	public var (default, null) CGFloat actualScaleFactor;
+	public var (default, null) Float actualScaleFactor;
 // actual tracking adjustment used by the last drawing call where minimum tracking factor was specified
-	public var (default, null) CGFloat actualTrackingAdjustment;
+	public var (default, null) Float actualTrackingAdjustment;
 
 // bounds of the string drawn by the previous invocation of drawWithRect:options:context:
 	public var (default, null) CGRect totalBounds;

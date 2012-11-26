@@ -93,8 +93,8 @@ extern class NSPopover : NSResponder {
 #pragma mark Bindings
 
 /*  NSPopover exposes the following bindings: 
-         contentWidth    (CGFloat, readonly) 
-         contentHeight   (CGFloat, readonly)
+         contentWidth    (Float, readonly) 
+         contentHeight   (Float, readonly)
          positioningRect (NSRect, readonly) 
 */
 

@@ -39,8 +39,8 @@ extern class UIColor (UIColorSystemColors)
 // System fonts
 
 extern class UIFont (UIFontSystemFonts)
-+ (CGFloat)labelFontSize;
-+ (CGFloat)buttonFontSize;
-+ (CGFloat)smallSystemFontSize;
-+ (CGFloat)systemFontSize;
++ (Float)labelFontSize;
++ (Float)buttonFontSize;
++ (Float)smallSystemFontSize;
++ (Float)systemFontSize;
 }

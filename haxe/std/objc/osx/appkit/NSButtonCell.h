@@ -172,7 +172,7 @@ extern class NSButtonCell : NSActionCell
 - (void)setKeyEquivalentModifierMask:(NSUInteger)mask;
 - (NSFont *)keyEquivalentFont;
 - (void)setKeyEquivalentFont:(NSFont *)fontObj;
-- (void)setKeyEquivalentFont:(NSString *)fontName size:(CGFloat)fontSize;
+- (void)setKeyEquivalentFont:(NSString *)fontName size:(Float)fontSize;
 - (void)performClick:(id)sender; // Significant NSCell override, actually clicks itself.
 
 - (void)drawImage:(NSImage*)image withFrame:(NSRect)frame inView:(NSView*)controlView;

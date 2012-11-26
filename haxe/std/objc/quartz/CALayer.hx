@@ -32,7 +32,7 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 	public var zPosition :Float;
 
 /*	public var  CGPoint anchorPoint;
-	public var  CGFloat anchorPointZ;
+	public var  Float anchorPointZ;
 	public var  CATransform3D transform;
 
 - (CGAffineTransform)affineTransform;
@@ -81,7 +81,7 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 	public var NSString *contentsGravity;
 
-	public var  CGFloat contentsScale;
+	public var  Float contentsScale;
 
 	public var  CGRect contentsCenter;
 
@@ -112,9 +112,9 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 	public var  CGColorRef backgroundColor;
 
-	public var  CGFloat cornerRadius;
+	public var  Float cornerRadius;
 
-	public var  CGFloat borderWidth;
+	public var  Float borderWidth;
 
 	public var  CGColorRef borderColor;
 
@@ -128,7 +128,7 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 	public var  BOOL shouldRasterize;
 
-	public var  CGFloat rasterizationScale;
+	public var  Float rasterizationScale;
 
 	public var  CGColorRef shadowColor;
 
@@ -136,7 +136,7 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 
 	public var  CGSize shadowOffset;
 
-	public var  CGFloat shadowRadius;
+	public var  Float shadowRadius;
 
 	public var  CGPathRef shadowPath;
 

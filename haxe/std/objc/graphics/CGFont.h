@@ -161,13 +161,13 @@ CG_EXTERN CGRect CGFontGetFontBBox(CGFontRef font)
 /* Return the italic angle of `font', measured in degrees counter-clockwise
    from the vertical. */
 
-CG_EXTERN CGFloat CGFontGetItalicAngle(CGFontRef font)
+CG_EXTERN Float CGFontGetItalicAngle(CGFontRef font)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Return the thickness of the dominant vertical stems of glyphs in `font'.
    The value is specified in glyph space units. */
 
-CG_EXTERN CGFloat CGFontGetStemV(CGFontRef font)
+CG_EXTERN Float CGFontGetStemV(CGFontRef font)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Return an array of the variation axis dictionaries for `font'. Each

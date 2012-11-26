@@ -21,7 +21,7 @@ extern class NSStatusItem extends NSObject
 {
  @private
     NSStatusBar* _fStatusBar;
-    CGFloat        _fLength;
+    Float        _fLength;
     NSWindow*    _fWindow;
     NSView*      _fView;
     int          _fPriority;
@@ -42,8 +42,8 @@ extern class NSStatusItem extends NSObject
 
 - (NSStatusBar* )statusBar;
 
-- (CGFloat)length;
-- (void)setLength:(CGFloat)length;
+- (Float)length;
+- (void)setLength:(Float)length;
 
 }
 

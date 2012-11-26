@@ -28,25 +28,25 @@ NS_CLASS_AVAILABLE_IOS(6_0)extern class NSParagraphStyle extends NSObject, imple
 
 + (NSWritingDirection)defaultWritingDirectionForLanguage:(NSString *)languageName;  // languageName is in ISO lang region format
 
-	public var  (default, null) : CGFloat lineSpacing; /* "Leading": distance between the bottom of one line fragment and top of next (applied between lines in the same container). Can't be negative. This value is included in the line fragment heights in layout manager. */
-	public var  (default, null) : CGFloat paragraphSpacing; /* Distance between the bottom of this paragraph and top of next (or the beginning of its paragraphSpacingBefore, if any). */
+	public var  (default, null) : Float lineSpacing; /* "Leading": distance between the bottom of one line fragment and top of next (applied between lines in the same container). Can't be negative. This value is included in the line fragment heights in layout manager. */
+	public var  (default, null) : Float paragraphSpacing; /* Distance between the bottom of this paragraph and top of next (or the beginning of its paragraphSpacingBefore, if any). */
 	public var  (default, null) : NSTextAlignment alignment;
 
 /* The following values are relative to the appropriate margin (depending on the paragraph direction) */
 
-	public var  (default, null) : CGFloat headIndent; /* Distance from margin to front edge of paragraph */
-	public var  (default, null) : CGFloat tailIndent; /* Distance from margin to back edge of paragraph; if negative or 0, from other margin */
-	public var  (default, null) : CGFloat firstLineHeadIndent; /* Distance from margin to edge appropriate for text direction */
+	public var  (default, null) : Float headIndent; /* Distance from margin to front edge of paragraph */
+	public var  (default, null) : Float tailIndent; /* Distance from margin to back edge of paragraph; if negative or 0, from other margin */
+	public var  (default, null) : Float firstLineHeadIndent; /* Distance from margin to edge appropriate for text direction */
 
-	public var  (default, null) : CGFloat minimumLineHeight; /* Line height is the distance from bottom of descenders to top of ascenders; basically the line fragment height. Does not include lineSpacing (which is added after this computation). */
-	public var  (default, null) : CGFloat maximumLineHeight; /* 0 implies no maximum. */ 
+	public var  (default, null) : Float minimumLineHeight; /* Line height is the distance from bottom of descenders to top of ascenders; basically the line fragment height. Does not include lineSpacing (which is added after this computation). */
+	public var  (default, null) : Float maximumLineHeight; /* 0 implies no maximum. */ 
 
 	public var  (default, null) : NSLineBreakMode lineBreakMode;
 
 	public var  (default, null) : NSWritingDirection baseWritingDirection;
 
-	public var  (default, null) : CGFloat lineHeightMultiple; /* Natural line height is multiplied by this factor (if positive) before being constrained by minimum and maximum line height. */
-	public var  (default, null) : CGFloat paragraphSpacingBefore; /* Distance between the bottom of the previous paragraph (or the end of its paragraphSpacing, if any) and the top of this paragraph. */
+	public var  (default, null) : Float lineHeightMultiple; /* Natural line height is multiplied by this factor (if positive) before being constrained by minimum and maximum line height. */
+	public var  (default, null) : Float paragraphSpacingBefore; /* Distance between the bottom of the previous paragraph (or the end of its paragraphSpacing, if any) and the top of this paragraph. */
 
 /* Specifies the threshold for hyphenation.  Valid values lie between 0.0 and 1.0 inclusive.  Hyphenation will be attempted when the ratio of the text width as broken without hyphenation to the width of the line fragment is less than the hyphenation factor.  When this takes on its default value of 0.0, the layout manager's hyphenation factor is used instead.  When both are 0.0, hyphenation is disabled.
  
@@ -58,18 +58,18 @@ NS_CLASS_AVAILABLE_IOS(6_0)extern class NSParagraphStyle extends NSObject, imple
 
 NS_CLASS_AVAILABLE_IOS(6_0)extern class NSMutableParagraphStyle : NSParagraphStyle
 
-	public var  CGFloat lineSpacing;
-	public var  CGFloat paragraphSpacing;
+	public var  Float lineSpacing;
+	public var  Float paragraphSpacing;
 	public var  NSTextAlignment alignment;
-	public var  CGFloat firstLineHeadIndent;
-	public var  CGFloat headIndent;
-	public var  CGFloat tailIndent;
+	public var  Float firstLineHeadIndent;
+	public var  Float headIndent;
+	public var  Float tailIndent;
 	public var  NSLineBreakMode lineBreakMode;
-	public var  CGFloat minimumLineHeight;
-	public var  CGFloat maximumLineHeight;
+	public var  Float minimumLineHeight;
+	public var  Float maximumLineHeight;
 	public var  NSWritingDirection baseWritingDirection;
-	public var  CGFloat lineHeightMultiple;
-	public var  CGFloat paragraphSpacingBefore;
+	public var  Float lineHeightMultiple;
+	public var  Float paragraphSpacingBefore;
 	public var  float hyphenationFactor;
 
 }

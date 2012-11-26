@@ -13,16 +13,16 @@ package objc.ios.ui;
 
 NS_CLASS_AVAILABLE_IOS(4_2)extern class UIPrintPageRenderer extends NSObject {
   @private
-    CGFloat         _headerHeight;
-    CGFloat         _footerHeight;
+    Float         _headerHeight;
+    Float         _footerHeight;
     CGRect          _paperRect;
     CGRect          _printableRect;
     NSMutableArray *_printFormatters;
     CGContextRef    _printContext;
 }
 
-	public var  CGFloat   headerHeight;   // top of contentRect from printableRect
-	public var  CGFloat   footerHeight;   // bottom of contentRect from printableRect
+	public var  Float   headerHeight;   // top of contentRect from printableRect
+	public var  Float   footerHeight;   // bottom of contentRect from printableRect
 
 	public var (default, null) CGRect paperRect;      // complete paper rect. origin is (0,0)
 	public var (default, null) CGRect printableRect;  // imageable area inside paper rect

@@ -146,19 +146,19 @@ CG_EXTERN void CGContextRestoreGState(CGContextRef c)
 /* Scale the current graphics state's transformation matrix (the CTM) by
    `(sx, sy)'. */
 
-CG_EXTERN void CGContextScaleCTM(CGContextRef c, CGFloat sx, CGFloat sy)
+CG_EXTERN void CGContextScaleCTM(CGContextRef c, Float sx, Float sy)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Translate the current graphics state's transformation matrix (the CTM) by
    `(tx, ty)'. */
 
-CG_EXTERN void CGContextTranslateCTM(CGContextRef c, CGFloat tx, CGFloat ty)
+CG_EXTERN void CGContextTranslateCTM(CGContextRef c, Float tx, Float ty)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Rotate the current graphics state's transformation matrix (the CTM) by
    `angle' radians. */
 
-CG_EXTERN void CGContextRotateCTM(CGContextRef c, CGFloat angle)
+CG_EXTERN void CGContextRotateCTM(CGContextRef c, Float angle)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Concatenate the current graphics state's transformation matrix (the CTM)
@@ -176,7 +176,7 @@ CG_EXTERN CGAffineTransform CGContextGetCTM(CGContextRef c)
 
 /* Set the line width in the current graphics state to `width'. */
 
-CG_EXTERN void CGContextSetLineWidth(CGContextRef c, CGFloat width)
+CG_EXTERN void CGContextSetLineWidth(CGContextRef c, Float width)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the line cap in the current graphics state to `cap'. */
@@ -191,24 +191,24 @@ CG_EXTERN void CGContextSetLineJoin(CGContextRef c, CGLineJoin join)
 
 /* Set the miter limit in the current graphics state to `limit'. */
 
-CG_EXTERN void CGContextSetMiterLimit(CGContextRef c, CGFloat limit)
+CG_EXTERN void CGContextSetMiterLimit(CGContextRef c, Float limit)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the line dash patttern in the current graphics state of `c'. */
 
-CG_EXTERN void CGContextSetLineDash(CGContextRef c, CGFloat phase,
-    const CGFloat lengths[], size_t count)
+CG_EXTERN void CGContextSetLineDash(CGContextRef c, Float phase,
+    const Float lengths[], size_t count)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the path flatness parameter in the current graphics state of `c' to
    `flatness'. */
 
-CG_EXTERN void CGContextSetFlatness(CGContextRef c, CGFloat flatness)
+CG_EXTERN void CGContextSetFlatness(CGContextRef c, Float flatness)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the alpha value in the current graphics state of `c' to `alpha'. */
 
-CG_EXTERN void CGContextSetAlpha(CGContextRef c, CGFloat alpha)
+CG_EXTERN void CGContextSetAlpha(CGContextRef c, Float alpha)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the blend mode of `context' to `mode'. */
@@ -228,26 +228,26 @@ CG_EXTERN void CGContextBeginPath(CGContextRef c)
 
 /* Start a new subpath at point `(x, y)' in the context's path. */
 
-CG_EXTERN void CGContextMoveToPoint(CGContextRef c, CGFloat x, CGFloat y)
+CG_EXTERN void CGContextMoveToPoint(CGContextRef c, Float x, Float y)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Append a straight line segment from the current point to `(x, y)'. */
 
-CG_EXTERN void CGContextAddLineToPoint(CGContextRef c, CGFloat x, CGFloat y)
+CG_EXTERN void CGContextAddLineToPoint(CGContextRef c, Float x, Float y)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Append a cubic Bezier curve from the current point to `(x,y)', with
    control points `(cp1x, cp1y)' and `(cp2x, cp2y)'. */
 
-CG_EXTERN void CGContextAddCurveToPoint(CGContextRef c, CGFloat cp1x,
-    CGFloat cp1y, CGFloat cp2x, CGFloat cp2y, CGFloat x, CGFloat y)
+CG_EXTERN void CGContextAddCurveToPoint(CGContextRef c, Float cp1x,
+    Float cp1y, Float cp2x, Float cp2y, Float x, Float y)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Append a quadratic curve from the current point to `(x, y)', with control
    point `(cpx, cpy)'. */
 
-CG_EXTERN void CGContextAddQuadCurveToPoint(CGContextRef c, CGFloat cpx,
-    CGFloat cpy, CGFloat x, CGFloat y)
+CG_EXTERN void CGContextAddQuadCurveToPoint(CGContextRef c, Float cpx,
+    Float cpy, Float x, Float y)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Close the current subpath of the context's path. */
@@ -286,8 +286,8 @@ CG_EXTERN void CGContextAddEllipseInRect(CGContextRef context, CGRect rect)
    `clockwise' is 1 if the arc is to be drawn clockwise, 0 otherwise.
    `startAngle' and `endAngle' are measured in radians. */
 
-CG_EXTERN void CGContextAddArc(CGContextRef c, CGFloat x, CGFloat y,
-    CGFloat radius, CGFloat startAngle, CGFloat endAngle, int clockwise)
+CG_EXTERN void CGContextAddArc(CGContextRef c, Float x, Float y,
+    Float radius, Float startAngle, Float endAngle, int clockwise)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Add an arc of a circle to the context's path, possibly preceded by a
@@ -295,8 +295,8 @@ CG_EXTERN void CGContextAddArc(CGContextRef c, CGFloat x, CGFloat y,
    tangent to the line from the current point to `(x1, y1)', and the line
    from `(x1, y1)' to `(x2, y2)'. */
 
-CG_EXTERN void CGContextAddArcToPoint(CGContextRef c, CGFloat x1, CGFloat y1,
-    CGFloat x2, CGFloat y2, CGFloat radius)
+CG_EXTERN void CGContextAddArcToPoint(CGContextRef c, Float x1, Float y1,
+    Float x2, Float y2, Float radius)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Add `path' to the path of context. The points in `path' are transformed
@@ -399,7 +399,7 @@ CG_EXTERN void CGContextStrokeRect(CGContextRef c, CGRect rect)
    line width. */
 
 CG_EXTERN void CGContextStrokeRectWithWidth(CGContextRef c, CGRect rect,
-    CGFloat width) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+    Float width) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Clear `rect' (that is, set the region within the rect to transparent). */
 
@@ -536,7 +536,7 @@ CG_EXTERN void CGContextSetStrokeColorSpace(CGContextRef context,
    must not be a pattern color space. */
 
 CG_EXTERN void CGContextSetFillColor(CGContextRef context,
-    const CGFloat components[])
+    const Float components[])
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the components of the current stroke color in `context' to the values
@@ -546,7 +546,7 @@ CG_EXTERN void CGContextSetFillColor(CGContextRef context,
    space must not be a pattern color space. */
 
 CG_EXTERN void CGContextSetStrokeColor(CGContextRef context,
-    const CGFloat components[])
+    const Float components[])
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /** Pattern functions. **/
@@ -559,7 +559,7 @@ CG_EXTERN void CGContextSetStrokeColor(CGContextRef context,
    color space. */
 
 CG_EXTERN void CGContextSetFillPattern(CGContextRef context,
-    CGPatternRef pattern, const CGFloat components[])
+    CGPatternRef pattern, const Float components[])
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the components of the current stroke color in `context' to the values
@@ -570,7 +570,7 @@ CG_EXTERN void CGContextSetFillPattern(CGContextRef context,
    pattern color space. */
 
 CG_EXTERN void CGContextSetStrokePattern(CGContextRef context,
-    CGPatternRef pattern, const CGFloat components[])
+    CGPatternRef pattern, const Float components[])
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the pattern phase in the current graphics state of `context' to
@@ -584,44 +584,44 @@ CG_EXTERN void CGContextSetPatternPhase(CGContextRef context, CGSize phase)
 /* Set the current fill color space in `context' to `DeviceGray' and set the
    components of the current fill color to `(gray, alpha)'. */
 
-CG_EXTERN void CGContextSetGrayFillColor(CGContextRef context, CGFloat gray,
-    CGFloat alpha) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+CG_EXTERN void CGContextSetGrayFillColor(CGContextRef context, Float gray,
+    Float alpha) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the current stroke color space in `context' to `DeviceGray' and set
    the components of the current stroke color to `(gray, alpha)'. */
 
-CG_EXTERN void CGContextSetGrayStrokeColor(CGContextRef context, CGFloat gray,
-    CGFloat alpha) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+CG_EXTERN void CGContextSetGrayStrokeColor(CGContextRef context, Float gray,
+    Float alpha) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the current fill color space in `context' to `DeviceRGB' and set the
    components of the current fill color to `(red, green, blue, alpha)'. */
 
-CG_EXTERN void CGContextSetRGBFillColor(CGContextRef context, CGFloat red,
-    CGFloat green, CGFloat blue, CGFloat alpha)
+CG_EXTERN void CGContextSetRGBFillColor(CGContextRef context, Float red,
+    Float green, Float blue, Float alpha)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the current stroke color space in `context' to `DeviceRGB' and set
    the components of the current stroke color to `(red, green, blue,
    alpha)'. */
 
-CG_EXTERN void CGContextSetRGBStrokeColor(CGContextRef context, CGFloat red,
-    CGFloat green, CGFloat blue, CGFloat alpha)
+CG_EXTERN void CGContextSetRGBStrokeColor(CGContextRef context, Float red,
+    Float green, Float blue, Float alpha)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the current fill color space in `context' to `DeviceCMYK' and set the
    components of the current fill color to `(cyan, magenta, yellow, black,
    alpha)'. */
 
-CG_EXTERN void CGContextSetCMYKFillColor(CGContextRef context, CGFloat cyan,
-    CGFloat magenta, CGFloat yellow, CGFloat black, CGFloat alpha)
+CG_EXTERN void CGContextSetCMYKFillColor(CGContextRef context, Float cyan,
+    Float magenta, Float yellow, Float black, Float alpha)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the current stroke color space in `context' to `DeviceCMYK' and set
    the components of the current stroke color to `(cyan, magenta, yellow,
    black, alpha)'. */
 
-CG_EXTERN void CGContextSetCMYKStrokeColor(CGContextRef context, CGFloat cyan,
-    CGFloat magenta, CGFloat yellow, CGFloat black, CGFloat alpha)
+CG_EXTERN void CGContextSetCMYKStrokeColor(CGContextRef context, Float cyan,
+    Float magenta, Float yellow, Float black, Float alpha)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /** Rendering intent. **/
@@ -678,7 +678,7 @@ CG_EXTERN void CGContextSetInterpolationQuality(CGContextRef context,
    pass NULL as the color), or use the standard gsave/grestore mechanism. */
 
 CG_EXTERN void CGContextSetShadowWithColor(CGContextRef context, CGSize offset,
-    CGFloat blur, CGColorRef color)
+    Float blur, CGColorRef color)
     CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Equivalent to calling
@@ -687,7 +687,7 @@ CG_EXTERN void CGContextSetShadowWithColor(CGContextRef context, CGSize offset,
    the DeviceRGB color space. */
 
 CG_EXTERN void CGContextSetShadow(CGContextRef context, CGSize offset,
-    CGFloat blur) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
+    Float blur) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /** Gradient and shading functions. **/
 
@@ -713,8 +713,8 @@ CG_EXTERN void CGContextDrawLinearGradient(CGContextRef context,
    gradient is drawn before the start circle or after the end circle. */
 
 CG_EXTERN void CGContextDrawRadialGradient(CGContextRef context,
-    CGGradientRef gradient, CGPoint startCenter, CGFloat startRadius,
-    CGPoint endCenter, CGFloat endRadius, CGGradientDrawingOptions options)
+    CGGradientRef gradient, CGPoint startCenter, Float startRadius,
+    CGPoint endCenter, Float endRadius, CGGradientDrawingOptions options)
     CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Fill the current clipping region of `context' with `shading'. */
@@ -729,12 +729,12 @@ CG_EXTERN void CGContextDrawShading(CGContextRef context, CGShadingRef shading)
    character and the origin of the next. */
 
 CG_EXTERN void CGContextSetCharacterSpacing(CGContextRef context,
-    CGFloat spacing) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+    Float spacing) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the user-space point at which text will be drawn in the context `c'
    to `(x, y)'. */
 
-CG_EXTERN void CGContextSetTextPosition(CGContextRef c, CGFloat x, CGFloat y)
+CG_EXTERN void CGContextSetTextPosition(CGContextRef c, Float x, Float y)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Return the user-space point at which text will be drawn in `context'. */
@@ -767,7 +767,7 @@ CG_EXTERN void CGContextSetFont(CGContextRef c, CGFontRef font)
 /* Set the font size in the current graphics state of the context `c' to
    `size'. */
 
-CG_EXTERN void CGContextSetFontSize(CGContextRef c, CGFloat size)
+CG_EXTERN void CGContextSetFontSize(CGContextRef c, Float size)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Attempts to find the font named `name' and, if successful, sets it as the
@@ -776,7 +776,7 @@ CG_EXTERN void CGContextSetFontSize(CGContextRef c, CGFloat size)
    translate from bytes to glyphs when displaying text. */
 
 CG_EXTERN void CGContextSelectFont(CGContextRef c, const char *name,
-    CGFloat size, CGTextEncoding textEncoding)
+    Float size, CGTextEncoding textEncoding)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Draw `glyphs', an array of `count' CGGlyphs, at the points specified by
@@ -802,7 +802,7 @@ CG_EXTERN void CGContextShowText(CGContextRef c, const char *string,
    mapped through the encoding vector of the current font to obtain the
    glyph to display. */
 
-CG_EXTERN void CGContextShowTextAtPoint(CGContextRef c, CGFloat x, CGFloat y,
+CG_EXTERN void CGContextShowTextAtPoint(CGContextRef c, Float x, Float y,
     const char *string, size_t length)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
@@ -815,8 +815,8 @@ CG_EXTERN void CGContextShowGlyphs(CGContextRef c, const CGGlyph g[],
 /* Display the glyphs pointed to by `glyphs', an array of `count' glyphs, at
    the point `(x, y)', specified in user space, in `context'. */
 
-CG_EXTERN void CGContextShowGlyphsAtPoint(CGContextRef context, CGFloat x,
-    CGFloat y, const CGGlyph glyphs[], size_t count)
+CG_EXTERN void CGContextShowGlyphsAtPoint(CGContextRef context, Float x,
+    Float y, const CGGlyph glyphs[], size_t count)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Draw `glyphs', an array of `count' CGGlyphs, at the current point

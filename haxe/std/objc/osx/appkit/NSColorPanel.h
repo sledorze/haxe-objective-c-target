@@ -93,7 +93,7 @@ extern class NSColorPanel : NSPanel
 - (NSColorPanelMode)mode;
 - (void)setColor:(NSColor *)color;
 - (NSColor *)color;
-- (CGFloat)alpha;
+- (Float)alpha;
 - (void)setAction:(SEL)aSelector;
 - (void)setTarget:(id)anObject;
 - (void)attachColorList:(NSColorList *)colorList;

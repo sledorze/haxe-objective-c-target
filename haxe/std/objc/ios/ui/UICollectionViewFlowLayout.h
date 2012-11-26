@@ -23,8 +23,8 @@ extern interface UICollectionViewDelegateFlowLayout <UICollectionViewDelegate>
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
+- (Float)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
+- (Float)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section;
 
@@ -32,8 +32,8 @@ extern interface UICollectionViewDelegateFlowLayout <UICollectionViewDelegate>
 
 NS_CLASS_AVAILABLE_IOS(6_0)extern class UICollectionViewFlowLayout : UICollectionViewLayout
 
-	public var CGFloat minimumLineSpacing;
-	public var CGFloat minimumInteritemSpacing;
+	public var Float minimumLineSpacing;
+	public var Float minimumInteritemSpacing;
 	public var CGSize itemSize;
 	public var UICollectionViewScrollDirection scrollDirection; // default is UICollectionViewScrollDirectionVertical
 	public var CGSize headerReferenceSize;

@@ -47,13 +47,13 @@ extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
     struct PATHSEGMENT *_head;
     NSInteger _lastSubpathIndex;
     void *_extraSegments;
-    CGFloat _lineWidth;
+    Float _lineWidth;
     NSRect _controlPointBounds;
-    CGFloat _miterLimit;
-    CGFloat _flatness;
-    CGFloat *_dashedLinePattern;
+    Float _miterLimit;
+    Float _flatness;
+    Float *_dashedLinePattern;
     NSUInteger _dashedLineCount;
-    CGFloat _dashedLinePhase;
+    Float _dashedLinePhase;
     void *_path;
     NSInteger _extraSegmentCount;
     NSInteger _extraSegmentMax;
@@ -71,7 +71,7 @@ extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
 + (NSBezierPath *)bezierPath;
 + (NSBezierPath *)bezierPathWithRect:(NSRect)rect;
 + (NSBezierPath *)bezierPathWithOvalInRect:(NSRect)rect;
-+ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect xRadius:(CGFloat)xRadius yRadius:(CGFloat)yRadius NS_AVAILABLE_MAC(10_5);
++ (NSBezierPath *)bezierPathWithRoundedRect:(NSRect)rect xRadius:(Float)xRadius yRadius:(Float)yRadius NS_AVAILABLE_MAC(10_5);
 
 // Immediate mode drawing of common paths.
 
@@ -83,10 +83,10 @@ extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
 
 // Default path rendering parameters.
 
-+ (void)setDefaultMiterLimit:(CGFloat)limit;
-+ (CGFloat)defaultMiterLimit;
-+ (void)setDefaultFlatness:(CGFloat)flatness;
-+ (CGFloat)defaultFlatness;
++ (void)setDefaultMiterLimit:(Float)limit;
++ (Float)defaultMiterLimit;
++ (void)setDefaultFlatness:(Float)flatness;
++ (Float)defaultFlatness;
 
 + (void)setDefaultWindingRule:(NSWindingRule)windingRule;
 + (NSWindingRule)defaultWindingRule;
@@ -94,8 +94,8 @@ extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
 + (NSLineCapStyle)defaultLineCapStyle;
 + (void)setDefaultLineJoinStyle:(NSLineJoinStyle)lineJoinStyle;
 + (NSLineJoinStyle)defaultLineJoinStyle;
-+ (void)setDefaultLineWidth:(CGFloat)lineWidth;
-+ (CGFloat)defaultLineWidth;
++ (void)setDefaultLineWidth:(Float)lineWidth;
++ (Float)defaultLineWidth;
 
 // Path construction.
 
@@ -118,20 +118,20 @@ extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
 
 // Path rendering parameters.
 
-- (CGFloat)lineWidth;
-- (void)setLineWidth:(CGFloat)lineWidth;
+- (Float)lineWidth;
+- (void)setLineWidth:(Float)lineWidth;
 - (NSLineCapStyle)lineCapStyle;
 - (void)setLineCapStyle:(NSLineCapStyle)lineCapStyle;
 - (NSLineJoinStyle)lineJoinStyle;
 - (void)setLineJoinStyle:(NSLineJoinStyle)lineJoinStyle;
 - (NSWindingRule)windingRule;
 - (void)setWindingRule:(NSWindingRule)windingRule;
-- (CGFloat)miterLimit;
-- (void)setMiterLimit:(CGFloat)miterLimit;
-- (CGFloat)flatness;
-- (void)setFlatness:(CGFloat)flatness;
-- (void)getLineDash:(CGFloat *)pattern count:(NSInteger *)count phase:(CGFloat *)phase;
-- (void)setLineDash:(const CGFloat *)pattern count:(NSInteger)count phase:(CGFloat)phase;
+- (Float)miterLimit;
+- (void)setMiterLimit:(Float)miterLimit;
+- (Float)flatness;
+- (void)setFlatness:(Float)flatness;
+- (void)getLineDash:(Float *)pattern count:(NSInteger *)count phase:(Float *)phase;
+- (void)setLineDash:(const Float *)pattern count:(NSInteger)count phase:(Float)phase;
 
 // Path operations.
 
@@ -176,23 +176,23 @@ extern class NSBezierPath extends NSObject, implements NSCopying, NSCoding>
 - (void)appendBezierPathWithRect:(NSRect)rect;
 - (void)appendBezierPathWithPoints:(NSPointArray)points count:(NSInteger)count;
 - (void)appendBezierPathWithOvalInRect:(NSRect)rect;
-- (void)appendBezierPathWithArcWithCenter:(NSPoint)center radius:(CGFloat)radius
-			       startAngle:(CGFloat)startAngle
-				 endAngle:(CGFloat)endAngle
+- (void)appendBezierPathWithArcWithCenter:(NSPoint)center radius:(Float)radius
+			       startAngle:(Float)startAngle
+				 endAngle:(Float)endAngle
 				clockwise:(BOOL)clockwise;
 // As above with clockwise == NO. */	
-- (void)appendBezierPathWithArcWithCenter:(NSPoint)center radius:(CGFloat)radius
-			       startAngle:(CGFloat)startAngle
-				 endAngle:(CGFloat)endAngle;
+- (void)appendBezierPathWithArcWithCenter:(NSPoint)center radius:(Float)radius
+			       startAngle:(Float)startAngle
+				 endAngle:(Float)endAngle;
 - (void)appendBezierPathWithArcFromPoint:(NSPoint)point1
 				 toPoint:(NSPoint)point2
-				  radius:(CGFloat)radius;
+				  radius:(Float)radius;
 - (void)appendBezierPathWithGlyph:(NSGlyph)glyph inFont:(NSFont *)font;
 - (void)appendBezierPathWithGlyphs:(NSGlyph *)glyphs count:(NSInteger)count
 			    inFont:(NSFont *)font;
 - (void)appendBezierPathWithPackedGlyphs:(const char *)packedGlyphs;
 // Appends paths for a rounded rectangle.
-- (void)appendBezierPathWithRoundedRect:(NSRect)rect xRadius:(CGFloat)xRadius yRadius:(CGFloat)yRadius NS_AVAILABLE_MAC(10_5);
+- (void)appendBezierPathWithRoundedRect:(NSRect)rect xRadius:(Float)xRadius yRadius:(Float)yRadius NS_AVAILABLE_MAC(10_5);
 
 // Hit detection.
 - (BOOL)containsPoint:(NSPoint)point;

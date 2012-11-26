@@ -133,9 +133,9 @@ extern class NSTextView : NSText <NSTextInput, NSUserInterfaceValidations, NSTex
 - (void)rulerView:(NSRulerView *)ruler didAddMarker:(NSRulerMarker *)marker;
 - (BOOL)rulerView:(NSRulerView *)ruler shouldMoveMarker:(NSRulerMarker *)marker;
 - (BOOL)rulerView:(NSRulerView *)ruler shouldAddMarker:(NSRulerMarker *)marker;
-- (CGFloat)rulerView:(NSRulerView *)ruler willMoveMarker:(NSRulerMarker *)marker toLocation:(CGFloat)location;
+- (Float)rulerView:(NSRulerView *)ruler willMoveMarker:(NSRulerMarker *)marker toLocation:(Float)location;
 - (BOOL)rulerView:(NSRulerView *)ruler shouldRemoveMarker:(NSRulerMarker *)marker;
-- (CGFloat)rulerView:(NSRulerView *)ruler willAddMarker:(NSRulerMarker *)marker atLocation:(CGFloat)location;
+- (Float)rulerView:(NSRulerView *)ruler willAddMarker:(NSRulerMarker *)marker atLocation:(Float)location;
 - (void)rulerView:(NSRulerView *)ruler handleMouseDown:(NSEvent *)event;
 
 /*************************** Fine display control ***************************/

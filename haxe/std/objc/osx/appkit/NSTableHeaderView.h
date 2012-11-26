@@ -20,7 +20,7 @@ extern class NSTableHeaderView : NSView
     NSInteger _draggedColumn;
     NSInteger _pressedColumn;
     NSImage *_headerDragImage;
-    CGFloat _draggedDistance;
+    Float _draggedDistance;
     unsigned int _isColumnResizing:1;
     unsigned int _showHandCursorFired:1;
     unsigned int _toolTipRectsDirty:1;
@@ -36,7 +36,7 @@ extern class NSTableHeaderView : NSView
 
 // Returns -1 if there is no column being dragged
 - (NSInteger)draggedColumn;
-- (CGFloat)draggedDistance;
+- (Float)draggedDistance;
 
 - (NSInteger)resizedColumn;
 - (NSRect)headerRectOfColumn:(NSInteger)column;

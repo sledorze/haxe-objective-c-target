@@ -18,8 +18,8 @@ typedef struct CGFunction *CGFunctionRef;
    result in `out'. `info' is the info parameter passed to the CGFunction
    creation functions. */
 
-typedef void (*CGFunctionEvaluateCallback)(void *info, const CGFloat *in,
-  CGFloat *out);
+typedef void (*CGFunctionEvaluateCallback)(void *info, const Float *in,
+  Float *out);
 
 /* When a function is deallocated, this callback releases `info', the info
    parameter passed to the CGFunction creation functions. */
@@ -73,7 +73,7 @@ CG_EXTERN CFTypeID CGFunctionGetTypeID(void)
    pointer to a structure on the stack can be passed to this function. */
 
 CG_EXTERN CGFunctionRef CGFunctionCreate(void *info, size_t domainDimension,
-  const CGFloat *domain, size_t rangeDimension, const CGFloat *range,
+  const Float *domain, size_t rangeDimension, const Float *range,
   const CGFunctionCallbacks *callbacks)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 

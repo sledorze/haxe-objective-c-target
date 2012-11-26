@@ -70,7 +70,7 @@ extern class UITextView : UIScrollView <UITextInput>
     NSTextAlignment     m_textAlignment;
     UIView             *m_inputView;
     UIView             *m_inputAccessoryView;
-    CGFloat             m_lineHeight;
+    Float             m_lineHeight;
     BOOL                m_skipScrollContainingView;
     BOOL                m_allowsEditingTextAttributes;
     BOOL                m_usesAttributedText;

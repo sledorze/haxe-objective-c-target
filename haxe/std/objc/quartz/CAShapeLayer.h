@@ -61,17 +61,17 @@ extern class CAShapeLayer : CALayer
  * length. strokeStart defaults to zero and strokeEnd to one. Both are
  * animatable. */
 
-	public var  CGFloat strokeStart, strokeEnd;
+	public var  Float strokeStart, strokeEnd;
 
 /* The line width used when stroking the path. Defaults to one.
  * Animatable. */
 
-	public var  CGFloat lineWidth;
+	public var  Float lineWidth;
 
 /* The miter limit used when stroking the path. Defaults to ten.
  * Animatable. */
 
-	public var  CGFloat miterLimit;
+	public var  Float miterLimit;
 
 /* The cap style used when stroking the path. Options are `butt', `round'
  * and `square'. Defaults to `butt'. */
@@ -86,7 +86,7 @@ extern class CAShapeLayer : CALayer
 /* The phase of the dashing pattern applied when creating the stroke.
  * Defaults to zero. Animatable. */
 
-	public var  CGFloat lineDashPhase;
+	public var  Float lineDashPhase;
 
 /* The dash pattern (an array of NSNumbers) applied when creating the
  * stroked version of the path. Defaults to nil. */

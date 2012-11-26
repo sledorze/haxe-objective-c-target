@@ -24,7 +24,7 @@ extern class NSCIImageRep : NSImageRep
 extern class CIImage (NSAppKitAdditions)
 - (id)initWithBitmapImageRep:(NSBitmapImageRep *)bitmapImageRep;
 
-- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-- (void)drawAtPoint:(NSPoint)point fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
+- (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(Float)delta;
+- (void)drawAtPoint:(NSPoint)point fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(Float)delta;
 }
 

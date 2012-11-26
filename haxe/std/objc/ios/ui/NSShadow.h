@@ -16,7 +16,7 @@ package objc.ios.ui;
 NS_CLASS_AVAILABLE_IOS(6_0)extern class NSShadow extends NSObject, implements NSCopying, NSCoding>
 
 	public var CGSize shadowOffset;      // offset in user space of the shadow from the original drawing
-	public var CGFloat shadowBlurRadius; // blur radius of the shadow in default user space units
+	public var Float shadowBlurRadius; // blur radius of the shadow in default user space units
 	public var id shadowColor;           // color used for the shadow (default is black with an alpha value of 1/3)
 
 }

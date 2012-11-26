@@ -20,9 +20,9 @@ typedef NS_OPTIONS(NSUInteger, UIRectCorner) {
 extern class UIBezierPath extends NSObject<NSCopying, NSCoding> {
 @private
     CGPathRef _path;
-    CGFloat *_lineDashPattern;
+    Float *_lineDashPattern;
     NSUInteger _lineDashPatternCount;
-    CGFloat _lineWidth, _miterLimit, _flatness, _lineDashPhase;
+    Float _lineWidth, _miterLimit, _flatness, _lineDashPhase;
     CGLineCap _lineCapStyle;
     CGLineJoin _lineJoinStyle;
     BOOL _usesEvenOddFillRule;
@@ -33,9 +33,9 @@ extern class UIBezierPath extends NSObject<NSCopying, NSCoding> {
 + (UIBezierPath *)bezierPath;
 + (UIBezierPath *)bezierPathWithRect:(CGRect)rect;
 + (UIBezierPath *)bezierPathWithOvalInRect:(CGRect)rect;
-+ (UIBezierPath *)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius; // rounds all corners with the same horizontal and vertical radius
++ (UIBezierPath *)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(Float)cornerRadius; // rounds all corners with the same horizontal and vertical radius
 + (UIBezierPath *)bezierPathWithRoundedRect:(CGRect)rect byRoundingCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
-+ (UIBezierPath *)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise;
++ (UIBezierPath *)bezierPathWithArcCenter:(CGPoint)center radius:(Float)radius startAngle:(Float)startAngle endAngle:(Float)endAngle clockwise:(BOOL)clockwise;
 + (UIBezierPath *)bezierPathWithCGPath:(CGPathRef)CGPath;
 
 // Returns an immutable CGPathRef which is only valid until the UIBezierPath is further mutated.
@@ -48,7 +48,7 @@ extern class UIBezierPath extends NSObject<NSCopying, NSCoding> {
 	public function addLineToPoint:(CGPoint)point;
 	public function addCurveToPoint:(CGPoint)endPoint controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2;
 	public function addQuadCurveToPoint:(CGPoint)endPoint controlPoint:(CGPoint)controlPoint;
-	public function addArcWithCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise NS_AVAILABLE_IOS(4_0);
+	public function addArcWithCenter:(CGPoint)center radius:(Float)radius startAngle:(Float)startAngle endAngle:(Float)endAngle clockwise:(BOOL)clockwise NS_AVAILABLE_IOS(4_0);
 	public function closePath;
 
 	public function removeAllPoints;
@@ -74,15 +74,15 @@ extern class UIBezierPath extends NSObject<NSCopying, NSCoding> {
 
 // Drawing properties
 
-	public var  CGFloat lineWidth;
+	public var  Float lineWidth;
 	public var  CGLineCap lineCapStyle;
 	public var  CGLineJoin lineJoinStyle;
-	public var  CGFloat miterLimit; // Used when lineJoinStyle is kCGLineJoinMiter
-	public var  CGFloat flatness;
+	public var  Float miterLimit; // Used when lineJoinStyle is kCGLineJoinMiter
+	public var  Float flatness;
 	public var  BOOL usesEvenOddFillRule; // Default is NO. When YES, the even-odd fill rule is used for drawing, clipping, and hit testing.
 
-	public function setLineDash:(const CGFloat *)pattern count:(NSInteger)count phase:(CGFloat)phase;
-	public function getLineDash:(CGFloat *)pattern count:(NSInteger *)count phase:(CGFloat *)phase;
+	public function setLineDash:(const Float *)pattern count:(NSInteger)count phase:(Float)phase;
+	public function getLineDash:(Float *)pattern count:(NSInteger *)count phase:(Float *)phase;
 
 // Path operations on the current graphics context
 
@@ -90,8 +90,8 @@ extern class UIBezierPath extends NSObject<NSCopying, NSCoding> {
 	public function stroke;
 
 // These methods do not affect the blend mode or alpha of the current graphics context
-	public function fillWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
-	public function strokeWithBlendMode:(CGBlendMode)blendMode alpha:(CGFloat)alpha;
+	public function fillWithBlendMode:(CGBlendMode)blendMode alpha:(Float)alpha;
+	public function strokeWithBlendMode:(CGBlendMode)blendMode alpha:(Float)alpha;
 
 	public function addClip;
 

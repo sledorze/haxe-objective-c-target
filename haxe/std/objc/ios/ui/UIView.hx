@@ -163,7 +163,7 @@ extern class UIView extends UIResponder, implements NSCoding/*, implements UIApp
 	@:require(ios_6_0) public function viewForBaselineLayout () :UIView;
 
 
-//UIKIT_EXTERN const CGFloat UIViewNoIntrinsicMetric NS_AVAILABLE_IOS(6_0); // -1
+//UIKIT_EXTERN const Float UIViewNoIntrinsicMetric NS_AVAILABLE_IOS(6_0); // -1
 	@:require(ios_6_0) public function intrinsicContentSize () :CGSize;
 	@:require(ios_6_0) public function invalidateIntrinsicContentSize () :Void;
 

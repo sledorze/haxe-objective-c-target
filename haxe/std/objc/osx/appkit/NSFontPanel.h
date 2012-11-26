@@ -77,7 +77,7 @@ extern class NSFontPanel : NSPanel {
     id _addCollectionButton;
     id _removeCollectionButton;
 
-    CGFloat _fontPanelPreviewHeight; 
+    Float _fontPanelPreviewHeight; 
     id _typographyPanel;
     id _actionButton;
     id _fontEffectsBox;

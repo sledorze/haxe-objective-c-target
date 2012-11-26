@@ -17,7 +17,7 @@ typedef long int CGPDFInteger;
 
 /* A type for real values. */
 
-typedef CGFloat CGPDFReal;
+typedef Float CGPDFReal;
 
 /* A type to hold any object. */
 

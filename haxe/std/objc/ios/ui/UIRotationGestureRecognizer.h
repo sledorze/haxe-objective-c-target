@@ -19,14 +19,14 @@ extern class UIRotationGestureRecognizer : UIGestureRecognizer {
     double            _currentTouchAngle;
     NSInteger         _currentRotationCount;
     NSTimeInterval    _lastTouchTime;
-    CGFloat           _velocity;
-    CGFloat           _previousVelocity;
+    Float           _velocity;
+    Float           _previousVelocity;
     CGPoint           _anchorPoint;
     id                _transformAnalyzer;
     UITouch          *_touches[2];
 }
 
-	public var          CGFloat rotation;            // rotation in radians
-	public var  (nonatomic,readonly) CGFloat velocity;            // velocity of the pinch in radians/second
+	public var          Float rotation;            // rotation in radians
+	public var  (nonatomic,readonly) Float velocity;            // velocity of the pinch in radians/second
 
 }

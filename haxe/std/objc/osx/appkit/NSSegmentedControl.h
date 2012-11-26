@@ -39,8 +39,8 @@ extern class NSSegmentedControl : NSControl {
 
 - (BOOL)selectSegmentWithTag:(NSInteger)tag;
 
-- (void)setWidth:(CGFloat)width forSegment:(NSInteger)segment;
-- (CGFloat)widthForSegment:(NSInteger)segment;
+- (void)setWidth:(Float)width forSegment:(NSInteger)segment;
+- (Float)widthForSegment:(NSInteger)segment;
 
 - (void)setImage:(NSImage *)image forSegment:(NSInteger)segment;
 - (NSImage *)imageForSegment:(NSInteger)segment;

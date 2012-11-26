@@ -47,10 +47,10 @@ extern class NSMenuItemCell : NSButtonCell {
 - (void)setNeedsDisplay:(BOOL)flag;
 - (BOOL)needsDisplay;
 
-- (CGFloat)stateImageWidth;
-- (CGFloat)imageWidth;
-- (CGFloat)titleWidth;
-- (CGFloat)keyEquivalentWidth;
+- (Float)stateImageWidth;
+- (Float)imageWidth;
+- (Float)titleWidth;
+- (Float)keyEquivalentWidth;
 
 - (NSRect)stateImageRectForBounds:(NSRect)cellFrame;
 - (NSRect)titleRectForBounds:(NSRect)cellFrame;

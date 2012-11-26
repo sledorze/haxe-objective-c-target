@@ -189,18 +189,18 @@ extern class NSView : NSResponder <NSAnimatablePropertyContainer, NSUserInterfac
 - (void)setFrameSize:(NSSize)newSize;
 - (void)setFrame:(NSRect)frameRect;
 - (NSRect)frame;
-- (void)setFrameRotation:(CGFloat)angle;
-- (CGFloat)frameRotation;
-- (void)setFrameCenterRotation:(CGFloat)angle NS_AVAILABLE_MAC(10_5);
-- (CGFloat)frameCenterRotation NS_AVAILABLE_MAC(10_5);
+- (void)setFrameRotation:(Float)angle;
+- (Float)frameRotation;
+- (void)setFrameCenterRotation:(Float)angle NS_AVAILABLE_MAC(10_5);
+- (Float)frameCenterRotation NS_AVAILABLE_MAC(10_5);
 
 - (void)setBoundsOrigin:(NSPoint)newOrigin;
 - (void)setBoundsSize:(NSSize)newSize;
-- (void)setBoundsRotation:(CGFloat)angle;
-- (CGFloat)boundsRotation;
+- (void)setBoundsRotation:(Float)angle;
+- (Float)boundsRotation;
 - (void)translateOriginToPoint:(NSPoint)translation;
 - (void)scaleUnitSquareToSize:(NSSize)newUnitSize;
-- (void)rotateByAngle:(CGFloat)angle;
+- (void)rotateByAngle:(Float)angle;
 - (void)setBounds:(NSRect)aRect;
 - (NSRect)bounds;
 
@@ -335,8 +335,8 @@ extern class NSView : NSResponder <NSAnimatablePropertyContainer, NSUserInterfac
 - (void)setLayer:(CALayer *)newLayer NS_AVAILABLE_MAC(10_5);
 - (CALayer *)layer NS_AVAILABLE_MAC(10_5);
 
-- (void)setAlphaValue:(CGFloat)viewAlpha NS_AVAILABLE_MAC(10_5);
-- (CGFloat)alphaValue NS_AVAILABLE_MAC(10_5);
+- (void)setAlphaValue:(Float)viewAlpha NS_AVAILABLE_MAC(10_5);
+- (Float)alphaValue NS_AVAILABLE_MAC(10_5);
 
 - (void)setBackgroundFilters:(NSArray *)filters NS_AVAILABLE_MAC(10_5);
 - (NSArray *)backgroundFilters NS_AVAILABLE_MAC(10_5);
@@ -436,10 +436,10 @@ extern class NSView(NSPrinting)
 
 /* Pagination */
 - (BOOL)knowsPageRange:(NSRangePointer)range;
-- (CGFloat)heightAdjustLimit;
-- (CGFloat)widthAdjustLimit;
-- (void)adjustPageWidthNew:(CGFloat *)newRight left:(CGFloat)oldLeft right:(CGFloat)oldRight limit:(CGFloat)rightLimit;
-- (void)adjustPageHeightNew:(CGFloat *)newBottom top:(CGFloat)oldTop bottom:(CGFloat)oldBottom limit:(CGFloat)bottomLimit;
+- (Float)heightAdjustLimit;
+- (Float)widthAdjustLimit;
+- (void)adjustPageWidthNew:(Float *)newRight left:(Float)oldLeft right:(Float)oldRight limit:(Float)rightLimit;
+- (void)adjustPageHeightNew:(Float *)newBottom top:(Float)oldTop bottom:(Float)oldBottom limit:(Float)bottomLimit;
 - (NSRect)rectForPage:(NSInteger)page;
 - (NSPoint)locationOfPrintRect:(NSRect)aRect;
 - (void)drawPageBorderWithSize:(NSSize)borderSize;

@@ -164,9 +164,9 @@
 # define CGFLOAT_MAX FLT_MAX
 #endif
 
-/* Definition of the `CGFloat' type and `CGFLOAT_DEFINED'. */
+/* Definition of the `Float' type and `CGFLOAT_DEFINED'. */
 
-typedef CGFLOAT_TYPE CGFloat;
+typedef CGFLOAT_TYPE Float;
 #define CGFLOAT_DEFINED 1
 
 /* Definition of `CG_OBSOLETE'. Deprecated; to be removed. */

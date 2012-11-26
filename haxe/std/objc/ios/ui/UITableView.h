@@ -41,7 +41,7 @@ UIKIT_EXTERN NSString *const UITableViewIndexSearch NS_AVAILABLE_IOS(3_0);
 
 // Returning this value from tableView:heightForHeaderInSection: or tableView:heightForFooterInSection: results in a height that fits the value returned from
 // tableView:titleForHeaderInSection: or tableView:titleForFooterInSection: if the title is not nil.
-UIKIT_EXTERN const CGFloat UITableViewAutomaticDimension NS_AVAILABLE_IOS(5_0);
+UIKIT_EXTERN const Float UITableViewAutomaticDimension NS_AVAILABLE_IOS(5_0);
 
 @class UITableView;
 @class UINib;
@@ -68,9 +68,9 @@ extern interface UITableViewDelegate<NSObject, UIScrollViewDelegate>
 
 // Variable height support
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
+- (Float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (Float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
+- (Float)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
 
 // Section header & footer information. Views are preferred over title should you decide to provide both
 
@@ -139,9 +139,9 @@ extern class UITableView : UIScrollView, implements NSObject> {
     id <UITableViewDataSource>  _dataSource;
     
     id                          _rowData;
-    CGFloat                     _rowHeight;
-    CGFloat                     _sectionHeaderHeight;
-    CGFloat                     _sectionFooterHeight;
+    Float                     _rowHeight;
+    Float                     _sectionHeaderHeight;
+    Float                     _sectionFooterHeight;
 
     CGRect                      _visibleBounds;
     NSRange                     _visibleRows;
@@ -218,8 +218,8 @@ extern class UITableView : UIScrollView, implements NSObject> {
     NSMutableDictionary         *_cellClassDict;
     NSMutableDictionary         *_headerFooterClassDict;
 
-    CGFloat                      _topPadding;
-    CGFloat                      _bottomPadding;
+    Float                      _topPadding;
+    Float                      _bottomPadding;
     
     id                           _updateCompletionHandler;
 
@@ -349,9 +349,9 @@ extern class UITableView : UIScrollView, implements NSObject> {
 	public var (default, null) UITableViewStyle           style;
 	public var    id <UITableViewDataSource> dataSource;
 	public var    id <UITableViewDelegate>   delegate;
-	public var           CGFloat                    rowHeight;             // will return the default value if unset
-	public var           CGFloat                    sectionHeaderHeight;   // will return the default value if unset
-	public var           CGFloat                    sectionFooterHeight;   // will return the default value if unset
+	public var           Float                    rowHeight;             // will return the default value if unset
+	public var           Float                    sectionHeaderHeight;   // will return the default value if unset
+	public var           Float                    sectionFooterHeight;   // will return the default value if unset
 
 	public var (nonatomic, readwrite, retain) UIView *backgroundView NS_AVAILABLE_IOS(3_2); // the background view will be automatically resized to track the size of the table view.  this will be placed as a subview of the table view behind all cells and headers/footers.  default may be non-nil for some devices.
 

@@ -70,8 +70,8 @@ extern class NSSegmentedCell : NSActionCell {
 
 /* Width of 0 means autosize to fit
 */
-- (void)setWidth:(CGFloat)width forSegment:(NSInteger)segment;
-- (CGFloat)widthForSegment:(NSInteger)segment;
+- (void)setWidth:(Float)width forSegment:(NSInteger)segment;
+- (Float)widthForSegment:(NSInteger)segment;
 
 - (void)setImage:(NSImage *)image forSegment:(NSInteger)segment;
 - (NSImage *)imageForSegment:(NSInteger)segment;

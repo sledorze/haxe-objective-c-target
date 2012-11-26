@@ -47,7 +47,7 @@ extern class UISegmentedControl : UIControl, implements NSObject>
     UIBarStyle      _barStyle;
     id              _appearanceStorage;
     UIView         *_backgroundBarView;
-    CGFloat         _enabledAlpha;
+    Float         _enabledAlpha;
     struct {
         unsigned int style:3;
         unsigned int size:2;
@@ -89,8 +89,8 @@ extern class UISegmentedControl : UIControl, implements NSObject>
 	public function setImage:(UIImage *)image forSegmentAtIndex:(NSUInteger)segment;       // can only have image or title, not both. must be 0..#segments - 1 (or ignored). default is nil
 - (UIImage *)imageForSegmentAtIndex:(NSUInteger)segment;
 
-	public function setWidth:(CGFloat)width forSegmentAtIndex:(NSUInteger)segment;         // set to 0.0 width to autosize. default is 0.0
-- (CGFloat)widthForSegmentAtIndex:(NSUInteger)segment;
+	public function setWidth:(Float)width forSegmentAtIndex:(NSUInteger)segment;         // set to 0.0 width to autosize. default is 0.0
+- (Float)widthForSegmentAtIndex:(NSUInteger)segment;
 
 	public function setContentOffset:(CGSize)offset forSegmentAtIndex:(NSUInteger)segment; // adjust offset of image or text inside the segment. default is (0,0)
 - (CGSize)contentOffsetForSegmentAtIndex:(NSUInteger)segment;

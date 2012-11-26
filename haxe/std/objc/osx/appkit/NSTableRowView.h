@@ -22,10 +22,10 @@ extern class NSTableRowView : NSView {
     NSTableViewSelectionHighlightStyle _selectionHighlightStyle;
     NSTableViewDraggingDestinationFeedbackStyle _draggingDestinationFeedbackStyle;
     
-    CGFloat _dropOperationIndentation;
+    Float _dropOperationIndentation;
 
     NSColor *_backgroundColor;
-    CGFloat _selectionAlpha;
+    Float _selectionAlpha;
 
     unsigned int _targetForDropOperation:1;
     unsigned int _groupRowStyle:2;
@@ -66,7 +66,7 @@ extern class NSTableRowView : NSView {
 */ 
 	public var (getter=isTargetForDropOperation) BOOL targetForDropOperation;
 	public var  NSTableViewDraggingDestinationFeedbackStyle draggingDestinationFeedbackStyle;
-	public var  CGFloat indentationForDropOperation;
+	public var  Float indentationForDropOperation;
 
 /* The interiorBackgroundStyle can be used as an indication of how the subviews should draw. This value is dynamically computed based on the set of properties set for the NSTableRowView. Subclassers can override this value when they draw differently based on the currently displayed properties. This method can also be called to determine what color a subview should use, or alternatively, NSControls can have the -backgroundStyle set on their cell to this value.
  */

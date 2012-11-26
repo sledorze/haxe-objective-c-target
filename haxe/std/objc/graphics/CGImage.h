@@ -54,7 +54,7 @@ CG_EXTERN CFTypeID CGImageGetTypeID(void)
 CG_EXTERN CGImageRef CGImageCreate(size_t width, size_t height,
     size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow,
     CGColorSpaceRef space, CGBitmapInfo bitmapInfo, CGDataProviderRef provider,
-    const CGFloat decode[], bool shouldInterpolate,
+    const Float decode[], bool shouldInterpolate,
     CGColorRenderingIntent intent)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
@@ -62,7 +62,7 @@ CG_EXTERN CGImageRef CGImageCreate(size_t width, size_t height,
 
 CG_EXTERN CGImageRef CGImageMaskCreate(size_t width, size_t height,
     size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow,
-    CGDataProviderRef provider, const CGFloat decode[], bool shouldInterpolate)
+    CGDataProviderRef provider, const Float decode[], bool shouldInterpolate)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Return a copy of `image'. Only the image structure itself is copied; the
@@ -74,14 +74,14 @@ CG_EXTERN CGImageRef CGImageCreateCopy(CGImageRef image)
 /* Create an image from `source', a data provider of JPEG-encoded data. */
 
 CG_EXTERN CGImageRef CGImageCreateWithJPEGDataProvider(CGDataProviderRef
-    source, const CGFloat decode[], bool shouldInterpolate,
+    source, const Float decode[], bool shouldInterpolate,
     CGColorRenderingIntent intent)
     CG_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_2_0);
 
 /* Create an image using `source', a data provider for PNG-encoded data. */
 
 CG_EXTERN CGImageRef CGImageCreateWithPNGDataProvider(CGDataProviderRef source,
-    const CGFloat decode[], bool shouldInterpolate,
+    const Float decode[], bool shouldInterpolate,
     CGColorRenderingIntent intent)
     CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
@@ -155,7 +155,7 @@ CG_EXTERN CGImageRef CGImageCreateWithMask(CGImageRef image, CGImageRef mask)
    an image mask or masking color associated with it. */
 
 CG_EXTERN CGImageRef CGImageCreateWithMaskingColors(CGImageRef image,
-    const CGFloat components[])
+    const Float components[])
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Create a copy of `image', replacing the image's color space with `space'.
@@ -224,7 +224,7 @@ CG_EXTERN CGDataProviderRef CGImageGetDataProvider(CGImageRef image)
 
 /* Return the decode array of `image'. */
 
-CG_EXTERN const CGFloat *CGImageGetDecode(CGImageRef image)
+CG_EXTERN const Float *CGImageGetDecode(CGImageRef image)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Return the interpolation parameter of `image'. */

@@ -20,7 +20,7 @@ extern class UILongPressGestureRecognizer : UIGestureRecognizer {
     NSMutableSet     *_activeTouches;
     NSUInteger        _numberOfTouchesRequired;
     CFTimeInterval    _minimumPressDuration;
-    CGFloat           _allowableMovement;
+    Float           _allowableMovement;
     CGPoint           _startPointScreen;
     id                _enoughTimeElapsed;
     id                _tooMuchTimeElapsed;
@@ -36,6 +36,6 @@ extern class UILongPressGestureRecognizer : UIGestureRecognizer {
 	public var NSUInteger numberOfTouchesRequired;   // Default is 1. Number of fingers that must be held down for the gesture to be recognized
 
 	public var CFTimeInterval minimumPressDuration; // Default is 0.5. Time in seconds the fingers must be held down for the gesture to be recognized
-	public var CGFloat allowableMovement;           // Default is 10. Maximum movement in pixels allowed before the gesture fails. Once recognized (after minimumPressDuration) there is no limit on finger movement for the remainder of the touch tracking
+	public var Float allowableMovement;           // Default is 10. Maximum movement in pixels allowed before the gesture fails. Once recognized (after minimumPressDuration) there is no limit on finger movement for the remainder of the touch tracking
 
 }

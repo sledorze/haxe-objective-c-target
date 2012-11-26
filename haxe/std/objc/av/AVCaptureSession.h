@@ -990,10 +990,10 @@ extern class AVCaptureConnection extends NSObject
  @discussion
     This property is only applicable to AVCaptureConnection instances involving
     video.  In such connections, the videoMaxScaleAndCropFactor property specifies
-    the maximum CGFloat value that may be used when setting the videoScaleAndCropFactor
+    the maximum Float value that may be used when setting the videoScaleAndCropFactor
     property.
 */
-	public var (default, null) CGFloat videoMaxScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
+	public var (default, null) Float videoMaxScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
 
 /*!
  	public var  videoScaleAndCropFactor
@@ -1007,7 +1007,7 @@ extern class AVCaptureConnection extends NSObject
     1.0, the image is its original size.  At a factor greater than 1.0, the image
     is scaled by the factor and center-cropped to its original dimensions.
 */
-	public var  CGFloat videoScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
+	public var  Float videoScaleAndCropFactor NS_AVAILABLE_IOS(5_0);
 
 /*!
  	public var  supportsVideoStabilization

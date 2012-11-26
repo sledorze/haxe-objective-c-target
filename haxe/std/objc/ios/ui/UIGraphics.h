@@ -26,7 +26,7 @@ UIKIT_EXTERN void UIRectClip(CGRect rect);
 // UIImage context
 
 UIKIT_EXTERN void     UIGraphicsBeginImageContext(CGSize size);
-UIKIT_EXTERN void     UIGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat scale) NS_AVAILABLE_IOS(4_0);
+UIKIT_EXTERN void     UIGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, Float scale) NS_AVAILABLE_IOS(4_0);
 UIKIT_EXTERN UIImage* UIGraphicsGetImageFromCurrentImageContext(void);
 UIKIT_EXTERN void     UIGraphicsEndImageContext(void); 
 

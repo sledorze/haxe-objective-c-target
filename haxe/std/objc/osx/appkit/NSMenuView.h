@@ -20,19 +20,19 @@ extern class NSMenuView : NSView {
     @private
     NSMenu *_menu;
     NSMutableArray *_cells;
-    CGFloat _stateImageWidth;
-    CGFloat _imageAndTitleWidth;
-    CGFloat _keyEquivalentWidth;
-    CGFloat *_extents;
+    Float _stateImageWidth;
+    Float _imageAndTitleWidth;
+    Float _keyEquivalentWidth;
+    Float *_extents;
     unsigned _extentsCapacity;
     int _highlightedItemIndex;
     BOOL *_submenuPopupCancel;
     NSMenuView *_attachedMenuView;
-    CGFloat _scrollArrowHeight;
-    CGFloat _maxWinHeight;
+    Float _scrollArrowHeight;
+    Float _maxWinHeight;
     NSFont *_font;
     NSSize _minSize;
-    CGFloat _horizontalEdgePad;
+    Float _horizontalEdgePad;
     void *trackingState;
     id _scrollingView;
     struct __mvFlags {
@@ -52,7 +52,7 @@ extern class NSMenuView : NSView {
     } _mvFlags;
 }
 
-+ (CGFloat)menuBarHeight;
++ (Float)menuBarHeight;
 
 - (id)initWithFrame:(NSRect)frame;  // DI
 - (id)initAsTearOff;
@@ -80,12 +80,12 @@ extern class NSMenuView : NSView {
 - (void)setHighlightedItemIndex:(NSInteger)index;
 - (NSInteger)highlightedItemIndex;
 
-- (CGFloat)stateImageOffset;
-- (CGFloat)stateImageWidth;
-- (CGFloat)imageAndTitleOffset;
-- (CGFloat)imageAndTitleWidth;
-- (CGFloat)keyEquivalentOffset;
-- (CGFloat)keyEquivalentWidth;
+- (Float)stateImageOffset;
+- (Float)stateImageWidth;
+- (Float)imageAndTitleOffset;
+- (Float)imageAndTitleWidth;
+- (Float)keyEquivalentOffset;
+- (Float)keyEquivalentWidth;
 
 - (void)setMenuItemCell:(NSMenuItemCell *)cell forItemAtIndex:(NSInteger)index;
 - (NSMenuItemCell *)menuItemCellForItemAtIndex:(NSInteger)index;
@@ -109,8 +109,8 @@ extern class NSMenuView : NSView {
 
 - (BOOL)trackWithEvent:(NSEvent *)event;
 
-- (CGFloat)horizontalEdgePadding;
-- (void)setHorizontalEdgePadding:(CGFloat)pad;
+- (Float)horizontalEdgePadding;
+- (void)setHorizontalEdgePadding:(Float)pad;
     // How much empty pad should be left on either edge of the item.
 
 }

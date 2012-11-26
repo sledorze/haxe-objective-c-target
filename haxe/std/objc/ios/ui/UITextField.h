@@ -44,7 +44,7 @@ extern class UITextField : UIControl <UITextInput, NSCoding> {
     NSAttributedString *_text;
     UIColor            *_textColor;
     UITextBorderStyle   _borderStyle;
-    CGFloat             _minimumFontSize;
+    Float             _minimumFontSize;
     id                  _delegate;
     UIImage            *_background;
     UIImage            *_disabledBackground;
@@ -56,11 +56,11 @@ extern class UITextField : UIControl <UITextInput, NSCoding> {
 
     UITextInputTraits  *_traits;
     UITextInputTraits  *_nonAtomTraits;
-    CGFloat             _fullFontSize; // font size to use when no shrinkage is needed.
-    CGFloat             _paddingLeft;
-    CGFloat             _paddingTop;
-    CGFloat             _paddingRight;
-    CGFloat             _paddingBottom;
+    Float             _fullFontSize; // font size to use when no shrinkage is needed.
+    Float             _paddingLeft;
+    Float             _paddingTop;
+    Float             _paddingRight;
+    Float             _paddingBottom;
     NSString           *_textFont; // This ivar will go away. This is deprecated and people should use _font
     NSRange             _selectionRange;
     int                 _scrollXOffset;
@@ -84,7 +84,7 @@ extern class UITextField : UIControl <UITextInput, NSCoding> {
     UITextFieldLabel *_prefixLabel;
     UIImageView      *_iconView;
     UILabel          *_label;
-    CGFloat          _labelOffset;
+    Float          _labelOffset;
     
     UITextInteractionAssistant *_interactionAssistant;
     
@@ -95,7 +95,7 @@ extern class UITextField : UIControl <UITextInput, NSCoding> {
     
     UIColor         *_shadowColor;
     CGSize           _shadowOffset;
-    CGFloat          _shadowBlur;
+    Float          _shadowBlur;
 
     struct {
         unsigned int secureTextChanged:1;
@@ -139,7 +139,7 @@ public var    NSString               *placeholder;          // default is nil. s
 public var    NSAttributedString     *attributedPlaceholder NS_AVAILABLE_IOS(6_0); // default is nil
 	public var         BOOL                    clearsOnBeginEditing; // default is NO which moves cursor to location clicked. if YES, all text cleared
 	public var         BOOL                    adjustsFontSizeToFitWidth; // default is NO. if YES, text will shrink to minFontSize along baseline
-	public var         CGFloat                 minimumFontSize;      // default is 0.0. actual min may be pinned to something readable. used if adjustsFontSizeToFitWidth is YES
+	public var         Float                 minimumFontSize;      // default is 0.0. actual min may be pinned to something readable. used if adjustsFontSizeToFitWidth is YES
 	public var  id<UITextFieldDelegate> delegate;             // default is nil. weak reference
 	public var (nonatomic,retain) UIImage                *background;           // default is nil. draw in border rect. image should be stretchable
 	public var (nonatomic,retain) UIImage                *disabledBackground;   // default is nil. ignored if background not set. image should be stretchable

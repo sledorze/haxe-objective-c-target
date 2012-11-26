@@ -58,7 +58,7 @@ CG_EXTERN CFTypeID CGPatternGetTypeID(void)
 /* Create a pattern. */
 
 CG_EXTERN CGPatternRef CGPatternCreate(void *info, CGRect bounds,
-  CGAffineTransform matrix, CGFloat xStep, CGFloat yStep,
+  CGAffineTransform matrix, Float xStep, Float yStep,
   CGPatternTiling tiling, bool isColored, const CGPatternCallbacks *callbacks)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 

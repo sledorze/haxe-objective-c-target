@@ -53,7 +53,7 @@ CG_EXTERN CGShadingRef CGShadingCreateAxial(CGColorSpaceRef space,
    circle. */
 
 CG_EXTERN CGShadingRef CGShadingCreateRadial(CGColorSpaceRef space,
-  CGPoint start, CGFloat startRadius, CGPoint end, CGFloat endRadius,
+  CGPoint start, Float startRadius, CGPoint end, Float endRadius,
   CGFunctionRef function, bool extendStart, bool extendEnd)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 

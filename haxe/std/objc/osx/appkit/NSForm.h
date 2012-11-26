@@ -12,8 +12,8 @@
 extern class  NSForm : NSMatrix
 
 - (NSInteger)indexOfSelectedItem;
-- (void)setEntryWidth:(CGFloat)width;
-- (void)setInterlineSpacing:(CGFloat)spacing;
+- (void)setEntryWidth:(Float)width;
+- (void)setInterlineSpacing:(Float)spacing;
 - (void)setBordered:(BOOL)flag;
 - (void)setBezeled:(BOOL)flag;
 - (void)setTitleAlignment:(NSTextAlignment)mode;

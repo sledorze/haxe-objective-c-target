@@ -14,21 +14,21 @@ package objc.ios.ui;
 
 extern class UIPinchGestureRecognizer : UIGestureRecognizer {
   @package
-    CGFloat           _initialTouchDistance;
-    CGFloat           _initialTouchScale;
+    Float           _initialTouchDistance;
+    Float           _initialTouchScale;
     NSTimeInterval    _lastTouchTime;
-    CGFloat           _velocity;
-    CGFloat           _previousVelocity;
-    CGFloat           _scaleThreshold;
+    Float           _velocity;
+    Float           _previousVelocity;
+    Float           _scaleThreshold;
     CGAffineTransform _transform;
     CGPoint           _anchorPoint;
     UITouch          *_touches[2];
-    CGFloat           _hysteresis;
+    Float           _hysteresis;
     id                _transformAnalyzer;
     unsigned int      _endsOnSingleTouch:1;
 }
 
-	public var          CGFloat scale;               // scale relative to the touch points in screen coordinates
-	public var  (nonatomic,readonly) CGFloat velocity;            // velocity of the pinch in scale/second
+	public var          Float scale;               // scale relative to the touch points in screen coordinates
+	public var  (nonatomic,readonly) Float velocity;            // velocity of the pinch in scale/second
 
 }

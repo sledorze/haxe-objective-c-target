@@ -68,7 +68,7 @@ extern class NSFontDescriptorextends NSObject, implements NSCopying, NSCoding> {
 
 /* Core attribute access */
 - (NSString *)postscriptName;
-- (CGFloat)pointSize;
+- (Float)pointSize;
 - (NSAffineTransform *)matrix;
 - (NSFontSymbolicTraits)symbolicTraits;
 
@@ -78,7 +78,7 @@ extern class NSFontDescriptorextends NSObject, implements NSCopying, NSCoding> {
 
 /* Instantiation */
 + (NSFontDescriptor *)fontDescriptorWithFontAttributes:(NSDictionary *)attributes;
-+ (NSFontDescriptor *)fontDescriptorWithName:(NSString *)fontName size:(CGFloat)size;
++ (NSFontDescriptor *)fontDescriptorWithName:(NSString *)fontName size:(Float)size;
 + (NSFontDescriptor *)fontDescriptorWithName:(NSString *)fontName matrix:(NSAffineTransform *)matrix;
 
 - (id)initWithFontAttributes:(NSDictionary *)attributes;
@@ -93,7 +93,7 @@ extern class NSFontDescriptorextends NSObject, implements NSCopying, NSCoding> {
 
 - (NSFontDescriptor *)fontDescriptorByAddingAttributes:(NSDictionary *)attributes; // the new attributes take precedence over the existing ones in the receiver
 - (NSFontDescriptor *)fontDescriptorWithSymbolicTraits:(NSFontSymbolicTraits)symbolicTraits;
-- (NSFontDescriptor *)fontDescriptorWithSize:(CGFloat)newPointSize;
+- (NSFontDescriptor *)fontDescriptorWithSize:(Float)newPointSize;
 - (NSFontDescriptor *)fontDescriptorWithMatrix:(NSAffineTransform *)matrix;
 - (NSFontDescriptor *)fontDescriptorWithFace:(NSString *)newFace;
 - (NSFontDescriptor *)fontDescriptorWithFamily:(NSString *)newFamily;

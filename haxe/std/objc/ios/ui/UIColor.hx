@@ -3,71 +3,50 @@ import objc.foundation.NSObject;
 
 extern class UIColor extends NSObject {
 	
+	public static function colorWithRed (red:Float, green:Float, blue:Float, alpha:Float) :UIColor;
+	//public static function colorWithCGColor (cgColor:CGColorRef) :UIColor;
+	public static function colorWithPatternImage (image:UIImage) :UIColor;
+	//@:require(ios_5_0) public static function colorWithCIColor (ciColor:CIColor) :UIColor;
 	public static function colorWithWhite (white:Float, alpha:Float) :UIColor;
 	public static function colorWithHue (hue:Float, saturation:Float, brightness:Float, alpha:Float) :UIColor;
-	public static function clearColor () : UIColor;
-	public static function redColor () : UIColor;
-	public static function darkGrayColor () : UIColor;
-	public static function yellowColor () : UIColor;
-}
+	
 
-/*
-+ (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
-+ (UIColor *)colorWithCGColor:(CGColorRef)cgColor;
-+ (UIColor *)colorWithPatternImage:(UIImage *)image;
-+ (UIColor *)colorWithCIColor:(CIColor *)ciColor NS_AVAILABLE_IOS(5_0);
+	public function initWithWhite (white:Float, alpha:Float) :UIColor;
+	public function initWithHue (hue:Float, saturation:Float, brightness:Float, alpha:Float) :UIColor;
+	public function initWithRed (red:Float green:Float, blue:Float, alpha:Float) :UIColor;
+	public function initWithCGColor (cgColor:CGColorRef) :UIColor;
+	public function initWithPatternImage (image:UIImage) :UIColor;
+	@:require(ios_5_0) public function initWithCIColor (ciColor:CIColor) :UIColor;
 
-// Initializers for creating non-autoreleased colors
-- (UIColor *)initWithWhite:(CGFloat)white alpha:(CGFloat)alpha;
-- (UIColor *)initWithHue:(CGFloat)hue saturation:(CGFloat)saturation brightness:(CGFloat)brightness alpha:(CGFloat)alpha;
-- (UIColor *)initWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
-- (UIColor *)initWithCGColor:(CGColorRef)cgColor;
-- (UIColor *)initWithPatternImage:(UIImage*)image;
-- (UIColor *)initWithCIColor:(CIColor *)ciColor NS_AVAILABLE_IOS(5_0);
+	public static function blackColor () : UIColor;      // 0.0 white 
+	public static function darkGrayColor () : UIColor;   // 0.333 white 
+	public static function lightGrayColor () : UIColor;  // 0.667 white 
+	public static function whiteColor () : UIColor;      // 1.0 white 
+	public static function grayColor () : UIColor;       // 0.5 white 
+	public static function redColor () : UIColor;        // 1.0, 0.0, 0.0 RGB 
+	public static function greenColor () : UIColor;      // 0.0, 1.0, 0.0 RGB 
+	public static function blueColor () : UIColor;       // 0.0, 0.0, 1.0 RGB 
+	public static function cyanColor () : UIColor;       // 0.0, 1.0, 1.0 RGB 
+	public static function yellowColor () : UIColor;     // 1.0, 1.0, 0.0 RGB 
+	public static function magentaColor () : UIColor;    // 1.0, 0.0, 1.0 RGB 
+	public static function orangeColor () : UIColor;     // 1.0, 0.5, 0.0 RGB 
+	public static function purpleColor () : UIColor;     // 0.5, 0.0, 0.5 RGB 
+	public static function brownColor () : UIColor;      // 0.6, 0.4, 0.2 RGB 
+	public static function clearColor () : UIColor;      // 0.0 white, 0.0 alpha 
 
-// Some convenience methods to create colors.  These colors will be as calibrated as possible.
-// These colors are cached.
-+ (UIColor *)blackColor;      // 0.0 white 
-+ (UIColor *)darkGrayColor;   // 0.333 white 
-+ (UIColor *)lightGrayColor;  // 0.667 white 
-+ (UIColor *)whiteColor;      // 1.0 white 
-+ (UIColor *)grayColor;       // 0.5 white 
-+ (UIColor *)redColor;        // 1.0, 0.0, 0.0 RGB 
-+ (UIColor *)greenColor;      // 0.0, 1.0, 0.0 RGB 
-+ (UIColor *)blueColor;       // 0.0, 0.0, 1.0 RGB 
-+ (UIColor *)cyanColor;       // 0.0, 1.0, 1.0 RGB 
-+ (UIColor *)yellowColor;     // 1.0, 1.0, 0.0 RGB 
-+ (UIColor *)magentaColor;    // 1.0, 0.0, 1.0 RGB 
-+ (UIColor *)orangeColor;     // 1.0, 0.5, 0.0 RGB 
-+ (UIColor *)purpleColor;     // 0.5, 0.0, 0.5 RGB 
-+ (UIColor *)brownColor;      // 0.6, 0.4, 0.2 RGB 
-+ (UIColor *)clearColor;      // 0.0 white, 0.0 alpha 
+	public function set () :Void;
+	public function setFill () :Void;
+	public function setStroke () :Void;
 
-// Set the color: Sets the fill and stroke colors in the current drawing context. Should be implemented by subclassers.
-	public function set;
+	@:require(ios_5_0) public function getWhite (white:Float, alpha:Float) :Bool;
+	@:require(ios_5_0) public function getHue (hue:Float, saturation:Float, brightness:Float, alpha:Float) :Bool; 
+	@:require(ios_5_0) public function getRed (red:Float, green:Float, blue:Float, alpha:Float) :Bool;
 
-// Set the fill or stroke colors individually. These should be implemented by subclassers.
-	public function setFill;
-	public function setStroke;
+	public function colorWithAlphaComponent (alpha:Float) :UIColor;
 
-// Convenience methods for getting components.
-// If the receiver is of a compatible color space, any non-NULL parameters are populated and 'YES' is returned. Otherwise, the parameters are left unchanged and 'NO' is returned.
-- (BOOL)getWhite:(CGFloat *)white alpha:(CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
-- (BOOL)getHue:(CGFloat *)hue saturation:(CGFloat *)saturation brightness:(CGFloat *)brightness alpha:(CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
-- (BOOL)getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
+	public var (default, null) CGColor :CGColorRef;
+	public var (default, null) CIColor :CIColor;
 
-// Returns a color in the same color space as the receiver with the specified alpha component.
-- (UIColor *)colorWithAlphaComponent:(CGFloat)alpha;
-
-// Access the underlying CGColor or CIColor.
-	public var (default, null) CGColorRef CGColor;
-	public var (default, null) CIColor   *CIColor;
+	@:require(ios_5_0) public function initWithColor (color:UIColor) :UIColor;
 
 }
-
-extern class CIColor(UIKitAdditions)
-
-- (id)initWithColor:(UIColor *)color NS_AVAILABLE_IOS(5_0);
-
-}
-*/

@@ -73,19 +73,19 @@ extern class NSTextBlock extends NSObject, implements NSObject, NSCopying> {
 - (id)init;     // Designated initializer
 
 /* Content size */
-- (void)setValue:(CGFloat)val type:(NSTextBlockValueType)type forDimension:(NSTextBlockDimension)dimension;
-- (CGFloat)valueForDimension:(NSTextBlockDimension)dimension;
+- (void)setValue:(Float)val type:(NSTextBlockValueType)type forDimension:(NSTextBlockDimension)dimension;
+- (Float)valueForDimension:(NSTextBlockDimension)dimension;
 - (NSTextBlockValueType)valueTypeForDimension:(NSTextBlockDimension)dimension;
 
 /* Convenience methods for content width in particular, using the above methods with dimension == NSTextBlockWidth */
-- (void)setContentWidth:(CGFloat)val type:(NSTextBlockValueType)type;
-- (CGFloat)contentWidth;
+- (void)setContentWidth:(Float)val type:(NSTextBlockValueType)type;
+- (Float)contentWidth;
 - (NSTextBlockValueType)contentWidthValueType;
 
 /* Margin, border, and padding */
-- (void)setWidth:(CGFloat)val type:(NSTextBlockValueType)type forLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
-- (void)setWidth:(CGFloat)val type:(NSTextBlockValueType)type forLayer:(NSTextBlockLayer)layer;     // Convenience method sets all edges at once
-- (CGFloat)widthForLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
+- (void)setWidth:(Float)val type:(NSTextBlockValueType)type forLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
+- (void)setWidth:(Float)val type:(NSTextBlockValueType)type forLayer:(NSTextBlockLayer)layer;     // Convenience method sets all edges at once
+- (Float)widthForLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
 - (NSTextBlockValueType)widthValueTypeForLayer:(NSTextBlockLayer)layer edge:(NSRectEdge)edge;
 
 /* Alignment */
