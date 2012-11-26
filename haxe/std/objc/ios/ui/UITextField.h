@@ -1,133 +1,23 @@
-//
-//  UITextField.h
 package objc.ios.ui;
-//
-//  Copyright (c) 2005-2012, Apple Inc. All rights reserved.
-//
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import <UIKit/UIKitDefines.h>
-#import <UIKit/UIControl.h>
-#import <UIKit/UIFont.h>
-#import <UIKit/UIStringDrawing.h>
-#import <UIKit/UITextInput.h>
+import objc.foundation.NSObject;
 
-@class UIImage, UIImageView, UILabel, UIColor, UIButton;
-@class UITextFieldAtomBackgroundView;
-@class UITextFieldBackgroundView;
-@class UITextFieldBorderView;
-@class UITextFieldLabel;
-@class UITextInputTraits;
-@class UITextSelectionView;
-@class UITextInteractionAssistant;
-@class UIPopoverController;
-extern interface UITextFieldDelegate;
-extern interface UITextSelecting;
-
-typedef NS_ENUM(NSInteger, UITextBorderStyle) {
+typedef UITextBorderStyle = Int;
     UITextBorderStyleNone,
     UITextBorderStyleLine,
     UITextBorderStyleBezel,
     UITextBorderStyleRoundedRect
 };
 
-typedef NS_ENUM(NSInteger, UITextFieldViewMode) {
+typedef UITextFieldViewMode = Int;
     UITextFieldViewModeNever,
     UITextFieldViewModeWhileEditing,
     UITextFieldViewModeUnlessEditing,
     UITextFieldViewModeAlways
 };
 
-extern class UITextField : UIControl <UITextInput, NSCoding> {
-  @private
-    NSAttributedString *_text;
-    UIColor            *_textColor;
-    UITextBorderStyle   _borderStyle;
-    Float             _minimumFontSize;
-    id                  _delegate;
-    UIImage            *_background;
-    UIImage            *_disabledBackground;
-    UITextFieldViewMode _clearButtonMode;
-    UIView             *_leftView;
-    UITextFieldViewMode _leftViewMode;
-    UIView             *_rightView;
-    UITextFieldViewMode _rightViewMode;
+extern class UITextField extends UIControl, implements UITextInput, implements NSCoding {
 
-    UITextInputTraits  *_traits;
-    UITextInputTraits  *_nonAtomTraits;
-    Float             _fullFontSize; // font size to use when no shrinkage is needed.
-    Float             _paddingLeft;
-    Float             _paddingTop;
-    Float             _paddingRight;
-    Float             _paddingBottom;
-    NSString           *_textFont; // This ivar will go away. This is deprecated and people should use _font
-    NSRange             _selectionRange;
-    int                 _scrollXOffset;
-    int                 _scrollYOffset;
-    float               _progress;
-    NSString           *_style;
-    
-    UIButton           *_clearButton;
-    CGSize              _clearButtonOffset;
-    
-    CGSize              _leftViewOffset;
-    CGSize              _rightViewOffset;
-
-    UITextFieldBorderView     *_backgroundView;
-    UITextFieldBorderView     *_disabledBackgroundView;
-    UITextFieldBackgroundView *_systemBackgroundView;
-    
-    UITextFieldLabel *_textLabel;
-    UITextFieldLabel *_placeholderLabel;
-    UITextFieldLabel *_suffixLabel;
-    UITextFieldLabel *_prefixLabel;
-    UIImageView      *_iconView;
-    UILabel          *_label;
-    Float          _labelOffset;
-    
-    UITextInteractionAssistant *_interactionAssistant;
-    
-    UIView             *_inputView;
-    UIView             *_inputAccessoryView;
-
-    UITextFieldAtomBackgroundView *_atomBackgroundView;
-    
-    UIColor         *_shadowColor;
-    CGSize           _shadowOffset;
-    Float          _shadowBlur;
-
-    struct {
-        unsigned int secureTextChanged:1;
-        unsigned int guard:1;
-        unsigned int delegateRespondsToHandleKeyDown:1;
-        unsigned int verticallyCenterText:1;
-        unsigned int isAnimating:4;
-        unsigned int inactiveHasDimAppearance:1;
-        unsigned int becomesFirstResponderOnClearButtonTap:1;
-        unsigned int clearsOnBeginEditing:1;
-        unsigned int clearsPlaceholderOnBeginEditing:1;
-        unsigned int adjustsFontSizeToFitWidth:1;
-        unsigned int fieldEditorAttached:1;
-        unsigned int canBecomeFirstResponder:1;
-        unsigned int shouldSuppressShouldBeginEditing:1;
-        unsigned int inResignFirstResponder:1;
-        unsigned int undoDisabled:1;
-        unsigned int contentsRTL:1;
-        unsigned int explicitAlignment:1;
-        unsigned int implementsCustomDrawing:1;
-        unsigned int needsClearing:1;
-        unsigned int suppressContentChangedNotification:1;
-        unsigned int allowsEditingTextAttributes:1;
-        unsigned int usesAttributedText:1;
-        unsigned int backgroundViewState:2;
-        unsigned int clearsOnInsertion:1;
-    } _textFieldFlags;
-}
-
-// End ivars
-// =============================================================================
-// Begin SDK properties
 
 public var    NSString               *text;                 // default is nil
 public var    NSAttributedString     *attributedText NS_AVAILABLE_IOS(6_0); // default is nil
@@ -148,15 +38,6 @@ public var    NSAttributedString     *attributedPlaceholder NS_AVAILABLE_IOS(6_0
 	public var  BOOL allowsEditingTextAttributes NS_AVAILABLE_IOS(6_0); // default is NO. allows editing text attributes with style operations and pasting rich text
 public var  NSDictionary *typingAttributes NS_AVAILABLE_IOS(6_0); // automatically resets when the selection changes
 
-// You can supply custom views which are displayed at the left or right
-// sides of the text field. Uses for such views could be to show an icon or
-// a button to operate on the text in the field in an application-defined
-// manner.
-// 
-// A very common use is to display a clear button on the right side of the
-// text field, and a standard clear button is provided. Note: if the clear
-// button overlaps one of the other views, the clear button will be given
-// precedence.
 
 	public var         UITextFieldViewMode  clearButtonMode; // sets when the clear button shows up. default is UITextFieldViewModeNever
 
@@ -192,23 +73,23 @@ extern class UIView (UITextField)
 - (BOOL)endEditing:(BOOL)force;    // use to make the view or any subview that is the first responder resign (optionally force)
 }
 
-extern interface UITextFieldDelegate <NSObject>
+extern interface UITextFieldDelegate {
 
-@optional
+	//@optional
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;        // return NO to disallow editing.
 	public function textFieldDidBeginEditing:(UITextField *)textField;           // became first responder
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField;          // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
 	public function textFieldDidEndEditing:(UITextField *)textField;             // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;   // return NO to not change text
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField;               // called when clear button pressed. return NO to ignore (no notifications)
 - (BOOL)textFieldShouldReturn:(UITextField *)textField;              // called when 'return' key pressed. return NO to ignore.
 
 }
 
-UIKIT_EXTERN NSString *const UITextFieldTextDidBeginEditingNotification;
-UIKIT_EXTERN NSString *const UITextFieldTextDidEndEditingNotification;
-UIKIT_EXTERN NSString *const UITextFieldTextDidChangeNotification;
+//UIKIT_EXTERN NSString *const UITextFieldTextDidBeginEditingNotification;
+//UIKIT_EXTERN NSString *const UITextFieldTextDidEndEditingNotification;
+//UIKIT_EXTERN NSString *const UITextFieldTextDidChangeNotification;
 
