@@ -265,7 +265,7 @@ let newContext common_ctx writer imports_manager file_info = {
 }
 
 let debug ctx str =
-	if false then ctx.writer#write str
+	if true then ctx.writer#write str
 ;;
 
 let isVarField e v =
@@ -318,10 +318,6 @@ let processClassPath ctx is_static path pos =
 		| "Date" -> "NSDate"
 		| "Array" -> "NSMutabeArray"
 		| _ -> name)
-	| (["objc"],"FlashXml__") -> "Xml"
-	| (["flash";"errors"],"Error") -> "Error"
-	| (["flash"],"Vector") -> "Vector"
-	| (["objc";"ios"],"XML") -> "XML"
 	| (["haxe"],"Int32") when not is_static -> "int"
 	| (pack,name) -> name
 ;;
@@ -573,7 +569,7 @@ let generateFunctionHeader ctx name f params p =
 
 (* arg_list is of type Type.texpr list *)
 let rec generateCall ctx func arg_list etype (* ctx e el r *) =
-	debug ctx (" -CALL-"^(Type.s_expr_kind func)^"> ");
+	debug ctx (" \"-CALL-"^(Type.s_expr_kind func)^">\" ");
 	
 	if ctx.generating_c_call then begin
 		
@@ -627,13 +623,13 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 				index := !index + 1;
 		) args;
 		(* Dynamic value call function with a dynamic parameter *)
-		| _ -> ctx.writer#write " -dynamic_param- ");
+		| _ -> ctx.writer#write " \"-dynamic_param-\" ");
 	
 	end
 	end
 	
 and generateValueOp ctx e =
-	debug ctx "-gen_val_op-";
+	debug ctx "\"-gen_val_op-\"";
 	match e.eexpr with
 	| TBinop (op,_,_) when op = Ast.OpAnd || op = Ast.OpOr || op = Ast.OpXor ->
 		ctx.writer#write "(";
@@ -643,53 +639,40 @@ and generateValueOp ctx e =
 		generateValue ctx e
 
 and generateFieldAccess ctx etype s to_method =
-	debug ctx " -FA- ";
+	debug ctx " \"-FA-\" ";
 	(* ctx.writer#write (Printf.sprintf ">%s<" t); *)
-	let field c = match fst c.cl_path, snd c.cl_path, s with
-		| [], "Math", "PI" -> ctx.writer#write "M_PI"
-		| [], "Math", "NaN" -> ctx.writer#write "NaN"
-		| [], "Math", "NEGATIVE_INFINITY" -> ctx.writer#write "-DBL_MAX"
-		| [], "Math", "POSITIVE_INFINITY" -> ctx.writer#write "DBL_MAX"
-		| [], "Math", "sqrt"
-		| [], "Math", "sin"
-		| [], "Math", "cos"
-		| [], "Math", "atan2"
-		| [], "Math", "tan"
-		| [], "Math", "exp"
-		| [], "Math", "log"
-		| [], "Math", "sqrt"
-		| [], "Math", "floor"
-		| [], "Math", "ceil"
-		| [], "Math", "atan"
-		| [], "Math", "asin"
-		| [], "Math", "acos"
-		| [], "Math", "pow"
-		| [], "Math", "round"
-		| [], "Math", "abs" -> ctx.writer#write (s ^ "f")
-		| [], "Math", "min"
-		| [], "Math", "max" -> ctx.writer#write ("f" ^ s ^ "f")
-		| [], "Math", "random" -> ctx.writer#write "rand"
-		| [], "Math", "isFinite" -> ctx.writer#write "isfinite"
-		| [], "Math", "isNaN" -> ctx.writer#write "isnan"
+	let field c = match fst c.cl_path, snd c.cl_path with
+		| [], "Math" ->
+			(match s with
+			| "PI" -> ctx.writer#write "M_PI"
+			| "NaN" -> ctx.writer#write "NaN"
+			| "NEGATIVE_INFINITY" -> ctx.writer#write "-DBL_MAX"
+			| "POSITIVE_INFINITY" -> ctx.writer#write "DBL_MAX"
+			| "min" | "max" -> ctx.writer#write ("f" ^ s ^ "f")
+			| "random" -> ctx.writer#write "rand"
+			| "isFinite" -> ctx.writer#write "isfinite"
+			| "isNaN" -> ctx.writer#write "isnan"
+			| _ -> ctx.writer#write (s ^ "f"))
 		
-		| [], "String", "toLowerCase" -> ctx.writer#write " lowercaseString"
-		| [], "String", "toUpperCase" -> ctx.writer#write " uppercaseString"
-		| [], "String", "toString" -> ctx.writer#write " description"
-		| [], "String", "indexOf" -> ctx.writer#write " rangeOfString"
-		| [], "String", "lastIndexOf" -> ctx.writer#write " rangeOfString options:NSBackwardsSearch"
-		| [], "String", "charAt" -> ctx.writer#write " characterAtIndex"
-		| [], "String", "charCodeAt" -> ctx.writer#write " characterAtIndex"
+		| [], "String" ->
+			(match s with
+			| "toLowerCase" -> ctx.writer#write " lowercaseString"
+			| "toUpperCase" -> ctx.writer#write " uppercaseString"
+			| "toString" -> ctx.writer#write " description"
+			| "indexOf" -> ctx.writer#write " rangeOfString"
+			| "lastIndexOf" -> ctx.writer#write " rangeOfString options:NSBackwardsSearch"
+			| "charAt" -> ctx.writer#write " characterAtIndex"
+			| "charCodeAt" -> ctx.writer#write " characterAtIndex"
+			| "split" -> ctx.writer#write " componentsSeparatedByString"
+			| "substr" | "substring" -> ctx.writer#write " substringWithRange"
+			| _ -> ctx.writer#write s)
 		
-		| [], "String", "split" -> ctx.writer#write (Printf.sprintf " componentsSeparatedByString:%s" s)
-		| [], "String", "substr"
-		| [], "String", "substring" -> ctx.writer#write (Printf.sprintf " substringWithRange:%s" s)
+		| [], "Date" ->
+			(match s with
+			| "now" -> ctx.writer#write s
+			| "fromTime" -> ctx.writer#write s
+			| _ -> ctx.writer#write s)
 		
-		(* | [], "Date", "now" *)
-		(* | [], "Date", "fromTime" *)
-		(* | [], "Date", "fromString" -> ctx.writer#write (Printf.sprintf "[\"%s\"]" s) *)
-		| [], "Date", "toString" -> ctx.writer#write "[\"toStringHX\"]"
-		| [], "String", "cca" -> ctx.writer#write ".charCodeAt"
-		| ["objc";"foundation"], "NSXMLParser", "namespace" -> ctx.writer#write (Printf.sprintf ".namespace")
 		| _ ->
 			(* TODO : methods called with self use the dot notation, which is not good *)
 			(* ctx.writer#write ((if to_method then "1" else "0")^(if ctx.generating_call then "2" else "0")^(if ctx.generating_self_access then "3" else "0")); *)
@@ -711,10 +694,10 @@ and generateFieldAccess ctx etype s to_method =
 			| _ -> ctx.writer#write (Printf.sprintf " GFA2 .%s" s))
 	| _ ->
 		(* Method call on a Dynamic *)
-		ctx.writer#write (Printf.sprintf " %s" (s))
+		ctx.writer#write (Printf.sprintf " %s" s)
 	
 and generateExpression ctx e =
-	debug ctx (" -E-"^(Type.s_expr_kind e)^"> ");
+	debug ctx (" \"-E-"^(Type.s_expr_kind e)^">\" ");
 	(* ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
@@ -723,9 +706,9 @@ and generateExpression ctx e =
 		ctx.writer#write v.v_name
 	| TEnumField (en,s) ->
 		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
-	| TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
+	(* | TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
 		let path = Ast.parse_path s in
-		ctx.writer#write (processClassPath ctx false path e.epos)
+		ctx.writer#write (processClassPath ctx false path e.epos) *)
 	| TArray (e1,e2) ->
 		(* Accesing an array element *)
 		(* TODO: access pointers and primitives in a different way *)
@@ -739,18 +722,35 @@ and generateExpression ctx e =
 		let c = match isSpecialCompare e1 e2 with Some c -> c | None -> assert false in
 		generateExpression ctx (mk (TCall (mk (TField (mk (TTypeExpr (TClassDecl c)) t_dynamic e.epos,"compare")) t_dynamic e.epos,[e1;e2])) ctx.com.basic.tbool e.epos);
 		
-	(* TODO: what is this used for? *)
-(* 	| TBinop (op,{ eexpr = TField (e1,s) },e2) ->
+	(* TODO: StringBuf: stringbuf.b += another_string. The fieldaccess is not generating the .b *)
+	(* | TBinop (op,{ eexpr = TField (e1,s) },e2) ->
+		ctx.writer#write "strange binop ";
 		generateValueOp ctx e1;
 		generateFieldAccess ctx e1.etype s;
-		ctx.writer#write (Printf.sprintf " %s " (Ast.s_binop op);
+		ctx.writer#write (Printf.sprintf " %s " (Ast.s_binop op));
 		generateValueOp ctx e2; *)
 	| TBinop (op,e1,e2) ->
-		(* Generating a new line, an assign to a property usually *)
-		ctx.writer#write "";
-		generateValueOp ctx e1;
-		ctx.writer#write (Printf.sprintf " %s " (Ast.s_binop op));
-		generateValueOp ctx e2;
+		(* An assign to a property usually *)
+		(* ctx.writer#write ""; *)
+		let s_op = Ast.s_binop op in
+		(match s_op with
+		| "+" ->
+			ctx.writer#write "[";
+			generateValueOp ctx e1;
+			ctx.writer#write " stringByAppendingString:";
+			generateValueOp ctx e2;
+			ctx.writer#write "]"
+		| "+=" ->
+			(* This is called for str1 += str2 *)
+			ctx.writer#write "[";
+			generateValueOp ctx e1;
+			ctx.writer#write " appendString:";
+			generateValueOp ctx e2;
+			ctx.writer#write "]"
+		| _ ->
+			generateValueOp ctx e1;
+			ctx.writer#write (Printf.sprintf " %s " s_op);
+			generateValueOp ctx e2)
 	(* variable fields on interfaces are generated as (class["field"] as class) *)
 	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,s)
 	| TClosure ({etype = TInst({cl_interface = true} as c,_)} as e,s)
@@ -825,12 +825,13 @@ and generateExpression ctx e =
 		h();
 	(* Generate a call to a function *)
 	(* | TCall (func, arg_list) -> ctx.writer#write "GENERATE call (func, arg_list)"; *)
-	| TCall (func, arg_list) when (match func.eexpr with
+	| TCall (func, arg_list) when
+		(match func.eexpr with
 		| TLocal { v_name = "__objc__" } -> true
 		| _ -> false) ->
-			( match arg_list with
-			| [{ eexpr = TConst (TString code) }] -> ctx.writer#write code;
-			| _ -> error "__objc__ accepts only one string as an argument" func.epos;)
+		( match arg_list with
+		| [{ eexpr = TConst (TString code) }] -> ctx.writer#write code;
+		| _ -> error "__objc__ accepts only one string as an argument" func.epos)
 	| TCall (func, arg_list) ->
 		(match func.eexpr with
 		| TField (e,s) ->
@@ -879,7 +880,7 @@ and generateExpression ctx e =
 	| TVars [] ->
 		()
 	| TVars vl ->
-		(* Vars inside method only *)
+		(* Vars inside a method, not class vars *)
 		concat ctx "; " (fun (v,eo) ->
 			let t = (typeToString ctx v.v_type e.epos) in
 			if isPointer t then ctx.writer#new_line;
@@ -901,9 +902,9 @@ and generateExpression ctx e =
 		(* ctx.writer#write ("GEN_NEW>"^(snd c.cl_path)^(string_of_int (List.length params))); *)
 		(*processClassPath ctx true c.cl_path e.epos) *)
 		(match c.cl_path with
-			| ([],"CGRect")
-			| ([],"CGPoint")
-			| ([],"CGSize") ->
+			| (["objc";"graphics"],"CGRect")
+			| (["objc";"graphics"],"CGPoint")
+			| (["objc";"graphics"],"CGSize") ->
 				ctx.writer#write ((snd c.cl_path)^"Make (");
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
@@ -912,16 +913,16 @@ and generateExpression ctx e =
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
 			| _ ->
-				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (processClassPath ctx false c.cl_path c.cl_pos) (* (snd c.cl_path) *));
+				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (processClassPath ctx false c.cl_path c.cl_pos));
 				if List.length el > 0 then ctx.writer#write ":";
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write "]";
 				
-				ctx.writer#write "[";
+				(* ctx.writer#write "[";
 				ctx.generating_call <- true;
 				(* generateCall ctx c params e.etype; *)
 				ctx.generating_call <- false;
-				ctx.writer#write "]"
+				ctx.writer#write "]" *)
 		)
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write "if";
@@ -1005,7 +1006,7 @@ and generateExpression ctx e =
 					ctx.writer#new_line;
 					ctx.writer#write "var ";
 					concat ctx ", " (fun (v,n) ->
-						ctx.writer#write (Printf.sprintf "%s : %s = %s.params[%d]" (v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
+						ctx.writer#write (Printf.sprintf "MATCH %s : %s = %s.params[%d]" (v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
 					) l);
 			generateBlock ctx e;
 			ctx.writer#write "break";
@@ -1059,7 +1060,7 @@ and generateBlock ctx e =
 	ctx.writer#end_block
 	
 and generateValue ctx e =
-	debug ctx (" -V-"^(Type.s_expr_kind e)^"> ");
+	debug ctx (" \"-V-"^(Type.s_expr_kind e)^">\" ");
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,
@@ -1197,7 +1198,7 @@ let final m = if has_meta ":final" m then "final " else ""
 let generateProperty ctx field pos is_static =
 	let id = field.cf_name in
 	let t = typeToString ctx field.cf_type pos in
-	let class_name = (snd ctx.class_def.cl_path) in
+	(* let class_name = (snd ctx.class_def.cl_path) in *)
 	if ctx.generating_header then begin
 		if is_static then begin
 			ctx.writer#write ("+ ("^t^(addPointerIfNeeded t)^") "^id^":("^t^(addPointerIfNeeded t)^")val;")
@@ -2166,10 +2167,10 @@ let generate common_ctx =
 		| TClassDecl class_def ->
 			(* if has_meta ":owner" class_def.cl_meta then 
 				print_endline ("Has meta "^()); *)
-			let class_def = (match class_def.cl_path with
+			(* let class_def = (match class_def.cl_path with
 				(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
 				| (pack,name) -> { class_def with cl_path = (pack, name) }
-			) in
+			) in *)
 			if not class_def.cl_extern then
 				generateClassFiles common_ctx class_def app_info files_manager imports_manager
 		

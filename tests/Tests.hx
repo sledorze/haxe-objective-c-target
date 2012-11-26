@@ -205,6 +205,10 @@ class Tests implements Interface1, implements Interface2 {
 		x = Math.random()*5;
 		var b = Math.isFinite (45454 );
 		b = Math.isNaN (45454 );
+		
+		var j = x + xr;
+		j += x;
+		var k = b ? -x : x;
 	}
 	
 	
@@ -270,6 +274,10 @@ class Tests implements Interface1, implements Interface2 {
 		b = StringTools.endsWith ("abcdefg", "efg");
 		b = StringTools.isSpace ("abcdefg", 3);
 		var i = StringTools.hex (345345, 10);
+		
+		var sfin = strbuf+st;
+		sfin = strbuf+st+s2;
+		sfin += "abc";
 	}
 	
 	

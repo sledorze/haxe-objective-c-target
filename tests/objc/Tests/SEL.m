@@ -2,7 +2,8 @@
 
 @implementation SEL
 
-- (id) new:(id)sel{
+-F-
+- (id) new:(id)sel "-E-Block>" {
 	self = [super init];
 	return self;
 }

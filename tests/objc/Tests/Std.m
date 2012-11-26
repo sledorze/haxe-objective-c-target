@@ -2,25 +2,31 @@
 
 @implementation Std
 
-+ (BOOL) is:(id)v t:(id)t{
-	return [v isEqual -dynamic_param- ];
+-F-
++ (BOOL) is:(id)v t:(id)t "-E-Block>" {
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" v "-FA-"  isEqual "-dynamic_param-" ];
 }
-+ (NSMutableString*) string:(id)s{
-	return [s description];
+-F-
++ (NSMutableString*) string:(id)s "-E-Block>" {
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  description];
 }
-+ (int) int:(float)x{
-	return (int)x;
+-F-
++ (int) int:(float)x "-E-Block>" {
+	 "-E-Return>" return  "-V-Cast>" (int) "-V-Local>"  "-E-Local>" x;
 }
-+ (id) parseInt:(NSMutableString*)x{
-	return [x intValue];
+-F-
++ (id) parseInt:(NSMutableString*)x "-E-Block>" {
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" x "-FA-" intValue];
 }
-+ (float) parseFloat:(NSMutableString*)x{
-	return [x floatValue];
+-F-
++ (float) parseFloat:(NSMutableString*)x "-E-Block>" {
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" x "-FA-" floatValue];
 }
-+ (int) random:(int)x{
-	if (x <= 0) return 0;;
-	srand(time(NULL));
-	return rand() % x;
+-F-
++ (int) random:(int)x "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" x <= "-gen_val_op-" "-V-Const>"  "-E-Const>" 0)  "-E-Return>" return  "-V-Const>"  "-E-Const>" 0;;
+	 "-E-Call>" srand(time(NULL));
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" rand() % x;
 }
 
 @end

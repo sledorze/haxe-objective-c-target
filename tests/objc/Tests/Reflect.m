@@ -2,72 +2,86 @@
 
 @implementation Reflect
 
-+ (BOOL) hasField:(id)o field:(NSMutableString*)field{
-	return o != nil && [o __HasField -dynamic_param- ];
+-F-
++ (BOOL) hasField:(id)o field:(NSMutableString*)field "-E-Block>" {
+	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil && "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __HasField "-dynamic_param-" ];
 }
-+ (id) field:(id)o field:(NSMutableString*)field{
-	return ( (o == nil) ? nil : [o __Field -dynamic_param- ]);
+-F-
++ (id) field:(id)o field:(NSMutableString*)field "-E-Block>" {
+	 "-E-Return>" return  "-V-If>" ( "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o == "-gen_val_op-" "-V-Const>"  "-E-Const>" nil) ?  "-V-Const>"  "-E-Const>" nil :  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __Field "-dynamic_param-" ]);
 }
-+ (void) setField:(id)o field:(NSMutableString*)field value:(id)value{
-	if (o != nil) [o __SetField -dynamic_param- ];;
+-F-
++ (void) setField:(id)o field:(NSMutableString*)field value:(id)value "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __SetField "-dynamic_param-" ];;
 }
-+ (id) getProperty:(id)o field:(NSMutableString*)field{
-	return ( (o == nil) ? nil : [o __Field -dynamic_param- ]);
+-F-
++ (id) getProperty:(id)o field:(NSMutableString*)field "-E-Block>" {
+	 "-E-Return>" return  "-V-If>" ( "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o == "-gen_val_op-" "-V-Const>"  "-E-Const>" nil) ?  "-V-Const>"  "-E-Const>" nil :  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __Field "-dynamic_param-" ]);
 }
-+ (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value{
-	if (o != nil) [o __SetField -dynamic_param- ];;
+-F-
++ (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __SetField "-dynamic_param-" ];;
 }
-+ (id) callMethod:(id)o func:(id)func args:(NSMutabeArray*)args{
-	if (func != nil && [func __GetType] == __global__ GFA2 .vtString) func = [o __Field -dynamic_param- ];;
-	[func __SetThis -dynamic_param- ];
-	return [func __Run -dynamic_param- ];
+-F-
++ (id) callMethod:(id)o func:(id)func args:(NSMutabeArray*)args "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" func != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil && "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" func "-FA-"  __GetType] == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtString)  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" func = "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __Field "-dynamic_param-" ];;
+	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" func "-FA-"  __SetThis "-dynamic_param-" ];
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" func "-FA-"  __Run "-dynamic_param-" ];
 }
-+ (NSMutabeArray*) fields:(id)o{
-	if (o == nil) return [[NSMutabeArray alloc] new][];;
-	
-	NSMutabeArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
-	[o __GetFields -dynamic_param- ];
-	return a;
+-F-
++ (NSMutabeArray*) fields:(id)o "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o == "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Return>" return  "-V-New>"  "-E-New>" [[NSMutabeArray alloc] new];;
+	 "-E-Vars>" 
+	NSMutabeArray *a =  "-V-ArrayDecl>"  "-E-ArrayDecl>" [[NSMutableArray alloc] initWithObjects:, nil]];
+	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __GetFields "-dynamic_param-" ];
+	 "-E-Return>" return  "-V-Local>"  "-E-Local>" a;
 }
-+ (BOOL) isFunction:(id)f{
-	return f != nil && [f __GetType] == __global__ GFA2 .vtFunction;
+-F-
++ (BOOL) isFunction:(id)f "-E-Block>" {
+	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" f != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil && "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" f "-FA-"  __GetType] == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtFunction;
 }
-+ (int) compare:(id)a b:(id)b{
-	return ( (a == b) ? 0 : ( ((int)a > (int)b) ? 1 : -1));
+-F-
++ (int) compare:(id)a b:(id)b "-E-Block>" {
+	 "-E-Return>" return  "-V-If>" ( "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" a == "-gen_val_op-" "-V-Local>"  "-E-Local>" b) ?  "-V-Const>"  "-E-Const>" 0 :  "-V-If>" ( "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Cast>" (int) "-V-Local>"  "-E-Local>" a > "-gen_val_op-" "-V-Cast>" (int) "-V-Local>"  "-E-Local>" b) ?  "-V-Const>"  "-E-Const>" 1 :  "-V-Const>"  "-E-Const>" -1));
 }
-+ (BOOL) compareMethods:(id)f1 f2:(id)f2{
-	if (f1 == f2) return YES;;
-	if (![Reflect isFunction:f1] || ![Reflect isFunction:f2]) return NO;;
-	return [__global__ GFA2 .__hxcpp_same_closure -dynamic_param- ];
+-F-
++ (BOOL) compareMethods:(id)f1 f2:(id)f2 "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" f1 == "-gen_val_op-" "-V-Local>"  "-E-Local>" f2)  "-E-Return>" return  "-V-Const>"  "-E-Const>" YES;;
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Unop>"  "-E-Unop>" ! "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Reflect "-FA-"  isFunction: "-V-Local>"  "-E-Local>" f1] || "-gen_val_op-" "-V-Unop>"  "-E-Unop>" ! "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Reflect "-FA-"  isFunction: "-V-Local>"  "-E-Local>" f2])  "-E-Return>" return  "-V-Const>"  "-E-Const>" NO;;
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .__hxcpp_same_closure "-dynamic_param-" ];
 }
-+ (BOOL) isObject:(id)v{
-	if (v == nil) return NO;;
-	int t = [v __GetType];
-	return t == __global__ GFA2 .vtObject || t == __global__ GFA2 .vtClass || t == __global__ GFA2 .vtString || t == __global__ GFA2 .vtArray;
+-F-
++ (BOOL) isObject:(id)v "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" v == "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Return>" return  "-V-Const>"  "-E-Const>" NO;;
+	 "-E-Vars>" int t =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" v "-FA-"  __GetType];
+	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" t == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtObject || "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" t == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtClass || "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" t == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtString || "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" t == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtArray;
 }
-+ (BOOL) deleteField:(id)o f:(NSMutableString*)f{
-	if (o == nil) return NO;;
-	return [__global__ GFA2 .__hxcpp_anon_remove -dynamic_param- ];
+-F-
++ (BOOL) deleteField:(id)o f:(NSMutableString*)f "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o == "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Return>" return  "-V-Const>"  "-E-Const>" NO;;
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .__hxcpp_anon_remove "-dynamic_param-" ];
 }
-+ (id) copy:(id)o{
-	if (o == nil) return nil;;
-	if ([o __GetType] == __global__ GFA2 .vtString) return o;;
-	if ([o __GetType] == __global__ GFA2 .vtArray) return [[o __Field -dynamic_param- ]];;
-	id o2 = {};
-	{
-		int _g = 0; 
-		NSMutabeArray *_g1 = [Reflect fields:o];
-		while (_g < _g1.length) {
-			
-			NSMutableString *f = [_g1 objectAtIndex:_g];
-			++_g;
-			if (o2 != nil) [o2 __SetField -dynamic_param- ];;
+-F-
++ (id) copy:(id)o "-E-Block>" {
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o == "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Return>" return  "-V-Const>"  "-E-Const>" nil;;
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __GetType] == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtString)  "-E-Return>" return  "-V-Local>"  "-E-Local>" o;;
+	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __GetType] == "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .vtArray)  "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Call>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o "-FA-"  __Field "-dynamic_param-" ]];;
+	 "-E-Vars>" id o2 =  "-V-ObjectDecl>"  "-E-ObjectDecl>" {};
+	 "-E-Block>" {
+		 "-E-Vars>" int _g =  "-V-Const>"  "-E-Const>" 0; 
+		NSMutabeArray *_g1 =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Reflect "-FA-"  fields: "-V-Local>"  "-E-Local>" o];
+		 "-E-While>" while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" _g < "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" _g1 "-FA-" .length)  "-E-Block>" {
+			 "-E-Vars>" 
+			NSMutableString *f =  "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" _g1 objectAtIndex: "-V-Local>"  "-E-Local>" _g];
+			 "-E-Unop>" ++ "-V-Local>"  "-E-Local>" _g;
+			 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" o2 != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" o2 "-FA-"  __SetField "-dynamic_param-" ];;
 		}
 	}
-	return o2;
+	 "-E-Return>" return  "-V-Local>"  "-E-Local>" o2;
 }
-+ (id) makeVarArgs:(Function*)f{
-	return [__global__ GFA2 .__hxcpp_create_var_args -dynamic_param- ];
+-F-
++ (id) makeVarArgs:(Function*)f "-E-Block>" {
+	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" __global__ "-FA-"  GFA2 .__hxcpp_create_var_args "-dynamic_param-" ];
 }
 
 @end

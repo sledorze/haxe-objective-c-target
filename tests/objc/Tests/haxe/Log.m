@@ -2,10 +2,12 @@
 
 @implementation Log
 
-+ (void) trace:(id)v infos:(id)infos{
-	NSLog (@"%@:%@: %@", [infos objectForKey:@"filename"], [infos objectForKey:@"lineNumber"], v);
+-F-
++ (void) trace:(id)v infos:(id)infos "-E-Block>" {
+	 "-E-Call>" NSLog (@"%@:%@: %@", [infos objectForKey:@"filename"], [infos objectForKey:@"lineNumber"], v);
 }
-+ (void) clear{
+-F-
++ (void) clear "-E-Block>" {
 }
 
 @end
