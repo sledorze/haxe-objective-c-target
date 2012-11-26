@@ -240,6 +240,7 @@ type context = {
 	mutable generating_call : bool;
 	mutable generating_self_access : bool;
 	mutable generating_c_call : bool;
+	mutable generating_string_append : int;
 	mutable require_pointer : bool;
 	mutable gen_uid : int;
 	mutable local_types : t list;
@@ -259,13 +260,14 @@ let newContext common_ctx writer imports_manager file_info = {
 	generating_call = false;
 	generating_self_access = false;
 	generating_c_call = false;
+	generating_string_append = 0;
 	require_pointer = false;
 	gen_uid = 0;
 	local_types = [];
 }
 
 let debug ctx str =
-	if true then ctx.writer#write str
+	if false then ctx.writer#write str
 ;;
 
 let isVarField e v =
@@ -286,6 +288,38 @@ let isSpecialCompare e1 e2 =
 	match follow e1.etype, follow e2.etype with
 	| TInst ({ cl_path = [],"Xml" } as c,_) , _ | _ , TInst ({ cl_path = [],"Xml" } as c,_) -> Some c
 	| _ -> None
+;;
+
+let rec isString e =
+	(match e.eexpr with
+	| TBinop (op,e1,e2) -> isString e1 or isString e2
+	| TLocal v ->
+		(match v.v_type with
+		(* match e.etype with *)
+		| TMono r ->
+			
+			(match !r with
+			| None -> false
+			| Some t ->
+			
+				(match t with
+				| TInst (c,tl) ->
+					
+					(match c.cl_path with
+					| ([], "String") -> true
+					| _ -> false)
+					
+				| _ -> false)
+				
+			)
+			
+		(* | TConst c -> true *)
+		| _ -> false)
+	| TConst v ->
+		(match v with
+		| TString s -> true
+		| _ -> false)
+	| _ -> false)
 ;;
 
 let protect name =
@@ -508,12 +542,16 @@ let generateResources common_ctx =
 
 let generateConstant ctx p = function
 	| TInt i ->
-		if ctx.require_pointer then
+		if ctx.generating_string_append > 0 then
+			ctx.writer#write (Printf.sprintf "@\"%ld\"" i)
+		else if ctx.require_pointer then
 			ctx.writer#write (Printf.sprintf "[NSNumber numberWithInt:%ld]" i) (* %ld = int32 = (Int32.to_string i) *)
 		else
 			ctx.writer#write (Printf.sprintf "%ld" i)
 	| TFloat f ->
-		if ctx.require_pointer then
+		if ctx.generating_string_append > 0 then
+			ctx.writer#write (Printf.sprintf "@\"%s\"" f)
+		else if ctx.require_pointer then
 			ctx.writer#write (Printf.sprintf "[NSNumber numberWithFloat:%s]" f)
 		else
 			ctx.writer#write f
@@ -594,8 +632,7 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 			concat ctx ", " (generateValue ctx) arg_list;
 			ctx.writer#write ")";
 	
-	end
-	else begin
+	end else begin
 		
 	generateValue ctx func;	
 	(* if List.length arg_list > 0 then ctx.writer#write ":"; *)
@@ -697,7 +734,7 @@ and generateFieldAccess ctx etype s to_method =
 		ctx.writer#write (Printf.sprintf " %s" s)
 	
 and generateExpression ctx e =
-	debug ctx (" \"-E-"^(Type.s_expr_kind e)^">\" ");
+	debug ctx ("\"-E-"^(Type.s_expr_kind e)^">\"");
 	(* ctx.writer#write ("-E-"^(Type.s_expr_kind e)^">"); *)
 	match e.eexpr with
 	| TConst c ->
@@ -730,27 +767,24 @@ and generateExpression ctx e =
 		ctx.writer#write (Printf.sprintf " %s " (Ast.s_binop op));
 		generateValueOp ctx e2; *)
 	| TBinop (op,e1,e2) ->
-		(* An assign to a property usually *)
-		(* ctx.writer#write ""; *)
+		(* An assign to a property or mathematical/string operations *)
 		let s_op = Ast.s_binop op in
-		(match s_op with
-		| "+" ->
+		if (s_op="+" or s_op="+=") && (isString e1 or isString e2) then begin
+			ctx.generating_string_append <- ctx.generating_string_append + 1;
 			ctx.writer#write "[";
 			generateValueOp ctx e1;
-			ctx.writer#write " stringByAppendingString:";
+			ctx.writer#write (match s_op with
+				| "+" -> " stringByAppendingString:"
+				| "+=" -> " appendString:"
+				| _ -> "");
 			generateValueOp ctx e2;
-			ctx.writer#write "]"
-		| "+=" ->
-			(* This is called for str1 += str2 *)
-			ctx.writer#write "[";
-			generateValueOp ctx e1;
-			ctx.writer#write " appendString:";
-			generateValueOp ctx e2;
-			ctx.writer#write "]"
-		| _ ->
+			ctx.writer#write "]";
+			ctx.generating_string_append <- ctx.generating_string_append - 1;
+		end else begin
 			generateValueOp ctx e1;
 			ctx.writer#write (Printf.sprintf " %s " s_op);
-			generateValueOp ctx e2)
+			generateValueOp ctx e2
+		end;
 	(* variable fields on interfaces are generated as (class["field"] as class) *)
 	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,s)
 	| TClosure ({etype = TInst({cl_interface = true} as c,_)} as e,s)
@@ -1060,7 +1094,7 @@ and generateBlock ctx e =
 	ctx.writer#end_block
 	
 and generateValue ctx e =
-	debug ctx (" \"-V-"^(Type.s_expr_kind e)^">\" ");
+	debug ctx ("\"-V-"^(Type.s_expr_kind e)^">\"");
 	let assign e =
 		mk (TBinop (Ast.OpAssign,
 			mk (TLocal (match ctx.in_value with None -> assert false | Some r -> r)) t_dynamic e.epos,
@@ -1106,8 +1140,7 @@ and generateValue ctx e =
 		let v = value true in
 		generateExpression ctx e;
 		v()
-	| TTypeExpr _ ->
-		generateExpression ctx e
+	| TTypeExpr _
 	| TConst _
 	| TLocal _
 	| TEnumField _

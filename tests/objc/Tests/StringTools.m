@@ -2,114 +2,98 @@
 
 @implementation StringTools
 
--F-
-+ (NSMutableString*) urlEncode:(NSMutableString*)s "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [s stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
++ (NSMutableString*) urlEncode:(NSMutableString*)s{
+	return [s stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
 }
--F-
-+ (NSMutableString*) urlDecode:(NSMutableString*)s "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [s stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
++ (NSMutableString*) urlDecode:(NSMutableString*)s{
+	return [s stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
--F-
-+ (NSMutableString*) htmlEscape:(NSMutableString*)s "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"&"] "-FA-" .join: "-V-Const>"  "-E-Const>" @"&amp;"] "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"<"] "-FA-" .join: "-V-Const>"  "-E-Const>" @"&lt;"] "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @">"] "-FA-" .join: "-V-Const>"  "-E-Const>" @"&gt;"];
++ (NSMutableString*) htmlEscape:(NSMutableString*)s{
+	return [[[[[[s componentsSeparatedByString:@"&"].join:@"&amp;"] componentsSeparatedByString:@"<"].join:@"&lt;"] componentsSeparatedByString:@">"].join:@"&gt;"];
 }
--F-
-+ (NSMutableString*) htmlUnescape:(NSMutableString*)s "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"&gt;"] "-FA-" .join: "-V-Const>"  "-E-Const>" @">"] "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"&lt;"] "-FA-" .join: "-V-Const>"  "-E-Const>" @"<"] "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"&amp;"] "-FA-" .join: "-V-Const>"  "-E-Const>" @"&"];
++ (NSMutableString*) htmlUnescape:(NSMutableString*)s{
+	return [[[[[[s componentsSeparatedByString:@"&gt;"].join:@">"] componentsSeparatedByString:@"&lt;"].join:@"<"] componentsSeparatedByString:@"&amp;"].join:@"&"];
 }
--F-
-+ (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start "-E-Block>" {
-	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length >= "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" start "-FA-" length && "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  substringWithRange: "-V-Const>"  "-E-Const>" 0 len: "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" start "-FA-" length] == "-gen_val_op-" "-V-Local>"  "-E-Local>" start;
++ (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start{
+	return slength >= startlength && [s substringWithRange:0 len:startlength] == start;
 }
--F-
-+ (BOOL) endsWith:(NSMutableString*)s end:(NSMutableString*)end "-E-Block>" {
-	 "-E-Vars>" int elen =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" end "-FA-" length;
-	 "-E-Vars>" int slen =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length;
-	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" slen >= "-gen_val_op-" "-V-Local>"  "-E-Local>" elen && "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  substringWithRange: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" slen - "-gen_val_op-" "-V-Local>"  "-E-Local>" elen len: "-V-Local>"  "-E-Local>" elen] == "-gen_val_op-" "-V-Local>"  "-E-Local>" end;
++ (BOOL) endsWith:(NSMutableString*)s end:(NSMutableString*)end{
+	int elen = endlength;
+	int slen = slength;
+	return slen >= elen && [s substringWithRange:slen - elen len:elen] == end;
 }
--F-
-+ (BOOL) isSpace:(NSMutableString*)s pos:(int)pos "-E-Block>" {
-	 "-E-Vars>" id c =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  characterAtIndex: "-V-Local>"  "-E-Local>" pos];
-	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" c >= "-gen_val_op-" "-V-Const>"  "-E-Const>" 9 && "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" c <= "-gen_val_op-" "-V-Const>"  "-E-Const>" 13 || "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" c == "-gen_val_op-" "-V-Const>"  "-E-Const>" 32;
++ (BOOL) isSpace:(NSMutableString*)s pos:(int)pos{
+	id c = [s characterAtIndex:pos];
+	return c >= 9 && c <= 13 || c == 32;
 }
--F-
-+ (NSMutableString*) ltrim:(NSMutableString*)s "-E-Block>" {
-	 "-E-Vars>" int l =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length;
-	 "-E-Vars>" int r =  "-V-Const>"  "-E-Const>" 0;
-	 "-E-While>" while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" r < "-gen_val_op-" "-V-Local>"  "-E-Local>" l && "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" StringTools "-FA-"  isSpace: "-V-Local>"  "-E-Local>" s pos: "-V-Local>"  "-E-Local>" r])  "-E-Unop>"  "-V-Local>"  "-E-Local>" r++;
-	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" r > "-gen_val_op-" "-V-Const>"  "-E-Const>" 0)  "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  substringWithRange: "-V-Local>"  "-E-Local>" r len: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" r];
-	else  "-E-Return>" return  "-V-Local>"  "-E-Local>" s;
-	 "-E-Return>" return  "-V-Const>"  "-E-Const>" nil;
++ (NSMutableString*) ltrim:(NSMutableString*)s{
+	int l = slength;
+	int r = 0;
+	while (r < l && [StringTools isSpace:s pos:r]) r++;
+	if (r > 0) return [s substringWithRange:r len:l - r];
+	else return s;
+	return nil;
 }
--F-
-+ (NSMutableString*) rtrim:(NSMutableString*)s "-E-Block>" {
-	 "-E-Vars>" int l =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length;
-	 "-E-Vars>" int r =  "-V-Const>"  "-E-Const>" 0;
-	 "-E-While>" while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" r < "-gen_val_op-" "-V-Local>"  "-E-Local>" l && "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" StringTools "-FA-"  isSpace: "-V-Local>"  "-E-Local>" s pos: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" r - "-gen_val_op-" "-V-Const>"  "-E-Const>" 1])  "-E-Unop>"  "-V-Local>"  "-E-Local>" r++;
-	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" r > "-gen_val_op-" "-V-Const>"  "-E-Const>" 0)  "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  substringWithRange: "-V-Const>"  "-E-Const>" 0 len: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" r];
-	else  "-E-Return>" return  "-V-Local>"  "-E-Local>" s;
-	 "-E-Return>" return  "-V-Const>"  "-E-Const>" nil;
++ (NSMutableString*) rtrim:(NSMutableString*)s{
+	int l = slength;
+	int r = 0;
+	while (r < l && [StringTools isSpace:s pos:l - r - 1]) r++;
+	if (r > 0) return [s substringWithRange:0 len:l - r];
+	else return s;
+	return nil;
 }
--F-
-+ (NSMutableString*) trim:(NSMutableString*)s "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" StringTools "-FA-"  ltrim: "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" StringTools "-FA-"  rtrim: "-V-Local>"  "-E-Local>" s]];
++ (NSMutableString*) trim:(NSMutableString*)s{
+	return [StringTools ltrim:[StringTools rtrim:s]];
 }
--F-
-+ (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l "-E-Block>" {
-	 "-E-Vars>" int sl =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length;
-	 "-E-Vars>" int cl =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" c "-FA-" length;
-	 "-E-While>" while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" sl < "-gen_val_op-" "-V-Local>"  "-E-Local>" l)  "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" sl < "-gen_val_op-" "-V-Local>"  "-E-Local>" cl)  "-E-Block>" {
-		 "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" s appendString:"-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" c "-FA-"  substringWithRange: "-V-Const>"  "-E-Const>" 0 len: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" sl]];
-		 "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" sl = "-gen_val_op-" "-V-Local>"  "-E-Local>" l;
++ (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l{
+	int sl = slength;
+	int cl = clength;
+	while (sl < l) if (l - sl < cl) {
+		s += [c substringWithRange:0 len:l - sl];
+		sl = l;
 	};
-	else  "-E-Block>" {
-		 "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" s appendString:"-gen_val_op-" "-V-Local>"  "-E-Local>" c];
-		 "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" sl appendString:"-gen_val_op-" "-V-Local>"  "-E-Local>" cl];
+	else {
+		s += c;
+		sl += cl;
 	}
-	 "-E-Return>" return  "-V-Local>"  "-E-Local>" s;
+	return s;
 }
--F-
-+ (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l "-E-Block>" {
-	 "-E-Vars>" 
-	NSMutableString *ns =  "-V-Const>"  "-E-Const>" @"";
-	 "-E-Vars>" int sl =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length;
-	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" sl >= "-gen_val_op-" "-V-Local>"  "-E-Local>" l)  "-E-Return>" return  "-V-Local>"  "-E-Local>" s;;
-	 "-E-Vars>" int cl =  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" c "-FA-" length;
-	 "-E-While>" while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" sl < "-gen_val_op-" "-V-Local>"  "-E-Local>" l)  "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" sl < "-gen_val_op-" "-V-Local>"  "-E-Local>" cl)  "-E-Block>" {
-		 "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" ns appendString:"-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" c "-FA-"  substringWithRange: "-V-Const>"  "-E-Const>" 0 len: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" l - "-gen_val_op-" "-V-Local>"  "-E-Local>" sl]];
-		 "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" sl = "-gen_val_op-" "-V-Local>"  "-E-Local>" l;
++ (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l{
+	
+	NSMutableString *ns = @"";
+	int sl = slength;
+	if (sl >= l) return s;;
+	int cl = clength;
+	while (sl < l) if (l - sl < cl) {
+		[ns appendString:[c substringWithRange:@"0" len:l - sl]];
+		sl = l;
 	};
-	else  "-E-Block>" {
-		 "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" ns appendString:"-gen_val_op-" "-V-Local>"  "-E-Local>" c];
-		 "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" sl appendString:"-gen_val_op-" "-V-Local>"  "-E-Local>" cl];
+	else {
+		[ns appendString:c];
+		sl += cl;
 	}
-	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" ["-gen_val_op-" "-V-Local>"  "-E-Local>" ns stringByAppendingString:"-gen_val_op-" "-V-Local>"  "-E-Local>" s];
+	return [ns stringByAppendingString:s];
 }
--F-
-+ (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [s replaceOccurrencesOfString:sub withString:by options:nil range:nil];
++ (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by{
+	return [s replaceOccurrencesOfString:sub withString:by options:nil range:nil];
 }
--F-
-+ (NSMutableString*) hex:(int)n digits:(id)digits "-E-Block>" {
-	 "-E-Vars>" 
-	NSMutableString *s =  "-V-Const>"  "-E-Const>" @"";
-	 "-E-Vars>" 
-	NSMutableString *hexChars =  "-V-Const>"  "-E-Const>" @"0123456789ABCDEF";
-	 "-E-While>" do  "-E-Block>" {
-		 "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" s = "-gen_val_op-" "-V-Binop>"  "-E-Binop>" ["-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" hexChars "-FA-"  characterAtIndex: "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" n & "-gen_val_op-" "-V-Const>"  "-E-Const>" 15] stringByAppendingString:"-gen_val_op-" "-V-Local>"  "-E-Local>" s];
-		 "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" n >>>= "-gen_val_op-" "-V-Const>"  "-E-Const>" 4;
-	}while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" n > "-gen_val_op-" "-V-Const>"  "-E-Const>" 0);
-	 "-E-If>" if "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" digits != "-gen_val_op-" "-V-Const>"  "-E-Const>" nil)  "-E-While>" while "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length < "-gen_val_op-" "-V-Local>"  "-E-Local>" digits)  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" s = "-gen_val_op-" "-V-Binop>"  "-E-Binop>" ["-gen_val_op-" "-V-Const>"  "-E-Const>" @"0" stringByAppendingString:"-gen_val_op-" "-V-Local>"  "-E-Local>" s];;
-	 "-E-Return>" return  "-V-Local>"  "-E-Local>" s;
++ (NSMutableString*) hex:(int)n digits:(id)digits{
+	
+	NSMutableString *s = @"";
+	
+	NSMutableString *hexChars = @"0123456789ABCDEF";
+	do {
+		s = [[hexChars characterAtIndex:n & @"15"] stringByAppendingString:s];
+		n >>>= 4;
+	}while (n > 0);
+	if (digits != nil) while (slength < digits) s = [@"0" stringByAppendingString:s];;
+	return s;
 }
--F-
-+ (int) fastCodeAt:(NSMutableString*)s index:(int)index "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" cca "-dynamic_param-" ];
++ (int) fastCodeAt:(NSMutableString*)s index:(int)index{
+	return [scca "-dynamic_param-" ];
 }
--F-
-+ (BOOL) isEOF:(int)c "-E-Block>" {
-	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" c == "-gen_val_op-" "-V-Const>"  "-E-Const>" -1;
++ (BOOL) isEOF:(int)c{
+	return c == -1;
 }
 
 @end

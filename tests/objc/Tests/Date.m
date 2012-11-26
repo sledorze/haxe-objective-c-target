@@ -2,107 +2,91 @@
 
 @implementation Date
 
--F-
-+ (NSDate*) now "-E-Block>" {
-	 "-E-Vars>" 
-	NSCalendar *calendar =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" NSCalendar "-FA-"  currentCalendar];
-	 "-E-Vars>" 
-	NSDateComponents *components =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" calendar "-FA-"  components: "-V-Const>"  "-E-Const>" 7 fromDate: "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" NSDate "-FA-"  date]];
-	 "-E-Return>" return  "-V-New>"  "-E-New>" [[NSDate alloc] new: "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" components "-FA-"  year], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" components "-FA-"  month], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" components "-FA-"  day], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" components "-FA-"  hour], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" components "-FA-"  minute], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" components "-FA-"  second]];
++ (NSDate*) now{
+	
+	NSCalendar *calendar = [NSCalendar currentCalendar];
+	
+	NSDateComponents *components = [calendar components:7 fromDate:[NSDate date]];
+	return [[NSDate alloc] new:[components year],[components month],[components day],[components hour],[components minute],[components second]];
 }
--F-
-+ (NSDate*) fromTime:(float)t "-E-Block>" {
-	 "-E-Vars>" 
-	NSDate *result =  "-V-New>"  "-E-New>" [[NSDate alloc] new: "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0];
-	 "-E-Binop>" "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" result "-FA-" _seconds = "-gen_val_op-" "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Local>"  "-E-Local>" t * "-gen_val_op-" "-V-Const>"  "-E-Const>" 0.001;
-	 "-E-Return>" return  "-V-Local>"  "-E-Local>" result;
++ (NSDate*) fromTime:(float)t{
+	
+	NSDate *result = [[NSDate alloc] new:0,0,0,0,0,0];
+	result_seconds = t * 0.001;
+	return result;
 }
--F-
-+ (NSDate*) fromString:(NSMutableString*)s "-E-Block>" {
-	 "-E-Switch>" switch "-V-Parenthesis>"  "-E-Parenthesis>"  ( "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-" length){
-		case  "-V-Const>"  "-E-Const>" 8:{
-			 "-E-Block>" {
-				 "-E-Vars>" 
-				NSMutabeArray *k =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @":"];
-				 "-E-Vars>" 
-				NSDate *d =  "-V-New>"  "-E-New>" [[NSDate alloc] new: "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 0]], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 1]], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 2]]];
-				 "-E-Return>" return  "-V-Local>"  "-E-Local>" d;
++ (NSDate*) fromString:(NSMutableString*)s{
+	switch (slength){
+		case 8:{
+			{
+				
+				NSMutabeArray *k = [s componentsSeparatedByString:@":"];
+				
+				NSDate *d = [[NSDate alloc] new:0,0,0,[Std parseInt:[k objectAtIndex:0]],[Std parseInt:[k objectAtIndex:1]],[Std parseInt:[k objectAtIndex:2]]];
+				return d;
 			}}break;
-		case  "-V-Const>"  "-E-Const>" 10:{
-			 "-E-Block>" {
-				 "-E-Vars>" 
-				NSMutabeArray *k =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"-"];
-				 "-E-Return>" return  "-V-New>"  "-E-New>" [[NSDate alloc] new: "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 0]], "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 1]] - "-gen_val_op-" "-V-Const>"  "-E-Const>" 1, "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 2]], "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0, "-V-Const>"  "-E-Const>" 0];
+		case 10:{
+			{
+				
+				NSMutabeArray *k = [s componentsSeparatedByString:@"-"];
+				return [[NSDate alloc] new:[Std parseInt:[k objectAtIndex:0]],[Std parseInt:[k objectAtIndex:1]] - 1,[Std parseInt:[k objectAtIndex:2]],0,0,0];
 			}}break;
-		case  "-V-Const>"  "-E-Const>" 19:{
-			 "-E-Block>" {
-				 "-E-Vars>" 
-				NSMutabeArray *k =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Local>"  "-E-Local>" s "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @" "];
-				 "-E-Vars>" 
-				NSMutabeArray *y =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 0] "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @"-"];
-				 "-E-Vars>" 
-				NSMutabeArray *t =  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" k objectAtIndex: "-V-Const>"  "-E-Const>" 1] "-FA-"  componentsSeparatedByString: "-V-Const>"  "-E-Const>" @":"];
-				 "-E-Return>" return  "-V-New>"  "-E-New>" [[NSDate alloc] new: "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" y objectAtIndex: "-V-Const>"  "-E-Const>" 0]], "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" y objectAtIndex: "-V-Const>"  "-E-Const>" 1]] - "-gen_val_op-" "-V-Const>"  "-E-Const>" 1, "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" y objectAtIndex: "-V-Const>"  "-E-Const>" 2]], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" t objectAtIndex: "-V-Const>"  "-E-Const>" 0]], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" t objectAtIndex: "-V-Const>"  "-E-Const>" 1]], "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" Std "-FA-"  parseInt: "-V-Array>"  "-E-Array>" [ "-V-Local>"  "-E-Local>" t objectAtIndex: "-V-Const>"  "-E-Const>" 2]]];
+		case 19:{
+			{
+				
+				NSMutabeArray *k = [s componentsSeparatedByString:@" "];
+				
+				NSMutabeArray *y = [[k objectAtIndex:0] componentsSeparatedByString:@"-"];
+				
+				NSMutabeArray *t = [[k objectAtIndex:1] componentsSeparatedByString:@":"];
+				return [[NSDate alloc] new:[Std parseInt:[y objectAtIndex:0]],[Std parseInt:[y objectAtIndex:1]] - 1,[Std parseInt:[y objectAtIndex:2]],[Std parseInt:[t objectAtIndex:0]],[Std parseInt:[t objectAtIndex:1]],[Std parseInt:[t objectAtIndex:2]]];
 			}}break;
 		default:{
-			 "-E-Throw>" throw  "-V-Binop>"  "-E-Binop>" ["-gen_val_op-" "-V-Const>"  "-E-Const>" @"Invalid date format : " stringByAppendingString:"-gen_val_op-" "-V-Local>"  "-E-Local>" s]}break
+			throw [@"Invalid date format : " stringByAppendingString:s]}break
 	}
-	 "-E-Return>" return  "-V-Const>"  "-E-Const>" nil;
+	return nil;
 }
--F-
 @synthesize _seconds;
--F-
 @synthesize _calendar;
--F-
 @synthesize _components;
--F-
-- (float) getTime "-E-Block>" {
-	 "-E-Return>" return  "-V-Binop>"  "-E-Binop>" "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _seconds * "-gen_val_op-" "-V-Const>"  "-E-Const>" 1000.0;
+- (float) getTime{
+	return self_seconds * 1000.0;
 }
--F-
-- (int) getHours "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .hour];
+- (int) getHours{
+	return [self_components.hour];
 }
--F-
-- (int) getMinutes "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .minute];
+- (int) getMinutes{
+	return [self_components.minute];
 }
--F-
-- (int) getSeconds "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .second];
+- (int) getSeconds{
+	return [self_components.second];
 }
--F-
-- (int) getFullYear "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .year];
+- (int) getFullYear{
+	return [self_components.year];
 }
--F-
-- (int) getMonth "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .month];
+- (int) getMonth{
+	return [self_components.month];
 }
--F-
-- (int) getDate "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .weekday];
+- (int) getDate{
+	return [self_components.weekday];
 }
--F-
-- (int) getDay "-E-Block>" {
-	 "-E-Return>" return  "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .day];
+- (int) getDay{
+	return [self_components.day];
 }
--F-
-- (NSMutableString*) toString "-E-Block>" {
-	 "-E-Return>" return  "-V-Const>"  "-E-Const>" nil;
+- (NSMutableString*) toString{
+	return nil;
 }
--F-
-- (id) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec "-E-Block>" {
+- (id) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec{
 	self = [super init];
-	 "-E-Binop>" "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _calendar = "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" NSCalendar "-FA-" .currentCalendar];
-	 "-E-Binop>" "-gen_val_op-" "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components = "-gen_val_op-" "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _calendar "-FA-" .components: "-V-Const>"  "-E-Const>" 7 fromDate: "-V-Call>"  "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-TypeExpr>"  "-E-TypeExpr>" NSDate "-FA-"  date]];
-	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .setYear: "-V-Local>"  "-E-Local>" year];
-	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .setMonth: "-V-Local>"  "-E-Local>" month];
-	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .setDay: "-V-Local>"  "-E-Local>" day];
-	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .setHour: "-V-Local>"  "-E-Local>" hour];
-	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .setMinute: "-V-Local>"  "-E-Local>" min];
-	 "-E-Call>" [ "-CALL-Field>"  "-V-Field>"  "-E-Field>"  "-V-Field>"  "-E-Field>"  "-V-Const>"  "-E-Const>" self "-FA-" _components "-FA-" .setSecond: "-V-Local>"  "-E-Local>" sec];
-	 "-E-Call>" self = _calendar.dateFromComponents ( _components );
+	self_calendar = [NSCalendar.currentCalendar];
+	self_components = [self_calendar.components:7 fromDate:[NSDate date]];
+	[self_components.setYear:year];
+	[self_components.setMonth:month];
+	[self_components.setDay:day];
+	[self_components.setHour:hour];
+	[self_components.setMinute:min];
+	[self_components.setSecond:sec];
+	self = _calendar.dateFromComponents ( _components );
 	return self;
 }
 

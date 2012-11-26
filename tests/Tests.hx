@@ -278,6 +278,8 @@ class Tests implements Interface1, implements Interface2 {
 		var sfin = strbuf+st;
 		sfin = strbuf+st+s2;
 		sfin += "abc";
+		sfin = st + "abc" + 5;
+		sfin = 55 + "abc";
 	}
 	
 	
