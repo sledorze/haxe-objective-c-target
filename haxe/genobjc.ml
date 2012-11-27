@@ -653,12 +653,12 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 	let index = ref 0 in
 	(match func.etype with
 		| TFun(args, ret) ->
-		List.iter (
+			List.iter (
 			fun (name, b, t) ->
 				ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
 				generateValue ctx args_array_e.(!index);
 				index := !index + 1;
-		) args;
+			) args;
 		(* Dynamic value call function with a dynamic parameter *)
 		| _ -> ctx.writer#write " \"-dynamic_param-\" ");
 	
@@ -676,7 +676,7 @@ and generateValueOp ctx e =
 		generateValue ctx e
 
 and generateFieldAccess ctx etype s to_method =
-	debug ctx " \"-FA-\" ";
+	debug ctx "\"-FA-\"";
 	(* ctx.writer#write (Printf.sprintf ">%s<" t); *)
 	let field c = match fst c.cl_path, snd c.cl_path with
 		| [], "Math" ->
@@ -711,15 +711,15 @@ and generateFieldAccess ctx etype s to_method =
 			| _ -> ctx.writer#write s)
 		
 		| _ ->
-			(* TODO : methods called with self use the dot notation, which is not good *)
-			(* ctx.writer#write ((if to_method then "1" else "0")^(if ctx.generating_call then "2" else "0")^(if ctx.generating_self_access then "3" else "0")); *)
-			let accesor = if to_method or ctx.generating_call then
+			(* Generating dot notation for property and space for methods *)
+			let accesor = if to_method then
 				(if ctx.generating_self_access then "." else " ")
+			else if ctx.generating_call then
+				" "
 			else
 				"." in
 			ctx.writer#write (Printf.sprintf "%s%s" accesor s);
 			ctx.generating_self_access <- false
-		(* Generating dot notation for property and space for methods *)
 	in
 	match follow etype with
 	| TInst (c,_) -> field c
@@ -759,7 +759,7 @@ and generateExpression ctx e =
 		let c = match isSpecialCompare e1 e2 with Some c -> c | None -> assert false in
 		generateExpression ctx (mk (TCall (mk (TField (mk (TTypeExpr (TClassDecl c)) t_dynamic e.epos,"compare")) t_dynamic e.epos,[e1;e2])) ctx.com.basic.tbool e.epos);
 		
-	(* TODO: StringBuf: stringbuf.b += another_string. The fieldaccess is not generating the .b *)
+	(* TODO: StringBuf: some concat problems left *)
 	(* | TBinop (op,{ eexpr = TField (e1,s) },e2) ->
 		ctx.writer#write "strange binop ";
 		generateValueOp ctx e1;
@@ -892,17 +892,10 @@ and generateExpression ctx e =
 		("methodName", { eexpr = (TConst (TString meth)) }) :: [] ) ->
 			ctx.writer#write ("[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@\""^file^"\",@\""^(Printf.sprintf "%ld" line)^"\",@\""^class_name^"\",@\""^meth^"\",nil] forKeys:[NSArray arrayWithObjects:@\"fileName\",@\"lineNumber\",@\"className\",@\"methodName\",nil]]");
 	| TObjectDecl fields ->
-		ctx.writer#write "{";
-		concat ctx " ," (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
-		ctx.writer#write "}"
-	(* | TArrayDecl el -> *)
-		(* gen_type output expression.etype; *)
-		(* TODO: If the elements are pointers init the array with a NSMutableArray, faster and cleaner *)
-		(* List.iter ( fun elem -> ctx.writer#write "[" ) el;
-		ctx.writer#write "[[Array alloc] init]";
-		List.iter (
-			fun elem -> ctx.writer#write " add:"; generateValue ctx elem; ctx.writer#write "]";
-		) el *)
+		ctx.writer#write "struct {";
+		ctx.writer#new_line;
+		concat ctx ";\n" (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
+		ctx.writer#write "} structName"
 	| TArrayDecl el ->
 		ctx.writer#write "[[NSMutableArray alloc] initWithObjects:";
 		ctx.require_pointer <- true;
@@ -964,7 +957,7 @@ and generateExpression ctx e =
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
-		ctx.writer#write ";";
+		(* ctx.writer#write ";"; *)
 		(match eelse with
 		| None -> ()
 		| Some e ->

@@ -41,7 +41,7 @@
 	id g2 = (id)a;
 	int xy = a.length;
 	[a push:@"6"];
-	if (a.length > 3) f = 3;
+	if (a.length > 3) f = 3
 	else f = a.length;
 	f = ( (a.length > 3) ? 3 : a.length);
 	int x = [[[Tests alloc] new] add:1 b:1];
@@ -176,16 +176,17 @@
 	float k = ( (b) ? -x : x);
 }
 - (void) testReflect{
-	id obj = {a:@"aaaaa"};
+	id obj = struct {
+	a:@"aaaaa"} structName;
 	BOOL b = [Reflect hasField:obj field:@"a"];
 	id f = [Reflect field:obj field:@"a"];
-	if (obj != nil) [obj GFA2 .__SetField "-dynamic_param-" ];;
-	[self.__SetField "-dynamic_param-" ];
-	id p = (id)[self.__Field "-dynamic_param-" ];
+	if (obj != nil) [obj GFA2 .__SetField "-dynamic_param-" ];
+	[self __SetField "-dynamic_param-" ];
+	id p = (id)[self __Field "-dynamic_param-" ];
 	[Reflect callMethod:self func:@selector(testStd) args:[[NSMutableArray alloc] initWithObjects:, nil]]];
-	[Reflect.callMethod:self func:@selector(callLotsOfArguments) args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
+	[Reflect callMethod:self func:@selector(callLotsOfArguments) args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
 	
-	NSMutabeArray *fs = [Reflect.fields:obj];
+	NSMutabeArray *fs = [Reflect fields:obj];
 	BOOL isf = [Reflect isFunction:@selector(testStd)];
 	int i = [Reflect compare:1 b:2];
 	BOOL cm = [Reflect compareMethods:@selector(testStd) f2:@selector(testString)];

@@ -4,67 +4,71 @@
 
 @synthesize length;
 - (NSMutabeArray*) concat:(NSMutabeArray*)a{
-	return [self.arrayByAddingObjectsFromArray "-dynamic_param-" ];
+	return [self arrayByAddingObjectsFromArray "-dynamic_param-" ];
 }
 - (NSMutabeArray*) copy{
 	return [NSMutabeArray arrayWithArray "-dynamic_param-" ];
 }
 - (id) iterator{
-	return {a:self ,p:0 ,hasNext:(BOOL){
+	return struct {
+	a:self;
+p:0;
+hasNext:(BOOL){
 		return self.p < self.a GFA2 .length;
-	} ,next:(id){
+	};
+next:(id){
 		id i = [self.a GFA2 .nativeArray objectAtIndex:self.p];
 		self.p += 1;
 		return i;
-	}};
+	}} structName;
 }
 - (void) insert:(int)pos x:(id)x{
-	[self.insertObject "-dynamic_param-" ];
+	[self insertObject "-dynamic_param-" ];
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
-	return [self.componentsJoinedByString "-dynamic_param-" ];
+	return [self componentsJoinedByString "-dynamic_param-" ];
 }
 - (NSMutableString*) toString{
-	return [@"[" stringByAppendingString: ([[self.componentsJoinedByString "-dynamic_param-" ] stringByAppendingString:@"]"])];
+	return [@"[" stringByAppendingString: ([[self componentsJoinedByString "-dynamic_param-" ] stringByAppendingString:@"]"])];
 }
 - (id) pop{
-	if (self.length == 0) return nil;;
-	id theLastObject = [self.lastObject];
-	[self.removeLastObject];
+	if (self.length == 0) return nil;
+	id theLastObject = [self lastObject];
+	[self removeLastObject];
 	return theLastObject;
 }
 - (int) push:(id)x{
-	[self.addObject "-dynamic_param-" ];
-	return [self.count];
+	[self addObject "-dynamic_param-" ];
+	return [self count];
 }
 - (void) unshift:(id)x{
-	[self.insertObject "-dynamic_param-" ];
+	[self insertObject "-dynamic_param-" ];
 }
 - (BOOL) remove:(id)x{
-	BOOL containsObject = [self.containsObject "-dynamic_param-" ];
-	if (containsObject) [self.removeObject "-dynamic_param-" ];;
+	BOOL containsObject = [self containsObject "-dynamic_param-" ];
+	if (containsObject) [self removeObject "-dynamic_param-" ];
 	return containsObject;
 }
 - (void) reverse{
-	id reverseArray = [[self.reverseObjectEnumerator] GFA2 .allObjects];
+	id reverseArray = [[self reverseObjectEnumerator] GFA2 .allObjects];
 }
 - (id) shift{
-	if ([self.count] > 0) {
-		id obj = [self.objectAtIndex "-dynamic_param-" ];
-		[self.removeObjectAtIndex "-dynamic_param-" ];
+	if ([self count] > 0) {
+		id obj = [self objectAtIndex "-dynamic_param-" ];
+		[self removeObjectAtIndex "-dynamic_param-" ];
 		return obj;
-	};;
+	}
 	return nil;
 }
 - (NSMutabeArray*) slice:(int)pos end:(id)end{
-	return [self.splice:pos len:end - pos];
+	return [self splice:pos len:end - pos];
 }
 - (void) sort:(Function*)f{
 }
 - (NSMutabeArray*) splice:(int)pos len:(int)len{
 	
-	NSMutabeArray *newArray = [self.subarrayWithRange "-dynamic_param-" ];
-	[self.removeObjectsInArray "-dynamic_param-" ];
+	NSMutabeArray *newArray = [self subarrayWithRange "-dynamic_param-" ];
+	[self removeObjectsInArray "-dynamic_param-" ];
 	return [NSMutabeArray arrayWithArray "-dynamic_param-" ];
 }
 - (id) new{

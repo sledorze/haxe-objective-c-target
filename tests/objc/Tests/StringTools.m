@@ -30,7 +30,7 @@
 	int l = slength;
 	int r = 0;
 	while (r < l && [StringTools isSpace:s pos:r]) r++;
-	if (r > 0) return [s substringWithRange:r len:l - r];
+	if (r > 0) return [s substringWithRange:r len:l - r]
 	else return s;
 	return nil;
 }
@@ -38,7 +38,7 @@
 	int l = slength;
 	int r = 0;
 	while (r < l && [StringTools isSpace:s pos:l - r - 1]) r++;
-	if (r > 0) return [s substringWithRange:0 len:l - r];
+	if (r > 0) return [s substringWithRange:0 len:l - r]
 	else return s;
 	return nil;
 }
@@ -51,7 +51,7 @@
 	while (sl < l) if (l - sl < cl) {
 		s += [c substringWithRange:0 len:l - sl];
 		sl = l;
-	};
+	}
 	else {
 		s += c;
 		sl += cl;
@@ -62,12 +62,12 @@
 	
 	NSMutableString *ns = @"";
 	int sl = slength;
-	if (sl >= l) return s;;
+	if (sl >= l) return s;
 	int cl = clength;
 	while (sl < l) if (l - sl < cl) {
 		[ns appendString:[c substringWithRange:@"0" len:l - sl]];
 		sl = l;
-	};
+	}
 	else {
 		[ns appendString:c];
 		sl += cl;
@@ -86,7 +86,7 @@
 		s = [[hexChars characterAtIndex:n & @"15"] stringByAppendingString:s];
 		n >>>= 4;
 	}while (n > 0);
-	if (digits != nil) while (slength < digits) s = [@"0" stringByAppendingString:s];;
+	if (digits != nil) while (slength < digits) s = [@"0" stringByAppendingString:s];
 	return s;
 }
 + (int) fastCodeAt:(NSMutableString*)s index:(int)index{

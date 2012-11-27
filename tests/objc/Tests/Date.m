@@ -53,39 +53,39 @@
 	return self_seconds * 1000.0;
 }
 - (int) getHours{
-	return [self_components.hour];
+	return [self_components hour];
 }
 - (int) getMinutes{
-	return [self_components.minute];
+	return [self_components minute];
 }
 - (int) getSeconds{
-	return [self_components.second];
+	return [self_components second];
 }
 - (int) getFullYear{
-	return [self_components.year];
+	return [self_components year];
 }
 - (int) getMonth{
-	return [self_components.month];
+	return [self_components month];
 }
 - (int) getDate{
-	return [self_components.weekday];
+	return [self_components weekday];
 }
 - (int) getDay{
-	return [self_components.day];
+	return [self_components day];
 }
 - (NSMutableString*) toString{
 	return nil;
 }
 - (id) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec{
 	self = [super init];
-	self_calendar = [NSCalendar.currentCalendar];
-	self_components = [self_calendar.components:7 fromDate:[NSDate date]];
-	[self_components.setYear:year];
-	[self_components.setMonth:month];
-	[self_components.setDay:day];
-	[self_components.setHour:hour];
-	[self_components.setMinute:min];
-	[self_components.setSecond:sec];
+	self_calendar = [NSCalendar currentCalendar];
+	self_components = [self_calendar components:7 fromDate:[NSDate date]];
+	[self_components setYear:year];
+	[self_components setMonth:month];
+	[self_components setDay:day];
+	[self_components setHour:hour];
+	[self_components setMinute:min];
+	[self_components setSecond:sec];
 	self = _calendar.dateFromComponents ( _components );
 	return self;
 }

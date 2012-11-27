@@ -74,7 +74,7 @@
 	int p = 0;
 	while (YES) {
 		int np = [f rangeOfString:@"%" startIndex:p];
-		if (np < 0) break;;
+		if (np < 0) break;
 		r.b += [f substringWithRange:p len:np - p];
 		r.b += [Std string:[DateTools __format_get:d e:[f substringWithRange:np + 1 len:1]]];
 		p = np + 2;
@@ -97,7 +97,7 @@
 + (int) getMonthDays:(NSDate*)d{
 	int month = [dgetMonth];
 	int year = [dgetFullYear];
-	if (month != 1) return [DateTools.DAYS_OF_MONTH objectAtIndex:month];;
+	if (month != 1) return [DateTools.DAYS_OF_MONTH objectAtIndex:month];
 	BOOL isB = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 	return ( (isB) ? 29 : 28);
 }
@@ -117,7 +117,12 @@
 	float s = t / 1000;
 	float m = s / 60;
 	float h = m / 60;
-	return {ms:t % 1000 ,seconds:[Std int:s % 60] ,minutes:[Std int:m % 60] ,hours:[Std int:h % 24] ,days:[Std int:h / 24]};
+	return struct {
+	ms:t % 1000;
+seconds:[Std int:s % 60];
+minutes:[Std int:m % 60];
+hours:[Std int:h % 24];
+days:[Std int:h / 24]} structName;
 }
 + (float) make:(id)o{
 	return o GFA2 .ms + 1000.0 *  (o GFA2 .seconds + 60.0 *  (o GFA2 .minutes + 60.0 *  (o GFA2 .hours + 24.0 * o GFA2 .days)));
