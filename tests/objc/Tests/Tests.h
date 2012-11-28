@@ -12,6 +12,8 @@
 #import "Reflect.h"
 #import "StringBuf.h"
 #import "StringTools.h"
+#import "Sys.h"
+#import "Timer.h"
 
 @interface Tests : NSObject<Interface2, Interface1>
 
@@ -44,6 +46,7 @@
 - (void) testSys;
 - (void) testType;
 - (void) testXml;
+- (void) testTimer;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;

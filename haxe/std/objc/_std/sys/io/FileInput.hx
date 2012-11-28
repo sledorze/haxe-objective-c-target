@@ -35,52 +35,42 @@ class FileInput extends haxe.io.Input {
 	}
 
 	public override function readByte() : Int {
-		return try {
-			file_read_char(__f);
-		} catch( e : Dynamic ) {
-			if( untyped e.__IsArray() )
-				throw new haxe.io.Eof();
-			else
-				throw haxe.io.Error.Custom(e);
-		}
+		return 0;/*try {
+					file_read_char(__f);
+				} catch( e : Dynamic ) {
+					if( untyped e.__IsArray() )
+						throw new haxe.io.Eof();
+					else
+						throw haxe.io.Error.Custom(e);
+				}*/
 	}
 
 	public override function readBytes( s : haxe.io.Bytes, p : Int, l : Int ) : Int {
-		return try {
-			file_read(__f,s.getData(),p,l);
-		} catch( e : Dynamic ) {
-			if( untyped e.__IsArray() )
-				throw new haxe.io.Eof();
-			else
-				throw haxe.io.Error.Custom(e);
-		}
+		return 0;/*try {
+					file_read(__f,s.getData(),p,l);
+				} catch( e : Dynamic ) {
+					if( untyped e.__IsArray() )
+						throw new haxe.io.Eof();
+					else
+						throw haxe.io.Error.Custom(e);
+				}*/
 	}
 
 	public override function close() : Void {
 		super.close();
-		file_close(__f);
 	}
 
 	public function seek( p : Int, pos : FileSeek ) : Void {
-		file_seek(__f,p,pos==SeekBegin ? 0 : pos==SeekCur ? 1 :  2 );
+		/*file_seek(__f,p,pos==SeekBegin ? 0 : pos==SeekCur ? 1 :  2 );*/
 	}
 
 	public function tell() : Int {
-		return file_tell(__f);
+		return 0;
 	}
 
 
 	public function eof() : Bool {
-		return file_eof(__f);
+		return false;
 	}
-
-	private static var file_eof = cpp.Lib.load("std","file_eof",1);
-
-	private static var file_read = cpp.Lib.load("std","file_read",4);
-	private static var file_read_char = cpp.Lib.load("std","file_read_char",1);
-
-	private static var file_close = cpp.Lib.load("std","file_close",1);
-	private static var file_seek = cpp.Lib.load("std","file_seek",3);
-	private static var file_tell = cpp.Lib.load("std","file_tell",1);
-
+	
 }

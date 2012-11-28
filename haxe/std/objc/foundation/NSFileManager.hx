@@ -1,114 +1,214 @@
-/*
- * Copyright (c) 2005, The haXe Project Contributors
- * All rights reserved.
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- *   - Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *   - Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE HAXE PROJECT CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE HAXE PROJECT CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
- */
-package objc;
+package objc.foundation;
+import objc.foundation.NSObject;
 
-typedef FileStat = {
-	var gid : Int;
-	var uid : Int;
-	var atime : Date;
-	var mtime : Date;
-	var ctime : Date;
-	var dev : Int;
-	var ino : Int;
-	var nlink : Int;
-	var rdev : Int;
-	var size : Int;
-	var mode : Int;
+typedef NSVolumeEnumerationOptions = Int;
+typedef NSDirectoryEnumerationOptions = Int;
+typedef NSFileManagerItemReplacementOptions = Int;
+
+
+//extern String * const NSUbiquityIdentityDidChangeNotification NS_AVAILABLE(10_8, 6_0);
+
+extern class NSFileManager extends NSObject {
+
+	inline public static var NSFoundationVersionWithFileManagerResourceForkSupport = 412;
+	
+	inline public static var NSVolumeEnumerationSkipHiddenVolumes = 1UL << 1;
+	inline public static var NSVolumeEnumerationProduceFileReferenceURLs = 1UL << 2;
+
+	inline public static var NSDirectoryEnumerationSkipsSubdirectoryDescendants = 1UL << 0;
+	inline public static var NSDirectoryEnumerationSkipsPackageDescendants      = 1UL << 1;
+	inline public static var NSDirectoryEnumerationSkipsHiddenFiles             = 1UL << 2;
+
+	inline public static var NSFileManagerItemReplacementUsingNewMetadataOnly = 1UL << 0;
+	inline public static var NSFileManagerItemReplacementWithoutDeletingBackupItem = 1UL << 1;
+	
+	
+	public static function defaultManager () :NSFileManager;
+	public function mountedVolumeURLsIncludingResourceValuesForKeys (propertyKeys:Array<String>, options:NSVolumeEnumerationOptions) :Array<NSURL>;
+	public function contentsOfDirectoryAtURL (url:NSURL, includingPropertiesForKeys:Array<String>, options:NSDirectoryEnumerationOptions, error:NSError) :Array<NSURL>;
+	public function URLsForDirectory (directory:NSSearchPathDirectory, inDomains:NSSearchPathDomainMask) :Array<NSURL>;
+
+	public function URLForDirectory (directory:NSSearchPathDirectory, inDomain:NSSearchPathDomainMask, appropriateForURL:NSURL, create:Bool, error:NSError) :NSURL;
+	@:require(osx_7_0) @:require(ios_5_0) public function createDirectoryAtURL (url:NSURL, withIntermediateDirectories:Bool, attributes:NSDictionary, error:NSError) :Bool;
+	@:require(osx_7_0) @:require(ios_5_0) public function createSymbolicLinkAtURL (url:NSURL withDestinationURL:NSURL error:NSError) :Bool;
+
+	public function setDelegate (delegate:Dynamic) :Void;
+	public function delegate () :Dynamic;
+
+	public function setAttributes (attributes:NSDictionary, ofItemAtPath:String, error:NSError) :Bool;
+	public function createDirectoryAtPath (path:String, withIntermediateDirectories:Bool, attributes:NSDictionary, error:NSError) :Bool;
+
+	public function contentsOfDirectoryAtPath (path:String, error:NSError) :Array<String>;
+	public function subpathsOfDirectoryAtPath (path:String, error:NSError) :Array<String>;
+	public function attributesOfItemAtPath (path:String, error:NSError) :NSDictionary;
+	public function attributesOfFileSystemForPath (path:String, error:NSError) :NSDictionary;
+
+	public function createSymbolicLinkAtPath (path:String, withDestinationPath:String, error:NSError) :Bool;
+
+	public function destinationOfSymbolicLinkAtPath (path:String, error:NSError) :String;
+
+	public function copyItemAtPath (srcPath:String, toPath:String, error:NSError) :Bool;
+	public function moveItemAtPath (srcPath:String, toPath:String, error:NSError) :Bool;
+	public function linkItemAtPath (srcPath:String, toPath:String, error:NSError) :Bool;
+	public function removeItemAtPath (path:String, error:NSError) :Bool;
+
+	public function copyItemAtURL (srcURL:NSURL, toURL:NSURL, error:NSError) :Bool;
+	public function moveItemAtURL (srcURL:NSURL, toURL:NSURL, error:NSError) :Bool;
+	public function linkItemAtURL (srcURL:NSURL, toURL:NSURL, error:NSError) :Bool;
+	public function removeItemAtURL (URL:NSURL, error:NSError) :Bool;
+
+	@:require(osx_10_8) public function trashItemAtURL (url:NSURL, resultingItemURL:NSURL, error:NSError) :Bool;
+
+
+/*- (NSDictionary *)fileAttributesAtPath (path:String,  traverseLink:(BOOL)yorn NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (BOOL)changeFileAttributes:(NSDictionary *)attributes atPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (NSArray *)directoryContentsAtPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (NSDictionary *)fileSystemAttributesAtPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (String *)pathContentOfSymbolicLinkAtPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (BOOL)createSymbolicLinkAtPath (path:String,  pathContent:(String *)otherpath NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (BOOL)createDirectoryAtPath (path:String,  attributes:(NSDictionary *)attributes NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+*/
+#if TARGET_OS_MAC
+- (BOOL)linkPath:(String *)src toPath:(String *)dest handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (BOOL)copyPath:(String *)src toPath:(String *)dest handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (BOOL)movePath:(String *)src toPath:(String *)dest handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+- (BOOL)removeFileAtPath (path:String,  handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+#end
+
+	public function currentDirectoryPath () :String;
+	public function changeCurrentDirectoryPath (path:String) :Bool;
+	//public function fileExistsAtPath (path:String) :Bool;
+	public function fileExistsAtPath (path:String, isDirectory:Bool) :Bool;
+	public function isReadableFileAtPath (path:String) :Bool;
+	public function isWritableFileAtPath (path:String) :Bool;
+	public function isExecutableFileAtPath (path:String) :Bool;
+	public function isDeletableFileAtPath (path:String) :Bool;
+	public function contentsEqualAtPath (path:String, andPath:String) :Bool;
+
+	public function displayNameAtPath (path:String) :String;
+	public function componentsToDisplayForPath (path:String) :Array<String>;
+	public function enumeratorAtPath (path:String) :NSDirectoryEnumerator;
+
+#if NS_BLOCKS_AVAILABLE
+
+- (NSDirectoryEnumerator *)enumeratorAtURL:(NSURL *)url includingPropertiesForKeys:(NSArray *)keys options:(NSDirectoryEnumerationOptions)mask errorHandler:(BOOL (^)(NSURL *url, NSError *error))handler NS_AVAILABLE(10_6, 4_0);
+#end
+
+	public function subpathsAtPath (path:String) :Array<String>;
+	public function contentsAtPath (path:String) :NSData;
+	public function createFileAtPath (path:String, contents:NSData, attributes:NSDictionary) :Bool;
+	public function fileSystemRepresentationWithPath (path:String) :String;
+	public function stringWithFileSystemRepresentation (str:String, length:Int) :String;
+
+/*- (BOOL)replaceItemAtURL:(NSURL *)originalItemURL withItemAtURL:(NSURL *)newItemURL backupItemName:(String *)backupItemName options:(NSFileManagerItemReplacementOptions)options resultingItemURL:(NSURL **)resultingURL error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
+
+- (BOOL)setUbiquitous:(BOOL)flag itemAtURL:(NSURL *)url destinationURL:(NSURL *)destinationURL error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
+
+- (BOOL)isUbiquitousItemAtURL:(NSURL *)url NS_AVAILABLE(10_7, 5_0);
+
+- (BOOL)startDownloadingUbiquitousItemAtURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
+
+- (BOOL)evictUbiquitousItemAtURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
+
+- (NSURL *)URLForUbiquityContainerIdentifier:(String *)containerIdentifier NS_AVAILABLE(10_7, 5_0);
+
+- (NSURL *)URLForPublishingUbiquitousItemAtURL:(NSURL *)url expirationDate:(NSDate **)outDate error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
+
+- (id <NSObject, NSCopying, NSCoding>)ubiquityIdentityToken NS_AVAILABLE(10_8, 6_0);*/
+
+// NSCopyLinkMoveHandler)
+	public function fileManager (fm:NSFileManager, shouldProceedAfterError:NSDictionary) :Bool;
+	public function fileManager (fm:NSFileManager, willProcessPath:String) :Void;
 }
 
-enum FileKind {
-	kdir;
-	kfile;
-	kother( k : String );
+
+extern interface NSFileManagerDelegate {
+//@optional
+
+/*	public function fileManager:(NSFileManager *)fileManager shouldCopyItemAtPath:(String *)srcPath toPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldCopyItemAtURL:(NSURL *)srcURL toURL:(NSURL *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error copyingItemAtPath:(String *)srcPath toPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error copyingItemAtURL:(NSURL *)srcURL toURL:(NSURL *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldMoveItemAtPath:(String *)srcPath toPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldMoveItemAtURL:(NSURL *)srcURL toURL:(NSURL *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error movingItemAtPath:(String *)srcPath toPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error movingItemAtURL:(NSURL *)srcURL toURL:(NSURL *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldLinkItemAtPath:(String *)srcPath toPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldLinkItemAtURL:(NSURL *)srcURL toURL:(NSURL *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error linkingItemAtPath:(String *)srcPath toPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error linkingItemAtURL:(NSURL *)srcURL toURL:(NSURL *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldRemoveItemAtPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldRemoveItemAtURL:(NSURL *)URL  :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtPath:(String *) :Bool;
+	public function fileManager:(NSFileManager *)fileManager shouldProceedAfterError:(NSError *)error removingItemAtURL:(NSURL *) :Bool;
+*/
 }
 
-class FileSystem {
 
-	public static function exists( path : String ) : Bool {
-		return sys_exists(path);
-	}
+extern class NSDirectoryEnumerator extends NSEnumerator {
 
-	public static function rename( path : String, newpath : String ) {
-		if (sys_rename(path,newpath)==null)
-         throw "Could not rename:" + path + " to " + newpath;
-	}
-
-	public static function stat( path : String ) : FileStat {
-		var s : FileStat = sys_stat(path);
-		if (s==null)
-			return { gid:0, uid:0, atime:Date.fromTime(0), mtime:Date.fromTime(0), ctime:Date.fromTime(0), dev:0, ino:0, nlink:0, rdev:0, size:0, mode:0 };
-		s.atime = Date.fromTime(1000.0*(untyped s.atime));
-		s.mtime = Date.fromTime(1000.0*(untyped s.mtime));
-		s.ctime = Date.fromTime(1000.0*(untyped s.ctime));
-		return s;
-	}
-
-	public static function fullPath( relpath : String ) : String {
-		return new String(file_full_path(relpath));
-	}
-
-	public static function kind( path : String ) : FileKind {
-		var k:String = sys_file_type(path);
-		return switch(k) {
-		case "file": kfile;
-		case "dir": kdir;
-		default: kother(k);
-		}
-	}
-
-	public static function isDirectory( path : String ) : Bool {
-		return kind(path) == kdir;
-	}
-
-	public static function createDirectory( path : String ) {
-		if (sys_create_dir( path, 493 )==null)
-         throw "Could not create directory:" + path;
-	}
-
-	public static function deleteFile( path : String ) {
-		if (file_delete(path)==null)
-         throw "Could not delete file:" + path;
-	}
-
-	public static function deleteDirectory( path : String ) {
-		if (sys_remove_dir(path)==null)
-         throw "Could not delete directory:" + path;
-	}
-
-	public static function readDirectory( path : String ) : Array<String> {
-		return sys_read_dir(path);
-	}
-
-	private static var sys_exists = Lib.load("std","sys_exists",1);
-	private static var file_delete = Lib.load("std","file_delete",1);
-	private static var sys_rename = Lib.load("std","sys_rename",2);
-	private static var sys_stat = Lib.load("std","sys_stat",1);
-	private static var sys_file_type = Lib.load("std","sys_file_type",1);
-	private static var sys_create_dir = Lib.load("std","sys_create_dir",2);
-	private static var sys_remove_dir = Lib.load("std","sys_remove_dir",1);
-	private static var sys_read_dir = Lib.load("std","sys_read_dir",1);
-	private static var file_full_path = Lib.load("std","file_full_path",1);
+	public function fileAttributes () :NSDictionary;
+	public function directoryAttributes () :NSDictionary;
+	public function skipDescendents () :Void;
+	public function level () :Int;
+	public function skipDescendants () :Void;
 
 }
+
+/*FOUNDATION_EXPORT String * const NSFileType;
+FOUNDATION_EXPORT String * const NSFileTypeDirectory;
+FOUNDATION_EXPORT String * const NSFileTypeRegular;
+FOUNDATION_EXPORT String * const NSFileTypeSymbolicLink;
+FOUNDATION_EXPORT String * const NSFileTypeSocket;
+FOUNDATION_EXPORT String * const NSFileTypeCharacterSpecial;
+FOUNDATION_EXPORT String * const NSFileTypeBlockSpecial;
+FOUNDATION_EXPORT String * const NSFileTypeUnknown;
+FOUNDATION_EXPORT String * const NSFileSize;
+FOUNDATION_EXPORT String * const NSFileModificationDate;
+FOUNDATION_EXPORT String * const NSFileReferenceCount;
+FOUNDATION_EXPORT String * const NSFileDeviceIdentifier;
+FOUNDATION_EXPORT String * const NSFileOwnerAccountName;
+FOUNDATION_EXPORT String * const NSFileGroupOwnerAccountName;
+FOUNDATION_EXPORT String * const NSFilePosixPermissions;
+FOUNDATION_EXPORT String * const NSFileSystemNumber;
+FOUNDATION_EXPORT String * const NSFileSystemFileNumber;
+FOUNDATION_EXPORT String * const NSFileExtensionHidden;
+FOUNDATION_EXPORT String * const NSFileHFSCreatorCode;
+FOUNDATION_EXPORT String * const NSFileHFSTypeCode;
+FOUNDATION_EXPORT String * const NSFileImmutable;
+FOUNDATION_EXPORT String * const NSFileAppendOnly;
+FOUNDATION_EXPORT String * const NSFileCreationDate;
+FOUNDATION_EXPORT String * const NSFileOwnerAccountID;
+FOUNDATION_EXPORT String * const NSFileGroupOwnerAccountID;
+FOUNDATION_EXPORT String * const NSFileBusy;
+FOUNDATION_EXPORT String * const NSFileProtectionKey NS_AVAILABLE_IOS(4_0);
+FOUNDATION_EXPORT String * const NSFileProtectionNone NS_AVAILABLE_IOS(4_0);
+FOUNDATION_EXPORT String * const NSFileProtectionComplete NS_AVAILABLE_IOS(4_0);
+FOUNDATION_EXPORT String * const NSFileProtectionCompleteUnlessOpen NS_AVAILABLE_IOS(5_0);
+FOUNDATION_EXPORT String * const NSFileProtectionCompleteUntilFirstUserAuthentication NS_AVAILABLE_IOS(5_0);
+
+FOUNDATION_EXPORT String * const NSFileSystemSize;
+FOUNDATION_EXPORT String * const NSFileSystemFreeSize;
+FOUNDATION_EXPORT String * const NSFileSystemNodes;
+FOUNDATION_EXPORT String * const NSFileSystemFreeNodes;*/
+
+extern class NSDictionary (NSFileAttributes)
+
+- (unsigned long long)fileSize;
+- (NSDate *)fileModificationDate;
+- (String *)fileType;
+- (NSUInteger)filePosixPermissions;
+- (String *)fileOwnerAccountName;
+- (String *)fileGroupOwnerAccountName;
+- (NSInteger)fileSystemNumber;
+- (NSUInteger)fileSystemFileNumber;
+- (BOOL)fileExtensionHidden;
+- (OSType)fileHFSCreatorCode;
+- (OSType)fileHFSTypeCode;
+- (BOOL)fileIsImmutable;
+- (BOOL)fileIsAppendOnly;
+- (NSDate *)fileCreationDate;
+- (NSNumber *)fileOwnerAccountID;
+- (NSNumber *)fileGroupOwnerAccountID;
+}
+

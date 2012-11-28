@@ -251,10 +251,26 @@
 	sfin = [@"55" stringByAppendingString:@"abc"];
 }
 - (void) testSys{
+	[Sys print:@"hello world"];
+	[Sys println:@"hello world"];
 }
 - (void) testType{
 }
 - (void) testXml{
+}
+- (void) testTimer{
+	
+	NSMutabeArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil]];
+	
+	Timer *timer = [[Timer alloc] new:50];
+	timer.run = @selector(testXml);
+	[timer stop];
+	timer = [Timer delay:@selector(testTimer) time_ms:50];
+	timer = [Timer delay:(void){
+		[[_g objectAtIndex:0] testTimer];
+	} time_ms:50];
+	[Timer measure:@selector(testTimer) pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"332",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	float f = [Timer stamp];
 }
 - (void) testFrameworksImport{
 	
@@ -287,7 +303,7 @@
 	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"362",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"378",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) new{
 	self = [super init];

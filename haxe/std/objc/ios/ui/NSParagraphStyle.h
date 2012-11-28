@@ -1,17 +1,7 @@
 //
 //  NSParagraphStyle.h
 package objc.ios.ui;
-//
-//  Copyright (c) 2011-2012 Apple Inc. All rights reserved.
-//
-// NSParagraphStyle and NSMutableParagraphStyle hold paragraph style information
-// 
 
-#import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
-#import <UIKit/UIKitDefines.h>
-#import <UIKit/NSText.h>
-#import <CoreText/CTParagraphStyle.h>
 
 typedef NS_ENUM(NSInteger, NSLineBreakMode) {		/* What to do with long lines */
     NSLineBreakByWordWrapping = 0,     	/* Wrap at word boundaries, default */
@@ -22,7 +12,7 @@ typedef NS_ENUM(NSInteger, NSLineBreakMode) {		/* What to do with long lines */
     NSLineBreakByTruncatingMiddle	/* Truncate middle of line:  "ab...yz" */
 } NS_ENUM_AVAILABLE_IOS(6_0);
 
-NS_CLASS_AVAILABLE_IOS(6_0)extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableCopying, NSCoding> 
+@require(ios_6_0)extern class NSParagraphStyle extends NSObject, implements NSCopying, NSMutableCopying, NSCoding> 
 
 + (NSParagraphStyle *)defaultParagraphStyle;
 

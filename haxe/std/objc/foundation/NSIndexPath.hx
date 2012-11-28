@@ -1,25 +1,22 @@
 package objc.foundation;
+import objc.foundation.NSObject;
 
+extern class NSIndexPath, implements NSCopying, implements NSCoding {
 
-extern class NSIndexPath, implements NSCopying, implements NSCoding
-{
-
-	//Constants
-
-	//Static Methods
-	public  function indexPathWithIndexes( indexes:constInt[],  length:Int):Dynamic;
-	public  function indexPathWithIndex( index:Int):Dynamic;
-
-	//Properties
-
-	//Methods
-	public  function initWithIndexes( indexes:constInt[],  length:Int):Dynamic;
-	public  function indexPathByRemovingLastIndex():NSIndexPath;
-	public  function initWithIndex( index:Int):Dynamic;
+	public static function indexPathWithIndexes (indexes:Array<Int>, length:Int) :NSIndexPath;
+	public static function indexPathWithIndex (index:Int) :NSIndexPath;
+	
+	public function initWithIndexm(index:Int) :NSIndexPath;
+	public function initWithIndexes (indexes:Array<Int>, length:Int) :NSIndexPath;
+	
 	public  function indexPathByAddingIndex( index:Int):NSIndexPath;
-	public  function length():Int;
-	public  function getIndexes( indexes:Int):Void;
-	public  function compare( otherObject:NSIndexPath):NSComparisonResult;
+	public  function indexPathByRemovingLastIndex():NSIndexPath;
+	
 	public  function indexAtPosition( position:Int):Int;
+	public  function length():Int;
+	
+	public  function getIndexes( indexes:Int) :Void;
+	public  function compare( otherObject:NSIndexPath) :NSComparisonResult;
+
 }
 

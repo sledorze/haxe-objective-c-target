@@ -47,42 +47,42 @@
 	}
 
 	public static function getChar( echo : Bool ) : Int {
-		return getch(echo);
+		return 0;//getch(echo);
 	}
 
 	public static function args() : Array<String> untyped {
-		return __global__.__get_args();
+		return null;//__global__.__get_args();
 	}
 
 	public static function getEnv( s : String ):String {
-		var v = get_env(s);
+		var v = null;//get_env(s);
 		if( v == null )
 			return null;
 		return v;
 	}
 
 	public static function putEnv( s : String, v : String ) : Void {
-		put_env(s,v);
+		//put_env(s,v);
 	}
 
 	public static function sleep( seconds : Float ) : Void {
-		_sleep(seconds);
+		//_sleep(seconds);
 	}
 
 	public static function setTimeLocale( loc : String ) : Bool {
-		return set_time_locale(loc);
+		return true;//set_time_locale(loc);
 	}
 
 	public static function getCwd() : String {
-		return new String(get_cwd());
+		return null;//new String(get_cwd());
 	}
 
 	public static function setCwd( s : String ) : Void {
-		set_cwd(s);
+		//set_cwd(s);
 	}
 
 	public static function systemName() : String {
-		return sys_string();
+		return null;//sys_string();
 	}
 
 	static function escapeArgument( arg : String ) : String {
@@ -105,7 +105,7 @@
 			for( a in args )
 				cmd += " "+escapeArgument(a);
 		}
-		return sys_command(cmd);
+		return 0;//sys_command(cmd);
 	}
 
 	public static function exit( code : Int ) : Void {
@@ -113,19 +113,19 @@
 	}
 
 	public static function time() : Float {
-		return sys_time();
+		return 0;//sys_time();
 	}
 
 	public static function cpuTime() : Float {
-		return sys_cpu_time();
+		return 0;//sys_cpu_time();
 	}
 
 	public static function executablePath() : String {
-		return new String(sys_exe_path());
+		return null;//new String(sys_exe_path());
 	}
 
 	public static function environment() : Hash<String> {
-		var vars:Array<String> = sys_env();
+		var vars:Array<String> = null;//sys_env();
 		var result = new Hash<String>();
 		var i = 0;
 		while(i<vars.length) {

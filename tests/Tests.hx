@@ -298,7 +298,8 @@ class Tests implements Interface1, implements Interface2 {
 	// Test Sys
 	
 	function testSys () {
-	
+		Sys.print("hello world");
+		Sys.println("hello world");
 	}
 	
 	
@@ -315,6 +316,21 @@ class Tests implements Interface1, implements Interface2 {
 	
 	function testXml () {
 	
+	}
+	
+	
+	
+	
+	// Test haxe.Timer
+	
+	function testTimer () {
+		var timer = new haxe.Timer ( 50 );
+		timer.run = testXml;
+		timer.stop();
+		timer = haxe.Timer.delay (testTimer, 50);
+		timer = haxe.Timer.delay ( function() { testTimer(); }, 50);
+		haxe.Timer.measure (testTimer);
+		var f = haxe.Timer.stamp();
 	}
 	
 	
