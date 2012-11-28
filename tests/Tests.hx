@@ -171,7 +171,11 @@ class Tests implements Interface1, implements Interface2 {
 	// Test List
 	
 	function testList(){
-		
+		var l = new List<Int>();
+		l.add(8);
+		l.push(8);
+		var fl = new haxe.FastList<Int>();
+		fl.add(8);
 	}
 	
 	
@@ -306,7 +310,9 @@ class Tests implements Interface1, implements Interface2 {
 	// Test Type
 	
 	function testType () {
-	
+		var sup = Type.getSuperClass ( objc.ios.map.MKMapView );
+		var sups = Type.getClassName ( objc.ios.map.MKMapView );
+		var cl = Type.resolveClass ( "objc.ios.map.MKMapView" );
 	}
 	
 	

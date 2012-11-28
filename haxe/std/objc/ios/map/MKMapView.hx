@@ -16,7 +16,7 @@ extern interface MKMapViewDelegate {
 
 extern class MKMapView extends UIView {
 	
-	public function new () :Void;
+	//public function new () :Void;
 	public var delegate :MKMapViewDelegate;
 	public var mapType :MKMapType;
 	//public var region :MKCoordinateRegion;

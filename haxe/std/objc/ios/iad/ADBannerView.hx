@@ -1,9 +1,4 @@
-//
-//  ADBannerView.h
-//  iAd
-//
-//  Copyright 2010 Apple, Inc. All rights reserved.
-//
+package objc.ios.iad;
 
 #import <UIKit/UIKit.h>
 

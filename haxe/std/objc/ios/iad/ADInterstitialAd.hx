@@ -1,9 +1,4 @@
-//
-//  ADInterstitialAd.h
-//  iAd
-//
-//  Copyright 2011 Apple Inc. All rights reserved.
-//
+package objc.ios.iad;
 
 #import <Foundation/Foundation.h>
 #import <iAd/ADBannerView.h>
