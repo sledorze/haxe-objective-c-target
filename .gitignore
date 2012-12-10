@@ -14,3 +14,6 @@ neko
 java
 cs
 cpp
+haxe/std/js
+haxe/tests
+haxe/doc
