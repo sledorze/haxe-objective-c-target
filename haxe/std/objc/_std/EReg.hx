@@ -34,11 +34,11 @@
 			global = a.length > 1;
 			if( global )
 				opt = a.join("");
-			this.r = regexp_new_options(r, opt);
+			this.r = null;//regexp_new_options(r, opt);
 	}
 
 	public function match( s : String ) : Bool {
-			var p = regexp_match(r,s,0,s.length);
+			var p = true;//regexp_match(r,s,0,s.length);
 			if( p )
 				last = s;
 			else
@@ -47,23 +47,23 @@
 	}
 
 	public function matched( n : Int ) : String {
-			var m = regexp_matched(r,n);
-			return m;
+		var m = null;//regexp_matched(r,n);
+		return m;
 	}
 
 	public function matchedLeft() : String {
-			var p = regexp_matched_pos(r,0);
+			var p = null;//regexp_matched_pos(r,0);
 			return last.substr(0,p.pos);
 	}
 
 	public function matchedRight() : String {
-			var p = regexp_matched_pos(r,0);
+			var p = null;//regexp_matched_pos(r,0);
 			var sz = p.pos+p.len;
 			return last.substr(sz,last.length-sz);
 	}
 
 	public function matchedPos() : { pos : Int, len : Int } {
-			return regexp_matched_pos(r,0);
+			return null;//regexp_matched_pos(r,0);
 	}
 
 	public function split( s : String ) : Array<String> {
@@ -72,9 +72,9 @@
 			var a = new Array();
 			var first = true;
 			do {
-				if( !regexp_match(r,s,pos,len) )
-					break;
-				var p = regexp_matched_pos(r,0);
+				//if( !regexp_match(r,s,pos,len) )
+				//	break;
+				var p = null;//regexp_matched_pos(r,0);
 				if( p.len == 0 && !first ) {
 					if( p.pos == s.length )
 						break;
@@ -97,9 +97,9 @@
 			var a = by.split("$");
 			var first = true;
 			do {
-				if( !regexp_match(r,s,pos,len) )
-					break;
-				var p = regexp_matched_pos(r,0);
+				//if( !regexp_match(r,s,pos,len) )
+				//	break;
+				var p = null;//regexp_matched_pos(r,0);
 				if( p.len == 0 && !first ) {
 					if( p.pos == s.length )
 						break;
@@ -114,13 +114,13 @@
 					var c = k.charCodeAt(0);
 					// 1...9
 					if( c >= 49 && c <= 57 ) {
-						var p = try regexp_matched_pos(r,Std.int(c)-48) catch( e : String ) null;
+						var p = null;//try regexp_matched_pos(r,Std.int(c)-48) catch( e : String ) null;
 						if( p == null ){
 							b.add("$");
 							b.add(k);
 						}else{
-						b.addSub(s,p.pos,p.len);
-						b.addSub(k,1,k.length - 1);
+							b.addSub(s,p.pos,p.len);
+							b.addSub(k,1,k.length - 1);
 						}
 					} else if( c == null ) {
 						b.add("$");
@@ -153,10 +153,5 @@
 		buf.add(s);
 		return buf.toString();
 	}
-
-	static var regexp_new_options : String -> String -> Dynamic = cpp.Lib.load("regexp","regexp_new_options",2);
-	static var regexp_match : Dynamic -> String -> Int -> Int -> Dynamic = cpp.Lib.load("regexp","regexp_match",4);
-	static var regexp_matched : Dynamic -> Int -> Dynamic = cpp.Lib.load("regexp","regexp_matched",2);
-	static var regexp_matched_pos : Dynamic -> Int -> { pos : Int, len : Int } = cpp.Lib.load("regexp","regexp_matched_pos",2);
-
+	
 }

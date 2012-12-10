@@ -165,6 +165,20 @@
 		};
 	}
 	- (void) testEReg{
+		
+		EReg *ereg = [[EReg alloc] new:@"ytrytrevev76",@"099"];
+		
+		NSMutableString *s = [ereg customReplace:@"s" f:^(NSMutableString*):(EReg*)e{
+			return @"ss";
+		}];
+		BOOL b = [ereg match:@"s"];
+		s = [ereg matched:5];
+		s = [ereg matchedLeft];
+		id o = [ereg matchedPos];
+		s = [ereg matchedRight];
+		s = [ereg replace:@"s" by:@"by"];
+		
+		NSMutabeArray *arr = [ereg split:@","];
 	}
 	- (void) testHash{
 		
@@ -189,6 +203,10 @@
 		NSMutableString *stri = [hi toString];
 	}
 	- (void) testLambda{
+		
+		NSMutabeArray *a = [Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]]];
+		
+		List *l = [Lambda concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]]];
 	}
 	- (void) testList{
 		
@@ -208,9 +226,9 @@
 		item = [l last];
 		item = [l pop];
 		BOOL r = [l remove:5];
-		[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"219",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"283",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		[l clear];
-		[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"221",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"285",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		
 		List *newList = [l map:^(NSMutableString*):(int)i{
 			return [Std string:i];
@@ -356,7 +374,7 @@
 		timer = [Timer delay:^(void){
 			[[_g objectAtIndex:0] testTimer];
 		} time_ms:50];
-		[Timer measure:@selector(testTimer) pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"390",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Timer measure:@selector(testTimer) pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"534",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		float f = [Timer stamp];
 	}
 	- (void) testFrameworksImport{
@@ -388,7 +406,7 @@
 		self.s = @"init";
 	}
 	- (void) printHello{
-		[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"436",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"580",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 	- (id) new{
 		self = [super init];
