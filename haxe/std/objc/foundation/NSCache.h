@@ -2,7 +2,7 @@
         Copyright (c) 2008-2012, Apple Inc. All rights reserved.
 */
 
-#import <Foundation/NSObject.h>
+import objc.foundation.NSObject;
 
 @class NSString;
 @protocol NSCacheDelegate;

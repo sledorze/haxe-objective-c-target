@@ -2,7 +2,7 @@
 	Copyright (c) 1994-2012, Apple Inc. All rights reserved.
 */
 
-#import <Foundation/NSObject.h>
+import objc.foundation.NSObject;
 
 NS_AUTOMATED_REFCOUNT_UNAVAILABLE
 extern class NSAutoreleasePool extends NSObject {

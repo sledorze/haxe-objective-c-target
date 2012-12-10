@@ -3,7 +3,7 @@
 */
 
 #import <CoreFoundation/CFCharacterSet.h>
-#import <Foundation/NSObject.h>
+import objc.foundation.NSObject;
 #import <Foundation/NSRange.h>
 #import <Foundation/NSString.h>
 

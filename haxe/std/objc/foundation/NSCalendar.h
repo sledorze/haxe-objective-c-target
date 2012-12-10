@@ -2,7 +2,7 @@
 	Copyright (c) 2004-2012, Apple Inc. All rights reserved.
 */
 
-#import <Foundation/NSObject.h>
+import objc.foundation.NSObject;
 #import <Foundation/NSRange.h>
 #import <Foundation/NSDate.h>
 

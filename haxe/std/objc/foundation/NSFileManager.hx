@@ -58,22 +58,7 @@ extern class NSFileManager extends NSObject {
 	public function removeItemAtURL (URL:NSURL, error:NSError) :Bool;
 
 	@:require(osx_10_8) public function trashItemAtURL (url:NSURL, resultingItemURL:NSURL, error:NSError) :Bool;
-
-
-/*- (NSDictionary *)fileAttributesAtPath (path:String,  traverseLink:(BOOL)yorn NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (BOOL)changeFileAttributes:(NSDictionary *)attributes atPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (NSArray *)directoryContentsAtPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (NSDictionary *)fileSystemAttributesAtPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (String *)pathContentOfSymbolicLinkAtPath (path:String,  NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (BOOL)createSymbolicLinkAtPath (path:String,  pathContent:(String *)otherpath NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (BOOL)createDirectoryAtPath (path:String,  attributes:(NSDictionary *)attributes NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-*/
-#if TARGET_OS_MAC
-- (BOOL)linkPath:(String *)src toPath:(String *)dest handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (BOOL)copyPath:(String *)src toPath:(String *)dest handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (BOOL)movePath:(String *)src toPath:(String *)dest handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-- (BOOL)removeFileAtPath (path:String,  handler:(id)handler NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-#end
+	
 
 	public function currentDirectoryPath () :String;
 	public function changeCurrentDirectoryPath (path:String) :Bool;
@@ -89,10 +74,9 @@ extern class NSFileManager extends NSObject {
 	public function componentsToDisplayForPath (path:String) :Array<String>;
 	public function enumeratorAtPath (path:String) :NSDirectoryEnumerator;
 
-#if NS_BLOCKS_AVAILABLE
-
+/*#if NS_BLOCKS_AVAILABLE
 - (NSDirectoryEnumerator *)enumeratorAtURL:(NSURL *)url includingPropertiesForKeys:(NSArray *)keys options:(NSDirectoryEnumerationOptions)mask errorHandler:(BOOL (^)(NSURL *url, NSError *error))handler NS_AVAILABLE(10_6, 4_0);
-#end
+#end*/
 
 	public function subpathsAtPath (path:String) :Array<String>;
 	public function contentsAtPath (path:String) :NSData;
@@ -100,23 +84,16 @@ extern class NSFileManager extends NSObject {
 	public function fileSystemRepresentationWithPath (path:String) :String;
 	public function stringWithFileSystemRepresentation (str:String, length:Int) :String;
 
-/*- (BOOL)replaceItemAtURL:(NSURL *)originalItemURL withItemAtURL:(NSURL *)newItemURL backupItemName:(String *)backupItemName options:(NSFileManagerItemReplacementOptions)options resultingItemURL:(NSURL **)resultingURL error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
+	public function replaceItemAtURL (originalItemURL:NSURL, withItemAtURL:NSURL, backupItemName:String, options:NSFileManagerItemReplacementOptions, resultingItemURL:NSURL, error:NSError) :Bool;
+	@:require(osx_10_7, ios_5_0) public function setUbiquitous (flag:Bool, itemAtURL:NSURL, destinationURL:NSURL, error:NSError) :Bool;
+	@:require(osx_10_7, ios_5_0) public function isUbiquitousItemAtURL (url:NSURL) :Bool;
+	@:require(osx_10_7, ios_5_0) public function startDownloadingUbiquitousItemAtURL (url:NSURL, error:NSError) :Bool;
+	@:require(osx_10_7, ios_5_0) public function evictUbiquitousItemAtURL (url:NSURL, error:NSError) :Bool;
+	@:require(osx_10_7, ios_5_0) public function URLForUbiquityContainerIdentifier (containerIdentifier:String) :NSURL;
+	@:require(osx_10_7, ios_5_0) public function URLForPublishingUbiquitousItemAtURL (url:NSURL, expirationDate:NSDate, error:NSError) :NSURL;
 
-- (BOOL)setUbiquitous:(BOOL)flag itemAtURL:(NSURL *)url destinationURL:(NSURL *)destinationURL error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
-
-- (BOOL)isUbiquitousItemAtURL:(NSURL *)url NS_AVAILABLE(10_7, 5_0);
-
-- (BOOL)startDownloadingUbiquitousItemAtURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
-
-- (BOOL)evictUbiquitousItemAtURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
-
-- (NSURL *)URLForUbiquityContainerIdentifier:(String *)containerIdentifier NS_AVAILABLE(10_7, 5_0);
-
-- (NSURL *)URLForPublishingUbiquitousItemAtURL:(NSURL *)url expirationDate:(NSDate **)outDate error:(NSError **)error NS_AVAILABLE(10_7, 5_0);
-
-- (id <NSObject, NSCopying, NSCoding>)ubiquityIdentityToken NS_AVAILABLE(10_8, 6_0);*/
-
-// NSCopyLinkMoveHandler)
+	@:require(osx_10_8, ios_6_0) public function ubiquityIdentityToken () :Dynamic;
+	
 	public function fileManager (fm:NSFileManager, shouldProceedAfterError:NSDictionary) :Bool;
 	public function fileManager (fm:NSFileManager, willProcessPath:String) :Void;
 }
