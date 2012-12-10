@@ -17,3 +17,5 @@ cpp
 haxe/std/js
 haxe/tests
 haxe/doc
+haxelib-objc-ios-externs
+haxelib-objc-osx-externs
