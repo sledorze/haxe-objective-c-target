@@ -75,7 +75,7 @@ extern class NSFileManager extends NSObject {
 	public function enumeratorAtPath (path:String) :NSDirectoryEnumerator;
 
 /*#if NS_BLOCKS_AVAILABLE
-- (NSDirectoryEnumerator *)enumeratorAtURL:(NSURL *)url includingPropertiesForKeys:(NSArray *)keys options:(NSDirectoryEnumerationOptions)mask errorHandler:(BOOL (^)(NSURL *url, NSError *error))handler NS_AVAILABLE(10_6, 4_0);
+- (NSDirectoryEnumerator *)enumeratorAtURL:(NSURL *)url includingPropertiesForKeys:(Array<> *)keys options:(NSDirectoryEnumerationOptions)mask errorHandler:(Bool (^)(NSURL *url, NSError *error))handler NS_AVAILABLE(10_6, 4_0);
 #end*/
 
 	public function subpathsAtPath (path:String) :Array<String>;
@@ -179,11 +179,11 @@ extern class NSDictionary (NSFileAttributes)
 - (String *)fileGroupOwnerAccountName;
 - (NSInteger)fileSystemNumber;
 - (NSUInteger)fileSystemFileNumber;
-- (BOOL)fileExtensionHidden;
+- (Bool)fileExtensionHidden;
 - (OSType)fileHFSCreatorCode;
 - (OSType)fileHFSTypeCode;
-- (BOOL)fileIsImmutable;
-- (BOOL)fileIsAppendOnly;
+- (Bool)fileIsImmutable;
+- (Bool)fileIsAppendOnly;
 - (NSDate *)fileCreationDate;
 - (NSNumber *)fileOwnerAccountID;
 - (NSNumber *)fileGroupOwnerAccountID;

@@ -54,7 +54,7 @@ extern class NSIndexSet extends NSObject, implements NSCopying, NSMutableCopying
 - (id)initWithIndexesInRange:(NSRange)range;   // designated initializer
 - (id)initWithIndexSet:(NSIndexSet *)indexSet;   // designated initializer
 
-- (BOOL)isEqualToIndexSet:(NSIndexSet *)indexSet;
+- (Bool)isEqualToIndexSet:(NSIndexSet *)indexSet;
 
 - (NSUInteger)count;
 
@@ -73,33 +73,33 @@ extern class NSIndexSet extends NSObject, implements NSCopying, NSMutableCopying
 
 - (NSUInteger)countOfIndexesInRange:(NSRange)range NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)containsIndex:(NSUInteger)value;
-- (BOOL)containsIndexesInRange:(NSRange)range;
-- (BOOL)containsIndexes:(NSIndexSet *)indexSet;
+- (Bool)containsIndex:(NSUInteger)value;
+- (Bool)containsIndexesInRange:(NSRange)range;
+- (Bool)containsIndexes:(NSIndexSet *)indexSet;
 
-- (BOOL)intersectsIndexesInRange:(NSRange)range;
+- (Bool)intersectsIndexesInRange:(NSRange)range;
 
 #if NS_BLOCKS_AVAILABLE
-- (void)enumerateIndexesUsingBlock:(void (^)(NSUInteger idx, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
-- (void)enumerateIndexesWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(NSUInteger idx, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
-- (void)enumerateIndexesInRange:(NSRange)range options:(NSEnumerationOptions)opts usingBlock:(void (^)(NSUInteger idx, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateIndexesUsingBlock:(void (^)(NSUInteger idx, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateIndexesWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(NSUInteger idx, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateIndexesInRange:(NSRange)range options:(NSEnumerationOptions)opts usingBlock:(void (^)(NSUInteger idx, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
 
-- (NSUInteger)indexPassingTest:(BOOL (^)(NSUInteger idx, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
-- (NSUInteger)indexWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(NSUInteger idx, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
-- (NSUInteger)indexInRange:(NSRange)range options:(NSEnumerationOptions)opts passingTest:(BOOL (^)(NSUInteger idx, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSUInteger)indexPassingTest:(Bool (^)(NSUInteger idx, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSUInteger)indexWithOptions:(NSEnumerationOptions)opts passingTest:(Bool (^)(NSUInteger idx, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSUInteger)indexInRange:(NSRange)range options:(NSEnumerationOptions)opts passingTest:(Bool (^)(NSUInteger idx, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
 
-- (NSIndexSet *)indexesPassingTest:(BOOL (^)(NSUInteger idx, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
-- (NSIndexSet *)indexesWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(NSUInteger idx, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
-- (NSIndexSet *)indexesInRange:(NSRange)range options:(NSEnumerationOptions)opts passingTest:(BOOL (^)(NSUInteger idx, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSIndexSet *)indexesPassingTest:(Bool (^)(NSUInteger idx, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSIndexSet *)indexesWithOptions:(NSEnumerationOptions)opts passingTest:(Bool (^)(NSUInteger idx, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSIndexSet *)indexesInRange:(NSRange)range options:(NSEnumerationOptions)opts passingTest:(Bool (^)(NSUInteger idx, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
 
 /*
  The following three convenience methods allow you to enumerate the indexes in the receiver by ranges of contiguous indexes. The performance of these methods is not guaranteed to be any better than if they were implemented with enumerateIndexesInRange:options:usingBlock:. However, depending on the receiver's implementation, they may perform better than that.
  
  If the specified range for enumeration intersects a range of contiguous indexes in the receiver, then the block will be invoked with the intersection of those two ranges.
 */
-- (void)enumerateRangesUsingBlock:(void (^)(NSRange range, BOOL *stop))block NS_AVAILABLE(10_7, 5_0);
-- (void)enumerateRangesWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(NSRange range, BOOL *stop))block NS_AVAILABLE(10_7, 5_0);
-- (void)enumerateRangesInRange:(NSRange)range options:(NSEnumerationOptions)opts usingBlock:(void (^)(NSRange range, BOOL *stop))block NS_AVAILABLE(10_7, 5_0);
+- (void)enumerateRangesUsingBlock:(void (^)(NSRange range, Bool *stop))block NS_AVAILABLE(10_7, 5_0);
+- (void)enumerateRangesWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(NSRange range, Bool *stop))block NS_AVAILABLE(10_7, 5_0);
+- (void)enumerateRangesInRange:(NSRange)range options:(NSEnumerationOptions)opts usingBlock:(void (^)(NSRange range, Bool *stop))block NS_AVAILABLE(10_7, 5_0);
 
 
 #endif

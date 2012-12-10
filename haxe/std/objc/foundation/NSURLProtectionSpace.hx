@@ -30,7 +30,7 @@ extern class NSURLProtectionSpace, implements NSCoding, implements NSCopying
 	public  function protocol():String;
 	public  function initWithHost( host:String,  port:Int,  protocol:String,  realm:String,  authenticationMethod:String):Dynamic;
 	public  function realm():String;
-	public  function distinguishedNames():NSArray;
+	public  function distinguishedNames():Array<>;
 	public  function initWithProxyHost( host:String,  port:Int,  type:String,  realm:String,  authenticationMethod:String):Dynamic;
 	public  function isProxy():Bool;
 	public  function host():String;

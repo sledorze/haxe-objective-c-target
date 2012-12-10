@@ -4,8 +4,8 @@ package objc.foundation;
 extern class NSCompoundPredicate extends NSPredicate {
 
 	public static function notPredicateWithSubpredicate( predicate:NSPredicate) :NSPredicate;
-	public static function andPredicateWithSubpredicates( subpredicates:NSArray) :NSPredicate;
-	public static function orPredicateWithSubpredicates( subpredicates:NSArray) :NSPredicate;
+	public static function andPredicateWithSubpredicates( subpredicates:Array<>) :NSPredicate;
+	public static function orPredicateWithSubpredicates( subpredicates:Array<>) :NSPredicate;
 	
 	public function subpredicates () :Array<NSPredicate>;
 	public function compoundPredicateType () :NSCompoundPredicateType;

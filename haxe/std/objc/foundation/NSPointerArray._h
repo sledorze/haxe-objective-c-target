@@ -6,7 +6,7 @@
  
 
 #import <Foundation/NSObject.h>
-#import <Foundation/NSArray.h>
+#import <Foundation/Array<>.h>
 #import <Foundation/NSPointerFunctions.h>
 
 /*
@@ -61,7 +61,7 @@ extern class NSPointerArray (NSPointerArrayConveniences)
 + (id)strongObjectsPointerArray NS_AVAILABLE(10_8, 6_0);
 + (id)weakObjectsPointerArray NS_AVAILABLE(10_8, 6_0);
 
-- (NSArray *)allObjects;
+- (Array<> *)allObjects;
 
 }
 

@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDate.h>
 
-@class NSArray, NSMutableDictionary, NSDate;
+@class Array<>, NSMutableDictionary, NSDate;
 
 extern class NSThread extends NSObject  {
 @private
@@ -17,7 +17,7 @@ extern class NSThread extends NSObject  {
 
 + (void)detachNewThreadSelector:(SEL)selector toTarget:(id)target withObject:(id)argument;
 
-+ (BOOL)isMultiThreaded;
++ (Bool)isMultiThreaded;
 
 - (NSMutableDictionary *)threadDictionary;
 
@@ -27,13 +27,13 @@ extern class NSThread extends NSObject  {
 + (void)exit;
 
 + (double)threadPriority;
-+ (BOOL)setThreadPriority:(double)p;
++ (Bool)setThreadPriority:(double)p;
 
 - (double)threadPriority NS_AVAILABLE(10_6, 4_0);
 - (void)setThreadPriority:(double)p NS_AVAILABLE(10_6, 4_0);
 
-+ (NSArray *)callStackReturnAddresses NS_AVAILABLE(10_5, 2_0);
-+ (NSArray *)callStackSymbols NS_AVAILABLE(10_6, 4_0);
++ (Array<> *)callStackReturnAddresses NS_AVAILABLE(10_5, 2_0);
++ (Array<> *)callStackSymbols NS_AVAILABLE(10_6, 4_0);
 
 - (void)setName:(NSString *)n NS_AVAILABLE(10_5, 2_0);
 - (NSString *)name NS_AVAILABLE(10_5, 2_0);
@@ -41,17 +41,17 @@ extern class NSThread extends NSObject  {
 - (NSUInteger)stackSize NS_AVAILABLE(10_5, 2_0);
 - (void)setStackSize:(NSUInteger)s NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)isMainThread NS_AVAILABLE(10_5, 2_0);
-+ (BOOL)isMainThread NS_AVAILABLE(10_5, 2_0); // reports whether current thread is main
+- (Bool)isMainThread NS_AVAILABLE(10_5, 2_0);
++ (Bool)isMainThread NS_AVAILABLE(10_5, 2_0); // reports whether current thread is main
 + (NSThread *)mainThread NS_AVAILABLE(10_5, 2_0);
 
 - (id)init NS_AVAILABLE(10_5, 2_0);	// designated initializer
 - (id)initWithTarget:(id)target selector:(SEL)selector object:(id)argument NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)isExecuting NS_AVAILABLE(10_5, 2_0);
-- (BOOL)isFinished NS_AVAILABLE(10_5, 2_0);
+- (Bool)isExecuting NS_AVAILABLE(10_5, 2_0);
+- (Bool)isFinished NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)isCancelled NS_AVAILABLE(10_5, 2_0);
+- (Bool)isCancelled NS_AVAILABLE(10_5, 2_0);
 - (void)cancel NS_AVAILABLE(10_5, 2_0);
 
 - (void)start NS_AVAILABLE(10_5, 2_0);
@@ -66,12 +66,12 @@ FOUNDATION_EXPORT NSString * const NSThreadWillExitNotification;
 
 extern class NSObject (NSThreadPerformAdditions)
 
-- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait modes:(NSArray *)array;
-- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(BOOL)wait;
+- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(Bool)wait modes:(Array<> *)array;
+- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(id)arg waitUntilDone:(Bool)wait;
 	// equivalent to the first method with kCFRunLoopCommonModes
 
-- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait modes:(NSArray *)array NS_AVAILABLE(10_5, 2_0);
-- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(BOOL)wait NS_AVAILABLE(10_5, 2_0);
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(Bool)wait modes:(Array<> *)array NS_AVAILABLE(10_5, 2_0);
+- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(id)arg waitUntilDone:(Bool)wait NS_AVAILABLE(10_5, 2_0);
 	// equivalent to the first method with kCFRunLoopCommonModes
 - (void)performSelectorInBackground:(SEL)aSelector withObject:(id)arg NS_AVAILABLE(10_5, 2_0);
 

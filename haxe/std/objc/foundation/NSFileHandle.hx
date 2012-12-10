@@ -27,16 +27,16 @@ extern class NSFileHandle, implements NSSecureCoding
 	public  function readDataToEndOfFile():NSData;
 	public  function fileHandleForWriting():NSFileHandle;
 	public  function offsetInFile():unsignedlonglong;
-	public  function acceptConnectionInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function acceptConnectionInBackgroundAndNotifyForModes( modes:Array<>):Void;
 	public  function waitForDataInBackgroundAndNotify():Void;
-	public  function waitForDataInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function waitForDataInBackgroundAndNotifyForModes( modes:Array<>):Void;
 	public  function readInBackgroundAndNotify():Void;
 	public  function initWithFileDescriptor( fd:Int,  closeopt:Bool):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function initWithFileDescriptor1( fd:Int):Dynamic;
 	public  function fileDescriptor():Int;
 	public  function truncateFileAtOffset( offset:unsignedlonglong):Void;
-	public  function readToEndOfFileInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function readToEndOfFileInBackgroundAndNotifyForModes( modes:Array<>):Void;
 	public  function acceptConnectionInBackgroundAndNotify():Void;
 	public  function synchronizeFile():Void;
 	public  function availableData():NSData;
@@ -45,7 +45,7 @@ extern class NSFileHandle, implements NSSecureCoding
 	public  function seekToEndOfFile():unsignedlonglong;
 	public  function fileHandleForReading():NSFileHandle;
 	public  function closeFile():Void;
-	public  function readInBackgroundAndNotifyForModes( modes:NSArray):Void;
+	public  function readInBackgroundAndNotifyForModes( modes:Array<>):Void;
 	public  function readToEndOfFileInBackgroundAndNotify():Void;
 	public  function seekToFileOffset( offset:unsignedlonglong):Void;
 	public  function init():Dynamic;

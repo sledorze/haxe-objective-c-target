@@ -18,7 +18,7 @@ extern class NSUbiquitousKeyValueStore
 	public  function dictionaryForKey( aKey:String):NSDictionary;
 	public  function setLongLong( value:longlong,  aKey:String):Void;
 	public  function setBool( value:Bool,  aKey:String):Void;
-	public  function setArray( anArray:NSArray,  aKey:String):Void;
+	public  function setArray( anArray:Array<>,  aKey:String):Void;
 	public  function synchronize():Bool;
 	public  function setObject( anObject:Dynamic,  aKey:String):Void;
 	public  function setString( aString:String,  aKey:String):Void;
@@ -28,7 +28,7 @@ extern class NSUbiquitousKeyValueStore
 	public  function doubleForKey( aKey:String):Float;
 	public  function dataForKey( aKey:String):NSData;
 	public  function setDictionary( aDictionary:NSDictionary,  aKey:String):Void;
-	public  function arrayForKey( aKey:String):NSArray;
+	public  function arrayForKey( aKey:String):Array<>;
 	public  function setDouble( value:Float,  aKey:String):Void;
 	public  function longLongForKey( aKey:String):longlong;
 }

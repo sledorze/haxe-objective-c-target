@@ -36,9 +36,9 @@ extern class NSFileWrapper extends NSObject, implements NSObject {
 - (id)initSymbolicLinkWithDestinationURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
 - (id)initWithSerializedRepresentation:(NSData *)serializeRepresentation;
 
-- (BOOL)isDirectory;
-- (BOOL)isRegularFile;
-- (BOOL)isSymbolicLink;
+- (Bool)isDirectory;
+- (Bool)isRegularFile;
+- (Bool)isSymbolicLink;
 - (void)setPreferredFilename:(NSString *)fileName;
 - (NSString *)preferredFilename;
 - (void)setFilename:(NSString *)fileName;
@@ -46,10 +46,10 @@ extern class NSFileWrapper extends NSObject, implements NSObject {
 - (void)setFileAttributes:(NSDictionary *)fileAttributes;
 - (NSDictionary *)fileAttributes;
 
-- (BOOL)matchesContentsOfURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
-- (BOOL)readFromURL:(NSURL *)url options:(NSFileWrapperReadingOptions)options error:(NSError **)outError NS_AVAILABLE(10_6, 4_0);
+- (Bool)matchesContentsOfURL:(NSURL *)url NS_AVAILABLE(10_6, 4_0);
+- (Bool)readFromURL:(NSURL *)url options:(NSFileWrapperReadingOptions)options error:(NSError **)outError NS_AVAILABLE(10_6, 4_0);
 
-- (BOOL)writeToURL:(NSURL *)url options:(NSFileWrapperWritingOptions)options originalContentsURL:(NSURL *)originalContentsURL error:(NSError **)outError NS_AVAILABLE(10_6, 4_0);
+- (Bool)writeToURL:(NSURL *)url options:(NSFileWrapperWritingOptions)options originalContentsURL:(NSURL *)originalContentsURL error:(NSError **)outError NS_AVAILABLE(10_6, 4_0);
 
 - (NSData *)serializedRepresentation;
 

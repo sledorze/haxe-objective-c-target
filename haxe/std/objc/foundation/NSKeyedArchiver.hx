@@ -15,7 +15,7 @@ extern class NSKeyedArchiver extends NSCoder
 	public  function setClassName( codedName:String,  cls:Class):Void;
 	public  function classForClassName( codedName:String):Class;
 	public  function unarchiveObjectWithFile( path:String):Dynamic;
-	public  function classFallbacksForKeyedArchiver():NSArray;
+	public  function classFallbacksForKeyedArchiver():Array<>;
 	public  function archivedDataWithRootObject( rootObject:Dynamic):NSData;
 	public  function unarchiveObjectWithData( data:NSData):Dynamic;
 
@@ -23,7 +23,7 @@ extern class NSKeyedArchiver extends NSCoder
 
 	//Methods
 	public override function encodeInt64( intv:int64_t,  key:String):Void;
-	public  function unarchiver( unarchiver:NSKeyedUnarchiver,  name:String,  classNames:NSArray):Class;
+	public  function unarchiver( unarchiver:NSKeyedUnarchiver,  name:String,  classNames:Array<>):Class;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function unarchiver1( unarchiver:NSKeyedUnarchiver,  NS_RELEASES_ARGUMENT:Dynamic):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!

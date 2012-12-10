@@ -24,7 +24,7 @@ extern class NSPort extends NSObject, implements NSCopying, NSCoding>
 + (NSPort *)port;
 
 - (void)invalidate;
-- (BOOL)isValid;
+- (Bool)isValid;
 
 - (void)setDelegate:(id <NSPortDelegate>)anObject;
 - (id <NSPortDelegate>)delegate;
@@ -38,8 +38,8 @@ extern class NSPort extends NSObject, implements NSCopying, NSCoding>
 
 // DO Transport API; subclassers should implement these methods
 - (NSUInteger)reservedSpaceLength;	// default is 0
-- (BOOL)sendBeforeDate:(NSDate *)limitDate components:(NSMutableArray *)components from:(NSPort *) receivePort reserved:(NSUInteger)headerSpaceReserved;
-- (BOOL)sendBeforeDate:(NSDate *)limitDate msgid:(NSUInteger)msgID components:(NSMutableArray *)components from:(NSPort *)receivePort reserved:(NSUInteger)headerSpaceReserved;
+- (Bool)sendBeforeDate:(NSDate *)limitDate components:(NSMutableArray *)components from:(NSPort *) receivePort reserved:(NSUInteger)headerSpaceReserved;
+- (Bool)sendBeforeDate:(NSDate *)limitDate msgid:(NSUInteger)msgID components:(NSMutableArray *)components from:(NSPort *)receivePort reserved:(NSUInteger)headerSpaceReserved;
 	// The components array consists of a series of instances
 	// of some subclass of NSData, and instances of some
 	// subclass of NSPort; since one subclass of NSPort does

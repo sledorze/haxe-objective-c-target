@@ -36,14 +36,14 @@ extern class NSCharacterSet extends NSObject, implements NSCopying, NSMutableCop
 + (id)characterSetWithBitmapRepresentation:(NSData *)data;
 + (id)characterSetWithContentsOfFile:(NSString *)fName;
 
-- (BOOL)characterIsMember:(unichar)aCharacter;
+- (Bool)characterIsMember:(unichar)aCharacter;
 - (NSData *)bitmapRepresentation;
 - (NSCharacterSet *)invertedSet;
 
-- (BOOL)longCharacterIsMember:(UTF32Char)theLongChar;
+- (Bool)longCharacterIsMember:(UTF32Char)theLongChar;
 
-- (BOOL)isSupersetOfSet:(NSCharacterSet *)theOtherSet;
-- (BOOL)hasMemberInPlane:(uint8_t)thePlane;
+- (Bool)isSupersetOfSet:(NSCharacterSet *)theOtherSet;
+- (Bool)hasMemberInPlane:(uint8_t)thePlane;
 }
 
 extern class NSMutableCharacterSet : NSCharacterSet <NSCopying, NSMutableCopying>

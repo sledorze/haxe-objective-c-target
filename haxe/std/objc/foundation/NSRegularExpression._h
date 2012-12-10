@@ -6,7 +6,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSTextCheckingResult.h>
 
-@class NSArray;
+@class Array<>;
 
 /* NSRegularExpression is a class used to represent and apply regular expressions.  An instance of this class is an immutable representation of a compiled regular expression pattern and various option flags.
 */
@@ -70,10 +70,10 @@ extern class NSRegularExpression (NSMatching)
 */
 
 #if NS_BLOCKS_AVAILABLE
-- (void)enumerateMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range usingBlock:(void (^)(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop))block;
+- (void)enumerateMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range usingBlock:(void (^)(NSTextCheckingResult *result, NSMatchingFlags flags, Bool *stop))block;
 #endif /* NS_BLOCKS_AVAILABLE */
 
-- (NSArray *)matchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
+- (Array<> *)matchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
 - (NSUInteger)numberOfMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
 - (NSTextCheckingResult *)firstMatchInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
 - (NSRange)rangeOfFirstMatchInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;

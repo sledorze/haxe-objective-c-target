@@ -46,7 +46,7 @@ typedef struct {
     unsigned short _mantissa[NSDecimalMaxSize];
 } NSDecimal;
 
-NS_INLINE BOOL NSDecimalIsNotANumber(const NSDecimal *dcm)
+NS_INLINE Bool NSDecimalIsNotANumber(const NSDecimal *dcm)
   { return ((dcm->_length == 0) && dcm->_isNegative); }
 
 /***************	Operations		***********/

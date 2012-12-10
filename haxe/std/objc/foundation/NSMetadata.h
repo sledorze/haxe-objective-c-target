@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDate.h>
 
-@class NSString, NSArray, NSDictionary, NSPredicate;
+@class NSString, Array<>, NSDictionary, NSPredicate;
 @class NSMetadataItem, NSMetadataQueryAttributeValueTuple, NSMetadataQueryResultGroup;
 @protocol NSMetadataQueryDelegate;
 
@@ -26,32 +26,32 @@ extern class NSMetadataQuery extends NSObject {
 - (NSPredicate *)predicate;
 - (void)setPredicate:(NSPredicate *)predicate;
 
-- (NSArray *)sortDescriptors;
-- (void)setSortDescriptors:(NSArray *)descriptors;
+- (Array<> *)sortDescriptors;
+- (void)setSortDescriptors:(Array<> *)descriptors;
 
-- (NSArray *)valueListAttributes;
-- (void)setValueListAttributes:(NSArray *)attrs;
+- (Array<> *)valueListAttributes;
+- (void)setValueListAttributes:(Array<> *)attrs;
 
-- (NSArray *)groupingAttributes;
-- (void)setGroupingAttributes:(NSArray *)attrs;
+- (Array<> *)groupingAttributes;
+- (void)setGroupingAttributes:(Array<> *)attrs;
 
 - (NSTimeInterval)notificationBatchingInterval;
 - (void)setNotificationBatchingInterval:(NSTimeInterval)ti;
 
-- (NSArray *)searchScopes;
-- (void)setSearchScopes:(NSArray *)scopes;
-// scopes is an NSArray of NSURL objects (file URLs only) and/or string
+- (Array<> *)searchScopes;
+- (void)setSearchScopes:(Array<> *)scopes;
+// scopes is an Array<> of NSURL objects (file URLs only) and/or string
 // paths and/or the special string constants below, which specifies the
 // locations to which the search is limited; an empty array means no
 // limits, which is the default state.
 
 
-- (BOOL)startQuery;
+- (Bool)startQuery;
 - (void)stopQuery;
 
-- (BOOL)isStarted;
-- (BOOL)isGathering;
-- (BOOL)isStopped;
+- (Bool)isStarted;
+- (Bool)isGathering;
+- (Bool)isStopped;
 
 - (void)disableUpdates; // these nest
 - (void)enableUpdates;
@@ -61,13 +61,13 @@ extern class NSMetadataQuery extends NSObject {
 - (NSUInteger)resultCount;
 - (id)resultAtIndex:(NSUInteger)idx;
 
-- (NSArray *)results;   // this is for K-V Bindings, and causes side-effects on the query
+- (Array<> *)results;   // this is for K-V Bindings, and causes side-effects on the query
 
 - (NSUInteger)indexOfResult:(id)result;
 
 - (NSDictionary *)valueLists; // values are arrays of NSMetadataQueryAttributeValueTuple
 
-- (NSArray *)groupedResults; // array of NSMetadataQueryResultGroups, for first grouping attribute
+- (Array<> *)groupedResults; // array of NSMetadataQueryResultGroups, for first grouping attribute
 
 - (id)valueOfAttribute:(NSString *)attrName forResultAtIndex:(NSUInteger)idx;
 
@@ -107,9 +107,9 @@ extern class NSMetadataItem extends NSObject {
 }
 
 - (id)valueForAttribute:(NSString *)key;
-- (NSDictionary *)valuesForAttributes:(NSArray *)keys;
+- (NSDictionary *)valuesForAttributes:(Array<> *)keys;
 
-- (NSArray *)attributes;
+- (Array<> *)attributes;
 
 }
 
@@ -139,12 +139,12 @@ extern class NSMetadataQueryResultGroup extends NSObject {
 - (NSString *)attribute;
 - (id)value;
 
-- (NSArray *)subgroups; // nil if this is a leaf
+- (Array<> *)subgroups; // nil if this is a leaf
 
 - (NSUInteger)resultCount;
 - (id)resultAtIndex:(NSUInteger)idx; // uncertain whether this will do anything useful for non-leaf groups
 
-- (NSArray *)results;   // this is for K-V Bindings, and causes side-effects on the query
+- (Array<> *)results;   // this is for K-V Bindings, and causes side-effects on the query
 
 }
 

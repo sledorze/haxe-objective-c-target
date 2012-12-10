@@ -4,7 +4,7 @@
 	All rights reserved.
 */
 
-#import <Foundation/NSArray.h>
+#import <Foundation/Array<>.h>
 #import <Foundation/NSOrderedSet.h>
 #import <Foundation/NSSet.h>
 
@@ -89,7 +89,7 @@ extern class NSObject(NSKeyValueObserverRegistration)
 
 }
 
-extern class NSArray(NSKeyValueObserverRegistration)
+extern class Array<>(NSKeyValueObserverRegistration)
 
 /* Register or deregister as an observer of the values at a key path relative to each indexed element of the array. The options determine what is included in observer notifications and when they're sent, as described above, and the context is passed in observer notifications as described above. These are not merely convenience methods; invoking them is potentially much faster than repeatedly invoking NSObject(NSKeyValueObserverRegistration) methods. You should use -removeObserver:fromObjectsAtIndexes:forKeyPath:context: instead of -removeObserver:fromObjectsAtIndexes:forKeyPath: whenever possible for the same reason described in the NSObject(NSKeyValueObserverRegistration) comment.
 */
@@ -97,7 +97,7 @@ extern class NSArray(NSKeyValueObserverRegistration)
 - (void)removeObserver:(NSObject *)observer fromObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSString *)keyPath context:(void *)context NS_AVAILABLE(10_7, 5_0);
 - (void)removeObserver:(NSObject *)observer fromObjectsAtIndexes:(NSIndexSet *)indexes forKeyPath:(NSString *)keyPath;
 
-/* NSArrays are not observable, so these methods raise exceptions when invoked on NSArrays. Instead of observing an array, observe the ordered to-many relationship for which the array is the collection of related objects.
+/* Array<>s are not observable, so these methods raise exceptions when invoked on Array<>s. Instead of observing an array, observe the ordered to-many relationship for which the array is the collection of related objects.
 */
 - (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context;
 - (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(void *)context NS_AVAILABLE(10_7, 5_0);
@@ -174,9 +174,9 @@ You can't really override this method when you add a computed property to an exi
 */
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key NS_AVAILABLE(10_5, 2_0);
 
-/* Return YES if the key-value observing machinery should automatically invoke -willChangeValueForKey:/-didChangeValueForKey:, -willChange:valuesAtIndexes:forKey:/-didChange:valuesAtIndexes:forKey:, or -willChangeValueForKey:withSetMutation:usingObjects:/-didChangeValueForKey:withSetMutation:usingObjects: whenever instances of the class receive key-value coding messages for the key, or mutating key-value coding-compliant methods for the key are invoked. Return NO otherwise. Starting in Mac OS 10.5, the default implementation of this method searches the receiving class for a method whose name matches the pattern +automaticallyNotifiesObserversOf<Key>, and returns the result of invoking that method if it is found. So, any such method must return BOOL too. If no such method is found YES is returned.
+/* Return YES if the key-value observing machinery should automatically invoke -willChangeValueForKey:/-didChangeValueForKey:, -willChange:valuesAtIndexes:forKey:/-didChange:valuesAtIndexes:forKey:, or -willChangeValueForKey:withSetMutation:usingObjects:/-didChangeValueForKey:withSetMutation:usingObjects: whenever instances of the class receive key-value coding messages for the key, or mutating key-value coding-compliant methods for the key are invoked. Return NO otherwise. Starting in Mac OS 10.5, the default implementation of this method searches the receiving class for a method whose name matches the pattern +automaticallyNotifiesObserversOf<Key>, and returns the result of invoking that method if it is found. So, any such method must return Bool too. If no such method is found YES is returned.
 */
-+ (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key;
++ (Bool)automaticallyNotifiesObserversForKey:(NSString *)key;
 
 /* Take or return a pointer that identifies information about all of the observers that are registered with the receiver, the options that were used at registration-time, etc. The default implementation of these methods store observation info in a global dictionary keyed by the receivers' pointers. For improved performance, you can override these methods to store the opaque data pointer in an instance variable. Overrides of these methods must not attempt to send Objective-C messages to the passed-in observation info, including -retain and -release.
 */
@@ -191,7 +191,7 @@ extern class NSObject(NSDeprecatedKeyValueObservingCustomization)
 
 /* A method that was deprecated in Mac OS 10.5, in favor of using +keyPathsForValuesAffectingValueForKey:. Registers the fact that invocations of -willChangeValueForKey:/-didChangeValueForKey:, -willChange:valuesAtIndexes:forKey:/-didChange:valuesAtIndexes:forKey:, and -willChangeValueForKey:withSetMutation:usingObjects:/-didChangeValueForKey:withSetMutation:usingObjects: for any key in the passed-in array should also send notifications for the dependent key.
 */
-+ (void)setKeys:(NSArray *)keys triggerChangeNotificationsForDependentKey:(NSString *)dependentKey NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
++ (void)setKeys:(Array<> *)keys triggerChangeNotificationsForDependentKey:(NSString *)dependentKey NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
 
 } 
 

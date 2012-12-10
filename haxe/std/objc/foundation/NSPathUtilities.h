@@ -3,14 +3,14 @@
 */
 
 #import <Foundation/NSString.h>
-#import <Foundation/NSArray.h>
+#import <Foundation/Array<>.h>
 
 extern class NSString (NSStringPathExtensions)
 
-+ (NSString *)pathWithComponents:(NSArray *)components;
-- (NSArray *)pathComponents;
++ (NSString *)pathWithComponents:(Array<> *)components;
+- (Array<> *)pathComponents;
 
-- (BOOL)isAbsolutePath;
+- (Bool)isAbsolutePath;
 
 - (NSString *)lastPathComponent;
 - (NSString *)stringByDeletingLastPathComponent;
@@ -27,18 +27,18 @@ extern class NSString (NSStringPathExtensions)
 
 - (NSString *)stringByResolvingSymlinksInPath;
 
-- (NSArray *)stringsByAppendingPaths:(NSArray *)paths;
+- (Array<> *)stringsByAppendingPaths:(Array<> *)paths;
 
-- (NSUInteger)completePathIntoString:(NSString **)outputName caseSensitive:(BOOL)flag matchesIntoArray:(NSArray **)outputArray filterTypes:(NSArray *)filterTypes;
+- (NSUInteger)completePathIntoString:(NSString **)outputName caseSensitive:(Bool)flag matchesIntoArray:(Array<> **)outputArray filterTypes:(Array<> *)filterTypes;
 
 - (__strong const char *)fileSystemRepresentation NS_RETURNS_INNER_POINTER;
-- (BOOL)getFileSystemRepresentation:(char *)cname maxLength:(NSUInteger)max;
+- (Bool)getFileSystemRepresentation:(char *)cname maxLength:(NSUInteger)max;
 
 }
 
-extern class NSArray (NSArrayPathExtensions)
+extern class Array<> (Array<>PathExtensions)
 
-- (NSArray *)pathsMatchingExtensions:(NSArray *)filterTypes;
+- (Array<> *)pathsMatchingExtensions:(Array<> *)filterTypes;
 
 }
 
@@ -90,6 +90,6 @@ typedef NS_OPTIONS(NSUInteger, NSSearchPathDomainMask) {
     NSAllDomainsMask = 0x0ffff  // all domains: all of the above and future items
 };
 
-FOUNDATION_EXPORT NSArray *NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory, NSSearchPathDomainMask domainMask, BOOL expandTilde);
+FOUNDATION_EXPORT Array<> *NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory directory, NSSearchPathDomainMask domainMask, Bool expandTilde);
 
 

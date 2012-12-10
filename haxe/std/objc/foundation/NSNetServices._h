@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDate.h>
 
-@class NSArray, NSData, NSDictionary, NSInputStream, NSOutputStream, NSRunLoop, NSString;
+@class Array<>, NSData, NSDictionary, NSInputStream, NSOutputStream, NSRunLoop, NSString;
 @protocol NSNetServiceDelegate, NSNetServiceBrowserDelegate;
 
 #pragma mark Error constants
@@ -96,9 +96,9 @@ If publish: is called on an NSNetService instance initialized with this method, 
 */
 - (NSString *)name;
 
-/* The addresses of the service. This is an NSArray of NSData instances, each of which contains a single struct sockaddr suitable for use with connect(2). In the event that no addresses are resolved for the service or the service has not yet been resolved, an empty NSArray is returned.
+/* The addresses of the service. This is an Array<> of NSData instances, each of which contains a single struct sockaddr suitable for use with connect(2). In the event that no addresses are resolved for the service or the service has not yet been resolved, an empty Array<> is returned.
 */
-- (NSArray *)addresses;
+- (Array<> *)addresses;
 
 /* The port of a resolved service. This returns -1 if the service has not been resolved. */
 - (NSInteger)port NS_AVAILABLE(10_5, 2_0);
@@ -142,11 +142,11 @@ If publish: is called on an NSNetService instance initialized with this method, 
 
 /* Retrieves streams from the NSNetService instance. The instance's delegate methods are not called. Returns YES if the streams requested are created successfully. Returns NO if or any reason the stream could not be created. If only one stream is desired, pass NULL for the address of the other stream. The streams that are created are not open, and are not scheduled in any run loop for any mode.
 */
-- (BOOL)getInputStream:(out __strong NSInputStream **)inputStream outputStream:(out __strong NSOutputStream **)outputStream;
+- (Bool)getInputStream:(out __strong NSInputStream **)inputStream outputStream:(out __strong NSOutputStream **)outputStream;
 
 /* Sets the TXT record of the NSNetService instance that has been or will be published. Pass nil to remove the TXT record from the instance.
 */
-- (BOOL)setTXTRecordData:(NSData *)recordData;
+- (Bool)setTXTRecordData:(NSData *)recordData;
 
 /* Returns the raw TXT record of the NSNetService instance. If the instance has not been resolved, or the delegate's -netService:didUpdateTXTRecordData: has not been called, this will return nil. It is permitted to have a zero-length TXT record.
 */
@@ -258,19 +258,19 @@ extern class NSNetServiceBrowser : NSObject {
 
 /* Sent to the NSNetServiceBrowser instance's delegate for each domain discovered. If there are more domains, moreComing will be YES. If for some reason handling discovered domains requires significant processing, accumulating domains until moreComing is NO and then doing the processing in bulk fashion may be desirable.
 */
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindDomain:(NSString *)domainString moreComing:(BOOL)moreComing;
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindDomain:(NSString *)domainString moreComing:(Bool)moreComing;
 
 /* Sent to the NSNetServiceBrowser instance's delegate for each service discovered. If there are more services, moreComing will be YES. If for some reason handling discovered services requires significant processing, accumulating services until moreComing is NO and then doing the processing in bulk fashion may be desirable.
 */
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(Bool)moreComing;
 
 /* Sent to the NSNetServiceBrowser instance's delegate when a previously discovered domain is no longer available.
 */
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveDomain:(NSString *)domainString moreComing:(BOOL)moreComing;
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveDomain:(NSString *)domainString moreComing:(Bool)moreComing;
 
 /* Sent to the NSNetServiceBrowser instance's delegate when a previously discovered service is no longer published.
 */
-- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(Bool)moreComing;
 
 }
 

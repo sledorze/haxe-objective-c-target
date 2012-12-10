@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDate.h>
 
-@class NSString, NSArray, NSDictionary, NSDate, NSData, NSLocale;
+@class NSString, Array<>, NSDictionary, NSDate, NSData, NSLocale;
 
 extern class NSTimeZone extends NSObject, implements NSCopying, NSSecureCoding>
 
@@ -14,7 +14,7 @@ extern class NSTimeZone extends NSObject, implements NSCopying, NSSecureCoding>
 
 - (NSInteger)secondsFromGMTForDate:(NSDate *)aDate;
 - (NSString *)abbreviationForDate:(NSDate *)aDate;
-- (BOOL)isDaylightSavingTimeForDate:(NSDate *)aDate;
+- (Bool)isDaylightSavingTimeForDate:(NSDate *)aDate;
 - (NSTimeInterval)daylightSavingTimeOffsetForDate:(NSDate *)aDate NS_AVAILABLE(10_5, 2_0);
 - (NSDate *)nextDaylightSavingTimeTransitionAfterDate:(NSDate *)aDate NS_AVAILABLE(10_5, 2_0);
 
@@ -30,7 +30,7 @@ extern class NSTimeZone (NSExtendedTimeZone)
 
 + (NSTimeZone *)localTimeZone;
 
-+ (NSArray *)knownTimeZoneNames;
++ (Array<> *)knownTimeZoneNames;
 
 + (NSDictionary *)abbreviationDictionary;
 + (void)setAbbreviationDictionary:(NSDictionary *)dict NS_AVAILABLE(10_6, 4_0);
@@ -39,13 +39,13 @@ extern class NSTimeZone (NSExtendedTimeZone)
 
 - (NSInteger)secondsFromGMT;
 - (NSString *)abbreviation;
-- (BOOL)isDaylightSavingTime;
+- (Bool)isDaylightSavingTime;
 - (NSTimeInterval)daylightSavingTimeOffset NS_AVAILABLE(10_5, 2_0); // for current instant
 - (NSDate *)nextDaylightSavingTimeTransition NS_AVAILABLE(10_5, 2_0); // after current instant
 
 - (NSString *)description;
 
-- (BOOL)isEqualToTimeZone:(NSTimeZone *)aTimeZone;
+- (Bool)isEqualToTimeZone:(NSTimeZone *)aTimeZone;
 
 typedef NS_ENUM(NSInteger, NSTimeZoneNameStyle) {
 	NSTimeZoneNameStyleStandard,		// Central Standard Time

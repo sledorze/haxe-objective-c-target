@@ -21,8 +21,8 @@ extern class NSHTTPCookie
 
 	//Static Methods
 	public  function cookieWithProperties( properties:NSDictionary):Dynamic;
-	public  function cookiesWithResponseHeaderFields( headerFields:NSDictionary,  URL:NSURL):NSArray;
-	public  function requestHeaderFieldsWithCookies( cookies:NSArray):NSDictionary;
+	public  function cookiesWithResponseHeaderFields( headerFields:NSDictionary,  URL:NSURL):Array<>;
+	public  function requestHeaderFieldsWithCookies( cookies:Array<>):NSDictionary;
 
 	//Properties
 
@@ -34,7 +34,7 @@ extern class NSHTTPCookie
 	public  function isSessionOnly():Bool;
 	public  function isHTTPOnly():Bool;
 	public  function commentURL():NSURL;
-	public  function portList():NSArray;
+	public  function portList():Array<>;
 	public  function version():Int;
 	public  function isSecure():Bool;
 	public  function initWithProperties( properties:NSDictionary):Dynamic;

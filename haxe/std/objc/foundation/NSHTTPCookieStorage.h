@@ -7,7 +7,7 @@
 
 #import <Foundation/NSObject.h>
 
-@class NSArray;
+@class Array<>;
 @class NSHTTPCookie;
 @class NSURL;
 
@@ -53,9 +53,9 @@ extern class NSHTTPCookieStorage extends NSObject
 /*!
     @method cookies
     @abstract Get all the cookies
-    @result An NSArray of NSHTTPCookies
+    @result An Array<> of NSHTTPCookies
 */
-- (NSArray *)cookies;
+- (Array<> *)cookies;
 
 /*!
     @method setCookie:
@@ -75,13 +75,13 @@ extern class NSHTTPCookieStorage extends NSObject
     @method cookiesForURL:
     @abstract Returns an array of cookies to send to the given URL.
     @param URL The URL for which to get cookies.
-    @result an NSArray of NSHTTPCookie objects.
+    @result an Array<> of NSHTTPCookie objects.
     @discussion The cookie manager examines the cookies it stores and
     includes those which should be sent to the given URL. You can use
     <tt>+[NSCookie requestHeaderFieldsWithCookies:]</tt> to turn this array
     into a set of header fields to add to a request.
 */
-- (NSArray *)cookiesForURL:(NSURL *)URL;
+- (Array<> *)cookiesForURL:(NSURL *)URL;
 
 /*!
     @method setCookies:forURL:mainDocumentURL:
@@ -100,7 +100,7 @@ extern class NSHTTPCookieStorage extends NSObject
     dictionary and then use this method to store the resulting cookies
     in accordance with policy settings.
 */
-- (void)setCookies:(NSArray *)cookies forURL:(NSURL *)URL mainDocumentURL:(NSURL *)mainDocumentURL;
+- (void)setCookies:(Array<> *)cookies forURL:(NSURL *)URL mainDocumentURL:(NSURL *)mainDocumentURL;
 
 /*!
     @method cookieAcceptPolicy
@@ -124,7 +124,7 @@ extern class NSHTTPCookieStorage extends NSObject
   @param sortOrder an array of NSSortDescriptors which represent the preferred sort order of the resulting array.
   @discussion proper sorting of cookies may require extensive string conversion, which can be avoided by allowing the system to perform the sorting.  This API is to be preferred over the more generic -[NSHTTPCookieStorage cookies] API, if sorting is going to be performed.
 */
-- (NSArray*)sortedCookiesUsingDescriptors:(NSArray*) sortOrder NS_AVAILABLE(10_7, 5_0);
+- (Array<>*)sortedCookiesUsingDescriptors:(Array<>*) sortOrder NS_AVAILABLE(10_7, 5_0);
 
 }
 

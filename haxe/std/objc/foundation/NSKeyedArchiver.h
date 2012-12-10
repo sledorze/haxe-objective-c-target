@@ -9,7 +9,7 @@
 #endif
 
 
-@class NSArray, NSMutableData, NSData;
+@class Array<>, NSMutableData, NSData;
 @protocol NSKeyedArchiverDelegate, NSKeyedUnarchiverDelegate;
 
 FOUNDATION_EXPORT NSString * const NSInvalidArchiveOperationException;
@@ -37,7 +37,7 @@ extern class NSKeyedArchiver : NSCoder {
 }
 
 + (NSData *)archivedDataWithRootObject:(id)rootObject;
-+ (BOOL)archiveRootObject:(id)rootObject toFile:(NSString *)path;
++ (Bool)archiveRootObject:(id)rootObject toFile:(NSString *)path;
 
 - (id)initForWritingWithMutableData:(NSMutableData *)data;
 
@@ -59,7 +59,7 @@ extern class NSKeyedArchiver : NSCoder {
 
 - (void)encodeObject:(id)objv forKey:(NSString *)key;
 - (void)encodeConditionalObject:(id)objv forKey:(NSString *)key;
-- (void)encodeBool:(BOOL)boolv forKey:(NSString *)key;
+- (void)encodeBool:(Bool)boolv forKey:(NSString *)key;
 - (void)encodeInt:(int)intv forKey:(NSString *)key;	// native int
 - (void)encodeInt32:(int32_t)intv forKey:(NSString *)key;
 - (void)encodeInt64:(int64_t)intv forKey:(NSString *)key;
@@ -107,10 +107,10 @@ extern class NSKeyedUnarchiver : NSCoder {
 + (Class)classForClassName:(NSString *)codedName;
 - (Class)classForClassName:(NSString *)codedName;
 
-- (BOOL)containsValueForKey:(NSString *)key;
+- (Bool)containsValueForKey:(NSString *)key;
 
 - (id)decodeObjectForKey:(NSString *)key;
-- (BOOL)decodeBoolForKey:(NSString *)key;
+- (Bool)decodeBoolForKey:(NSString *)key;
 - (int)decodeIntForKey:(NSString *)key;		// may raise a range exception
 - (int32_t)decodeInt32ForKey:(NSString *)key;
 - (int64_t)decodeInt64ForKey:(NSString *)key;
@@ -160,7 +160,7 @@ extern class NSKeyedUnarchiver : NSCoder {
 @optional
 
 // error handling
-- (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(NSArray *)classNames;
+- (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(Array<> *)classNames;
 	// Informs the delegate that the named class is not available during decoding.
 	// The delegate may, for example, load some code to introduce the class to the
 	// runtime and return it, or substitute a different class object.  If the
@@ -214,7 +214,7 @@ extern class NSObject (NSKeyedArchiverObjectSubstitution)
 	// to source compatibility.
 
 
-+ (NSArray *)classFallbacksForKeyedArchiver;
++ (Array<> *)classFallbacksForKeyedArchiver;
 
 
 }

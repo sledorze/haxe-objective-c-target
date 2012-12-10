@@ -29,10 +29,10 @@ extern class NSRunLoop
 	public  function currentMode():String;
 	public  function runMode( mode:String,  limitDate:Date):Bool;
 	public  function runUntilDate( limitDate:Date):Void;
-	public  function performSelector( aSelector:SEL,  anArgument:Dynamic,  delay:NSTimeInterval,  modes:NSArray):Void;
+	public  function performSelector( aSelector:SEL,  anArgument:Dynamic,  delay:NSTimeInterval,  modes:Array<>):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function performSelector1( aSelector:SEL,  anArgument:Dynamic,  delay:NSTimeInterval):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function performSelector2( aSelector:SEL,  target:Dynamic,  arg:Dynamic,  order:Int,  modes:NSArray):Void;
+	public  function performSelector2( aSelector:SEL,  target:Dynamic,  arg:Dynamic,  order:Int,  modes:Array<>):Void;
 }
 

@@ -44,7 +44,7 @@ extern class NSDecimalNumber : NSNumber {
     unsigned short _mantissa[0]; /* GCC */
 }
 
-- (id)initWithMantissa:(unsigned long long)mantissa exponent:(short)exponent isNegative:(BOOL)flag;
+- (id)initWithMantissa:(unsigned long long)mantissa exponent:(short)exponent isNegative:(Bool)flag;
 - (id)initWithDecimal:(NSDecimal)dcm;
 - (id)initWithString:(NSString *)numberValue;
 - (id)initWithString:(NSString *)numberValue locale:(id)locale;
@@ -53,7 +53,7 @@ extern class NSDecimalNumber : NSNumber {
 
 - (NSDecimal)decimalValue;
 
-+ (NSDecimalNumber *)decimalNumberWithMantissa:(unsigned long long)mantissa exponent:(short)exponent isNegative:(BOOL)flag;
++ (NSDecimalNumber *)decimalNumberWithMantissa:(unsigned long long)mantissa exponent:(short)exponent isNegative:(Bool)flag;
 + (NSDecimalNumber *)decimalNumberWithDecimal:(NSDecimal)dcm;
 + (NSDecimalNumber *)decimalNumberWithString:(NSString *)numberValue;
 + (NSDecimalNumber *)decimalNumberWithString:(NSString *)numberValue locale:(id)locale;
@@ -127,9 +127,9 @@ extern class NSDecimalNumberHandler : NSObject <NSDecimalNumberBehaviors, NSCodi
     // ignore exactnessException (return nil)
     // raise on overflow, underflow and divide by zero.
 
-- (id)initWithRoundingMode:(NSRoundingMode)roundingMode scale:(short)scale raiseOnExactness:(BOOL)exact raiseOnOverflow:(BOOL)overflow raiseOnUnderflow:(BOOL)underflow raiseOnDivideByZero:(BOOL)divideByZero;
+- (id)initWithRoundingMode:(NSRoundingMode)roundingMode scale:(short)scale raiseOnExactness:(Bool)exact raiseOnOverflow:(Bool)overflow raiseOnUnderflow:(Bool)underflow raiseOnDivideByZero:(Bool)divideByZero;
 
-+ (id)decimalNumberHandlerWithRoundingMode:(NSRoundingMode)roundingMode scale:(short)scale raiseOnExactness:(BOOL)exact raiseOnOverflow:(BOOL)overflow raiseOnUnderflow:(BOOL)underflow raiseOnDivideByZero:(BOOL)divideByZero;
++ (id)decimalNumberHandlerWithRoundingMode:(NSRoundingMode)roundingMode scale:(short)scale raiseOnExactness:(Bool)exact raiseOnOverflow:(Bool)overflow raiseOnUnderflow:(Bool)underflow raiseOnDivideByZero:(Bool)divideByZero;
 
 }
 
@@ -144,7 +144,7 @@ extern class NSNumber (NSDecimalNumberExtensions)
 
 extern class NSScanner (NSDecimalNumberScanning)
 
-- (BOOL)scanDecimal:(NSDecimal *)dcm;
+- (Bool)scanDecimal:(NSDecimal *)dcm;
 
 }
 

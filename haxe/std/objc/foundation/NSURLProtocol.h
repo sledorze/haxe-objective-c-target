@@ -217,7 +217,7 @@ extern class NSURLProtocol extends NSObject
     @param request A request to inspect.
     @result YES if the protocol can handle the given request, NO if not.
 */
-+ (BOOL)canInitWithRequest:(NSURLRequest *)request;
++ (Bool)canInitWithRequest:(NSURLRequest *)request;
 
 /*! 
     @method canonicalRequestForRequest:
@@ -248,7 +248,7 @@ extern class NSURLProtocol extends NSObject
     implementation-specific checks.
     @result YES if the two requests are cache-equivalent, NO otherwise.
 */
-+ (BOOL)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b;
++ (Bool)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b;
 
 /*! 
     @method startLoading
@@ -334,7 +334,7 @@ extern class NSURLProtocol extends NSObject
     The only way that failure can occur is if the given class is not a
     subclass of NSURLProtocol.
 */
-+ (BOOL)registerClass:(Class)protocolClass;
++ (Bool)registerClass:(Class)protocolClass;
 
 /*! 
     @method unregisterClass:

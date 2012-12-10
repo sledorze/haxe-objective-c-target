@@ -2,14 +2,8 @@
 	Copyright (c) 2004-2012, Apple Inc. All rights reserved.
 */
 
-#import <Foundation/NSObject.h>
+import objc.foundation.NSObject;
 
-@class NSString;
-@class NSArray;
-@class NSMutableDictionary;
-@class NSPredicate;
-
-// Expressions are the core of the predicate implementation. When expressionValueWithObject: is called, the expression is evaluated, and a value returned which can then be handled by an operator. Expressions can be anything from constants to method invocations. Scalars should be wrapped in appropriate NSValue classes.
 
 typedef NS_ENUM(NSUInteger, NSExpressionType) {
     NSConstantValueExpressionType = 0, // Expression that always returns the same value

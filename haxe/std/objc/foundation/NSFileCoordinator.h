@@ -6,7 +6,7 @@
 
 #import <Foundation/NSObject.h>
 
-@class NSArray, NSError, NSMutableDictionary, NSURL;
+@class Array<>, NSError, NSMutableDictionary, NSURL;
 
 @protocol NSFilePresenter;
 
@@ -61,7 +61,7 @@ extern class NSFileCoordinator extends NSObject {
     id _purposeID;
     NSURL *_recentFilePresenterURL;
     id _accessClaimIDOrIDs;
-    BOOL _isCancelled;
+    Bool _isCancelled;
     NSMutableDictionary *_movedItems;
 }
 
@@ -73,7 +73,7 @@ If your application reads an item and then registers a file presenter for it the
 */
 + (void)addFilePresenter:(id<NSFilePresenter>)filePresenter;
 + (void)removeFilePresenter:(id<NSFilePresenter>)filePresenter;
-+ (NSArray *)filePresenters;
++ (Array<> *)filePresenters;
 
 /* The designated initializer. If an NSFilePresenter is provided then the receiver is considered to have been created by that NSFilePresenter, or on its behalf.
 
@@ -147,7 +147,7 @@ The -coordinate... methods must use interprocess communication to message instan
 
 In most cases it is redundant to pass the same reading or writing options in an invocation of this method as are passed to individual invocations of the -coordinate... methods invoked by the block passed to an invocation of this method. For example, when Finder invokes this method during a copy operation it does not pass NSFileCoordinatorReadingWithoutChanges because it is appropriate to trigger the saving of document changes right away, but it does pass it when doing the nested invocations of -coordinate... methods because it is not necessary to trigger saving again, even if the user changes the document before the Finder proceeds far enough to actually copy that document's file.
 */
-- (void)prepareForReadingItemsAtURLs:(NSArray *)readingURLs options:(NSFileCoordinatorReadingOptions)readingOptions writingItemsAtURLs:(NSArray *)writingURLs options:(NSFileCoordinatorWritingOptions)writingOptions error:(NSError **)outError byAccessor:(void (^)(void (^completionHandler)(void)))batchAccessor;
+- (void)prepareForReadingItemsAtURLs:(Array<> *)readingURLs options:(NSFileCoordinatorReadingOptions)readingOptions writingItemsAtURLs:(Array<> *)writingURLs options:(NSFileCoordinatorWritingOptions)writingOptions error:(NSError **)outError byAccessor:(void (^)(void (^completionHandler)(void)))batchAccessor;
 
 #endif
 

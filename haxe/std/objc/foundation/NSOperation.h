@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 
 
-@class NSArray, NSSet;
+@class Array<>, NSSet;
 
 NS_CLASS_AVAILABLE(10_5, 2_0)
 extern class NSOperation extends NSObject {
@@ -22,20 +22,20 @@ extern class NSOperation extends NSObject {
 - (void)start;
 - (void)main;
 
-- (BOOL)isCancelled;
+- (Bool)isCancelled;
 - (void)cancel;
 
-- (BOOL)isExecuting;
-- (BOOL)isFinished;
+- (Bool)isExecuting;
+- (Bool)isFinished;
 
-- (BOOL)isConcurrent;
+- (Bool)isConcurrent;
 
-- (BOOL)isReady;
+- (Bool)isReady;
 
 - (void)addDependency:(NSOperation *)op;
 - (void)removeDependency:(NSOperation *)op;
 
-- (NSArray *)dependencies;
+- (Array<> *)dependencies;
 
 typedef NS_ENUM(NSInteger, NSOperationQueuePriority) {
 	NSOperationQueuePriorityVeryLow = -8L,
@@ -73,7 +73,7 @@ extern class NSBlockOperation : NSOperation {
 + (id)blockOperationWithBlock:(void (^)(void))block;
 
 - (void)addExecutionBlock:(void (^)(void))block;
-- (NSArray *)executionBlocks;
+- (Array<> *)executionBlocks;
 #endif
 
 }
@@ -107,13 +107,13 @@ extern class NSOperationQueue extends NSObject {
 }
 
 - (void)addOperation:(NSOperation *)op;
-- (void)addOperations:(NSArray *)ops waitUntilFinished:(BOOL)wait NS_AVAILABLE(10_6, 4_0);
+- (void)addOperations:(Array<> *)ops waitUntilFinished:(Bool)wait NS_AVAILABLE(10_6, 4_0);
 
 #if NS_BLOCKS_AVAILABLE
 - (void)addOperationWithBlock:(void (^)(void))block NS_AVAILABLE(10_6, 4_0);
 #endif
 
-- (NSArray *)operations;
+- (Array<> *)operations;
 - (NSUInteger)operationCount NS_AVAILABLE(10_6, 4_0);
 
 - (NSInteger)maxConcurrentOperationCount;
@@ -123,8 +123,8 @@ enum {
     NSOperationQueueDefaultMaxConcurrentOperationCount = -1
 };
 
-- (void)setSuspended:(BOOL)b;
-- (BOOL)isSuspended;
+- (void)setSuspended:(Bool)b;
+- (Bool)isSuspended;
 
 - (void)setName:(NSString *)n NS_AVAILABLE(10_6, 4_0);
 - (NSString *)name NS_AVAILABLE(10_6, 4_0);

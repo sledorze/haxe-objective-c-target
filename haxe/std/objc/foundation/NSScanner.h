@@ -12,7 +12,7 @@ extern class NSScanner extends NSObject, implements NSCopying>
 - (NSUInteger)scanLocation;
 - (void)setScanLocation:(NSUInteger)pos;
 - (void)setCharactersToBeSkipped:(NSCharacterSet *)set;
-- (void)setCaseSensitive:(BOOL)flag;
+- (void)setCaseSensitive:(Bool)flag;
 - (void)setLocale:(id)locale;
 
 }
@@ -20,26 +20,26 @@ extern class NSScanner extends NSObject, implements NSCopying>
 extern class NSScanner (NSExtendedScanner)
 
 - (NSCharacterSet *)charactersToBeSkipped;
-- (BOOL)caseSensitive;
+- (Bool)caseSensitive;
 - (id)locale;
 
-- (BOOL)scanInt:(int *)value;
-- (BOOL)scanInteger:(NSInteger *)value NS_AVAILABLE(10_5, 2_0);
-- (BOOL)scanHexLongLong:(unsigned long long *)result NS_AVAILABLE(10_5, 2_0);
-- (BOOL)scanHexFloat:(float *)result NS_AVAILABLE(10_5, 2_0);		// Corresponding to %a or %A formatting. Requires "0x" or "0X" prefix. 
-- (BOOL)scanHexDouble:(double *)result NS_AVAILABLE(10_5, 2_0);		// Corresponding to %a or %A formatting. Requires "0x" or "0X" prefix. 
-- (BOOL)scanHexInt:(unsigned *)value;		// Optionally prefixed with "0x" or "0X"
-- (BOOL)scanLongLong:(long long *)value;
-- (BOOL)scanFloat:(float *)value;
-- (BOOL)scanDouble:(double *)value;
+- (Bool)scanInt:(int *)value;
+- (Bool)scanInteger:(NSInteger *)value NS_AVAILABLE(10_5, 2_0);
+- (Bool)scanHexLongLong:(unsigned long long *)result NS_AVAILABLE(10_5, 2_0);
+- (Bool)scanHexFloat:(float *)result NS_AVAILABLE(10_5, 2_0);		// Corresponding to %a or %A formatting. Requires "0x" or "0X" prefix. 
+- (Bool)scanHexDouble:(double *)result NS_AVAILABLE(10_5, 2_0);		// Corresponding to %a or %A formatting. Requires "0x" or "0X" prefix. 
+- (Bool)scanHexInt:(unsigned *)value;		// Optionally prefixed with "0x" or "0X"
+- (Bool)scanLongLong:(long long *)value;
+- (Bool)scanFloat:(float *)value;
+- (Bool)scanDouble:(double *)value;
 
-- (BOOL)scanString:(NSString *)string intoString:(NSString **)value;
-- (BOOL)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
+- (Bool)scanString:(NSString *)string intoString:(NSString **)value;
+- (Bool)scanCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
 
-- (BOOL)scanUpToString:(NSString *)string intoString:(NSString **)value;
-- (BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
+- (Bool)scanUpToString:(NSString *)string intoString:(NSString **)value;
+- (Bool)scanUpToCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)value;
 
-- (BOOL)isAtEnd;
+- (Bool)isAtEnd;
 
 - (id)initWithString:(NSString *)string;
 + (id)scannerWithString:(NSString *)string;

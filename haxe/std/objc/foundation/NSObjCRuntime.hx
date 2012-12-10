@@ -443,11 +443,11 @@ typedef NSUInteger NSSortOptions;
 enum {NSNotFound = NSIntegerMax};
 
 #if !defined(YES)
-    #define YES	(BOOL)1
+    #define YES	(Bool)1
 #endif
 
 #if !defined(NO)
-    #define NO	(BOOL)0
+    #define NO	(Bool)0
 #endif
 
 #if defined(__GNUC__) && !defined(__STRICT_ANSI__)

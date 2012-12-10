@@ -34,8 +34,8 @@ extern class NSCache extends NSObject {
 - (void)setCountLimit:(NSUInteger)lim;
 - (NSUInteger)countLimit;	// limits are imprecise/not strict
 
-- (BOOL)evictsObjectsWithDiscardedContent;
-- (void)setEvictsObjectsWithDiscardedContent:(BOOL)b;
+- (Bool)evictsObjectsWithDiscardedContent;
+- (void)setEvictsObjectsWithDiscardedContent:(Bool)b;
 
 }
 

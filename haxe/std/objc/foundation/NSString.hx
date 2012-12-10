@@ -90,8 +90,8 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function longLongValue () :Float;
 	public function boolValue () :Bool;
 	
-	public function componentsSeparatedByString (separator:NSString) :NSArray;
-	public function componentsSeparatedByCharactersInSet (separator:NSCharacterSet) :NSArray;
+	public function componentsSeparatedByString (separator:NSString) :Array<>;
+	public function componentsSeparatedByCharactersInSet (separator:NSCharacterSet) :Array<>;
 	public function commonPrefixWithString (aString:NSString, options:NSStringCompareOptions) :NSString;
 	public function uppercaseString () :String;
 	public function lowercaseString () :String;
@@ -135,7 +135,7 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function canBeConvertedToEncoding (encoding:NSStringEncoding) :Bool;
 	//public function getCString (buffer:String, maxLength:Int, encoding:NSStringEncoding) :String;
 
-//- (BOOL)getBytes:(void *)buffer maxLength:(NSUInteger)maxBufferCount usedLength:(NSUInteger *)usedBufferCount encoding:(NSStringEncoding)encoding options:(NSStringEncodingConversionOptions)options range:(NSRange)range remainingRange:(NSRangePointer)leftover;
+//- (Bool)getBytes:(void *)buffer maxLength:(NSUInteger)maxBufferCount usedLength:(NSUInteger *)usedBufferCount encoding:(NSStringEncoding)encoding options:(NSStringEncodingConversionOptions)options range:(NSRange)range remainingRange:(NSRangePointer)leftover;
  
 	public function maximumLengthOfBytesUsingEncoding (enc:NSStringEncoding) :Int;
 	public function lengthOfBytesUsingEncoding (enc:NSStringEncoding) :Int;
@@ -188,8 +188,8 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public static function stringWithContentsOfFile (path:NSString, usedEncoding:NSStringEncoding, error:NSError) :NSString;
 */
 
-//- (BOOL)writeToURL (NSURL *)url atomically:(BOOL)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
-//- (BOOL)writeToFile (NSString *)path atomically:(BOOL)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
+//- (Bool)writeToURL (NSURL *)url atomically:(Bool)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
+//- (Bool)writeToFile (NSString *)path atomically:(Bool)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
 
 }
 

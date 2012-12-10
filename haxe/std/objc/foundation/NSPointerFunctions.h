@@ -61,17 +61,17 @@ extern class NSPointerFunctions extends NSObject, implements NSCopying>
 
 // pointer personality functions
 	public var  NSUInteger (*hashFunction)(const void *item, NSUInteger (*size)(const void *item));
-	public var  BOOL (*isEqualFunction)(const void *item1, const void*item2, NSUInteger (*size)(const void *item));
+	public var  Bool (*isEqualFunction)(const void *item1, const void*item2, NSUInteger (*size)(const void *item));
 	public var  NSUInteger (*sizeFunction)(const void *item);
 	public var  NSString *(*descriptionFunction)(const void *item);
 
 // custom memory configuration
 	public var  void (*relinquishFunction)(const void *item, NSUInteger (*size)(const void *item));
-	public var  void *(*acquireFunction)(const void *src, NSUInteger (*size)(const void *item), BOOL shouldCopy);
+	public var  void *(*acquireFunction)(const void *src, NSUInteger (*size)(const void *item), Bool shouldCopy);
 
 // GC requires that read and write barrier functions be used when pointers are from GC memory
-	public var  BOOL usesStrongWriteBarrier;             // pointers should (not) be assigned using the GC strong write barrier
-	public var  BOOL usesWeakReadAndWriteBarriers;       // pointers should (not) use GC weak read and write barriers
+	public var  Bool usesStrongWriteBarrier;             // pointers should (not) be assigned using the GC strong write barrier
+	public var  Bool usesWeakReadAndWriteBarriers;       // pointers should (not) use GC weak read and write barriers
 }
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32

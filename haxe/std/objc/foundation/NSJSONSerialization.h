@@ -20,8 +20,8 @@ typedef NS_OPTIONS(NSUInteger, NSJSONWritingOptions) {
 /* A class for converting JSON to Foundation objects and converting Foundation objects to JSON.
    
    An object that may be converted to JSON must have the following properties:
-    - Top level object is an NSArray or NSDictionary
-    - All objects are NSString, NSNumber, NSArray, NSDictionary, or NSNull
+    - Top level object is an Array<> or NSDictionary
+    - All objects are NSString, NSNumber, Array<>, NSDictionary, or NSNull
     - All dictionary keys are NSStrings
     - NSNumbers are not NaN or infinity
 */
@@ -32,19 +32,19 @@ extern class NSJSONSerialization extends NSObject {
 }
 
 /* Returns YES if the given object can be converted to JSON data, NO otherwise. The object must have the following properties:
-    - Top level object is an NSArray or NSDictionary
-    - All objects are NSString, NSNumber, NSArray, NSDictionary, or NSNull
+    - Top level object is an Array<> or NSDictionary
+    - All objects are NSString, NSNumber, Array<>, NSDictionary, or NSNull
     - All dictionary keys are NSStrings
     - NSNumbers are not NaN or infinity
  Other rules may apply. Calling this method or attempting a conversion are the definitive ways to tell if a given object can be converted to JSON data.
  */
-+ (BOOL)isValidJSONObject:(id)obj;
++ (Bool)isValidJSONObject:(id)obj;
 
 /* Generate JSON data from a Foundation object. If the object will not produce valid JSON then an exception will be thrown. Setting the NSJSONWritingPrettyPrinted option will generate JSON with whitespace designed to make the output more readable. If that option is not set, the most compact possible JSON will be generated. If an error occurs, the error parameter will be set and the return value will be nil. The resulting data is a encoded in UTF-8.
  */
 + (NSData *)dataWithJSONObject:(id)obj options:(NSJSONWritingOptions)opt error:(NSError **)error;
 
-/* Create a Foundation object from JSON data. Set the NSJSONReadingAllowFragments option if the parser should allow top-level objects that are not an NSArray or NSDictionary. Setting the NSJSONReadingMutableContainers option will make the parser generate mutable NSArrays and NSDictionaries. Setting the NSJSONReadingMutableLeaves option will make the parser generate mutable NSString objects. If an error occurs during the parse, then the error parameter will be set and the result will be nil.
+/* Create a Foundation object from JSON data. Set the NSJSONReadingAllowFragments option if the parser should allow top-level objects that are not an Array<> or NSDictionary. Setting the NSJSONReadingMutableContainers option will make the parser generate mutable Array<>s and NSDictionaries. Setting the NSJSONReadingMutableLeaves option will make the parser generate mutable NSString objects. If an error occurs during the parse, then the error parameter will be set and the result will be nil.
    The data must be in one of the 5 supported encodings listed in the JSON specification: UTF-8, UTF-16LE, UTF-16BE, UTF-32LE, UTF-32BE. The data may or may not have a BOM. The most efficient encoding to use for parsing is UTF-8, so if you have a choice in encoding the data passed to this method, use UTF-8.
  */
 + (id)JSONObjectWithData:(NSData *)data options:(NSJSONReadingOptions)opt error:(NSError **)error;

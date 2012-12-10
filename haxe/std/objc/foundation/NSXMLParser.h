@@ -23,15 +23,15 @@ extern class NSXMLParser extends NSObject {
 - (id <NSXMLParserDelegate>)delegate;
 - (void)setDelegate:(id <NSXMLParserDelegate>)delegate;
 
-- (void)setShouldProcessNamespaces:(BOOL)shouldProcessNamespaces;
-- (void)setShouldReportNamespacePrefixes:(BOOL)shouldReportNamespacePrefixes;
-- (void)setShouldResolveExternalEntities:(BOOL)shouldResolveExternalEntities;
+- (void)setShouldProcessNamespaces:(Bool)shouldProcessNamespaces;
+- (void)setShouldReportNamespacePrefixes:(Bool)shouldReportNamespacePrefixes;
+- (void)setShouldResolveExternalEntities:(Bool)shouldResolveExternalEntities;
     
-- (BOOL)shouldProcessNamespaces;
-- (BOOL)shouldReportNamespacePrefixes;
-- (BOOL)shouldResolveExternalEntities;
+- (Bool)shouldProcessNamespaces;
+- (Bool)shouldReportNamespacePrefixes;
+- (Bool)shouldResolveExternalEntities;
 
-- (BOOL)parse;	// called to start the event-driven parse. Returns YES in the event of a successful parse, and NO in case of error.
+- (Bool)parse;	// called to start the event-driven parse. Returns YES in the event of a successful parse, and NO in case of error.
 - (void)abortParsing;	// called by the delegate to stop the parse. The delegate will get an error message sent to it.
 
 - (NSError *)parserError;	// can be called after a parse is over to determine parser state.

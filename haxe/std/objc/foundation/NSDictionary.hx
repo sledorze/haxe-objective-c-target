@@ -21,7 +21,7 @@ extern class NSDictionary extends NSObject, implements NSCopying, implements NSM
 	//public  function descriptionWithLocale1 (locale:Dynamic, indent:Int) :String;
 	public function isEqualToDictionary (otherDictionary:NSDictionary) :Bool;
 	public function objectEnumerator () :NSEnumerator;
-	public function objectsForKeys (keys:Array<String>, notFoundMarker:Dynamic):NSArray;
+	public function objectsForKeys (keys:Array<String>, notFoundMarker:Dynamic):Array<>;
 	public function writeToFile (path:String, atomically:Bool) :Bool;
 	public function writeToURL (url:NSURL, atomically:Bool) :Bool;
 	
@@ -40,14 +40,14 @@ extern class NSDictionary extends NSObject, implements NSCopying, implements NSM
 	
 	
 /*#if NS_BLOCKS_AVAILABLE
-- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(id key, id obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
-- (void)enumerateKeysAndObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id key, id obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateKeysAndObjectsUsingBlock:(void (^)(id key, id obj, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateKeysAndObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id key, id obj, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
 
-- (NSArray *)keysSortedByValueUsingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
-- (NSArray *)keysSortedByValueWithOptions:(NSSortOptions)opts usingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
+- (Array<> *)keysSortedByValueUsingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
+- (Array<> *)keysSortedByValueWithOptions:(NSSortOptions)opts usingComparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
 
-- (NSSet *)keysOfEntriesPassingTest:(BOOL (^)(id key, id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
-- (NSSet *)keysOfEntriesWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(id key, id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSSet *)keysOfEntriesPassingTest:(Bool (^)(id key, id obj, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSSet *)keysOfEntriesWithOptions:(NSEnumerationOptions)opts passingTest:(Bool (^)(id key, id obj, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
 #endif*/
 
 

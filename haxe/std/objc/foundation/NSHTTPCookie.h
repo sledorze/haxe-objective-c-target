@@ -7,7 +7,7 @@
 
 #import <Foundation/NSObject.h>
 
-@class NSArray;
+@class Array<>;
 @class NSDate;
 @class NSDictionary;
 @class NSString;
@@ -257,18 +257,18 @@ extern class NSHTTPCookie extends NSObject
     @result An NSDictionary where the keys are header field names, and the values
     are the corresponding header field values.
 */
-+ (NSDictionary *)requestHeaderFieldsWithCookies:(NSArray *)cookies;
++ (NSDictionary *)requestHeaderFieldsWithCookies:(Array<> *)cookies;
 
 /*!
     @method cookiesWithResponseHeaderFields:forURL:
     @abstract Return an array of cookies parsed from the specified response header fields and URL.
     @param headerFields The response header fields to check for cookies.
     @param URL The URL that the cookies came from - relevant to how the cookies are interpeted.
-    @result An NSArray of NSHTTPCookie objects
+    @result An Array<> of NSHTTPCookie objects
     @discussion This method will ignore irrelevant header fields so
     you can pass a dictionary containing data other than cookie data.
 */
-+ (NSArray *)cookiesWithResponseHeaderFields:(NSDictionary *)headerFields forURL:(NSURL *)URL;
++ (Array<> *)cookiesWithResponseHeaderFields:(NSDictionary *)headerFields forURL:(NSURL *)URL;
 
 /*!
     @method properties
@@ -325,7 +325,7 @@ extern class NSHTTPCookie extends NSObject
     session (regardless of expiration date), NO if receiver need not
     be discarded at the end of the session.
 */
-- (BOOL)isSessionOnly;
+- (Bool)isSessionOnly;
 
 /*!
     @method domain
@@ -359,7 +359,7 @@ extern class NSHTTPCookie extends NSObject
     @result YES if this cookie should be sent only over secure channels,
     NO otherwise.
 */
-- (BOOL)isSecure;
+- (Bool)isSecure;
 
 /*!
     @method isHTTPOnly
@@ -373,7 +373,7 @@ extern class NSHTTPCookie extends NSObject
     @result YES if this cookie should only be sent via HTTP headers,
     NO otherwise.
 */
-- (BOOL)isHTTPOnly;
+- (Bool)isHTTPOnly;
 
 /*!
     @method comment
@@ -401,14 +401,14 @@ extern class NSHTTPCookie extends NSObject
     @method portList
     @abstract Returns the list ports to which the receiver should be
     sent.
-    @discussion This value specifies an NSArray of NSNumbers
+    @discussion This value specifies an Array<> of NSNumbers
     (containing integers) which specify the only ports to which this
     cookie should be sent.
     @result The list ports to which the receiver should be sent. The
     array may be nil, in which case this cookie can be sent to any
     port.
 */
-- (NSArray *)portList;
+- (Array<> *)portList;
 
 }
 

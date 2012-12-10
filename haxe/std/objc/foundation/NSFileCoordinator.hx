@@ -7,7 +7,7 @@ extern class NSFileCoordinator
 	//Constants
 
 	//Static Methods
-	public  function filePresenters():NSArray;
+	public  function filePresenters():Array<>;
 	public  function addFilePresenter( filePresenter:id<NSFilePresenter>):Void;
 	public  function removeFilePresenter( filePresenter:id<NSFilePresenter>):Void;
 
@@ -18,7 +18,7 @@ extern class NSFileCoordinator
 	public  function coordinateWritingItemAtURL( url:NSURL,  options:NSFileCoordinatorWritingOptions,  outError:NSError*,  writer:Dynamic):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function coordinateWritingItemAtURL1( url1:NSURL,  options1:NSFileCoordinatorWritingOptions,  url2:NSURL,  options2:NSFileCoordinatorWritingOptions,  outError:NSError*,  writer:Dynamic):Void;
-	public  function prepareForReadingItemsAtURLs( readingURLs:NSArray,  readingOptions:NSFileCoordinatorReadingOptions,  writingURLs:NSArray,  writingOptions:NSFileCoordinatorWritingOptions,  outError:NSError*,  batchAccessor:Dynamic):Void;
+	public  function prepareForReadingItemsAtURLs( readingURLs:Array<>,  readingOptions:NSFileCoordinatorReadingOptions,  writingURLs:Array<>,  writingOptions:NSFileCoordinatorWritingOptions,  outError:NSError*,  batchAccessor:Dynamic):Void;
 	public  function itemAtURL( oldURL:NSURL,  newURL:NSURL):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function itemAtURL1( oldURL:NSURL,  newURL:NSURL):Void;

@@ -14,14 +14,14 @@ extern class NSHTTPCookieStorage
 	//Properties
 
 	//Methods
-	public  function cookies():NSArray;
-	public  function setCookies( cookies:NSArray,  URL:NSURL,  mainDocumentURL:NSURL):Void;
+	public  function cookies():Array<>;
+	public  function setCookies( cookies:Array<>,  URL:NSURL,  mainDocumentURL:NSURL):Void;
 	public  function setCookieAcceptPolicy( cookieAcceptPolicy:NSHTTPCookieAcceptPolicy):Void;
 	public  function deleteCookie( cookie:NSHTTPCookie):Void;
 	public  function cookieAcceptPolicy():NSHTTPCookieAcceptPolicy;
-	public  function sortedCookiesUsingDescriptors( sortOrder:NSArray):NSArray;
+	public  function sortedCookiesUsingDescriptors( sortOrder:Array<>):Array<>;
 	public  function setCookie( cookie:NSHTTPCookie):Void;
-	public  function cookiesForURL( URL:NSURL):NSArray;
+	public  function cookiesForURL( URL:NSURL):Array<>;
 }
 
 extern enum NSHTTPCookieAcceptPolicy

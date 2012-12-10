@@ -6,7 +6,7 @@
 #import <Foundation/NSDate.h>
 #import <CoreFoundation/CFRunLoop.h>
 
-@class NSTimer, NSPort, NSArray;
+@class NSTimer, NSPort, Array<>;
 
 FOUNDATION_EXPORT NSString * const NSDefaultRunLoopMode;
 FOUNDATION_EXPORT NSString * const NSRunLoopCommonModes NS_AVAILABLE(10_5, 2_0);
@@ -41,7 +41,7 @@ extern class NSRunLoop (NSRunLoopConveniences)
 
 - (void)run; 
 - (void)runUntilDate:(NSDate *)limitDate;
-- (BOOL)runMode:(NSString *)mode beforeDate:(NSDate *)limitDate;
+- (Bool)runMode:(NSString *)mode beforeDate:(NSDate *)limitDate;
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 - (void)configureAsServer NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
@@ -53,7 +53,7 @@ extern class NSRunLoop (NSRunLoopConveniences)
 
 extern class NSObject (NSDelayedPerforming)
 
-- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay inModes:(NSArray *)modes;
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay inModes:(Array<> *)modes;
 - (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay;
 + (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget selector:(SEL)aSelector object:(id)anArgument;
 + (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget;
@@ -62,7 +62,7 @@ extern class NSObject (NSDelayedPerforming)
 
 extern class NSRunLoop (NSOrderedPerform)
 
-- (void)performSelector:(SEL)aSelector target:(id)target argument:(id)arg order:(NSUInteger)order modes:(NSArray *)modes;
+- (void)performSelector:(SEL)aSelector target:(id)target argument:(id)arg order:(NSUInteger)order modes:(Array<> *)modes;
 - (void)cancelPerformSelector:(SEL)aSelector target:(id)target argument:(id)arg;
 - (void)cancelPerformSelectorsWithTarget:(id)target;
 

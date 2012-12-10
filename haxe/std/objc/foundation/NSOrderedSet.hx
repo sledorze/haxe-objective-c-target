@@ -19,9 +19,9 @@ extern class NSOrderedSet, implements NSCopying, implements NSMutableCopying, im
 	public  function orderedSetWithOrderedSet( set:NSOrderedSet):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function orderedSetWithOrderedSet1( set:NSOrderedSet,  range:NSRange,  flag:Bool):Dynamic;
-	public  function orderedSetWithArray( array:NSArray):Dynamic;
+	public  function orderedSetWithArray( array:Array<>):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function orderedSetWithArray1( array:NSArray,  range:NSRange,  flag:Bool):Dynamic;
+	public  function orderedSetWithArray1( array:Array<>,  range:NSRange,  flag:Bool):Dynamic;
 
 	//Properties
 
@@ -34,13 +34,13 @@ extern class NSOrderedSet, implements NSCopying, implements NSMutableCopying, im
 	public  function intersectsSet( set:NSSet):Bool;
 	public  function reversedOrderedSet():NSOrderedSet;
 	public  function objectAtIndex( idx:Int):Dynamic;
-	public  function addObjectsFromArray( array:NSArray):Void;
+	public  function addObjectsFromArray( array:Array<>):Void;
 	public  function removeObjectsInRange( range:NSRange):Void;
 	public  function intersectOrderedSet( other:NSOrderedSet):Void;
 	public  function initWithObjects( objects:constid[],  cnt:Int):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function initWithObjects1( firstObj:Dynamic):Dynamic;
-	public  function sortedArrayWithOptions( opts:NSSortOptions,  cmptr:NSComparator):NSArray;
+	public  function sortedArrayWithOptions( opts:NSSortOptions,  cmptr:NSComparator):Array<>;
 	public  function initWithSet( set:NSSet):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function initWithSet1( set:NSSet,  flag:Bool):Dynamic;
@@ -59,13 +59,13 @@ extern class NSOrderedSet, implements NSCopying, implements NSMutableCopying, im
 	public  function unionSet( other:NSSet):Void;
 	public  function description():String;
 	public  function initWithObject( object:Dynamic):Dynamic;
-	public  function insertObjects( objects:NSArray,  indexes:NSIndexSet):Void;
+	public  function insertObjects( objects:Array<>,  indexes:NSIndexSet):Void;
 	public  function exchangeObjectAtIndex( idx1:Int,  idx2:Int):Void;
 	public  function insertObject( object:Dynamic,  idx:Int):Void;
 	public  function addObject( object:Dynamic):Void;
 	public  function unionOrderedSet( other:NSOrderedSet):Void;
-	public  function objectsAtIndexes( indexes:NSIndexSet):NSArray;
-	public  function array():NSArray;
+	public  function objectsAtIndexes( indexes:NSIndexSet):Array<>;
+	public  function array():Array<>;
 	public  function descriptionWithLocale( locale:Dynamic):String;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function descriptionWithLocale1( locale:Dynamic,  level:Int):String;
@@ -91,13 +91,13 @@ extern class NSOrderedSet, implements NSCopying, implements NSMutableCopying, im
 	public  function removeObjectsAtIndexes( indexes:NSIndexSet):Void;
 	public  function moveObjectsAtIndexes( indexes:NSIndexSet,  idx:Int):Void;
 	public  function sortWithOptions( opts:NSSortOptions,  cmptr:NSComparator):Void;
-	public  function initWithArray( array:NSArray):Dynamic;
+	public  function initWithArray( array:Array<>):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function initWithArray1( set:NSArray,  flag:Bool):Dynamic;
+	public  function initWithArray1( set:Array<>,  flag:Bool):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function initWithArray2( set:NSArray,  range:NSRange,  flag:Bool):Dynamic;
-	public  function sortedArrayUsingComparator( cmptr:NSComparator):NSArray;
-	public  function replaceObjectsAtIndexes( indexes:NSIndexSet,  objects:NSArray):Void;
+	public  function initWithArray2( set:Array<>,  range:NSRange,  flag:Bool):Dynamic;
+	public  function sortedArrayUsingComparator( cmptr:NSComparator):Array<>;
+	public  function replaceObjectsAtIndexes( indexes:NSIndexSet,  objects:Array<>):Void;
 	public  function indexOfObject( object:Dynamic):Int;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function indexOfObject1( object:Dynamic,  range:NSRange,  opts:NSBinarySearchingOptions,  cmp:NSComparator):Int;
@@ -107,6 +107,6 @@ extern class NSOrderedSet, implements NSCopying, implements NSMutableCopying, im
 	public  function reverseObjectEnumerator():NSEnumerator;
 	public  function indexOfObjectPassingTest( predicate:Dynamic):Int;
 	public  function containsObject( object:Dynamic):Bool;
-	public  function removeObjectsInArray( array:NSArray):Void;
+	public  function removeObjectsInArray( array:Array<>):Void;
 }
 

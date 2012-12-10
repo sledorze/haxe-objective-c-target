@@ -3,10 +3,10 @@
 */
 
 #import <Foundation/NSObject.h>
-#import <Foundation/NSArray.h>
+#import <Foundation/Array<>.h>
 #import <Foundation/NSSet.h>
 
-// Predicates wrap some combination of expressions and operators and when evaluated return a BOOL.
+// Predicates wrap some combination of expressions and operators and when evaluated return a Bool.
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
 extern class NSPredicate extends NSObject, implements NSObject, NSCopying> {
@@ -14,28 +14,28 @@ extern class NSPredicate extends NSObject, implements NSObject, NSCopying> {
 }
 
 // Parse predicateFormat and return an appropriate predicate
-+ (NSPredicate *)predicateWithFormat:(NSString *)predicateFormat argumentArray:(NSArray *)arguments;
++ (NSPredicate *)predicateWithFormat:(NSString *)predicateFormat argumentArray:(Array<> *)arguments;
 + (NSPredicate *)predicateWithFormat:(NSString *)predicateFormat, ...;
 + (NSPredicate *)predicateWithFormat:(NSString *)predicateFormat arguments:(va_list)argList;
 
-+ (NSPredicate *)predicateWithValue:(BOOL)value;    // return predicates that always evaluate to true/false
++ (NSPredicate *)predicateWithValue:(Bool)value;    // return predicates that always evaluate to true/false
 
 #if NS_BLOCKS_AVAILABLE
-+ (NSPredicate*)predicateWithBlock:(BOOL (^)(id evaluatedObject, NSDictionary *bindings))block NS_AVAILABLE(10_6, 4_0); 
++ (NSPredicate*)predicateWithBlock:(Bool (^)(id evaluatedObject, NSDictionary *bindings))block NS_AVAILABLE(10_6, 4_0); 
 #endif
 
 - (NSString *)predicateFormat;    // returns the format string of the predicate
 
 - (NSPredicate *)predicateWithSubstitutionVariables:(NSDictionary *)variables;    // substitute constant values for variables
 
-- (BOOL)evaluateWithObject:(id)object;    // evaluate a predicate against a single object
+- (Bool)evaluateWithObject:(id)object;    // evaluate a predicate against a single object
 
-- (BOOL)evaluateWithObject:(id)object substitutionVariables:(NSDictionary *)bindings NS_AVAILABLE(10_5, 3_0); // single pass evaluation substituting variables from the bindings dictionary for any variable expressions encountered
+- (Bool)evaluateWithObject:(id)object substitutionVariables:(NSDictionary *)bindings NS_AVAILABLE(10_5, 3_0); // single pass evaluation substituting variables from the bindings dictionary for any variable expressions encountered
 
 }
 
-extern class NSArray (NSPredicateSupport)
-- (NSArray *)filteredArrayUsingPredicate:(NSPredicate *)predicate;    // evaluate a predicate against an array of objects and return a filtered array
+extern class Array<> (NSPredicateSupport)
+- (Array<> *)filteredArrayUsingPredicate:(NSPredicate *)predicate;    // evaluate a predicate against an array of objects and return a filtered array
 }
 
 extern class NSMutableArray (NSPredicateSupport)

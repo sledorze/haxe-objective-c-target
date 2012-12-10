@@ -26,11 +26,11 @@ NS_INLINE NSUInteger NSMaxRange(NSRange range) {
     return (range.location + range.length);
 }
 
-NS_INLINE BOOL NSLocationInRange(NSUInteger loc, NSRange range) {
+NS_INLINE Bool NSLocationInRange(NSUInteger loc, NSRange range) {
     return (loc - range.location < range.length);
 }
 
-NS_INLINE BOOL NSEqualRanges(NSRange range1, NSRange range2) {
+NS_INLINE Bool NSEqualRanges(NSRange range1, NSRange range2) {
     return (range1.location == range2.location && range1.length == range2.length);
 }
 

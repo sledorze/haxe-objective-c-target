@@ -3,7 +3,7 @@
 */
 
 #import <Foundation/NSObject.h>
-#import <Foundation/NSArray.h>
+#import <Foundation/Array<>.h>
 #import <Foundation/NSRange.h>
 
 @class NSString, NSData, NSError;
@@ -57,16 +57,16 @@ FOUNDATION_EXPORT NSString * const NSFileHandleNotificationMonitorModes NS_DEPRE
 
 extern class NSFileHandle (NSFileHandleAsynchronousAccess)
 
-- (void)readInBackgroundAndNotifyForModes:(NSArray *)modes;
+- (void)readInBackgroundAndNotifyForModes:(Array<> *)modes;
 - (void)readInBackgroundAndNotify;
 
-- (void)readToEndOfFileInBackgroundAndNotifyForModes:(NSArray *)modes;
+- (void)readToEndOfFileInBackgroundAndNotifyForModes:(Array<> *)modes;
 - (void)readToEndOfFileInBackgroundAndNotify;
 
-- (void)acceptConnectionInBackgroundAndNotifyForModes:(NSArray *)modes;
+- (void)acceptConnectionInBackgroundAndNotifyForModes:(Array<> *)modes;
 - (void)acceptConnectionInBackgroundAndNotify;
 
-- (void)waitForDataInBackgroundAndNotifyForModes:(NSArray *)modes;
+- (void)waitForDataInBackgroundAndNotifyForModes:(Array<> *)modes;
 - (void)waitForDataInBackgroundAndNotify;
 
 #ifdef __BLOCKS__
@@ -78,7 +78,7 @@ extern class NSFileHandle (NSFileHandleAsynchronousAccess)
 
 extern class NSFileHandle (NSFileHandlePlatformSpecific)
 
-- (id)initWithFileDescriptor:(int)fd closeOnDealloc:(BOOL)closeopt;
+- (id)initWithFileDescriptor:(int)fd closeOnDealloc:(Bool)closeopt;
 - (id)initWithFileDescriptor:(int)fd;
 - (int)fileDescriptor;
 

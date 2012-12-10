@@ -9,7 +9,7 @@
 #if !defined(__FOUNDATION_NSMAPTABLE__)
 #define __FOUNDATION_NSMAPTABLE__ 1
 
-@class NSArray, NSDictionary, NSMapTable;
+@class Array<>, NSDictionary, NSMapTable;
 
 
 /****************	Class	****************/
@@ -80,28 +80,28 @@ typedef struct {NSUInteger _pi; NSUInteger _si; void *_bs;} NSMapEnumerator;
 
 FOUNDATION_EXPORT void NSFreeMapTable(NSMapTable *table);
 FOUNDATION_EXPORT void NSResetMapTable(NSMapTable *table);
-FOUNDATION_EXPORT BOOL NSCompareMapTables(NSMapTable *table1, NSMapTable *table2);
+FOUNDATION_EXPORT Bool NSCompareMapTables(NSMapTable *table1, NSMapTable *table2);
 FOUNDATION_EXPORT NSMapTable *NSCopyMapTableWithZone(NSMapTable *table, NSZone *zone);
-FOUNDATION_EXPORT BOOL NSMapMember(NSMapTable *table, const void *key, void **originalKey, void **value);
+FOUNDATION_EXPORT Bool NSMapMember(NSMapTable *table, const void *key, void **originalKey, void **value);
 FOUNDATION_EXPORT void *NSMapGet(NSMapTable *table, const void *key);
 FOUNDATION_EXPORT void NSMapInsert(NSMapTable *table, const void *key, const void *value);
 FOUNDATION_EXPORT void NSMapInsertKnownAbsent(NSMapTable *table, const void *key, const void *value);
 FOUNDATION_EXPORT void *NSMapInsertIfAbsent(NSMapTable *table, const void *key, const void *value);
 FOUNDATION_EXPORT void NSMapRemove(NSMapTable *table, const void *key);
 FOUNDATION_EXPORT NSMapEnumerator NSEnumerateMapTable(NSMapTable *table);
-FOUNDATION_EXPORT BOOL NSNextMapEnumeratorPair(NSMapEnumerator *enumerator, void **key, void **value);
+FOUNDATION_EXPORT Bool NSNextMapEnumeratorPair(NSMapEnumerator *enumerator, void **key, void **value);
 FOUNDATION_EXPORT void NSEndMapTableEnumeration(NSMapEnumerator *enumerator);
 FOUNDATION_EXPORT NSUInteger NSCountMapTable(NSMapTable *table);
 FOUNDATION_EXPORT NSString *NSStringFromMapTable(NSMapTable *table);
-FOUNDATION_EXPORT NSArray *NSAllMapTableKeys(NSMapTable *table);
-FOUNDATION_EXPORT NSArray *NSAllMapTableValues(NSMapTable *table);
+FOUNDATION_EXPORT Array<> *NSAllMapTableKeys(NSMapTable *table);
+FOUNDATION_EXPORT Array<> *NSAllMapTableValues(NSMapTable *table);
 
 
 /****************     Legacy     ***************************************/
 
 typedef struct {
     NSUInteger	(*hash)(NSMapTable *table, const void *);
-    BOOL	(*isEqual)(NSMapTable *table, const void *, const void *);
+    Bool	(*isEqual)(NSMapTable *table, const void *, const void *);
     void	(*retain)(NSMapTable *table, const void *);
     void	(*release)(NSMapTable *table, void *);
     NSString 	*(*describe)(NSMapTable *table, const void *);

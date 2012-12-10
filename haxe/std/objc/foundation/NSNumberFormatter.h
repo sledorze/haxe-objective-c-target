@@ -19,7 +19,7 @@ extern class NSNumberFormatter : NSFormatter {
 
 // Report the used range of the string and an NSError, in addition to the usual stuff from NSFormatter
 
-- (BOOL)getObjectValue:(out id *)obj forString:(NSString *)string range:(inout NSRange *)rangep error:(out NSError **)error;
+- (Bool)getObjectValue:(out id *)obj forString:(NSString *)string range:(inout NSRange *)rangep error:(out NSError **)error;
 
 // Even though NSNumberFormatter responds to the usual NSFormatter methods,
 //   here are some convenience methods which are a little more obvious.
@@ -55,8 +55,8 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterBehavior) {
 - (NSLocale *)locale;
 - (void)setLocale:(NSLocale *)locale;
 
-- (BOOL)generatesDecimalNumbers;
-- (void)setGeneratesDecimalNumbers:(BOOL)b;
+- (Bool)generatesDecimalNumbers;
+- (void)setGeneratesDecimalNumbers:(Bool)b;
 
 - (NSNumberFormatterBehavior)formatterBehavior;
 - (void)setFormatterBehavior:(NSNumberFormatterBehavior)behavior;
@@ -76,20 +76,20 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterBehavior) {
 - (NSDictionary *)textAttributesForPositiveValues;
 - (void)setTextAttributesForPositiveValues:(NSDictionary *)newAttributes;
 
-- (BOOL)allowsFloats;
-- (void)setAllowsFloats:(BOOL)flag;
+- (Bool)allowsFloats;
+- (void)setAllowsFloats:(Bool)flag;
 
 - (NSString *)decimalSeparator;
 - (void)setDecimalSeparator:(NSString *)string;
 
-- (BOOL)alwaysShowsDecimalSeparator;
-- (void)setAlwaysShowsDecimalSeparator:(BOOL)b;
+- (Bool)alwaysShowsDecimalSeparator;
+- (void)setAlwaysShowsDecimalSeparator:(Bool)b;
 
 - (NSString *)currencyDecimalSeparator;
 - (void)setCurrencyDecimalSeparator:(NSString *)string;
 
-- (BOOL)usesGroupingSeparator;
-- (void)setUsesGroupingSeparator:(BOOL)b;
+- (Bool)usesGroupingSeparator;
+- (void)setUsesGroupingSeparator:(Bool)b;
 
 - (NSString *)groupingSeparator;
 - (void)setGroupingSeparator:(NSString *)string;
@@ -227,11 +227,11 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterRoundingMode) {
 - (NSString *)currencyGroupingSeparator NS_AVAILABLE(10_5, 2_0);
 - (void)setCurrencyGroupingSeparator:(NSString *)string NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)isLenient NS_AVAILABLE(10_5, 2_0);
-- (void)setLenient:(BOOL)b NS_AVAILABLE(10_5, 2_0);
+- (Bool)isLenient NS_AVAILABLE(10_5, 2_0);
+- (void)setLenient:(Bool)b NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)usesSignificantDigits NS_AVAILABLE(10_5, 2_0);
-- (void)setUsesSignificantDigits:(BOOL)b NS_AVAILABLE(10_5, 2_0);
+- (Bool)usesSignificantDigits NS_AVAILABLE(10_5, 2_0);
+- (void)setUsesSignificantDigits:(Bool)b NS_AVAILABLE(10_5, 2_0);
 
 - (NSUInteger)minimumSignificantDigits NS_AVAILABLE(10_5, 2_0);
 - (void)setMinimumSignificantDigits:(NSUInteger)number NS_AVAILABLE(10_5, 2_0);
@@ -239,8 +239,8 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterRoundingMode) {
 - (NSUInteger)maximumSignificantDigits NS_AVAILABLE(10_5, 2_0);
 - (void)setMaximumSignificantDigits:(NSUInteger)number NS_AVAILABLE(10_5, 2_0);
 
-- (BOOL)isPartialStringValidationEnabled NS_AVAILABLE(10_5, 2_0);
-- (void)setPartialStringValidationEnabled:(BOOL)b NS_AVAILABLE(10_5, 2_0);
+- (Bool)isPartialStringValidationEnabled NS_AVAILABLE(10_5, 2_0);
+- (void)setPartialStringValidationEnabled:(Bool)b NS_AVAILABLE(10_5, 2_0);
 
 }
 
@@ -249,13 +249,13 @@ typedef NS_ENUM(NSUInteger, NSNumberFormatterRoundingMode) {
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 extern class NSNumberFormatter (NSNumberFormatterCompatibility)
 
-- (BOOL)hasThousandSeparators;
-- (void)setHasThousandSeparators:(BOOL)flag;
+- (Bool)hasThousandSeparators;
+- (void)setHasThousandSeparators:(Bool)flag;
 - (NSString *)thousandSeparator;
 - (void)setThousandSeparator:(NSString *)newSeparator;
 
-- (BOOL)localizesFormat;
-- (void)setLocalizesFormat:(BOOL)flag;
+- (Bool)localizesFormat;
+- (void)setLocalizesFormat:(Bool)flag;
 
 - (NSString *)format;
 - (void)setFormat:(NSString *)string;

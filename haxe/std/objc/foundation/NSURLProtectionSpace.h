@@ -9,7 +9,7 @@
 #import <Security/Security.h>
 
 @class NSString;
-@class NSArray;
+@class Array<>;
 
 /*!
    @const NSURLProtectionSpaceHTTP
@@ -162,14 +162,14 @@ extern class NSURLProtectionSpace extends NSObject, implements NSObject, NSCopyi
     @abstract Determine if the password for this protection space can be sent securely
     @result YES if a secure authentication method or protocol will be used, NO otherwise
 */
-- (BOOL)receivesCredentialSecurely;
+- (Bool)receivesCredentialSecurely;
 
 /*!
     @method isProxy
     @abstract Determine if this authenticating protection space is a proxy server
     @result YES if a proxy, NO otherwise
 */
-- (BOOL)isProxy;
+- (Bool)isProxy;
 
 /*!
     @method host
@@ -219,7 +219,7 @@ extern class NSURLProtectionSpace(NSClientCertificateSpace)
     @abstract Returns an array of acceptable certificate issuing authorities for client certification authentication. Issuers are identified by their distinguished name and returned as a DER encoded data.
     @result An array of NSData objects.  (Nil if the authenticationMethod is not NSURLAuthenticationMethodClientCertificate)
  */
-- (NSArray *)distinguishedNames NS_AVAILABLE(10_6, 3_0);
+- (Array<> *)distinguishedNames NS_AVAILABLE(10_6, 3_0);
 
 }
 

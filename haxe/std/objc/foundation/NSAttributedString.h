@@ -23,7 +23,7 @@ extern class NSAttributedString (NSExtendedAttributedString)
 - (NSDictionary *)attributesAtIndex:(NSUInteger)location longestEffectiveRange:(NSRangePointer)range inRange:(NSRange)rangeLimit;
 - (id)attribute:(NSString *)attrName atIndex:(NSUInteger)location longestEffectiveRange:(NSRangePointer)range inRange:(NSRange)rangeLimit;
 
-- (BOOL)isEqualToAttributedString:(NSAttributedString *)other;
+- (Bool)isEqualToAttributedString:(NSAttributedString *)other;
 
 - (id)initWithString:(NSString *)str;
 - (id)initWithString:(NSString *)str attributes:(NSDictionary *)attrs;
@@ -35,8 +35,8 @@ typedef NS_OPTIONS(NSUInteger, NSAttributedStringEnumerationOptions) {
 };
 
 #if NS_BLOCKS_AVAILABLE
-- (void)enumerateAttributesInRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)(NSDictionary *attrs, NSRange range, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
-- (void)enumerateAttribute:(NSString *)attrName inRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)(id value, NSRange range, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateAttributesInRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)(NSDictionary *attrs, NSRange range, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateAttribute:(NSString *)attrName inRange:(NSRange)enumerationRange options:(NSAttributedStringEnumerationOptions)opts usingBlock:(void (^)(id value, NSRange range, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
 #endif
 
 }

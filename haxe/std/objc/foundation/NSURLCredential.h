@@ -9,7 +9,7 @@
 #import <Security/Security.h>
 
 @class NSString;
-@class NSArray;
+@class Array<>;
 
 /*!
     @enum NSURLCredentialPersistence
@@ -99,7 +99,7 @@ extern class NSURLCredential(NSInternetPassword)
     method returns YES, since getting the password may fail, or the
     user may refuse access.
 */
-- (BOOL)hasPassword;
+- (Bool)hasPassword;
 
 }
 
@@ -117,7 +117,7 @@ extern class NSURLCredential(NSClientCertificate)
     @param persistence enum that says to store per session, permanently or not at all
     @result the Initialized NSURLCredential
  */
-- (id)initWithIdentity:(SecIdentityRef)identity certificates:(NSArray *)certArray persistence:(NSURLCredentialPersistence) persistence NS_AVAILABLE(10_6, 3_0);
+- (id)initWithIdentity:(SecIdentityRef)identity certificates:(Array<> *)certArray persistence:(NSURLCredentialPersistence) persistence NS_AVAILABLE(10_6, 3_0);
 
 /*!
     @method credentialWithCertificateArray:password:persistence:
@@ -127,7 +127,7 @@ extern class NSURLCredential(NSClientCertificate)
     @param persistence enum that says to store per session, permanently or not at all
     @result The new autoreleased NSURLCredential
  */
-+ (NSURLCredential *)credentialWithIdentity:(SecIdentityRef)identity certificates:(NSArray *)certArray persistence:(NSURLCredentialPersistence)persistence NS_AVAILABLE(10_6, 3_0);
++ (NSURLCredential *)credentialWithIdentity:(SecIdentityRef)identity certificates:(Array<> *)certArray persistence:(NSURLCredentialPersistence)persistence NS_AVAILABLE(10_6, 3_0);
 
 /*!
     @method identity
@@ -138,10 +138,10 @@ extern class NSURLCredential(NSClientCertificate)
 
 /*!
     @method certificateArray
-    @abstract Returns an NSArray of SecCertificateRef objects representing the client certificate for this credential, if this credential was created with an identity and certificate.
-    @result an NSArray of SecCertificateRef or NULL if this is a username/password credential
+    @abstract Returns an Array<> of SecCertificateRef objects representing the client certificate for this credential, if this credential was created with an identity and certificate.
+    @result an Array<> of SecCertificateRef or NULL if this is a username/password credential
  */
-- (NSArray *)certificates NS_AVAILABLE(10_6, 3_0);
+- (Array<> *)certificates NS_AVAILABLE(10_6, 3_0);
 
 }
 

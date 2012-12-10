@@ -42,11 +42,11 @@ extern class NSCoder (NSExtendedCoder)
 
 - (unsigned)systemVersion;
 
-- (BOOL)allowsKeyedCoding;
+- (Bool)allowsKeyedCoding;
 
 - (void)encodeObject:(id)objv forKey:(NSString *)key;
 - (void)encodeConditionalObject:(id)objv forKey:(NSString *)key;
-- (void)encodeBool:(BOOL)boolv forKey:(NSString *)key;
+- (void)encodeBool:(Bool)boolv forKey:(NSString *)key;
 - (void)encodeInt:(int)intv forKey:(NSString *)key;
 - (void)encodeInt32:(int32_t)intv forKey:(NSString *)key;
 - (void)encodeInt64:(int64_t)intv forKey:(NSString *)key;
@@ -54,9 +54,9 @@ extern class NSCoder (NSExtendedCoder)
 - (void)encodeDouble:(double)realv forKey:(NSString *)key;
 - (void)encodeBytes:(const uint8_t *)bytesp length:(NSUInteger)lenv forKey:(NSString *)key;
 
-- (BOOL)containsValueForKey:(NSString *)key;
+- (Bool)containsValueForKey:(NSString *)key;
 - (id)decodeObjectForKey:(NSString *)key;
-- (BOOL)decodeBoolForKey:(NSString *)key;
+- (Bool)decodeBoolForKey:(NSString *)key;
 - (int)decodeIntForKey:(NSString *)key;
 - (int32_t)decodeInt32ForKey:(NSString *)key;
 - (int64_t)decodeInt64ForKey:(NSString *)key;
@@ -68,7 +68,7 @@ extern class NSCoder (NSExtendedCoder)
 - (NSInteger)decodeIntegerForKey:(NSString *)key NS_AVAILABLE(10_5, 2_0);
 
 // Returns YES if this coder requires secure coding. Secure coders check a list of allowed classes before decoding objects, and all objects must implement NSSecureCoding.
-- (BOOL)requiresSecureCoding NS_AVAILABLE(10_8, 6_0);
+- (Bool)requiresSecureCoding NS_AVAILABLE(10_8, 6_0);
 
 // Specify what the expected class of the allocated object is. If the coder responds YES to -requiresSecureCoding, then an exception will be thrown if the class to be decoded does not implement NSSecureCoding or is not isKindOfClass: of the argument. If the coder responds NO to -requiresSecureCoding, then the class argument is ignored and no check of the class of the decoded object is performed, exactly as if decodeObjectForKey: had been called.
 - (id)decodeObjectOfClass:(Class)aClass forKey:(NSString *)key NS_AVAILABLE(10_8, 6_0);

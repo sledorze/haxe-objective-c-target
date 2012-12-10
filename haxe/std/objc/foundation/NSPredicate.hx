@@ -8,7 +8,7 @@ extern class NSPredicate, implements NSCoding, implements NSCopying
 
 	//Static Methods
 	public  function predicateWithValue( value:Bool):NSPredicate;
-	public  function predicateWithFormat( predicateFormat:String,  arguments:NSArray):NSPredicate;
+	public  function predicateWithFormat( predicateFormat:String,  arguments:Array<>):NSPredicate;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function predicateWithFormat1( predicateFormat:String):NSPredicate;
 	//@:overload !!NEED CUSTOM META DATA !!
@@ -22,7 +22,7 @@ extern class NSPredicate, implements NSCoding, implements NSCopying
 	public  function evaluateWithObject( object:Dynamic):Bool;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function evaluateWithObject1( object:Dynamic,  bindings:NSDictionary):Bool;
-	public  function filteredArrayUsingPredicate( predicate:NSPredicate):NSArray;
+	public  function filteredArrayUsingPredicate( predicate:NSPredicate):Array<>;
 	public  function filterUsingPredicate( predicate:NSPredicate):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function filterUsingPredicate1( predicate:NSPredicate):Void;

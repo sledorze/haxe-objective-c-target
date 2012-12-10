@@ -15,15 +15,15 @@ extern class NSOperation
 
 	//Methods
 	public  function setMaxConcurrentOperationCount( cnt:Int):Void;
-	public  function executionBlocks():NSArray;
+	public  function executionBlocks():Array<>;
 	public  function addOperation( op:NSOperation):Void;
 	public  function setQueuePriority( p:NSOperationQueuePriority):Void;
 	public  function setSuspended( b:Bool):Void;
-	public  function addOperations( ops:NSArray,  wait:Bool):Void;
+	public  function addOperations( ops:Array<>,  wait:Bool):Void;
 	public  function setName( n:String):Void;
-	public  function operations():NSArray;
+	public  function operations():Array<>;
 	public  function isCancelled():Bool;
-	public  function dependencies():NSArray;
+	public  function dependencies():Array<>;
 	public  function cancelAllOperations():Void;
 	public  function start():Void;
 	public  function initWithInvocation( inv:NSInvocation):Dynamic;

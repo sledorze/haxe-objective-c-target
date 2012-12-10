@@ -23,7 +23,7 @@ extern class NSError extends NSObject, implements NSCopying, implements NSSecure
 	public  function attemptRecoveryFromError( error:NSError,  recoveryOptionIndex:Int,  delegate:Dynamic,  didRecoverSelector:SEL,  contextInfo:Dynamic):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function attemptRecoveryFromError1( error:NSError,  recoveryOptionIndex:Int):Bool;
-	public  function localizedRecoveryOptions():NSArray;
+	public  function localizedRecoveryOptions():Array<>;
 	public  function helpAnchor():String;
 }
 

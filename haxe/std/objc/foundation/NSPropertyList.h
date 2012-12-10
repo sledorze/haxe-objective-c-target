@@ -28,7 +28,7 @@ extern class NSPropertyListSerialization extends NSObject {
 
 /* Verify that a specified property list is valid for a given format. Returns YES if the property list is valid.
  */
-+ (BOOL)propertyList:(id)plist isValidForFormat:(NSPropertyListFormat)format;
++ (Bool)propertyList:(id)plist isValidForFormat:(NSPropertyListFormat)format;
 
 /* Create an NSData from a property list. The format can be either NSPropertyListXMLFormat_v1_0 or NSPropertyListBinaryFormat_v1_0. The options parameter is currently unused and should be set to 0. If an error occurs the return value will be nil and the error parameter (if non-NULL) set to an autoreleased NSError describing the problem.
  */

@@ -5,7 +5,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSEnumerator.h>
 
-@class NSArray, NSDictionary, NSString;
+@class Array<>, NSDictionary, NSString;
 
 /****************	Immutable Set	****************/
 
@@ -19,28 +19,28 @@ extern class NSSet extends NSObject, implements NSCopying, NSMutableCopying, NSS
 
 extern class NSSet (NSExtendedSet)
 
-- (NSArray *)allObjects;
+- (Array<> *)allObjects;
 - (id)anyObject;
-- (BOOL)containsObject:(id)anObject;
+- (Bool)containsObject:(id)anObject;
 - (NSString *)description;
 - (NSString *)descriptionWithLocale:(id)locale;
-- (BOOL)intersectsSet:(NSSet *)otherSet;
-- (BOOL)isEqualToSet:(NSSet *)otherSet;
-- (BOOL)isSubsetOfSet:(NSSet *)otherSet;
+- (Bool)intersectsSet:(NSSet *)otherSet;
+- (Bool)isEqualToSet:(NSSet *)otherSet;
+- (Bool)isSubsetOfSet:(NSSet *)otherSet;
 
 - (void)makeObjectsPerformSelector:(SEL)aSelector;
 - (void)makeObjectsPerformSelector:(SEL)aSelector withObject:(id)argument;
 
 - (NSSet *)setByAddingObject:(id)anObject NS_AVAILABLE(10_5, 2_0);
 - (NSSet *)setByAddingObjectsFromSet:(NSSet *)other NS_AVAILABLE(10_5, 2_0);
-- (NSSet *)setByAddingObjectsFromArray:(NSArray *)other NS_AVAILABLE(10_5, 2_0);
+- (NSSet *)setByAddingObjectsFromArray:(Array<> *)other NS_AVAILABLE(10_5, 2_0);
 
 #if NS_BLOCKS_AVAILABLE
-- (void)enumerateObjectsUsingBlock:(void (^)(id obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
-- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id obj, BOOL *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateObjectsUsingBlock:(void (^)(id obj, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
+- (void)enumerateObjectsWithOptions:(NSEnumerationOptions)opts usingBlock:(void (^)(id obj, Bool *stop))block NS_AVAILABLE(10_6, 4_0);
 
-- (NSSet *)objectsPassingTest:(BOOL (^)(id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
-- (NSSet *)objectsWithOptions:(NSEnumerationOptions)opts passingTest:(BOOL (^)(id obj, BOOL *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSSet *)objectsPassingTest:(Bool (^)(id obj, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
+- (NSSet *)objectsWithOptions:(NSEnumerationOptions)opts passingTest:(Bool (^)(id obj, Bool *stop))predicate NS_AVAILABLE(10_6, 4_0);
 #endif
 
 }
@@ -52,13 +52,13 @@ extern class NSSet (NSSetCreation)
 + (id)setWithObjects:(const id [])objects count:(NSUInteger)cnt;
 + (id)setWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
 + (id)setWithSet:(NSSet *)set;
-+ (id)setWithArray:(NSArray *)array;
++ (id)setWithArray:(Array<> *)array;
 
 - (id)initWithObjects:(const id [])objects count:(NSUInteger)cnt;
 - (id)initWithObjects:(id)firstObj, ... NS_REQUIRES_NIL_TERMINATION;
 - (id)initWithSet:(NSSet *)set;
-- (id)initWithSet:(NSSet *)set copyItems:(BOOL)flag;
-- (id)initWithArray:(NSArray *)array;
+- (id)initWithSet:(NSSet *)set copyItems:(Bool)flag;
+- (id)initWithArray:(Array<> *)array;
 
 }
 
@@ -73,7 +73,7 @@ extern class NSMutableSet : NSSet
 
 extern class NSMutableSet (NSExtendedMutableSet)
 
-- (void)addObjectsFromArray:(NSArray *)array;
+- (void)addObjectsFromArray:(Array<> *)array;
 - (void)intersectSet:(NSSet *)otherSet;
 - (void)minusSet:(NSSet *)otherSet;
 - (void)removeAllObjects;
@@ -100,7 +100,7 @@ extern class NSCountedSet : NSMutableSet {
 
 - (id)initWithCapacity:(NSUInteger)numItems; // designated initializer
 
-- (id)initWithArray:(NSArray *)array;
+- (id)initWithArray:(Array<> *)array;
 - (id)initWithSet:(NSSet *)set;
 
 - (NSUInteger)countForObject:(id)object;

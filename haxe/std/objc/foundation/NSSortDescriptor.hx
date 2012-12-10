@@ -19,10 +19,10 @@ extern class NSSortDescriptor, implements NSCoding, implements NSCopying
 	public  function selector():SEL;
 	public  function compareObject( object1:Dynamic,  object2:Dynamic):NSComparisonResult;
 	public  function comparator():NSComparator;
-	public  function sortedArrayUsingDescriptors( sortDescriptors:NSArray):NSArray;
+	public  function sortedArrayUsingDescriptors( sortDescriptors:Array<>):Array<>;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function sortedArrayUsingDescriptors1( sortDescriptors:NSArray):NSArray;
-	public  function sortUsingDescriptors( sortDescriptors:NSArray):Void;
+	public  function sortedArrayUsingDescriptors1( sortDescriptors:Array<>):Array<>;
+	public  function sortUsingDescriptors( sortDescriptors:Array<>):Void;
 	public  function initWithKey( key:String,  ascending:Bool):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function initWithKey1( key:String,  ascending:Bool,  selector:SEL):Dynamic;

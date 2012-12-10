@@ -35,15 +35,15 @@ extern class NSException extends NSObject, implements NSCopying, implements NSCo
 	public function reason () :String;
 	public function userInfo () :NSDictionary;
 
-	public function callStackReturnAddresses () :NSArray;
-	public function callStackSymbols () :NSArray;
+	public function callStackReturnAddresses () :Array<>;
+	public function callStackSymbols () :Array<>;
 
 	public function raise () :Void;
 
 //NSExceptionRaisingConveniences
 
 	public static function raise(name:String, format:String) :Void;
-	//public static function raise(name:String, format:String, arguments:NSArray) :Void;
+	//public static function raise(name:String, format:String, arguments:Array<>) :Void;
 
 }
 

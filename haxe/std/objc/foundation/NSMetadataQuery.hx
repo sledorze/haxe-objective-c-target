@@ -15,9 +15,9 @@ extern class NSMetadataQuery
 	public  function resultCount():Int;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function resultCount1():Int;
-	public  function results():NSArray;
+	public  function results():Array<>;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function results1():NSArray;
+	public  function results1():Array<>;
 	public  function isGathering():Bool;
 	public  function valueForAttribute( key:String):Dynamic;
 	public  function setNotificationBatchingInterval( ti:NSTimeInterval):Void;
@@ -29,21 +29,21 @@ extern class NSMetadataQuery
 	public  function isStarted():Bool;
 	public  function count():Int;
 	public  function disableUpdates():Void;
-	public  function setSearchScopes( scopes:NSArray):Void;
-	public  function setGroupingAttributes( attrs:NSArray):Void;
+	public  function setSearchScopes( scopes:Array<>):Void;
+	public  function setGroupingAttributes( attrs:Array<>):Void;
 	public  function notificationBatchingInterval():NSTimeInterval;
-	public  function groupedResults():NSArray;
+	public  function groupedResults():Array<>;
 	public  function attribute():String;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function attribute1():String;
 	public  function predicate():NSPredicate;
-	public  function groupingAttributes():NSArray;
+	public  function groupingAttributes():Array<>;
 	public  function indexOfResult( result:Dynamic):Int;
-	public  function setSortDescriptors( descriptors:NSArray):Void;
-	public  function sortDescriptors():NSArray;
+	public  function setSortDescriptors( descriptors:Array<>):Void;
+	public  function sortDescriptors():Array<>;
 	public  function stopQuery():Void;
-	public  function searchScopes():NSArray;
-	public  function setValueListAttributes( attrs:NSArray):Void;
+	public  function searchScopes():Array<>;
+	public  function setValueListAttributes( attrs:Array<>):Void;
 	public  function enableUpdates():Void;
 	public  function startQuery():Bool;
 	public  function resultAtIndex( idx:Int):Dynamic;
@@ -52,13 +52,13 @@ extern class NSMetadataQuery
 	public  function metadataQuery( query:NSMetadataQuery,  result:NSMetadataItem):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function metadataQuery1( query:NSMetadataQuery,  attrName:String,  attrValue:Dynamic):Dynamic;
-	public  function attributes():NSArray;
+	public  function attributes():Array<>;
 	public  function isStopped():Bool;
-	public  function valueListAttributes():NSArray;
-	public  function valuesForAttributes( keys:NSArray):NSDictionary;
+	public  function valueListAttributes():Array<>;
+	public  function valuesForAttributes( keys:Array<>):NSDictionary;
 	public  function init():Dynamic;
 	public  function valueLists():NSDictionary;
 	public  function valueOfAttribute( attrName:String,  idx:Int):Dynamic;
-	public  function subgroups():NSArray;
+	public  function subgroups():Array<>;
 }
 

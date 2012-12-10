@@ -15,12 +15,12 @@ enum {	/* Constants returned by -operatingSystem */
 	NSOSF1OperatingSystem
 };
 
-@class NSArray, NSString, NSDictionary;
+@class Array<>, NSString, NSDictionary;
 
 extern class NSProcessInfo : NSObject {
     @private	
     NSDictionary	*environment;
-    NSArray		*arguments;
+    Array<>		*arguments;
     NSString		*hostName;    
     NSString		*name;
     NSInteger		automaticTerminationOptOutCounter;
@@ -30,7 +30,7 @@ extern class NSProcessInfo : NSObject {
 
 - (NSDictionary *)environment;
 
-- (NSArray *)arguments;
+- (Array<> *)arguments;
 
 - (NSString *)hostName;
 
@@ -76,8 +76,8 @@ extern class NSProcessInfo : NSObject {
  * although the counter tracking automatic termination opt-outs is still kept up to date to ensure correctness if this is called later. Currently, passing NO has no effect.
  * This should be called during -applicationDidFinishLaunching or earlier.
  */
-- (void) setAutomaticTerminationSupportEnabled:(BOOL)flag NS_AVAILABLE(10_7, NA);
-- (BOOL) automaticTerminationSupportEnabled NS_AVAILABLE(10_7, NA);
+- (void) setAutomaticTerminationSupportEnabled:(Bool)flag NS_AVAILABLE(10_7, NA);
+- (Bool) automaticTerminationSupportEnabled NS_AVAILABLE(10_7, NA);
 
 }
 

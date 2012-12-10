@@ -2,7 +2,7 @@ package objc.foundation;
 
 typedef NSObjCRuntime = objc.foundation.NSObjCRuntime;
 
-typedef NSArray = objc.foundation.NSArray;
+typedef Array<> = objc.foundation.Array<>;
 typedef NSAutoreleasePool = objc.foundation.NSAutoreleasePool;
 typedef NSBundle = objc.foundation.NSBundle;
 typedef NSByteOrder = objc.foundation.NSByteOrder;

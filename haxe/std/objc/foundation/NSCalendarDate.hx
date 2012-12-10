@@ -4,7 +4,7 @@
 
 #import <Foundation/NSDate.h>
 
-@class NSString, NSArray, NSTimeZone;
+@class NSString, Array<>, NSTimeZone;
 
 extern class NSCalendarDate : NSDate {
 @private

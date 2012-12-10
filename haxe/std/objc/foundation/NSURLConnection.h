@@ -7,7 +7,7 @@
 
 #import <Foundation/NSObject.h>
 
-@class NSArray;
+@class Array<>;
 @class NSURL;
 @class NSCachedURLResponse;
 @class NSData;
@@ -110,7 +110,7 @@ extern class NSURLConnection extends NSObject
 }
 
 /* Designated initializer */
-- (id)initWithRequest:(NSURLRequest *)request delegate:(id)delegate startImmediately:(BOOL)startImmediately NS_AVAILABLE(10_5, 2_0);
+- (id)initWithRequest:(NSURLRequest *)request delegate:(id)delegate startImmediately:(Bool)startImmediately NS_AVAILABLE(10_5, 2_0);
 
 - (id)initWithRequest:(NSURLRequest *)request delegate:(id)delegate;
 + (NSURLConnection*)connectionWithRequest:(NSURLRequest *)request delegate:(id)delegate;
@@ -155,7 +155,7 @@ extern class NSURLConnection extends NSObject
 
         NO            
 */
-+ (BOOL)canHandleRequest:(NSURLRequest *)request;
++ (Bool)canHandleRequest:(NSURLRequest *)request;
 
 }
 
@@ -204,11 +204,11 @@ extern class NSURLConnection extends NSObject
 @protocol NSURLConnectionDelegate <NSObject>
 @optional
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
-- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection;
+- (Bool)connectionShouldUseCredentialStorage:(NSURLConnection *)connection;
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 
 // Deprecated authentication delegates.
-- (BOOL)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
+- (Bool)connection:(NSURLConnection *)connection canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace;
 - (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 - (void)connection:(NSURLConnection *)connection didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge;
 }

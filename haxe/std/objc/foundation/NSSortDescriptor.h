@@ -4,7 +4,7 @@
 	Copyright (c) 2002-2012, Apple Inc. All rights reserved.
 */
 
-#import <Foundation/NSArray.h>
+#import <Foundation/Array<>.h>
 #import <Foundation/NSSet.h>
 
 
@@ -16,21 +16,21 @@ extern class NSSortDescriptor extends NSObject, implements NSObject, NSCopying> 
     id _selectorOrBlock;
 }
 
-+ (id)sortDescriptorWithKey:(NSString *)key ascending:(BOOL)ascending NS_AVAILABLE(10_6, 4_0);
-+ (id)sortDescriptorWithKey:(NSString *)key ascending:(BOOL)ascending selector:(SEL)selector NS_AVAILABLE(10_6, 4_0);
++ (id)sortDescriptorWithKey:(NSString *)key ascending:(Bool)ascending NS_AVAILABLE(10_6, 4_0);
++ (id)sortDescriptorWithKey:(NSString *)key ascending:(Bool)ascending selector:(SEL)selector NS_AVAILABLE(10_6, 4_0);
 
 // keys may be key paths
-- (id)initWithKey:(NSString *)key ascending:(BOOL)ascending;
-- (id)initWithKey:(NSString *)key ascending:(BOOL)ascending selector:(SEL)selector;
+- (id)initWithKey:(NSString *)key ascending:(Bool)ascending;
+- (id)initWithKey:(NSString *)key ascending:(Bool)ascending selector:(SEL)selector;
 
 - (NSString *)key;
-- (BOOL)ascending;
+- (Bool)ascending;
 - (SEL)selector;
 
 #if NS_BLOCKS_AVAILABLE
-+ (id)sortDescriptorWithKey:(NSString *)key ascending:(BOOL)ascending comparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
++ (id)sortDescriptorWithKey:(NSString *)key ascending:(Bool)ascending comparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
 
-- (id)initWithKey:(NSString *)key ascending:(BOOL)ascending comparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
+- (id)initWithKey:(NSString *)key ascending:(Bool)ascending comparator:(NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);
 - (NSComparator)comparator NS_AVAILABLE(10_6, 4_0);
 #endif
 
@@ -41,19 +41,19 @@ extern class NSSortDescriptor extends NSObject, implements NSObject, NSCopying> 
 
 extern class NSSet (NSSortDescriptorSorting)
 
-- (NSArray *)sortedArrayUsingDescriptors:(NSArray *)sortDescriptors NS_AVAILABLE(10_6, 4_0);    // returns a new array by sorting the objects of the receiver
+- (Array<> *)sortedArrayUsingDescriptors:(Array<> *)sortDescriptors NS_AVAILABLE(10_6, 4_0);    // returns a new array by sorting the objects of the receiver
 
 }
 
-extern class NSArray (NSSortDescriptorSorting)
+extern class Array<> (NSSortDescriptorSorting)
 
-- (NSArray *)sortedArrayUsingDescriptors:(NSArray *)sortDescriptors;    // returns a new array by sorting the objects of the receiver
+- (Array<> *)sortedArrayUsingDescriptors:(Array<> *)sortDescriptors;    // returns a new array by sorting the objects of the receiver
 
 }
 
 extern class NSMutableArray (NSSortDescriptorSorting)
 
-- (void)sortUsingDescriptors:(NSArray *)sortDescriptors;    // sorts the array itself
+- (void)sortUsingDescriptors:(Array<> *)sortDescriptors;    // sorts the array itself
 
 }
 

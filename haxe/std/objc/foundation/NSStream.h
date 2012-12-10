@@ -38,7 +38,7 @@ extern class NSStream extends NSObject
     // By default, a stream is its own delegate, and subclassers of NSInputStream and NSOutputStream must maintain this contract. [someStream setDelegate:nil] must restore this behavior. As usual, delegates are not retained.
 
 - (id)propertyForKey:(NSString *)key;
-- (BOOL)setProperty:(id)property forKey:(NSString *)key;
+- (Bool)setProperty:(id)property forKey:(NSString *)key;
 
 - (void)scheduleInRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
 - (void)removeFromRunLoop:(NSRunLoop *)aRunLoop forMode:(NSString *)mode;
@@ -53,10 +53,10 @@ extern class NSInputStream : NSStream
 - (NSInteger)read:(uint8_t *)buffer maxLength:(NSUInteger)len;
     // reads up to length bytes into the supplied buffer, which must be at least of size len. Returns the actual number of bytes read.
 
-- (BOOL)getBuffer:(uint8_t **)buffer length:(NSUInteger *)len;
+- (Bool)getBuffer:(uint8_t **)buffer length:(NSUInteger *)len;
     // returns in O(1) a pointer to the buffer in 'buffer' and by reference in 'len' how many bytes are available. This buffer is only valid until the next stream operation. Subclassers may return NO for this if it is not appropriate for the stream type. This may return NO if the buffer is not available.
 
-- (BOOL)hasBytesAvailable;
+- (Bool)hasBytesAvailable;
     // returns YES if the stream has bytes available or if it impossible to tell without actually doing the read.
 }
 
@@ -66,7 +66,7 @@ extern class NSOutputStream : NSStream
 - (NSInteger)write:(const uint8_t *)buffer maxLength:(NSUInteger)len;
     // writes the bytes from the specified buffer to the stream up to len bytes. Returns the number of bytes actually written.
 
-- (BOOL)hasSpaceAvailable;
+- (Bool)hasSpaceAvailable;
     // returns YES if the stream can be written to or if it is impossible to tell without actually doing the write.
 }
 
@@ -91,13 +91,13 @@ extern class NSInputStream (NSInputStreamExtensions)
 extern class NSOutputStream (NSOutputStreamExtensions)
 - (id)initToMemory;
 - (id)initToBuffer:(uint8_t *)buffer capacity:(NSUInteger)capacity;
-- (id)initToFileAtPath:(NSString *)path append:(BOOL)shouldAppend;
-- (id)initWithURL:(NSURL *)url append:(BOOL)shouldAppend NS_AVAILABLE(10_6, 4_0);
+- (id)initToFileAtPath:(NSString *)path append:(Bool)shouldAppend;
+- (id)initWithURL:(NSURL *)url append:(Bool)shouldAppend NS_AVAILABLE(10_6, 4_0);
 
 + (id)outputStreamToMemory;
 + (id)outputStreamToBuffer:(uint8_t *)buffer capacity:(NSUInteger)capacity;
-+ (id)outputStreamToFileAtPath:(NSString *)path append:(BOOL)shouldAppend;
-+ (id)outputStreamWithURL:(NSURL *)url append:(BOOL)shouldAppend NS_AVAILABLE(10_6, 4_0);
++ (id)outputStreamToFileAtPath:(NSString *)path append:(Bool)shouldAppend;
++ (id)outputStreamWithURL:(NSURL *)url append:(Bool)shouldAppend NS_AVAILABLE(10_6, 4_0);
 }
 
 @protocol NSStreamDelegate <NSObject>

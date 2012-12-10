@@ -58,7 +58,7 @@ extern class NSCalendar extends NSObject, implements NSCopying, NSSecureCoding>
 - (NSRange)rangeOfUnit:(NSCalendarUnit)smaller inUnit:(NSCalendarUnit)larger forDate:(NSDate *)date;
 - (NSUInteger)ordinalityOfUnit:(NSCalendarUnit)smaller inUnit:(NSCalendarUnit)larger forDate:(NSDate *)date;
 
-- (BOOL)rangeOfUnit:(NSCalendarUnit)unit startDate:(NSDate **)datep interval:(NSTimeInterval *)tip forDate:(NSDate *)date NS_AVAILABLE(10_5, 2_0);
+- (Bool)rangeOfUnit:(NSCalendarUnit)unit startDate:(NSDate **)datep interval:(NSTimeInterval *)tip forDate:(NSDate *)date NS_AVAILABLE(10_5, 2_0);
 
 - (NSDate *)dateFromComponents:(NSDateComponents *)comps;
 - (NSDateComponents *)components:(NSUInteger)unitFlags fromDate:(NSDate *)date;
@@ -113,7 +113,7 @@ extern class NSDateComponents extends NSObject, implements NSCopying, NSSecureCo
 - (NSInteger)weekOfMonth NS_AVAILABLE(10_7, 5_0);
 - (NSInteger)weekOfYear NS_AVAILABLE(10_7, 5_0);
 - (NSInteger)yearForWeekOfYear NS_AVAILABLE(10_7, 5_0);
-- (BOOL)isLeapMonth NS_AVAILABLE(10_8, 6_0);
+- (Bool)isLeapMonth NS_AVAILABLE(10_8, 6_0);
 
 - (void)setCalendar:(NSCalendar *)cal NS_AVAILABLE(10_7, 4_0);
 - (void)setTimeZone:(NSTimeZone *)tz NS_AVAILABLE(10_7, 4_0);
@@ -131,7 +131,7 @@ extern class NSDateComponents extends NSObject, implements NSCopying, NSSecureCo
 - (void)setWeekOfMonth:(NSInteger)w NS_AVAILABLE(10_7, 5_0);
 - (void)setWeekOfYear:(NSInteger)w NS_AVAILABLE(10_7, 5_0);
 - (void)setYearForWeekOfYear:(NSInteger)y NS_AVAILABLE(10_7, 5_0);
-- (void)setLeapMonth:(BOOL)lm NS_AVAILABLE(10_8, 6_0);
+- (void)setLeapMonth:(Bool)lm NS_AVAILABLE(10_8, 6_0);
 
 - (NSDate *)date NS_AVAILABLE(10_7, 4_0);
 
