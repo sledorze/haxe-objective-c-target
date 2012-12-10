@@ -90,8 +90,8 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function longLongValue () :Float;
 	public function boolValue () :Bool;
 	
-	public function componentsSeparatedByString (separator:NSString) :Array<>;
-	public function componentsSeparatedByCharactersInSet (separator:NSCharacterSet) :Array<>;
+	public function componentsSeparatedByString (separator:NSString) :Array<String>;
+	public function componentsSeparatedByCharactersInSet (separator:NSCharacterSet) :Array<String>;
 	public function commonPrefixWithString (aString:NSString, options:NSStringCompareOptions) :NSString;
 	public function uppercaseString () :String;
 	public function lowercaseString () :String;

@@ -7,8 +7,8 @@ extern class NSTimeZone extends NSObject, implements NSCopying, implements NSSec
 	//Constants
 
 	//Static Methods
-	public  function defaultTimeZone():NSTimeZone;
-	public  function knownTimeZoneNames():Array<>;
+	public  function defaultTimeZone() :NSTimeZone;
+	public  function knownTimeZoneNames() :Array<NSTimeZone>;
 	public  function timeZoneDataVersion():String;
 	public  function localTimeZone():NSTimeZone;
 	public  function resetSystemTimeZone():Void;

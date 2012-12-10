@@ -18,7 +18,7 @@ extern class NSSet extends NSObject, implements NSCopying, implements NSMutableC
 	public  function setWithObjects( objects:Dynamic,  cnt:Int):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function setWithObjects1( firstObj:Dynamic):Dynamic;
-	public  function setWithArray( array:Array<>):Dynamic;
+	public  function setWithArray (array:Array<Dynamic>) :Dynamic;
 
 	//Properties
 
@@ -32,14 +32,14 @@ extern class NSSet extends NSObject, implements NSCopying, implements NSMutableC
 	public  function objectEnumerator():NSEnumerator;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function objectEnumerator1():NSEnumerator;
-	public  function setByAddingObjectsFromArray( other:Array<>):NSSet;
+	public  function setByAddingObjectsFromArray( other:Array<Dynamic>) :NSSet;
 	public  function intersectSet( otherSet:NSSet):Void;
-	public  function addObjectsFromArray( array:Array<>):Void;
+	public  function addObjectsFromArray( array:Array<Dynamic>) :Void;
 	public  function count():Int;
 	public  function anyObject():Dynamic;
 	public  function enumerateObjectsUsingBlock( block:Dynamic):Void;
 	public  function setByAddingObjectsFromSet( other:NSSet):NSSet;
-	public  function initWithObjects( objects:Dynamic,  cnt:Int):Dynamic;
+	public  function initWithObjects( objects:Dynamic, cnt:Int):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function initWithObjects1( firstObj:Dynamic):Dynamic;
 	public  function objectsWithOptions( opts:NSEnumerationOptions,  predicate:Dynamic):NSSet;
@@ -57,9 +57,9 @@ extern class NSSet extends NSObject, implements NSCopying, implements NSMutableC
 	public  function enumerateObjectsWithOptions( opts:NSEnumerationOptions,  block:Dynamic):Void;
 	public  function isEqualToSet( otherSet:NSSet):Bool;
 	public  function isSubsetOfSet( otherSet:NSSet):Bool;
-	public  function initWithArray( array:Array<>):Dynamic;
+	public  function initWithArray( array:Array<Dynamic>):Dynamic;
 	//@:overload !!NEED CUSTOM META DATA !!
-	public  function initWithArray1( array:Array<>):Dynamic;
+	public  function initWithArray1( array:Array<Dynamic>):Dynamic;
 	public  function removeObject( object:Dynamic):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function removeObject1( object:Dynamic):Void;
@@ -70,7 +70,7 @@ extern class NSSet extends NSObject, implements NSCopying, implements NSMutableC
 	public  function addObject1( object:Dynamic):Void;
 	public  function setSet( otherSet:NSSet):Void;
 	public  function containsObject( anObject:Dynamic):Bool;
-	public  function allObjects():Array<>;
+	public  function allObjects():Array<Dynamic>;
 	public  function objectsPassingTest( predicate:Dynamic):NSSet;
 	public  function descriptionWithLocale( locale:Dynamic):String;
 }

@@ -1,17 +1,10 @@
 package objc.foundation;
 import objc.foundation.NSObject;
 
-extern class NSError extends NSObject, implements NSCopying, implements NSSecureCoding
-{
+extern class NSError extends NSObject, implements NSCopying, implements NSSecureCoding {
 
-	//Constants
-
-	//Static Methods
 	public static function errorWithDomain( domain:String,  code:Int,  dict:NSDictionary):Dynamic;
-
-	//Properties
-
-	//Methods
+	
 	public  function recoveryAttempter():Dynamic;
 	public  function localizedFailureReason():String;
 	public  function initWithDomain( domain:String,  code:Int,  dict:NSDictionary):Dynamic;
@@ -23,7 +16,7 @@ extern class NSError extends NSObject, implements NSCopying, implements NSSecure
 	public  function attemptRecoveryFromError( error:NSError,  recoveryOptionIndex:Int,  delegate:Dynamic,  didRecoverSelector:SEL,  contextInfo:Dynamic):Void;
 	//@:overload !!NEED CUSTOM META DATA !!
 	public  function attemptRecoveryFromError1( error:NSError,  recoveryOptionIndex:Int):Bool;
-	public  function localizedRecoveryOptions():Array<>;
+	public  function localizedRecoveryOptions () :Array<String>;
 	public  function helpAnchor():String;
 }
 

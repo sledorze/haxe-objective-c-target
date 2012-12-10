@@ -21,7 +21,7 @@ extern class NSDictionary extends NSObject, implements NSCopying, implements NSM
 	//public  function descriptionWithLocale1 (locale:Dynamic, indent:Int) :String;
 	public function isEqualToDictionary (otherDictionary:NSDictionary) :Bool;
 	public function objectEnumerator () :NSEnumerator;
-	public function objectsForKeys (keys:Array<String>, notFoundMarker:Dynamic):Array<>;
+	public function objectsForKeys (keys:Array<String>, notFoundMarker:Dynamic) :Array<Dynamic>;
 	public function writeToFile (path:String, atomically:Bool) :Bool;
 	public function writeToURL (url:NSURL, atomically:Bool) :Bool;
 	

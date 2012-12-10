@@ -1,6 +1,6 @@
 // This class is used to test the various features of Haxe and study the generated code
 
-import objc.ios.Lib;
+import objc.Lib;
 
 @:orientation("UIInterfaceOrientationPortrait")
 @:orientation("UIInterfaceOrientationLandscapeLeft")
@@ -10,6 +10,11 @@ import objc.ios.Lib;
 @:version("1.0")
 
 
+enum TestsEnum {
+	EnumValue1;
+	EnumValue2;
+	EnumValue3;
+}
 class Tests implements Interface1, implements Interface2 {
 	
 	public var interfaceVar1 :Int;// Generate a @property (nonatomic) int float1; + a @synthesize float1
@@ -53,7 +58,7 @@ class Tests implements Interface1, implements Interface2 {
 		
 		var x = new Tests().add (1, 1);// [[[Tests alloc] new] add:1 b:1]
 		
-		Lib.isIpad();
+		Lib.print("print print and print again");
 	}
 	
 	// For statements
@@ -70,10 +75,14 @@ class Tests implements Interface1, implements Interface2 {
 	function testWhile(){
 		var aa = 5;
 		do {
-			trace("something");
+			trace("do something");
 			aa ++;
 		}
 		while (aa < 10);
+		
+		while (aa > 0) {
+			aa--;
+		}
 	}
 	
 	// Try catch
@@ -86,8 +95,8 @@ class Tests implements Interface1, implements Interface2 {
 			trace("error");
 		}
 		/*finally {
-					trace("finally");
-				}*/
+			trace("finally");
+		}*/
 	}
 	
 	// Switch statement
@@ -107,7 +116,24 @@ class Tests implements Interface1, implements Interface2 {
 		var aa = [1.0, 2, 3, 4, 5];
 		var aaa = aa[2];
 		aa[3];
+		
+		var concatArray = as.concat ( ["5","6","7"]);
+		concatArray = as.copy();
+		concatArray.insert (2, "2");
+		var iter = as.iterator();
+		var s = concatArray.join(", ");
+		var item = as.pop();
+		as.push ("454");
+		var bool = as.remove ("5");
+		as.reverse();
+		item = as.shift();
+		var sliceArray = as.slice (1, 3);
+		as.sort ( function(a:String, b:String):Int { return 0; } );
+		sliceArray = as.splice (2, 2);
+		s = as.toString();
+		as.unshift ("44");
 	}
+	
 	
 	// Date
 	
@@ -124,7 +150,14 @@ class Tests implements Interface1, implements Interface2 {
 	// Test Enum
 	
 	function testEnum(){
-		
+		var v1 :TestsEnum = EnumValue1;
+		var v2 :TestsEnum = EnumValue2;
+		var v3 :TestsEnum = EnumValue3;
+		switch (v1) {
+			case EnumValue1 : null;
+			case EnumValue2 : null;
+			case EnumValue3 : null;
+		}
 	}
 	
 	
@@ -172,12 +205,26 @@ class Tests implements Interface1, implements Interface2 {
 	
 	function testList(){
 		var l = new List<Int>();
-		l.add(8);
-		l.push(8);
+		l.add(2);
+		l.push(18);
+		var l2 = l.filter( function(i:Int):Bool{ return i>5; } );
+		var item = l.first();
+		var empty = l.isEmpty();
+		var iter = l.iterator();
+		var s = l.join(", ");
+		s = l.toString();
+		item = l.last();
+		item = l.pop();
+		var r = l.remove ( 5 );
+		trace(l.length);
+		l.clear();
+		trace(l.length);
+		
+		var newList = l.map ( function(i:Int):String { return Std.string(i); } );
+		
 		var fl = new haxe.FastList<Int>();
 		fl.add(8);
 	}
-	
 	
 	
 	// Test Math
@@ -243,7 +290,12 @@ class Tests implements Interface1, implements Interface2 {
 	// Test Std
 	
 	function testStd () {
-	
+		var int = Std.int (3.5);
+		var BOOL = Std.is (d1, Float);
+		var float = Std.parseFloat("55454.65");
+		int = Std.parseInt("435345.23");
+		int = Std.random(543);
+		var string = Std.string(int);
 	}
 	
 	
@@ -310,9 +362,9 @@ class Tests implements Interface1, implements Interface2 {
 	// Test Type
 	
 	function testType () {
-		var sup = Type.getSuperClass ( objc.ios.map.MKMapView );
-		var sups = Type.getClassName ( objc.ios.map.MKMapView );
-		var cl = Type.resolveClass ( "objc.ios.map.MKMapView" );
+		var sup = Type.getSuperClass ( objc.foundation.NSString );
+		var sups = Type.getClassName ( objc.foundation.NSString );
+		var cl = Type.resolveClass ( "ios.map.MKMapView" );
 	}
 	
 	
@@ -345,7 +397,7 @@ class Tests implements Interface1, implements Interface2 {
 	
 	function testFrameworksImport(){
 		// When using native classes do not call 'new' method but call 'init': [[MKMapView alloc] init]
-		var m = new objc.ios.map.MKMapView();
+		//var m = new ios.map.MKMapView();
 	}
 	
 	// Getter setter

@@ -6,7 +6,7 @@
 //
 
 
-#import <MapKit/MapKit.h>
+#import <Foundation/Foundation.h>
 
 #import "Array.h"
 #import "Tests.h"
@@ -14,9 +14,11 @@
 #import "Log.h"
 #import "Date.h"
 #import "DateTools.h"
+#import "TestsEnum.h"
 #import "Hash.h"
 #import "IntHash.h"
 #import "List.h"
+#import "Std.h"
 #import "FastList.h"
 #import "FastCell.h"
 #import "Reflect.h"
