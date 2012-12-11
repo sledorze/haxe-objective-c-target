@@ -1,17 +1,17 @@
-package objc.message;
+package objc.store;
 
 import objc.foundation.NSObject;
-//#import <StoreKit/StoreKitDefines.h>
+import objc.foundation.NSLocale;
 
 extern class SKProduct extends NSObject {
 
 	public var localizedDescription :String;
 	public var localizedTitle :String;
-	public var price :NSDecimalNumber;
-	public var priceLocale :NSLocale
+	public var price :Float;
+	public var priceLocale :NSLocale;
 	public var productIdentifier :String;
 	public var downloadable :Bool;
-	public var downloadContentLengths :NSArray;
+	public var downloadContentLengths :Array<Int>;
 	public var downloadContentVersion :String;
 
 }

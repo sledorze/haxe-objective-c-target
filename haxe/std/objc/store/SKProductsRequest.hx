@@ -1,47 +1,28 @@
-//
-//  SKProductsRequest.h
-//  StoreKit
-//
-//  Copyright 2009 Apple, Inc. All rights reserved.
-//
+package objc.store;
+import objc.store.SKRequest;
 
-#import <StoreKit/SKRequest.h>
+interface SKProductsRequestDelegate extends SKRequestDelegate {
 
-@class SKProductsRequest, SKProductsResponse;
-
-
-@protocol SKProductsRequestDelegate <SKRequestDelegate>
-
-@required
+//@required
 // Sent immediately before -requestDidFinish:
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function productsRequest (request:SKProductsRequest, didReceiveResponse:SKProductsResponse) :Void;
 
 }
 
 
 // request information about products for your application
-SK_EXTERN_CLASS_AVAILABLE(3_0)extern class SKProductsRequest : SKRequest {
-@private
-    id _productsRequestInternal;
-}
+extern class SKProductsRequest extends SKRequest {
 
-// Set of string product identifiers
-- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	// Set of string product identifiers
+	public function initWithProductIdentifiers (productIdentifiers:NSSet) :SKProductsRequest;
 
-	public var  id <SKProductsRequestDelegate> delegate __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var delegate :SKProductsRequestDelegate;
 
 }
 
+extern class SKProductsResponse extends NSObject {
 
-SK_EXTERN_CLASS_AVAILABLE(3_0)extern class SKProductsResponse extends NSObject {
-@private
-    id _internal;
-}
-
-// Array of SKProduct instances.
-	public var (default, null) NSArray *products __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
-
-// Array of invalid product identifiers.
-	public var (default, null) NSArray *invalidProductIdentifiers __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var products (default, null) :Array<SKProduct>;
+	public var invalidProductIdentifiers (default, null) :Array<String>;
 
 }

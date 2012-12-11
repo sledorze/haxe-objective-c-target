@@ -42,7 +42,7 @@ class Lib {
 	}
 	
 	public static function getURL (url :String, ?target : String) : Bool {
-		return untyped __objc__ ("[AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:[NSURL urlFromString:url]]");
+		return untyped __objc__ ("[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]]");
 	}
 	
 	public static function location () :CLLocation {

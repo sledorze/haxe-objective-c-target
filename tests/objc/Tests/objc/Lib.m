@@ -7,7 +7,6 @@
 
 #import "Lib.h"
 #import "AppDelegate.h"
-#import <UIKit/UIKit.h>
 
 @implementation Lib
 
@@ -21,7 +20,7 @@
 	printf ( "\n" );
 }
 + (BOOL) getURL:(NSMutableString*)url target:(NSMutableString*)target{
-	return true;//[AppDelegate applicationHandleOpenURL:UIApplication handleOpenURL:[NSURL urlFromString:url]];
+	return [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 + (CLLocation*) location{
 	return nil;

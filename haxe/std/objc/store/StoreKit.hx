@@ -9,4 +9,3 @@ typedef SKProduct = objc.store.SKProduct;
 typedef SKProductsRequest = objc.store.SKProductsRequest;
 typedef SKRequest = objc.store.SKRequest;
 typedef SKStoreProductViewController = objc.store.SKStoreProductViewController;
-typedef StoreKitDefines = objc.store.StoreKitDefines;

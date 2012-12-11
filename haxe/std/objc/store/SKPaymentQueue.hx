@@ -1,72 +1,56 @@
-//
-//  SKPaymentQueue.h
-//  StoreKit
-//
-//  Copyright 2009-2010 Apple, Inc. All rights reserved.
-//
+package objc.store;
+import objc.foundation.NSObject;
 
-#import <Foundation/Foundation.h>
-#import <StoreKit/StoreKitDefines.h>
+extern class SKPaymentQueue extends NSObject {
 
-@class SKPayment, SKPaymentTransaction;
-@protocol SKPaymentTransactionObserver;
-
-// SKPaymentQueue interacts with the server-side payment queue
-SK_EXTERN_CLASS_AVAILABLE(3_0)extern class SKPaymentQueue extends NSObject {
-@private
-    id _internal;
-}
-
-+ (SKPaymentQueue *)defaultQueue __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
-
-// NO if this device is not able or allowed to make payments
-+ (BOOL)canMakePayments __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public static function defaultQueue () :SKPaymentQueue;
+	public static function canMakePayments () :Bool;
 
 // Asynchronous.  Add a payment to the server queue.  The payment is copied to add an SKPaymentTransaction to the transactions array.  The same payment can be added multiple times to create multiple transactions.
-- (void)addPayment:(SKPayment *)payment __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function addPayment (payment:SKPayment) :Void;
 
 // Asynchronous.  Will add completed transactions for the current user back to the queue to be re-completed.  User will be asked to authenticate.  Observers will receive 0 or more -paymentQueue:updatedTransactions:, followed by either -paymentQueueRestoreCompletedTransactionsFinished: on success or -paymentQueue:restoreCompletedTransactionsFailedWithError: on failure.  In the case of partial success, some transactions may still be delivered.
-- (void)restoreCompletedTransactions  __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function restoreCompletedTransactions () :Void;
 
 // Asynchronous.  Remove a finished (i.e. failed or completed) transaction from the queue.  Attempting to finish a purchasing transaction will throw an exception.
-- (void)finishTransaction:(SKPaymentTransaction *)transaction __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function finishTransaction (transaction:SKPaymentTransaction) :Void;
 
 // Asynchronous.  Start the given downloads (SKDownload).
-- (void)startDownloads:(NSArray *)downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public function startDownloads (downloads:Array<SKDownload>) :Void;
 
 // Asynchronous.  Pause/resume downloads (SKDownload).
-- (void)pauseDownloads:(NSArray *)downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
-- (void)resumeDownloads:(NSArray *)downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public function pauseDownloads (downloads:Array<SKDownload>) :Void;
+	public function resumeDownloads (downloads:Array<SKDownload>) :Void;
 
 // Asynchronous.  Cancel downloads (SKDownload)
-- (void)cancelDownloads:(NSArray *)downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	public function cancelDownloads (downloads:Array<SKDownload>) :Void;
 
 // Observers are not retained.  The transactions array will only be synchronized with the server while the queue has observers.  This may require that the user authenticate.
-- (void)addTransactionObserver:(id <SKPaymentTransactionObserver>)observer __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
-- (void)removeTransactionObserver:(id <SKPaymentTransactionObserver>)observer __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function addTransactionObserver (observer:SKPaymentTransactionObserver) :Void;
+	public function removeTransactionObserver (observer:SKPaymentTransactionObserver) :Void;
 
 // Array of unfinished SKPaymentTransactions.  Only valid while the queue has observers.  Updated asynchronously.
-	public var (default, null) NSArray *transactions __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var transactions (default, null) :Array<SKPaymentTransactions>;
 
 }
 
 
-@protocol SKPaymentTransactionObserver <NSObject>
-@required
+extern interface SKPaymentTransactionObserver {
+//@required
 // Sent when the transaction array has changed (additions or state changes).  Client should check state of transactions and finish as appropriate.
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function paymentQueue (queue:SKPaymentQueue, updatedTransactions:Array<SKPaymentTransactions>) :Void;
 
-@optional
+//@optional
 // Sent when transactions are removed from the queue (via finishTransaction:).
-- (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+//	public function paymentQueue (queue:SKPaymentQueue, removedTransactions:Array<SKPaymentTransactions>) :Void;
 
 // Sent when an error is encountered while adding transactions from the user's purchase history back to the queue.
-- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+//	public function paymentQueue (queue:SKPaymentQueue, restoreCompletedTransactionsFailedWithError:NSError) :Void;
 
 // Sent when all transactions from the user's purchase history have successfully been added back to the queue.
-- (void)paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+//	public function paymentQueueRestoreCompletedTransactionsFinished (queue:SKPaymentQueue) :Void;
 
 // Sent when the download state has changed.
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedDownloads:(NSArray *)downloads __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+//	public function paymentQueue (queue:SKPaymentQueue, updatedDownloads:Array<SKDownload>) :Void;
 
 }
