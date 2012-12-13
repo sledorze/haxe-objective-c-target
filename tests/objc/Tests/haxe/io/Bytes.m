@@ -11,7 +11,7 @@
 
 + (Bytes*) alloc:(int)length{
 	
-	NSMutabeArray *a = [[NSMutabeArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] new];
 	{
 		int _g = 0;
 		while (_g < length) {
@@ -23,7 +23,7 @@
 }
 + (Bytes*) ofString:(NSMutableString*)s{
 	
-	NSMutabeArray *a = [[NSMutabeArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] new];
 	{
 		int _g1 = 0; int _g = slength;
 		while (_g1 < _g) {
@@ -49,7 +49,7 @@
 	}
 	return [[Bytes alloc] new:a.length,a];
 }
-+ (Bytes*) ofData:(NSMutabeArray*)b{
++ (Bytes*) ofData:(NSMutableArray*)b{
 	return [[Bytes alloc] new:b.length,b];
 }
 @synthesize length;
@@ -63,9 +63,9 @@
 - (void) blit:(int)pos src:(Bytes*)src srcpos:(int)srcpos len:(int)len{
 	if (pos < 0 || srcpos < 0 || len < 0 || pos + len > self.length || srcpos + len > src.length) throw Error.OutsideBounds;
 	
-	NSMutabeArray *b1 = self.b;
+	NSMutableArray *b1 = self.b;
 	
-	NSMutabeArray *b2 = src.b;
+	NSMutableArray *b2 = src.b;
 	if (b1 == b2 && pos > srcpos) {
 		int i = len;
 		while (i > 0) {
@@ -88,9 +88,9 @@
 }
 - (int) compare:(Bytes*)other{
 	
-	NSMutabeArray *b1 = self.b;
+	NSMutableArray *b1 = self.b;
 	
-	NSMutabeArray *b2 = other.b;
+	NSMutableArray *b2 = other.b;
 	int len = ( (self.length < other.length) ? self.length : other.length);
 	{
 		int _g = 0;
@@ -106,7 +106,7 @@
 	
 	NSMutableString *s = @"";
 	
-	NSMutabeArray *b = self.b;
+	NSMutableArray *b = self.b;
 	
 	Function *fcc = @selector(fromCharCode);
 	int i = pos;
@@ -137,7 +137,7 @@
 	
 	StringBuf *s = [[StringBuf alloc] new];
 	
-	NSMutabeArray *chars = [[NSMutableArray alloc] initWithObjects:, nil]];
+	NSMutableArray *chars = [[NSMutableArray alloc] initWithObjects:, nil]];
 	
 	NSMutableString *str = @"0123456789abcdef";
 	{
@@ -164,10 +164,10 @@
 	}
 	return s.b;
 }
-- (NSMutabeArray*) getData{
+- (NSMutableArray*) getData{
 	return self.b;
 }
-- (id) new:(int)length b:(NSMutabeArray*)b{
+- (id) new:(int)length b:(NSMutableArray*)b{
 	self = [super init];
 	self.length = length;
 	self.b = b;

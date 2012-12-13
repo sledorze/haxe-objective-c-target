@@ -27,7 +27,7 @@
 		case 8:{
 			{
 				
-				NSMutabeArray *k = [s componentsSeparatedByString:@":"];
+				NSMutableArray *k = [s componentsSeparatedByString:@":"];
 				
 				NSDate *d = [[NSDate alloc] new:0,0,0,[Std parseInt:[k objectAtIndex:0]],[Std parseInt:[k objectAtIndex:1]],[Std parseInt:[k objectAtIndex:2]]];
 				return d;
@@ -35,17 +35,17 @@
 		case 10:{
 			{
 				
-				NSMutabeArray *k = [s componentsSeparatedByString:@"-"];
+				NSMutableArray *k = [s componentsSeparatedByString:@"-"];
 				return [[NSDate alloc] new:[Std parseInt:[k objectAtIndex:0]],[Std parseInt:[k objectAtIndex:1]] - 1,[Std parseInt:[k objectAtIndex:2]],0,0,0];
 			}}break;
 		case 19:{
 			{
 				
-				NSMutabeArray *k = [s componentsSeparatedByString:@" "];
+				NSMutableArray *k = [s componentsSeparatedByString:@" "];
 				
-				NSMutabeArray *y = [[k objectAtIndex:0] componentsSeparatedByString:@"-"];
+				NSMutableArray *y = [[k objectAtIndex:0] componentsSeparatedByString:@"-"];
 				
-				NSMutabeArray *t = [[k objectAtIndex:1] componentsSeparatedByString:@":"];
+				NSMutableArray *t = [[k objectAtIndex:1] componentsSeparatedByString:@":"];
 				return [[NSDate alloc] new:[Std parseInt:[y objectAtIndex:0]],[Std parseInt:[y objectAtIndex:1]] - 1,[Std parseInt:[y objectAtIndex:2]],[Std parseInt:[t objectAtIndex:0]],[Std parseInt:[t objectAtIndex:1]],[Std parseInt:[t objectAtIndex:2]]];
 			}}break;
 		default:{

@@ -10,11 +10,11 @@
 @implementation Array
 
 @synthesize length;
-- (NSMutabeArray*) concat:(NSMutabeArray*)a{
+- (NSMutableArray*) concat:(NSMutableArray*)a{
 	return [self arrayByAddingObjectsFromArray "-dynamic_param-" ];
 }
-- (NSMutabeArray*) copy{
-	return [NSMutabeArray arrayWithArray "-dynamic_param-" ];
+- (NSMutableArray*) copy{
+	return [NSMutableArray arrayWithArray "-dynamic_param-" ];
 }
 - (id) iterator{
 	return struct {
@@ -67,16 +67,16 @@ next:^(id){
 	}
 	return nil;
 }
-- (NSMutabeArray*) slice:(int)pos end:(id)end{
+- (NSMutableArray*) slice:(int)pos end:(id)end{
 	return [self splice:pos len:end - pos];
 }
 - (void) sort:(Function*)f{
 }
-- (NSMutabeArray*) splice:(int)pos len:(int)len{
+- (NSMutableArray*) splice:(int)pos len:(int)len{
 	
-	NSMutabeArray *newArray = [self subarrayWithRange "-dynamic_param-" ];
+	NSMutableArray *newArray = [self subarrayWithRange "-dynamic_param-" ];
 	[self removeObjectsInArray "-dynamic_param-" ];
-	return [NSMutabeArray arrayWithArray "-dynamic_param-" ];
+	return [NSMutableArray arrayWithArray "-dynamic_param-" ];
 }
 - (id) new{
 	self = [super init];

@@ -1,17 +1,7 @@
-/* CoreAnimation - CAEmitterCell.h
+package objc.quartz;
 
-   Copyright (c) 2007-2008 Apple Inc.
-   All rights reserved. */
-
-#import <QuartzCore/CALayer.h>
-
-extern class CAEmitterCell extends NSObject, implements NSObject, CAMediaTiming>
+extern class CAEmitterCell extends NSObject, implements NSObject, implements CAMediaTiming>
 {
-@private
-  void *_attr[2];
-  void *_state;
-  uint32_t _flags;
-}
 
 + (id)emitterCell;
 

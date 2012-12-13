@@ -23,12 +23,12 @@
 }
 - (id) keys{
 	
-	NSMutabeArray *a = [self allKeys];
+	NSMutableArray *a = [self allKeys];
 	return [a iterator];
 }
 - (id) iterator{
 	
-	NSMutabeArray *a = [self allValues];
+	NSMutableArray *a = [self allValues];
 	return [a iterator];
 }
 - (NSMutableString*) toString{

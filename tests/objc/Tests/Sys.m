@@ -28,7 +28,7 @@
 + (int) getChar:(BOOL)echo{
 	return 0;
 }
-+ (NSMutabeArray*) args{
++ (NSMutableArray*) args{
 	return nil;
 }
 + (NSMutableString*) getEnv:(NSMutableString*)s{
@@ -69,7 +69,7 @@
 	if (ok) return arg;
 	return [[@"\"" stringByAppendingString:[[arg componentsSeparatedByString:@"\""].join:@"\\\""]] stringByAppendingString:@"\""];
 }
-+ (int) command:(NSMutableString*)cmd args:(NSMutabeArray*)args{
++ (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args != nil) {
 		cmd = [Sys escapeArgument:cmd];
 		{
@@ -98,7 +98,7 @@
 }
 + (Hash*) environment{
 	
-	NSMutabeArray *vars = nil;
+	NSMutableArray *vars = nil;
 	
 	Hash *result = [[Hash alloc] new];
 	int i = 0;

@@ -46,30 +46,30 @@
 	if (result != nil && ![result __IsEnum]) return nil;
 	return result;
 }
-+ (id) createInstance:(Class*)cl args:(NSMutabeArray*)args{
++ (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
 	if (cl != nil) return [cl mConstructArgs "-dynamic_param-" ];
 	return nil;
 }
 + (id) createEmptyInstance:(Class*)cl{
 	return [cl mConstructEmpty];
 }
-+ (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutabeArray*)params{
++ (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params{
 	if (e.mConstructEnum != nil) return [e mConstructEnum "-dynamic_param-" ];
 	return nil;
 }
-+ (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutabeArray*)params{
++ (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{
 	
 	NSMutableString *c = [[Type getEnumConstructs:e] objectAtIndex:index];
 	if (c == nil) throw [index stringByAppendingString:@" is not a valid enum constructor index"];
 	return [Type createEnum:e constr:c params:params];
 }
-+ (NSMutabeArray*) getInstanceFields:(Class*)c{
++ (NSMutableArray*) getInstanceFields:(Class*)c{
 	return [c GetInstanceFields];
 }
-+ (NSMutabeArray*) getClassFields:(Class*)c{
++ (NSMutableArray*) getClassFields:(Class*)c{
 	return [c GetClassFields];
 }
-+ (NSMutabeArray*) getEnumConstructs:(Enum*)e{
++ (NSMutableArray*) getEnumConstructs:(Enum*)e{
 	return [e GetClassFields];
 }
 + (ValueType*) typeof:(id)v{
@@ -99,19 +99,19 @@
 + (NSMutableString*) enumConstructor:(EnumValue*)e{
 	return [e __Tag];
 }
-+ (NSMutabeArray*) enumParameters:(EnumValue*)e{
++ (NSMutableArray*) enumParameters:(EnumValue*)e{
 	
-	NSMutabeArray *result = [e __EnumParams];
+	NSMutableArray *result = [e __EnumParams];
 	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil]] : result);
 }
 + (int) enumIndex:(EnumValue*)e{
 	return [e __Index];
 }
-+ (NSMutabeArray*) allEnums:(Enum*)e{
++ (NSMutableArray*) allEnums:(Enum*)e{
 	
-	NSMutabeArray *names = [e GetClassFields];
+	NSMutableArray *names = [e GetClassFields];
 	
-	NSMutabeArray *enums = [[NSMutabeArray alloc] new];
+	NSMutableArray *enums = [[NSMutableArray alloc] new];
 	{
 		int _g = 0;
 		while (_g < names.length) {

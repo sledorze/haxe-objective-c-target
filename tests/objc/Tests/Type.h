@@ -24,18 +24,18 @@
 + (NSMutableString*) getEnumName:(Enum*)e;
 + (Class*) resolveClass:(NSMutableString*)name;
 + (Enum*) resolveEnum:(NSMutableString*)name;
-+ (id) createInstance:(Class*)cl args:(NSMutabeArray*)args;
++ (id) createInstance:(Class*)cl args:(NSMutableArray*)args;
 + (id) createEmptyInstance:(Class*)cl;
-+ (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutabeArray*)params;
-+ (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutabeArray*)params;
-+ (NSMutabeArray*) getInstanceFields:(Class*)c;
-+ (NSMutabeArray*) getClassFields:(Class*)c;
-+ (NSMutabeArray*) getEnumConstructs:(Enum*)e;
++ (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params;
++ (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params;
++ (NSMutableArray*) getInstanceFields:(Class*)c;
++ (NSMutableArray*) getClassFields:(Class*)c;
++ (NSMutableArray*) getEnumConstructs:(Enum*)e;
 + (ValueType*) typeof:(id)v;
 + (BOOL) enumEq:(id)a b:(id)b;
 + (NSMutableString*) enumConstructor:(EnumValue*)e;
-+ (NSMutabeArray*) enumParameters:(EnumValue*)e;
++ (NSMutableArray*) enumParameters:(EnumValue*)e;
 + (int) enumIndex:(EnumValue*)e;
-+ (NSMutabeArray*) allEnums:(Enum*)e;
++ (NSMutableArray*) allEnums:(Enum*)e;
 
 @end

@@ -13,7 +13,7 @@
 
 @interface BytesBuffer : NSObject
 
-@property (nonatomic, strong) NSMutabeArray *b;
+@property (nonatomic, strong) NSMutableArray *b;
 - (void) addByte:(int)byte;
 - (void) add:(Bytes*)src;
 - (void) addBytes:(Bytes*)src pos:(int)pos len:(int)len;

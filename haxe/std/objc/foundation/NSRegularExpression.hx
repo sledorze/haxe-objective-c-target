@@ -1,124 +1,73 @@
-/*	NSRegularExpression.h
-	Copyright (c) 2009-2012, Apple Inc. All rights reserved.
-*/
+package objc.foundation;
 
-#import <Foundation/NSObject.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSTextCheckingResult.h>
-
-@class Array<>;
-
-/* NSRegularExpression is a class used to represent and apply regular expressions.  An instance of this class is an immutable representation of a compiled regular expression pattern and various option flags.
-*/
-
-typedef NS_OPTIONS(NSUInteger, NSRegularExpressionOptions) {
-   NSRegularExpressionCaseInsensitive             = 1 << 0,     /* Match letters in the pattern independent of case. */
-   NSRegularExpressionAllowCommentsAndWhitespace  = 1 << 1,     /* Ignore whitespace and #-prefixed comments in the pattern. */
-   NSRegularExpressionIgnoreMetacharacters        = 1 << 2,     /* Treat the entire pattern as a literal string. */
-   NSRegularExpressionDotMatchesLineSeparators    = 1 << 3,     /* Allow . to match any character, including line separators. */
-   NSRegularExpressionAnchorsMatchLines           = 1 << 4,     /* Allow ^ and $ to match the start and end of lines. */
-   NSRegularExpressionUseUnixLineSeparators       = 1 << 5,     /* Treat only \n as a line separator (otherwise, all standard line separators are used). */
-   NSRegularExpressionUseUnicodeWordBoundaries    = 1 << 6      /* Use Unicode TR#29 to specify word boundaries (otherwise, traditional regular expression word boundaries are used). */
-};
-
-NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class NSRegularExpression : NSObject, implements NSCopying, NSCoding> {
-    @protected   // all instance variables are private
-    NSString *_pattern;
-    NSUInteger _options;
-    void *_internal;
-    id _reserved1;
-    int32_t _checkout;
-    int32_t _reserved2;
+extern enum NSRegularExpressionOptions {
+   NSRegularExpressionCaseInsensitive;     /* Match letters in the pattern independent of case. */
+   NSRegularExpressionAllowCommentsAndWhitespace;     /* Ignore whitespace and #-prefixed comments in the pattern. */
+   NSRegularExpressionIgnoreMetacharacters;     /* Treat the entire pattern as a literal string. */
+   NSRegularExpressionDotMatchesLineSeparators;     /* Allow . to match any character, including line separators. */
+   NSRegularExpressionAnchorsMatchLines;     /* Allow ^ and $ to match the start and end of lines. */
+   NSRegularExpressionUseUnixLineSeparators;     /* Treat only \n as a line separator (otherwise, all standard line separators are used). */
+   NSRegularExpressionUseUnicodeWordBoundaries;      /* Use Unicode TR#29 to specify word boundaries (otherwise, traditional regular expression word boundaries are used). */
 }
 
-/* An instance of NSRegularExpression is created from a regular expression pattern and a set of options.  If the pattern is invalid, nil will be returned and an NSError will be returned by reference.  The pattern syntax currently supported is that specified by ICU.
-*/
-+ (NSRegularExpression *)regularExpressionWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options error:(NSError **)error;
-- (id)initWithPattern:(NSString *)pattern options:(NSRegularExpressionOptions)options error:(NSError **)error;
-
-	public var NSString *pattern;
-	public var NSRegularExpressionOptions options;
-	public var NSUInteger numberOfCaptureGroups;
-
-/* This class method will produce a string by adding backslash escapes as necessary to the given string, to escape any characters that would otherwise be treated as pattern metacharacters.
-*/
-+ (NSString *)escapedPatternForString:(NSString *)string;
-
+extern enum NSMatchingOptions {
+   NSMatchingReportProgress;/* Call the block periodically during long-running match operations. */
+   NSMatchingReportCompletion;/* Call the block once after the completion of any matching. */
+   NSMatchingAnchored;/* Limit matches to those at the start of the search range. */
+   NSMatchingWithTransparentBounds;/* Allow matching to look beyond the bounds of the search range. */
+   NSMatchingWithoutAnchoringBounds;/* Prevent ^ and $ from automatically matching the beginning and end of the search range. */
 }
 
+extern enum NSMatchingFlags {
+   NSMatchingProgress;/* Set when the block is called to report progress during a long-running match operation. */
+   NSMatchingCompleted;/* Set when the block is called after completion of any matching. */
+   NSMatchingHitEnd;/* Set when the current match operation reached the end of the search range. */
+   NSMatchingRequiredEnd;/* Set when the current match depended on the location of the end of the search range. */
+   NSMatchingInternalError;/* Set when matching failed due to an internal error. */
+}
 
-typedef NS_OPTIONS(NSUInteger, NSMatchingOptions) {
-   NSMatchingReportProgress         = 1 << 0,       /* Call the block periodically during long-running match operations. */
-   NSMatchingReportCompletion       = 1 << 1,       /* Call the block once after the completion of any matching. */
-   NSMatchingAnchored               = 1 << 2,       /* Limit matches to those at the start of the search range. */
-   NSMatchingWithTransparentBounds  = 1 << 3,       /* Allow matching to look beyond the bounds of the search range. */
-   NSMatchingWithoutAnchoringBounds = 1 << 4        /* Prevent ^ and $ from automatically matching the beginning and end of the search range. */
-};
+@:require(osx_10_7)
+extern class NSRegularExpression extends NSObject, implements NSCopying, implements NSCoding {
 
-typedef NS_OPTIONS(NSUInteger, NSMatchingFlags) {
-   NSMatchingProgress               = 1 << 0,       /* Set when the block is called to report progress during a long-running match operation. */
-   NSMatchingCompleted              = 1 << 1,       /* Set when the block is called after completion of any matching. */
-   NSMatchingHitEnd                 = 1 << 2,       /* Set when the current match operation reached the end of the search range. */
-   NSMatchingRequiredEnd            = 1 << 3,       /* Set when the current match depended on the location of the end of the search range. */
-   NSMatchingInternalError          = 1 << 4        /* Set when matching failed due to an internal error. */
-};
+	public static function regularExpressionWithPattern (pattern:String, options:NSRegularExpressionOptions, error:NSError) : NSRegularExpression;
+	public function initWithPattern (pattern:String, options:NSRegularExpressionOptions, error:NSError) : NSRegularExpression;
 
-extern class NSRegularExpression (NSMatching)
+	public var pattern :String;
+	public var options : NSRegularExpressionOptions;
+	public var numberOfCaptureGroups :Int;
 
-/* The fundamental matching method on NSRegularExpression is a block iterator.  There are several additional convenience methods, for returning all matches at once, the number of matches, the first match, or the range of the first match.  Each match is specified by an instance of NSTextCheckingResult (of type NSTextCheckingTypeRegularExpression) in which the overall match range is given by the range property (equivalent to rangeAtIndex:0) and any capture group ranges are given by rangeAtIndex: for indexes from 1 to numberOfCaptureGroups.  {NSNotFound, 0} is used if a particular capture group does not participate in the match.
-*/
+	public static function escapedPatternForString (string:String) :String;
+
+// NSMatching
 
 #if NS_BLOCKS_AVAILABLE
-- (void)enumerateMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range usingBlock:(void (^)(NSTextCheckingResult *result, NSMatchingFlags flags, Bool *stop))block;
-#endif /* NS_BLOCKS_AVAILABLE */
+	public function enumerateMatchesInString (string:String, options:NSMatchingOptions, range:NSRange, usingBlock:NSTextCheckingResult->NSMatchingFlags->Bool->Void) :Void;
+#end
 
-- (Array<> *)matchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
-- (NSUInteger)numberOfMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
-- (NSTextCheckingResult *)firstMatchInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
-- (NSRange)rangeOfFirstMatchInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range;
-
-/* By default, the block iterator method calls the block precisely once for each match, with a non-nil result and appropriate flags.  The client may then stop the operation by setting the contents of stop to YES.  If the NSMatchingReportProgress option is specified, the block will also be called periodically during long-running match operations, with nil result and NSMatchingProgress set in the flags, at which point the client may again stop the operation by setting the contents of stop to YES.  If the NSMatchingReportCompletion option is specified, the block will be called once after matching is complete, with nil result and NSMatchingCompleted set in the flags, plus any additional relevant flags from among NSMatchingHitEnd, NSMatchingRequiredEnd, or NSMatchingInternalError.  NSMatchingReportProgress and NSMatchingReportCompletion have no effect for methods other than the block iterator.
-
-NSMatchingHitEnd is set in the flags passed to the block if the current match operation reached the end of the search range.  NSMatchingRequiredEnd is set in the flags passed to the block if the current match depended on the location of the end of the search range.  NSMatchingInternalError is set in the flags passed to the block if matching failed due to an internal error (such as an expression requiring exponential memory allocations) without examining the entire search range.
-
-NSMatchingAnchored, NSMatchingWithTransparentBounds, and NSMatchingWithoutAnchoringBounds can apply to any match or replace method.  If NSMatchingAnchored is specified, matches are limited to those at the start of the search range.  If NSMatchingWithTransparentBounds is specified, matching may examine parts of the string beyond the bounds of the search range, for purposes such as word boundary detection, lookahead, etc.  If NSMatchingWithoutAnchoringBounds is specified, ^ and $ will not automatically match the beginning and end of the search range (but will still match the beginning and end of the entire string).  NSMatchingWithTransparentBounds and NSMatchingWithoutAnchoringBounds have no effect if the search range covers the entire string.
-
-NSRegularExpression is designed to be immutable and threadsafe, so that a single instance can be used in matching operations on multiple threads at once.  However, the string on which it is operating should not be mutated during the course of a matching operation (whether from another thread or from within the block used in the iteration).
-*/
-
-}
+	public function matchesInString (string:String, options:NSMatchingOptions, range:NSRange) :Array<String>;
+	public function numberOfMatchesInString (string:String, options:NSMatchingOptions, range:NSRange) :Int;
+	public function firstMatchInString (string:String, options:NSMatchingOptions, range:NSRange) : NSTextCheckingResult;
+	public function rangeOfFirstMatchInString (string:String, options:NSMatchingOptions, range:NSRange) :NSRange;
 
 
-extern class NSRegularExpression (NSReplacement)
+// (NSReplacement)
 
-/* NSRegularExpression also provides find-and-replace methods for both immutable and mutable strings.  The replacement is treated as a template, with $0 being replaced by the contents of the matched range, $1 by the contents of the first capture group, and so on.  Additional digits beyond the maximum required to represent the number of capture groups will be treated as ordinary characters, as will a $ not followed by digits.  Backslash will escape both $ and itself.
-*/
-- (NSString *)stringByReplacingMatchesInString:(NSString *)string options:(NSMatchingOptions)options range:(NSRange)range withTemplate:(NSString *)templ;
-- (NSUInteger)replaceMatchesInString:(NSMutableString *)string options:(NSMatchingOptions)options range:(NSRange)range withTemplate:(NSString *)templ;
 
-/* For clients implementing their own replace functionality, this is a method to perform the template substitution for a single result, given the string from which the result was matched, an offset to be added to the location of the result in the string (for example, in case modifications to the string moved the result since it was matched), and a replacement template.
-*/
-- (NSString *)replacementStringForResult:(NSTextCheckingResult *)result inString:(NSString *)string offset:(NSInteger)offset template:(NSString *)templ;
+	public function stringByReplacingMatchesInString (string:String, options:NSMatchingOptions, range:NSRange, withTemplate:String) :String;
+	public function replaceMatchesInString (string:String, options:NSMatchingOptions, range:NSRange, withTemplate:String) :Int;
+	public function replacementStringForResult (result:NSTextCheckingResult, inString:String, offset:Int, template:String) :String;
 
-/* This class method will produce a string by adding backslash escapes as necessary to the given string, to escape any characters that would otherwise be treated as template metacharacters. 
-*/
-+ (NSString *)escapedTemplateForString:(NSString *)string;
+	public static function escapedTemplateForString (string:String) :String;
 
 }
 
-NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class NSDataDetector : NSRegularExpression {
-    @protected   // all instance variables are private
-    NSTextCheckingTypes _types;
-}
+@:require(10_7, 4_0)
+extern class NSDataDetector extends NSRegularExpression {
 
-/* NSDataDetector is a specialized subclass of NSRegularExpression.  Instead of finding matches to regular expression patterns, it matches items identified by Data Detectors, such as dates, addresses, and URLs.  The checkingTypes argument should contain one or more of the types NSTextCheckingTypeDate, NSTextCheckingTypeAddress, NSTextCheckingTypeLink, NSTextCheckingTypePhoneNumber, and NSTextCheckingTypeTransitInformation.  The NSTextCheckingResult instances returned will be of the appropriate types from that list.
-*/
-+ (NSDataDetector *)dataDetectorWithTypes:(NSTextCheckingTypes)checkingTypes error:(NSError **)error;
-- (id)initWithTypes:(NSTextCheckingTypes)checkingTypes error:(NSError **)error;
+	public static function dataDetectorWithTypes (checkingTypes:NSTextCheckingTypes, error:NSError) : NSDataDetector;
+	public function initWithTypes (checkingTypes:NSTextCheckingTypes, error:NSError) : NSDataDetector;
 
-	public var NSTextCheckingTypes checkingTypes;
+	public var checkingTypes :NSTextCheckingTypes;
 
 }
 

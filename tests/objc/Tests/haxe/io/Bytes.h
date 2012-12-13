@@ -16,9 +16,9 @@
 
 + (Bytes*) alloc:(int)length;
 + (Bytes*) ofString:(NSMutableString*)s;
-+ (Bytes*) ofData:(NSMutabeArray*)b;
++ (Bytes*) ofData:(NSMutableArray*)b;
 @property (nonatomic) int length;
-@property (nonatomic, strong) NSMutabeArray *b;
+@property (nonatomic, strong) NSMutableArray *b;
 - (int) get:(int)pos;
 - (void) set:(int)pos v:(int)v;
 - (void) blit:(int)pos src:(Bytes*)src srcpos:(int)srcpos len:(int)len;
@@ -27,7 +27,7 @@
 - (NSMutableString*) readString:(int)pos len:(int)len;
 - (NSMutableString*) toString;
 - (NSMutableString*) toHex;
-- (NSMutabeArray*) getData;
-- (id) new:(int)length b:(NSMutabeArray*)b;
+- (NSMutableArray*) getData;
+- (id) new:(int)length b:(NSMutableArray*)b;
 
 @end

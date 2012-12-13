@@ -15,6 +15,11 @@ enum TestsEnum {
 	EnumValue2;
 	EnumValue3;
 }
+extern enum TestsEnumExtern {
+	ExternEnumValue1;
+	ExternEnumValue2;
+	ExternEnumValue3;
+}
 class Tests implements Interface1, implements Interface2 {
 	
 	public var interfaceVar1 :Int;// Generate a @property (nonatomic) int float1; + a @synthesize float1
@@ -200,6 +205,14 @@ class Tests implements Interface1, implements Interface2 {
 			case EnumValue1 : null;
 			case EnumValue2 : null;
 			case EnumValue3 : null;
+		}
+		doSomething ( ExternEnumValue1 );
+	}
+	function doSomething (v:TestsEnumExtern) {
+		var i = switch (v) {
+			case ExternEnumValue1 : 5;
+			case ExternEnumValue2 : 6;
+			case ExternEnumValue3 : 7;
 		}
 	}
 	
@@ -420,46 +433,27 @@ class Tests implements Interface1, implements Interface2 {
 	function testSys () {
 		Sys.print("hello world");
 		Sys.println("hello world");
+		var arr = Sys.args();
+		var int = Sys.command ("cd", ["~"]);
+		int = Sys.command ("ls", []);
+		var float = Sys.cpuTime();
+		var hash = Sys.environment();
+		var string = Sys.executablePath();
+		Sys.exit(0);
+		int = Sys.getChar ( true );
+		string = Sys.getCwd();
+		string = Sys.getEnv ("VAR1");
+		Sys.putEnv ("VAR1", "val 1");
+		Sys.setCwd ("thisdir");
+		var bool = Sys.setTimeLocale ("loc");
+		Sys.sleep (5.5);
 		
-/*		args() : Array<String>
-		Returns all the arguments that were passed by the commandline.
-		static function command(cmd : String, ?args : Array<String>) : Int
-		Run the given command with the list of arguments. The command output will be printed on the same output as the current process. The current process will block until the command terminates and it will return the command result (0 if there was no error). Read the sys.io.Process api for a more complete way to start background processes.
-		static function cpuTime() : Float
-		Gives the most precise timestamp value (in seconds) but only account for the actual time spent running on the CPU for the current thread/process.
-		static function environment() : Hash<String>
-		Returns the whole environement variables.
-		static function executablePath() : String
-		Returns the path to the current executable that we are running.
-		static function exit(code : Int) : Void
-		Exit the current process with the given error code.
-		static function getChar(echo : Bool) : Int
-		Read a single input character from the standard input (without blocking) and returns it. Setting echo to true will also display it on the output.
-		static function getCwd() : String
-		Get the current working directory (usually the one in which the program was started)
-		static function getEnv(s : String) : String
-		Returns the value of the given environment variable.
-		static function print(v : Dynamic) : Void
-		Print any value on the standard output.
-		static function println(v : Dynamic) : Void
-		Print any value on the standard output, followed by a newline
-		static function putEnv(s : String, v : String) : Void
-		Set the value of the given environment variable.
-		static function setCwd(s : String) : Void
-		Change the current working directory.
-		static function setTimeLocale(loc : String) : Bool
-		Change the current time locale, which will affect DateTools.format date formating. Returns true if the locale was successfully changed
-		static function sleep(seconds : Float) : Void
-		Suspend the current execution for the given time (in seconds).
-		static function stderr() : haxe.io.Output
-		Returns the process standard error on which you can write.
-		static function stdin() : haxe.io.Input
-		Returns the process standard input, from which you can read what user enters. Usually it will block until the user send a full input line. See getChar for an alternative.
-		static function stdout() : haxe.io.Output
-		Returns the process standard output on which you can write.
-		static function systemName() : String
-		Returns the name of the system you are running on. For instance : "Windows", "Linux", "BSD" and "Mac" depending on your desktop OS.
-		static function time()*/
+		var _out = Sys.stderr();
+		var _in = Sys.stdin();
+		_out = Sys.stdout();
+		
+		string = Sys.systemName();
+		float = Sys.time();
 	}
 	
 	

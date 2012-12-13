@@ -95,8 +95,8 @@
 + (NSDate*) delta:(NSDate*)d t:(float)t{
 	return [NSDatefromTime:[dgetTime] + t];
 }
-+ (NSMutabeArray*) DAYS_OF_MONTH:(NSMutabeArray*)val {
-	static NSMutabeArray *_val;
++ (NSMutableArray*) DAYS_OF_MONTH:(NSMutableArray*)val {
+	static NSMutableArray *_val;
 	if (val == nil) { if (_val == nil) _val = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]; }
 	else { if (_val != nil) _val = val; }
 	return _val;

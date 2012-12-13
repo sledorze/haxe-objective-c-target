@@ -35,11 +35,11 @@
 - (id) matchedPos{
 	return nil;
 }
-- (NSMutabeArray*) split:(NSMutableString*)s{
+- (NSMutableArray*) split:(NSMutableString*)s{
 	int pos = 0;
 	int len = slength;
 	
-	NSMutabeArray *a = [[NSMutabeArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] new];
 	BOOL first = YES;
 	do {
 		id p = nil;
@@ -62,7 +62,7 @@
 	int pos = 0;
 	int len = slength;
 	
-	NSMutabeArray *a = [by componentsSeparatedByString:@"$"];
+	NSMutableArray *a = [by componentsSeparatedByString:@"$"];
 	BOOL first = YES;
 	do {
 		id p = nil;
@@ -121,7 +121,7 @@
 - (id) new:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	
-	NSMutabeArray *a = [opt componentsSeparatedByString:@"g"];
+	NSMutableArray *a = [opt componentsSeparatedByString:@"g"];
 	self.global = a.length > 1;
 	if (self.global) opt = [a join:@""];
 	self.r = nil;

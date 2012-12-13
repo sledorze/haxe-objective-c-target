@@ -15,6 +15,7 @@
 #import "Date.h"
 #import "DateTools.h"
 #import "TestsEnum.h"
+#import "TestsEnumExtern.h"
 #import "EReg.h"
 #import "Hash.h"
 #import "IntHash.h"
@@ -27,6 +28,8 @@
 #import "StringBuf.h"
 #import "StringTools.h"
 #import "Sys.h"
+#import "Output.h"
+#import "Input.h"
 #import "Class.h"
 #import "Type.h"
 #import "Timer.h"
@@ -51,6 +54,7 @@
 - (void) testArray;
 - (void) testDate;
 - (void) testEnum;
+- (void) doSomething:(Object*)v;
 - (void) testEReg;
 - (void) testHash;
 - (void) testLambda;

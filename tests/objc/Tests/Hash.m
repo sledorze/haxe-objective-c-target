@@ -23,16 +23,16 @@
 }
 - (id) keys{
 	
-	NSMutabeArray *a = [self allKeys];
+	NSMutableArray *a = [self allKeys];
 	return [a iterator];
 }
 - (id) iterator{
 	
-	NSMutabeArray *a = [self allValues];
+	NSMutableArray *a = [self allValues];
 	
-	NSMutabeArray *it = [[NSMutableArray alloc] initWithObjects:[a iterator], nil]];
+	NSMutableArray *it = [[NSMutableArray alloc] initWithObjects:[a iterator], nil]];
 	
-	NSMutabeArray *me = [[NSMutableArray alloc] initWithObjects:self, nil]];
+	NSMutableArray *me = [[NSMutableArray alloc] initWithObjects:self, nil]];
 	return struct {
 	hasNext:^(BOOL){
 		return [[it objectAtIndex:0] GFA2 .hasNext];

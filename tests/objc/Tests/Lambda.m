@@ -9,9 +9,9 @@
 
 @implementation Lambda
 
-+ (NSMutabeArray*) array:(id)it{
++ (NSMutableArray*) array:(id)it{
 	
-	NSMutabeArray *a = [[NSMutabeArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] new];
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var i : id = $it.next()

@@ -24,6 +24,7 @@
 		288B51C31676741E00926232 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51C21676741E00926232 /* Log.m */; };
 		288B51C6167677B000926232 /* Lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51C5167677B000926232 /* Lib.m */; };
 		288B51C81676782000926232 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B51C71676782000926232 /* CoreLocation.framework */; };
+		288B51D31678760D00926232 /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51D21678760D00926232 /* Array.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		288B51C4167677B000926232 /* Lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lib.h; path = ../../Tests/objc/Lib.h; sourceTree = "<group>"; };
 		288B51C5167677B000926232 /* Lib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lib.m; path = ../../Tests/objc/Lib.m; sourceTree = "<group>"; };
 		288B51C71676782000926232 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		288B51D11678760D00926232 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = ../../Tests/Array.h; sourceTree = "<group>"; };
+		288B51D21678760D00926232 /* Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Array.m; path = ../../Tests/Array.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 				288B51C21676741E00926232 /* Log.m */,
 				288B51C4167677B000926232 /* Lib.h */,
 				288B51C5167677B000926232 /* Lib.m */,
+				288B51D11678760D00926232 /* Array.h */,
+				288B51D21678760D00926232 /* Array.m */,
 				288B519B167673C000926232 /* AppDelegate.h */,
 				288B519C167673C100926232 /* AppDelegate.m */,
 				288B5193167673C000926232 /* Supporting Files */,
@@ -279,6 +284,7 @@
 				288B519D167673C100926232 /* AppDelegate.m in Sources */,
 				288B51C31676741E00926232 /* Log.m in Sources */,
 				288B51C6167677B000926232 /* Lib.m in Sources */,
+				288B51D31678760D00926232 /* Array.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

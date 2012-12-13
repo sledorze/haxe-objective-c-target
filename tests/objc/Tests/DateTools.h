@@ -20,7 +20,7 @@
 + (NSMutableString*) __format:(NSDate*)d f:(NSMutableString*)f;
 + (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f;
 + (NSDate*) delta:(NSDate*)d t:(float)t;
-+ (NSMutabeArray*) DAYS_OF_MONTH:(NSMutabeArray*)val;
++ (NSMutableArray*) DAYS_OF_MONTH:(NSMutableArray*)val;
 + (int) getMonthDays:(NSDate*)d;
 + (float) seconds:(float)n;
 + (float) minutes:(float)n;

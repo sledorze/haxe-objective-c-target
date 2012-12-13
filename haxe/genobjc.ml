@@ -342,6 +342,7 @@ let isPointer t =
 	match t with
 	| "void" | "id" | "BOOL" | "int" | "uint" | "float" | "CGRect" | "CGPoint" | "CGSize" -> false
 	| _ -> true
+	(* TODO: enum is not pointer *)
 ;;
 let addPointerIfNeeded t =
 	if (isPointer t) then "*" else ""
@@ -359,7 +360,7 @@ let processClassPath ctx is_static path pos =
 		| "Bool" -> "BOOL"
 		| "String" -> "NSMutableString"
 		| "Date" -> "NSDate"
-		| "Array" -> "NSMutabeArray"
+		| "Array" -> "NSMutableArray"
 		| _ -> name)
 	| (["haxe"],"Int32") when not is_static -> "int"
 	| (pack,name) -> name
@@ -1021,13 +1022,14 @@ and generateExpression ctx e =
 		) catchs;
 		(* (typeToString ctx v.v_type e.epos) *)
 	| TMatch (e,_,cases,def) ->
-		ctx.writer#begin_block;
+		(* ctx.writer#begin_block; *)
 		ctx.writer#new_line;
 		let tmp = genLocal ctx "$e" in
 		ctx.writer#write (Printf.sprintf "var %s : enum = " tmp);
 		generateValue ctx e;
 		ctx.writer#new_line;
-		ctx.writer#write (Printf.sprintf "switch( %s.index ) {" tmp);
+		ctx.writer#write (Printf.sprintf "switch ( %s.index ) " tmp);
+		ctx.writer#begin_block;
 		List.iter (fun (cl,params,e) ->
 			List.iter (fun c ->
 				ctx.writer#new_line;
@@ -1058,10 +1060,8 @@ and generateExpression ctx e =
 			ctx.writer#write "break";
 		);
 		ctx.writer#new_line;
-		ctx.writer#write "}";
-		(* bend(); *)
-		ctx.writer#new_line;
-		ctx.writer#write "}";
+		ctx.writer#end_block;
+		(* ctx.writer#end_block; *)
 	| TSwitch (e,cases,def) ->
 		ctx.writer#write "switch"; generateValue ctx (parent e); ctx.writer#begin_block;
 		List.iter (fun (el,e2) ->
@@ -2135,6 +2135,7 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 			| "Array" -> "NSMutableArray"
 			| "Date" -> "NSDate"
 			| "Hash" -> "NSMutableDictionary"
+			| "EReg" -> "NSRegularExpression"
 			| _ -> ""
 		) in
 		h_file#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");

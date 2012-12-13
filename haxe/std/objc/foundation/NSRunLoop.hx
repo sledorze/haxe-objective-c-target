@@ -1,38 +1,42 @@
 package objc.foundation;
 
 
-extern class NSRunLoop
-{
+extern class NSRunLoop extends NSObject {
 
-	//Constants
+	public static function currentRunLoop () :NSRunLoop;
+	public static function mainRunLoop () :NSRunLoop;
 
-	//Static Methods
-	public  function mainRunLoop():NSRunLoop;
-	public  function currentRunLoop():NSRunLoop;
-	public  function cancelPreviousPerformRequestsWithTarget( aTarget:Dynamic,  aSelector:SEL,  anArgument:Dynamic):Void;
-	//@:overload !!NEED CUSTOM META DATA !!
-	public  function cancelPreviousPerformRequestsWithTarget1( aTarget:Dynamic):Void;
+- (NSString *)currentMode;
+- (CFRunLoopRef)getCFRunLoop;
 
-	//Properties
+- (void)addTimer:(NSTimer *)timer forMode:(NSString *)mode;
 
-	//Methods
-	public  function getCFRunLoop():CFRunLoopRef;
-	public  function addTimer( timer:NSTimer,  mode:String):Void;
-	public  function configureAsServer( null:10_0,10_5,2_0,2_0):Void;
-	public  function removePort( aPort:NSPort,  mode:String):Void;
-	public  function run():Void;
-	public  function cancelPerformSelector( aSelector:SEL,  target:Dynamic,  arg:Dynamic):Void;
-	public  function addPort( aPort:NSPort,  mode:String):Void;
-	public  function limitDateForMode( mode:String):Date;
-	public  function acceptInputForMode( mode:String,  limitDate:Date):Void;
-	public  function cancelPerformSelectorsWithTarget( target:Dynamic):Void;
-	public  function currentMode():String;
-	public  function runMode( mode:String,  limitDate:Date):Bool;
-	public  function runUntilDate( limitDate:Date):Void;
-	public  function performSelector( aSelector:SEL,  anArgument:Dynamic,  delay:NSTimeInterval,  modes:Array<>):Void;
-	//@:overload !!NEED CUSTOM META DATA !!
-	public  function performSelector1( aSelector:SEL,  anArgument:Dynamic,  delay:NSTimeInterval):Void;
-	//@:overload !!NEED CUSTOM META DATA !!
-	public  function performSelector2( aSelector:SEL,  target:Dynamic,  arg:Dynamic,  order:Int,  modes:Array<>):Void;
+- (void)addPort:(NSPort *)aPort forMode:(NSString *)mode;
+- (void)removePort:(NSPort *)aPort forMode:(NSString *)mode;
+
+- (NSDate *)limitDateForMode:(NSString *)mode;
+- (void)acceptInputForMode:(NSString *)mode beforeDate:(NSDate *)limitDate;
+
+- (void)run; 
+- (void)runUntilDate:(NSDate *)limitDate;
+- (Bool)runMode:(NSString *)mode beforeDate:(NSDate *)limitDate;
+
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
+- (void)configureAsServer NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
+#endif
+
+	- (void)performSelector:(SEL)aSelector target:(id)target argument:(id)arg order:(NSUInteger)order modes:(Array<> *)modes;
+	- (void)cancelPerformSelector:(SEL)aSelector target:(id)target argument:(id)arg;
+	- (void)cancelPerformSelectorsWithTarget:(id)target;
 }
 
+/**************** 	Delayed perform	 ******************/
+
+extern class NSObject (NSDelayedPerforming)
+
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay inModes:(Array<> *)modes;
+- (void)performSelector:(SEL)aSelector withObject:(id)anArgument afterDelay:(NSTimeInterval)delay;
++ (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget selector:(SEL)aSelector object:(id)anArgument;
++ (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget;
+
+}

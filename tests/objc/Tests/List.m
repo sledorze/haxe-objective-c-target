@@ -14,7 +14,7 @@
 @synthesize length;
 - (void) add:(id)item{
 	
-	NSMutabeArray *x = [[NSMutableArray alloc] initWithObjects:item, nil]];
+	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, nil]];
 	if (self.h == nil) self.h = x
 	else [self.q objectAtIndex:1] = x;
 	self.q = x;
@@ -22,7 +22,7 @@
 }
 - (void) push:(id)item{
 	
-	NSMutabeArray *x = [[NSMutableArray alloc] initWithObjects:item, self.h, nil]];
+	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, self.h, nil]];
 	self.h = x;
 	if (self.q == nil) self.q = x;
 	self.length++;
@@ -51,9 +51,9 @@
 }
 - (BOOL) remove:(id)v{
 	
-	NSMutabeArray *prev = nil;
+	NSMutableArray *prev = nil;
 	
-	NSMutabeArray *l = self.h;
+	NSMutableArray *l = self.h;
 	while (l != nil) {
 		if ([l objectAtIndex:0] == v) {
 			if (prev == nil) self.h = [l objectAtIndex:1]
@@ -85,7 +85,7 @@ next:^(id){
 	StringBuf *s = [[StringBuf alloc] new];
 	BOOL first = YES;
 	
-	NSMutabeArray *l = self.h;
+	NSMutableArray *l = self.h;
 	[s.b appendString:@"{"];
 	while (l != nil) {
 		if (first) first = NO
@@ -101,7 +101,7 @@ next:^(id){
 	StringBuf *s = [[StringBuf alloc] new];
 	BOOL first = YES;
 	
-	NSMutabeArray *l = self.h;
+	NSMutableArray *l = self.h;
 	while (l != nil) {
 		if (first) first = NO
 		else s.b += [Std string:sep];
@@ -114,7 +114,7 @@ next:^(id){
 	
 	List *l2 = [[List alloc] new];
 	
-	NSMutabeArray *l = self.h;
+	NSMutableArray *l = self.h;
 	while (l != nil) {
 		id v = [l objectAtIndex:0];
 		l = [l objectAtIndex:1];
@@ -126,7 +126,7 @@ next:^(id){
 	
 	List *b = [[List alloc] new];
 	
-	NSMutabeArray *l = self.h;
+	NSMutableArray *l = self.h;
 	while (l != nil) {
 		id v = [l objectAtIndex:0];
 		l = [l objectAtIndex:1];

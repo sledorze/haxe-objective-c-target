@@ -24,15 +24,15 @@
 + (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value{
 	if (o != nil) [o __SetField "-dynamic_param-" ];
 }
-+ (id) callMethod:(id)o func:(id)func args:(NSMutabeArray*)args{
++ (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args{
 	if (func != nil && [func __GetType] == __global__ GFA2 .vtString) func = [o __Field "-dynamic_param-" ];
 	[func __SetThis "-dynamic_param-" ];
 	return [func __Run "-dynamic_param-" ];
 }
-+ (NSMutabeArray*) fields:(id)o{
-	if (o == nil) return [[NSMutabeArray alloc] new];
++ (NSMutableArray*) fields:(id)o{
+	if (o == nil) return [[NSMutableArray alloc] new];
 	
-	NSMutabeArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
+	NSMutableArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
 	[o __GetFields "-dynamic_param-" ];
 	return a;
 }
@@ -64,7 +64,7 @@
 	} structName;
 	{
 		int _g = 0; 
-		NSMutabeArray *_g1 = [Reflect fields:o];
+		NSMutableArray *_g1 = [Reflect fields:o];
 		while (_g < _g1.length) {
 			
 			NSMutableString *f = [_g1 objectAtIndex:_g];

@@ -12,7 +12,7 @@
 
 @interface Lambda : NSObject
 
-+ (NSMutabeArray*) array:(id)it;
++ (NSMutableArray*) array:(id)it;
 + (List*) list:(id)it;
 + (List*) map:(id)it f:(Function*)f;
 + (List*) mapi:(id)it f:(Function*)f;

@@ -23,7 +23,7 @@
 + (Output*) stdout;
 + (Output*) stderr;
 + (int) getChar:(BOOL)echo;
-+ (NSMutabeArray*) args;
++ (NSMutableArray*) args;
 + (NSMutableString*) getEnv:(NSMutableString*)s;
 + (void) putEnv:(NSMutableString*)s v:(NSMutableString*)v;
 + (void) sleep:(float)seconds;
@@ -32,7 +32,7 @@
 + (void) setCwd:(NSMutableString*)s;
 + (NSMutableString*) systemName;
 + (NSMutableString*) escapeArgument:(NSMutableString*)arg;
-+ (int) command:(NSMutableString*)cmd args:(NSMutabeArray*)args;
++ (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args;
 + (void) exit:(int)code;
 + (float) time;
 + (float) cpuTime;

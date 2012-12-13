@@ -11,9 +11,9 @@
 
 + (Timer*) delay:(Function*)f time_ms:(int)time_ms{
 	
-	NSMutabeArray *f1 = [[NSMutableArray alloc] initWithObjects:f, nil]];
+	NSMutableArray *f1 = [[NSMutableArray alloc] initWithObjects:f, nil]];
 	
-	NSMutabeArray *t = [[NSMutableArray alloc] initWithObjects:[[Timer alloc] new:time_ms], nil]];
+	NSMutableArray *t = [[NSMutableArray alloc] initWithObjects:[[Timer alloc] new:time_ms], nil]];
 	[t objectAtIndex:0].run = ^(void){
 		[[t objectAtIndex:0] stop];
 		[[f1 objectAtIndex:0]];

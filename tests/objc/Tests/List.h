@@ -15,8 +15,8 @@
 
 @interface List : NSObject
 
-@property (nonatomic, strong) NSMutabeArray *h;
-@property (nonatomic, strong) NSMutabeArray *q;
+@property (nonatomic, strong) NSMutableArray *h;
+@property (nonatomic, strong) NSMutableArray *q;
 @property (nonatomic) int length;
 - (void) add:(id)item;
 - (void) push:(id)item;

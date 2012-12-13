@@ -15,9 +15,9 @@
 }
 - (void) add:(Bytes*)src{
 	
-	NSMutabeArray *b1 = self.b;
+	NSMutableArray *b1 = self.b;
 	
-	NSMutabeArray *b2 = src.b;
+	NSMutableArray *b2 = src.b;
 	{
 		int _g1 = 0; int _g = src.length;
 		while (_g1 < _g) {
@@ -29,9 +29,9 @@
 - (void) addBytes:(Bytes*)src pos:(int)pos len:(int)len{
 	if (pos < 0 || len < 0 || pos + len > src.length) throw Error.OutsideBounds;
 	
-	NSMutabeArray *b1 = self.b;
+	NSMutableArray *b1 = self.b;
 	
-	NSMutabeArray *b2 = src.b;
+	NSMutableArray *b2 = src.b;
 	{
 		int _g1 = pos; int _g = pos + len;
 		while (_g1 < _g) {
@@ -48,7 +48,7 @@
 }
 - (id) new{
 	self = [super init];
-	self.b = [[NSMutabeArray alloc] new];
+	self.b = [[NSMutableArray alloc] new];
 	return self;
 }
 

@@ -22,7 +22,7 @@
 - (int) writeBytes:(Bytes*)s pos:(int)pos len:(int)len{
 	int k = len;
 	
-	NSMutabeArray *b = s.b;
+	NSMutableArray *b = s.b;
 	if (pos < 0 || len < 0 || pos + len > s.length) throw Error.OutsideBounds;
 	while (k > 0) {
 		[self writeByte:[b objectAtIndex:pos]];

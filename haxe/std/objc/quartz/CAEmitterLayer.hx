@@ -1,24 +1,11 @@
-/* CoreAnimation - CAEmitterLayer.h
+package objc.quartz;
 
-   Copyright (c) 2007-2008 Apple Inc.
-   All rights reserved. */
-
-/* Particle emitter layer.
- * 
- * Each emitter has an array of cells, the cells define how particles
- * are emitted and rendered by the layer.
- *
- * The particles are drawn above the backgroundColor and border of the
- * layer. */
-
-#import <QuartzCore/CALayer.h>
-
-extern class CAEmitterLayer : CALayer
+extern class CAEmitterLayer extends CALayer {
 
 /* The array of emitter cells attached to the layer. Each object must
  * have the CAEmitterCell class. */
 
-	public var NSArray *emitterCells;
+	public var emitterCells :Array<CAEmitterCell>;
 
 /* The birth rate of each cell is multiplied by this number to give the
  * actual number of particles created every second. Default value is one.

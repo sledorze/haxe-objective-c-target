@@ -46,7 +46,7 @@
 }
 - (id) iterator{
 	
-	NSMutabeArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil]];
+	NSMutableArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil]];
 	return struct {
 	hasNext:^(BOOL){
 		return [l objectAtIndex:0] != nil;
@@ -60,7 +60,7 @@ next:^(id){
 }
 - (NSMutableString*) toString{
 	
-	NSMutabeArray *a = [[NSMutabeArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] new];
 	
 	FastCell *l = self.head;
 	while (l != nil) {

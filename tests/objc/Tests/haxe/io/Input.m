@@ -20,7 +20,7 @@
 - (int) readBytes:(Bytes*)s pos:(int)pos len:(int)len{
 	int k = len;
 	
-	NSMutabeArray *b = s.b;
+	NSMutableArray *b = s.b;
 	if (pos < 0 || len < 0 || pos + len > s.length) throw Error.OutsideBounds;
 	while (k > 0) {
 		[b objectAtIndex:pos] = [self readByte];
@@ -48,9 +48,9 @@
 			{
 				if (len < 0 || len > buf.length) throw Error.OutsideBounds;
 				
-				NSMutabeArray *b1 = total.b;
+				NSMutableArray *b1 = total.b;
 				
-				NSMutabeArray *b2 = buf.b;
+				NSMutableArray *b2 = buf.b;
 				{
 					int _g1 = 0; int _g = len;
 					while (_g1 < _g) {
@@ -110,7 +110,7 @@
 }
 - (float) readFloat{
 	
-	NSMutabeArray *bytes = [[NSMutableArray alloc] initWithObjects:, nil]];
+	NSMutableArray *bytes = [[NSMutableArray alloc] initWithObjects:, nil]];
 	[bytes push:[self readByte]];
 	[bytes push:[self readByte]];
 	[bytes push:[self readByte]];

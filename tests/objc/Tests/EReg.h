@@ -11,7 +11,7 @@
 #import "StringBuf.h"
 #import "Std.h"
 
-@interface EReg : NSObject
+@interface NSRegularExpression ( EReg )
 
 @property (nonatomic) id r;
 @property (nonatomic, strong) NSMutableString *last;
@@ -21,7 +21,7 @@
 - (NSMutableString*) matchedLeft;
 - (NSMutableString*) matchedRight;
 - (id) matchedPos;
-- (NSMutabeArray*) split:(NSMutableString*)s;
+- (NSMutableArray*) split:(NSMutableString*)s;
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by;
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(Function*)f;
 - (id) new:(NSMutableString*)r opt:(NSMutableString*)opt;

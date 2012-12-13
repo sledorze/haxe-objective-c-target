@@ -6,7 +6,6 @@
 //
 
 #import "Lib.h"
-#import "AppDelegate.h"
 
 @implementation Lib
 
