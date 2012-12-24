@@ -23,7 +23,7 @@
  * DAMAGE.
  */
 
-@:category @:core_api class EReg {
+@:category("NSRegularExpression") @:core_api class EReg {
 
 	var r : Dynamic;
 	var last : String;

@@ -2114,15 +2114,7 @@ let generateHeader ctx files_manager imports_manager =
 	let class_path = ctx.class_def.cl_path in
 	let isCategory = (has_meta ":category" ctx.class_def.cl_meta) in
 	if isCategory then begin
-		
-		let category_class = (match (snd class_path) with
-			| "String" -> "NSMutableString"
-			(* | "Array" -> "NSMutableArray" *)
-			| "Date" -> "NSDate"
-			| "Hash" -> "NSMutableDictionary"
-			| "EReg" -> "NSRegularExpression"
-			| _ -> ""
-		) in
+		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
 		ctx.writer#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
 		
 		end

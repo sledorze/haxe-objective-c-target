@@ -27,7 +27,7 @@
  
 import objc.foundation.NSDictionary;
 	
-@:category @:core_api class Hash<T>  {
+@:category("NSMutableDictionary") @:core_api class Hash<T>  {
 	
 	public function new() : Void {
 		

@@ -26,7 +26,7 @@
 import objc.foundation.NSDate;
 import objc.foundation.NSCalendar;
 
-@:category @:core_api class Date {
+@:category("NSDate") @:core_api class Date {
 
 	private var _seconds :Float;
 	private var _calendar :NSCalendar;
