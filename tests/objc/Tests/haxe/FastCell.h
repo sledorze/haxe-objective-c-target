@@ -7,7 +7,6 @@
 
 
 
-#import "FastCell.h"
 
 @interface FastCell : NSObject
 
@@ -16,3 +15,15 @@
 - (id) new:(id)elt next:(FastCell*)next;
 
 @end
+
+
+
+
+@interface FastCell : NSObject
+
+@property (nonatomic) id elt;
+@property (nonatomic, strong) FastCell *next;
+- (id) new:(id)elt next:(FastCell*)next;
+
+@end
+

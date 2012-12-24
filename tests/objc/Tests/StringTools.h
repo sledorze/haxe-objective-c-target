@@ -29,3 +29,4 @@
 + (BOOL) isEOF:(int)c;
 
 @end
+

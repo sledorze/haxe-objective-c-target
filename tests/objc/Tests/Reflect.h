@@ -28,3 +28,4 @@
 + (id) makeVarArgs:(Function*)f;
 
 @end
+

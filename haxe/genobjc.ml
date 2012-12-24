@@ -274,6 +274,16 @@ let newContext common_ctx writer imports_manager file_info = {
 	gen_uid = 0;
 	local_types = [];
 }
+type module_context = {
+	mutable module_path : path;
+	mutable ctx_m : context;
+	mutable ctx_h : context;
+}
+let newModuleContext ctx_m ctx_h = {
+	module_path = ([],"");
+	ctx_m = ctx_m;
+	ctx_h = ctx_h;
+}
 
 let debug ctx str =
 	if false then ctx.writer#write str
@@ -2035,140 +2045,34 @@ let generatePlist common_ctx class_def  =
 	file#close
 ;;
 
-let generateEnum ctx e =
-	()
+(* Generate the enum. ctx should be the header file *)
+let generateEnum ctx enum_def =
+	print_endline ("> Generating enum : "^(snd enum_def.e_path));
+    ctx.writer#write "typedef enum";
+	ctx.writer#begin_block;
+	ctx.writer#write (String.concat ",\n\t" enum_def.e_names);
+	ctx.writer#new_line;
+	ctx.writer#end_block;
+    ctx.writer#write (" " ^ (snd enum_def.e_path) ^ ";");
+	ctx.writer#new_line
 ;;
 
-(* Generate header + implementation *)
-
-let generateClassFiles common_ctx class_def file_info files_manager imports_manager =
-	print_endline ("> Generating class files for : "^(snd class_def.cl_path));
+(* Generate header + implementation in the provided file *)
+let generateImplementation ctx files_manager imports_manager =
+	print_endline ("> Generating implementation : "^(snd ctx.class_def.cl_path));
 	
-	(* When we create a new class reset the frameworks and imports that where stored for the previous class *)
-	(* The frameworks are kept in a non-resetable variable also *)
-	imports_manager#reset;
-	files_manager#register_source_file class_def.cl_path ".m";
-	
-	if not class_def.cl_interface then begin
-	
-	(* Create the implementation file *)
-	let src_dir = srcDir common_ctx in
-	let class_path = class_def.cl_path in
-	(* let class_name = (snd class_def.cl_path) in *)
-	let m_file = newSourceFile src_dir class_path ".m" in
-	let output_m = (m_file#write) in
-	let ctx = newContext common_ctx m_file imports_manager file_info in
-	ctx.class_def <- class_def;
-	
-	defineGetSet ctx true class_def;
-	defineGetSet ctx false class_def;
+	defineGetSet ctx true ctx.class_def;
+	defineGetSet ctx false ctx.class_def;
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
-	(* imports_manager#add_class_path class_def.cl_path; *)
-	ctx.writer#add_copy;
-	ctx.writer#import_header class_def.cl_path;
 	ctx.writer#new_line;
-	output_m ("@implementation " ^ (snd class_def.cl_path));
-
-	m_file#new_line;
-	
-	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
-	
-	(match class_def.cl_constructor with
-	| None -> ();
-		(* ctx.generating_constructor <- true; *)
-		(* let f = {
-			cf_name = "new"(* Rename the class constructor to 'init' snd class_def.cl_path *);
-			cf_public = true;
-			cf_kind = Method MethNormal;
-		} in
-		generateField ctx false f; *)
-	| Some f ->
-		let f = { f with
-			cf_name = "new";
-			cf_public = true;
-			cf_kind = Method MethNormal;
-		} in
-		ctx.generating_constructor <- true;
-		generateField ctx false f;
-	);
-	
-	output_m "\n\n@end\n";
-	m_file#close;
-	
-	end;
-	
-	
-	(* Create the header file *)
-
-	files_manager#register_source_file class_def.cl_path ".h";
-	
-	let src_dir = srcDir common_ctx in
-	let class_path = class_def.cl_path in
-	(* let class_name = (snd class_def.cl_path) in *)
-	let h_file = newSourceFile src_dir class_path ".h" in
-	let ctx = newContext common_ctx h_file imports_manager file_info in
-	ctx.class_def <- class_def;
-	ctx.writer#add_copy;
-	ctx.generating_header <- true;
-	
-	(* Import the super class *)
-	(match class_def.cl_super with
-		| None -> ()
-		| Some (csup,_) -> ctx.imports_manager#add_class_path csup.cl_path);
+	ctx.writer#write ("@implementation " ^ (snd ctx.class_def.cl_path));
 	ctx.writer#new_line;
 	
-	(* Import frameworks *)
-	ctx.writer#import_frameworks imports_manager#get_class_frameworks;
-	ctx.writer#new_line;
+	List.iter (generateField ctx true) ctx.class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) (List.rev ctx.class_def.cl_ordered_fields);
 	
-	(* Import classes *)
-	ctx.writer#import_headers imports_manager#get_imports;
-	ctx.writer#new_line;
-	
-	let isCategory = (has_meta ":category" class_def.cl_meta) in
-	if isCategory then begin
-		
-		let category_class = (match (snd class_path) with
-			| "String" -> "NSMutableString"
-			| "Array" -> "NSMutableArray"
-			| "Date" -> "NSDate"
-			| "Hash" -> "NSMutableDictionary"
-			| "EReg" -> "NSRegularExpression"
-			| _ -> ""
-		) in
-		h_file#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
-		
-		end
-	else begin
-		
-		h_file#write ("@interface " ^ (snd class_path));
-		(* Add the super class *)
-		(match class_def.cl_super with
-			| None -> h_file#write " : NSObject"
-			| Some (csup,_) -> h_file#write (Printf.sprintf " : %s " (snd csup.cl_path)));
-		(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
-		(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
-		(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
-		if class_def.cl_implements != [] then begin
-			(* Add implement *)
-			h_file#write "<";
-			(match class_def.cl_implements with
-			| [] -> ()
-			| l -> concat ctx ", " (fun (i,_) -> h_file#write (Printf.sprintf "%s" (snd i.cl_path))) l
-			);
-			h_file#write ">";
-		end
-	end;
-	
-	
-	h_file#new_line;
-	
-	List.iter (generateField ctx true) class_def.cl_ordered_statics;
-	List.iter (generateField ctx false) (List.rev class_def.cl_ordered_fields);
-	
-	(match class_def.cl_constructor with
+	(match ctx.class_def.cl_constructor with
 	| None -> ();
 		(* ctx.generating_constructor <- true; *)
 		(* let f = {
@@ -2188,8 +2092,89 @@ let generateClassFiles common_ctx class_def file_info files_manager imports_mana
 		ctx.generating_constructor <- false;
 	);
 	
-	h_file#write "\n\n@end\n";
-	h_file#close
+	ctx.writer#write "\n\n@end\n"
+;;	
+
+let generateHeader ctx files_manager imports_manager =
+	print_endline ("> Generating header : "^(snd ctx.class_def.cl_path));
+	ctx.generating_header <- true;
+	(* Import the super class *)
+	(match ctx.class_def.cl_super with
+		| None -> ()
+		| Some (csup,_) -> ctx.imports_manager#add_class_path csup.cl_path);
+	
+	(* Import frameworks *)
+	ctx.writer#new_line;
+	ctx.writer#import_frameworks imports_manager#get_class_frameworks;
+	ctx.writer#new_line;
+	(* Import classes *)
+	ctx.writer#import_headers imports_manager#get_imports;
+	ctx.writer#new_line;
+
+	let class_path = ctx.class_def.cl_path in
+	let isCategory = (has_meta ":category" ctx.class_def.cl_meta) in
+	if isCategory then begin
+		
+		let category_class = (match (snd class_path) with
+			| "String" -> "NSMutableString"
+			(* | "Array" -> "NSMutableArray" *)
+			| "Date" -> "NSDate"
+			| "Hash" -> "NSMutableDictionary"
+			| "EReg" -> "NSRegularExpression"
+			| _ -> ""
+		) in
+		ctx.writer#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
+		
+		end
+	else begin
+		
+		ctx.writer#write ("@interface " ^ (snd class_path));
+		(* Add the super class *)
+		(match ctx.class_def.cl_super with
+			| None -> ctx.writer#write " : NSObject"
+			| Some (csup,_) -> ctx.writer#write (Printf.sprintf " : %s " (snd csup.cl_path)));
+		(* ctx.writer#write (Printf.sprintf "\npublic %s%s%s %s " (final c.cl_meta) 
+		(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
+		(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
+		if ctx.class_def.cl_implements != [] then begin
+			(* Add implement *)
+			ctx.writer#write "<";
+			(match ctx.class_def.cl_implements with
+			| [] -> ()
+			| l -> concat ctx ", " (fun (i,_) -> ctx.writer#write (Printf.sprintf "%s" (snd i.cl_path))) l
+			);
+			ctx.writer#write ">";
+		end
+	end;
+	
+	
+	ctx.writer#new_line;
+	
+	List.iter (generateField ctx true) ctx.class_def.cl_ordered_statics;
+	List.iter (generateField ctx false) (List.rev ctx.class_def.cl_ordered_fields);
+	
+	(match ctx.class_def.cl_constructor with
+	| None -> ();
+		(* ctx.generating_constructor <- true; *)
+		(* let f = {
+			cf_name = "new"(* Rename the class constructor to 'init' snd class_def.cl_path *);
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		generateField ctx false f; *)
+	| Some f ->
+		let f = { f with
+			cf_name = "new";
+			cf_public = true;
+			cf_kind = Method MethNormal;
+		} in
+		ctx.generating_constructor <- true;
+		generateField ctx false f;
+		ctx.generating_constructor <- false;
+	);
+	
+	ctx.writer#write "\n\n@end\n\n";
+	ctx.generating_header <- false
 ;;
 
 (* The main entry of the generator *)
@@ -2198,37 +2183,104 @@ let generate common_ctx =
 	(* Generate XCode folders structure *)
 	generateXcodeStructure common_ctx;
 	
+	let src_dir = srcDir common_ctx in
 	let imports_manager = new importsManager in
 	let files_manager = new filesManager imports_manager in
-	let app_info = ref PMap.empty in
-	(* Generate files for each class.
-	When we reach the static main method generate a main.m file *)
-	List.iter (fun object_def ->
-		match object_def with
+	let file_info = ref PMap.empty in(* Not sure for what is used *)
+	(* Generate the HXObject category *)
+	let temp_file_path = ([],"HXObject") in
+	let file_m = newSourceFile src_dir temp_file_path ".m" in
+	let file_h = newSourceFile src_dir temp_file_path ".h" in
+	let ctx_m = newContext common_ctx file_m imports_manager file_info in
+	let ctx_h = newContext common_ctx file_h imports_manager file_info in
+	let m = newModuleContext ctx_m ctx_h in
+	(* Generate classes and enums in the coresponding module *)
+	List.iter ( fun obj_def ->
+		print_endline ("> Generating object : ? ");
+		
+		match obj_def with
 		| TClassDecl class_def ->
-			(* if has_meta ":owner" class_def.cl_meta then 
-				print_endline ("Has meta "^()); *)
-			(* let class_def = (match class_def.cl_path with
-				(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
-				| (pack,name) -> { class_def with cl_path = (pack, name) }
-			) in *)
-			if not class_def.cl_extern then
-				generateClassFiles common_ctx class_def app_info files_manager imports_manager
+			
+			if not class_def.cl_extern then begin
+				let module_path = class_def.cl_module.m_path in
+				let class_path = class_def.cl_path in
+				let is_new_module = (m.module_path != module_path) in
+				(* When we create a new module reset the frameworks and imports that where stored for the previous module *)
+				(* The frameworks are kept in a non-resetable variable for .pbxproj *)
+				imports_manager#reset;
+				print_endline ("> Generating class : "^(snd class_path));
+				
+				(* let class_def = (match class_def.cl_path with
+					(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
+					| (pack,name) -> { class_def with cl_path = (pack, name) }
+				) in *)
+				
+				(* If it's a new module close the old files and create new ones *)
+				if is_new_module then begin
+					(* print_endline ("> Is new module"); *)
+					(* Close the current files because this is a new module *)
+					m.ctx_m.writer#close;
+					m.ctx_h.writer#close;
+					m.module_path <- module_path;
+					
+					if not class_def.cl_interface then begin
+						(* Create the implementation file *)
+						files_manager#register_source_file module_path ".m";
+						let file_m = newSourceFile src_dir module_path ".m" in
+						let ctx_m = newContext common_ctx file_m imports_manager file_info in
+						m.ctx_m <- ctx_m;
+						
+						(* Import header *)
+						m.ctx_m.writer#add_copy;
+						m.ctx_m.writer#import_header ctx_m.class_def.cl_module.m_path;
+					end;
+					
+					(* Create the header file *)
+					files_manager#register_source_file module_path ".h";
+					let file_h = newSourceFile src_dir module_path ".h" in
+					let ctx_h = newContext common_ctx file_h imports_manager file_info in
+					m.ctx_h <- ctx_h;
+					(* m.ctx_h.class_def <- class_def; *)
+					m.ctx_h.writer#add_copy;
+				end;
+				print_endline ("> Generate implementation and/or header content");
+				
+				if not class_def.cl_interface then begin
+					m.ctx_m.class_def <- class_def;
+					generateImplementation m.ctx_m files_manager imports_manager;
+				end;
+				m.ctx_h.class_def <- class_def;
+				generateHeader m.ctx_h files_manager imports_manager;
+			end
 		
-		| TEnumDecl e ->
-			let pack,name = e.e_path in
-			let e = { e with e_path = (pack,protect name) } in
-			if not e.e_extern then generateEnum common_ctx e
-		
-		| TTypeDecl _ | TAbstractDecl _ ->
+		| TEnumDecl enum_def ->
+			print_endline ("> Generating enum : "^(snd enum_def.e_path)^" in module : "^(snd enum_def.e_module.m_path));
+			if not enum_def.e_extern then begin
+				let module_path = enum_def.e_module.m_path in
+				let class_path = enum_def.e_path in
+				let is_new_module = (m.module_path != module_path) in
+				if is_new_module then begin
+					m.ctx_m.writer#close;
+					m.ctx_h.writer#close;
+					let file_h = newSourceFile src_dir module_path ".h" in
+					let ctx_h = newContext common_ctx file_h imports_manager file_info in
+					m.ctx_h <- ctx_h;
+					m.ctx_h.writer#add_copy;
+					m.ctx_h.generating_header <- true;
+				end;
+				generateEnum m.ctx_h enum_def;
+			end;
+		| TTypeDecl _ ->
+			()
+		| TAbstractDecl _ ->
 			()
 	) common_ctx.types;
 	
 	(* Register some default files *)
 	(* files_manager#register_source_file class_def.cl_path ".m"; *)
 	
-	generatePch common_ctx app_info;
-	generatePlist common_ctx app_info;
+	generatePch common_ctx file_info;
+	generatePlist common_ctx file_info;
 	generateResources common_ctx;
 	(*  *)
 	localizations common_ctx;

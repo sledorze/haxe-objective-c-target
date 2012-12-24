@@ -1,6 +1,6 @@
 // This class is used to test the various features of Haxe and study the generated code
 
-import objc.Lib;
+import Tests3;
 
 @:orientation("UIInterfaceOrientationPortrait")
 @:orientation("UIInterfaceOrientationLandscapeLeft")
@@ -10,11 +10,15 @@ import objc.Lib;
 @:version("1.0")
 
 
-enum TestsEnum {
-	EnumValue1;
-	EnumValue2;
-	EnumValue3;
+enum Color {
+	Red;
+	Green;
+	Blue;
+	Grey( v : Int );
+	Rgb( r : Int, g : Int, b : Int );
+	Alpha( a : Int, col : Color );
 }
+
 extern enum TestsEnumExtern {
 	ExternEnumValue1;
 	ExternEnumValue2;
@@ -63,7 +67,9 @@ class Tests implements Interface1, implements Interface2 {
 		
 		var x = new Tests().add (1, 1);// [[[Tests alloc] new] add:1 b:1]
 		
-		Lib.print("print print and print again");
+		#if objc
+		objc.Lib.print("print print and print again");
+		#end
 	}
 	
 	// For statements
@@ -197,22 +203,30 @@ class Tests implements Interface1, implements Interface2 {
 	
 	// Test Enum
 	
-	function testEnum(){
-		var v1 :TestsEnum = EnumValue1;
-		var v2 :TestsEnum = EnumValue2;
-		var v3 :TestsEnum = EnumValue3;
-		switch (v1) {
-			case EnumValue1 : null;
-			case EnumValue2 : null;
-			case EnumValue3 : null;
+	function enumToInt (c:Color) :Int {
+		
+		testEnum ( ExternEnumValue1 );
+		
+		return switch( c ) {
+			case Red: 0xFF0000;
+			case Green: 0x00FF00;
+			case Blue: 0x0000FF;
+			case Grey(v): (v << 16) | (v << 8) | v;
+			case Rgb(r,g,b): (r << 16) | (g << 8) | b;
+			case Alpha(a,c): (a << 24) | (enumToInt(c) & 0xFFFFFF);
 		}
-		doSomething ( ExternEnumValue1 );
 	}
-	function doSomething (v:TestsEnumExtern) {
+	function testEnum (v:TestsEnumExtern) {
 		var i = switch (v) {
 			case ExternEnumValue1 : 5;
 			case ExternEnumValue2 : 6;
 			case ExternEnumValue3 : 7;
+		}
+		var red :Color2 = Red2;
+		var j = switch (red) {
+			case Red2 : 5;
+			case Green2 : 6;
+			case Blue2 : 7;
 		}
 	}
 	
@@ -429,7 +443,7 @@ class Tests implements Interface1, implements Interface2 {
 	
 	
 	// Test Sys
-	
+	#if objc
 	function testSys () {
 		Sys.print("hello world");
 		Sys.println("hello world");
@@ -455,13 +469,15 @@ class Tests implements Interface1, implements Interface2 {
 		string = Sys.systemName();
 		float = Sys.time();
 	}
-	
+	#end
 	
 	// Test Type
 	
 	function testType () {
+		#if objc
 		var sup = Type.getSuperClass ( objc.foundation.NSString );
 		var sups = Type.getClassName ( objc.foundation.NSString );
+		#end
 		var cl = Type.resolveClass ( "ios.map.MKMapView" );
 		
 /*		allEnums<T>(e : Enum<T>) : Array<T>
@@ -518,7 +534,7 @@ class Tests implements Interface1, implements Interface2 {
 	
 	
 	// Test haxe.Timer
-	
+	#if !cpp
 	function testTimer () {
 		var timer = new haxe.Timer ( 50 );
 		timer.run = testXml;
@@ -528,7 +544,7 @@ class Tests implements Interface1, implements Interface2 {
 		haxe.Timer.measure (testTimer);
 		var f = haxe.Timer.stamp();
 	}
-	
+	#end
 	
 	
 	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
@@ -579,4 +595,17 @@ class Tests implements Interface1, implements Interface2 {
 	public static function main() {
 		//return new UIApplicationMain ( Tests );
 	}
+}
+
+class Tests2 {
+	var d1 = 34;
+	function new () {
+		var arr = [d1, d1, 50];
+	}
+	function methodInTests2(){}
+}
+enum Color2 {
+	Red2;
+	Green2;
+	Blue2;
 }

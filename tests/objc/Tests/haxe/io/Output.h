@@ -40,3 +40,4 @@
 - (void) writeString:(NSMutableString*)s;
 
 @end
+

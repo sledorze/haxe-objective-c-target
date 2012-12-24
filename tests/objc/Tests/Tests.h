@@ -14,8 +14,9 @@
 #import "Log.h"
 #import "Date.h"
 #import "DateTools.h"
-#import "TestsEnum.h"
+#import "Color.h"
 #import "TestsEnumExtern.h"
+#import "Color2.h"
 #import "EReg.h"
 #import "Hash.h"
 #import "IntHash.h"
@@ -53,8 +54,8 @@
 - (void) testSwitch;
 - (void) testArray;
 - (void) testDate;
-- (void) testEnum;
-- (void) doSomething:(Object*)v;
+- (int) enumToInt:(Color*)c;
+- (void) testEnum:(Object*)v;
 - (void) testEReg;
 - (void) testHash;
 - (void) testLambda;
@@ -82,3 +83,21 @@
 - (id) new;
 
 @end
+
+
+
+#import "Array.h"
+
+@interface Tests2 : NSObject
+
+@property (nonatomic) int d1;
+- (void) methodInTests2;
+- (id) new;
+
+@end
+
+typedef enum{
+	Red2,
+	Green2,
+	Blue2
+} Color2;

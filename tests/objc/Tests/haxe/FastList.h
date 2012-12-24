@@ -8,6 +8,18 @@
 
 
 #import "FastCell.h"
+
+@interface FastCell : NSObject
+
+@property (nonatomic) id elt;
+@property (nonatomic, strong) FastCell *next;
+- (id) new:(id)elt next:(FastCell*)next;
+
+@end
+
+
+
+#import "FastCell.h"
 #import "Array.h"
 
 @interface FastList : NSObject
@@ -23,3 +35,4 @@
 - (id) new;
 
 @end
+

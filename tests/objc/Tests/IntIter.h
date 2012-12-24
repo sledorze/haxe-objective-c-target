@@ -17,3 +17,4 @@
 - (id) new:(int)min max:(int)max;
 
 @end
+

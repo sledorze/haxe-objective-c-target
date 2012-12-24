@@ -18,3 +18,4 @@
 + (int) random:(int)x;
 
 @end
+

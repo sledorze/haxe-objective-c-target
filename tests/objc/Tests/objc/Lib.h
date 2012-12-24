@@ -19,3 +19,4 @@
 + (CLLocation*) location;
 
 @end
+

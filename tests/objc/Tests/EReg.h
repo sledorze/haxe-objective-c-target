@@ -27,3 +27,4 @@
 - (id) new:(NSMutableString*)r opt:(NSMutableString*)opt;
 
 @end
+

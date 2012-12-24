@@ -31,3 +31,4 @@
 - (id) new:(int)length b:(NSMutableArray*)b;
 
 @end
+
