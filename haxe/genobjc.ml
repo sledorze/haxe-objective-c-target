@@ -2116,8 +2116,7 @@ let generateHeader ctx files_manager imports_manager =
 	if isCategory then begin
 		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
 		ctx.writer#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
-		
-		end
+	end
 	else begin
 		
 		ctx.writer#write ("@interface " ^ (snd class_path));
@@ -2138,7 +2137,6 @@ let generateHeader ctx files_manager imports_manager =
 			ctx.writer#write ">";
 		end
 	end;
-	
 	
 	ctx.writer#new_line;
 	
@@ -2209,7 +2207,7 @@ let generate common_ctx =
 				
 				(* If it's a new module close the old files and create new ones *)
 				if is_new_module then begin
-					(* print_endline ("> Is new module"); *)
+					print_endline ("> Is new module "^(snd module_path));
 					(* Close the current files because this is a new module *)
 					m.ctx_m.writer#close;
 					m.ctx_h.writer#close;
@@ -2251,9 +2249,13 @@ let generate common_ctx =
 				let module_path = enum_def.e_module.m_path in
 				let class_path = enum_def.e_path in
 				let is_new_module = (m.module_path != module_path) in
+				
 				if is_new_module then begin
+					print_endline ("> New module : "^(snd module_path));
 					m.ctx_m.writer#close;
 					m.ctx_h.writer#close;
+					m.module_path <- module_path;
+					
 					let file_h = newSourceFile src_dir module_path ".h" in
 					let ctx_h = newContext common_ctx file_h imports_manager file_info in
 					m.ctx_h <- ctx_h;
