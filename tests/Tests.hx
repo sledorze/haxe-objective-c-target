@@ -6,9 +6,8 @@ import Tests3;
 @:orientation("UIInterfaceOrientationLandscapeLeft")
 @:identifier("com.ralcr.HelloWorld")
 @:owner("Baluta Cristian")
-@:bundle_name("HelloWorld")
-@:version("1.0")
-
+@:bundle_name("TestsWorld")
+@:version("1.0.1")
 
 enum Color {
 	Red;
@@ -24,6 +23,12 @@ extern enum TestsEnumExtern {
 	ExternEnumValue2;
 	ExternEnumValue3;
 }
+
+typedef NewType = {
+	var x:Int;
+	var y:Int;
+}
+
 class Tests implements Interface1, implements Interface2 {
 	
 	public var interfaceVar1 :Int;// Generate a @property (nonatomic) int float1; + a @synthesize float1
@@ -150,53 +155,29 @@ class Tests implements Interface1, implements Interface2 {
 	
 	function testDate (){
 		var d = new Date (2012,11,13, 19,30,0);
-		var d2 = Date.now();
+		var int = d.getDate();
+		int = d.getDay();
+		int = d.getFullYear();
+		int = d.getHours();
+		int = d.getMinutes();
+		int = d.getMonth();
+		int = d.getSeconds();
+		var float = d.getTime();
+		var str = d.toString();
+		var d2 = Date.fromString("2012-12-12 06:40:00");
+		d2 = Date.fromTime(120000);
+		d2 = Date.now();
 		
 		var x = DateTools.getMonthDays ( d2 );
-		
-/*		new(year : Int, month : Int, day : Int, hour : Int, min : Int, sec : Int) : Void
-		Creates a new date object.
-		function getDate() : Int
-		Returns the day of the date (1-31 range).
-		function getDay() : Int
-		Returns the week day of the date (0-6 range).
-		function getFullYear() : Int
-		Returns the full year of the date.
-		function getHours() : Int
-		Returns the hours value of the date (0-23 range).
-		function getMinutes() : Int
-		Returns the minutes value of the date (0-59 range).
-		function getMonth() : Int
-		Returns the month of the date (0-11 range).
-		function getSeconds() : Int
-		Returns the seconds of the date (0-59 range).
-		function getTime() : Float
-		Returns the timestamp of the date. It's the number of milliseconds elapsed since 1st January 1970. It might only have a per-second precision depending on the platforms.
-		function toString() : String
-		Returns a string representation for the Date, by using the standard format YYYY-MM-DD HH:MM:SS. See DateTools.format for other formating rules.
-		static function fromString(s : String) : Date
-		Returns a Date from a formated string of one of the following formats : YYYY-MM-DD hh:mm:ss or YYYY-MM-DD or hh:mm:ss. The first two formats are expressed in local time, the third in UTC Epoch.
-		static function fromTime(t : Float) : Date
-		Returns a Date from a timestamp t which is the number of milliseconds elapsed since 1st January 1970.
-		static function now() : Date*/
-		
-/*			days(n : Float) : Float
-			Convert a number of days to a date-time
-			static function delta(d : Date, t : Float) : Date
-			Returns a Date which time has been changed by t milliseconds.
-			static function format(d : Date, f : String) : String
-			Format the date d according to the format f. The format is compatible with the strftime standard format, except that there is no support in Flash and JS for day and months names (due to lack of proper internationalization API). On haXe/Neko/Windows, some formats are not supported.
-			static function getMonthDays(d : Date) : Int
-			Returns the number of days in a month
-			static function hours(n : Float) : Float
-			Convert a number of hours to a date-time
-			static function make(o : { seconds : Int, ms : Float, minutes : Int, hours : Int, days : Int}) : Float
-			Build a date-time from several components
-			static function minutes(n : Float) : Float
-			Convert a number of minutes to a date-time
-			static function parse(t : Float) : { seconds : Int, ms : Float, minutes : Int, hours : Int, days : Int}
-			Separate a date-time into several components
-			static function seconds(n : Float) : Float*/
+		float = DateTools.days ( 5 );
+		var d3 = DateTools.delta (d, 1000.0);
+		str = DateTools.format (d, "HH:mm");
+		int = DateTools.getMonthDays (d);
+		float = DateTools.hours (1000);
+		float = DateTools.make ( { seconds:0, ms:110, minutes:6, hours:8, days:5 } );
+		float = DateTools.minutes(56);
+		var obj = DateTools.parse(45546);
+		float = DateTools.seconds(1000);
 	}
 	
 	

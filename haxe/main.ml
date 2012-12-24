@@ -758,7 +758,7 @@ try
 		),"<directory> : generate Java code into target directory");
 		("-objc",Arg.String (fun dir ->
 			set_platform ObjC dir;
-		),"<directory> : generate Xcode Objective-C project into target directory");
+		),"<directory> : generate Objective-C code into target directory");
 		("-xml",Arg.String (fun file ->
 			Parser.use_doc := true;
 			xml_out := Some file
@@ -927,6 +927,25 @@ try
 		("-swf9",Arg.String (fun file ->
 			set_platform Flash file;
 		),"<file> : [deprecated] compile code to Flash9 SWF file");
+		(* ObjectiveC related parameters. Configure the xcode plist *)
+		("-objc-platform",Arg.String (fun v ->
+			com.objc_platform <- v;
+		),"<platform> : change the platform (iphone, ipad, ios, osx, commandline)");
+		("-objc-version",Arg.Float (fun v ->
+			com.objc_version <- v;
+		),"<version> : change the iOS version (4 to 6.1)");
+		("-objc-identifier",Arg.String (fun v ->
+			com.objc_identifier <- Some v;
+		),"<identifier> : The identifier of your app");
+		("-objc-owner",Arg.String (fun v ->
+			com.objc_owner <- Some v;
+		),"<owner> : change the iOS version (4 to 6.1)");
+		("-objc-bundle-name",Arg.String (fun v ->
+			com.objc_bundle_name <- Some v;
+		),"<name> : change the name of the executable");
+		("-ios-orientation",Arg.String (fun v ->
+			com.objc_orientation <- Some v;
+		),"<orientation> : change the iOS orientation (UIInterfaceOrientationPortrait,UIInterfaceOrientationLandscapeLeft)");
 	] in
 	let args_callback cl = classes := make_path cl :: !classes in
 	let process args =

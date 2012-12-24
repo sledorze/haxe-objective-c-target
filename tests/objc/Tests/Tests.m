@@ -7,110 +7,6 @@
 
 #import ".h"
 
-@implementation Sys
-
-+ (void) print:(id)v{
-	print(v);
-}
-+ (void) println:(id)v{
-	[Sys print:v];
-	[Sys print:@"\n"];
-}
-+ (Input*) stdin{
-	return [[FileInput alloc] new:[file_stdin]];
-}
-+ (Output*) stdout{
-	return [[FileOutput alloc] new:[file_stdout]];
-}
-+ (Output*) stderr{
-	return [[FileOutput alloc] new:[file_stderr]];
-}
-+ (int) getChar:(BOOL)echo{
-	return 0;
-}
-+ (NSMutableArray*) args{
-	return nil;
-}
-+ (NSMutableString*) getEnv:(NSMutableString*)s{
-	
-	NSMutableString *v = nil;
-	if (v == nil) return nil;
-	return v;
-}
-+ (void) putEnv:(NSMutableString*)s v:(NSMutableString*)v{
-}
-+ (void) sleep:(float)seconds{
-}
-+ (BOOL) setTimeLocale:(NSMutableString*)loc{
-	return YES;
-}
-+ (NSMutableString*) getCwd{
-	return nil;
-}
-+ (void) setCwd:(NSMutableString*)s{
-}
-+ (NSMutableString*) systemName{
-	return nil;
-}
-+ (NSMutableString*) escapeArgument:(NSMutableString*)arg{
-	BOOL ok = YES;
-	{
-		int _g1 = 0; int _g = arglength;
-		while (_g1 < _g) {
-			int i = _g1++;
-			switch ([arg characterAtIndex:i]){
-				case 32:case 34:{
-					ok = NO}break;
-				case 0:case 13:case 10:{
-					arg = [arg substringWithRange:0 len:i]}break;
-			}
-		}
-	}
-	if (ok) return arg;
-	return [[@"\"" stringByAppendingString:[[arg componentsSeparatedByString:@"\""].join:@"\\\""]] stringByAppendingString:@"\""];
-}
-+ (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
-	if (args != nil) {
-		cmd = [Sys escapeArgument:cmd];
-		{
-			int _g = 0;
-			while (_g < args.length) {
-				
-				NSMutableString *a = [args objectAtIndex:_g];
-				++_g;
-				[cmd appendString:[@" " stringByAppendingString:[Sys escapeArgument:a]]];
-			}
-		}
-	}
-	return 0;
-}
-+ (void) exit:(int)code{
-	exit(code);
-}
-+ (float) time{
-	return 0;
-}
-+ (float) cpuTime{
-	return 0;
-}
-+ (NSMutableString*) executablePath{
-	return nil;
-}
-+ (Hash*) environment{
-	
-	NSMutableArray *vars = nil;
-	
-	Hash *result = [[Hash alloc] new];
-	int i = 0;
-	while (i < vars.length) {
-		[result set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
-		i += 2;
-	}
-	return result;
-}
-
-@end
-
 @implementation Tests
 
 + (NSMutableString*) staticVar1:(NSMutableString*)val {
@@ -187,7 +83,7 @@
 - (void) testWhile{
 	int aa = 5;
 	do {
-		[Log trace:@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"94",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"75",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
 	while (aa > 0) aa--;
@@ -197,7 +93,7 @@
 		int a = 3;
 	}
 	@catch (NSException *e) {
-		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"111",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"92",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
 - (void) testSwitch{
@@ -398,9 +294,9 @@ days:5} structName];
 	item = [l last];
 	item = [l pop];
 	BOOL r = [l remove:5];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"291",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"272",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[l clear];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"293",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"274",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
 	List *newList = [l map:^(NSMutableString*):(int)i{
 		return [Std string:i];
@@ -570,7 +466,7 @@ days:5} structName];
 	timer = [Timer delay:^(void){
 		[[_g objectAtIndex:0] testTimer];
 	} time_ms:50];
-	[Timer measure:@selector(testTimer) pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"525",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:@selector(testTimer) pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"506",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testFrameworksImport{
@@ -602,7 +498,7 @@ days:5} structName];
 	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"571",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"552",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) new{
 	self = [super init];
@@ -636,6 +532,130 @@ days:5} structName];
 	self = [super init];
 	self.d1 = 34;
 	return self;
+}
+
+@end
+
+@implementation Type
+
++ (Class*) getClass:(id)o{
+	if (o == nil || ![Reflect isObject:o]) return nil;
+	id c = [o __GetClass];
+	switch ([c GFA2 .toString]){
+		case @"__Anon":{
+			return nil}break;
+		case @"Class":{
+			return nil}break;
+	}
+	return c;
+}
++ (Enum*) getEnum:(EnumValue*)o{
+	if (o == nil) return nil;
+	return [o __GetClass];
+}
++ (Class*) getSuperClass:(Class*)c{
+	return [c GetSuper];
+}
++ (NSMutableString*) getClassName:(Class*)c{
+	if (c == nil) return nil;
+	return c.mName;
+}
++ (NSMutableString*) getEnumName:(Enum*)e{
+	return [e __ToString];
+}
++ (Class*) resolveClass:(NSMutableString*)name{
+	
+	Class *result = [Class Resolve "-dynamic_param-" ];
+	if (result != nil && [result __IsEnum]) return nil;
+	return result;
+}
++ (Enum*) resolveEnum:(NSMutableString*)name{
+	
+	Class *result = [Class Resolve "-dynamic_param-" ];
+	if (result != nil && ![result __IsEnum]) return nil;
+	return result;
+}
++ (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
+	if (cl != nil) return [cl mConstructArgs "-dynamic_param-" ];
+	return nil;
+}
++ (id) createEmptyInstance:(Class*)cl{
+	return [cl mConstructEmpty];
+}
++ (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params{
+	if (e.mConstructEnum != nil) return [e mConstructEnum "-dynamic_param-" ];
+	return nil;
+}
++ (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{
+	
+	NSMutableString *c = [[Type getEnumConstructs:e] objectAtIndex:index];
+	if (c == nil) throw [index stringByAppendingString:@" is not a valid enum constructor index"];
+	return [Type createEnum:e constr:c params:params];
+}
++ (NSMutableArray*) getInstanceFields:(Class*)c{
+	return [c GetInstanceFields];
+}
++ (NSMutableArray*) getClassFields:(Class*)c{
+	return [c GetClassFields];
+}
++ (NSMutableArray*) getEnumConstructs:(Enum*)e{
+	return [e GetClassFields];
+}
++ (ValueType*) typeof:(id)v{
+	if (v == nil) return ValueType.TNull;
+	int t = [v __GetType];
+	switch (t){
+		case __global__ GFA2 .vtBool:{
+			return ValueType.TBool}break;
+		case __global__ GFA2 .vtInt:{
+			return ValueType.TInt}break;
+		case __global__ GFA2 .vtFloat:{
+			return ValueType.TFloat}break;
+		case __global__ GFA2 .vtFunction:{
+			return ValueType.TFunction}break;
+		case __global__ GFA2 .vtObject:{
+			return ValueType.TObject}break;
+		case __global__ GFA2 .vtEnum:{
+			return [ValueType.TEnum:[v __GetClass]]}break;
+		default:{
+			return [ValueType.TClass:[v __GetClass]]}break
+	}
+	return nil;
+}
++ (BOOL) enumEq:(id)a b:(id)b{
+	return a == b;
+}
++ (NSMutableString*) enumConstructor:(EnumValue*)e{
+	return [e __Tag];
+}
++ (NSMutableArray*) enumParameters:(EnumValue*)e{
+	
+	NSMutableArray *result = [e __EnumParams];
+	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil]] : result);
+}
++ (int) enumIndex:(EnumValue*)e{
+	return [e __Index];
+}
++ (NSMutableArray*) allEnums:(Enum*)e{
+	
+	NSMutableArray *names = [e GetClassFields];
+	
+	NSMutableArray *enums = [[NSMutableArray alloc] new];
+	{
+		int _g = 0;
+		while (_g < names.length) {
+			
+			NSMutableString *name = [names objectAtIndex:_g];
+			++_g;
+			@try {
+				id result = [e mConstructEnum "-dynamic_param-" ];
+				[enums push:result];
+			}
+			@catch (NSException *invalidArgCount) {
+			}
+		}
+	}
+	return enums;
 }
 
 @end

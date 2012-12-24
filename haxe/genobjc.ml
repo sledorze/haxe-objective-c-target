@@ -1386,7 +1386,7 @@ int main(int argc, char *argv[]) {
 }
 ");
 		m_file#close;
-		| _ -> print_endline "objc_error: Supported returns are UIApplicationMain or NSApplicationMain"
+		| _ -> print_endline "objc_error: Supported returns in the main method are UIApplicationMain or NSApplicationMain"
 	)
 ;;
 
@@ -1995,12 +1995,21 @@ let getMetaString key meta =
 		in
 	loop meta
 ;;
-let generatePlist common_ctx class_def  =
+let generatePlist common_ctx file_info  =
 	(* TODO: Read and parse the Main class for metadata *)
+	let main_class_def = common_ctx.main_class in
 	let app_name = appName common_ctx in
 	let src_dir = srcDir common_ctx in
-	let identifier = "" in (* (getMetaString ":identifier" class_def.cl_meta) in *)
-	let version = "" in
+	let identifier = match common_ctx.objc_identifier with 
+		| Some id -> id
+		| None -> "org.haxe.ObjC" in
+	let bundle_name = match common_ctx.objc_bundle_name with 
+		| Some name -> name 
+		| None -> "${PRODUCT_NAME}" in
+	let version = Printf.sprintf "%fd" common_ctx.objc_version in
+	let orientation = match common_ctx.objc_orientation with 
+		| Some o -> o
+		| None -> "UIInterfaceOrientationPortrait" in
 	(* let identifier = getMetaString class_def.cl_meta ":identifier" in
 	let version = getMetaString class_def.cl_meta ":version" in *)
 	let file = newSourceFile src_dir ([],app_name^"-Info") ".plist" in
@@ -2011,7 +2020,7 @@ let generatePlist common_ctx class_def  =
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>" ^ bundle_name ^ "</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -2019,7 +2028,7 @@ let generatePlist common_ctx class_def  =
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>${PRODUCT_NAME}</string>
+	<string>" ^ bundle_name ^ "</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -2036,9 +2045,7 @@ let generatePlist common_ctx class_def  =
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>" ^ orientation ^ "</string>
 	</array>
 </dict>
 </plist>");
@@ -2047,7 +2054,7 @@ let generatePlist common_ctx class_def  =
 
 (* Generate the enum. ctx should be the header file *)
 let generateEnum ctx enum_def =
-	print_endline ("> Generating enum : "^(snd enum_def.e_path));
+	(* print_endline ("> Generating enum : "^(snd enum_def.e_path)); *)
     ctx.writer#write "typedef enum";
 	ctx.writer#begin_block;
 	ctx.writer#write (String.concat ",\n\t" enum_def.e_names);
@@ -2059,7 +2066,7 @@ let generateEnum ctx enum_def =
 
 (* Generate header + implementation in the provided file *)
 let generateImplementation ctx files_manager imports_manager =
-	print_endline ("> Generating implementation : "^(snd ctx.class_def.cl_path));
+	(* print_endline ("> Generating implementation : "^(snd ctx.class_def.cl_path)); *)
 	
 	defineGetSet ctx true ctx.class_def;
 	defineGetSet ctx false ctx.class_def;
@@ -2096,7 +2103,7 @@ let generateImplementation ctx files_manager imports_manager =
 ;;	
 
 let generateHeader ctx files_manager imports_manager =
-	print_endline ("> Generating header : "^(snd ctx.class_def.cl_path));
+	(* print_endline ("> Generating header : "^(snd ctx.class_def.cl_path)); *)
 	ctx.generating_header <- true;
 	(* Import the super class *)
 	(match ctx.class_def.cl_super with
@@ -2186,10 +2193,21 @@ let generate common_ctx =
 	let m = newModuleContext ctx_m ctx_h in
 	(* Generate classes and enums in the coresponding module *)
 	List.iter ( fun obj_def ->
-		print_endline ("> Generating object : ? ");
+		(* print_endline ("> Generating object : ? "); *)
 		
 		match obj_def with
 		| TClassDecl class_def ->
+			
+			(* let is_main_class = match common_ctx.main_class with
+				| Some path -> (path = class_def.cl_path)
+				| _ -> false in
+			if is_main_class then begin
+				print_endline("FOUND MAIN CLASS");
+				if (has_meta ":version" class_def.cl_meta) then print_endline("has meta");
+				let vers = getMetaString ":version" class_def.cl_meta in
+				let orientation = getMetaString ":orientation" class_def.cl_meta in
+				
+			end; *)
 			
 			if not class_def.cl_extern then begin
 				let module_path = class_def.cl_module.m_path in
@@ -2198,7 +2216,7 @@ let generate common_ctx =
 				(* When we create a new module reset the frameworks and imports that where stored for the previous module *)
 				(* The frameworks are kept in a non-resetable variable for .pbxproj *)
 				imports_manager#reset;
-				print_endline ("> Generating class : "^(snd class_path));
+				(* print_endline ("> Generating class : "^(snd class_path)); *)
 				
 				(* let class_def = (match class_def.cl_path with
 					(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
@@ -2207,7 +2225,7 @@ let generate common_ctx =
 				
 				(* If it's a new module close the old files and create new ones *)
 				if is_new_module then begin
-					print_endline ("> Is new module "^(snd module_path));
+					(* print_endline ("> Is new module "^(snd module_path)); *)
 					(* Close the current files because this is a new module *)
 					m.ctx_m.writer#close;
 					m.ctx_h.writer#close;
@@ -2233,7 +2251,7 @@ let generate common_ctx =
 					(* m.ctx_h.class_def <- class_def; *)
 					m.ctx_h.writer#add_copy;
 				end;
-				print_endline ("> Generate implementation and/or header content");
+				(* print_endline ("> Generate implementation and/or header content"); *)
 				
 				if not class_def.cl_interface then begin
 					m.ctx_m.class_def <- class_def;
@@ -2244,14 +2262,14 @@ let generate common_ctx =
 			end
 		
 		| TEnumDecl enum_def ->
-			print_endline ("> Generating enum : "^(snd enum_def.e_path)^" in module : "^(snd enum_def.e_module.m_path));
+			(* print_endline ("> Generating enum : "^(snd enum_def.e_path)^" in module : "^(snd enum_def.e_module.m_path)); *)
 			if not enum_def.e_extern then begin
 				let module_path = enum_def.e_module.m_path in
 				let class_path = enum_def.e_path in
 				let is_new_module = (m.module_path != module_path) in
 				
 				if is_new_module then begin
-					print_endline ("> New module : "^(snd module_path));
+					(* print_endline ("> New module : "^(snd module_path)); *)
 					m.ctx_m.writer#close;
 					m.ctx_h.writer#close;
 					m.module_path <- module_path;
