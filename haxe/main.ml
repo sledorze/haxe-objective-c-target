@@ -934,6 +934,9 @@ try
 		("-objc-version",Arg.Float (fun v ->
 			com.objc_version <- v;
 		),"<version> : change the iOS version (4 to 6.1)");
+		("-objc-bundle-version",Arg.Float (fun v ->
+			com.objc_bundle_version <- v;
+		),"<version> : change the iOS version (4 to 6.1)");
 		("-objc-identifier",Arg.String (fun v ->
 			com.objc_identifier <- Some v;
 		),"<identifier> : The identifier of your app");

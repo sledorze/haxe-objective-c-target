@@ -2006,6 +2006,9 @@ let generatePlist common_ctx file_info  =
 	let bundle_name = match common_ctx.objc_bundle_name with 
 		| Some name -> name 
 		| None -> "${PRODUCT_NAME}" in
+	let executable_name = match common_ctx.objc_bundle_name with 
+		| Some name -> name 
+		| None -> "${EXECUTABLE_NAME}" in
 	let version = Printf.sprintf "%fd" common_ctx.objc_version in
 	let orientation = match common_ctx.objc_orientation with 
 		| Some o -> o
@@ -2022,7 +2025,7 @@ let generatePlist common_ctx file_info  =
 	<key>CFBundleDisplayName</key>
 	<string>" ^ bundle_name ^ "</string>
 	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
+	<string>" ^ executable_name ^ "</string>
 	<key>CFBundleIdentifier</key>
 	<string>" ^ identifier ^ "</string>
 	<key>CFBundleInfoDictionaryVersion</key>
