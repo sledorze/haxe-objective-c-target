@@ -32,9 +32,9 @@
 	float pi = M_PI;
 	float max = -DBL_MAX;
 	float min = DBL_MAX;
-	float nan = NaN;
+	float nan = NAN;
 	float x = sqrtf(5);
-	x = absf(5);
+	x = fabsf(5);
 	x = fmaxf(5, 45555);
 	x = fminf(5, 45555);
 	x = sinf(5);

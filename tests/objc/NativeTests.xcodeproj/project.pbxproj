@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28752FD4169042690048F960 /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD3169042690048F960 /* Array.m */; };
+		28752FD7169042840048F960 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD6169042840048F960 /* Log.m */; };
+		28752FDA169042B00048F960 /* Lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD9169042B00048F960 /* Lib.m */; };
+		28752FDD1690472D0048F960 /* Tests3.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FDC1690472D0048F960 /* Tests3.m */; };
 		288B518D167673C000926232 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B518C167673C000926232 /* UIKit.framework */; };
 		288B518F167673C000926232 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B518E167673C000926232 /* Foundation.framework */; };
 		288B5191167673C000926232 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B5190167673C000926232 /* CoreGraphics.framework */; };
@@ -21,10 +25,7 @@
 		288B51AD167673C100926232 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B518E167673C000926232 /* Foundation.framework */; };
 		288B51B5167673C100926232 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 288B51B3167673C100926232 /* InfoPlist.strings */; };
 		288B51B8167673C100926232 /* NativeTestsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51B7167673C100926232 /* NativeTestsTests.m */; };
-		288B51C31676741E00926232 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51C21676741E00926232 /* Log.m */; };
-		288B51C6167677B000926232 /* Lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51C5167677B000926232 /* Lib.m */; };
 		288B51C81676782000926232 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B51C71676782000926232 /* CoreLocation.framework */; };
-		288B51D31678760D00926232 /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 288B51D21678760D00926232 /* Array.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28752FD2169042690048F960 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = Tests/Array.h; sourceTree = SOURCE_ROOT; };
+		28752FD3169042690048F960 /* Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Array.m; path = Tests/Array.m; sourceTree = SOURCE_ROOT; };
+		28752FD5169042840048F960 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = Tests/haxe/Log.h; sourceTree = SOURCE_ROOT; };
+		28752FD6169042840048F960 /* Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = Tests/haxe/Log.m; sourceTree = SOURCE_ROOT; };
+		28752FD8169042B00048F960 /* Lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lib.h; path = Tests/objc/Lib.h; sourceTree = SOURCE_ROOT; };
+		28752FD9169042B00048F960 /* Lib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lib.m; path = Tests/objc/Lib.m; sourceTree = SOURCE_ROOT; };
+		28752FDB1690472D0048F960 /* Tests3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tests3.h; path = Tests/Tests3.h; sourceTree = SOURCE_ROOT; };
+		28752FDC1690472D0048F960 /* Tests3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tests3.m; path = Tests/Tests3.m; sourceTree = SOURCE_ROOT; };
 		288B5188167673C000926232 /* NativeTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		288B518C167673C000926232 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288B518E167673C000926232 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -57,13 +66,7 @@
 		288B51B4167673C100926232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		288B51B6167673C100926232 /* NativeTestsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeTestsTests.h; sourceTree = "<group>"; };
 		288B51B7167673C100926232 /* NativeTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeTestsTests.m; sourceTree = "<group>"; };
-		288B51C11676741E00926232 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = ../../Tests/haxe/Log.h; sourceTree = "<group>"; };
-		288B51C21676741E00926232 /* Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = ../../Tests/haxe/Log.m; sourceTree = "<group>"; };
-		288B51C4167677B000926232 /* Lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lib.h; path = ../../Tests/objc/Lib.h; sourceTree = "<group>"; };
-		288B51C5167677B000926232 /* Lib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lib.m; path = ../../Tests/objc/Lib.m; sourceTree = "<group>"; };
 		288B51C71676782000926232 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		288B51D11678760D00926232 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = ../../Tests/Array.h; sourceTree = "<group>"; };
-		288B51D21678760D00926232 /* Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Array.m; path = ../../Tests/Array.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +97,6 @@
 		288B517D167673C000926232 = {
 			isa = PBXGroup;
 			children = (
-				288B51C71676782000926232 /* CoreLocation.framework */,
 				288B5192167673C000926232 /* NativeTests */,
 				288B51B0167673C100926232 /* NativeTestsTests */,
 				288B518B167673C000926232 /* Frameworks */,
@@ -114,6 +116,7 @@
 		288B518B167673C000926232 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				288B51C71676782000926232 /* CoreLocation.framework */,
 				288B518C167673C000926232 /* UIKit.framework */,
 				288B518E167673C000926232 /* Foundation.framework */,
 				288B5190167673C000926232 /* CoreGraphics.framework */,
@@ -125,12 +128,14 @@
 		288B5192167673C000926232 /* NativeTests */ = {
 			isa = PBXGroup;
 			children = (
-				288B51C11676741E00926232 /* Log.h */,
-				288B51C21676741E00926232 /* Log.m */,
-				288B51C4167677B000926232 /* Lib.h */,
-				288B51C5167677B000926232 /* Lib.m */,
-				288B51D11678760D00926232 /* Array.h */,
-				288B51D21678760D00926232 /* Array.m */,
+				28752FD8169042B00048F960 /* Lib.h */,
+				28752FD9169042B00048F960 /* Lib.m */,
+				28752FD5169042840048F960 /* Log.h */,
+				28752FD6169042840048F960 /* Log.m */,
+				28752FD2169042690048F960 /* Array.h */,
+				28752FD3169042690048F960 /* Array.m */,
+				28752FDB1690472D0048F960 /* Tests3.h */,
+				28752FDC1690472D0048F960 /* Tests3.m */,
 				288B519B167673C000926232 /* AppDelegate.h */,
 				288B519C167673C100926232 /* AppDelegate.m */,
 				288B5193167673C000926232 /* Supporting Files */,
@@ -282,9 +287,10 @@
 			files = (
 				288B5199167673C000926232 /* main.m in Sources */,
 				288B519D167673C100926232 /* AppDelegate.m in Sources */,
-				288B51C31676741E00926232 /* Log.m in Sources */,
-				288B51C6167677B000926232 /* Lib.m in Sources */,
-				288B51D31678760D00926232 /* Array.m in Sources */,
+				28752FD4169042690048F960 /* Array.m in Sources */,
+				28752FD7169042840048F960 /* Log.m in Sources */,
+				28752FDA169042B00048F960 /* Lib.m in Sources */,
+				28752FDD1690472D0048F960 /* Tests3.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +457,7 @@
 				288B51BD167673C100926232 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		288B51BE167673C100926232 /* Build configuration list for PBXNativeTarget "NativeTestsTests" */ = {
 			isa = XCConfigurationList;
@@ -459,6 +466,7 @@
 				288B51C0167673C100926232 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

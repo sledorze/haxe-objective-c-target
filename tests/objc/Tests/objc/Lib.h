@@ -6,9 +6,9 @@
 //
 
 
+#import <CoreLocation/CoreLocation.h>
 
 #import "Lib.h"
-#import "CLLocation.h"
 
 @interface Lib : NSObject
 

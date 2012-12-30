@@ -37,28 +37,28 @@ let getFrameworkOfPath class_path =
 	let pack = fst class_path in
 	if List.length pack < 1 then "" else
 	match List.nth pack ((List.length pack) -1) with
-	(* Commom *)
-	| "foundation" -> "Foundation"
+	(* Cross-target frameworks *)
 	| "addressbook" -> "AddressBook"
 	| "av" -> "AVFoundation"
-	| "network" -> "CFNetwork"
 	| "coredata" -> "CoreData"
-	| "coregraphics" -> "CoreGraphics"
-	| "coreimage" -> "CoreImage"
-	| "corelocation" -> "CoreLocation"
-	| "gamekit" -> "GameKit"
+	| "foundation" -> "Foundation"
+	| "game" -> "GameKit"
+	| "graphics" -> "CoreGraphics"
+	| "image" -> "CoreImage"
+	| "location" -> "CoreLocation"
 	| "message" -> "MessageUI"
+	| "network" -> "CFNetwork"
 	| "openal" -> "OpenAL"
-	| "opengles" -> "OpenGLES"
 	| "quartz" -> "QuartzCore"
 	| "store" -> "StoreKit"
 	| "SanTestings" -> "SanTestings"
 	(* iOS *)
 	| "iad" -> "iAd"
 	| "map" -> "MapKit"
-	| "ui" -> "UIKit"
 	| "mediaplayer" -> "MediaPlayer"
+	| "opengles" -> "OpenGLES"
 	| "twitter" -> "Twitter"
+	| "ui" -> "UIKit"
 	(* OSX *)
 	| _ -> ""
 ;;
@@ -705,13 +705,13 @@ and generateFieldAccess ctx etype s to_method =
 		| [], "Math" ->
 			(match s with
 			| "PI" -> ctx.writer#write "M_PI"
-			| "NaN" -> ctx.writer#write "NaN"
+			| "NaN" -> ctx.writer#write "NAN"
 			| "NEGATIVE_INFINITY" -> ctx.writer#write "-DBL_MAX"
 			| "POSITIVE_INFINITY" -> ctx.writer#write "DBL_MAX"
-			| "min" | "max" -> ctx.writer#write ("f" ^ s ^ "f")
 			| "random" -> ctx.writer#write "rand"
 			| "isFinite" -> ctx.writer#write "isfinite"
 			| "isNaN" -> ctx.writer#write "isnan"
+			| "min" | "max" | "abs" -> ctx.writer#write ("f" ^ s ^ "f")
 			| _ -> ctx.writer#write (s ^ "f"))
 		
 		| [], "String" ->
