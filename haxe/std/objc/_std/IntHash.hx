@@ -23,7 +23,7 @@
  * DAMAGE.
  */
 
-@:category @:core_api class IntHash<T> {
+@:category("NSMutableDictionary") @:core_api class IntHash<T> {
 	
 	public function new() : Void {
 		

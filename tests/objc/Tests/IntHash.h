@@ -9,7 +9,7 @@
 
 #import "Array.h"
 
-@interface  ( IntHash )
+@interface NSMutableDictionary ( IntHash )
 
 - (void) set:(int)key value:(id)value;
 - (id) get:(int)key;

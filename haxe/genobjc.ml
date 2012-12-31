@@ -750,7 +750,7 @@ and generateFieldAccess ctx etype s to_method =
 			(match s with
 			| "now" -> ctx.writer#write s
 			| "fromTime" -> ctx.writer#write s
-			| _ -> ctx.writer#write (" "^s))
+			| _ -> ctx.writer#write ((if ctx.generating_self_access then "." else " ") ^ s))
 		
 		| _ ->
 			(* Generating dot notation for property and space for methods *)
@@ -791,6 +791,7 @@ and generateExpression ctx e =
 	| TArray (e1,e2) ->
 		(* Accesing an array element *)
 		(* TODO: access pointers and primitives in a different way *)
+		(* TODO: If the expected value is a Float or Int convert it from NSNumber *)
 		ctx.writer#write "[";
 		generateValue ctx e1;
 		ctx.writer#write " objectAtIndex:";
