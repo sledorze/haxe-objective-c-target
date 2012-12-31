@@ -25,7 +25,7 @@
 - (void) reverse;
 - (id) shift;
 - (NSMutableArray*) slice:(int)pos end:(id)end;
-- (void) sort:(Function*)f;
+- (void) sort:(-Function-*)f;
 - (NSMutableArray*) splice:(int)pos len:(int)len;
 - (id) init;
 

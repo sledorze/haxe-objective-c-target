@@ -140,14 +140,14 @@
 - (void) testDate{
 	
 	NSDate *d = [[NSDate alloc] init:2012 month:11 day:13 hour:19 min:30 sec:0];
-	int int = [d getDate];
-	int = [d getDay];
-	int = [d getFullYear];
-	int = [d getHours];
-	int = [d getMinutes];
-	int = [d getMonth];
-	int = [d getSeconds];
-	float float = [d getTime];
+	int _int = [d getDate];
+	_int = [d getDay];
+	_int = [d getFullYear];
+	_int = [d getHours];
+	_int = [d getMinutes];
+	_int = [d getMonth];
+	_int = [d getSeconds];
+	float _float = [d getTime];
 	
 	NSMutableString *str = [d toString];
 	
@@ -155,18 +155,18 @@
 	d2 = [NSDatefromTime:120000];
 	d2 = [NSDatenow];
 	int x = [DateTools getMonthDays:d2];
-	float = [DateTools days:5];
+	_float = [DateTools days:5];
 	
 	NSDate *d3 = [DateTools delta:d t:1000.0];
 	str = [DateTools format:d f:@"HH:mm"];
-	int = [DateTools getMonthDays:d];
-	float = [DateTools hours:1000];
-	float = [DateTools make:typedef struct {
+	_int = [DateTools getMonthDays:d];
+	_float = [DateTools hours:1000];
+	_float = [DateTools make:typedef struct {
 	seconds:0; ms:(float)110; minutes:6; hours:8; days:5
 	} structName];
-	float = [DateTools minutes:56];
+	_float = [DateTools minutes:56];
 	id obj = [DateTools parse:45546];
-	float = [DateTools seconds:1000];
+	_float = [DateTools seconds:1000];
 }
 - (int) enumToInt:(Color*)c{
 	[self testEnum:TestsEnumExtern.ExternEnumValue1];
@@ -354,13 +354,13 @@
 	id obj2 = [Reflect copy:obj];
 }
 - (void) testStd{
-	int int = 3;
-	BOOL BOOL = [Std is:self d1 t:float];
-	float float = [Std parseFloat:@"55454.65"];
-	int = [Std parseInt:@"435345.23"];
-	int = [Std random:543];
+	int _int = 3;
+	BOOL _BOOL = [Std is:self d1 t:float];
+	float _float = [Std parseFloat:@"55454.65"];
+	_int = [Std parseInt:@"435345.23"];
+	_int = [Std random:543];
 	
-	NSMutableString *string = [Std string:int];
+	NSMutableString *string = [Std string:_int];
 }
 - (void) testString{
 	
@@ -420,15 +420,15 @@
 	[Sys println:@"hello world"];
 	
 	NSMutableArray *arr = [Sys args];
-	int int = [Sys command:@"cd" args:[[NSMutableArray alloc] initWithObjects:@"~", nil]]];
-	int = [Sys command:@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]]];
-	float float = [Sys cpuTime];
+	int _int = [Sys command:@"cd" args:[[NSMutableArray alloc] initWithObjects:@"~", nil]]];
+	_int = [Sys command:@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]]];
+	float _float = [Sys cpuTime];
 	
 	Hash *hash = [Sys environment];
 	
 	NSMutableString *string = [Sys executablePath];
 	[Sys exit:0];
-	int = [Sys getChar:YES];
+	_int = [Sys getChar:YES];
 	string = [Sys getCwd];
 	string = [Sys getEnv:@"VAR1"];
 	[Sys putEnv:@"VAR1" v:@"val 1"];
@@ -441,7 +441,7 @@
 	Input *_in = [Sys stdin];
 	_out = [Sys stdout];
 	string = [Sys systemName];
-	float = [Sys time];
+	_float = [Sys time];
 }
 - (void) testType{
 	

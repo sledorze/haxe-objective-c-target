@@ -75,7 +75,7 @@
 	}
 	return o2;
 }
-+ (id) makeVarArgs:(Function*)f{
++ (id) makeVarArgs:(-Function-*)f{
 	return [__global__ GFA2 .__hxcpp_create_var_args "-dynamic_param-" ];
 }
 

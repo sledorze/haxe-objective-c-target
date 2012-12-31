@@ -14,15 +14,15 @@
 
 + (NSMutableArray*) array:(id)it;
 + (List*) list:(id)it;
-+ (List*) map:(id)it f:(Function*)f;
-+ (List*) mapi:(id)it f:(Function*)f;
-+ (BOOL) has:(id)it elt:(id)elt cmp:(Function*)cmp;
-+ (BOOL) exists:(id)it f:(Function*)f;
-+ (BOOL) foreach:(id)it f:(Function*)f;
-+ (void) iter:(id)it f:(Function*)f;
-+ (List*) filter:(id)it f:(Function*)f;
-+ (id) fold:(id)it f:(Function*)f first:(id)first;
-+ (int) count:(id)it pred:(Function*)pred;
++ (List*) map:(id)it f:(-Function-*)f;
++ (List*) mapi:(id)it f:(-Function-*)f;
++ (BOOL) has:(id)it elt:(id)elt cmp:(-Function-*)cmp;
++ (BOOL) exists:(id)it f:(-Function-*)f;
++ (BOOL) foreach:(id)it f:(-Function-*)f;
++ (void) iter:(id)it f:(-Function-*)f;
++ (List*) filter:(id)it f:(-Function-*)f;
++ (id) fold:(id)it f:(-Function-*)f first:(id)first;
++ (int) count:(id)it pred:(-Function-*)pred;
 + (BOOL) empty:(id)it;
 + (int) indexOf:(id)it v:(id)v;
 + (List*) concat:(id)a b:(id)b;

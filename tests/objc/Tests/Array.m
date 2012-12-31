@@ -68,7 +68,7 @@
 - (NSMutableArray*) slice:(int)pos end:(id)end{
 	return [self splice:pos len:end - pos];
 }
-- (void) sort:(Function*)f{
+- (void) sort:(-Function-*)f{
 }
 - (NSMutableArray*) splice:(int)pos len:(int)len{
 	

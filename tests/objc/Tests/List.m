@@ -109,7 +109,7 @@
 	}
 	return s.b;
 }
-- (List*) filter:(Function*)f{
+- (List*) filter:(-Function-*)f{
 	
 	List *l2 = [[List alloc] init];
 	
@@ -121,7 +121,7 @@
 	}
 	return l2;
 }
-- (List*) map:(Function*)f{
+- (List*) map:(-Function-*)f{
 	
 	List *b = [[List alloc] init];
 	

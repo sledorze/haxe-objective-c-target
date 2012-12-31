@@ -379,6 +379,24 @@ let processClassPath ctx is_static path pos =
 	| (pack,name) -> name
 ;;
 
+(* Convert function names that can't be written in c++ ... *)
+let remapKeyword name =
+	match name with
+	| "int" | "self" | "id" | "bycopy" | "inout" | "oneway" | "byref" | "SEL" | "IMP" 
+	| "Protocol" | "YES" | "NO" | "const" | "long" | "char" | "signed" | "unsigned" | "volatile"
+	| "in" | "out" | "bycopy" | "super"
+	| "auto" | "char" | "const" | "delete" | "double" | "float" | "enum"
+	| "extern" | "float" | "friend" | "goto" | "long" | "operator" | "protected"
+	| "register" | "short" | "signed" | "sizeof" | "template" | "typedef"
+	| "union" | "unsigned" | "void" | "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
+	| "and_eq" | "xor_eq" | "typeof" | "stdin" | "stdout" | "stderr"
+	| "BIG_ENDIAN" | "LITTLE_ENDIAN" | "assert" | "NULL" | "nil" | "wchar_t" | "EOF"
+	| "BOOL" | "const_cast" | "dynamic_cast" | "explicit" | "export" | "mutable" | "namespace"
+ 	| "reinterpret_cast" | "static_cast" | "typeid" | "typename" | "virtual"
+	| "struct" -> "_" ^ name
+	| "asm" -> "_asm_"
+	| x -> x
+
 let appName ctx =
 	(* The name of the main class is the name of the app.  *)
 	match ctx.main_class with
@@ -453,7 +471,7 @@ let rec typeToString ctx t p =
 		| KNormal | KGeneric | KGenericInstance _ -> processClassPath ctx false c.cl_path p
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
 	| TFun _ ->
-		"Function"
+		"-Function-"
 	| TMono r ->
 		(* ctx.writer#write "TMono?"; *)
 		(match !r with None -> "id" | Some t -> typeToString ctx t p)
@@ -607,7 +625,7 @@ let generateFunctionHeader ctx name f params p =
 	let first_arg = ref true in
 	concat ctx " " (fun (v,c) ->
 		let type_name = typeToString ctx v.v_type p in
-		let arg_name = v.v_name in
+		let arg_name = (remapKeyword v.v_name) in
 		let message_name = if !first_arg then "" else arg_name in
 		(* let message_name = if List.length f.tf_args > 1 then arg_name else "" in *)
 		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
@@ -764,7 +782,7 @@ and generateExpression ctx e =
 	| TConst c ->
 		generateConstant ctx e.epos c
 	| TLocal v ->
-		ctx.writer#write v.v_name
+		ctx.writer#write (remapKeyword v.v_name)
 	| TEnumField (en,s) ->
 		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
 	(* | TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
@@ -936,7 +954,7 @@ and generateExpression ctx e =
 		concat ctx "; " (fun (v,eo) ->
 			let t = (typeToString ctx v.v_type e.epos) in
 			if isPointer t then ctx.writer#new_line;
-			ctx.writer#write (Printf.sprintf "%s %s%s" t (addPointerIfNeeded t) (v.v_name));
+			ctx.writer#write (Printf.sprintf "%s %s%s" t (addPointerIfNeeded t) (remapKeyword v.v_name));
 			(* Check if this Type is a Class and if is imported *)
 			(match v.v_type with
 			| TMono r -> (match !r with None -> () | Some t -> 
@@ -1034,7 +1052,7 @@ and generateExpression ctx e =
 		ctx.writer#write (Printf.sprintf "{ var %s : * = " tmp);
 		generateValue ctx it;
 		ctx.writer#new_line;
-		ctx.writer#write (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (v.v_name) (typeToString ctx v.v_type e.epos) tmp);
+		ctx.writer#write (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (remapKeyword v.v_name) (typeToString ctx v.v_type e.epos) tmp);
 		ctx.writer#new_line;
 		generateExpression ctx e;
 		ctx.writer#new_line;
@@ -1046,7 +1064,7 @@ and generateExpression ctx e =
 		generateExpression ctx e;
 		List.iter (fun (v,e) ->
 			ctx.writer#new_line;
-			ctx.writer#write (Printf.sprintf "@catch (NSException *%s) " (v.v_name));
+			ctx.writer#write (Printf.sprintf "@catch (NSException *%s) " (remapKeyword v.v_name));
 			generateExpression ctx e;
 		) catchs;
 		(* (typeToString ctx v.v_type e.epos) *)
@@ -1075,7 +1093,7 @@ and generateExpression ctx e =
 					ctx.writer#new_line;
 					ctx.writer#write "var ";
 					concat ctx ", " (fun (v,n) ->
-						ctx.writer#write (Printf.sprintf "MATCH %s : %s = %s.params[%d]" (v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
+						ctx.writer#write (Printf.sprintf "MATCH %s : %s = %s.params[%d]" (remapKeyword v.v_name) (typeToString ctx v.v_type e.epos) tmp n);
 					) l);
 			generateBlock ctx e;
 			ctx.writer#write "break";
@@ -1282,7 +1300,7 @@ let generateProperty ctx field pos is_static =
 		| _ -> "" in
 		let strong = if (isPointer t) then ", strong" else "" in
 		let readonly = if false then ", readonly" else "" in
-		ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) id)
+		ctx.writer#write (Printf.sprintf "@property (nonatomic%s%s%s%s) %s %s%s;" strong readonly getter setter t (addPointerIfNeeded t) (remapKeyword id))
 	end
 	end
 	else begin

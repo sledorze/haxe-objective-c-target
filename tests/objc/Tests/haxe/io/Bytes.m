@@ -108,7 +108,7 @@
 	
 	NSMutableArray *b = self.b;
 	
-	Function *fcc = @selector(fromCharCode);
+	-Function- *fcc = @selector(fromCharCode);
 	int i = pos;
 	int max = pos + len;
 	while (i < max) {

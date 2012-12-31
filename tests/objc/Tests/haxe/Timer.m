@@ -9,7 +9,7 @@
 
 @implementation Timer
 
-+ (Timer*) delay:(Function*)f time_ms:(int)time_ms{
++ (Timer*) delay:(-Function-*)f time_ms:(int)time_ms{
 	
 	NSMutableArray *f1 = [[NSMutableArray alloc] initWithObjects:f, nil]];
 	
@@ -20,7 +20,7 @@
 	}
 	return [t objectAtIndex:0];
 }
-+ (id) measure:(Function*)f pos:(id)pos{
++ (id) measure:(-Function-*)f pos:(id)pos{
 	float t0 = [Timer stamp];
 	id r = [f];
 	[Log trace:[[Timer stamp] - t0 stringByAppendingString:@"s"] infos:pos];

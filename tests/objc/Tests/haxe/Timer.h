@@ -16,11 +16,11 @@
 
 @interface Timer : NSObject
 
-+ (Timer*) delay:(Function*)f time_ms:(int)time_ms;
-+ (id) measure:(Function*)f pos:(id)pos;
++ (Timer*) delay:(-Function-*)f time_ms:(int)time_ms;
++ (id) measure:(-Function-*)f pos:(id)pos;
 + (float) stamp;
 @property (nonatomic, strong) NSTimer *nstimer;
-@property (nonatomic) id id;
+@property (nonatomic) id _id;
 - (void) stop;
 - (void) run;
 - (id) init:(int)time_ms;
