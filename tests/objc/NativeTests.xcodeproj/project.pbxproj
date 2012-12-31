@@ -11,6 +11,22 @@
 		28752FD7169042840048F960 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD6169042840048F960 /* Log.m */; };
 		28752FDA169042B00048F960 /* Lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD9169042B00048F960 /* Lib.m */; };
 		28752FDD1690472D0048F960 /* Tests3.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FDC1690472D0048F960 /* Tests3.m */; };
+		28752FE016906B5B0048F960 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FDF16906B5B0048F960 /* Tests.m */; };
+		2875300216906C1A0048F960 /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FE216906C180048F960 /* Date.m */; };
+		2875300316906C1A0048F960 /* DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FE416906C190048F960 /* DateTools.m */; };
+		2875300416906C1A0048F960 /* EReg.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FE616906C190048F960 /* EReg.m */; };
+		2875300516906C1A0048F960 /* Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FE816906C190048F960 /* Hash.m */; };
+		2875300616906C1A0048F960 /* IntHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FEC16906C190048F960 /* IntHash.m */; };
+		2875300716906C1A0048F960 /* IntIter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FEE16906C190048F960 /* IntIter.m */; };
+		2875300816906C1A0048F960 /* Lambda.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF016906C190048F960 /* Lambda.m */; };
+		2875300916906C1A0048F960 /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF216906C190048F960 /* List.m */; };
+		2875300A16906C1A0048F960 /* Reflect.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF416906C190048F960 /* Reflect.m */; };
+		2875300B16906C1A0048F960 /* SEL.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF616906C190048F960 /* SEL.m */; };
+		2875300C16906C1A0048F960 /* Std.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF816906C190048F960 /* Std.m */; };
+		2875300D16906C1A0048F960 /* StringBuf.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FFA16906C1A0048F960 /* StringBuf.m */; };
+		2875300E16906C1A0048F960 /* StringTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FFC16906C1A0048F960 /* StringTools.m */; };
+		2875300F16906C1A0048F960 /* Sys.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FFE16906C1A0048F960 /* Sys.m */; };
+		2875301016906C1A0048F960 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 2875300016906C1A0048F960 /* Type.m */; };
 		288B518D167673C000926232 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B518C167673C000926232 /* UIKit.framework */; };
 		288B518F167673C000926232 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B518E167673C000926232 /* Foundation.framework */; };
 		288B5191167673C000926232 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288B5190167673C000926232 /* CoreGraphics.framework */; };
@@ -47,6 +63,40 @@
 		28752FD9169042B00048F960 /* Lib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lib.m; path = Tests/objc/Lib.m; sourceTree = SOURCE_ROOT; };
 		28752FDB1690472D0048F960 /* Tests3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tests3.h; path = Tests/Tests3.h; sourceTree = SOURCE_ROOT; };
 		28752FDC1690472D0048F960 /* Tests3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tests3.m; path = Tests/Tests3.m; sourceTree = SOURCE_ROOT; };
+		28752FDE16906B5B0048F960 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tests.h; path = Tests/Tests.h; sourceTree = SOURCE_ROOT; };
+		28752FDF16906B5B0048F960 /* Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tests.m; path = Tests/Tests.m; sourceTree = SOURCE_ROOT; };
+		28752FE116906C180048F960 /* Date.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Date.h; path = Tests/Date.h; sourceTree = SOURCE_ROOT; };
+		28752FE216906C180048F960 /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Date.m; path = Tests/Date.m; sourceTree = SOURCE_ROOT; };
+		28752FE316906C180048F960 /* DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateTools.h; path = Tests/DateTools.h; sourceTree = SOURCE_ROOT; };
+		28752FE416906C190048F960 /* DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateTools.m; path = Tests/DateTools.m; sourceTree = SOURCE_ROOT; };
+		28752FE516906C190048F960 /* EReg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EReg.h; path = Tests/EReg.h; sourceTree = SOURCE_ROOT; };
+		28752FE616906C190048F960 /* EReg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EReg.m; path = Tests/EReg.m; sourceTree = SOURCE_ROOT; };
+		28752FE716906C190048F960 /* Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hash.h; path = Tests/Hash.h; sourceTree = SOURCE_ROOT; };
+		28752FE816906C190048F960 /* Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hash.m; path = Tests/Hash.m; sourceTree = SOURCE_ROOT; };
+		28752FE916906C190048F960 /* Interface1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interface1.h; path = Tests/Interface1.h; sourceTree = SOURCE_ROOT; };
+		28752FEA16906C190048F960 /* Interface2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interface2.h; path = Tests/Interface2.h; sourceTree = SOURCE_ROOT; };
+		28752FEB16906C190048F960 /* IntHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntHash.h; path = Tests/IntHash.h; sourceTree = SOURCE_ROOT; };
+		28752FEC16906C190048F960 /* IntHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IntHash.m; path = Tests/IntHash.m; sourceTree = SOURCE_ROOT; };
+		28752FED16906C190048F960 /* IntIter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntIter.h; path = Tests/IntIter.h; sourceTree = SOURCE_ROOT; };
+		28752FEE16906C190048F960 /* IntIter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IntIter.m; path = Tests/IntIter.m; sourceTree = SOURCE_ROOT; };
+		28752FEF16906C190048F960 /* Lambda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lambda.h; path = Tests/Lambda.h; sourceTree = SOURCE_ROOT; };
+		28752FF016906C190048F960 /* Lambda.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lambda.m; path = Tests/Lambda.m; sourceTree = SOURCE_ROOT; };
+		28752FF116906C190048F960 /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = List.h; path = Tests/List.h; sourceTree = SOURCE_ROOT; };
+		28752FF216906C190048F960 /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = List.m; path = Tests/List.m; sourceTree = SOURCE_ROOT; };
+		28752FF316906C190048F960 /* Reflect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reflect.h; path = Tests/Reflect.h; sourceTree = SOURCE_ROOT; };
+		28752FF416906C190048F960 /* Reflect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reflect.m; path = Tests/Reflect.m; sourceTree = SOURCE_ROOT; };
+		28752FF516906C190048F960 /* SEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEL.h; path = Tests/SEL.h; sourceTree = SOURCE_ROOT; };
+		28752FF616906C190048F960 /* SEL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEL.m; path = Tests/SEL.m; sourceTree = SOURCE_ROOT; };
+		28752FF716906C190048F960 /* Std.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Std.h; path = Tests/Std.h; sourceTree = SOURCE_ROOT; };
+		28752FF816906C190048F960 /* Std.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Std.m; path = Tests/Std.m; sourceTree = SOURCE_ROOT; };
+		28752FF916906C190048F960 /* StringBuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringBuf.h; path = Tests/StringBuf.h; sourceTree = SOURCE_ROOT; };
+		28752FFA16906C1A0048F960 /* StringBuf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringBuf.m; path = Tests/StringBuf.m; sourceTree = SOURCE_ROOT; };
+		28752FFB16906C1A0048F960 /* StringTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTools.h; path = Tests/StringTools.h; sourceTree = SOURCE_ROOT; };
+		28752FFC16906C1A0048F960 /* StringTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringTools.m; path = Tests/StringTools.m; sourceTree = SOURCE_ROOT; };
+		28752FFD16906C1A0048F960 /* Sys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sys.h; path = Tests/Sys.h; sourceTree = SOURCE_ROOT; };
+		28752FFE16906C1A0048F960 /* Sys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sys.m; path = Tests/Sys.m; sourceTree = SOURCE_ROOT; };
+		28752FFF16906C1A0048F960 /* Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Type.h; path = Tests/Type.h; sourceTree = SOURCE_ROOT; };
+		2875300016906C1A0048F960 /* Type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Type.m; path = Tests/Type.m; sourceTree = SOURCE_ROOT; };
 		288B5188167673C000926232 /* NativeTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		288B518C167673C000926232 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288B518E167673C000926232 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -136,6 +186,40 @@
 				28752FD3169042690048F960 /* Array.m */,
 				28752FDB1690472D0048F960 /* Tests3.h */,
 				28752FDC1690472D0048F960 /* Tests3.m */,
+				28752FDE16906B5B0048F960 /* Tests.h */,
+				28752FDF16906B5B0048F960 /* Tests.m */,
+				28752FE116906C180048F960 /* Date.h */,
+				28752FE216906C180048F960 /* Date.m */,
+				28752FE316906C180048F960 /* DateTools.h */,
+				28752FE416906C190048F960 /* DateTools.m */,
+				28752FE516906C190048F960 /* EReg.h */,
+				28752FE616906C190048F960 /* EReg.m */,
+				28752FE716906C190048F960 /* Hash.h */,
+				28752FE816906C190048F960 /* Hash.m */,
+				28752FE916906C190048F960 /* Interface1.h */,
+				28752FEA16906C190048F960 /* Interface2.h */,
+				28752FEB16906C190048F960 /* IntHash.h */,
+				28752FEC16906C190048F960 /* IntHash.m */,
+				28752FED16906C190048F960 /* IntIter.h */,
+				28752FEE16906C190048F960 /* IntIter.m */,
+				28752FEF16906C190048F960 /* Lambda.h */,
+				28752FF016906C190048F960 /* Lambda.m */,
+				28752FF116906C190048F960 /* List.h */,
+				28752FF216906C190048F960 /* List.m */,
+				28752FF316906C190048F960 /* Reflect.h */,
+				28752FF416906C190048F960 /* Reflect.m */,
+				28752FF516906C190048F960 /* SEL.h */,
+				28752FF616906C190048F960 /* SEL.m */,
+				28752FF716906C190048F960 /* Std.h */,
+				28752FF816906C190048F960 /* Std.m */,
+				28752FF916906C190048F960 /* StringBuf.h */,
+				28752FFA16906C1A0048F960 /* StringBuf.m */,
+				28752FFB16906C1A0048F960 /* StringTools.h */,
+				28752FFC16906C1A0048F960 /* StringTools.m */,
+				28752FFD16906C1A0048F960 /* Sys.h */,
+				28752FFE16906C1A0048F960 /* Sys.m */,
+				28752FFF16906C1A0048F960 /* Type.h */,
+				2875300016906C1A0048F960 /* Type.m */,
 				288B519B167673C000926232 /* AppDelegate.h */,
 				288B519C167673C100926232 /* AppDelegate.m */,
 				288B5193167673C000926232 /* Supporting Files */,
@@ -291,6 +375,22 @@
 				28752FD7169042840048F960 /* Log.m in Sources */,
 				28752FDA169042B00048F960 /* Lib.m in Sources */,
 				28752FDD1690472D0048F960 /* Tests3.m in Sources */,
+				28752FE016906B5B0048F960 /* Tests.m in Sources */,
+				2875300216906C1A0048F960 /* Date.m in Sources */,
+				2875300316906C1A0048F960 /* DateTools.m in Sources */,
+				2875300416906C1A0048F960 /* EReg.m in Sources */,
+				2875300516906C1A0048F960 /* Hash.m in Sources */,
+				2875300616906C1A0048F960 /* IntHash.m in Sources */,
+				2875300716906C1A0048F960 /* IntIter.m in Sources */,
+				2875300816906C1A0048F960 /* Lambda.m in Sources */,
+				2875300916906C1A0048F960 /* List.m in Sources */,
+				2875300A16906C1A0048F960 /* Reflect.m in Sources */,
+				2875300B16906C1A0048F960 /* SEL.m in Sources */,
+				2875300C16906C1A0048F960 /* Std.m in Sources */,
+				2875300D16906C1A0048F960 /* StringBuf.m in Sources */,
+				2875300E16906C1A0048F960 /* StringTools.m in Sources */,
+				2875300F16906C1A0048F960 /* Sys.m in Sources */,
+				2875301016906C1A0048F960 /* Type.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

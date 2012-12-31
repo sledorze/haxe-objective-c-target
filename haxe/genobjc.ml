@@ -629,12 +629,13 @@ let generateFunctionHeader ctx name f params p =
 ;;
 
 (* arg_list is of type Type.texpr list *)
-let rec generateCall ctx func arg_list etype (* ctx e el r *) =
+let rec generateCall ctx func arg_list =
 	debug ctx (" \"-CALL-"^(Type.s_expr_kind func)^">\" ");
 	
+	(* Generate a C call for some low level operations *)
 	if ctx.generating_c_call then begin
-		
-	match func.eexpr, arg_list with
+	
+		match func.eexpr, arg_list with
 		| TCall (x,_) , el ->
 			ctx.writer#write "(";
 			generateValue ctx func;
@@ -657,35 +658,35 @@ let rec generateCall ctx func arg_list etype (* ctx e el r *) =
 	
 	end else begin
 		
-	generateValue ctx func;	
-	(* if List.length arg_list > 0 then ctx.writer#write ":"; *)
-	(* concat ctx " otherArgName:" (generateValue ctx) arg_list *)
+		generateValue ctx func;	
+		(* if List.length arg_list > 0 then ctx.writer#write ":"; *)
+		(* concat ctx " otherArgName:" (generateValue ctx) arg_list *)
 	
-	(* In the general case, if e is TCall(func, call_args): 
-	func.etype == TFun(args, ret) 
-	args is of (string * bool * t) list, with string being the name 
-	e.etype == ret, i.e. what you get by calling the function, i.e. the return type  *)
+		(* In the general case, if e is TCall(func, call_args): 
+		func.etype == TFun(args, ret) 
+		args is of (string * bool * t) list, with string being the name 
+		e.etype == ret, i.e. what you get by calling the function, i.e. the return type  *)
 	
-	(* List.iter (
-		fun (e) -> ctx.writer#write ":"; generateValue ctx e
-	) arg_list; *)
+		(* List.iter (
+			fun (e) -> ctx.writer#write ":"; generateValue ctx e
+		) arg_list; *)
 	
-	if List.length arg_list > 0 then begin
+		if List.length arg_list > 0 then begin
 	
-	let args_array_e = Array.of_list arg_list in
-	let index = ref 0 in
-	(match func.etype with
-		| TFun(args, ret) ->
-			List.iter (
-			fun (name, b, t) ->
-				ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
-				generateValue ctx args_array_e.(!index);
-				index := !index + 1;
-			) args;
-		(* Dynamic value call function with a dynamic parameter *)
-		| _ -> ctx.writer#write " \"-dynamic_param-\" ");
+		let args_array_e = Array.of_list arg_list in
+		let index = ref 0 in
+		(match func.etype with
+			| TFun(args, ret) ->
+				List.iter (
+				fun (name, b, t) ->
+					ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
+					generateValue ctx args_array_e.(!index);
+					index := !index + 1;
+				) args;
+			(* Dynamic value call function with a dynamic parameter *)
+			| _ -> ctx.writer#write " \"-dynamic_param-\" ");
 	
-	end
+		end
 	end
 	
 and generateValueOp ctx e =
@@ -731,7 +732,7 @@ and generateFieldAccess ctx etype s to_method =
 			(match s with
 			| "now" -> ctx.writer#write s
 			| "fromTime" -> ctx.writer#write s
-			| _ -> ctx.writer#write s)
+			| _ -> ctx.writer#write (" "^s))
 		
 		| _ ->
 			(* Generating dot notation for property and space for methods *)
@@ -882,8 +883,6 @@ and generateExpression ctx e =
 		generateExpression ctx f.tf_expr;
 		ctx.in_static <- old;
 		h();
-	(* Generate a call to a function *)
-	(* | TCall (func, arg_list) -> ctx.writer#write "GENERATE call (func, arg_list)"; *)
 	| TCall (func, arg_list) when
 		(match func.eexpr with
 		| TLocal { v_name = "__objc__" } -> true
@@ -904,7 +903,7 @@ and generateExpression ctx e =
 		| _ -> ctx.writer#write "[");
 		
 		ctx.generating_call <- true;
-		generateCall ctx func arg_list e.etype;
+		generateCall ctx func arg_list;
 		ctx.generating_call <- false;
 		
 		if not ctx.generating_c_call then ctx.writer#write "]";
@@ -916,9 +915,10 @@ and generateExpression ctx e =
 		("methodName", { eexpr = (TConst (TString meth)) }) :: [] ) ->
 			ctx.writer#write ("[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@\""^file^"\",@\""^(Printf.sprintf "%ld" line)^"\",@\""^class_name^"\",@\""^meth^"\",nil] forKeys:[NSArray arrayWithObjects:@\"fileName\",@\"lineNumber\",@\"className\",@\"methodName\",nil]]");
 	| TObjectDecl fields ->
-		ctx.writer#write "struct {";
+		ctx.writer#write "typedef struct {";
 		ctx.writer#new_line;
-		concat ctx ";\n" (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
+		concat ctx "; " (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
+		ctx.writer#new_line;
 		ctx.writer#write "} structName"
 	| TArrayDecl el ->
 		ctx.writer#write "[[NSMutableArray alloc] initWithObjects:";
@@ -927,7 +927,7 @@ and generateExpression ctx e =
 		ctx.require_pointer <- false;
 		ctx.writer#write ", nil]]"
 	| TThrow e ->
-		ctx.writer#write "throw ";
+		ctx.writer#write "@throw ";
 		generateValue ctx e
 	| TVars [] ->
 		()
@@ -966,15 +966,31 @@ and generateExpression ctx e =
 				ctx.writer#write ")"
 			| _ ->
 				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (processClassPath ctx false c.cl_path c.cl_pos));
-				if List.length el > 0 then ctx.writer#write ":";
-				concat ctx "," (generateValue ctx) el;
+				if List.length el > 0 then begin
+					ctx.generating_call <- true;
+					
+					(* If you want the names of the arguments, you can check the cf_type of the 
+					cl_constructor, if it has one. It is a TFun(args,ret), where args is of 
+					(string * bool * t) list. The string is the name of the argument.  *)
+					
+					(match c.cl_constructor with
+					| None -> ();
+					| Some cf ->
+						let args_array_e = Array.of_list el in
+						let index = ref 0 in
+						(match cf.cf_type with
+						| TFun(args, ret) ->
+							List.iter (
+							fun (name, b, t) ->
+								ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
+								generateValue ctx args_array_e.(!index);
+								index := !index + 1;
+							) args;
+						| _ -> ctx.writer#write " \"-dynamic_param-\" "));
+						
+					ctx.generating_call <- false;
+				end;
 				ctx.writer#write "]";
-				
-				(* ctx.writer#write "[";
-				ctx.generating_call <- true;
-				(* generateCall ctx c params e.etype; *)
-				ctx.generating_call <- false;
-				ctx.writer#write "]" *)
 		)
 	| TIf (cond,e,eelse) ->
 		ctx.writer#write "if";
@@ -2248,7 +2264,7 @@ let generate common_ctx =
 						m.ctx_m <- ctx_m;
 						
 						(* Import header *)
-						m.ctx_m.writer#write_copy module_path "App name";
+						m.ctx_m.writer#write_copy module_path (appName common_ctx);
 						m.ctx_m.writer#write_header_import module_path;
 					end;
 				end;
@@ -2270,7 +2286,7 @@ let generate common_ctx =
 					let ctx_h = newContext common_ctx file_h imports_manager file_info in
 					m.ctx_h <- ctx_h;
 					(* m.ctx_h.class_def <- class_def; *)
-					m.ctx_h.writer#write_copy module_path "App name";
+					m.ctx_h.writer#write_copy module_path (appName common_ctx);
 				end;
 				m.ctx_h.class_def <- class_def;
 				generateHeader m.ctx_h files_manager imports_manager;
@@ -2291,7 +2307,7 @@ let generate common_ctx =
 					let file_h = newSourceFile src_dir module_path ".h" in
 					let ctx_h = newContext common_ctx file_h imports_manager file_info in
 					m.ctx_h <- ctx_h;
-					m.ctx_h.writer#write_copy module_path "App name";
+					m.ctx_h.writer#write_copy module_path (appName common_ctx);
 					m.ctx_h.generating_header <- true;
 				end;
 				generateEnum m.ctx_h enum_def;
