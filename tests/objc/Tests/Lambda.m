@@ -11,7 +11,7 @@
 
 + (NSMutableArray*) array:(id)it{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] init];
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var i : id = $it.next()
@@ -21,7 +21,7 @@
 }
 + (List*) list:(id)it{
 	
-	List *l = [[List alloc] new];
+	List *l = [[List alloc] init];
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var i : id = $it.next()
@@ -31,7 +31,7 @@
 }
 + (List*) map:(id)it f:(Function*)f{
 	
-	List *l = [[List alloc] new];
+	List *l = [[List alloc] init];
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -41,7 +41,7 @@
 }
 + (List*) mapi:(id)it f:(Function*)f{
 	
-	List *l = [[List alloc] new];
+	List *l = [[List alloc] init];
 	int i = 0;
 	{
 		{ var $it : * = [it GFA2 .iterator]
@@ -92,7 +92,7 @@
 }
 + (List*) filter:(id)it f:(Function*)f{
 	
-	List *l = [[List alloc] new];
+	List *l = [[List alloc] init];
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -143,7 +143,7 @@
 }
 + (List*) concat:(id)a b:(id)b{
 	
-	List *l = [[List alloc] new];
+	List *l = [[List alloc] init];
 	{
 		{ var $it : * = [a GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()

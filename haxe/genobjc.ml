@@ -965,7 +965,7 @@ and generateExpression ctx e =
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
 			| _ ->
-				ctx.writer#write (Printf.sprintf "[[%s alloc] new" (processClassPath ctx false c.cl_path c.cl_pos));
+				ctx.writer#write (Printf.sprintf "[[%s alloc] init" (processClassPath ctx false c.cl_path c.cl_pos));
 				if List.length el > 0 then begin
 					ctx.generating_call <- true;
 					
@@ -2104,16 +2104,9 @@ let generateImplementation ctx files_manager imports_manager =
 	(* Generate the constructor *)
 	(match ctx.class_def.cl_constructor with
 	| None -> ();
-		(* ctx.generating_constructor <- true; *)
-		(* let f = {
-			cf_name = "new"(* Rename the class constructor to 'init' snd class_def.cl_path *);
-			cf_public = true;
-			cf_kind = Method MethNormal;
-		} in
-		generateField ctx false f; *)
 	| Some f ->
 		let f = { f with
-			cf_name = "new";
+			cf_name = "init";
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in
@@ -2176,16 +2169,9 @@ let generateHeader ctx files_manager imports_manager =
 	
 	(match ctx.class_def.cl_constructor with
 	| None -> ();
-		(* ctx.generating_constructor <- true; *)
-		(* let f = {
-			cf_name = "new"(* Rename the class constructor to 'init' snd class_def.cl_path *);
-			cf_public = true;
-			cf_kind = Method MethNormal;
-		} in
-		generateField ctx false f; *)
 	| Some f ->
 		let f = { f with
-			cf_name = "new";
+			cf_name = "init";
 			cf_public = true;
 			cf_kind = Method MethNormal;
 		} in

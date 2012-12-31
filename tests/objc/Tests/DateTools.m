@@ -77,7 +77,7 @@
 }
 + (NSMutableString*) __format:(NSDate*)d f:(NSMutableString*)f{
 	
-	StringBuf *r = [[StringBuf alloc] new];
+	StringBuf *r = [[StringBuf alloc] init];
 	int p = 0;
 	while (YES) {
 		int np = [f rangeOfString:@"%" startIndex:p];

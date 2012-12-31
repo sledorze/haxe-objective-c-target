@@ -22,7 +22,7 @@
 - (NSMutableString*) toString{
 	return self.b;
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	self.b = @"";
 	return self;

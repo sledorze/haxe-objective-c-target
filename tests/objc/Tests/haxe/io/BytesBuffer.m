@@ -42,13 +42,13 @@
 }
 - (Bytes*) getBytes{
 	
-	Bytes *bytes = [[Bytes alloc] new:self b length b:self b];
+	Bytes *bytes = [[Bytes alloc] init:self b length b:self b];
 	self.b = nil;
 	return bytes;
 }
-- (id) new{
+- (id) init{
 	self = [super init];
-	self.b = [[NSMutableArray alloc] new];
+	self.b = [[NSMutableArray alloc] init];
 	return self;
 }
 

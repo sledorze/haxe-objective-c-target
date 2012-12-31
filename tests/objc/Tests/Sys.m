@@ -17,13 +17,13 @@
 	[Sys print:@"\n"];
 }
 + (Input*) stdin{
-	return [[FileInput alloc] new:[file_stdin]];
+	return [[FileInput alloc] init:[file_stdin]];
 }
 + (Output*) stdout{
-	return [[FileOutput alloc] new:[file_stdout]];
+	return [[FileOutput alloc] init:[file_stdout]];
 }
 + (Output*) stderr{
-	return [[FileOutput alloc] new:[file_stderr]];
+	return [[FileOutput alloc] init:[file_stderr]];
 }
 + (int) getChar:(BOOL)echo{
 	return 0;
@@ -100,7 +100,7 @@
 	
 	NSMutableArray *vars = nil;
 	
-	Hash *result = [[Hash alloc] new];
+	Hash *result = [[Hash alloc] init];
 	int i = 0;
 	while (i < vars.length) {
 		[result set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];

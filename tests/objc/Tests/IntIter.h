@@ -14,7 +14,7 @@
 @property (nonatomic) int max;
 - (BOOL) hasNext;
 - (int) next;
-- (id) new:(int)min max:(int)max;
+- (id) init:(int)min max:(int)max;
 
 @end
 

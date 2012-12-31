@@ -23,7 +23,7 @@
 @property (nonatomic) id id;
 - (void) stop;
 - (void) run;
-- (id) new:(int)time_ms;
+- (id) init:(int)time_ms;
 
 @end
 

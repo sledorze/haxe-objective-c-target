@@ -44,7 +44,7 @@
 - (NSMutableString*) toString{
 	return [self description];
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	return self;
 }

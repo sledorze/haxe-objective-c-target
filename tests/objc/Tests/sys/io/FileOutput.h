@@ -20,7 +20,7 @@
 - (void) close;
 - (void) seek:(int)p pos:(FileSeek*)pos;
 - (int) tell;
-- (id) new:(id)f;
+- (id) init:(id)f;
 
 @end
 

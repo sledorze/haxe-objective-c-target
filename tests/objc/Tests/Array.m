@@ -76,7 +76,7 @@
 	[self removeObjectsInArray "-dynamic_param-" ];
 	return [NSMutableArray arrayWithArray "-dynamic_param-" ];
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	return self;
 }

@@ -16,7 +16,7 @@ typedef enum{
 @interface Tests3 : NSObject
 
 @property (nonatomic) int d1;
-- (id) new;
+- (id) init;
 
 @end
 

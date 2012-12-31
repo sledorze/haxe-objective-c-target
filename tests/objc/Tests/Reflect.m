@@ -30,7 +30,7 @@
 	return [func __Run "-dynamic_param-" ];
 }
 + (NSMutableArray*) fields:(id)o{
-	if (o == nil) return [[NSMutableArray alloc] new];
+	if (o == nil) return [[NSMutableArray alloc] init];
 	
 	NSMutableArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
 	[o __GetFields "-dynamic_param-" ];

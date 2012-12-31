@@ -18,7 +18,7 @@
 - (void) add:(Bytes*)src;
 - (void) addBytes:(Bytes*)src pos:(int)pos len:(int)len;
 - (Bytes*) getBytes;
-- (id) new;
+- (id) init;
 
 @end
 

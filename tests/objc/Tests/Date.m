@@ -14,11 +14,11 @@
 	NSCalendar *calendar = [NSCalendar currentCalendar];
 	
 	NSDateComponents *components = [calendar components:7 fromDate:[NSDate date]];
-	return [[NSDate alloc] new:[components year] month:[components month] day:[components day] hour:[components hour] min:[components minute] sec:[components second]];
+	return [[NSDate alloc] init:[components year] month:[components month] day:[components day] hour:[components hour] min:[components minute] sec:[components second]];
 }
 + (NSDate*) fromTime:(float)t{
 	
-	NSDate *result = [[NSDate alloc] new:0 month:0 day:0 hour:0 min:0 sec:0];
+	NSDate *result = [[NSDate alloc] init:0 month:0 day:0 hour:0 min:0 sec:0];
 	result _seconds = t * 0.001;
 	return result;
 }
@@ -29,14 +29,14 @@
 				
 				NSMutableArray *k = [s componentsSeparatedByString:@":"];
 				
-				NSDate *d = [[NSDate alloc] new:0 month:0 day:0 hour:[Std parseInt:[k objectAtIndex:0]] min:[Std parseInt:[k objectAtIndex:1]] sec:[Std parseInt:[k objectAtIndex:2]]];
+				NSDate *d = [[NSDate alloc] init:0 month:0 day:0 hour:[Std parseInt:[k objectAtIndex:0]] min:[Std parseInt:[k objectAtIndex:1]] sec:[Std parseInt:[k objectAtIndex:2]]];
 				return d;
 			}}break;
 		case 10:{
 			{
 				
 				NSMutableArray *k = [s componentsSeparatedByString:@"-"];
-				return [[NSDate alloc] new:[Std parseInt:[k objectAtIndex:0]] month:[Std parseInt:[k objectAtIndex:1]] - 1 day:[Std parseInt:[k objectAtIndex:2]] hour:0 min:0 sec:0];
+				return [[NSDate alloc] init:[Std parseInt:[k objectAtIndex:0]] month:[Std parseInt:[k objectAtIndex:1]] - 1 day:[Std parseInt:[k objectAtIndex:2]] hour:0 min:0 sec:0];
 			}}break;
 		case 19:{
 			{
@@ -46,7 +46,7 @@
 				NSMutableArray *y = [[k objectAtIndex:0] componentsSeparatedByString:@"-"];
 				
 				NSMutableArray *t = [[k objectAtIndex:1] componentsSeparatedByString:@":"];
-				return [[NSDate alloc] new:[Std parseInt:[y objectAtIndex:0]] month:[Std parseInt:[y objectAtIndex:1]] - 1 day:[Std parseInt:[y objectAtIndex:2]] hour:[Std parseInt:[t objectAtIndex:0]] min:[Std parseInt:[t objectAtIndex:1]] sec:[Std parseInt:[t objectAtIndex:2]]];
+				return [[NSDate alloc] init:[Std parseInt:[y objectAtIndex:0]] month:[Std parseInt:[y objectAtIndex:1]] - 1 day:[Std parseInt:[y objectAtIndex:2]] hour:[Std parseInt:[t objectAtIndex:0]] min:[Std parseInt:[t objectAtIndex:1]] sec:[Std parseInt:[t objectAtIndex:2]]];
 			}}break;
 		default:{
 			@throw [@"Invalid date format : " stringByAppendingString:s]}break
@@ -83,7 +83,7 @@
 - (NSMutableString*) toString{
 	return nil;
 }
-- (id) new:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec{
+- (id) init:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec{
 	self = [super init];
 	self _calendar = [NSCalendar currentCalendar];
 	self _components = [self _calendar components:7 fromDate:[NSDate date]];

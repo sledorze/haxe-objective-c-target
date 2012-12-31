@@ -11,7 +11,7 @@
 @interface Eof : NSObject
 
 - (NSMutableString*) toString;
-- (id) new;
+- (id) init;
 
 @end
 

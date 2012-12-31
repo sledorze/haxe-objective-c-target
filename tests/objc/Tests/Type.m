@@ -111,7 +111,7 @@
 	
 	NSMutableArray *names = [e GetClassFields];
 	
-	NSMutableArray *enums = [[NSMutableArray alloc] new];
+	NSMutableArray *enums = [[NSMutableArray alloc] init];
 	{
 		int _g = 0;
 		while (_g < names.length) {

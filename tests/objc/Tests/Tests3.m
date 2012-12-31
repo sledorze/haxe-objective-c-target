@@ -10,7 +10,7 @@
 @implementation Tests3
 
 @synthesize d1;
-- (id) new{
+- (id) init{
 	self = [super init];
 	self.d1 = 34;
 	return self;

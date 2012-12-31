@@ -36,7 +36,7 @@
 @synthesize s;
 - (void) testVariables{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] init];
 	int b = 5;
 	float c = 5.0;
 	
@@ -51,7 +51,7 @@
 	if (a.length > 3) f = 3
 	else f = a.length;
 	f = ( (a.length > 3) ? 3 : a.length);
-	int x = [[[Tests alloc] new] add:1 b:1];
+	int x = [[[Tests alloc] init] add:1 b:1];
 	[Lib print:@"print print and print again"];
 }
 - (void) testingFor{
@@ -110,7 +110,7 @@
 }
 - (void) testArray{
 	
-	NSMutableArray *as = [[NSMutableArray alloc] new];
+	NSMutableArray *as = [[NSMutableArray alloc] init];
 	
 	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 	float aaa = [aa objectAtIndex:2];
@@ -139,7 +139,7 @@
 }
 - (void) testDate{
 	
-	NSDate *d = [[NSDate alloc] new:2012 month:11 day:13 hour:19 min:30 sec:0];
+	NSDate *d = [[NSDate alloc] init:2012 month:11 day:13 hour:19 min:30 sec:0];
 	int int = [d getDate];
 	int = [d getDay];
 	int = [d getFullYear];
@@ -231,7 +231,7 @@
 }
 - (void) testEReg{
 	
-	EReg *ereg = [[EReg alloc] new:@"ytrytrevev76" opt:@"099"];
+	EReg *ereg = [[EReg alloc] init:@"ytrytrevev76" opt:@"099"];
 	
 	NSMutableString *s = [ereg customReplace:@"s" f:^(NSMutableString*):(EReg*)e{
 		return @"ss";
@@ -247,7 +247,7 @@
 }
 - (void) testHash{
 	
-	Hash *h = [[Hash alloc] new];
+	Hash *h = [[Hash alloc] init];
 	[h set:@"key" value:@"value"];
 	[h get:@"key"];
 	[h remove:@"key"];
@@ -257,7 +257,7 @@
 	
 	NSMutableString *str = [h toString];
 	
-	IntHash *hi = [[IntHash alloc] new];
+	IntHash *hi = [[IntHash alloc] init];
 	[hi set:0 value:@"value"];
 	[hi get:0];
 	[hi remove:0];
@@ -275,7 +275,7 @@
 }
 - (void) testList{
 	
-	List *l = [[List alloc] new];
+	List *l = [[List alloc] init];
 	[l add:2];
 	[l push:18];
 	
@@ -299,8 +299,8 @@
 		return [Std string:i];
 	}];
 	
-	FastList *fl = [[FastList alloc] new];
-	fl.head = [[FastCell alloc] new:8 next:fl head];
+	FastList *fl = [[FastList alloc] init];
+	fl.head = [[FastCell alloc] init:8 next:fl head];
 }
 - (void) testMath{
 	float pi = M_PI;
@@ -364,7 +364,7 @@
 }
 - (void) testString{
 	
-	NSMutableString *string = [[NSMutableString alloc] new:@"abcdefghijklmnopqrstuvwxyz"];
+	NSMutableString *string = [[NSMutableString alloc] init:@"abcdefghijklmnopqrstuvwxyz"];
 	int len = stringlength;
 	
 	NSMutableString *s = [string characterAtIndex:5];
@@ -385,7 +385,7 @@
 	
 	NSMutableString *s3 = @"\t";
 	
-	StringBuf *buf = [[StringBuf alloc] new];
+	StringBuf *buf = [[StringBuf alloc] init];
 	[buf.b appendString:@"abc"];
 	[buf.b appendString:@""];
 	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:5 len:nil];
@@ -457,7 +457,7 @@
 	
 	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil]];
 	
-	Timer *timer = [[Timer alloc] new:50];
+	Timer *timer = [[Timer alloc] init:50];
 	timer.run = @selector(testXml);
 	[timer stop];
 	timer = [Timer delay:@selector(testTimer) time_ms:50];
@@ -498,7 +498,7 @@
 - (void) printHello{
 	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"571",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	self.s = @"str";
 	self.d2 = 4.5;
@@ -513,7 +513,7 @@
 @synthesize d1;
 - (void) methodInTests2{
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	self.d1 = 34;
 	

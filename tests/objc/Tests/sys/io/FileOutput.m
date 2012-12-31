@@ -25,7 +25,7 @@
 - (int) tell{
 	return 0;
 }
-- (id) new:(id)f{
+- (id) init:(id)f{
 	self = [super init];
 	self.__f = f;
 	return self;

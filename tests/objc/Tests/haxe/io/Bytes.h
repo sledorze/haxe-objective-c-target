@@ -28,7 +28,7 @@
 - (NSMutableString*) toString;
 - (NSMutableString*) toHex;
 - (NSMutableArray*) getData;
-- (id) new:(int)length b:(NSMutableArray*)b;
+- (id) init:(int)length b:(NSMutableArray*)b;
 
 @end
 

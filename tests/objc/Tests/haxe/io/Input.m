@@ -40,7 +40,7 @@
 	
 	Bytes *buf = [Bytes alloc:bufsize];
 	
-	BytesBuffer *total = [[BytesBuffer alloc] new];
+	BytesBuffer *total = [[BytesBuffer alloc] init];
 	@try {
 		while (YES) {
 			int len = [self readBytes:buf pos:0 len:bufsize];
@@ -86,14 +86,14 @@
 }
 - (NSMutableString*) readUntil:(int)end{
 	
-	StringBuf *buf = [[StringBuf alloc] new];
+	StringBuf *buf = [[StringBuf alloc] init];
 	int last;
 	while ( (last = [self readByte]) != end) buf.b += [NSMutableStringfromCharCode:last];
 	return buf.b;
 }
 - (NSMutableString*) readLine{
 	
-	StringBuf *buf = [[StringBuf alloc] new];
+	StringBuf *buf = [[StringBuf alloc] init];
 	int last;
 	
 	NSMutableString *s;

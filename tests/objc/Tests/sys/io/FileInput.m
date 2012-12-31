@@ -27,7 +27,7 @@
 - (BOOL) eof{
 	return NO;
 }
-- (id) new:(id)f{
+- (id) init:(id)f{
 	self = [super init];
 	self.__f = f;
 	return self;

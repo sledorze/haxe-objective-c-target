@@ -13,7 +13,7 @@
 
 @property (nonatomic) id elt;
 @property (nonatomic, strong) FastCell *next;
-- (id) new:(id)elt next:(FastCell*)next;
+- (id) init:(id)elt next:(FastCell*)next;
 
 @end
 
@@ -32,7 +32,7 @@
 - (BOOL) remove:(id)v;
 - (id) iterator;
 - (NSMutableString*) toString;
-- (id) new;
+- (id) init;
 
 @end
 

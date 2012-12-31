@@ -24,7 +24,7 @@
 - (NSMutableArray*) split:(NSMutableString*)s;
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by;
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(Function*)f;
-- (id) new:(NSMutableString*)r opt:(NSMutableString*)opt;
+- (id) init:(NSMutableString*)r opt:(NSMutableString*)opt;
 
 @end
 

@@ -18,7 +18,7 @@
 - (id) keys;
 - (id) iterator;
 - (NSMutableString*) toString;
-- (id) new;
+- (id) init;
 
 @end
 

@@ -11,7 +11,7 @@
 
 @synthesize elt;
 @synthesize next;
-- (id) new:(id)elt next:(FastCell*)next{
+- (id) init:(id)elt next:(FastCell*)next{
 	self = [super init];
 	self.elt = elt;
 	self.next = next;
@@ -24,7 +24,7 @@
 
 @synthesize head;
 - (void) add:(id)item{
-	self.head = [[FastCell alloc] new:item next:self head];
+	self.head = [[FastCell alloc] init:item next:self head];
 }
 - (id) first{
 	return ( (self.head == nil) ? nil : self.head.elt);
@@ -73,7 +73,7 @@
 }
 - (NSMutableString*) toString{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] init];
 	
 	FastCell *l = self.head;
 	while (l != nil) {
@@ -82,7 +82,7 @@
 	}
 	return [[@"{" stringByAppendingString:[a join:@","]] stringByAppendingString:@"}"];
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	return self;
 }

@@ -88,7 +88,7 @@ typedef enum{
 - (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(id)arg3 arg4:(int)arg4;
 - (void) init;
 - (void) printHello;
-- (id) new;
+- (id) init;
 
 @end
 
@@ -100,7 +100,7 @@ typedef enum{
 
 @property (nonatomic) int d1;
 - (void) methodInTests2;
-- (id) new;
+- (id) init;
 
 @end
 

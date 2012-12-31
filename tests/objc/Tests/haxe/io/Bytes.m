@@ -11,7 +11,7 @@
 
 + (Bytes*) alloc:(int)length{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] init];
 	{
 		int _g = 0;
 		while (_g < length) {
@@ -19,11 +19,11 @@
 			[a push:0];
 		}
 	}
-	return [[Bytes alloc] new:length b:a];
+	return [[Bytes alloc] init:length b:a];
 }
 + (Bytes*) ofString:(NSMutableString*)s{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] init];
 	{
 		int _g1 = 0; int _g = slength;
 		while (_g1 < _g) {
@@ -47,10 +47,10 @@
 			}
 		}
 	}
-	return [[Bytes alloc] new:a length b:a];
+	return [[Bytes alloc] init:a length b:a];
 }
 + (Bytes*) ofData:(NSMutableArray*)b{
-	return [[Bytes alloc] new:b length b:b];
+	return [[Bytes alloc] init:b length b:b];
 }
 @synthesize length;
 @synthesize b;
@@ -84,7 +84,7 @@
 }
 - (Bytes*) sub:(int)pos len:(int)len{
 	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error.OutsideBounds;
-	return [[Bytes alloc] new:len b:[self b slice:pos end:pos + len]];
+	return [[Bytes alloc] init:len b:[self b slice:pos end:pos + len]];
 }
 - (int) compare:(Bytes*)other{
 	
@@ -135,7 +135,7 @@
 }
 - (NSMutableString*) toHex{
 	
-	StringBuf *s = [[StringBuf alloc] new];
+	StringBuf *s = [[StringBuf alloc] init];
 	
 	NSMutableArray *chars = [[NSMutableArray alloc] initWithObjects:, nil]];
 	
@@ -167,7 +167,7 @@
 - (NSMutableArray*) getData{
 	return self.b;
 }
-- (id) new:(int)length b:(NSMutableArray*)b{
+- (id) init:(int)length b:(NSMutableArray*)b{
 	self = [super init];
 	self.length = length;
 	self.b = b;

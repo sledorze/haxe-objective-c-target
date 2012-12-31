@@ -9,7 +9,7 @@
 
 @implementation SEL
 
-- (id) new:(id)sel{
+- (id) init:(id)sel{
 	self = [super init];
 	return self;
 }

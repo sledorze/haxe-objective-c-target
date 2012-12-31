@@ -81,7 +81,7 @@
 }
 - (NSMutableString*) toString{
 	
-	StringBuf *s = [[StringBuf alloc] new];
+	StringBuf *s = [[StringBuf alloc] init];
 	BOOL first = YES;
 	
 	NSMutableArray *l = self.h;
@@ -97,7 +97,7 @@
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
 	
-	StringBuf *s = [[StringBuf alloc] new];
+	StringBuf *s = [[StringBuf alloc] init];
 	BOOL first = YES;
 	
 	NSMutableArray *l = self.h;
@@ -111,7 +111,7 @@
 }
 - (List*) filter:(Function*)f{
 	
-	List *l2 = [[List alloc] new];
+	List *l2 = [[List alloc] init];
 	
 	NSMutableArray *l = self.h;
 	while (l != nil) {
@@ -123,7 +123,7 @@
 }
 - (List*) map:(Function*)f{
 	
-	List *b = [[List alloc] new];
+	List *b = [[List alloc] init];
 	
 	NSMutableArray *l = self.h;
 	while (l != nil) {
@@ -133,7 +133,7 @@
 	}
 	return b;
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	self.length = 0;
 	return self;

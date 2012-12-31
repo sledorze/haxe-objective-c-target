@@ -16,7 +16,7 @@
 - (void) addChar:(int)c;
 - (void) addSub:(NSMutableString*)s pos:(int)pos len:(id)len;
 - (NSMutableString*) toString;
-- (id) new;
+- (id) init;
 
 @end
 

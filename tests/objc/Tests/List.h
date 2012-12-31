@@ -31,7 +31,7 @@
 - (NSMutableString*) join:(NSMutableString*)sep;
 - (List*) filter:(Function*)f;
 - (List*) map:(Function*)f;
-- (id) new;
+- (id) init;
 
 @end
 

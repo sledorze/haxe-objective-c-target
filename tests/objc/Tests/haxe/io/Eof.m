@@ -12,7 +12,7 @@
 - (NSMutableString*) toString{
 	return @"Eof";
 }
-- (id) new{
+- (id) init{
 	self = [super init];
 	return self;
 }

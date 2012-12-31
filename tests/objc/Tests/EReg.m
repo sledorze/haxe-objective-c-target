@@ -39,7 +39,7 @@
 	int pos = 0;
 	int len = slength;
 	
-	NSMutableArray *a = [[NSMutableArray alloc] new];
+	NSMutableArray *a = [[NSMutableArray alloc] init];
 	BOOL first = YES;
 	do {
 		id p = nil;
@@ -58,7 +58,7 @@
 }
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by{
 	
-	StringBuf *b = [[StringBuf alloc] new];
+	StringBuf *b = [[StringBuf alloc] init];
 	int pos = 0;
 	int len = slength;
 	
@@ -108,7 +108,7 @@
 }
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(Function*)f{
 	
-	StringBuf *buf = [[StringBuf alloc] new];
+	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {
 		if (![self match:s]) break;
 		buf.b += [Std string:[self matchedLeft]];
@@ -118,7 +118,7 @@
 	buf.b += [Std string:s];
 	return buf.b;
 }
-- (id) new:(NSMutableString*)r opt:(NSMutableString*)opt{
+- (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	
 	NSMutableArray *a = [opt componentsSeparatedByString:@"g"];
