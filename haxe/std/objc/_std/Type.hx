@@ -53,24 +53,26 @@ enum ValueType {
 	}
 
 
-	public static function getSuperClass( c : Class<Dynamic> ) : Class<Dynamic> untyped {
-		return c.GetSuper();
+	public static function getSuperClass( c : Class<Dynamic> ) : Class<Dynamic> {
+		if( c == null )
+			return null;
+		return untyped __objc__("NSStringFromClass([c class])");
 	}
 
 	public static function getClassName( c : Class<Dynamic> ) : String {
 		if( c == null )
 			return null;
-		return untyped c.mName;
+		return untyped __objc__("NSStringFromClass([c class])");
 	}
 
 	public static function getEnumName( e : Enum<Dynamic> ) : String {
 		return untyped e.__ToString();
 	}
 
-	public static function resolveClass( name : String ) : Class<Dynamic> untyped {
-		var result:Class<Dynamic> = Class.Resolve(name);
-		if (result!=null && result.__IsEnum() )
-			return null;
+	public static function resolveClass( name : String ) : Class<Dynamic> {
+		var result:Class<Dynamic> = untyped __objc__("NSClassFromString ( name )");
+/*		if (result!=null && result.__IsEnum() )
+			return null;*/
 		return result;
 	}
 
@@ -81,14 +83,14 @@ enum ValueType {
 		return result;
 	}
 
-	public static function createInstance<T>( cl : Class<T>, args : Array<Dynamic> ) : T untyped {
+	public static function createInstance<T>( cl : Class<T>, args : Array<Dynamic> ) : T {
 		if (cl!=null)
-			return cl.mConstructArgs(args);
+			return untyped __objc__("[[cl alloc] init]");
 		return null;
 	}
 
-	public static function createEmptyInstance<T>( cl : Class<T> ) : T untyped {
-		return cl.mConstructEmpty();
+	public static function createEmptyInstance<T>( cl : Class<T> ) : T {
+		return untyped __objc__("[[cl alloc] init]");
 	}
 
 	public static function createEnum<T>( e : Enum<T>, constr : String, ?params : Array<Dynamic> ) : T {

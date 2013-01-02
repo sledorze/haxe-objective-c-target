@@ -174,19 +174,25 @@
 	var $e2 : enum =  (c)
 	switch ( $e2.index ) {
 		
-		case 0:{
+		case 0:
+		{
 			$r = 16711680}break
-		case 1:{
+		case 1:
+		{
 			$r = 65280}break
-		case 2:{
+		case 2:
+		{
 			$r = 255}break
 		case 3:
+		
 		var MATCH v : int = $e2.params[0]{
 			$r = ((v << 16 | v << 8) | v)}break
 		case 4:
+		
 		var MATCH b : int = $e2.params[2], MATCH g : int = $e2.params[1], MATCH r : int = $e2.params[0]{
 			$r = ((r << 16 | g << 8) | b)}break
 		case 5:
+		
 		var MATCH c1 : Color = $e2.params[1], MATCH a : int = $e2.params[0]{
 			$r = (a << 24 | ([self enumToInt:c1] & 16777215))}break
 	}
@@ -200,11 +206,14 @@
 	var $e2 : enum =  (v)
 	switch ( $e2.index ) {
 		
-		case 0:{
+		case 0:
+		{
 			$r = 5}break
-		case 1:{
+		case 1:
+		{
 			$r = 6}break
-		case 2:{
+		case 2:
+		{
 			$r = 7}break
 	}
 	return $r{
@@ -217,11 +226,14 @@
 	var $e4 : enum =  (red)
 	switch ( $e4.index ) {
 		
-		case 0:{
+		case 0:
+		{
 			$r3 = 5}break
-		case 1:{
+		case 1:
+		{
 			$r3 = 6}break
-		case 2:{
+		case 2:
+		{
 			$r3 = 7}break
 	}
 	return $r3{

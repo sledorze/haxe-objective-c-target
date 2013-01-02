@@ -244,6 +244,7 @@ type context = {
 	mutable class_def : tclass;
 	mutable in_value : tvar option;
 	mutable in_static : bool;
+	mutable is_category : bool;(* In categories @synthesize should be replaced with the getter and setter *)
 	mutable handle_break : bool;
 	mutable generating_header : bool;
 	mutable generating_constructor : bool;
@@ -264,6 +265,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	class_def = null_class;
 	in_value = None;
 	in_static = false;
+	is_category = false;
 	handle_break = false;
 	generating_header = false;
 	generating_constructor = false;
@@ -1092,6 +1094,7 @@ and generateExpression ctx e =
 			List.iter (fun c ->
 				ctx.writer#new_line;
 				ctx.writer#write (Printf.sprintf "case %d:" c);
+				ctx.writer#new_line;
 			) cl;
 			(match params with
 			| None | Some [] -> ()
@@ -1329,7 +1332,23 @@ let generateProperty ctx field pos is_static =
 	return _val;
 }")
 		end
-		else ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
+		else begin
+			if ctx.is_category then begin
+				(* A category can't use the @synthesize, so we create a getter and setter for the property *)
+				(* http://ddeville.me/2011/03/add-variables-to-an-existing-class-in-objective-c/ *)
+				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id);
+				ctx.writer#begin_block;
+				ctx.writer#write ("return objc_getAssociatedObject(self, &"^id^");\n");
+				ctx.writer#end_block;
+				ctx.writer#new_line;
+				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val");
+				ctx.writer#begin_block;
+				ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^", val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);\n");
+				ctx.writer#end_block;
+			end else begin
+				ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
+			end
+		end;
 	end
 	(* Generate functions located in the hx interfaces *)
 	(* let rec loop = function
@@ -2125,8 +2144,7 @@ let generateImplementation ctx files_manager imports_manager =
 	ctx.writer#new_line;
 	
 	let class_path = ctx.class_def.cl_path in
-	let isCategory = (has_meta ":category" ctx.class_def.cl_meta) in
-	if isCategory then begin
+	if ctx.is_category then begin
 		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
 		ctx.writer#write ("@implementation " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
 	end else
@@ -2173,8 +2191,7 @@ let generateHeader ctx files_manager imports_manager =
 	ctx.writer#new_line;
 
 	let class_path = ctx.class_def.cl_path in
-	let isCategory = (has_meta ":category" ctx.class_def.cl_meta) in
-	if isCategory then begin
+	if ctx.is_category then begin
 		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
 		ctx.writer#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
 	end
@@ -2189,7 +2206,7 @@ let generateHeader ctx files_manager imports_manager =
 		(match c.cl_dynamic with None -> "" | Some _ -> if c.cl_interface then "" else "dynamic ") 
 		(if c.cl_interface then "interface" else "class") (snd c.cl_path); *)
 		if ctx.class_def.cl_implements != [] then begin
-			(* Add implement *)
+			(* Add implement classes *)
 			ctx.writer#write "<";
 			(match ctx.class_def.cl_implements with
 			| [] -> ()
@@ -2259,6 +2276,7 @@ let generate common_ctx =
 			if not class_def.cl_extern then begin
 				let module_path = class_def.cl_module.m_path in
 				let class_path = class_def.cl_path in
+				let is_category = (has_meta ":category" class_def.cl_meta) in
 				let is_new_module_m = (m.module_path_m != module_path) in
 				let is_new_module_h = (m.module_path_h != module_path) in
 				(* When we create a new module reset the 'frameworks' and 'imports' that where stored for the previous module *)
@@ -2285,6 +2303,7 @@ let generate common_ctx =
 						let file_m = newSourceFile src_dir module_path ".m" in
 						let ctx_m = newContext common_ctx file_m imports_manager file_info in
 						m.ctx_m <- ctx_m;
+						m.ctx_m.is_category <- is_category;
 						
 						(* Import header *)
 						m.ctx_m.writer#write_copy module_path (appName common_ctx);
@@ -2308,6 +2327,7 @@ let generate common_ctx =
 					let file_h = newSourceFile src_dir module_path ".h" in
 					let ctx_h = newContext common_ctx file_h imports_manager file_info in
 					m.ctx_h <- ctx_h;
+					m.ctx_h.is_category <- is_category;
 					(* m.ctx_h.class_def <- class_def; *)
 					m.ctx_h.writer#write_copy module_path (appName common_ctx);
 				end;

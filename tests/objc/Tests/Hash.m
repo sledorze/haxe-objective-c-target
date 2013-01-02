@@ -10,7 +10,7 @@
 @implementation NSMutableDictionary ( Hash )
 
 - (void) set:(NSMutableString*)key value:(id)value{
-	[self setObject:value :key];
+	[self setObject:value forKey:key];
 }
 - (id) get:(NSMutableString*)key{
 	return [self objectForKey:key];
@@ -19,7 +19,11 @@
 	return [self objectForKey:key] != nil;
 }
 - (BOOL) remove:(NSMutableString*)key{
-	return [self removeObjectForKey:key];
+	if ([self exists:key]) {
+		[self removeObjectForKey:key];
+		return YES;
+	}
+	return NO;
 }
 - (id) keys{
 	

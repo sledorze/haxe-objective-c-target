@@ -25,19 +25,19 @@
 	return [o __GetClass];
 }
 + (Class*) getSuperClass:(Class*)c{
-	return [c GetSuper];
+	if (c == nil) return nil;
+	return NSStringFromClass([c class]);
 }
 + (NSMutableString*) getClassName:(Class*)c{
 	if (c == nil) return nil;
-	return c.mName;
+	return NSStringFromClass([c class]);
 }
 + (NSMutableString*) getEnumName:(Enum*)e{
 	return [e __ToString];
 }
 + (Class*) resolveClass:(NSMutableString*)name{
 	
-	Class *result = [Class Resolve:name];
-	if (result != nil && [result __IsEnum]) return nil;
+	Class *result = NSClassFromString ( name );
 	return result;
 }
 + (Enum*) resolveEnum:(NSMutableString*)name{
@@ -47,11 +47,11 @@
 	return result;
 }
 + (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
-	if (cl != nil) return [cl mConstructArgs:args];
+	if (cl != nil) return [[cl alloc] init];
 	return nil;
 }
 + (id) createEmptyInstance:(Class*)cl{
-	return [cl mConstructEmpty];
+	return [[cl alloc] init];
 }
 + (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params{
 	if (e.mConstructEnum != nil) return [e mConstructEnum:constr :params];

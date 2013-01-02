@@ -9,9 +9,24 @@
 
 @implementation NSRegularExpression ( EReg )
 
-@synthesize r;
-@synthesize last;
-@synthesize global;
+- (id) r{
+	return objc_getAssociatedObject(self, &r);
+}
+- (void) setR:(id)val{
+	return objc_setAssociatedObject(self, &r, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (NSMutableString*) last{
+	return objc_getAssociatedObject(self, &last);
+}
+- (void) setLast:(NSMutableString*)val{
+	return objc_setAssociatedObject(self, &last, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL) global{
+	return objc_getAssociatedObject(self, &global);
+}
+- (void) setGlobal:(BOOL)val{
+	return objc_setAssociatedObject(self, &global, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
 	if (p) self.last = s

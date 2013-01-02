@@ -9,7 +9,12 @@
 
 @implementation NSMutableArray ( Array )
 
-@synthesize length;
+- (int) length{
+	return objc_getAssociatedObject(self, &length);
+}
+- (void) setLength:(int)val{
+	return objc_setAssociatedObject(self, &length, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 - (NSMutableArray*) concat:(NSMutableArray*)a{
 	return [self arrayByAddingObjectsFromArray:a];
 }

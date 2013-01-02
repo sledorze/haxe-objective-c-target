@@ -34,7 +34,8 @@ import objc.foundation.NSDictionary;
 	}
 
 	public function set( key : String, value : T ) : Void {
-		untyped this.setObject (value, key);
+		//untyped this.setObject (value, key);
+		untyped __objc__("[self setObject:value forKey:key]");
 	}
 
 	public function get( key : String ) : Null<T> {
@@ -46,7 +47,11 @@ import objc.foundation.NSDictionary;
 	}
 
 	public function remove( key : String ) : Bool {
-		return untyped this.removeObjectForKey ( key );
+		if (exists(key)) {
+			untyped this.removeObjectForKey ( key );
+			return true;
+		}
+		return false;
 	}
 
 	/**
