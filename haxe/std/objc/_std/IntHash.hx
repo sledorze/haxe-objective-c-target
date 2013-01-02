@@ -30,19 +30,27 @@
 	}
 
 	public function set( key : Int, value : T ) : Void {
-		untyped this.setObject (value, key);
+		//untyped this.setObject (value, key);
+		untyped __objc__("[self setObject:value forKey:[NSString stringWithFormat:@\"%i\",key]]");
 	}
 
 	public function get( key : Int ) : Null<T> {
-		return untyped this.objectForKey ( key );
+		//return untyped this.objectForKey ( key );
+		return untyped __objc__("[self objectForKey:[NSString stringWithFormat:@\"%i\",key]]");
 	}
 
 	public function exists( key : Int ) : Bool {
-		return untyped this.objectForKey ( key ) != null;
+		//return untyped this.objectForKey ( key ) != null;
+		return untyped __objc__("[self objectForKey:[NSString stringWithFormat:@\"%i\",key]] != nil");
 	}
 
 	public function remove( key : Int ) : Bool {
-		return untyped this.removeObjectForKey ( key );
+		//return untyped this.removeObjectForKey ( key );
+		if (exists(key)) {
+			untyped __objc__("[self removeObjectForKey:[NSString stringWithFormat:@\"%i\",key]]");
+			return true;
+		}
+		return false;
 	}
 
 	public function keys() : Iterator<Int> {

@@ -10,16 +10,20 @@
 @implementation NSMutableDictionary ( IntHash )
 
 - (void) set:(int)key value:(id)value{
-	[self setObject:value :key];
+	[self setObject:value forKey:[NSString stringWithFormat:@"%i",key]];
 }
 - (id) get:(int)key{
-	return [self objectForKey:key];
+	return [self objectForKey:[NSString stringWithFormat:@"%i",key]];
 }
 - (BOOL) exists:(int)key{
-	return [self objectForKey:key] != nil;
+	return [self objectForKey:[NSString stringWithFormat:@"%i",key]] != nil;
 }
 - (BOOL) remove:(int)key{
-	return [self removeObjectForKey:key];
+	if ([self exists:key]) {
+		[self removeObjectForKey:[NSString stringWithFormat:@"%i",key]];
+		return YES;
+	}
+	return NO;
 }
 - (id) keys{
 	
