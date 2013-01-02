@@ -97,7 +97,7 @@
 	return s;
 }
 + (int) fastCodeAt:(NSMutableString*)s index:(int)index{
-	return [scca "-dynamic_param-" ];
+	return [scca:index];
 }
 + (BOOL) isEOF:(int)c{
 	return c == -1;

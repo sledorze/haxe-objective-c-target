@@ -470,13 +470,9 @@ let rec typeToString ctx t p =
 		(match c.cl_kind with
 		| KNormal | KGeneric | KGenericInstance _ -> processClassPath ctx false c.cl_path p
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
-	| TFun _ ->
-		"-Function-"
-	| TMono r ->
-		(* ctx.writer#write "TMono?"; *)
-		(match !r with None -> "id" | Some t -> typeToString ctx t p)
-	| TAnon _ | TDynamic _ ->
-		"id"
+	| TFun _ -> "SEL"
+	| TMono r -> (match !r with None -> "id" | Some t -> typeToString ctx t p)
+	| TAnon _ | TDynamic _ -> "id"
 	| TType (t,args) ->
 		(* ctx.writer#write "TType?"; *)
 		(match t.t_path with
@@ -690,20 +686,34 @@ let rec generateCall ctx func arg_list =
 		) arg_list; *)
 	
 		if List.length arg_list > 0 then begin
-	
-		let args_array_e = Array.of_list arg_list in
-		let index = ref 0 in
-		(match func.etype with
-			| TFun(args, ret) ->
-				List.iter (
-				fun (name, b, t) ->
-					ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
-					generateValue ctx args_array_e.(!index);
-					index := !index + 1;
-				) args;
-			(* Dynamic value call function with a dynamic parameter *)
-			| _ -> ctx.writer#write " \"-dynamic_param-\" ");
-	
+			
+			let args_array_e = Array.of_list arg_list in
+			let index = ref 0 in
+			let rec gen et =
+			(match et with
+				| TFun(args, ret) ->
+					List.iter (
+					fun (name, b, t) ->
+						ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
+						generateValue ctx args_array_e.(!index);
+						index := !index + 1;
+					) args;
+				(* Generated in Array *)
+				| TMono r -> (match !r with 
+					| None -> ctx.writer#write "-TMonoNone"
+					| Some v -> gen v)
+				| TEnum (e,tl) -> ctx.writer#write "-TEnum"
+				| TInst (c,tl) -> ctx.writer#write "-TInst"
+				| TType (t,tl) -> ctx.writer#write "-TType"
+				| TAbstract (a,tl) -> ctx.writer#write "-TAbstract"
+				| TFun ([],t) -> ctx.writer#write "-TFunNoArgs"
+				| TAnon a -> ctx.writer#write "-TAnon"
+				| TDynamic t2 -> ctx.writer#write "-TDynamic"
+				| TLazy f -> ctx.writer#write "-TLazy"
+				(* Dynamic value call function with a dynamic parameter *)
+				| _ -> ctx.writer#write " \"-dynamic_param-\" ") in
+			gen func.etype;
+			
 		end
 	end
 	
@@ -934,7 +944,7 @@ and generateExpression ctx e =
 		("methodName", { eexpr = (TConst (TString meth)) }) :: [] ) ->
 			ctx.writer#write ("[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@\""^file^"\",@\""^(Printf.sprintf "%ld" line)^"\",@\""^class_name^"\",@\""^meth^"\",nil] forKeys:[NSArray arrayWithObjects:@\"fileName\",@\"lineNumber\",@\"className\",@\"methodName\",nil]]");
 	| TObjectDecl fields ->
-		ctx.writer#write "typedef struct {";
+		ctx.writer#write "struct {";
 		ctx.writer#new_line;
 		concat ctx "; " (fun (f,e) -> ctx.writer#write (Printf.sprintf "%s:" (f)); generateValue ctx e) fields;
 		ctx.writer#new_line;
@@ -2113,7 +2123,15 @@ let generateImplementation ctx files_manager imports_manager =
 	(* common_ctx.local_types <- List.map snd c.cl_types; *)
 	
 	ctx.writer#new_line;
-	ctx.writer#write ("@implementation " ^ (snd ctx.class_def.cl_path));
+	
+	let class_path = ctx.class_def.cl_path in
+	let isCategory = (has_meta ":category" ctx.class_def.cl_meta) in
+	if isCategory then begin
+		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
+		ctx.writer#write ("@implementation " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
+	end else
+		ctx.writer#write ("@implementation " ^ (snd ctx.class_def.cl_path));
+	
 	ctx.writer#new_line;
 	
 	(* Generate functions and variables *)

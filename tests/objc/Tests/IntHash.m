@@ -7,19 +7,19 @@
 
 #import "IntHash.h"
 
-@implementation IntHash
+@implementation NSMutableDictionary ( IntHash )
 
 - (void) set:(int)key value:(id)value{
-	[self setObject "-dynamic_param-" ];
+	[self setObject:value :key];
 }
 - (id) get:(int)key{
-	return [self objectForKey "-dynamic_param-" ];
+	return [self objectForKey:key];
 }
 - (BOOL) exists:(int)key{
-	return [self objectForKey "-dynamic_param-" ] != nil;
+	return [self objectForKey:key] != nil;
 }
 - (BOOL) remove:(int)key{
-	return [self removeObjectForKey "-dynamic_param-" ];
+	return [self removeObjectForKey:key];
 }
 - (id) keys{
 	

@@ -68,7 +68,7 @@
 	return NO;
 }
 - (id) iterator{
-	return (id)typedef struct {
+	return (id)struct {
 	h:self.h; hasNext:^(id){
 		return self.h != nil;
 	}; next:^(id){
@@ -109,7 +109,7 @@
 	}
 	return s.b;
 }
-- (List*) filter:(-Function-*)f{
+- (List*) filter:(SEL*)f{
 	
 	List *l2 = [[List alloc] init];
 	
@@ -121,7 +121,7 @@
 	}
 	return l2;
 }
-- (List*) map:(-Function-*)f{
+- (List*) map:(SEL*)f{
 	
 	List *b = [[List alloc] init];
 	

@@ -29,8 +29,8 @@
 - (id) iterator;
 - (NSMutableString*) toString;
 - (NSMutableString*) join:(NSMutableString*)sep;
-- (List*) filter:(-Function-*)f;
-- (List*) map:(-Function-*)f;
+- (List*) filter:(SEL*)f;
+- (List*) map:(SEL*)f;
 - (id) init;
 
 @end

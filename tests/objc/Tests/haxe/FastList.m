@@ -60,7 +60,7 @@
 - (id) iterator{
 	
 	NSMutableArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil]];
-	return typedef struct {
+	return struct {
 	hasNext:^(BOOL){
 		return [l objectAtIndex:0] != nil;
 	}; next:^(id){

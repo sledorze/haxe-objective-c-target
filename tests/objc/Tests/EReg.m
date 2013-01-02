@@ -7,7 +7,7 @@
 
 #import "EReg.h"
 
-@implementation EReg
+@implementation NSRegularExpression ( EReg )
 
 @synthesize r;
 @synthesize last;
@@ -106,7 +106,7 @@
 	b.b += [s substringWithRange:pos len:len];
 	return b.b;
 }
-- (NSMutableString*) customReplace:(NSMutableString*)s f:(-Function-*)f{
+- (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL*)f{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {

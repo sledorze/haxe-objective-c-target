@@ -161,7 +161,7 @@
 	str = [DateTools format:d f:@"HH:mm"];
 	_int = [DateTools getMonthDays:d];
 	_float = [DateTools hours:1000];
-	_float = [DateTools make:typedef struct {
+	_float = [DateTools make:struct {
 	seconds:0; ms:(float)110; minutes:6; hours:8; days:5
 	} structName];
 	_float = [DateTools minutes:56];
@@ -333,14 +333,14 @@
 	float k = ( (b) ? -x : x);
 }
 - (void) testReflect{
-	id obj = typedef struct {
+	id obj = struct {
 	a:@"aaaaa"
 	} structName;
 	BOOL b = [Reflect hasField:obj field:@"a"];
 	id f = [Reflect field:obj field:@"a"];
-	if (obj != nil) [obj GFA2 .__SetField "-dynamic_param-" ];
-	[self __SetField "-dynamic_param-" ];
-	id p = (id)[self __Field "-dynamic_param-" ];
+	if (obj != nil) [obj GFA2 .__SetField-TDynamic];
+	[self __SetField-TDynamic];
+	id p = (id)[self __Field-TDynamic];
 	[Reflect callMethod:self func:@selector(testStd) args:[[NSMutableArray alloc] initWithObjects:, nil]]];
 	[Reflect callMethod:self func:@selector(callLotsOfArguments) args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
 	

@@ -7,7 +7,7 @@
 
 #import "Date.h"
 
-@implementation Date
+@implementation NSDate ( Date )
 
 + (NSDate*) now{
 	

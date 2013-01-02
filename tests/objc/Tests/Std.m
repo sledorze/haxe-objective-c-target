@@ -10,7 +10,7 @@
 @implementation Std
 
 + (BOOL) is:(id)v t:(id)t{
-	return [v isEqual "-dynamic_param-" ];
+	return [v isEqual-TDynamic];
 }
 + (NSMutableString*) string:(id)s{
 	return [s description];

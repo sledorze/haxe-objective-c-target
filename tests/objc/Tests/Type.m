@@ -36,25 +36,25 @@
 }
 + (Class*) resolveClass:(NSMutableString*)name{
 	
-	Class *result = [Class Resolve "-dynamic_param-" ];
+	Class *result = [Class Resolve:name];
 	if (result != nil && [result __IsEnum]) return nil;
 	return result;
 }
 + (Enum*) resolveEnum:(NSMutableString*)name{
 	
-	Class *result = [Class Resolve "-dynamic_param-" ];
+	Class *result = [Class Resolve:name];
 	if (result != nil && ![result __IsEnum]) return nil;
 	return result;
 }
 + (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
-	if (cl != nil) return [cl mConstructArgs "-dynamic_param-" ];
+	if (cl != nil) return [cl mConstructArgs:args];
 	return nil;
 }
 + (id) createEmptyInstance:(Class*)cl{
 	return [cl mConstructEmpty];
 }
 + (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params{
-	if (e.mConstructEnum != nil) return [e mConstructEnum "-dynamic_param-" ];
+	if (e.mConstructEnum != nil) return [e mConstructEnum:constr :params];
 	return nil;
 }
 + (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{
@@ -119,7 +119,7 @@
 			NSMutableString *name = [names objectAtIndex:_g];
 			++_g;
 			@try {
-				id result = [e mConstructEnum "-dynamic_param-" ];
+				id result = [e mConstructEnum:name :nil];
 				[enums push:result];
 			}
 			@catch (NSException *invalidArgCount) {

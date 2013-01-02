@@ -7,17 +7,17 @@
 
 #import "Array.h"
 
-@implementation Array
+@implementation NSMutableArray ( Array )
 
 @synthesize length;
 - (NSMutableArray*) concat:(NSMutableArray*)a{
-	return [self arrayByAddingObjectsFromArray "-dynamic_param-" ];
+	return [self arrayByAddingObjectsFromArray:a];
 }
 - (NSMutableArray*) copy{
-	return [NSMutableArray arrayWithArray "-dynamic_param-" ];
+	return [NSMutableArray arrayWithArray:self];
 }
 - (id) iterator{
-	return typedef struct {
+	return struct {
 	a:self; p:0; hasNext:^(BOOL){
 		return self.p < self.a GFA2 .length;
 	}; next:^(id){
@@ -28,13 +28,13 @@
 	} structName;
 }
 - (void) insert:(int)pos x:(id)x{
-	[self insertObject "-dynamic_param-" ];
+	[self insertObject:x :pos];
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
-	return [self componentsJoinedByString "-dynamic_param-" ];
+	return [self componentsJoinedByString:sep];
 }
 - (NSMutableString*) toString{
-	return [@"[" stringByAppendingString: ([[self componentsJoinedByString "-dynamic_param-" ] stringByAppendingString:@"]"])];
+	return [@"[" stringByAppendingString: ([[self componentsJoinedByString:@","] stringByAppendingString:@"]"])];
 }
 - (id) pop{
 	if (self.length == 0) return nil;
@@ -43,15 +43,15 @@
 	return theLastObject;
 }
 - (int) push:(id)x{
-	[self addObject "-dynamic_param-" ];
+	[self addObject:x];
 	return [self count];
 }
 - (void) unshift:(id)x{
-	[self insertObject "-dynamic_param-" ];
+	[self insertObject:x :0];
 }
 - (BOOL) remove:(id)x{
-	BOOL containsObject = [self containsObject "-dynamic_param-" ];
-	if (containsObject) [self removeObject "-dynamic_param-" ];
+	BOOL containsObject = [self containsObject:x];
+	if (containsObject) [self removeObject:x];
 	return containsObject;
 }
 - (void) reverse{
@@ -59,22 +59,22 @@
 }
 - (id) shift{
 	if ([self count] > 0) {
-		id obj = [self objectAtIndex "-dynamic_param-" ];
-		[self removeObjectAtIndex "-dynamic_param-" ];
+		id obj = [self objectAtIndex:0];
+		[self removeObjectAtIndex:0];
 		return obj;
 	}
 	return nil;
 }
 - (NSMutableArray*) slice:(int)pos end:(id)end{
-	return [self splice:pos len:end - pos];
+	return [self splice:pos len:(end - pos)];
 }
-- (void) sort:(-Function-*)f{
+- (void) sort:(SEL*)f{
 }
 - (NSMutableArray*) splice:(int)pos len:(int)len{
 	
-	NSMutableArray *newArray = [self subarrayWithRange "-dynamic_param-" ];
-	[self removeObjectsInArray "-dynamic_param-" ];
-	return [NSMutableArray arrayWithArray "-dynamic_param-" ];
+	NSMutableArray *newArray = [self subarrayWithRange:NSMakeRange (pos,len)];
+	[self removeObjectsInArray:newArray];
+	return [NSMutableArray arrayWithArray:newArray];
 }
 - (id) init{
 	self = [super init];

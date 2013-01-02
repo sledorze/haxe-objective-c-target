@@ -10,30 +10,30 @@
 @implementation Reflect
 
 + (BOOL) hasField:(id)o field:(NSMutableString*)field{
-	return o != nil && [o __HasField "-dynamic_param-" ];
+	return o != nil && [o __HasField-TDynamic];
 }
 + (id) field:(id)o field:(NSMutableString*)field{
-	return ( (o == nil) ? nil : [o __Field "-dynamic_param-" ]);
+	return ( (o == nil) ? nil : [o __Field-TDynamic]);
 }
 + (void) setField:(id)o field:(NSMutableString*)field value:(id)value{
-	if (o != nil) [o __SetField "-dynamic_param-" ];
+	if (o != nil) [o __SetField-TDynamic];
 }
 + (id) getProperty:(id)o field:(NSMutableString*)field{
-	return ( (o == nil) ? nil : [o __Field "-dynamic_param-" ]);
+	return ( (o == nil) ? nil : [o __Field-TDynamic]);
 }
 + (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value{
-	if (o != nil) [o __SetField "-dynamic_param-" ];
+	if (o != nil) [o __SetField-TDynamic];
 }
 + (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args{
-	if (func != nil && [func __GetType] == __global__ GFA2 .vtString) func = [o __Field "-dynamic_param-" ];
-	[func __SetThis "-dynamic_param-" ];
-	return [func __Run "-dynamic_param-" ];
+	if (func != nil && [func __GetType] == __global__ GFA2 .vtString) func = [o __Field-TDynamic];
+	[func __SetThis-TDynamic];
+	return [func __Run-TDynamic];
 }
 + (NSMutableArray*) fields:(id)o{
 	if (o == nil) return [[NSMutableArray alloc] init];
 	
 	NSMutableArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
-	[o __GetFields "-dynamic_param-" ];
+	[o __GetFields-TDynamic];
 	return a;
 }
 + (BOOL) isFunction:(id)f{
@@ -45,7 +45,7 @@
 + (BOOL) compareMethods:(id)f1 f2:(id)f2{
 	if (f1 == f2) return YES;
 	if (![Reflect isFunction:f1] || ![Reflect isFunction:f2]) return NO;
-	return [__global__ GFA2 .__hxcpp_same_closure "-dynamic_param-" ];
+	return [__global__ GFA2 .__hxcpp_same_closure:f1 :f2];
 }
 + (BOOL) isObject:(id)v{
 	if (v == nil) return NO;
@@ -54,13 +54,13 @@
 }
 + (BOOL) deleteField:(id)o f:(NSMutableString*)f{
 	if (o == nil) return NO;
-	return [__global__ GFA2 .__hxcpp_anon_remove "-dynamic_param-" ];
+	return [__global__ GFA2 .__hxcpp_anon_remove:o :f];
 }
 + (id) copy:(id)o{
 	if (o == nil) return nil;
 	if ([o __GetType] == __global__ GFA2 .vtString) return o;
-	if ([o __GetType] == __global__ GFA2 .vtArray) return [[o __Field "-dynamic_param-" ]];
-	id o2 = typedef struct {
+	if ([o __GetType] == __global__ GFA2 .vtArray) return [[o __Field:@"copy" :YES]];
+	id o2 = struct {
 	
 	} structName;
 	{
@@ -70,13 +70,13 @@
 			
 			NSMutableString *f = [_g1 objectAtIndex:_g];
 			++_g;
-			if (o2 != nil) [o2 __SetField "-dynamic_param-" ];
+			if (o2 != nil) [o2 __SetField-TDynamic];
 		}
 	}
 	return o2;
 }
-+ (id) makeVarArgs:(-Function-*)f{
-	return [__global__ GFA2 .__hxcpp_create_var_args "-dynamic_param-" ];
++ (id) makeVarArgs:(SEL*)f{
+	return [__global__ GFA2 .__hxcpp_create_var_args:f];
 }
 
 @end

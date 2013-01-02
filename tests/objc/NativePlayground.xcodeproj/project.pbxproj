@@ -97,22 +97,22 @@
 		28752FFE16906C1A0048F960 /* Sys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Sys.m; path = Tests/Sys.m; sourceTree = SOURCE_ROOT; };
 		28752FFF16906C1A0048F960 /* Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Type.h; path = Tests/Type.h; sourceTree = SOURCE_ROOT; };
 		2875300016906C1A0048F960 /* Type.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Type.m; path = Tests/Type.m; sourceTree = SOURCE_ROOT; };
-		288B5188167673C000926232 /* NativeTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		288B5188167673C000926232 /* NativePlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativePlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		288B518C167673C000926232 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288B518E167673C000926232 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		288B5190167673C000926232 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		288B5194167673C000926232 /* NativeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativeTests-Info.plist"; sourceTree = "<group>"; };
+		288B5194167673C000926232 /* NativePlayground-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativePlayground-Info.plist"; sourceTree = "<group>"; };
 		288B5196167673C000926232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		288B5198167673C000926232 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		288B519A167673C000926232 /* NativeTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NativeTests-Prefix.pch"; sourceTree = "<group>"; };
+		288B519A167673C000926232 /* NativePlayground-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NativePlayground-Prefix.pch"; sourceTree = "<group>"; };
 		288B519B167673C000926232 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		288B519C167673C100926232 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		288B519E167673C100926232 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		288B51A0167673C100926232 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		288B51A2167673C100926232 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		288B51A9167673C100926232 /* NativeTestsTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativeTestsTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		288B51A9167673C100926232 /* NativePlaygroundTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NativePlaygroundTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		288B51AA167673C100926232 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		288B51B2167673C100926232 /* NativeTestsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativeTestsTests-Info.plist"; sourceTree = "<group>"; };
+		288B51B2167673C100926232 /* NativePlaygroundTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativePlaygroundTests-Info.plist"; sourceTree = "<group>"; };
 		288B51B4167673C100926232 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		288B51B6167673C100926232 /* NativeTestsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeTestsTests.h; sourceTree = "<group>"; };
 		288B51B7167673C100926232 /* NativeTestsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeTestsTests.m; sourceTree = "<group>"; };
@@ -147,8 +147,8 @@
 		288B517D167673C000926232 = {
 			isa = PBXGroup;
 			children = (
-				288B5192167673C000926232 /* NativeTests */,
-				288B51B0167673C100926232 /* NativeTestsTests */,
+				288B5192167673C000926232 /* NativePlayground */,
+				288B51B0167673C100926232 /* NativePlaygroundTests */,
 				288B518B167673C000926232 /* Frameworks */,
 				288B5189167673C000926232 /* Products */,
 			);
@@ -157,8 +157,8 @@
 		288B5189167673C000926232 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				288B5188167673C000926232 /* NativeTests.app */,
-				288B51A9167673C100926232 /* NativeTestsTests.octest */,
+				288B5188167673C000926232 /* NativePlayground.app */,
+				288B51A9167673C100926232 /* NativePlaygroundTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,7 +175,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		288B5192167673C000926232 /* NativeTests */ = {
+		288B5192167673C000926232 /* NativePlayground */ = {
 			isa = PBXGroup;
 			children = (
 				28752FD8169042B00048F960 /* Lib.h */,
@@ -224,16 +224,17 @@
 				288B519C167673C100926232 /* AppDelegate.m */,
 				288B5193167673C000926232 /* Supporting Files */,
 			);
+			name = NativePlayground;
 			path = NativeTests;
 			sourceTree = "<group>";
 		};
 		288B5193167673C000926232 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				288B5194167673C000926232 /* NativeTests-Info.plist */,
+				288B5194167673C000926232 /* NativePlayground-Info.plist */,
 				288B5195167673C000926232 /* InfoPlist.strings */,
 				288B5198167673C000926232 /* main.m */,
-				288B519A167673C000926232 /* NativeTests-Prefix.pch */,
+				288B519A167673C000926232 /* NativePlayground-Prefix.pch */,
 				288B519E167673C100926232 /* Default.png */,
 				288B51A0167673C100926232 /* Default@2x.png */,
 				288B51A2167673C100926232 /* Default-568h@2x.png */,
@@ -241,20 +242,21 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		288B51B0167673C100926232 /* NativeTestsTests */ = {
+		288B51B0167673C100926232 /* NativePlaygroundTests */ = {
 			isa = PBXGroup;
 			children = (
 				288B51B6167673C100926232 /* NativeTestsTests.h */,
 				288B51B7167673C100926232 /* NativeTestsTests.m */,
 				288B51B1167673C100926232 /* Supporting Files */,
 			);
+			name = NativePlaygroundTests;
 			path = NativeTestsTests;
 			sourceTree = "<group>";
 		};
 		288B51B1167673C100926232 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				288B51B2167673C100926232 /* NativeTestsTests-Info.plist */,
+				288B51B2167673C100926232 /* NativePlaygroundTests-Info.plist */,
 				288B51B3167673C100926232 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -263,9 +265,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		288B5187167673C000926232 /* NativeTests */ = {
+		288B5187167673C000926232 /* NativePlayground */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 288B51BB167673C100926232 /* Build configuration list for PBXNativeTarget "NativeTests" */;
+			buildConfigurationList = 288B51BB167673C100926232 /* Build configuration list for PBXNativeTarget "NativePlayground" */;
 			buildPhases = (
 				288B5184167673C000926232 /* Sources */,
 				288B5185167673C000926232 /* Frameworks */,
@@ -275,14 +277,14 @@
 			);
 			dependencies = (
 			);
-			name = NativeTests;
+			name = NativePlayground;
 			productName = NativeTests;
-			productReference = 288B5188167673C000926232 /* NativeTests.app */;
+			productReference = 288B5188167673C000926232 /* NativePlayground.app */;
 			productType = "com.apple.product-type.application";
 		};
-		288B51A8167673C100926232 /* NativeTestsTests */ = {
+		288B51A8167673C100926232 /* NativePlaygroundTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 288B51BE167673C100926232 /* Build configuration list for PBXNativeTarget "NativeTestsTests" */;
+			buildConfigurationList = 288B51BE167673C100926232 /* Build configuration list for PBXNativeTarget "NativePlaygroundTests" */;
 			buildPhases = (
 				288B51A4167673C100926232 /* Sources */,
 				288B51A5167673C100926232 /* Frameworks */,
@@ -294,9 +296,9 @@
 			dependencies = (
 				288B51AF167673C100926232 /* PBXTargetDependency */,
 			);
-			name = NativeTestsTests;
+			name = NativePlaygroundTests;
 			productName = NativeTestsTests;
-			productReference = 288B51A9167673C100926232 /* NativeTestsTests.octest */;
+			productReference = 288B51A9167673C100926232 /* NativePlaygroundTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -308,7 +310,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Baluta Cristian";
 			};
-			buildConfigurationList = 288B5182167673C000926232 /* Build configuration list for PBXProject "NativeTests" */;
+			buildConfigurationList = 288B5182167673C000926232 /* Build configuration list for PBXProject "NativePlayground" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -320,8 +322,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				288B5187167673C000926232 /* NativeTests */,
-				288B51A8167673C100926232 /* NativeTestsTests */,
+				288B5187167673C000926232 /* NativePlayground */,
+				288B51A8167673C100926232 /* NativePlaygroundTests */,
 			);
 		};
 /* End PBXProject section */
@@ -407,7 +409,7 @@
 /* Begin PBXTargetDependency section */
 		288B51AF167673C100926232 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 288B5187167673C000926232 /* NativeTests */;
+			target = 288B5187167673C000926232 /* NativePlayground */;
 			targetProxy = 288B51AE167673C100926232 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -486,9 +488,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NativeTests/NativeTests-Prefix.pch";
-				INFOPLIST_FILE = "NativeTests/NativeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "NativeTests/NativePlayground-Prefix.pch";
+				INFOPLIST_FILE = "NativeTests/NativePlayground-Info.plist";
+				PRODUCT_NAME = NativePlayground;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -497,9 +499,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NativeTests/NativeTests-Prefix.pch";
-				INFOPLIST_FILE = "NativeTests/NativeTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "NativeTests/NativePlayground-Prefix.pch";
+				INFOPLIST_FILE = "NativeTests/NativePlayground-Info.plist";
+				PRODUCT_NAME = NativePlayground;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -514,8 +516,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NativeTests/NativeTests-Prefix.pch";
-				INFOPLIST_FILE = "NativeTestsTests/NativeTestsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "NativeTestsTests/NativePlaygroundTests-Info.plist";
+				PRODUCT_NAME = NativePlaygroundTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -531,8 +533,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NativeTests/NativeTests-Prefix.pch";
-				INFOPLIST_FILE = "NativeTestsTests/NativeTestsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "NativeTestsTests/NativePlaygroundTests-Info.plist";
+				PRODUCT_NAME = NativePlaygroundTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -541,7 +543,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		288B5182167673C000926232 /* Build configuration list for PBXProject "NativeTests" */ = {
+		288B5182167673C000926232 /* Build configuration list for PBXProject "NativePlayground" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				288B51B9167673C100926232 /* Debug */,
@@ -550,7 +552,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		288B51BB167673C100926232 /* Build configuration list for PBXNativeTarget "NativeTests" */ = {
+		288B51BB167673C100926232 /* Build configuration list for PBXNativeTarget "NativePlayground" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				288B51BC167673C100926232 /* Debug */,
@@ -559,7 +561,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		288B51BE167673C100926232 /* Build configuration list for PBXNativeTarget "NativeTestsTests" */ = {
+		288B51BE167673C100926232 /* Build configuration list for PBXNativeTarget "NativePlaygroundTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				288B51BF167673C100926232 /* Debug */,

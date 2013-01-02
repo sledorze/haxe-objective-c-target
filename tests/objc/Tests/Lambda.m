@@ -29,7 +29,7 @@
 	}
 	return l;
 }
-+ (List*) map:(id)it f:(-Function-*)f{
++ (List*) map:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	{
@@ -39,7 +39,7 @@
 	}
 	return l;
 }
-+ (List*) mapi:(id)it f:(-Function-*)f{
++ (List*) mapi:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	int i = 0;
@@ -50,7 +50,7 @@
 	}
 	return l;
 }
-+ (BOOL) has:(id)it elt:(id)elt cmp:(-Function-*)cmp{
++ (BOOL) has:(id)it elt:(id)elt cmp:(SEL*)cmp{
 	if (cmp == nil) {
 		{
 			{ var $it : * = [it GFA2 .iterator]
@@ -67,7 +67,7 @@
 	}
 	return NO;
 }
-+ (BOOL) exists:(id)it f:(-Function-*)f{
++ (BOOL) exists:(id)it f:(SEL*)f{
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -75,7 +75,7 @@
 	}
 	return NO;
 }
-+ (BOOL) foreach:(id)it f:(-Function-*)f{
++ (BOOL) foreach:(id)it f:(SEL*)f{
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -83,14 +83,14 @@
 	}
 	return YES;
 }
-+ (void) iter:(id)it f:(-Function-*)f{
++ (void) iter:(id)it f:(SEL*)f{
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
 		[f:x]
 	}
 }
-+ (List*) filter:(id)it f:(-Function-*)f{
++ (List*) filter:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	{
@@ -100,7 +100,7 @@
 	}
 	return l;
 }
-+ (id) fold:(id)it f:(-Function-*)f first:(id)first{
++ (id) fold:(id)it f:(SEL*)f first:(id)first{
 	{
 		{ var $it : * = [it GFA2 .iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -108,7 +108,7 @@
 	}
 	return first;
 }
-+ (int) count:(id)it pred:(-Function-*)pred{
++ (int) count:(id)it pred:(SEL*)pred{
 	int n = 0;
 	if (pred == nil) {
 		{

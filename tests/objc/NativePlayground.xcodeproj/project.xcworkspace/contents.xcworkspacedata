@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:NativeTests.xcodeproj">
+      location = "self:NativePlayground.xcodeproj">
    </FileRef>
 </Workspace>

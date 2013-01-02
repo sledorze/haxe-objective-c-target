@@ -28,7 +28,7 @@
 		int _g1 = 0; int _g = slength;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int c = [scca "-dynamic_param-" ];
+			int c = [scca:i];
 			if (c <= 127) [a push:c]
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];
@@ -108,7 +108,7 @@
 	
 	NSMutableArray *b = self.b;
 	
-	-Function- *fcc = @selector(fromCharCode);
+	SEL *fcc = @selector(fromCharCode);
 	int i = pos;
 	int max = pos + len;
 	while (i < max) {

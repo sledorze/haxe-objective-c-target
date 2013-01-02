@@ -124,7 +124,7 @@
 	float s = t / 1000;
 	float m = s / 60;
 	float h = m / 60;
-	return typedef struct {
+	return struct {
 	ms:t % 1000; seconds:[Std int:s % 60]; minutes:[Std int:m % 60]; hours:[Std int:h % 24]; days:[Std int:h / 24]
 	} structName;
 }
