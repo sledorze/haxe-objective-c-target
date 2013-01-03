@@ -15,7 +15,7 @@
 + (NSMutableString*) urlDecode:(NSMutableString*)s{
 	return [s stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
-+ (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(id)quotes{
++ (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(BOOL)quotes{
 	s = [[[[[[s componentsSeparatedByString:@"&"].join:@"&amp;"] componentsSeparatedByString:@"<"].join:@"&lt;"] componentsSeparatedByString:@">"].join:@"&gt;"];
 	return ( (quotes) ? [[[[s componentsSeparatedByString:@"\""].join:@"&quot;"] componentsSeparatedByString:@"'"].join:@"&#039;"] : s);
 }
@@ -31,7 +31,7 @@
 	return slen >= elen && [s substringWithRange:slen - elen len:elen] == end;
 }
 + (BOOL) isSpace:(NSMutableString*)s pos:(int)pos{
-	id c = [s characterAtIndex:pos];
+	int c = [s characterAtIndex:pos];
 	return c >= 9 && c <= 13 || c == 32;
 }
 + (NSMutableString*) ltrim:(NSMutableString*)s{
@@ -66,7 +66,7 @@
 + (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by{
 	return [s replaceOccurrencesOfString:sub withString:by options:nil range:nil];
 }
-+ (NSMutableString*) hex:(int)n digits:(id)digits{
++ (NSMutableString*) hex:(int)n digits:(int)digits{
 	
 	NSMutableString *s = @"";
 	

@@ -364,8 +364,7 @@ let addPointerIfNeeded t =
 ;;
 
 (* Generating correct type *)
-let processClassPath ctx is_static path pos =
-	ctx.imports_manager#add_class_path path;
+let remapHaxeTypeToObjc ctx is_static path pos =
 	match path with
 	| ([],name) ->
 		(match name with
@@ -376,6 +375,7 @@ let processClassPath ctx is_static path pos =
 		| "String" -> "NSMutableString"
 		| "Date" -> "NSDate"
 		| "Array" -> "NSMutableArray"
+		| "Void" -> "void"
 		| _ -> name)
 	| (["haxe"],"Int32") when not is_static -> "int"
 	| (pack,name) -> name
@@ -443,15 +443,11 @@ let rec typeToString ctx t p =
 	| TEnum _ | TInst _ when List.memq t ctx.local_types ->
 		"id"
 	| TAbstract (a,_) ->(* ctx.writer#write "TAbstract?"; *)
-		(match a.a_path with
-		| [], "Void" -> "void"
-		| [], "UInt" -> "int"(* "NSNumber" *)
-		| [], "Int" -> "int"(* "NSNumber" *)
-		| [], "Float" -> "float"(* "NSNumber" *)
-		| [], "Bool" -> "BOOL"
-		| _ -> processClassPath ctx true a.a_path p)
+		ctx.imports_manager#add_class_path a.a_module.m_path;
+		remapHaxeTypeToObjc ctx true a.a_path p;
 	| TEnum (e,_) ->(* ctx.writer#write "TEnum?"; *)
-		if e.e_extern then (match e.e_path with
+		if e.e_extern then
+			(match e.e_path with
 			| [], "Void" -> "void"
 			| [], "Bool" -> "BOOL"
 			| _ ->
@@ -464,31 +460,36 @@ let rec typeToString ctx t p =
 						| _ -> n)
 					| _ :: l -> loop l
 				in
-				loop e.e_meta
-		) else
-			processClassPath ctx true e.e_path p
+				loop e.e_meta)
+		else begin
+			ctx.imports_manager#add_class_path e.e_module.m_path;
+			remapHaxeTypeToObjc ctx true e.e_module.m_path p
+		end
 	| TInst (c,_) ->(* ctx.writer#write "TInst?"; *)
 		(match c.cl_kind with
-		| KNormal | KGeneric | KGenericInstance _ -> processClassPath ctx false c.cl_path p
+		| KNormal | KGeneric | KGenericInstance _ ->
+			ctx.imports_manager#add_class_path c.cl_module.m_path;
+			remapHaxeTypeToObjc ctx false c.cl_path p
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
 	| TFun _ -> "SEL"
 	| TMono r -> (match !r with None -> "id" | Some t -> typeToString ctx t p)
 	| TAnon _ | TDynamic _ -> "id"
 	| TType (t,args) ->
-		(* ctx.writer#write "TType?"; *)
+		(* ctx.writer#write "?TType?"; *)
 		(match t.t_path with
 		| [], "UInt" -> "uint"
 		| [] , "Null" ->
 			(match args with
 			| [t] ->
+				(* Saw it generated in the function optional arguments *)
 				(match follow t with
-				| TAbstract ({ a_path = [],"UInt" },_)
-				| TAbstract ({ a_path = [],"Int" },_)
-				| TAbstract ({ a_path = [],"Float" },_)
-				| TAbstract ({ a_path = [],"Bool" },_)
-				| TInst ({ cl_path = [],"Int" },_)
-				| TInst ({ cl_path = [],"Float" },_)
-				| TEnum ({ e_path = [],"Bool" },_) -> "id"
+				| TAbstract ({ a_path = [],"UInt" },_) -> "int"
+				| TAbstract ({ a_path = [],"Int" },_) -> "int"
+				| TAbstract ({ a_path = [],"Float" },_) -> "float"
+				| TAbstract ({ a_path = [],"Bool" },_) -> "BOOL"
+				| TInst ({ cl_path = [],"Int" },_) -> "int"
+				| TInst ({ cl_path = [],"Float" },_) -> "float"
+				| TEnum ({ e_path = [],"Bool" },_) -> "BOOL"
 				| _ -> typeToString ctx t p)
 			| _ -> assert false);
 		| _ -> typeToString ctx (apply_params t.t_types args t.t_type) p)
@@ -792,10 +793,10 @@ and generateExpression ctx e =
 	| TLocal v ->
 		ctx.writer#write (remapKeyword v.v_name)
 	(* | TEnumField (en,s) ->
-		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s)) *)
+		ctx.writer#write (Printf.sprintf "%s.%s" (remapHaxeTypeToObjc ctx true en.e_path e.epos) (s)) *)
 	(* | TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
 		let path = Ast.parse_path s in
-		ctx.writer#write (processClassPath ctx false path e.epos) *)
+		ctx.writer#write (remapHaxeTypeToObjc ctx false path e.epos) *)
 	| TArray (e1,e2) ->
 		(* Accesing an array element *)
 		(* TODO: access pointers and primitives in a different way *)
@@ -874,11 +875,13 @@ and generateExpression ctx e =
    		(* generateValue ctx e; *)
 		(* generateFieldAccess ctx e.etype s true *) *)
 	| TTypeExpr t ->
-		(* Do not generate the Math class, make calls like in C *)
+		(* Do not generate the Math class, make C calls *)
 		let p = t_path t in
 		(match p with
 		| ([], "Math") -> ctx.generating_c_call <- true;
-		| _ -> ctx.writer#write (processClassPath ctx true p e.epos));
+		| _ ->
+			ctx.writer#write (remapHaxeTypeToObjc ctx true p e.epos));
+			ctx.imports_manager#add_class_path p;
 	| TParenthesis e ->
 		ctx.writer#write " (";
 		generateValue ctx e;
@@ -999,7 +1002,7 @@ and generateExpression ctx e =
 		) vl;
 	| TNew (c,params,el) ->
 		(* ctx.writer#write ("GEN_NEW>"^(snd c.cl_path)^(string_of_int (List.length params))); *)
-		(*processClassPath ctx true c.cl_path e.epos) *)
+		(*remapHaxeTypeToObjc ctx true c.cl_path e.epos) *)
 		(match c.cl_path with
 			| (["objc";"graphics"],"CGRect")
 			| (["objc";"graphics"],"CGPoint")
@@ -1012,14 +1015,10 @@ and generateExpression ctx e =
 				concat ctx "," (generateValue ctx) el;
 				ctx.writer#write ")"
 			| _ ->
-				ctx.writer#write (Printf.sprintf "[[%s alloc] init" (processClassPath ctx false c.cl_path c.cl_pos));
+				ctx.imports_manager#add_class_path c.cl_module.m_path;
+				ctx.writer#write (Printf.sprintf "[[%s alloc] init" (remapHaxeTypeToObjc ctx false c.cl_path c.cl_pos));
 				if List.length el > 0 then begin
 					ctx.generating_call <- true;
-					
-					(* If you want the names of the arguments, you can check the cf_type of the 
-					cl_constructor, if it has one. It is a TFun(args,ret), where args is of 
-					(string * bool * t) list. The string is the name of the argument.  *)
-					
 					(match c.cl_constructor with
 					| None -> ();
 					| Some cf ->
@@ -1354,12 +1353,14 @@ let generateProperty ctx field pos is_static =
 				ctx.writer#write ("static "^t^(addPointerIfNeeded t)^" "^id^"__;\n");
 				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id);
 				ctx.writer#begin_block;
-				ctx.writer#write ("return objc_getAssociatedObject(self, &"^id^"__);\n");
+				(* ctx.writer#write ("return objc_getAssociatedObject(self, &"^id^"__);\n"); *)
+				ctx.writer#write ("return "^id^"__;\n");
 				ctx.writer#end_block;
 				ctx.writer#new_line;
 				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val");
 				ctx.writer#begin_block;
-				ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^"__, val, " ^ (if retain then "OBJC_ASSOCIATION_RETAIN_NONATOMIC" else "OBJC_ASSOCIATION_ASSIGN") ^ ");\n");
+				(* ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^"__, val, " ^ (if retain then "OBJC_ASSOCIATION_RETAIN_NONATOMIC" else "OBJC_ASSOCIATION_ASSIGN") ^ ");\n"); *)
+				ctx.writer#write (id^"__ = val;\n");
 				ctx.writer#end_block;
 			end else begin
 				ctx.writer#write (Printf.sprintf "@synthesize %s;" id)

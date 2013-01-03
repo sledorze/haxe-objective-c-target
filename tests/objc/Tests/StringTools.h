@@ -7,13 +7,14 @@
 
 
 
+#import "StdTypes.h"
 #import "StringTools.h"
 
 @interface StringTools : NSObject
 
 + (NSMutableString*) urlEncode:(NSMutableString*)s;
 + (NSMutableString*) urlDecode:(NSMutableString*)s;
-+ (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(id)quotes;
++ (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(BOOL)quotes;
 + (NSMutableString*) htmlUnescape:(NSMutableString*)s;
 + (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start;
 + (BOOL) endsWith:(NSMutableString*)s end:(NSMutableString*)end;
@@ -24,7 +25,7 @@
 + (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
 + (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
 + (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by;
-+ (NSMutableString*) hex:(int)n digits:(id)digits;
++ (NSMutableString*) hex:(int)n digits:(int)digits;
 
 @end
 

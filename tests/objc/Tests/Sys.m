@@ -58,7 +58,7 @@
 		int _g1 = 0; int _g = arglength;
 		while (_g1 < _g) {
 			int i = _g1++;
-			id _g2 = [arg characterAtIndex:i];
+			int _g2 = [arg characterAtIndex:i];
 			switch (_g2){
 				case 32:{
 					ok = NO}break;

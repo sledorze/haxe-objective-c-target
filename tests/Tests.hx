@@ -74,6 +74,7 @@ class Tests implements Interface1, implements Interface2 {
 		
 		#if objc
 		objc.Lib.print("print print and print again");
+		objc.Lib.println("print print and print again");
 		#end
 	}
 	

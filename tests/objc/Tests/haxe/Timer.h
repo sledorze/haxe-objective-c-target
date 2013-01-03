@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Timer.h"
+#import "StdTypes.h"
 #import "Array.h"
 #import "T.h"
 #import "Log.h"
@@ -20,7 +21,7 @@
 + (id) measure:(SEL*)f pos:(id)pos;
 + (float) stamp;
 @property (nonatomic, strong) NSTimer *nstimer;
-@property (nonatomic) id _id;
+@property (nonatomic) int _id;
 - (void) stop;
 - (void) run;
 - (id) init:(int)time_ms;

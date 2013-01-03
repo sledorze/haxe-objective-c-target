@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Date.h"
+#import "StdTypes.h"
 #import "Array.h"
 #import "Std.h"
 

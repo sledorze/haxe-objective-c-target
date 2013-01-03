@@ -90,7 +90,7 @@ enum ValueType {
 	}
 
 	public static function createEmptyInstance<T>( cl : Class<T> ) : T {
-		return untyped __objc__("[[cl alloc] init]");
+		return untyped __objc__("[cl alloc]");
 	}
 
 	public static function createEnum<T>( e : Enum<T>, constr : String, ?params : Array<Dynamic> ) : T {

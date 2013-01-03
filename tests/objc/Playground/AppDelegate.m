@@ -22,6 +22,7 @@
 	NSLog(@"%i", self.length);
 	self.length += 5;
 	NSLog(@"%i", self.length);
+	//NSLog(@"%i", AppDelegate.length__);
 	
     return YES;
 }

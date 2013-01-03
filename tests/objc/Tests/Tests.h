@@ -16,13 +16,13 @@ typedef enum{
 
 #import <Foundation/Foundation.h>
 
+#import "StdTypes.h"
 #import "Array.h"
 #import "Tests.h"
 #import "Lib.h"
 #import "Log.h"
 #import "Date.h"
 #import "DateTools.h"
-#import "Color.h"
 #import "TestsEnumExtern.h"
 #import "Color2.h"
 #import "EReg.h"
@@ -32,7 +32,7 @@ typedef enum{
 #import "List.h"
 #import "Std.h"
 #import "FastList.h"
-#import "FastCell.h"
+#import "Math.h"
 #import "Reflect.h"
 #import "StringBuf.h"
 #import "StringTools.h"
@@ -62,7 +62,7 @@ typedef enum{
 - (void) testSwitch;
 - (void) testArray;
 - (void) testDate;
-- (int) enumToInt:(Color*)c;
+- (int) enumToInt:(Tests*)c;
 - (void) testEnum:(Object*)v;
 - (void) testEReg;
 - (void) testHash;
@@ -82,10 +82,10 @@ typedef enum{
 - (int) add:(int)a b:(int)b;
 - (int) minus:(int)a b:(int)b;
 - (void) callLotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
-- (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(id)arg4;
+- (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
-- (void) optionalArguments2:(int)arg1 arg2:(id)arg2 arg3:(id)arg3 arg4:(int)arg4;
-- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(id)arg3 arg4:(int)arg4;
+- (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
+- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
 - (void) init;
 - (void) printHello;
 - (id) init;
@@ -94,6 +94,7 @@ typedef enum{
 
 
 
+#import "StdTypes.h"
 #import "Array.h"
 
 @interface Tests2 : NSObject

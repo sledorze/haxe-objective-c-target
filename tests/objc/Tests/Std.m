@@ -18,7 +18,7 @@
 + (int) int:(float)x{
 	return (int)x;
 }
-+ (id) parseInt:(NSMutableString*)x{
++ (int) parseInt:(NSMutableString*)x{
 	return [xintValue];
 }
 + (float) parseFloat:(NSMutableString*)x{

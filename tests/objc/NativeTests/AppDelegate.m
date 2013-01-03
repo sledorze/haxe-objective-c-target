@@ -23,8 +23,8 @@
 	UIView *v = [[UIView alloc] init];
 	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"457",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[Log trace:v infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"457",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
-	[Lib println:@"testing print"];
-	[Lib println:v];
+	//[Lib println:@"testing print"];
+	//[Lib println:v];
 	
     return YES;
 }

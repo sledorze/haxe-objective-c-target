@@ -7,6 +7,7 @@
 
 
 
+#import "StdTypes.h"
 #import "Array.h"
 
 @interface NSMutableArray ( Array )

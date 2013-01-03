@@ -7,7 +7,7 @@
 
 
 
-#import "FastCell.h"
+#import "FastList.h"
 
 @interface FastCell : NSObject
 
@@ -19,7 +19,7 @@
 
 
 
-#import "FastCell.h"
+#import "FastList.h"
 
 @interface FastList : NSObject
 

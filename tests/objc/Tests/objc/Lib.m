@@ -12,5 +12,9 @@
 + (void) print:(id)v{
 	printf ( [[v description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy] );
 }
++ (void) println:(id)v{
+	[Lib print:v];
+	printf ( "\n" );
+}
 
 @end

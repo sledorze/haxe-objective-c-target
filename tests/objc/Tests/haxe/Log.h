@@ -7,6 +7,7 @@
 
 
 
+#import "StdTypes.h"
 
 @interface Log : NSObject
 

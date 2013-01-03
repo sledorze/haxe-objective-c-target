@@ -7,10 +7,13 @@
 
 
 
+#import "StdTypes.h"
+#import "Lib.h"
 
 @interface Lib : NSObject
 
 + (void) print:(id)v;
++ (void) println:(id)v;
 
 @end
 

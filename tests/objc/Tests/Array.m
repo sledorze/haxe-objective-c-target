@@ -27,7 +27,7 @@ static int length__;
 	a:self; p:0; hasNext:^(BOOL){
 		return self.p < self.a-GFA2-length;
 	}; next:^(id){
-		id i = [self.a-GFA2-nativeArray objectAtIndex:self.p];
+		id i = [self.a objectAtIndex:self.p];
 		self.p += 1;
 		return i;
 	}

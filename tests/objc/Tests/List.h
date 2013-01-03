@@ -8,6 +8,7 @@
 
 
 #import "Array.h"
+#import "StdTypes.h"
 #import "StringBuf.h"
 #import "Std.h"
 #import "List.h"

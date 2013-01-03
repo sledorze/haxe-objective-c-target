@@ -11,24 +11,24 @@
 
 static id r__;
 - (id) r{
-	return objc_getAssociatedObject(self, &r__);
+	return r__;
 }
 - (void) setR:(id)val{
-	return objc_setAssociatedObject(self, &r__, val, OBJC_ASSOCIATION_ASSIGN);
+	r__ = val;
 }
 static NSMutableString* last__;
 - (NSMutableString*) last{
-	return objc_getAssociatedObject(self, &last__);
+	return last__;
 }
 - (void) setLast:(NSMutableString*)val{
-	return objc_setAssociatedObject(self, &last__, val, OBJC_ASSOCIATION_ASSIGN);
+	last__ = val;
 }
 static BOOL global__;
 - (BOOL) global{
-	return objc_getAssociatedObject(self, &global__);
+	return global__;
 }
 - (void) setGlobal:(BOOL)val{
-	return objc_setAssociatedObject(self, &global__, val, OBJC_ASSOCIATION_ASSIGN);
+	global__ = val;
 }
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
@@ -94,7 +94,7 @@ static BOOL global__;
 		while (i < a.length) {
 			
 			NSMutableString *k = [a objectAtIndex:i];
-			id c = [k characterAtIndex:0];
+			int c = [k characterAtIndex:0];
 			if (c >= 49 && c <= 57) {
 				id p1 = nil;
 				if (p1 == nil) {

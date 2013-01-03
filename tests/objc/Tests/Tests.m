@@ -53,6 +53,7 @@
 	f = ( (a.length > 3) ? 3 : a.length);
 	int x = [[[Tests alloc] init] add:1 b:1];
 	[Lib print:@"print print and print again"];
+	[Lib println:@"print print and print again"];
 }
 - (void) testingFor{
 	
@@ -83,7 +84,7 @@
 - (void) testWhile{
 	int aa = 5;
 	do {
-		[Log trace:@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"94",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"95",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
 	while (aa > 0) aa--;
@@ -93,7 +94,7 @@
 		int a = 3;
 	}
 	@catch (NSException *e) {
-		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"111",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"112",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
 - (void) testSwitch{
@@ -169,7 +170,7 @@
 	id obj = [DateTools parse:45546];
 	_float = [DateTools seconds:1000];
 }
-- (int) enumToInt:(Color*)c{
+- (int) enumToInt:(Tests*)c{
 	[self testEnum:TestsEnumExtern-GFA2-ExternEnumValue1];
 	return ((int)($this:(snd ctx.path)) 
 	var $e2 : enum =  (c)
@@ -194,7 +195,7 @@
 			$r = ((c_eRgb_0 << 16 | c_eRgb_1 << 8) | c_eRgb_2)}break
 		case 5:
 		
-		var MATCH c_eAlpha_1 : Color = $e2.params[1], MATCH c_eAlpha_0 : int = $e2.params[0]{
+		var MATCH c_eAlpha_1 : Tests = $e2.params[1], MATCH c_eAlpha_0 : int = $e2.params[0]{
 			$r = (c_eAlpha_0 << 24 | ([self enumToInt:c_eAlpha_1] & 16777215))}break
 	}
 	return $r{
@@ -222,7 +223,7 @@
 		int* $r}
 	}(self));
 	
-	Color2 *red = Color2-GFA2-Red2;
+	Tests *red = Color2-GFA2-Red2;
 	int j = ((int)($this:(snd ctx.path)) 
 	var $e4 : enum =  (red)
 	switch ( $e4.index ) {
@@ -295,7 +296,7 @@
 	List *l2 = [l filter:^(BOOL):(int)i{
 		return i > 5;
 	}];
-	id item = [l first];
+	int item = [l first];
 	BOOL empty = [l isEmpty];
 	id iter = [l iterator];
 	
@@ -304,9 +305,9 @@
 	item = [l last];
 	item = [l pop];
 	BOOL r = [l remove:5];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"291",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"292",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[l clear];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"293",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"294",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
 	List *newList = [l map:^(NSMutableString*):(int)i{
 		return [Std string:i];
@@ -381,7 +382,7 @@
 	int len = stringlength;
 	
 	NSMutableString *s = [string characterAtIndex:5];
-	id ch = [string characterAtIndex:5];
+	int ch = [string characterAtIndex:5];
 	int i = [string rangeOfString:@"abc" startIndex:nil];
 	int i1 = [string rangeOfString:@"abc" startIndex:2];
 	int li = [string rangeOfString options:NSBackwardsSearch:@"abc" startIndex:nil];
@@ -477,7 +478,7 @@
 	timer = [Timer delay:^(void){
 		[[_g objectAtIndex:0] testTimer];
 	} time_ms:50];
-	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"525",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"526",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testFrameworksImport{
@@ -496,20 +497,20 @@
 }
 - (void) callLotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 }
-- (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(id)arg4{
+- (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 }
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 }
-- (void) optionalArguments2:(int)arg1 arg2:(id)arg2 arg3:(id)arg3 arg4:(int)arg4{
+- (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 }
-- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(id)arg3 arg4:(int)arg4{
+- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 }
 - (void) init{
 	int x = 6;
 	self.s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"571",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"572",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) init{
 	self = [super init];
