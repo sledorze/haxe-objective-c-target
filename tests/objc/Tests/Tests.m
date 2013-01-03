@@ -121,7 +121,8 @@
 	NSMutableArray *concatArray = [as concat:[[NSMutableArray alloc] initWithObjects:@"5", @"6", @"7", nil]]];
 	concatArray = [as copy];
 	[concatArray insert:2 x:@"2"];
-	id iter = [as iterator];
+	
+	id_anon *iter = [as iterator];
 	
 	NSMutableString *s = [concatArray join:@", "];
 	
@@ -167,7 +168,8 @@
 	seconds:0; ms:(float)110; minutes:6; hours:8; days:5
 	} structName];
 	_float = [DateTools minutes:56];
-	id obj = [DateTools parse:45546];
+	
+	id_anon *obj = [DateTools parse:45546];
 	_float = [DateTools seconds:1000];
 }
 - (int) enumToInt:(Tests*)c{
@@ -253,7 +255,8 @@
 	BOOL b = [ereg match:@"s"];
 	s = [ereg matched:5];
 	s = [ereg matchedLeft];
-	id o = [ereg matchedPos];
+	
+	id_anon *o = [ereg matchedPos];
 	s = [ereg matchedRight];
 	s = [ereg replace:@"s" by:@"by"];
 	
@@ -266,8 +269,10 @@
 	[h get:@"key"];
 	[h remove:@"key"];
 	BOOL b = [h exists:@"key"];
-	id arr = [h keys];
-	id iter = [h iterator];
+	
+	id_anon *arr = [h keys];
+	
+	id_anon *iter = [h iterator];
 	
 	NSMutableString *str = [h toString];
 	
@@ -276,8 +281,10 @@
 	[hi get:0];
 	[hi remove:0];
 	BOOL bi = [hi exists:0];
-	id arri = [hi keys];
-	id iteri = [hi iterator];
+	
+	id_anon *arri = [hi keys];
+	
+	id_anon *iteri = [hi iterator];
 	
 	NSMutableString *stri = [hi toString];
 }
@@ -298,7 +305,8 @@
 	}];
 	int item = [l first];
 	BOOL empty = [l isEmpty];
-	id iter = [l iterator];
+	
+	id_anon *iter = [l iterator];
 	
 	NSMutableString *s = [l join:@", "];
 	s = [l toString];
@@ -347,7 +355,8 @@
 	float k = ( (b) ? -x : x);
 }
 - (void) testReflect{
-	id obj = struct {
+	
+	id_anon *obj = struct {
 	a:@"aaaaa"
 	} structName;
 	BOOL b = [Reflect hasField:obj field:@"a"];
@@ -365,7 +374,8 @@
 	BOOL isobj = [Reflect isObject:obj];
 	isobj = [Reflect isObject:self testStd];
 	[Reflect deleteField:obj f:@"a"];
-	id obj2 = [Reflect copy:obj];
+	
+	id_anon *obj2 = [Reflect copy:obj];
 }
 - (void) testStd{
 	int _int = 3;
@@ -498,12 +508,18 @@
 - (void) callLotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 }
 - (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+	if (arg4==nil) arg4=nil;
 }
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+	if (arg4==nil) arg4=5;
 }
 - (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+	if (arg3==nil) arg3=nil;
+	if (arg2==nil) arg2=nil;
 }
 - (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
+	if (arg3==nil) arg3=nil;
+	if (arg2==nil) arg2=6;
 }
 - (void) init{
 	int x = 6;

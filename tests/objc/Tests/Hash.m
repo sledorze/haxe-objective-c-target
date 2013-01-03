@@ -25,12 +25,12 @@
 	}
 	return NO;
 }
-- (id) keys{
+- (id_anon*) keys{
 	
 	NSMutableArray *a = [self allKeys];
 	return [a iterator];
 }
-- (id) iterator{
+- (id_anon*) iterator{
 	
 	NSMutableArray *a = [self allValues];
 	

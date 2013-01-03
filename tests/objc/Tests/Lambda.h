@@ -12,8 +12,8 @@
 
 @interface Lambda : NSObject
 
-+ (NSMutableArray*) array:(id)it;
-+ (List*) concat:(id)a b:(id)b;
++ (NSMutableArray*) array:(id_anon*)it;
++ (List*) concat:(id_anon*)a b:(id_anon*)b;
 
 @end
 

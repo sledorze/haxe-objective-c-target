@@ -22,7 +22,7 @@ static int length__;
 - (NSMutableArray*) copy{
 	return [NSMutableArray arrayWithArray:self];
 }
-- (id) iterator{
+- (id_anon*) iterator{
 	return struct {
 	a:self; p:0; hasNext:^(BOOL){
 		return self.p < self.a-GFA2-length;
@@ -72,6 +72,7 @@ static int length__;
 	return nil;
 }
 - (NSMutableArray*) slice:(int)pos end:(int)end{
+	if (end==nil) end=nil;
 	return [self splice:pos len:end - pos];
 }
 - (void) sort:(SEL*)f{

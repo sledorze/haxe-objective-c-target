@@ -42,15 +42,17 @@ static BOOL global__;
 	return m;
 }
 - (NSMutableString*) matchedLeft{
-	id p = nil;
+	
+	id_anon *p = nil;
 	return [self last substringWithRange:0 len:p-GFA2-pos];
 }
 - (NSMutableString*) matchedRight{
-	id p = nil;
+	
+	id_anon *p = nil;
 	int sz = p-GFA2-pos + p-GFA2-len;
 	return [self last substringWithRange:sz len:self lastlength - sz];
 }
-- (id) matchedPos{
+- (id_anon*) matchedPos{
 	return nil;
 }
 - (NSMutableArray*) split:(NSMutableString*)s{
@@ -60,7 +62,8 @@ static BOOL global__;
 	NSMutableArray *a = [[NSMutableArray alloc] init];
 	BOOL first = YES;
 	do {
-		id p = nil;
+		
+		id_anon *p = nil;
 		if (p-GFA2-len == 0 && !first) {
 			if (p-GFA2-pos == slength) break;
 			p-GFA2-pos += 1;
@@ -83,7 +86,8 @@ static BOOL global__;
 	NSMutableArray *a = [by componentsSeparatedByString:@"$"];
 	BOOL first = YES;
 	do {
-		id p = nil;
+		
+		id_anon *p = nil;
 		if (p-GFA2-len == 0 && !first) {
 			if (p-GFA2-pos == slength) break;
 			p-GFA2-pos += 1;
@@ -96,7 +100,8 @@ static BOOL global__;
 			NSMutableString *k = [a objectAtIndex:i];
 			int c = [k characterAtIndex:0];
 			if (c >= 49 && c <= 57) {
-				id p1 = nil;
+				
+				id_anon *p1 = nil;
 				if (p1 == nil) {
 					[b.b appendString:@"$"];
 					b.b += [Std string:k];

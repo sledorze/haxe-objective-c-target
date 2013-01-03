@@ -26,7 +26,7 @@
 - (BOOL) isEmpty;
 - (void) clear;
 - (BOOL) remove:(id)v;
-- (id) iterator;
+- (id_anon*) iterator;
 - (NSMutableString*) toString;
 - (NSMutableString*) join:(NSMutableString*)sep;
 - (List*) filter:(SEL*)f;

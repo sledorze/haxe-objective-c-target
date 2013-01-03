@@ -222,8 +222,6 @@ let cachedSourceWriter filename =
 	with _ ->
 		let out_file = open_out filename in
 		new sourceWriter (output_string out_file) (fun ()-> close_out out_file)
-		
-		(* fileSourceWriter filename *)
 ;;
 
 let newSourceFile base_dir class_path extension =
@@ -242,6 +240,7 @@ type context = {
 	mutable writer : sourceWriter;
 	mutable imports_manager : importsManager;
 	mutable get_sets : (string * bool,string) Hashtbl.t;
+	mutable function_arguments : (string,tconstant) Hashtbl.t;
 	mutable class_def : tclass;
 	mutable in_value : tvar option;
 	mutable in_static : bool;
@@ -263,6 +262,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	writer = writer;
 	imports_manager = imports_manager;
 	get_sets = Hashtbl.create 0;
+	function_arguments = Hashtbl.create 0;
 	class_def = null_class;
 	in_value = None;
 	in_static = false;
@@ -345,12 +345,6 @@ let rec isString e =
 		| TString s -> true
 		| _ -> false)
 	| _ -> false)
-;;
-
-let protect name =
-	match name with
-	| "Error" | "Namespace" -> "_" ^ name
-	| _ -> name
 ;;
 
 (* 'id' is a pointer but does not need to specify it *)
@@ -474,7 +468,8 @@ let rec typeToString ctx t p =
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
 	| TFun _ -> "SEL"
 	| TMono r -> (match !r with None -> "id" | Some t -> typeToString ctx t p)
-	| TAnon _ | TDynamic _ -> "id"
+	| TAnon _ -> "id_anon"
+	| TDynamic _ -> "id"
 	| TType (t,args) ->
 		(* ctx.writer#write "?TType?"; *)
 		(match t.t_path with
@@ -602,6 +597,10 @@ let generateConstant ctx p = function
 	| TSuper -> ctx.writer#write "super"
 ;;
 
+let defaultValue s =
+	"nil"
+;;
+
 (* A function header in objc is a message *)
 (* We need to follow some strict rules *)
 let generateFunctionHeader ctx name f params p =
@@ -620,23 +619,24 @@ let generateFunctionHeader ctx name f params p =
 		in
 		" " ^ loop meta
 	));
+	Hashtbl.clear ctx.function_arguments;
 	(* Generate the arguments of the function. Ignore the message name of the first arg *)
 	let first_arg = ref true in
 	concat ctx " " (fun (v,c) ->
 		let type_name = typeToString ctx v.v_type p in
 		let arg_name = (remapKeyword v.v_name) in
 		let message_name = if !first_arg then "" else arg_name in
-		(* let message_name = if List.length f.tf_args > 1 then arg_name else "" in *)
 		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
 		first_arg := false;
-		(* TODO: init args that have default values in the body of the function *)
-		(* Match default values *)
-		(* match c with
-		| None ->
-			if ctx.constructor_block then ctx.writer#write (Printf.sprintf " = %s" (defaultValue tstr));
-		| Some c ->
-			ctx.writer#write " = ";
-			generateConstant ctx p c *)
+		if not ctx.generating_header then begin
+			(* TODO: init args that have default values in the body of the function *)
+			(* Match default values *)
+			match c with
+			| None -> ()
+				(* Hashtbl.add ctx.function_arguments arg_name (defaultValue type_name) *)
+			| Some c ->
+				Hashtbl.add ctx.function_arguments arg_name c
+		end
 	) f.tf_args;
 	(fun () ->
 		ctx.in_value <- old;
@@ -915,6 +915,16 @@ and generateExpression ctx e =
 		if ctx.generating_constructor then begin
 			ctx.writer#write "self = [super init];";
 			ctx.writer#new_line
+		end;
+		if Hashtbl.length ctx.function_arguments > 0 then begin
+			Hashtbl.iter (
+				fun name data ->
+					ctx.writer#write ("if ("^name^"==nil) "^name^"=");
+					generateConstant ctx e.epos data;
+					ctx.writer#write ";";
+					ctx.writer#new_line;
+			) ctx.function_arguments;
+			Hashtbl.clear ctx.function_arguments;
 		end;
 		List.iter (fun e ->
 			generateExpression ctx e;

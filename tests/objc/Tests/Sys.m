@@ -77,6 +77,7 @@
 	return [[@"\"" stringByAppendingString:[[arg componentsSeparatedByString:@"\""].join:@"\\\""]] stringByAppendingString:@"\""];
 }
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
+	if (args==nil) args=nil;
 	if (args != nil) {
 		cmd = [Sys escapeArgument:cmd];
 		{

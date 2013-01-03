@@ -15,8 +15,8 @@
 - (id) get:(NSMutableString*)key;
 - (BOOL) exists:(NSMutableString*)key;
 - (BOOL) remove:(NSMutableString*)key;
-- (id) keys;
-- (id) iterator;
+- (id_anon*) keys;
+- (id_anon*) iterator;
 - (NSMutableString*) toString;
 - (id) init;
 

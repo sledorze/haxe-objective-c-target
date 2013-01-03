@@ -129,7 +129,7 @@
 + (float) days:(float)n{
 	return n * 24.0 * 60.0 * 60.0 * 1000.0;
 }
-+ (id) parse:(float)t{
++ (id_anon*) parse:(float)t{
 	float s = t / 1000;
 	float m = s / 60;
 	float h = m / 60;
@@ -137,7 +137,7 @@
 	ms:t % 1000; seconds:[Std int:s % 60]; minutes:[Std int:m % 60]; hours:[Std int:h % 24]; days:[Std int:h / 24]
 	} structName;
 }
-+ (float) make:(id)o{
++ (float) make:(id_anon*)o{
 	return o-GFA2-ms + 1000.0 *  (o-GFA2-seconds + 60.0 *  (o-GFA2-minutes + 60.0 *  (o-GFA2-hours + 24.0 * o-GFA2-days)));
 }
 

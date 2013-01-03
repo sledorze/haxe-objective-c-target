@@ -14,7 +14,7 @@
 @property (nonatomic) int length;
 - (NSMutableArray*) concat:(NSMutableArray*)a;
 - (NSMutableArray*) copy;
-- (id) iterator;
+- (id_anon*) iterator;
 - (void) insert:(int)pos x:(id)x;
 - (NSMutableString*) join:(NSMutableString*)sep;
 - (NSMutableString*) toString;
