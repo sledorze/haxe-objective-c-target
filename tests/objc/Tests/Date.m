@@ -53,23 +53,26 @@
 	}
 	return nil;
 }
+static float _seconds__;
 - (float) _seconds{
-	return objc_getAssociatedObject(self, &_seconds);
+	return objc_getAssociatedObject(self, &_seconds__);
 }
 - (void) set_seconds:(float)val{
-	return objc_setAssociatedObject(self, &_seconds, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &_seconds__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+static NSCalendar* _calendar__;
 - (NSCalendar*) _calendar{
-	return objc_getAssociatedObject(self, &_calendar);
+	return objc_getAssociatedObject(self, &_calendar__);
 }
 - (void) set_calendar:(NSCalendar*)val{
-	return objc_setAssociatedObject(self, &_calendar, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &_calendar__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+static NSDateComponents* _components__;
 - (NSDateComponents*) _components{
-	return objc_getAssociatedObject(self, &_components);
+	return objc_getAssociatedObject(self, &_components__);
 }
 - (void) set_components:(NSDateComponents*)val{
-	return objc_setAssociatedObject(self, &_components, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &_components__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (float) getTime{
 	return self._seconds * 1000.0;

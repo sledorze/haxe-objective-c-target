@@ -9,23 +9,26 @@
 
 @implementation NSRegularExpression ( EReg )
 
+static id r__;
 - (id) r{
-	return objc_getAssociatedObject(self, &r);
+	return objc_getAssociatedObject(self, &r__);
 }
 - (void) setR:(id)val{
-	return objc_setAssociatedObject(self, &r, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &r__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+static NSMutableString* last__;
 - (NSMutableString*) last{
-	return objc_getAssociatedObject(self, &last);
+	return objc_getAssociatedObject(self, &last__);
 }
 - (void) setLast:(NSMutableString*)val{
-	return objc_setAssociatedObject(self, &last, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &last__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+static BOOL global__;
 - (BOOL) global{
-	return objc_getAssociatedObject(self, &global);
+	return objc_getAssociatedObject(self, &global__);
 }
 - (void) setGlobal:(BOOL)val{
-	return objc_setAssociatedObject(self, &global, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &global__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;

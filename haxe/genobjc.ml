@@ -384,8 +384,12 @@ let processClassPath ctx is_static path pos =
 (* Convert function names that can't be written in c++ ... *)
 let remapKeyword name =
 	match name with
-	| "int" | "self" | "id" | "bycopy" | "inout" | "oneway" | "byref" | "SEL" | "IMP" | "Protocol" | "YES" | "NO" | "const" | "long" | "char" | "signed" | "unsigned" | "volatile"
-	| "in" | "out" | "bycopy" | "super" | "auto" | "char" | "const" | "delete" | "double" | "float" | "enum" | "extern" | "float" | "friend" | "goto" | "long" | "operator" | "protected" | "register" | "short" | "signed" | "sizeof" | "template" | "typedef" | "union" | "unsigned" | "void" | "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
+	| "int" | "self" | "id" | "bycopy" | "inout" | "oneway" | "byref" | "SEL" | "IMP" | "Protocol" 
+	| "YES" | "NO" | "const" | "long" | "char" | "signed" | "unsigned" | "volatile"
+	| "in" | "out" | "bycopy" | "super" | "auto" | "char" | "const" | "delete" | "double" | "float" 
+	| "enum" | "extern" | "float" | "friend" | "goto" | "long" | "operator" | "protected" | "register" 
+	| "short" | "signed" | "sizeof" | "template" | "typedef" | "union" | "unsigned" | "void" 
+	| "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
 	| "and_eq" | "xor_eq" | "typeof" | "stdin" | "stdout" | "stderr"
 	| "BIG_ENDIAN" | "LITTLE_ENDIAN" | "assert" | "NULL" | "nil" | "wchar_t" | "EOF"
 	| "BOOL" | "const_cast" | "dynamic_cast" | "explicit" | "export" | "mutable" | "namespace"
@@ -1346,14 +1350,15 @@ let generateProperty ctx field pos is_static =
 			if ctx.is_category then begin
 				(* A category can't use the @synthesize, so we create a getter and setter for the property *)
 				(* http://ddeville.me/2011/03/add-variables-to-an-existing-class-in-objective-c/ *)
+				ctx.writer#write ("static "^t^(addPointerIfNeeded t)^" "^id^"__;\n");
 				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id);
 				ctx.writer#begin_block;
-				ctx.writer#write ("return objc_getAssociatedObject(self, &"^id^");\n");
+				ctx.writer#write ("return objc_getAssociatedObject(self, &"^id^"__);\n");
 				ctx.writer#end_block;
 				ctx.writer#new_line;
 				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val");
 				ctx.writer#begin_block;
-				ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^", val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);\n");
+				ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^"__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);\n");
 				ctx.writer#end_block;
 			end else begin
 				ctx.writer#write (Printf.sprintf "@synthesize %s;" id)

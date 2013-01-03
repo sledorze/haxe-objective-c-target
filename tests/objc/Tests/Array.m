@@ -9,11 +9,12 @@
 
 @implementation NSMutableArray ( Array )
 
+static int length__;
 - (int) length{
-	return objc_getAssociatedObject(self, &length);
+	return objc_getAssociatedObject(self, &length__);
 }
 - (void) setLength:(int)val{
-	return objc_setAssociatedObject(self, &length, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &length__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 - (NSMutableArray*) concat:(NSMutableArray*)a{
 	return [self arrayByAddingObjectsFromArray:a];
@@ -30,7 +31,7 @@
 		self.p += 1;
 		return i;
 	}
-	} structName;
+	};
 }
 - (void) insert:(int)pos x:(id)x{
 	[self insertObject:x :pos];
