@@ -778,7 +778,7 @@ and generateFieldAccess ctx etype s to_method =
 			(* Generate a static field access *)
 			| Statics c -> field c
 			(* Generate field access for an anonymous object, Dynamic *)
-			| _ -> ctx.writer#write (Printf.sprintf " GFA2 .%s" s))
+			| _ -> ctx.writer#write (Printf.sprintf "-GFA2-%s" s))
 	| _ ->
 		(* Method call on a Dynamic *)
 		ctx.writer#write (Printf.sprintf " %s" s)
@@ -1350,6 +1350,7 @@ let generateProperty ctx field pos is_static =
 			if ctx.is_category then begin
 				(* A category can't use the @synthesize, so we create a getter and setter for the property *)
 				(* http://ddeville.me/2011/03/add-variables-to-an-existing-class-in-objective-c/ *)
+				let retain = String.length t == String.length (addPointerIfNeeded t) in
 				ctx.writer#write ("static "^t^(addPointerIfNeeded t)^" "^id^"__;\n");
 				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id);
 				ctx.writer#begin_block;
@@ -1358,7 +1359,7 @@ let generateProperty ctx field pos is_static =
 				ctx.writer#new_line;
 				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val");
 				ctx.writer#begin_block;
-				ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^"__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);\n");
+				ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^"__, val, " ^ (if retain then "OBJC_ASSOCIATION_RETAIN_NONATOMIC" else "OBJC_ASSOCIATION_ASSIGN") ^ ");\n");
 				ctx.writer#end_block;
 			end else begin
 				ctx.writer#write (Printf.sprintf "@synthesize %s;" id)

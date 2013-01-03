@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "288B5187167673C000926232"
                BuildableName = "NativeTests.app"
-               BlueprintName = "NativePlayground"
-               ReferencedContainer = "container:NativePlayground.xcodeproj">
+               BlueprintName = "NativeTests"
+               ReferencedContainer = "container:NativeTests.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "288B51A8167673C100926232"
                BuildableName = "NativeTestsTests.octest"
-               BlueprintName = "NativePlaygroundTests"
-               ReferencedContainer = "container:NativePlayground.xcodeproj">
+               BlueprintName = "NativeTestsTests"
+               ReferencedContainer = "container:NativeTests.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "288B5187167673C000926232"
             BuildableName = "NativeTests.app"
-            BlueprintName = "NativePlayground"
-            ReferencedContainer = "container:NativePlayground.xcodeproj">
+            BlueprintName = "NativeTests"
+            ReferencedContainer = "container:NativeTests.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "288B5187167673C000926232"
             BuildableName = "NativeTests.app"
-            BlueprintName = "NativePlayground"
-            ReferencedContainer = "container:NativePlayground.xcodeproj">
+            BlueprintName = "NativeTests"
+            ReferencedContainer = "container:NativeTests.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "288B5187167673C000926232"
             BuildableName = "NativeTests.app"
-            BlueprintName = "NativePlayground"
-            ReferencedContainer = "container:NativePlayground.xcodeproj">
+            BlueprintName = "NativeTests"
+            ReferencedContainer = "container:NativeTests.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

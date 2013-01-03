@@ -170,7 +170,7 @@
 	_float = [DateTools seconds:1000];
 }
 - (int) enumToInt:(Color*)c{
-	[self testEnum:TestsEnumExtern GFA2 .ExternEnumValue1];
+	[self testEnum:TestsEnumExtern-GFA2-ExternEnumValue1];
 	return ((int)($this:(snd ctx.path)) 
 	var $e2 : enum =  (c)
 	switch ( $e2.index ) {
@@ -222,7 +222,7 @@
 		int* $r}
 	}(self));
 	
-	Color2 *red = Color2 GFA2 .Red2;
+	Color2 *red = Color2-GFA2-Red2;
 	int j = ((int)($this:(snd ctx.path)) 
 	var $e4 : enum =  (red)
 	switch ( $e4.index ) {
@@ -351,7 +351,7 @@
 	} structName;
 	BOOL b = [Reflect hasField:obj field:@"a"];
 	id f = [Reflect field:obj field:@"a"];
-	if (obj != nil) [obj GFA2 .__SetField-TDynamic];
+	if (obj != nil) [obj-GFA2-__SetField-TDynamic];
 	[self __SetField-TDynamic];
 	id p = (id)[self __Field-TDynamic];
 	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]]];

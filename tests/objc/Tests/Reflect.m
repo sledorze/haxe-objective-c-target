@@ -16,7 +16,7 @@
 	return ( (o == nil) ? nil : [o __Field-TDynamic]);
 }
 + (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args{
-	if (func != nil && [func __GetType] == __global__ GFA2 .vtString) func = [o __Field-TDynamic];
+	if (func != nil && [func __GetType] == __global__-GFA2-vtString) func = [o __Field-TDynamic];
 	[func __SetThis-TDynamic];
 	return [func __Run-TDynamic];
 }
@@ -28,7 +28,7 @@
 	return a;
 }
 + (BOOL) isFunction:(id)f{
-	return f != nil && [f __GetType] == __global__ GFA2 .vtFunction;
+	return f != nil && [f __GetType] == __global__-GFA2-vtFunction;
 }
 + (int) compare:(id)a b:(id)b{
 	return ( (a == b) ? 0 : ( ((int)a > (int)b) ? 1 : -1));
@@ -36,21 +36,21 @@
 + (BOOL) compareMethods:(id)f1 f2:(id)f2{
 	if (f1 == f2) return YES;
 	if (![Reflect isFunction:f1] || ![Reflect isFunction:f2]) return NO;
-	return [__global__ GFA2 .__hxcpp_same_closure:f1 :f2];
+	return [__global__-GFA2-__hxcpp_same_closure:f1 :f2];
 }
 + (BOOL) isObject:(id)v{
 	if (v == nil) return NO;
 	int t = [v __GetType];
-	return t == __global__ GFA2 .vtObject || t == __global__ GFA2 .vtClass || t == __global__ GFA2 .vtString || t == __global__ GFA2 .vtArray;
+	return t == __global__-GFA2-vtObject || t == __global__-GFA2-vtClass || t == __global__-GFA2-vtString || t == __global__-GFA2-vtArray;
 }
 + (BOOL) deleteField:(id)o f:(NSMutableString*)f{
 	if (o == nil) return NO;
-	return [__global__ GFA2 .__hxcpp_anon_remove:o :f];
+	return [__global__-GFA2-__hxcpp_anon_remove:o :f];
 }
 + (id) copy:(id)o{
 	if (o == nil) return nil;
-	if ([o __GetType] == __global__ GFA2 .vtString) return o;
-	if ([o __GetType] == __global__ GFA2 .vtArray) return [[o __Field:@"copy" :YES]];
+	if ([o __GetType] == __global__-GFA2-vtString) return o;
+	if ([o __GetType] == __global__-GFA2-vtArray) return [[o __Field:@"copy" :YES]];
 	id o2 = struct {
 	
 	} structName;

@@ -11,10 +11,10 @@
 
 static int length__;
 - (int) length{
-	return objc_getAssociatedObject(self, &length__);
+	return length__;
 }
 - (void) setLength:(int)val{
-	return objc_setAssociatedObject(self, &length__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	length__ = val;
 }
 - (NSMutableArray*) concat:(NSMutableArray*)a{
 	return [self arrayByAddingObjectsFromArray:a];
@@ -25,16 +25,16 @@ static int length__;
 - (id) iterator{
 	return struct {
 	a:self; p:0; hasNext:^(BOOL){
-		return self.p < self.a GFA2 .length;
+		return self.p < self.a-GFA2-length;
 	}; next:^(id){
-		id i = [self.a GFA2 .nativeArray objectAtIndex:self.p];
+		id i = [self.a-GFA2-nativeArray objectAtIndex:self.p];
 		self.p += 1;
 		return i;
 	}
-	};
+	} structName;
 }
 - (void) insert:(int)pos x:(id)x{
-	[self insertObject:x :pos];
+	[self insertObject:x atIndex:pos];
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
 	return [self componentsJoinedByString:sep];
@@ -53,7 +53,7 @@ static int length__;
 	return [self count];
 }
 - (void) unshift:(id)x{
-	[self insertObject:x :0];
+	[self insertObject:x atIndex:0];
 }
 - (BOOL) remove:(id)x{
 	BOOL containsObject = [self containsObject:x];
@@ -61,7 +61,7 @@ static int length__;
 	return containsObject;
 }
 - (void) reverse{
-	id reverseArray = [[self reverseObjectEnumerator] GFA2 .allObjects];
+	id reverseArray = [[self reverseObjectEnumerator]-GFA2-allObjects];
 }
 - (id) shift{
 	if ([self count] > 0) {
@@ -71,7 +71,7 @@ static int length__;
 	}
 	return nil;
 }
-- (NSMutableArray*) slice:(int)pos end:(id)end{
+- (NSMutableArray*) slice:(int)pos end:(int)end{
 	return [self splice:pos len:end - pos];
 }
 - (void) sort:(SEL*)f{

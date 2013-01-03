@@ -138,7 +138,7 @@
 	} structName;
 }
 + (float) make:(id)o{
-	return o GFA2 .ms + 1000.0 *  (o GFA2 .seconds + 60.0 *  (o GFA2 .minutes + 60.0 *  (o GFA2 .hours + 24.0 * o GFA2 .days)));
+	return o-GFA2-ms + 1000.0 *  (o-GFA2-seconds + 60.0 *  (o-GFA2-minutes + 60.0 *  (o-GFA2-hours + 24.0 * o-GFA2-days)));
 }
 
 @end

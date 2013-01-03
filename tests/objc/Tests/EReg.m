@@ -14,21 +14,21 @@ static id r__;
 	return objc_getAssociatedObject(self, &r__);
 }
 - (void) setR:(id)val{
-	return objc_setAssociatedObject(self, &r__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &r__, val, OBJC_ASSOCIATION_ASSIGN);
 }
 static NSMutableString* last__;
 - (NSMutableString*) last{
 	return objc_getAssociatedObject(self, &last__);
 }
 - (void) setLast:(NSMutableString*)val{
-	return objc_setAssociatedObject(self, &last__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &last__, val, OBJC_ASSOCIATION_ASSIGN);
 }
 static BOOL global__;
 - (BOOL) global{
 	return objc_getAssociatedObject(self, &global__);
 }
 - (void) setGlobal:(BOOL)val{
-	return objc_setAssociatedObject(self, &global__, val, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	return objc_setAssociatedObject(self, &global__, val, OBJC_ASSOCIATION_ASSIGN);
 }
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
@@ -43,11 +43,11 @@ static BOOL global__;
 }
 - (NSMutableString*) matchedLeft{
 	id p = nil;
-	return [self last substringWithRange:0 len:p GFA2 .pos];
+	return [self last substringWithRange:0 len:p-GFA2-pos];
 }
 - (NSMutableString*) matchedRight{
 	id p = nil;
-	int sz = p GFA2 .pos + p GFA2 .len;
+	int sz = p-GFA2-pos + p-GFA2-len;
 	return [self last substringWithRange:sz len:self lastlength - sz];
 }
 - (id) matchedPos{
@@ -61,12 +61,12 @@ static BOOL global__;
 	BOOL first = YES;
 	do {
 		id p = nil;
-		if (p GFA2 .len == 0 && !first) {
-			if (p GFA2 .pos == slength) break;
-			p GFA2 .pos += 1;
+		if (p-GFA2-len == 0 && !first) {
+			if (p-GFA2-pos == slength) break;
+			p-GFA2-pos += 1;
 		}
-		[a push:[s substringWithRange:pos len:p GFA2 .pos - pos]];
-		int tot = p GFA2 .pos + p GFA2 .len - pos;
+		[a push:[s substringWithRange:pos len:p-GFA2-pos - pos]];
+		int tot = p-GFA2-pos + p-GFA2-len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
@@ -84,11 +84,11 @@ static BOOL global__;
 	BOOL first = YES;
 	do {
 		id p = nil;
-		if (p GFA2 .len == 0 && !first) {
-			if (p GFA2 .pos == slength) break;
-			p GFA2 .pos += 1;
+		if (p-GFA2-len == 0 && !first) {
+			if (p-GFA2-pos == slength) break;
+			p-GFA2-pos += 1;
 		}
-		b.b += [s substringWithRange:pos len:p GFA2 .pos - pos];
+		b.b += [s substringWithRange:pos len:p-GFA2-pos - pos];
 		if (a.length > 0) b.b += [Std string:[a objectAtIndex:0]];
 		int i = 1;
 		while (i < a.length) {
@@ -102,7 +102,7 @@ static BOOL global__;
 					b.b += [Std string:k];
 				}
 				else {
-					b.b += [s substringWithRange:p1 GFA2 .pos len:p1 GFA2 .len];
+					b.b += [s substringWithRange:p1-GFA2-pos len:p1-GFA2-len];
 					b.b += [k substringWithRange:1 len:klength - 1];
 				}
 			}
@@ -116,7 +116,7 @@ static BOOL global__;
 			else b.b += [Std string:[@"$" stringByAppendingString:k]];
 			i++;
 		}
-		int tot = p GFA2 .pos + p GFA2 .len - pos;
+		int tot = p-GFA2-pos + p-GFA2-len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
