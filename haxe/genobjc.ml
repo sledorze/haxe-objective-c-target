@@ -384,13 +384,8 @@ let processClassPath ctx is_static path pos =
 (* Convert function names that can't be written in c++ ... *)
 let remapKeyword name =
 	match name with
-	| "int" | "self" | "id" | "bycopy" | "inout" | "oneway" | "byref" | "SEL" | "IMP" 
-	| "Protocol" | "YES" | "NO" | "const" | "long" | "char" | "signed" | "unsigned" | "volatile"
-	| "in" | "out" | "bycopy" | "super"
-	| "auto" | "char" | "const" | "delete" | "double" | "float" | "enum"
-	| "extern" | "float" | "friend" | "goto" | "long" | "operator" | "protected"
-	| "register" | "short" | "signed" | "sizeof" | "template" | "typedef"
-	| "union" | "unsigned" | "void" | "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
+	| "int" | "self" | "id" | "bycopy" | "inout" | "oneway" | "byref" | "SEL" | "IMP" | "Protocol" | "YES" | "NO" | "const" | "long" | "char" | "signed" | "unsigned" | "volatile"
+	| "in" | "out" | "bycopy" | "super" | "auto" | "char" | "const" | "delete" | "double" | "float" | "enum" | "extern" | "float" | "friend" | "goto" | "long" | "operator" | "protected" | "register" | "short" | "signed" | "sizeof" | "template" | "typedef" | "union" | "unsigned" | "void" | "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
 	| "and_eq" | "xor_eq" | "typeof" | "stdin" | "stdout" | "stderr"
 	| "BIG_ENDIAN" | "LITTLE_ENDIAN" | "assert" | "NULL" | "nil" | "wchar_t" | "EOF"
 	| "BOOL" | "const_cast" | "dynamic_cast" | "explicit" | "export" | "mutable" | "namespace"
@@ -659,13 +654,13 @@ let rec generateCall ctx func arg_list =
 			ctx.writer#write "(";
 			concat ctx ", " (generateValue ctx) arg_list;
 			ctx.writer#write ")";
-		| TField(ee,v),args when isVarField ee v ->
+		(* | TField(ee,v),args when isVarField ee v ->
 			ctx.writer#write "TField(";
 			generateValue ctx func;
 			ctx.writer#write ")";
 			ctx.writer#write "(";
 			concat ctx ", " (generateValue ctx) arg_list;
-			ctx.writer#write ")"
+			ctx.writer#write ")" *)
 		| _ ->
 			generateValue ctx func;
 			ctx.writer#write "(";
@@ -708,12 +703,9 @@ let rec generateCall ctx func arg_list =
 				| TInst (c,tl) -> ctx.writer#write "-TInst"
 				| TType (t,tl) -> ctx.writer#write "-TType"
 				| TAbstract (a,tl) -> ctx.writer#write "-TAbstract"
-				| TFun ([],t) -> ctx.writer#write "-TFunNoArgs"
 				| TAnon a -> ctx.writer#write "-TAnon"
 				| TDynamic t2 -> ctx.writer#write "-TDynamic"
-				| TLazy f -> ctx.writer#write "-TLazy"
-				(* Dynamic value call function with a dynamic parameter *)
-				| _ -> ctx.writer#write " \"-dynamic_param-\" ") in
+				| TLazy f -> ctx.writer#write "-TLazy") in
 			gen func.etype;
 			
 		end
@@ -795,8 +787,8 @@ and generateExpression ctx e =
 		generateConstant ctx e.epos c
 	| TLocal v ->
 		ctx.writer#write (remapKeyword v.v_name)
-	| TEnumField (en,s) ->
-		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s))
+	(* | TEnumField (en,s) ->
+		ctx.writer#write (Printf.sprintf "%s.%s" (processClassPath ctx true en.e_path e.epos) (s)) *)
 	(* | TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
 		let path = Ast.parse_path s in
 		ctx.writer#write (processClassPath ctx false path e.epos) *)
@@ -812,8 +804,7 @@ and generateExpression ctx e =
 	| TBinop (Ast.OpEq,e1,e2) when (match isSpecialCompare e1 e2 with Some c -> true | None -> false) ->
 		ctx.writer#write "binop";
 		let c = match isSpecialCompare e1 e2 with Some c -> c | None -> assert false in
-		generateExpression ctx (mk (TCall (mk (TField (mk (TTypeExpr (TClassDecl c)) t_dynamic e.epos,"compare")) t_dynamic e.epos,[e1;e2])) ctx.com.basic.tbool e.epos);
-		
+		generateExpression ctx (mk (TCall (mk (TField (mk (TTypeExpr (TClassDecl c)) t_dynamic e.epos,FDynamic "compare")) t_dynamic e.epos,[e1;e2])) ctx.com.basic.tbool e.epos);
 	(* TODO: StringBuf: some concat problems left *)
 	(* | TBinop (op,{ eexpr = TField (e1,s) },e2) ->
 		ctx.writer#write "strange binop ";
@@ -840,23 +831,44 @@ and generateExpression ctx e =
 			ctx.writer#write (Printf.sprintf " %s " s_op);
 			generateValueOp ctx e2
 		end;
+		
+		(* | TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s }))
+				when (try (match (PMap.find s c.cl_fields).cf_kind with Var _ -> true | _ -> false) with Not_found -> false) ->
+				spr ctx "(";
+				gen_value ctx e;
+				print ctx "[\"%s\"]" s;
+				print ctx " as %s)" (type_str ctx e.etype e.epos);
+			| TField({eexpr = TArrayDecl _} as e1,s) ->
+				spr ctx "(";
+				gen_expr ctx e1;
+				spr ctx ")";
+				gen_field_access ctx e1.etype (field_name s)
+			| TField (e,s) ->
+		   		gen_value ctx e;
+				gen_field_access ctx e.etype (field_name s) *)
+			
 	(* variable fields on interfaces are generated as (class["field"] as class) *)
-	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,s)
-	| TClosure ({etype = TInst({cl_interface = true} as c,_)} as e,s)
-		when (try (match (PMap.find s c.cl_fields).cf_kind with Var _ -> true | _ -> false) with Not_found -> false) ->
+	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s })) ->
+	(* | TClosure ({etype = TInst({cl_interface = true} as c,_)} as e,s) *)
+		(* when (try (match (PMap.find s c.cl_fields).cf_kind with Var _ -> true | _ -> false) with Not_found -> false) -> *)
 		ctx.writer#write "(";
 		generateValue ctx e;
 		ctx.writer#write (Printf.sprintf "[\"%s\"]" s);
-		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos));		
+		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos));
+	| TField({eexpr = TArrayDecl _} as e1,s) ->
+		ctx.writer#write "(";
+		generateExpression ctx e1;
+		ctx.writer#write ")";
+		generateFieldAccess ctx e1.etype (field_name s) false;
 	| TField (e,s) ->
 		(* This is important, is generating a field access . *)
    		generateValue ctx e;
-		generateFieldAccess ctx e.etype s false;
-	| TClosure (e,s) ->
+		generateFieldAccess ctx e.etype (field_name s) false;
+	(* | TClosure (e,s) ->
 		(* Used in Reflect.isFunction *)
 		ctx.writer#write (Printf.sprintf "@selector(%s)" s);
    		(* generateValue ctx e; *)
-		(* generateFieldAccess ctx e.etype s true *)
+		(* generateFieldAccess ctx e.etype s true *) *)
 	| TTypeExpr t ->
 		(* Do not generate the Math class, make calls like in C *)
 		let p = t_path t in
@@ -1208,11 +1220,9 @@ and generateValue ctx e =
 	| TTypeExpr _
 	| TConst _
 	| TLocal _
-	| TEnumField _
 	| TArray _
 	| TBinop _
 	| TField _
-	| TClosure _
 	| TParenthesis _
 	| TObjectDecl _
 	| TArrayDecl _
@@ -2338,7 +2348,7 @@ let generate common_ctx =
 		| TEnumDecl enum_def ->
 			if not enum_def.e_extern then begin
 				let module_path = enum_def.e_module.m_path in
-				let class_path = enum_def.e_path in
+				(* let class_path = enum_def.e_path in *)
 				let is_new_module = (m.module_path_h != module_path) in
 				print_endline ("> Generating enum : "^(snd enum_def.e_path)^" in module : "^(snd module_path));
 				if is_new_module then begin

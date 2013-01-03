@@ -26,7 +26,7 @@ open Typecore
 (* TOOLS *)
 
 let field e name t p =
-	mk (TField (e,name)) t p
+	mk (TField (e,try quick_field e.etype name with Not_found -> assert false)) t p
 
 let fcall e name el ret p =
 	let ft = tfun (List.map (fun e -> e.etype) el) ret in
@@ -206,6 +206,7 @@ type generic_context = {
 	subst : (t * t) list;
 	name : string;
 	p : pos;
+	mutable mg : module_def option;
 }
 
 let make_generic ctx ps pt p =
@@ -221,7 +222,7 @@ let make_generic ctx ps pt p =
 			let path = (match follow t with
 				| TInst (ct,_) -> ct.cl_path
 				| TEnum (e,_) -> e.e_path
-				| TAbstract (a,_) when has_meta ":runtime_value" a.a_meta -> a.a_path
+				| TAbstract (a,_) when has_meta ":runtimeValue" a.a_meta -> a.a_path
 				| TMono _ -> raise (Generic_Exception (("Could not determine type for parameter " ^ s), p))
 				| t -> raise (Generic_Exception (("Type parameter must be a class or enum instance (found " ^ (s_type (print_context()) t) ^ ")"), p))
 			) in
@@ -235,6 +236,7 @@ let make_generic ctx ps pt p =
 		subst = loop ps pt;
 		name = name;
 		p = p;
+		mg = None;
 	}
 
 let rec generic_substitute_type gctx t =
@@ -242,7 +244,9 @@ let rec generic_substitute_type gctx t =
 	| TInst ({ cl_kind = KGeneric } as c2,tl2) ->
 		(* maybe loop, or generate cascading generics *)
 		let _, _, f = gctx.ctx.g.do_build_instance gctx.ctx (TClassDecl c2) gctx.p in
-		f (List.map (generic_substitute_type gctx) tl2)
+		let t = f (List.map (generic_substitute_type gctx) tl2) in
+		(match follow t,gctx.mg with TInst(c,_), Some m -> add_dependency m c.cl_module | _ -> ());
+		t
 	| _ ->
 		try List.assq t gctx.subst with Not_found -> Type.map (generic_substitute_type gctx) t
 
@@ -259,13 +263,37 @@ let generic_substitute_expr gctx e =
 	let rec build_expr e = map_expr_type build_expr (generic_substitute_type gctx) build_var e in
 	build_expr e
 
+let is_generic_parameter ctx c =
+	(* first check field parameters, then class parameters *)
+	try
+		ignore (List.assoc (snd c.cl_path) ctx.curfield.cf_params);
+		has_meta ":generic" ctx.curfield.cf_meta
+	with Not_found -> try
+		ignore(List.assoc (snd c.cl_path) ctx.type_params);
+		(match ctx.curclass.cl_kind with | KGeneric -> true | _ -> false);
+	with Not_found ->
+		false
+
+let has_ctor_constraint c = match c.cl_kind with
+	| KTypeParameter tl ->
+		List.exists (fun t -> match follow t with
+			| TAnon a when PMap.mem "new" a.a_fields -> true
+			| _ -> false
+		) tl;
+	| _ -> false
+
 let rec build_generic ctx c p tl =
 	let pack = fst c.cl_path in
 	let recurse = ref false in
 	let rec check_recursive t =
 		match follow t with
-		| TInst (c,tl) ->
-			(match c.cl_kind with KTypeParameter _ -> recurse := true | _ -> ());
+		| TInst (c2,tl) ->
+			(match c2.cl_kind with
+			| KTypeParameter tl ->
+				if not (is_generic_parameter ctx c2) && has_ctor_constraint c2 then
+					error "Type parameters with a constructor cannot be used non-generically" p;
+				recurse := true
+			| _ -> ());
 			List.iter check_recursive tl;
 		| _ ->
 			()
@@ -287,6 +315,7 @@ let rec build_generic ctx c p tl =
 			m_types = [];
 			m_extra = module_extra (s_type_path (pack,name)) m.m_extra.m_sign 0. MFake;
 		} in
+		gctx.mg <- Some mg;
 		let cg = mk_class mg (pack,name) c.cl_pos in
 		mg.m_types <- [TClassDecl cg];
 		Hashtbl.add ctx.g.modules mg.m_path mg;
@@ -370,7 +399,7 @@ let extend_xml_proxy ctx c t file p =
 			if not used then ctx.com.warning (id ^ " is not used") p;
 		) (!used)
 	in
-	let check_used = Common.defined ctx.com "check-xml-proxy" in
+	let check_used = Common.defined ctx.com Define.CheckXmlProxy in
 	if check_used then ctx.g.hook_generate <- print_results :: ctx.g.hook_generate;
 	try
 		let rec loop = function
@@ -525,7 +554,7 @@ let on_inherit ctx c p h =
 		extend_remoting ctx c t p true false;
 		false
 	| HImplements { tpackage = ["haxe";"rtti"]; tname = "Generic"; tparams = [] } ->
-		if Common.defined ctx.com "haxe3" then error ("Implementing haxe.rtti.Generic is deprecated in haxe 3, please use @:generic instead") c.cl_pos;
+		if Common.defined ctx.com Define.Haxe3 then error ("Implementing haxe.rtti.Generic is deprecated in haxe 3, please use @:generic instead") c.cl_pos;
 		if c.cl_types <> [] then c.cl_kind <- KGeneric;
 		false
 	| HExtends { tpackage = ["haxe";"xml"]; tname = "Proxy"; tparams = [TPExpr(EConst (String file),p);TPType t] } ->
@@ -542,6 +571,9 @@ let save_class_state ctx t = match t with
 	| TClassDecl c ->
 		let meta = c.cl_meta and path = c.cl_path and ext = c.cl_extern in
 		let fl = c.cl_fields and ofl = c.cl_ordered_fields and st = c.cl_statics and ost = c.cl_ordered_statics in
+		let cst = c.cl_constructor and over = c.cl_overrides in
+		let oflk = List.map (fun f -> f.cf_kind,f.cf_expr) ofl in
+		let ostk = List.map (fun f -> f.cf_kind,f.cf_expr) ost in
 		c.cl_restore <- (fun() ->
 			c.cl_meta <- meta;
 			c.cl_extern <- ext;
@@ -550,9 +582,15 @@ let save_class_state ctx t = match t with
 			c.cl_ordered_fields <- ofl;
 			c.cl_statics <- st;
 			c.cl_ordered_statics <- ost;
+			c.cl_constructor <- cst;
+			c.cl_overrides <- over;
+			(* DCE might modify the cf_kind, so let's restore it as well *)
+			List.iter2 (fun f (k,e) -> f.cf_kind <- k; f.cf_expr <- e) ofl oflk;
+			List.iter2 (fun f (k,e) -> f.cf_kind <- k; f.cf_expr <- e) ost ostk;
 		)
 	| _ ->
 		()
+
 
 (* Checks if a private class' path clashes with another path *)
 let check_private_path ctx t = match t with
@@ -564,17 +602,8 @@ let check_private_path ctx t = match t with
 
 (* Removes generic base classes *)
 let remove_generic_base ctx t = match t with
-	| TClassDecl c when c.cl_kind = KGeneric ->
-		(try
-			let (_,_,prec) = get_meta ":?genericRec" c.cl_meta in
-			(try
-				let (_,_,pnew) = get_meta ":?genericT" c.cl_meta in
-				display_error ctx ("Class " ^ (s_type_path c.cl_path) ^ " was used recursively and cannot use its type parameter") prec;
-				error "Type parameter usage was here" pnew
-			with Not_found ->
-				());
-		with Not_found ->
-			c.cl_extern <- true);
+	| TClassDecl c when c.cl_kind = KGeneric && has_ctor_constraint c ->
+		c.cl_extern <- true
 	| _ ->
 		()
 
@@ -616,7 +645,7 @@ let add_rtti ctx t =
 				| _ -> false
 			) c.cl_implements || (match c.cl_super with None -> false | Some (c,_) -> has_rtti_old c)
 		in
-		if Common.defined ctx.com "haxe3" then begin
+		if Common.defined ctx.com Define.Haxe3 then begin
 			if has_rtti_old c then error ("Implementing haxe.rtti.Infos is deprecated in haxe 3, please use @:rttiInfos instead") c.cl_pos;
 			has_rtti_new c
 		end else
@@ -632,13 +661,13 @@ let add_rtti ctx t =
 	| _ ->
 		()
 
-(* Removes extern and macro fields *)
+(* Removes extern and macro fields, also checks for Void fields *)
 let remove_extern_fields ctx t = match t with
 	| TClassDecl c ->
 		let do_remove f =
 			(not ctx.in_macro && f.cf_kind = Method MethMacro) || has_meta ":extern" f.cf_meta || has_meta ":generic" f.cf_meta
 		in
-		if not (Common.defined ctx.com "doc_gen") then begin
+		if not (Common.defined ctx.com Define.DocGen) then begin
 			c.cl_ordered_fields <- List.filter (fun f ->
 				let b = do_remove f in
 				if b then c.cl_fields <- PMap.remove f.cf_name c.cl_fields;
@@ -664,7 +693,7 @@ let add_field_inits ctx t =
 			match cf.cf_kind,cf.cf_expr with
 			| Var _, Some _ ->
 				if ctx.com.config.pf_can_init_member cf then (inits, cf :: fields) else (cf :: inits, cf :: fields)
-			| Method MethDynamic, Some e when Common.defined ctx.com "as3" ->
+			| Method MethDynamic, Some e when Common.defined ctx.com Define.As3 ->
 				(* TODO : this would have a better place in genSWF9 I think - NC *)
 				(* we move the initialization of dynamic functions to the constructor and also solve the
 				   'this' problem along the way *)
@@ -694,10 +723,10 @@ let add_field_inits ctx t =
 				match cf.cf_expr with
 				| None -> assert false
 				| Some e ->
-					let lhs = mk (TField(ethis,cf.cf_name)) e.etype e.epos in
+					let lhs = mk (TField(ethis,FInstance (c,cf))) cf.cf_type e.epos in
 					cf.cf_expr <- None;
-					let eassign = mk (TBinop(OpAssign,lhs,e)) lhs.etype e.epos in
-					if Common.defined ctx.com "as3" then begin
+					let eassign = mk (TBinop(OpAssign,lhs,e)) e.etype e.epos in
+					if Common.defined ctx.com Define.As3 then begin
 						let echeck = mk (TBinop(OpEq,lhs,(mk (TConst TNull) lhs.etype e.epos))) ctx.com.basic.tbool e.epos in
 						mk (TIf(echeck,eassign,None)) eassign.etype e.epos
 					end else
@@ -747,6 +776,17 @@ let add_meta_field ctx t = match t with
 let check_remove_metadata ctx t = match t with
 	| TClassDecl c ->
 		c.cl_implements <- List.filter (fun (c,_) -> not (has_meta ":remove" c.cl_meta)) c.cl_implements;
+	| _ ->
+		()
+
+(* Checks for Void class fields *)
+let check_void_field ctx t = match t with
+	| TClassDecl c ->
+		let check f =
+			match follow f.cf_type with TAbstract({a_path=[],"Void"},_) -> error "Fields of type Void are not allowed" f.cf_pos | _ -> ();
+		in
+		List.iter check c.cl_ordered_fields;
+		List.iter check c.cl_ordered_statics;
 	| _ ->
 		()
 
@@ -1041,7 +1081,10 @@ let rename_local_vars com e =
 		done;
 		v.v_name <- v.v_name ^ string_of_int !count;
 	in
-	let declare v =
+	let declare v p =
+		(match follow v.v_type with
+			| TAbstract ({a_path = [],"Void"},_) -> error "Arguments and variables of type Void are not allowed" p
+			| _ -> ());
 		(* chop escape char for all local variables generated *)
 		if String.unsafe_get v.v_name 0 = String.unsafe_get gen_local_prefix 0 then v.v_name <- "_g" ^ String.sub v.v_name 1 (String.length v.v_name - 1);
 		let look_vars = (if not cfg.pf_captured_scope && v.v_capture then !all_vars else !vars) in
@@ -1088,31 +1131,31 @@ let rename_local_vars com e =
 	let rec loop e =
 		match e.eexpr with
 		| TVars l ->
-			List.iter (fun (v,e) ->
-				if not cfg.pf_locals_scope then declare v;
-				(match e with None -> () | Some e -> loop e);
-				if cfg.pf_locals_scope then declare v;
+			List.iter (fun (v,eo) ->
+				if not cfg.pf_locals_scope then declare v e.epos;
+				(match eo with None -> () | Some e -> loop e);
+				if cfg.pf_locals_scope then declare v e.epos;
 			) l
 		| TFunction tf ->
 			let old = save() in
-			List.iter (fun (v,_) -> declare v) tf.tf_args;
+			List.iter (fun (v,_) -> declare v e.epos) tf.tf_args;
 			loop tf.tf_expr;
 			old()
 		| TBlock el ->
 			let old = save() in
 			List.iter loop el;
 			old()
-		| TFor (v,it,e) ->
+		| TFor (v,it,e1) ->
 			loop it;
 			let old = save() in
-			declare v;
-			loop e;
+			declare v e.epos;
+			loop e1;
 			old()
 		| TTry (e,catchs) ->
 			loop e;
 			List.iter (fun (v,e) ->
 				let old = save() in
-				declare v;
+				declare v e.epos;
 				check_type v.v_type;
 				loop e;
 				old()
@@ -1123,15 +1166,13 @@ let rename_local_vars com e =
 				let old = save() in
 				(match vars with
 				| None -> ()
-				| Some l ->	List.iter (function None -> () | Some v -> declare v) l);
+				| Some l ->	List.iter (function None -> () | Some v -> declare v e.epos) l);
 				loop e;
 				old();
 			) cases;
 			(match def with None -> () | Some e -> loop e);
 		| TTypeExpr t ->
 			check t
-		| TEnumField (e,_) ->
-			check (TEnumDecl e)
 		| TNew (c,_,_) ->
 			Type.iter loop e;
 			check (TClassDecl c);
@@ -1455,7 +1496,7 @@ let fix_override com c f fd =
 				);
 			} in
 			(* as3 does not allow wider visibility, so the base method has to be made public *)
-			if Common.defined com "as3" && f.cf_public then f2.cf_public <- true;
+			if Common.defined com Define.As3 && f.cf_public then f2.cf_public <- true;
 			let targs = List.map (fun(v,c) -> (v.v_name, Option.is_some c, v.v_type)) nargs in
 			let fde = (match f.cf_expr with None -> assert false | Some e -> e) in
 			{ f with cf_expr = Some { fde with eexpr = TFunction fd2 }; cf_type = TFun(targs,tret) }
@@ -1545,11 +1586,13 @@ let rec constructor_side_effects e =
 	match e.eexpr with
 	| TBinop (op,_,_) when op <> OpAssign ->
 		true
-	| TUnop _ | TArray _ | TField _ | TCall _ | TNew _ | TFor _ | TWhile _ | TSwitch _ | TMatch _ | TReturn _ | TThrow _ | TClosure _ ->
+	| TField (_,FEnum _) ->
+		false
+	| TUnop _ | TArray _ | TField _ | TCall _ | TNew _ | TFor _ | TWhile _ | TSwitch _ | TMatch _ | TReturn _ | TThrow _ ->
 		true
 	| TBinop _ | TTry _ | TIf _ | TBlock _ | TVars _
 	| TFunction _ | TArrayDecl _ | TObjectDecl _
-	| TParenthesis _ | TTypeExpr _ | TEnumField _ | TLocal _
+	| TParenthesis _ | TTypeExpr _ | TLocal _
 	| TConst _ | TContinue | TBreak | TCast _ ->
 		try
 			Type.iter (fun e -> if constructor_side_effects e then raise Exit) e;
@@ -1657,8 +1700,14 @@ let default_cast ?(vtmp="$t") com e texpr t p =
 	let vexpr = mk (TLocal vtmp) e.etype p in
 	let texpr = mk (TTypeExpr texpr) (mk_texpr texpr) p in
 	let std = (try List.find (fun t -> t_path t = ([],"Std")) com.types with Not_found -> assert false) in
+	let fis = (try
+			let c = (match std with TClassDecl c -> c | _ -> assert false) in
+			FStatic (c, PMap.find "is" c.cl_statics)
+		with Not_found ->
+			assert false
+	) in
 	let std = mk (TTypeExpr std) (mk_texpr std) p in
-	let is = mk (TField (std,"is")) (tfun [t_dynamic;t_dynamic] api.tbool) p in
+	let is = mk (TField (std,fis)) (tfun [t_dynamic;t_dynamic] api.tbool) p in
 	let is = mk (TCall (is,[vexpr;texpr])) api.tbool p in
 	let exc = mk (TThrow (mk (TConst (TString "Class cast error")) api.tstring p)) t p in
 	let check = mk (TIf (mk_parent is,mk (TCast (vexpr,None)) t p,Some exc)) t p in

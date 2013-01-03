@@ -62,7 +62,7 @@ type stats = {
 *)
 type capture_policy =
 	(** do nothing, let the platform handle it *)
-	| CPNone 
+	| CPNone
 	(** wrap all captured variables into a single-element array to allow modifications *)
 	| CPWrapRef
 	(** similar to wrap ref, but will only apply to the locals that are declared in loops *)
@@ -102,7 +102,7 @@ type context = {
 	mutable std_path : string list;
 	mutable class_path : string list;
 	mutable main_class : Type.path option;
-	mutable defines : (string,unit) PMap.t;
+	mutable defines : (string,string) PMap.t;
 	mutable package_rules : (string,package_rule) PMap.t;
 	mutable error : string -> pos -> unit;
 	mutable warning : string -> pos -> unit;
@@ -111,6 +111,7 @@ type context = {
 	mutable defines_signature : string option;
 	mutable print : string -> unit;
 	mutable get_macros : unit -> context option;
+	mutable run_command : string -> int;
 	(* output *)
 	mutable file : string;
 	mutable flash_version : float;
@@ -143,6 +144,123 @@ exception Abort of string * Ast.pos
 
 let display_default = ref false
 
+module Define = struct
+
+	type strict_defined =
+		| AbsolutePath
+		| AdvancedTelemetry
+		| As3
+		| CheckXmlProxy
+		| CoreApi
+		| Dce
+		| DceDebug
+		| Debug
+		| Display
+		| DocGen
+		| Dump
+		| DumpDependencies
+		| Fdb
+		| FlashStrict
+		| FlashUseStage
+		| FormatWarning
+		| GencommonDebug
+		| Haxe3
+		| HaxeBoot
+		| HaxeVer
+		| Interp
+		| JsClassic
+		| JsModern
+		| Macro
+		| MacroTimes
+		| MatchDebug
+		| NekoSource
+		| NekoV2
+		| NetworkSandbox
+		| NoCompilation
+		| NoCOpt
+		| NoInline
+		| NoOpt
+		| NoPatternMatching
+		| NoRoot
+		| NoSwfCompress
+		| NoTraces
+		| PhpPrefix
+		| ReplaceFiles
+		| Scriptable
+		| Swc
+		| SwfCompressLevel
+		| SwfDebugPassword
+		| SwfDirectBlit
+		| SwfGpu
+		| SwfMark
+		| SwfMetadata
+		| SwfPreloaderFrame
+		| SwfProtected
+		| SwfScriptTimeout
+		| Sys
+		| UseNekoc
+		| UseRttiDoc
+		| Vcproj
+		| Last (* must be last *)
+
+	let infos = function
+		| AbsolutePath -> ("absolute_path","Print absoluate file path in trace output")
+		| AdvancedTelemetry -> ("advanced-telemetry","Allow the SWF to be measured with Monocle tool")
+		| As3 -> ("as3","Defined when outputing flash9 as3 source code")
+		| CheckXmlProxy -> ("check_xml_proxy","Check the used fields of the xml proxy")
+		| CoreApi -> ("core_api","Defined in the core api context")
+		| Dce -> ("dce","The current DCE mode")
+		| DceDebug -> ("dce_debug","Show DCE log")
+		| Debug -> ("debug","Activated when compiling with -debug")
+		| Display -> ("display","Activated during completion")
+		| DocGen -> ("doc_gen","Do not perform any removal/change in order to correctly generate documentation")
+		| Dump -> ("dump","Dump the complete typed AST for internal debugging")
+		| DumpDependencies -> ("dump_dependencies","Dump the classes dependencies")
+		| Fdb -> ("fdb","Enable full flash debug infos for FDB interactive debugging")
+		| FlashStrict -> ("flash_strict","More strict typing for flash target")
+		| FlashUseStage -> ("flash_use_stage","Keep the SWF library initial stage")
+		| FormatWarning -> ("format_warning","Print a warning for each formated string, for 2.x compatibility")
+		| GencommonDebug -> ("gencommon_debug","GenCommon internal")
+		| Haxe3 -> ("haxe3","Enable Haxe3 transition mode")
+		| HaxeBoot -> ("haxe_boot","Given the name 'haxe' to the flash boot class instead of a generated name")
+		| HaxeVer -> ("haxe_ver","The current Haxe version value")
+		| Interp -> ("interp","The code is compiled to be run with --interp")
+		| JsClassic -> ("js_classic","Don't use a function wrapper and strict mode in JS output")
+		| JsModern -> ("js_modern","Use function wrapper and strict mode in JS output")
+		| Macro -> ("macro","Defined when we compile code in the macro context")
+		| MacroTimes -> ("macro_times","Display per-macro timing when used with --times")
+		| MatchDebug -> ("match_debug","Show Pattern Matcher log")
+		| NekoSource -> ("neko_source","Output neko source instead of bytecode")
+		| NekoV2 -> ("neko_v2","Activate Neko 2.0 compatibility")
+		| NetworkSandbox -> ("network-sandbox","Use local network sandbox instead of local file access one")
+		| NoCompilation -> ("no-compilation","Disable CPP final compilation")
+		| NoCOpt -> ("no_copt","Disable completion optimization (for debug purposes)")
+		| NoOpt -> ("no_opt","Disable optimizations")
+		| NoPatternMatching -> ("no_pattern_matching","Disable pattern matching")
+		| NoInline -> ("no_inline","Disable inlining")
+		| NoRoot -> ("no_root","GenCS internal")
+		| NoSwfCompress -> ("no_swf_compress","Disable SWF output compression")
+		| NoTraces -> ("no_traces","Disable all trace calls")
+		| PhpPrefix -> ("php_prefix","Compiled with --php-prefix")
+		| ReplaceFiles -> ("replace_files","GenCommon internal")
+		| Scriptable -> ("scriptable","GenCPP internal")
+		| Swc -> ("swc","Output a SWC instead of a SWF")
+		| SwfCompressLevel -> ("swf_compress_level","<level:1-9> Set the amount of compression for the SWF output")
+		| SwfDebugPassword -> ("swf_debug_password", "Set a password for debugging.")
+		| SwfDirectBlit -> ("swf_direct_blit", "Use hardware acceleration to blit graphics")
+		| SwfGpu -> ("swf_gpu", "Use GPU compositing features when drawing graphics")
+		| SwfMark -> ("swf_mark","GenSWF8 internal")
+		| SwfMetadata -> ("swf_metadata", "=<file> Include contents of <file> as metadata in the swf.")
+		| SwfPreloaderFrame -> ("swf_preloader_frame", "Insert empty first frame in swf")
+		| SwfProtected -> ("swf_protected","Compile Haxe private as protected in the SWF instead of public")
+		| SwfScriptTimeout -> ("swf_script_timeout", "Maximum ActionScript processing time before script stuck dialog box displays (in seconds)")
+		| Sys -> ("sys","Defined for all system platforms")
+		| UseNekoc -> ("use_nekoc","Use nekoc compiler instead of internal one")
+		| UseRttiDoc -> ("use_rtti_doc","Allows access to documentation during compilation")
+		| Vcproj -> ("vcproj","GenCPP internal")
+		| Last -> assert false
+end
+
 let stats =
 	{
 		s_files_parsed = ref 0;
@@ -151,7 +269,7 @@ let stats =
 		s_macros_called = ref 0;
 	}
 
-let default_config = 
+let default_config =
 	{
 		pf_static = true;
 		pf_sys = true;
@@ -165,7 +283,7 @@ let default_config =
 	}
 
 let get_config com =
-	let defined f = PMap.mem f com.defines in
+	let defined f = PMap.mem (fst (Define.infos f)) com.defines in
 	match com.platform with
 	| Cross ->
 		default_config
@@ -185,7 +303,7 @@ let get_config com =
 		{
 			pf_static = false;
 			pf_sys = false;
-			pf_locals_scope = false;		
+			pf_locals_scope = false;
 			pf_captured_scope = false;
 			pf_unique_locals = false;
 			pf_can_init_member = (fun _ -> false);
@@ -205,7 +323,7 @@ let get_config com =
 			pf_pad_nulls = true;
 			pf_add_final_return = false;
 		}
-	| Flash when defined "as3" ->
+	| Flash when defined Define.As3 ->
 		{
 			pf_static = true;
 			pf_sys = false;
@@ -240,7 +358,7 @@ let get_config com =
 				match cf.cf_kind, cf.cf_expr with
 				| Var { v_write = AccCall _ },  _ -> false
 				| _, Some { eexpr = TTypeExpr _ } -> false
-				| _ -> true 
+				| _ -> true
 			);
 			pf_capture_policy = CPNone;
 			pf_pad_nulls = true;
@@ -307,11 +425,12 @@ let create v args =
 		features = Hashtbl.create 0;
 		platform = Cross;
 		config = default_config;
-		print = print_string;
+		print = (fun s -> print_string s; flush stdout);
+		run_command = Sys.command;
 		std_path = [];
 		class_path = [];
 		main_class = None;
-		defines = PMap.add "true" () (if !display_default then PMap.add "display" () PMap.empty else PMap.empty);
+		defines = PMap.add "true" "1" (if !display_default then PMap.add "display" "1" PMap.empty else PMap.empty);
 		package_rules = PMap.empty;
 		file = "";
 		types = [];
@@ -357,7 +476,7 @@ let log com str =
 
 let clone com =
 	let t = com.basic in
-	{ com with basic = { t with tvoid = t.tvoid }; main_class = None; }
+	{ com with basic = { t with tvoid = t.tvoid }; main_class = None; features = Hashtbl.create 0; }
 
 let file_time file =
 	try (Unix.stat file).Unix.st_mtime with _ -> 0.
@@ -366,11 +485,11 @@ let get_signature com =
 	match com.defines_signature with
 	| Some s -> s
 	| None ->
-		let str = String.concat "@" (PMap.foldi (fun k _ acc ->
+		let str = String.concat "@" (PMap.foldi (fun k v acc ->
 			(* don't make much difference between these special compilation flags *)
 			match k with
 			| "display" | "use_rtti_doc" | "macrotimes" -> acc
-			| _ -> k :: acc
+			| _ -> k :: v :: acc
 		) com.defines []) in
 		let s = Digest.string str in
 		com.defines_signature <- Some s;
@@ -409,15 +528,32 @@ let flash_versions = List.map (fun v ->
 	let maj = int_of_float v in
 	let min = int_of_float (mod_float (v *. 10.) 10.) in
 	v, string_of_int maj ^ (if min = 0 then "" else "_" ^ string_of_int min)
-) [9.;10.;10.1;10.2;10.3;11.;11.1;11.2;11.3;11.4]
+) [9.;10.;10.1;10.2;10.3;11.;11.1;11.2;11.3;11.4;11.5]
 
-let defined ctx v = PMap.mem v ctx.defines
+let raw_defined ctx v =
+	PMap.mem v ctx.defines
+
+let defined ctx v =
+	raw_defined ctx (fst (Define.infos v))
+
+let raw_defined_value ctx k =
+	PMap.find k ctx.defines
+
+let defined_value ctx v =
+	raw_defined_value ctx (fst (Define.infos v))
+
+let raw_define ctx v =
+	let k,v = try ExtString.String.split v "=" with _ -> v,"1" in
+	ctx.defines <- PMap.add k v ctx.defines;
+	let k = String.concat "_" (ExtString.String.nsplit k "-") in
+	ctx.defines <- PMap.add k v ctx.defines;
+	ctx.defines_signature <- None
+
+let define_value ctx k v =
+	raw_define ctx (fst (Define.infos k) ^ "=" ^ v)
 
 let define ctx v =
-	ctx.defines <- PMap.add v () ctx.defines;
-	let v = String.concat "_" (ExtString.String.nsplit v "-") in
-	ctx.defines <- PMap.add v () ctx.defines;
-	ctx.defines_signature <- None
+	raw_define ctx (fst (Define.infos v))
 
 let init_platform com pf =
 	com.platform <- pf;
@@ -426,31 +562,34 @@ let init_platform com pf =
 	com.package_rules <- List.fold_left forbid com.package_rules (List.map platform_name platforms);
 	com.config <- get_config com;
 (*	if com.config.pf_static then define com "static"; *)
-	if com.config.pf_sys then define com "sys" else com.package_rules <- PMap.add "sys" Forbidden com.package_rules;
-	define com name
+	if com.config.pf_sys then define com Define.Sys else com.package_rules <- PMap.add "sys" Forbidden com.package_rules;
+	raw_define com name
 
 let add_feature com f =
 	Hashtbl.replace com.features f true
+
+let has_dce com =
+	(try defined_value com Define.Dce <> "no" with Not_found -> false)
 
 let rec has_feature com f =
 	try
 		Hashtbl.find com.features f
 	with Not_found ->
-		if com.types = [] then defined com "all_features" else
+		if com.types = [] then not (has_dce com) else
 		match List.rev (ExtString.String.nsplit f ".") with
 		| [] -> assert false
-		| [cl] -> has_feature com (cl ^ ".*") 
+		| [cl] -> has_feature com (cl ^ ".*")
 		| meth :: cl :: pack ->
 			let r = (try
 				let path = List.rev pack, cl in
 				(match List.find (fun t -> t_path t = path && not (has_meta ":realPath" (t_infos t).mt_meta)) com.types with
-				| t when meth = "*" -> not (defined com "dce") || has_meta ":used" (t_infos t).mt_meta
+				| t when meth = "*" -> has_meta ":used" (t_infos t).mt_meta
 				| TClassDecl c -> PMap.exists meth c.cl_statics || PMap.exists meth c.cl_fields
 				| _ -> false)
 			with Not_found ->
 				false
 			) in
-			let r = r || defined com "all_features" in
+			let r = r || not (has_dce com) in
 			Hashtbl.add com.features f r;
 			r
 
@@ -476,6 +615,14 @@ let find_file ctx f =
 let get_full_path f = try Extc.get_full_path f with _ -> f
 
 let unique_full_path = if Sys.os_type = "Win32" || Sys.os_type = "Cygwin" then (fun f -> String.lowercase (get_full_path f)) else get_full_path
+
+let normalize_path p =
+	let l = String.length p in
+	if l = 0 then
+		"./"
+	else match p.[l-1] with
+		| '\\' | '/' -> p
+		| _ -> p ^ "/"
 
 (* ------------------------- TIMERS ----------------------------- *)
 

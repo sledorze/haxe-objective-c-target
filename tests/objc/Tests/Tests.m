@@ -97,7 +97,8 @@
 	}
 }
 - (void) testSwitch{
-	switch (YES){
+	BOOL _g = YES;
+	switch (_g){
 		case YES:{
 			{
 				int x = 0;
@@ -169,7 +170,7 @@
 	_float = [DateTools seconds:1000];
 }
 - (int) enumToInt:(Color*)c{
-	[self testEnum:TestsEnumExtern.ExternEnumValue1];
+	[self testEnum:TestsEnumExtern GFA2 .ExternEnumValue1];
 	return ((int)($this:(snd ctx.path)) 
 	var $e2 : enum =  (c)
 	switch ( $e2.index ) {
@@ -185,16 +186,16 @@
 			$r = 255}break
 		case 3:
 		
-		var MATCH v : int = $e2.params[0]{
-			$r = ((v << 16 | v << 8) | v)}break
+		var MATCH c_eGrey_0 : int = $e2.params[0]{
+			$r = ((c_eGrey_0 << 16 | c_eGrey_0 << 8) | c_eGrey_0)}break
 		case 4:
 		
-		var MATCH b : int = $e2.params[2], MATCH g : int = $e2.params[1], MATCH r : int = $e2.params[0]{
-			$r = ((r << 16 | g << 8) | b)}break
+		var MATCH c_eRgb_2 : int = $e2.params[2], MATCH c_eRgb_1 : int = $e2.params[1], MATCH c_eRgb_0 : int = $e2.params[0]{
+			$r = ((c_eRgb_0 << 16 | c_eRgb_1 << 8) | c_eRgb_2)}break
 		case 5:
 		
-		var MATCH c1 : Color = $e2.params[1], MATCH a : int = $e2.params[0]{
-			$r = (a << 24 | ([self enumToInt:c1] & 16777215))}break
+		var MATCH c_eAlpha_1 : Color = $e2.params[1], MATCH c_eAlpha_0 : int = $e2.params[0]{
+			$r = (c_eAlpha_0 << 24 | ([self enumToInt:c_eAlpha_1] & 16777215))}break
 	}
 	return $r{
 		
@@ -221,7 +222,7 @@
 		int* $r}
 	}(self));
 	
-	Color2 *red = Color2.Red2;
+	Color2 *red = Color2 GFA2 .Red2;
 	int j = ((int)($this:(snd ctx.path)) 
 	var $e4 : enum =  (red)
 	switch ( $e4.index ) {
@@ -353,15 +354,15 @@
 	if (obj != nil) [obj GFA2 .__SetField-TDynamic];
 	[self __SetField-TDynamic];
 	id p = (id)[self __Field-TDynamic];
-	[Reflect callMethod:self func:@selector(testStd) args:[[NSMutableArray alloc] initWithObjects:, nil]]];
-	[Reflect callMethod:self func:@selector(callLotsOfArguments) args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
+	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]]];
+	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
 	
 	NSMutableArray *fs = [Reflect fields:obj];
-	BOOL isf = [Reflect isFunction:@selector(testStd)];
+	BOOL isf = [Reflect isFunction:self testStd];
 	int i = [Reflect compare:1 b:2];
-	BOOL cm = [Reflect compareMethods:@selector(testStd) f2:@selector(testString)];
+	BOOL cm = [Reflect compareMethods:self testStd f2:self testString];
 	BOOL isobj = [Reflect isObject:obj];
-	isobj = [Reflect isObject:@selector(testStd)];
+	isobj = [Reflect isObject:self testStd];
 	[Reflect deleteField:obj f:@"a"];
 	id obj2 = [Reflect copy:obj];
 }
@@ -407,7 +408,7 @@
 	
 	NSMutableString *st = [StringTools urlEncode:@"http://imagin.ro/Gorgeous Elena/2"];
 	st = [StringTools urlDecode:@"http://imagin.ro/Gorgeous Elena/2"];
-	st = [StringTools htmlEscape:@"<a href= &>"];
+	st = [StringTools htmlEscape:@"<a href= &>" quotes:nil];
 	st = [StringTools htmlUnescape:@"<a href= &>"];
 	st = [StringTools ltrim:@" abcdefgh"];
 	st = [StringTools rtrim:@"abcdefgh "];
@@ -470,13 +471,13 @@
 	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil]];
 	
 	Timer *timer = [[Timer alloc] init:50];
-	timer.run = @selector(testXml);
+	timer.run = self.testXml;
 	[timer stop];
-	timer = [Timer delay:@selector(testTimer) time_ms:50];
+	timer = [Timer delay:self testTimer time_ms:50];
 	timer = [Timer delay:^(void){
 		[[_g objectAtIndex:0] testTimer];
 	} time_ms:50];
-	[Timer measure:@selector(testTimer) pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"525",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"525",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testFrameworksImport{

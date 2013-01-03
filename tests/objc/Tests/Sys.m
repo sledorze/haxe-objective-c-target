@@ -58,10 +58,17 @@
 		int _g1 = 0; int _g = arglength;
 		while (_g1 < _g) {
 			int i = _g1++;
-			switch ([arg characterAtIndex:i]){
-				case 32:case 34:{
+			id _g2 = [arg characterAtIndex:i];
+			switch (_g2){
+				case 32:{
 					ok = NO}break;
-				case 0:case 13:case 10:{
+				case 34:{
+					ok = NO}break;
+				case 0:{
+					arg = [arg substringWithRange:0 len:i]}break;
+				case 13:{
+					arg = [arg substringWithRange:0 len:i]}break;
+				case 10:{
 					arg = [arg substringWithRange:0 len:i]}break;
 			}
 		}

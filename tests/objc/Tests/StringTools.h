@@ -13,7 +13,7 @@
 
 + (NSMutableString*) urlEncode:(NSMutableString*)s;
 + (NSMutableString*) urlDecode:(NSMutableString*)s;
-+ (NSMutableString*) htmlEscape:(NSMutableString*)s;
++ (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(id)quotes;
 + (NSMutableString*) htmlUnescape:(NSMutableString*)s;
 + (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start;
 + (BOOL) endsWith:(NSMutableString*)s end:(NSMutableString*)end;
@@ -21,12 +21,10 @@
 + (NSMutableString*) ltrim:(NSMutableString*)s;
 + (NSMutableString*) rtrim:(NSMutableString*)s;
 + (NSMutableString*) trim:(NSMutableString*)s;
-+ (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
 + (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
++ (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
 + (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by;
 + (NSMutableString*) hex:(int)n digits:(id)digits;
-+ (int) fastCodeAt:(NSMutableString*)s index:(int)index;
-+ (BOOL) isEOF:(int)c;
 
 @end
 

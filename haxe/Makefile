@@ -29,8 +29,8 @@ RELDIR=../../..
 EXPORT=../../../projects/motionTools/haxe
 
 MODULES=ast type lexer common genxml parser typecore optimizer typeload \
-	codegen genas3 gencommon gencpp genjs genneko genphp genswf8 \
-	gencs genjava genobjc genswf9 genswf interp typer dce main
+	codegen gencommon genas3 gencpp genjs genneko genphp genswf8 \
+	genswf9 genswf genjava gencs genobjc interp typer matcher dce main
 
 HAXE_LIBRARY_PATH=$(CURDIR)/std
 
@@ -66,7 +66,7 @@ codegen.cmx: typeload.cmx typecore.cmx type.cmx genxml.cmx common.cmx ast.cmx
 
 common.cmx: type.cmx ast.cmx
 
-dce.cmx: ast.cmx common.cmx type.cmx typecore.cmx
+dce.cmx: ast.cmx common.cmx type.cmx
 
 genas3.cmx: type.cmx common.cmx codegen.cmx ast.cmx
 
@@ -96,7 +96,9 @@ genxml.cmx: type.cmx lexer.cmx common.cmx ast.cmx
 
 interp.cmx: typecore.cmx type.cmx lexer.cmx genneko.cmx common.cmx codegen.cmx ast.cmx genswf.cmx parser.cmx
 
-main.cmx: dce.cmx typer.cmx typeload.cmx typecore.cmx type.cmx parser.cmx optimizer.cmx lexer.cmx interp.cmx genxml.cmx genswf.cmx genphp.cmx genneko.cmx genjs.cmx genjava.cmx gencs.cmx gencpp.cmx genas3.cmx genobjc.cmx common.cmx codegen.cmx ast.cmx
+matcher.cmx: optimizer.cmx codegen.cmx typecore.cmx type.cmx typer.cmx common.cmx ast.cmx
+
+main.cmx: dce.cmx matcher.cmx typer.cmx typeload.cmx typecore.cmx type.cmx parser.cmx optimizer.cmx lexer.cmx interp.cmx genxml.cmx genswf.cmx genphp.cmx genneko.cmx genjs.cmx gencpp.cmx genas3.cmx common.cmx codegen.cmx ast.cmx gencommon.cmx genobjc.cmx
 
 optimizer.cmx: typecore.cmx type.cmx parser.cmx common.cmx ast.cmx
 

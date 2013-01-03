@@ -21,14 +21,23 @@
 			$r = [DateTools __format:d f:@"%m/%d/%y"]}break;
 		case @"e":{
 			$r = [Std string:[d getDate]]}break;
-		case @"H":case @"k":{
+		case @"H":{
 			$r = [StringTools lpad:[Std string:[d getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
-		case @"I":case @"l":{
+		case @"k":{
+			$r = [StringTools lpad:[Std string:[d getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
+		case @"I":{
 			$r = - (NSMutableString*) int hour = [d getHours] % 12
 			$r2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
 			return $r2{
 				
 				NSMutableString* $r2}
+			}()}break;
+		case @"l":{
+			$r = - (NSMutableString*) int hour = [d getHours] % 12
+			$r3 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
+			return $r3{
+				
+				NSMutableString* $r3}
 			}()}break;
 		case @"m":{
 			$r = [StringTools lpad:[Std string:[d getMonth] + 1] c:@"0" l:2]}break;
@@ -52,10 +61,10 @@
 			$r = [DateTools __format:d f:@"%H:%M:%S"]}break;
 		case @"u":{
 			$r = - (NSMutableString*) int t = [d getDay]
-			$r3 = ( (t == 0) ? @"7" : [Std string:t])
-			return $r3{
+			$r4 = ( (t == 0) ? @"7" : [Std string:t])
+			return $r4{
 				
-				NSMutableString* $r3}
+				NSMutableString* $r4}
 			}()}break;
 		case @"w":{
 			$r = [Std string:[d getDay]]}break;
@@ -65,9 +74,9 @@
 			$r = [Std string:[d getFullYear]]}break;
 		default:{
 			$r = - (NSMutableString*) @throw [[@"Date.format %" stringByAppendingString:e] stringByAppendingString:@"- not implemented yet."]
-			return $r4{
+			return $r5{
 				
-				NSMutableString* $r4}
+				NSMutableString* $r5}
 			}()}break
 	}
 	return $r{

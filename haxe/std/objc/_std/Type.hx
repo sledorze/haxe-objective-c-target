@@ -110,44 +110,41 @@ enum ValueType {
 	}
 
 	public static function getClassFields( c : Class<Dynamic> ) : Array<String> {
-			return untyped c.GetClassFields();
+		return untyped c.GetClassFields();
 	}
 
 	public static function getEnumConstructs( e : Enum<Dynamic> ) : Array<String> untyped {
-			return untyped e.GetClassFields();
+		return untyped e.GetClassFields();
 	}
 
 	public static function typeof( v : Dynamic ) : ValueType untyped {
-			if (v==null) return TNull;
-			var t:Int = untyped v.__GetType();
-			switch(t)
-			{
-				case untyped __global__.vtBool : return TBool;
-				case untyped __global__.vtInt : return TInt;
-				case untyped __global__.vtFloat : return TFloat;
-				case untyped __global__.vtFunction : return TFunction;
-				case untyped __global__.vtObject : return TObject;
-				case untyped __global__.vtEnum : return TEnum(v.__GetClass());
-				default:
-					return untyped TClass(v.__GetClass());
-			}
+/*		http://stackoverflow.com/questions/2518761/get-type-of-nsnumber*/
+		if (v==null) return TNull;
+/*		if (v.isKindOfClass ( Bool.class() )) return TBool;
+		else if (v.isKindOfClass ( Int.class() )) return TInt;
+		else if (v.isKindOfClass ( Float.class() )) return TFloat;
+		else if (v.isKindOfClass ( TFunction.class() )) return TFunction;
+		else if (v.isKindOfClass ( TObject.class() )) return TObject;
+		else if (v.isKindOfClass ( Int.class() )) return TEnum ( v.class() );*/
+		//return TClass ( v.class() );
+		return TNull;
 	}
 
 	public static function enumEq<T>( a : T, b : T ) : Bool untyped {
-			return a==b;
+		return a==b;
 	}
 
 	public static function enumConstructor( e : EnumValue ) : String {
-			return untyped e.__Tag();
+		return untyped e.__Tag();
 	}
 
 	public static function enumParameters( e : EnumValue ) : Array<Dynamic> {
-			var result : Array<Dynamic> =  untyped e.__EnumParams();
-			return result==null ? [] : result;
+		var result : Array<Dynamic> =  untyped e.__EnumParams();
+		return result==null ? [] : result;
 	}
 
 	public inline static function enumIndex( e : EnumValue ) : Int {
-			return untyped e.__Index();
+		return untyped e.__Index();
 	}
 
 	public static function allEnums<T>( e : Enum<T> ) : Array<T> {

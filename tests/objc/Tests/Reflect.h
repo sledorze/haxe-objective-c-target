@@ -14,9 +14,6 @@
 
 + (BOOL) hasField:(id)o field:(NSMutableString*)field;
 + (id) field:(id)o field:(NSMutableString*)field;
-+ (void) setField:(id)o field:(NSMutableString*)field value:(id)value;
-+ (id) getProperty:(id)o field:(NSMutableString*)field;
-+ (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value;
 + (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args;
 + (NSMutableArray*) fields:(id)o;
 + (BOOL) isFunction:(id)f;
@@ -25,7 +22,6 @@
 + (BOOL) isObject:(id)v;
 + (BOOL) deleteField:(id)o f:(NSMutableString*)f;
 + (id) copy:(id)o;
-+ (id) makeVarArgs:(SEL*)f;
 
 @end
 

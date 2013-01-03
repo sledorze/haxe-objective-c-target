@@ -12,7 +12,5 @@
 + (void) trace:(id)v infos:(id)infos{
 	NSLog (@"%@:%@: %@", [infos objectForKey:@"fileName"], [infos objectForKey:@"lineNumber"], v);
 }
-+ (void) clear{
-}
 
 @end

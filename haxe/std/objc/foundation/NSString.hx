@@ -154,7 +154,7 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 //+ (const NSStringEncoding *)availableStringEncodings;
 //+ (NSString *)localizedNameOfStringEncoding:(NSStringEncoding)encoding;
 
-	public function init () :NSString;
+	override public function init () :NSString;
 	public function initWithCharactersNoCopy (characters:String, length:Int, freeWhenDone:Bool) :NSString;
 	public function initWithCharacters (characters:String, length:Int) :NSString;
 	public function initWithUTF8String (nullTerminatedCString:String) :NSString;

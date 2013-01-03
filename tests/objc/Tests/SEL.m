@@ -9,9 +9,5 @@
 
 @implementation SEL
 
-- (id) init:(id)sel{
-	self = [super init];
-	return self;
-}
 
 @end

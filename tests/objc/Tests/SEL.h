@@ -10,7 +10,6 @@
 
 @interface SEL : NSObject
 
-- (id) init:(id)sel;
 
 @end
 

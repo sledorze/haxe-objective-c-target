@@ -32,7 +32,7 @@ extern class NSDate extends NSObject, implements NSCopying, implements NSSecureC
 	public  function isEqualToDate (otherDate:NSDate) :Bool;
 	public  function descriptionWithLocale( locale:Dynamic):String;
 	
-	public  function init() :NSDate;
+	override public function init() :NSDate;
 	public  function initWithTimeIntervalSinceNow( secs:NSTimeInterval) :NSDate;
 	public  function initWithTimeIntervalSinceReferenceDate( secsToBeAdded:NSTimeInterval) :NSDate;
 	public  function initWithTimeIntervalSince1970( ti:NSTimeInterval) :NSDate;

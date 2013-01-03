@@ -55,6 +55,6 @@ extern class NSIndexSet extends NSObject, implements NSCopying, implements NSMut
 	public  function addIndexesInRange( range:NSRange):Void;
 	public  function enumerateIndexesUsingBlock( block:Dynamic):Void;
 	public  function containsIndexesInRange( range:NSRange):Bool;
-	public  function init():Dynamic;
+	override public  function init():Dynamic;
 }
 
