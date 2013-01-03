@@ -48,7 +48,7 @@
 	public static function random( x : Int ) : Int {
 		if (x <= 0) return 0;
 /*		include <time.h>
-		include <stdlib.h>*/
+		include <stdlib.h> ? */
 		untyped __objc__("srand(time(NULL))");
 		return untyped __objc__("rand() % x");
 	}

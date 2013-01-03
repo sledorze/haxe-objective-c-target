@@ -7,7 +7,6 @@
 
 
 
-#import "StdTypes.h"
 #import "Sys.h"
 #import "Input.h"
 #import "FileInput.h"

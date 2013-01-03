@@ -12,7 +12,6 @@ typedef enum{
 } Color;
 
 
-#import "StdTypes.h"
 
 @interface Tests3 : NSObject
 

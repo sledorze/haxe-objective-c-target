@@ -16,7 +16,6 @@ typedef enum{
 
 #import <Foundation/Foundation.h>
 
-#import "StdTypes.h"
 #import "Array.h"
 #import "Tests.h"
 #import "Lib.h"
@@ -94,7 +93,6 @@ typedef enum{
 
 
 
-#import "StdTypes.h"
 #import "Array.h"
 
 @interface Tests2 : NSObject

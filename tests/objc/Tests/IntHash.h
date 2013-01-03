@@ -7,7 +7,6 @@
 
 
 
-#import "StdTypes.h"
 #import "Array.h"
 
 @interface NSMutableDictionary ( IntHash )

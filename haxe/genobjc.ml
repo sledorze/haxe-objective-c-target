@@ -82,6 +82,7 @@ class importsManager =
 	val mutable class_frameworks : string list = []
 	val mutable class_imports : path list = []
 	method add_class_path class_path = match class_path with
+		| ([],"StdTypes")
 		| ([],"Int")
 		| ([],"Float")
 		| ([],"String")

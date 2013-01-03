@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #import "Timer.h"
-#import "StdTypes.h"
 #import "Array.h"
 #import "T.h"
 #import "Log.h"

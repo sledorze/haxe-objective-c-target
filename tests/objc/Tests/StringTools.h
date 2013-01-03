@@ -7,7 +7,6 @@
 
 
 
-#import "StdTypes.h"
 #import "StringTools.h"
 
 @interface StringTools : NSObject

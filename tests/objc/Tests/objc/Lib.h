@@ -7,7 +7,6 @@
 
 
 
-#import "StdTypes.h"
 #import "Lib.h"
 
 @interface Lib : NSObject
