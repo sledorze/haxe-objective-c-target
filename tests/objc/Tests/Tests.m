@@ -46,14 +46,14 @@
 	int g = (int)5.3;
 	id g1 = (id)6.3;
 	id g2 = (id)a;
-	int xy = a.length;
-	[a push:@"6"];
-	if (a.length > 3) f = 3
-	else f = a.length;
-	f = ( (a.length > 3) ? 3 : a.length);
-	int x = [[[Tests alloc] init] add:1 b:1];
-	[Lib print:@"print print and print again"];
-	[Lib println:@"print print and print again"];
+	int xy = a.FA_ .length;
+	[a FA_  push:@"6"];
+	if (a.FA_ .length > 3) f = 3
+	else f = a.FA_ .length;
+	f = ( (a.FA_ .length > 3) ? 3 : a.FA_ .length);
+	int x = [[[Tests alloc] init] FA_  add:1 b:1];
+	[LibFA_TAnon_ FA_  print:@"print print and print again"];
+	[LibFA_TAnon_ FA_  println:@"print print and print again"];
 }
 - (void) testingFor{
 	
@@ -62,29 +62,29 @@
 		int _g = 0;
 		while (_g < 5) {
 			int i = _g++;
-			[aa push:i];
+			[aa FA_  push:i];
 		}
 	}
 	{
-		int _g1 = 0; int _g = aa.length;
+		int _g1 = 0; int _g = aa.FA_ .length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			[aa push:i];
+			[aa FA_  push:i];
 		}
 	}
 	{
 		int _g = 0;
-		while (_g < aa.length) {
+		while (_g < aa.FA_ .length) {
 			int i = [aa objectAtIndex:_g];
 			++_g;
-			[aa push:i];
+			[aa FA_  push:i];
 		}
 	}
 }
 - (void) testWhile{
 	int aa = 5;
 	do {
-		[Log trace:@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"95",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[LogFA_TAnon_ FA_  trace:@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"95",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
 	while (aa > 0) aa--;
@@ -94,7 +94,7 @@
 		int a = 3;
 	}
 	@catch (NSException *e) {
-		[Log trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"112",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[LogFA_TAnon_ FA_  trace:@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"112",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
 - (void) testSwitch{
@@ -118,91 +118,91 @@
 	float aaa = [aa objectAtIndex:2];
 	[aa objectAtIndex:3];
 	
-	NSMutableArray *concatArray = [as concat:[[NSMutableArray alloc] initWithObjects:@"5", @"6", @"7", nil]]];
-	concatArray = [as copy];
-	[concatArray insert:2 x:@"2"];
+	NSMutableArray *concatArray = [as FA_  concat:[[NSMutableArray alloc] initWithObjects:@"5", @"6", @"7", nil]]];
+	concatArray = [as FA_  copy];
+	[concatArray FA_  insert:2 x:@"2"];
 	
-	id_anon *iter = [as iterator];
+	id_anon *iter = [as FA_  iterator];
 	
-	NSMutableString *s = [concatArray join:@", "];
+	NSMutableString *s = [concatArray FA_  join:@", "];
 	
-	NSMutableString *item = [as pop];
-	[as push:@"454"];
-	BOOL bool = [as remove:@"5"];
-	[as reverse];
-	item = [as shift];
+	NSMutableString *item = [as FA_  pop];
+	[as FA_  push:@"454"];
+	BOOL bool = [as FA_  remove:@"5"];
+	[as FA_  reverse];
+	item = [as FA_  shift];
 	
-	NSMutableArray *sliceArray = [as slice:1 end:3];
-	[as sort:^(int):(NSMutableString*)a b:(NSMutableString*)b{
+	NSMutableArray *sliceArray = [as FA_  slice:1 end:3];
+	[as FA_  sort:^(int):(NSMutableString*)a b:(NSMutableString*)b{
 		return 0;
 	}];
-	sliceArray = [as splice:2 len:2];
-	s = [as toString];
-	[as unshift:@"44"];
+	sliceArray = [as FA_  splice:2 len:2];
+	s = [as FA_  toString];
+	[as FA_  unshift:@"44"];
 }
 - (void) testDate{
 	
 	NSDate *d = [[NSDate alloc] init:2012 month:11 day:13 hour:19 min:30 sec:0];
-	int _int = [d getDate];
-	_int = [d getDay];
-	_int = [d getFullYear];
-	_int = [d getHours];
-	_int = [d getMinutes];
-	_int = [d getMonth];
-	_int = [d getSeconds];
-	float _float = [d getTime];
+	int _int = [d  getDate];
+	_int = [d  getDay];
+	_int = [d  getFullYear];
+	_int = [d  getHours];
+	_int = [d  getMinutes];
+	_int = [d  getMonth];
+	_int = [d  getSeconds];
+	float _float = [d  getTime];
 	
-	NSMutableString *str = [d toString];
+	NSMutableString *str = [d  toString];
 	
-	NSDate *d2 = [NSDate fromString:@"2012-12-12 06:40:00"];
-	d2 = [NSDatefromTime:120000];
-	d2 = [NSDatenow];
-	int x = [DateTools getMonthDays:d2];
-	_float = [DateTools days:5];
+	NSDate *d2 = [NSDateFA_TAnon_  fromString:@"2012-12-12 06:40:00"];
+	d2 = [NSDateFA_TAnon_ fromTime:120000];
+	d2 = [NSDateFA_TAnon_ now];
+	int x = [DateToolsFA_TAnon_ FA_  getMonthDays:d2];
+	_float = [DateToolsFA_TAnon_ FA_  days:5];
 	
-	NSDate *d3 = [DateTools delta:d t:1000.0];
-	str = [DateTools format:d f:@"HH:mm"];
-	_int = [DateTools getMonthDays:d];
-	_float = [DateTools hours:1000];
-	_float = [DateTools make:struct {
+	NSDate *d3 = [DateToolsFA_TAnon_ FA_  delta:d t:1000.0];
+	str = [DateToolsFA_TAnon_ FA_  format:d f:@"HH:mm"];
+	_int = [DateToolsFA_TAnon_ FA_  getMonthDays:d];
+	_float = [DateToolsFA_TAnon_ FA_  hours:1000];
+	_float = [DateToolsFA_TAnon_ FA_  make:struct {
 	seconds:0; ms:(float)110; minutes:6; hours:8; days:5
 	} structName];
-	_float = [DateTools minutes:56];
+	_float = [DateToolsFA_TAnon_ FA_  minutes:56];
 	
-	id_anon *obj = [DateTools parse:45546];
-	_float = [DateTools seconds:1000];
+	id_anon *obj = [DateToolsFA_TAnon_ FA_  parse:45546];
+	_float = [DateToolsFA_TAnon_ FA_  seconds:1000];
 }
 - (int) enumToInt:(Tests*)c{
-	[self testEnum:TestsEnumExtern-GFA2-ExternEnumValue1];
+	[self FA_  testEnum:TestsEnumExternFA_TAnon_ -GFA2-ExternEnumValue1];
 	return ((int)($this:(snd ctx.path)) 
 	var $e2 : enum =  (c)
 	switch ( $e2.index ) {
 		
 		case 0:
 		{
-			$r = 16711680}break
+			__r__ = 16711680}break
 		case 1:
 		{
-			$r = 65280}break
+			__r__ = 65280}break
 		case 2:
 		{
-			$r = 255}break
+			__r__ = 255}break
 		case 3:
 		
 		var MATCH c_eGrey_0 : int = $e2.params[0]{
-			$r = ((c_eGrey_0 << 16 | c_eGrey_0 << 8) | c_eGrey_0)}break
+			__r__ = ((c_eGrey_0 << 16 | c_eGrey_0 << 8) | c_eGrey_0)}break
 		case 4:
 		
 		var MATCH c_eRgb_2 : int = $e2.params[2], MATCH c_eRgb_1 : int = $e2.params[1], MATCH c_eRgb_0 : int = $e2.params[0]{
-			$r = ((c_eRgb_0 << 16 | c_eRgb_1 << 8) | c_eRgb_2)}break
+			__r__ = ((c_eRgb_0 << 16 | c_eRgb_1 << 8) | c_eRgb_2)}break
 		case 5:
 		
 		var MATCH c_eAlpha_1 : Tests = $e2.params[1], MATCH c_eAlpha_0 : int = $e2.params[0]{
-			$r = (c_eAlpha_0 << 24 | ([self enumToInt:c_eAlpha_1] & 16777215))}break
+			__r__ = (c_eAlpha_0 << 24 | ([self FA_  enumToInt:c_eAlpha_1] & 16777215))}break
 	}
-	return $r{
+	return __r__{
 		
-		int* $r}
+		int* __r__}
 	}(self));
 }
 - (void) testEnum:(Object*)v{
@@ -212,144 +212,144 @@
 		
 		case 0:
 		{
-			$r = 5}break
+			__r__ = 5}break
 		case 1:
 		{
-			$r = 6}break
+			__r__ = 6}break
 		case 2:
 		{
-			$r = 7}break
+			__r__ = 7}break
 	}
-	return $r{
+	return __r__{
 		
-		int* $r}
+		int* __r__}
 	}(self));
 	
-	Tests *red = Color2-GFA2-Red2;
+	Tests *red = Color2FA_TAnon_ -GFA2-Red2;
 	int j = ((int)($this:(snd ctx.path)) 
 	var $e4 : enum =  (red)
 	switch ( $e4.index ) {
 		
 		case 0:
 		{
-			$r3 = 5}break
+			__r__3 = 5}break
 		case 1:
 		{
-			$r3 = 6}break
+			__r__3 = 6}break
 		case 2:
 		{
-			$r3 = 7}break
+			__r__3 = 7}break
 	}
-	return $r3{
+	return __r__3{
 		
-		int* $r3}
+		int* __r__3}
 	}(self));
 }
 - (void) testEReg{
 	
 	EReg *ereg = [[EReg alloc] init:@"ytrytrevev76" opt:@"099"];
 	
-	NSMutableString *s = [ereg customReplace:@"s" f:^(NSMutableString*):(EReg*)e{
+	NSMutableString *s = [ereg FA_  customReplace:@"s" f:^(NSMutableString*):(EReg*)e{
 		return @"ss";
 	}];
-	BOOL b = [ereg match:@"s"];
-	s = [ereg matched:5];
-	s = [ereg matchedLeft];
+	BOOL b = [ereg FA_  match:@"s"];
+	s = [ereg FA_  matched:5];
+	s = [ereg FA_  matchedLeft];
 	
-	id_anon *o = [ereg matchedPos];
-	s = [ereg matchedRight];
-	s = [ereg replace:@"s" by:@"by"];
+	id_anon *o = [ereg FA_  matchedPos];
+	s = [ereg FA_  matchedRight];
+	s = [ereg FA_  replace:@"s" by:@"by"];
 	
-	NSMutableArray *arr = [ereg split:@","];
+	NSMutableArray *arr = [ereg FA_  split:@","];
 }
 - (void) testHash{
 	
 	Hash *h = [[Hash alloc] init];
-	[h set:@"key" value:@"value"];
-	[h get:@"key"];
-	[h remove:@"key"];
-	BOOL b = [h exists:@"key"];
+	[h FA_  set:@"key" value:@"value"];
+	[h FA_  get:@"key"];
+	[h FA_  remove:@"key"];
+	BOOL b = [h FA_  exists:@"key"];
 	
-	id_anon *arr = [h keys];
+	id_anon *arr = [h FA_  keys];
 	
-	id_anon *iter = [h iterator];
+	id_anon *iter = [h FA_  iterator];
 	
-	NSMutableString *str = [h toString];
+	NSMutableString *str = [h FA_  toString];
 	
 	IntHash *hi = [[IntHash alloc] init];
-	[hi set:0 value:@"value"];
-	[hi get:0];
-	[hi remove:0];
-	BOOL bi = [hi exists:0];
+	[hi FA_  set:0 value:@"value"];
+	[hi FA_  get:0];
+	[hi FA_  remove:0];
+	BOOL bi = [hi FA_  exists:0];
 	
-	id_anon *arri = [hi keys];
+	id_anon *arri = [hi FA_  keys];
 	
-	id_anon *iteri = [hi iterator];
+	id_anon *iteri = [hi FA_  iterator];
 	
-	NSMutableString *stri = [hi toString];
+	NSMutableString *stri = [hi FA_  toString];
 }
 - (void) testLambda{
 	
-	NSMutableArray *a = [Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]]];
+	NSMutableArray *a = [LambdaFA_TAnon_ FA_  array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]]];
 	
-	List *l = [Lambda concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]]];
+	List *l = [LambdaFA_TAnon_ FA_  concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]]];
 }
 - (void) testList{
 	
 	List *l = [[List alloc] init];
-	[l add:2];
-	[l push:18];
+	[l FA_  add:2];
+	[l FA_  push:18];
 	
-	List *l2 = [l filter:^(BOOL):(int)i{
+	List *l2 = [l FA_  filter:^(BOOL):(int)i{
 		return i > 5;
 	}];
-	int item = [l first];
-	BOOL empty = [l isEmpty];
+	int item = [l FA_  first];
+	BOOL empty = [l FA_  isEmpty];
 	
-	id_anon *iter = [l iterator];
+	id_anon *iter = [l FA_  iterator];
 	
-	NSMutableString *s = [l join:@", "];
-	s = [l toString];
-	item = [l last];
-	item = [l pop];
-	BOOL r = [l remove:5];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"292",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
-	[l clear];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"294",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	NSMutableString *s = [l FA_  join:@", "];
+	s = [l FA_  toString];
+	item = [l FA_  last];
+	item = [l FA_  pop];
+	BOOL r = [l FA_  remove:5];
+	[LogFA_TAnon_ FA_  trace:l FA_  length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"292",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[l FA_  clear];
+	[LogFA_TAnon_ FA_  trace:l FA_  length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"294",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
-	List *newList = [l map:^(NSMutableString*):(int)i{
-		return [Std string:i];
+	List *newList = [l FA_  map:^(NSMutableString*):(int)i{
+		return [StdFA_TAnon_ FA_  string:i];
 	}];
 	
 	FastList *fl = [[FastList alloc] init];
-	fl.head = [[FastCell alloc] init:8 next:fl head];
+	fl.FA_ .head = [[FastCell alloc] init:8 next:fl FA_  head];
 }
 - (void) testMath{
-	float pi = M_PI;
-	float max = -DBL_MAX;
-	float min = DBL_MAX;
-	float nan = NAN;
-	float x = sqrtf(5);
-	x = fabsf(5);
-	x = fmaxf(5, 45555);
-	x = fminf(5, 45555);
-	x = sinf(5);
-	x = cosf(5);
-	x = atan2f(5, 3);
-	x = tanf(5);
-	x = expf(5);
-	x = logf(5);
-	x = sqrtf(5);
-	int xr = roundf(5);
-	xr = floorf(5);
-	xr = ceilf(5);
-	x = atanf(5);
-	x = asinf(5);
-	x = acosf(5);
-	x = powf(5, 4);
-	x = rand() * 5;
-	BOOL b = isfinite(45454);
-	b = isnan(45454);
+	float pi = FA_TAnon_ M_PI;
+	float max = FA_TAnon_ -DBL_MAX;
+	float min = FA_TAnon_ DBL_MAX;
+	float nan = FA_TAnon_ NAN;
+	float x = FA_TAnon_ sqrtf(5);
+	x = FA_TAnon_ fabsf(5);
+	x = FA_TAnon_ fmaxf(5, 45555);
+	x = FA_TAnon_ fminf(5, 45555);
+	x = FA_TAnon_ sinf(5);
+	x = FA_TAnon_ cosf(5);
+	x = FA_TAnon_ atan2f(5, 3);
+	x = FA_TAnon_ tanf(5);
+	x = FA_TAnon_ expf(5);
+	x = FA_TAnon_ logf(5);
+	x = FA_TAnon_ sqrtf(5);
+	int xr = FA_TAnon_ roundf(5);
+	xr = FA_TAnon_ floorf(5);
+	xr = FA_TAnon_ ceilf(5);
+	x = FA_TAnon_ atanf(5);
+	x = FA_TAnon_ asinf(5);
+	x = FA_TAnon_ acosf(5);
+	x = FA_TAnon_ powf(5, 4);
+	x = FA_TAnon_ rand() * 5;
+	BOOL b = FA_TAnon_ isfinite(45454);
+	b = FA_TAnon_ isnan(45454);
 	float j = x + xr;
 	j += x;
 	float k = ( (b) ? -x : x);
@@ -359,79 +359,79 @@
 	id_anon *obj = struct {
 	a:@"aaaaa"
 	} structName;
-	BOOL b = [Reflect hasField:obj field:@"a"];
-	id f = [Reflect field:obj field:@"a"];
-	if (obj != nil) [obj-GFA2-__SetField-TDynamic];
-	[self __SetField-TDynamic];
-	id p = (id)[self __Field-TDynamic];
-	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]]];
-	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
+	BOOL b = [ReflectFA_TAnon_ FA_  hasField:obj field:@"a"];
+	id f = [ReflectFA_TAnon_ FA_  field:obj field:@"a"];
+	if (obj != nil) [objFA_TAnon_ -GFA2-__SetField-TDynamic];
+	[self FA_  __SetField-TDynamic];
+	id p = (id)[self FA_  __Field-TDynamic];
+	[ReflectFA_TAnon_ FA_  callMethod:self func:self FA_  testStd args:[[NSMutableArray alloc] initWithObjects:, nil]]];
+	[ReflectFA_TAnon_ FA_  callMethod:self func:self FA_  callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
 	
-	NSMutableArray *fs = [Reflect fields:obj];
-	BOOL isf = [Reflect isFunction:self testStd];
-	int i = [Reflect compare:1 b:2];
-	BOOL cm = [Reflect compareMethods:self testStd f2:self testString];
-	BOOL isobj = [Reflect isObject:obj];
-	isobj = [Reflect isObject:self testStd];
-	[Reflect deleteField:obj f:@"a"];
+	NSMutableArray *fs = [ReflectFA_TAnon_ FA_  fields:obj];
+	BOOL isf = [ReflectFA_TAnon_ FA_  isFunction:self FA_  testStd];
+	int i = [ReflectFA_TAnon_ FA_  compare:1 b:2];
+	BOOL cm = [ReflectFA_TAnon_ FA_  compareMethods:self FA_  testStd f2:self FA_  testString];
+	BOOL isobj = [ReflectFA_TAnon_ FA_  isObject:obj];
+	isobj = [ReflectFA_TAnon_ FA_  isObject:self FA_  testStd];
+	[ReflectFA_TAnon_ FA_  deleteField:obj f:@"a"];
 	
-	id_anon *obj2 = [Reflect copy:obj];
+	id_anon *obj2 = [ReflectFA_TAnon_ FA_  copy:obj];
 }
 - (void) testStd{
 	int _int = 3;
-	BOOL _BOOL = [Std is:self d1 t:float];
-	float _float = [Std parseFloat:@"55454.65"];
-	_int = [Std parseInt:@"435345.23"];
-	_int = [Std random:543];
+	BOOL _BOOL = [StdFA_TAnon_ FA_  is:self FA_  d1 t:float];
+	float _float = [StdFA_TAnon_ FA_  parseFloat:@"55454.65"];
+	_int = [StdFA_TAnon_ FA_  parseInt:@"435345.23"];
+	_int = [StdFA_TAnon_ FA_  random:543];
 	
-	NSMutableString *string = [Std string:_int];
+	NSMutableString *string = [StdFA_TAnon_ FA_  string:_int];
 }
 - (void) testString{
 	
 	NSMutableString *string = [[NSMutableString alloc] init:@"abcdefghijklmnopqrstuvwxyz"];
-	int len = stringlength;
+	int len = string.length;
 	
-	NSMutableString *s = [string characterAtIndex:5];
-	int ch = [string characterAtIndex:5];
-	int i = [string rangeOfString:@"abc" startIndex:nil];
-	int i1 = [string rangeOfString:@"abc" startIndex:2];
-	int li = [string rangeOfString options:NSBackwardsSearch:@"abc" startIndex:nil];
+	NSMutableString *s = [string  characterAtIndex:5];
+	int ch = [string  characterAtIndex:5];
+	int i = [string  rangeOfString:@"abc" startIndex:nil];
+	int i1 = [string  rangeOfString:@"abc" startIndex:2];
+	int li = [string  rangeOfString options:NSBackwardsSearch:@"abc" startIndex:nil];
 	
-	NSMutableArray *components = [string componentsSeparatedByString:@"-"];
+	NSMutableArray *components = [string  componentsSeparatedByString:@"-"];
 	
-	NSMutableString *s2 = [string substringWithRange:5 len:nil];
-	s2 = [string substringWithRange:5 len:len];
-	s2 = [string substringWithRange:5 endIndex:nil];
-	s2 = [string substringWithRange:1 endIndex:len];
-	s2 = [string lowercaseString];
-	s2 = [string uppercaseString];
-	s2 = [string description];
+	NSMutableString *s2 = [string  substringWithRange:5 len:nil];
+	s2 = [string  substringWithRange:5 len:len];
+	s2 = [string  substringWithRange:5 endIndex:nil];
+	s2 = [string  substringWithRange:1 endIndex:len];
+	s2 = [string  lowercaseString];
+	s2 = [string  uppercaseString];
+	s2 = [string  description];
 	
 	NSMutableString *s3 = @"\t";
 	
 	StringBuf *buf = [[StringBuf alloc] init];
-	[buf.b appendString:@"abc"];
-	[buf.b appendString:@""];
-	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:5 len:nil];
-	buf.b += [@"abcdefghijklmnopqerstuvwxyz" substringWithRange:5 len:10];
+	[buf.FA_ .b appendString:@"abc"];
+	[buf.FA_ .b appendString:@""];
+	buf.FA_ .b += [@"abcdefghijklmnopqerstuvwxyz"  substringWithRange:5 len:nil];
+	buf.FA_ .b += [@"abcdefghijklmnopqerstuvwxyz"  substringWithRange:5 len:10];
 	
-	NSMutableString *strbuf = buf.b;
+	NSMutableString *strbuf = buf.FA_ .b;
 	
-	NSMutableString *st = [StringTools urlEncode:@"http://imagin.ro/Gorgeous Elena/2"];
-	st = [StringTools urlDecode:@"http://imagin.ro/Gorgeous Elena/2"];
-	st = [StringTools htmlEscape:@"<a href= &>" quotes:nil];
-	st = [StringTools htmlUnescape:@"<a href= &>"];
-	st = [StringTools ltrim:@" abcdefgh"];
-	st = [StringTools rtrim:@"abcdefgh "];
-	st = [StringTools trim:@" abcdefgh "];
-	st = [StringTools rpad:@"abcdefgh" c:@"0" l:10];
-	st = [StringTools lpad:@"abcdefgh" c:@"0" l:10];
-	st = [StringTools replace:@"abcdefgh" sub:@"abc" by:@"_abc"];
-	BOOL b = [StringTools startsWith:@"abcdefg" start:@"abc"];
-	b = [StringTools endsWith:@"abcdefg" end:@"efg"];
-	b = [StringTools isSpace:@"abcdefg" pos:3];
+	NSMutableString *st = [StringToolsFA_TAnon_ FA_  urlEncode:@"http://imagin.ro/Gorgeous Elena/2"];
+	st = [StringToolsFA_TAnon_ FA_  urlDecode:@"http://imagin.ro/Gorgeous Elena/2"];
+	st = [StringToolsFA_TAnon_ FA_  htmlEscape:@"<a href= &>" quotes:nil];
+	st = [StringToolsFA_TAnon_ FA_  htmlUnescape:@"<a href= &>"];
+	st = [StringToolsFA_TAnon_ FA_  ltrim:@" abcdefgh"];
+	st = [StringToolsFA_TAnon_ FA_  rtrim:@"abcdefgh "];
+	st = [StringToolsFA_TAnon_ FA_  trim:@" abcdefgh "];
+	st = [StringToolsFA_TAnon_ FA_  rpad:@"abcdefgh" c:@"0" l:10];
+	st = [StringToolsFA_TAnon_ FA_  lpad:@"abcdefgh" c:@"0" l:10];
+	st = [StringToolsFA_TAnon_ FA_  replace:@"abcdefgh" sub:@"abc" by:@"_abc"];
+	BOOL b = [StringToolsFA_TAnon_ FA_  startsWith:@"abcdefg" start:@"abc"];
+	b = [StringToolsFA_TAnon_ FA_  endsWith:@"abcdefg" end:@"efg"];
+	b = [StringToolsFA_TAnon_ FA_  isSpace:@"abcdefg" pos:3];
 	
-	NSMutableString *i2 = [StringTools hex:345345 digits:10];
+	NSMutableString *i2 = [StringToolsFA_TAnon_ FA_  hex:345345 digits:10];
 	
 	NSMutableString *sfin = [strbuf stringByAppendingString:st];
 	sfin = [[strbuf stringByAppendingString:st] stringByAppendingString:s2];
@@ -440,40 +440,40 @@
 	sfin = [@"55" stringByAppendingString:@"abc"];
 }
 - (void) testSys{
-	[Sys print:@"hello world"];
-	[Sys println:@"hello world"];
+	[SysFA_TAnon_ FA_  print:@"hello world"];
+	[SysFA_TAnon_ FA_  println:@"hello world"];
 	
-	NSMutableArray *arr = [Sys args];
-	int _int = [Sys command:@"cd" args:[[NSMutableArray alloc] initWithObjects:@"~", nil]]];
-	_int = [Sys command:@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]]];
-	float _float = [Sys cpuTime];
+	NSMutableArray *arr = [SysFA_TAnon_ FA_  args];
+	int _int = [SysFA_TAnon_ FA_  command:@"cd" args:[[NSMutableArray alloc] initWithObjects:@"~", nil]]];
+	_int = [SysFA_TAnon_ FA_  command:@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]]];
+	float _float = [SysFA_TAnon_ FA_  cpuTime];
 	
-	Hash *hash = [Sys environment];
+	Hash *hash = [SysFA_TAnon_ FA_  environment];
 	
-	NSMutableString *string = [Sys executablePath];
-	[Sys exit:0];
-	_int = [Sys getChar:YES];
-	string = [Sys getCwd];
-	string = [Sys getEnv:@"VAR1"];
-	[Sys putEnv:@"VAR1" v:@"val 1"];
-	[Sys setCwd:@"thisdir"];
-	BOOL bool = [Sys setTimeLocale:@"loc"];
-	[Sys sleep:5.5];
+	NSMutableString *string = [SysFA_TAnon_ FA_  executablePath];
+	[SysFA_TAnon_ FA_  exit:0];
+	_int = [SysFA_TAnon_ FA_  getChar:YES];
+	string = [SysFA_TAnon_ FA_  getCwd];
+	string = [SysFA_TAnon_ FA_  getEnv:@"VAR1"];
+	[SysFA_TAnon_ FA_  putEnv:@"VAR1" v:@"val 1"];
+	[SysFA_TAnon_ FA_  setCwd:@"thisdir"];
+	BOOL bool = [SysFA_TAnon_ FA_  setTimeLocale:@"loc"];
+	[SysFA_TAnon_ FA_  sleep:5.5];
 	
-	Output *_out = [Sys stderr];
+	Output *_out = [SysFA_TAnon_ FA_  stderr];
 	
-	Input *_in = [Sys stdin];
-	_out = [Sys stdout];
-	string = [Sys systemName];
-	_float = [Sys time];
+	Input *_in = [SysFA_TAnon_ FA_  stdin];
+	_out = [SysFA_TAnon_ FA_  stdout];
+	string = [SysFA_TAnon_ FA_  systemName];
+	_float = [SysFA_TAnon_ FA_  time];
 }
 - (void) testType{
 	
-	Class *sup = [Type getSuperClass:NSString];
+	Class *sup = [TypeFA_TAnon_ FA_  getSuperClass:NSString];
 	
-	NSMutableString *sups = [Type getClassName:NSString];
+	NSMutableString *sups = [TypeFA_TAnon_ FA_  getClassName:NSString];
 	
-	Class *cl = [Type resolveClass:@"ios.map.MKMapView"];
+	Class *cl = [TypeFA_TAnon_ FA_  resolveClass:@"ios.map.MKMapView"];
 }
 - (void) testXml{
 }
@@ -482,14 +482,14 @@
 	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil]];
 	
 	Timer *timer = [[Timer alloc] init:50];
-	timer.run = self.testXml;
-	[timer stop];
-	timer = [Timer delay:self testTimer time_ms:50];
-	timer = [Timer delay:^(void){
-		[[_g objectAtIndex:0] testTimer];
+	timer.FA_ .run = self.FA_ .testXml;
+	[timer FA_  stop];
+	timer = [TimerFA_TAnon_ FA_  delay:self FA_  testTimer time_ms:50];
+	timer = [TimerFA_TAnon_ FA_  delay:^(void){
+		[[_g objectAtIndex:0] FA_  testTimer];
 	} time_ms:50];
-	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"526",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
-	float f = [Timer stamp];
+	[TimerFA_TAnon_ FA_  measure:self FA_  testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"526",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	float f = [TimerFA_TAnon_ FA_  stamp];
 }
 - (void) testFrameworksImport{
 }
@@ -523,16 +523,16 @@
 }
 - (void) init{
 	int x = 6;
-	self.s = @"init";
+	self.FA_ .s = @"init";
 }
 - (void) printHello{
-	[Log trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"572",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[LogFA_TAnon_ FA_  trace:@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"572",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) init{
 	self = [super init];
-	self.s = @"str";
-	self.d2 = 4.5;
-	self.d1 = 34;
+	self.FA_ .s = @"str";
+	self.FA_ .d2 = 4.5;
+	self.FA_ .d1 = 34;
 	return self;
 }
 
@@ -545,9 +545,9 @@
 }
 - (id) init{
 	self = [super init];
-	self.d1 = 34;
+	self.FA_ .d1 = 34;
 	
-	NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil]];
+	NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.FA_ .d1, self.FA_ .d1, [NSNumber numberWithInt:50], nil]];
 	return self;
 }
 

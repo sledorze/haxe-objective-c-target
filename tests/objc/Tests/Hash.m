@@ -13,40 +13,40 @@
 	[self setObject:value forKey:key];
 }
 - (id) get:(NSMutableString*)key{
-	return [self objectForKey:key];
+	return [self FA_  objectForKey:key];
 }
 - (BOOL) exists:(NSMutableString*)key{
-	return [self objectForKey:key] != nil;
+	return [self FA_  objectForKey:key] != nil;
 }
 - (BOOL) remove:(NSMutableString*)key{
-	if ([self exists:key]) {
-		[self removeObjectForKey:key];
+	if ([self FA_  exists:key]) {
+		[self FA_  removeObjectForKey:key];
 		return YES;
 	}
 	return NO;
 }
 - (id_anon*) keys{
 	
-	NSMutableArray *a = [self allKeys];
-	return [a iterator];
+	NSMutableArray *a = [self FA_  allKeys];
+	return [a FA_  iterator];
 }
 - (id_anon*) iterator{
 	
-	NSMutableArray *a = [self allValues];
+	NSMutableArray *a = [self FA_  allValues];
 	
-	NSMutableArray *it = [[NSMutableArray alloc] initWithObjects:[a iterator], nil]];
+	NSMutableArray *it = [[NSMutableArray alloc] initWithObjects:[a FA_  iterator], nil]];
 	
 	NSMutableArray *me = [[NSMutableArray alloc] initWithObjects:self, nil]];
 	return struct {
 	hasNext:^(BOOL){
-		return [[it objectAtIndex:0]-GFA2-hasNext];
+		return [[it objectAtIndex:0]FA_TAnon_ -GFA2-hasNext];
 	}; next:^(id){
-		return [[me objectAtIndex:0] __Internal-GFA2-__Field:[[it objectAtIndex:0]-GFA2-next] :YES];
+		return [[me objectAtIndex:0] FA_  __InternalFA_TAnon_ -GFA2-__Field:[[it objectAtIndex:0]FA_TAnon_ -GFA2-next] :YES];
 	}
 	} structName;
 }
 - (NSMutableString*) toString{
-	return [self description];
+	return [self FA_  description];
 }
 - (id) init{
 	self = [super init];

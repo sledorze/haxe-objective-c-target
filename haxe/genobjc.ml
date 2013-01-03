@@ -743,7 +743,7 @@ and generateFieldAccess ctx etype s to_method =
 			| "min" | "max" | "abs" -> ctx.writer#write ("f" ^ s ^ "f")
 			| _ -> ctx.writer#write (s ^ "f"))
 		
-		| [], "String" ->
+		| [], "String" ->(* ctx.writer#write "FA_TInst_String_"; *)
 			(match s with
 			| "toLowerCase" -> ctx.writer#write " lowercaseString"
 			| "toUpperCase" -> ctx.writer#write " uppercaseString"
@@ -762,7 +762,7 @@ and generateFieldAccess ctx etype s to_method =
 			| "fromTime" -> ctx.writer#write s
 			| _ -> ctx.writer#write ((if ctx.generating_self_access then "." else " ") ^ s))
 		
-		| _ ->
+		| _ -> ctx.writer#write "FA_ ";
 			(* Generating dot notation for property and space for methods *)
 			let accesor = if to_method then
 				(if ctx.generating_self_access then "." else " ")
@@ -774,8 +774,11 @@ and generateFieldAccess ctx etype s to_method =
 			ctx.generating_self_access <- false
 	in
 	match follow etype with
-	| TInst (c,_) -> field c
-	| TAnon a ->
+	(* untyped str.intValue(); *)
+	| TInst (c,_) ->
+		let accessor = if ctx.generating_call then " " else "." in
+		ctx.writer#write accessor; field c
+	| TAnon a ->ctx.writer#write "FA_TAnon_ ";
 		(match !(a.a_status) with
 			(* Generate a static field access *)
 			| Statics c -> field c
@@ -1198,7 +1201,7 @@ and generateValue ctx e =
 	let value block =
 		let old = ctx.in_value in
 		let t = typeToString ctx e.etype e.epos in
-		let r = alloc_var (genLocal ctx "$r") e.etype in
+		let r = alloc_var (genLocal ctx "__r__") e.etype in
 		ctx.in_value <- Some r;
 		if ctx.in_static then
 			ctx.writer#write (Printf.sprintf "- (%s*) " t)

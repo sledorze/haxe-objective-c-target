@@ -15,51 +15,51 @@
 - (void) add:(id)item{
 	
 	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, nil]];
-	if (self.h == nil) self.h = x
-	else [self.q objectAtIndex:1] = x;
-	self.q = x;
-	self.length++;
+	if (self.FA_ .h == nil) self.FA_ .h = x
+	else [self.FA_ .q objectAtIndex:1] = x;
+	self.FA_ .q = x;
+	self.FA_ .length++;
 }
 - (void) push:(id)item{
 	
-	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, self.h, nil]];
-	self.h = x;
-	if (self.q == nil) self.q = x;
-	self.length++;
+	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, self.FA_ .h, nil]];
+	self.FA_ .h = x;
+	if (self.FA_ .q == nil) self.FA_ .q = x;
+	self.FA_ .length++;
 }
 - (id) first{
-	return ( (self.h == nil) ? nil : [self.h objectAtIndex:0]);
+	return ( (self.FA_ .h == nil) ? nil : [self.FA_ .h objectAtIndex:0]);
 }
 - (id) last{
-	return ( (self.q == nil) ? nil : [self.q objectAtIndex:0]);
+	return ( (self.FA_ .q == nil) ? nil : [self.FA_ .q objectAtIndex:0]);
 }
 - (id) pop{
-	if (self.h == nil) return nil;
-	id x = [self.h objectAtIndex:0];
-	self.h = [self.h objectAtIndex:1];
-	if (self.h == nil) self.q = nil;
-	self.length--;
+	if (self.FA_ .h == nil) return nil;
+	id x = [self.FA_ .h objectAtIndex:0];
+	self.FA_ .h = [self.FA_ .h objectAtIndex:1];
+	if (self.FA_ .h == nil) self.FA_ .q = nil;
+	self.FA_ .length--;
 	return x;
 }
 - (BOOL) isEmpty{
-	return self.h == nil;
+	return self.FA_ .h == nil;
 }
 - (void) clear{
-	self.h = nil;
-	self.q = nil;
-	self.length = 0;
+	self.FA_ .h = nil;
+	self.FA_ .q = nil;
+	self.FA_ .length = 0;
 }
 - (BOOL) remove:(id)v{
 	
 	NSMutableArray *prev = nil;
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = self.FA_ .h;
 	while (l != nil) {
 		if ([l objectAtIndex:0] == v) {
-			if (prev == nil) self.h = [l objectAtIndex:1]
+			if (prev == nil) self.FA_ .h = [l objectAtIndex:1]
 			else [prev objectAtIndex:1] = [l objectAtIndex:1];
-			if (self.q == l) self.q = prev;
-			self.length--;
+			if (self.FA_ .q == l) self.FA_ .q = prev;
+			self.FA_ .length--;
 			return YES;
 		}
 		prev = l;
@@ -69,12 +69,12 @@
 }
 - (id_anon*) iterator{
 	return (id_anon*)struct {
-	h:self.h; hasNext:^(id){
-		return self.h != nil;
+	h:self.FA_ .h; hasNext:^(id){
+		return self.FA_ .h != nil;
 	}; next:^(id){
-		if (self.h == nil) return nil;
-		id x = [self.h objectAtIndex:0];
-		self.h = [self.h objectAtIndex:1];
+		if (self.FA_ .h == nil) return nil;
+		id x = [self.FA_ .h objectAtIndex:0];
+		self.FA_ .h = [self.FA_ .h objectAtIndex:1];
 		return x;
 	}
 	} structName;
@@ -84,40 +84,40 @@
 	StringBuf *s = [[StringBuf alloc] init];
 	BOOL first = YES;
 	
-	NSMutableArray *l = self.h;
-	[s.b appendString:@"{"];
+	NSMutableArray *l = self.FA_ .h;
+	[s.FA_ .b appendString:@"{"];
 	while (l != nil) {
 		if (first) first = NO
-		else [s.b appendString:@", "];
-		s.b += [Std string:[Std string:[l objectAtIndex:0]]];
+		else [s.FA_ .b appendString:@", "];
+		s.FA_ .b += [StdFA_TAnon_ FA_  string:[StdFA_TAnon_ FA_  string:[l objectAtIndex:0]]];
 		l = [l objectAtIndex:1];
 	}
-	[s.b appendString:@"}"];
-	return s.b;
+	[s.FA_ .b appendString:@"}"];
+	return s.FA_ .b;
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
 	
 	StringBuf *s = [[StringBuf alloc] init];
 	BOOL first = YES;
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = self.FA_ .h;
 	while (l != nil) {
 		if (first) first = NO
-		else s.b += [Std string:sep];
-		s.b += [Std string:[l objectAtIndex:0]];
+		else s.FA_ .b += [StdFA_TAnon_ FA_  string:sep];
+		s.FA_ .b += [StdFA_TAnon_ FA_  string:[l objectAtIndex:0]];
 		l = [l objectAtIndex:1];
 	}
-	return s.b;
+	return s.FA_ .b;
 }
 - (List*) filter:(SEL*)f{
 	
 	List *l2 = [[List alloc] init];
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = self.FA_ .h;
 	while (l != nil) {
 		id v = [l objectAtIndex:0];
 		l = [l objectAtIndex:1];
-		if ([f:v]) [l2 add:v];
+		if ([f:v]) [l2 FA_  add:v];
 	}
 	return l2;
 }
@@ -125,17 +125,17 @@
 	
 	List *b = [[List alloc] init];
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = self.FA_ .h;
 	while (l != nil) {
 		id v = [l objectAtIndex:0];
 		l = [l objectAtIndex:1];
-		[b add:[f:v]];
+		[b FA_  add:[f:v]];
 	}
 	return b;
 }
 - (id) init{
 	self = [super init];
-	self.length = 0;
+	self.FA_ .length = 0;
 	return self;
 }
 

@@ -11,6 +11,7 @@
 
 + (BOOL) is:(id)v t:(id)t{
 	return [v isEqual-TDynamic];
+	return [v isKindOfClass-TDynamic];
 }
 + (NSMutableString*) string:(id)s{
 	return [s description];
@@ -19,10 +20,10 @@
 	return (int)x;
 }
 + (int) parseInt:(NSMutableString*)x{
-	return [xintValue];
+	return [x intValue];
 }
 + (float) parseFloat:(NSMutableString*)x{
-	return [xfloatValue];
+	return [x floatValue];
 }
 + (int) random:(int)x{
 	if (x <= 0) return 0;

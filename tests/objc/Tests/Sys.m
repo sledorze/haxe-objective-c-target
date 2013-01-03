@@ -13,8 +13,8 @@
 	print(v);
 }
 + (void) println:(id)v{
-	[Sys print:v];
-	[Sys print:@"\n"];
+	[SysFA_TAnon_ FA_  print:v];
+	[SysFA_TAnon_ FA_  print:@"\n"];
 }
 + (Input*) stdin{
 	return [[FileInput alloc] init:[file_stdin]];
@@ -55,38 +55,38 @@
 + (NSMutableString*) escapeArgument:(NSMutableString*)arg{
 	BOOL ok = YES;
 	{
-		int _g1 = 0; int _g = arglength;
+		int _g1 = 0; int _g = arg.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int _g2 = [arg characterAtIndex:i];
+			int _g2 = [arg  characterAtIndex:i];
 			switch (_g2){
 				case 32:{
 					ok = NO}break;
 				case 34:{
 					ok = NO}break;
 				case 0:{
-					arg = [arg substringWithRange:0 len:i]}break;
+					arg = [arg  substringWithRange:0 len:i]}break;
 				case 13:{
-					arg = [arg substringWithRange:0 len:i]}break;
+					arg = [arg  substringWithRange:0 len:i]}break;
 				case 10:{
-					arg = [arg substringWithRange:0 len:i]}break;
+					arg = [arg  substringWithRange:0 len:i]}break;
 			}
 		}
 	}
 	if (ok) return arg;
-	return [[@"\"" stringByAppendingString:[[arg componentsSeparatedByString:@"\""].join:@"\\\""]] stringByAppendingString:@"\""];
+	return [[@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:@"\""].FA_ .join:@"\\\""]] stringByAppendingString:@"\""];
 }
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args==nil) args=nil;
 	if (args != nil) {
-		cmd = [Sys escapeArgument:cmd];
+		cmd = [SysFA_TAnon_ FA_  escapeArgument:cmd];
 		{
 			int _g = 0;
-			while (_g < args.length) {
+			while (_g < args.FA_ .length) {
 				
 				NSMutableString *a = [args objectAtIndex:_g];
 				++_g;
-				[cmd appendString:[@" " stringByAppendingString:[Sys escapeArgument:a]]];
+				[cmd appendString:[@" " stringByAppendingString:[SysFA_TAnon_ FA_  escapeArgument:a]]];
 			}
 		}
 	}
@@ -110,8 +110,8 @@
 	
 	Hash *result = [[Hash alloc] init];
 	int i = 0;
-	while (i < vars.length) {
-		[result set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
+	while (i < vars.FA_ .length) {
+		[result FA_  set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
 		i += 2;
 	}
 	return result;

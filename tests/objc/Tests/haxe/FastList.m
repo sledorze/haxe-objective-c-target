@@ -13,8 +13,8 @@
 @synthesize next;
 - (id) init:(id)elt next:(FastCell*)next{
 	self = [super init];
-	self.elt = elt;
-	self.next = next;
+	self.FA_ .elt = elt;
+	self.FA_ .next = next;
 	return self;
 }
 

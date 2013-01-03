@@ -12,7 +12,7 @@
 @synthesize __f;
 - (id) init:(id)f{
 	self = [super init];
-	self.__f = f;
+	self.FA_ .__f = f;
 	return self;
 }
 

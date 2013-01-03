@@ -13,9 +13,9 @@
 	
 	NSMutableArray *a = [[NSMutableArray alloc] init];
 	{
-		{ var $it : * = [it-GFA2-iterator]
+		{ var $it : * = [itFA_TAnon_ -GFA2-iterator]
 		for ( $it.hasNext() ) { var i : id = $it.next()
-		[a push:i]
+		[a FA_  push:i]
 	}
 	return a;
 }
@@ -23,14 +23,14 @@
 	
 	List *l = [[List alloc] init];
 	{
-		{ var $it : * = [a-GFA2-iterator]
+		{ var $it : * = [aFA_TAnon_ -GFA2-iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
-		[l add:x]
+		[l FA_  add:x]
 	}
 	{
-		{ var $it2 : * = [b-GFA2-iterator]
+		{ var $it2 : * = [bFA_TAnon_ -GFA2-iterator]
 		for ( $it2.hasNext() ) { var x : id = $it2.next()
-		[l add:x]
+		[l FA_  add:x]
 	}
 	return l;
 }
