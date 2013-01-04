@@ -24,7 +24,7 @@
 	if (pos==nil) pos=nil;
 	float t0 = [Timer stamp];
 	id r = [f];
-	[Log trace:[[Timer stamp] - t0 stringByAppendingString:@"s"] infos:pos];
+	[Log trace:[[Timer stamp] - t0 stringByAppendingString:(NSMutableString*)@"s"] infos:pos];
 	return r;
 }
 + (float) stamp{

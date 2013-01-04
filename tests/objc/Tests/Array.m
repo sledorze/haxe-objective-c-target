@@ -41,7 +41,7 @@ static int length__;
 	return [self.componentsJoinedByString:sep];
 }
 - (NSMutableString*) toString{
-	return [@"[" stringByAppendingString: ([[self.componentsJoinedByString:@","] stringByAppendingString:@"]"])];
+	return [(NSMutableString*)@"[" stringByAppendingString: ([[self.componentsJoinedByString:(NSMutableString*)@","] stringByAppendingString:(NSMutableString*)@"]"])];
 }
 - (id) pop{
 	if (self.length == 0) return nil;

@@ -85,14 +85,14 @@
 	BOOL first = YES;
 	
 	NSMutableArray *l = self.h;
-	[s.b appendString:@"{"];
+	[s.b appendString:(NSMutableString*)@"{"];
 	while (l != nil) {
 		if (first) first = NO
-		else [s.b appendString:@", "];
+		else [s.b appendString:(NSMutableString*)@", "];
 		s.b += [Std string:[Std string:[l objectAtIndex:0]]];
 		l = [l objectAtIndex:1];
 	}
-	[s.b appendString:@"}"];
+	[s.b appendString:(NSMutableString*)@"}"];
 	return s.b;
 }
 - (NSMutableString*) join:(NSMutableString*)sep{

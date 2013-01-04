@@ -17,11 +17,11 @@
 }
 + (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(BOOL)quotes{
 	if (quotes==nil) quotes=nil;
-	s = [[[[[[s  componentsSeparatedByString:@"&"].join:@"&amp;"]. componentsSeparatedByString:@"<"].join:@"&lt;"]. componentsSeparatedByString:@">"].join:@"&gt;"];
-	return ( (quotes) ? [[[[s  componentsSeparatedByString:@"\""].join:@"&quot;"]. componentsSeparatedByString:@"'"].join:@"&#039;"] : s);
+	s = [[[[[[s  componentsSeparatedByString:(NSMutableString*)@"&"].join:(NSMutableString*)@"&amp;"]. componentsSeparatedByString:(NSMutableString*)@"<"].join:(NSMutableString*)@"&lt;"]. componentsSeparatedByString:(NSMutableString*)@">"].join:(NSMutableString*)@"&gt;"];
+	return ( (quotes) ? [[[[s  componentsSeparatedByString:(NSMutableString*)@"\""].join:(NSMutableString*)@"&quot;"]. componentsSeparatedByString:(NSMutableString*)@"'"].join:(NSMutableString*)@"&#039;"] : s);
 }
 + (NSMutableString*) htmlUnescape:(NSMutableString*)s{
-	return [[[[[[[[[[s  componentsSeparatedByString:@"&gt;"].join:@">"]. componentsSeparatedByString:@"&lt;"].join:@"<"]. componentsSeparatedByString:@"&quot;"].join:@"\""]. componentsSeparatedByString:@"&#039;"].join:@"'"]. componentsSeparatedByString:@"&amp;"].join:@"&"];
+	return [[[[[[[[[[s  componentsSeparatedByString:(NSMutableString*)@"&gt;"].join:(NSMutableString*)@">"]. componentsSeparatedByString:(NSMutableString*)@"&lt;"].join:(NSMutableString*)@"<"]. componentsSeparatedByString:(NSMutableString*)@"&quot;"].join:(NSMutableString*)@"\""]. componentsSeparatedByString:(NSMutableString*)@"&#039;"].join:(NSMutableString*)@"'"]. componentsSeparatedByString:(NSMutableString*)@"&amp;"].join:(NSMutableString*)@"&"];
 }
 + (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start{
 	return s.length >= start.length && [s  substringWithRange:0 len:start length] == start;
@@ -70,14 +70,14 @@
 + (NSMutableString*) hex:(int)n digits:(int)digits{
 	if (digits==nil) digits=nil;
 	
-	NSMutableString *s = @"";
+	NSMutableString *s = (NSMutableString*)@"";
 	
-	NSMutableString *hexChars = @"0123456789ABCDEF";
+	NSMutableString *hexChars = (NSMutableString*)@"0123456789ABCDEF";
 	do {
 		s = [[hexChars  characterAtIndex:n & @"15"] stringByAppendingString:s];
 		n >>>= 4;
 	}while (n > 0);
-	if (digits != nil) while (s.length < digits) s = [@"0" stringByAppendingString:s];
+	if (digits != nil) while (s.length < digits) s = [(NSMutableString*)@"0" stringByAppendingString:s];
 	return s;
 }
 

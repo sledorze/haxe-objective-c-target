@@ -50,7 +50,7 @@
 + (id) copy:(id)o{
 	if (o == nil) return nil;
 	if ([o __GetType] == __global__ vtString) return o;
-	if ([o __GetType] == __global__ vtArray) return [[o __Field:@"copy" :YES]];
+	if ([o __GetType] == __global__ vtArray) return [[o __Field:(NSMutableString*)@"copy" :YES]];
 	id o2 = struct {
 	
 	} structName;

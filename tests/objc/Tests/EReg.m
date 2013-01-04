@@ -86,7 +86,7 @@ static BOOL global__;
 	int pos = 0;
 	int len = s.length;
 	
-	NSMutableArray *a = [by  componentsSeparatedByString:@"$"];
+	NSMutableArray *a = [by  componentsSeparatedByString:(NSMutableString*)@"$"];
 	BOOL first = YES;
 	do {
 		
@@ -106,7 +106,7 @@ static BOOL global__;
 				
 				id_anon *p1 = nil;
 				if (p1 == nil) {
-					[b.b appendString:@"$"];
+					[b.b appendString:(NSMutableString*)@"$"];
 					b.b += [Std string:k];
 				}
 				else {
@@ -115,13 +115,13 @@ static BOOL global__;
 				}
 			}
 			else if (c == nil) {
-				[b.b appendString:@"$"];
+				[b.b appendString:(NSMutableString*)@"$"];
 				i++;
 				
 				NSMutableString *k2 = [a objectAtIndex:i];
 				if (k2 != nil && k2.length > 0) b.b += [Std string:k2];
 			}
-			else b.b += [Std string:[@"$" stringByAppendingString:k]];
+			else b.b += [Std string:[(NSMutableString*)@"$" stringByAppendingString:k]];
 			i++;
 		}
 		int tot = p pos + p len - pos;
@@ -147,9 +147,9 @@ static BOOL global__;
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	
-	NSMutableArray *a = [opt  componentsSeparatedByString:@"g"];
+	NSMutableArray *a = [opt  componentsSeparatedByString:(NSMutableString*)@"g"];
 	self.global = a.length > 1;
-	if (self.global) opt = [a join:@""];
+	if (self.global) opt = [a join:(NSMutableString*)@""];
 	self.r = nil;
 	return self;
 }

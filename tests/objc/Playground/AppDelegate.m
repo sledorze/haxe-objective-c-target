@@ -28,7 +28,7 @@
 	NSLog(@"%i", [Std random:100]);
 	NSLog(@"%i", [Std random:100]);
 	NSLog(@"%@", [Std string:self]);
-	NSLog(@"%i", [Std parseInt:@"5425345.3"]);
+	NSLog(@"%i", [Std parseInt:(NSMutableString*)@"5425345.3"]);
 	NSLog(@"%2f", [Std parseFloat:@"5425345.3"]);
 	NSLog(@"%i", [Std int:54.53]);
 	

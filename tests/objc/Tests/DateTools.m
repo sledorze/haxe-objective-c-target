@@ -11,69 +11,69 @@
 
 + (NSMutableString*) __format_get:(NSDate*)d e:(NSMutableString*)e{
 	return - (NSMutableString*) switch (e){
-		case @"%":{
-			__r__ = @"%"}break;
-		case @"C":{
-			__r__ = [StringTools lpad:[Std string:[Std int:[d  getFullYear] / 100]] c:@"0" l:2]}break;
-		case @"d":{
-			__r__ = [StringTools lpad:[Std string:[d  getDate]] c:@"0" l:2]}break;
-		case @"D":{
-			__r__ = [DateTools __format:d f:@"%m/%d/%y"]}break;
-		case @"e":{
+		case (NSMutableString*)@"%":{
+			__r__ = (NSMutableString*)@"%"}break;
+		case (NSMutableString*)@"C":{
+			__r__ = [StringTools lpad:[Std string:[Std int:[d  getFullYear] / 100]] c:(NSMutableString*)@"0" l:2]}break;
+		case (NSMutableString*)@"d":{
+			__r__ = [StringTools lpad:[Std string:[d  getDate]] c:(NSMutableString*)@"0" l:2]}break;
+		case (NSMutableString*)@"D":{
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%m/%d/%y"]}break;
+		case (NSMutableString*)@"e":{
 			__r__ = [Std string:[d  getDate]]}break;
-		case @"H":{
-			__r__ = [StringTools lpad:[Std string:[d  getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
-		case @"k":{
-			__r__ = [StringTools lpad:[Std string:[d  getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
-		case @"I":{
+		case (NSMutableString*)@"H":{
+			__r__ = [StringTools lpad:[Std string:[d  getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
+		case (NSMutableString*)@"k":{
+			__r__ = [StringTools lpad:[Std string:[d  getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
+		case (NSMutableString*)@"I":{
 			__r__ = - (NSMutableString*) int hour = [d  getHours] % 12
-			__r__2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
+			__r__2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
 			return __r__2{
 				
 				NSMutableString* __r__2}
 			}()}break;
-		case @"l":{
+		case (NSMutableString*)@"l":{
 			__r__ = - (NSMutableString*) int hour = [d  getHours] % 12
-			__r__3 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
+			__r__3 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
 			return __r__3{
 				
 				NSMutableString* __r__3}
 			}()}break;
-		case @"m":{
-			__r__ = [StringTools lpad:[Std string:[d  getMonth] + 1] c:@"0" l:2]}break;
-		case @"M":{
-			__r__ = [StringTools lpad:[Std string:[d  getMinutes]] c:@"0" l:2]}break;
-		case @"n":{
-			__r__ = @"\n"}break;
-		case @"p":{
-			__r__ = ( ([d  getHours] > 11) ? @"PM" : @"AM")}break;
-		case @"r":{
-			__r__ = [DateTools __format:d f:@"%I:%M:%S %p"]}break;
-		case @"R":{
-			__r__ = [DateTools __format:d f:@"%H:%M"]}break;
-		case @"s":{
+		case (NSMutableString*)@"m":{
+			__r__ = [StringTools lpad:[Std string:[d  getMonth] + 1] c:(NSMutableString*)@"0" l:2]}break;
+		case (NSMutableString*)@"M":{
+			__r__ = [StringTools lpad:[Std string:[d  getMinutes]] c:(NSMutableString*)@"0" l:2]}break;
+		case (NSMutableString*)@"n":{
+			__r__ = (NSMutableString*)@"\n"}break;
+		case (NSMutableString*)@"p":{
+			__r__ = ( ([d  getHours] > 11) ? (NSMutableString*)@"PM" : (NSMutableString*)@"AM")}break;
+		case (NSMutableString*)@"r":{
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%I:%M:%S %p"]}break;
+		case (NSMutableString*)@"R":{
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M"]}break;
+		case (NSMutableString*)@"s":{
 			__r__ = [Std string:[Std int:[d  getTime] / 1000]]}break;
-		case @"S":{
-			__r__ = [StringTools lpad:[Std string:[d  getSeconds]] c:@"0" l:2]}break;
-		case @"t":{
-			__r__ = @"\t"}break;
-		case @"T":{
-			__r__ = [DateTools __format:d f:@"%H:%M:%S"]}break;
-		case @"u":{
+		case (NSMutableString*)@"S":{
+			__r__ = [StringTools lpad:[Std string:[d  getSeconds]] c:(NSMutableString*)@"0" l:2]}break;
+		case (NSMutableString*)@"t":{
+			__r__ = (NSMutableString*)@"\t"}break;
+		case (NSMutableString*)@"T":{
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M:%S"]}break;
+		case (NSMutableString*)@"u":{
 			__r__ = - (NSMutableString*) int t = [d  getDay]
-			__r__4 = ( (t == 0) ? @"7" : [Std string:t])
+			__r__4 = ( (t == 0) ? (NSMutableString*)@"7" : [Std string:t])
 			return __r__4{
 				
 				NSMutableString* __r__4}
 			}()}break;
-		case @"w":{
+		case (NSMutableString*)@"w":{
 			__r__ = [Std string:[d  getDay]]}break;
-		case @"y":{
-			__r__ = [StringTools lpad:[Std string:[d  getFullYear] % 100] c:@"0" l:2]}break;
-		case @"Y":{
+		case (NSMutableString*)@"y":{
+			__r__ = [StringTools lpad:[Std string:[d  getFullYear] % 100] c:(NSMutableString*)@"0" l:2]}break;
+		case (NSMutableString*)@"Y":{
 			__r__ = [Std string:[d  getFullYear]]}break;
 		default:{
-			__r__ = - (NSMutableString*) @throw [[@"Date.format %" stringByAppendingString:e] stringByAppendingString:@"- not implemented yet."];
+			__r__ = - (NSMutableString*) @throw [[(NSMutableString*)@"Date.format %" stringByAppendingString:e] stringByAppendingString:(NSMutableString*)@"- not implemented yet."];
 			return __r__5{
 				
 				NSMutableString* __r__5}
@@ -89,7 +89,7 @@
 	StringBuf *r = [[StringBuf alloc] init];
 	int p = 0;
 	while (YES) {
-		int np = [f  rangeOfString:@"%" startIndex:p];
+		int np = [f  rangeOfString:(NSMutableString*)@"%" startIndex:p];
 		if (np < 0) break;
 		r.b += [f  substringWithRange:p len:np - p];
 		r.b += [Std string:[DateTools __format_get:d e:[f  substringWithRange:np + 1 len:1]]];

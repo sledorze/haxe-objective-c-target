@@ -14,7 +14,7 @@
 }
 + (void) println:(id)v{
 	[Sys print:v];
-	[Sys print:@"\n"];
+	[Sys print:(NSMutableString*)@"\n"];
 }
 + (Input*) stdin{
 	return [[FileInput alloc] init:[file_stdin]];
@@ -74,7 +74,7 @@
 		}
 	}
 	if (ok) return arg;
-	return [[@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:@"\""].join:@"\\\""]] stringByAppendingString:@"\""];
+	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:(NSMutableString*)@"\""].join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
 }
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args==nil) args=nil;
@@ -86,7 +86,7 @@
 				
 				NSMutableString *a = [args objectAtIndex:_g];
 				++_g;
-				[cmd appendString:[@" " stringByAppendingString:[Sys escapeArgument:a]]];
+				[cmd appendString:[(NSMutableString*)@" " stringByAppendingString:[Sys escapeArgument:a]]];
 			}
 		}
 	}
