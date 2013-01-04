@@ -8,6 +8,7 @@
 
 
 #import "StringTools.h"
+#import "Array.h"
 
 @interface StringTools : NSObject
 

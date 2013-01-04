@@ -74,7 +74,7 @@
 		}
 	}
 	if (ok) return arg;
-	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:(NSMutableString*)@"\""].join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
+	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
 }
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args==nil) args=nil;

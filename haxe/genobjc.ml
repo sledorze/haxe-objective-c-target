@@ -248,7 +248,7 @@ type context = {
 	mutable handle_break : bool;
 	mutable generating_header : bool;
 	mutable generating_constructor : bool;
-	mutable generating_call : bool;
+	mutable generating_calls : int;
 	mutable generating_self_access : bool;
 	mutable generating_c_call : bool;
 	mutable generating_string_append : int;
@@ -270,7 +270,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	handle_break = false;
 	generating_header = false;
 	generating_constructor = false;
-	generating_call = false;
+	generating_calls = 0;
 	generating_self_access = false;
 	generating_c_call = false;
 	generating_string_append = 0;
@@ -767,7 +767,7 @@ and generateFieldAccess ctx etype s to_method =
 			(* Generating dot notation for property and space for methods *)
 			let accesor = ""(* if to_method then
 							(if ctx.generating_self_access then "." else " ")
-						else if ctx.generating_call then
+						else if ctx.generating_calls then
 							""
 						else
 							"" *) in
@@ -777,7 +777,7 @@ and generateFieldAccess ctx etype s to_method =
 	match follow etype with
 	(* untyped str.intValue(); *)
 	| TInst (c,_) ->
-		let accessor = if (ctx.generating_call && not ctx.generating_self_access) then " " else "." in
+		let accessor = if (ctx.generating_calls > 0 && not ctx.generating_self_access) then " " else "." in
 		ctx.writer#write accessor;
 		field c;
 		ctx.generating_self_access <- false;
@@ -969,9 +969,9 @@ and generateExpression ctx e =
 			| _ -> ctx.writer#write "[")
 		| _ -> ctx.writer#write "[");
 		
-		ctx.generating_call <- true;
+		ctx.generating_calls <- ctx.generating_calls + 1;
 		generateCall ctx func arg_list;
-		ctx.generating_call <- false;
+		ctx.generating_calls <- ctx.generating_calls - 1;
 		
 		if not ctx.generating_c_call then ctx.writer#write "]";
 		ctx.generating_c_call <- false
@@ -1036,7 +1036,7 @@ and generateExpression ctx e =
 				ctx.imports_manager#add_class_path c.cl_module.m_path;
 				ctx.writer#write (Printf.sprintf "[[%s alloc] init" (remapHaxeTypeToObjc ctx false c.cl_path c.cl_pos));
 				if List.length el > 0 then begin
-					ctx.generating_call <- true;
+					ctx.generating_calls <- ctx.generating_calls + 1;
 					(match c.cl_constructor with
 					| None -> ();
 					| Some cf ->
@@ -1052,7 +1052,7 @@ and generateExpression ctx e =
 							) args;
 						| _ -> ctx.writer#write " \"-dynamic_param-\" "));
 						
-					ctx.generating_call <- false;
+					ctx.generating_calls <- ctx.generating_calls - 1;
 				end;
 				ctx.writer#write "]";
 		)

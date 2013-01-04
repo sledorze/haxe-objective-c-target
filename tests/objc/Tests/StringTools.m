@@ -17,11 +17,11 @@
 }
 + (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(BOOL)quotes{
 	if (quotes==nil) quotes=nil;
-	s = [[[[[[s  componentsSeparatedByString:(NSMutableString*)@"&"].join:(NSMutableString*)@"&amp;"]. componentsSeparatedByString:(NSMutableString*)@"<"].join:(NSMutableString*)@"&lt;"]. componentsSeparatedByString:(NSMutableString*)@">"].join:(NSMutableString*)@"&gt;"];
-	return ( (quotes) ? [[[[s  componentsSeparatedByString:(NSMutableString*)@"\""].join:(NSMutableString*)@"&quot;"]. componentsSeparatedByString:(NSMutableString*)@"'"].join:(NSMutableString*)@"&#039;"] : s);
+	s = [[[[[[s  componentsSeparatedByString:(NSMutableString*)@"&"] join:(NSMutableString*)@"&amp;"]  componentsSeparatedByString:(NSMutableString*)@"<"] join:(NSMutableString*)@"&lt;"]  componentsSeparatedByString:(NSMutableString*)@">"] join:(NSMutableString*)@"&gt;"];
+	return ( (quotes) ? [[[[s  componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"&quot;"]  componentsSeparatedByString:(NSMutableString*)@"'"] join:(NSMutableString*)@"&#039;"] : s);
 }
 + (NSMutableString*) htmlUnescape:(NSMutableString*)s{
-	return [[[[[[[[[[s  componentsSeparatedByString:(NSMutableString*)@"&gt;"].join:(NSMutableString*)@">"]. componentsSeparatedByString:(NSMutableString*)@"&lt;"].join:(NSMutableString*)@"<"]. componentsSeparatedByString:(NSMutableString*)@"&quot;"].join:(NSMutableString*)@"\""]. componentsSeparatedByString:(NSMutableString*)@"&#039;"].join:(NSMutableString*)@"'"]. componentsSeparatedByString:(NSMutableString*)@"&amp;"].join:(NSMutableString*)@"&"];
+	return [[[[[[[[[[s  componentsSeparatedByString:(NSMutableString*)@"&gt;"] join:(NSMutableString*)@">"]  componentsSeparatedByString:(NSMutableString*)@"&lt;"] join:(NSMutableString*)@"<"]  componentsSeparatedByString:(NSMutableString*)@"&quot;"] join:(NSMutableString*)@"\""]  componentsSeparatedByString:(NSMutableString*)@"&#039;"] join:(NSMutableString*)@"'"]  componentsSeparatedByString:(NSMutableString*)@"&amp;"] join:(NSMutableString*)@"&"];
 }
 + (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start{
 	return s.length >= start.length && [s  substringWithRange:0 len:start length] == start;
@@ -33,7 +33,7 @@
 }
 + (BOOL) isSpace:(NSMutableString*)s pos:(int)pos{
 	int c = [s  characterAtIndex:pos];
-	return c >= 9 && c <= 13 || c == 32;
+	return (c >= 9 && c <= 13) || c == 32;
 }
 + (NSMutableString*) ltrim:(NSMutableString*)s{
 	int l = s.length;
