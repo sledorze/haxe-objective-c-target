@@ -32,8 +32,8 @@ static BOOL global__;
 }
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
-	if (p) self.FA_ .last = s
-	else self.FA_ .last = nil;
+	if (p) self.last = s
+	else self.last = nil;
 	return p;
 }
 - (NSMutableString*) matched:(int)n{
@@ -44,13 +44,13 @@ static BOOL global__;
 - (NSMutableString*) matchedLeft{
 	
 	id_anon *p = nil;
-	return [self FA_  last  substringWithRange:0 len:pFA_TAnon_ -GFA2-pos];
+	return [self.last  substringWithRange:0 len:pFA_TAnon_ -GFA2-pos];
 }
 - (NSMutableString*) matchedRight{
 	
 	id_anon *p = nil;
 	int sz = pFA_TAnon_ -GFA2-pos + pFA_TAnon_ -GFA2-len;
-	return [self FA_  last  substringWithRange:sz len:self FA_  last length - sz];
+	return [self.last  substringWithRange:sz len:self.last length - sz];
 }
 - (id_anon*) matchedPos{
 	return nil;
@@ -68,13 +68,13 @@ static BOOL global__;
 			if (pFA_TAnon_ -GFA2-pos == s.length) break;
 			pFA_TAnon_ -GFA2-pos += 1;
 		}
-		[a FA_  push:[s  substringWithRange:pos len:pFA_TAnon_ -GFA2-pos - pos]];
+		[a push:[s  substringWithRange:pos len:pFA_TAnon_ -GFA2-pos - pos]];
 		int tot = pFA_TAnon_ -GFA2-pos + pFA_TAnon_ -GFA2-len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
-	}while (self.FA_ .global);
-	[a FA_  push:[s  substringWithRange:pos len:len]];
+	}while (self.global);
+	[a push:[s  substringWithRange:pos len:len]];
 	return a;
 }
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by{
@@ -92,10 +92,10 @@ static BOOL global__;
 			if (pFA_TAnon_ -GFA2-pos == s.length) break;
 			pFA_TAnon_ -GFA2-pos += 1;
 		}
-		b.FA_ .b += [s  substringWithRange:pos len:pFA_TAnon_ -GFA2-pos - pos];
-		if (a.FA_ .length > 0) b.FA_ .b += [StdFA_TAnon_ FA_  string:[a objectAtIndex:0]];
+		b.b += [s  substringWithRange:pos len:pFA_TAnon_ -GFA2-pos - pos];
+		if (a.length > 0) b.b += [StdFA_TAnon_ string:[a objectAtIndex:0]];
 		int i = 1;
-		while (i < a.FA_ .length) {
+		while (i < a.length) {
 			
 			NSMutableString *k = [a objectAtIndex:i];
 			int c = [k  characterAtIndex:0];
@@ -103,51 +103,51 @@ static BOOL global__;
 				
 				id_anon *p1 = nil;
 				if (p1 == nil) {
-					[b.FA_ .b appendString:@"$"];
-					b.FA_ .b += [StdFA_TAnon_ FA_  string:k];
+					[b.b appendString:@"$"];
+					b.b += [StdFA_TAnon_ string:k];
 				}
 				else {
-					b.FA_ .b += [s  substringWithRange:p1FA_TAnon_ -GFA2-pos len:p1FA_TAnon_ -GFA2-len];
-					b.FA_ .b += [k  substringWithRange:1 len:k length - 1];
+					b.b += [s  substringWithRange:p1FA_TAnon_ -GFA2-pos len:p1FA_TAnon_ -GFA2-len];
+					b.b += [k  substringWithRange:1 len:k length - 1];
 				}
 			}
 			else if (c == nil) {
-				[b.FA_ .b appendString:@"$"];
+				[b.b appendString:@"$"];
 				i++;
 				
 				NSMutableString *k2 = [a objectAtIndex:i];
-				if (k2 != nil && k2.length > 0) b.FA_ .b += [StdFA_TAnon_ FA_  string:k2];
+				if (k2 != nil && k2.length > 0) b.b += [StdFA_TAnon_ string:k2];
 			}
-			else b.FA_ .b += [StdFA_TAnon_ FA_  string:[@"$" stringByAppendingString:k]];
+			else b.b += [StdFA_TAnon_ string:[@"$" stringByAppendingString:k]];
 			i++;
 		}
 		int tot = pFA_TAnon_ -GFA2-pos + pFA_TAnon_ -GFA2-len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
-	}while (self.FA_ .global);
-	b.FA_ .b += [s  substringWithRange:pos len:len];
-	return b.FA_ .b;
+	}while (self.global);
+	b.b += [s  substringWithRange:pos len:len];
+	return b.b;
 }
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL*)f{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {
-		if (![self FA_  match:s]) break;
-		buf.FA_ .b += [StdFA_TAnon_ FA_  string:[self FA_  matchedLeft]];
-		buf.FA_ .b += [StdFA_TAnon_ FA_  string:[f:self]];
-		s = [self FA_  matchedRight];
+		if (![self.match:s]) break;
+		buf.b += [StdFA_TAnon_ string:[self.matchedLeft]];
+		buf.b += [StdFA_TAnon_ string:[f:self]];
+		s = [self.matchedRight];
 	}
-	buf.FA_ .b += [StdFA_TAnon_ FA_  string:s];
-	return buf.FA_ .b;
+	buf.b += [StdFA_TAnon_ string:s];
+	return buf.b;
 }
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	
 	NSMutableArray *a = [opt  componentsSeparatedByString:@"g"];
-	self.FA_ .global = a.FA_ .length > 1;
-	if (self.FA_ .global) opt = [a FA_  join:@""];
-	self.FA_ .r = nil;
+	self.global = a.length > 1;
+	if (self.global) opt = [a join:@""];
+	self.r = nil;
 	return self;
 }
 

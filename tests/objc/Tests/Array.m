@@ -17,18 +17,18 @@ static int length__;
 	length__ = val;
 }
 - (NSMutableArray*) concat:(NSMutableArray*)a{
-	return [self FA_  arrayByAddingObjectsFromArray:a];
+	return [self.arrayByAddingObjectsFromArray:a];
 }
 - (NSMutableArray*) copy{
-	return [NSMutableArrayFA_TAnon_ FA_  arrayWithArray:self];
+	return [NSMutableArrayFA_TAnon_ arrayWithArray:self];
 }
 - (id_anon*) iterator{
 	return struct {
 	a:self; p:0; hasNext:^(BOOL){
-		return self.FA_ .p < self.FA_ .aFA_TAnon_ -GFA2-length;
+		return self.p < self.aFA_TAnon_ -GFA2-length;
 	}; next:^(id){
-		id i = [self.FA_ .a objectAtIndex:self.FA_ .p];
-		self.FA_ .p += 1;
+		id i = [self.a objectAtIndex:self.p];
+		self.p += 1;
 		return i;
 	}
 	} structName;
@@ -37,51 +37,51 @@ static int length__;
 	[self insertObject:x atIndex:pos];
 }
 - (NSMutableString*) join:(NSMutableString*)sep{
-	return [self FA_  componentsJoinedByString:sep];
+	return [self.componentsJoinedByString:sep];
 }
 - (NSMutableString*) toString{
-	return [@"[" stringByAppendingString: ([[self FA_  componentsJoinedByString:@","] stringByAppendingString:@"]"])];
+	return [@"[" stringByAppendingString: ([[self.componentsJoinedByString:@","] stringByAppendingString:@"]"])];
 }
 - (id) pop{
-	if (self.FA_ .length == 0) return nil;
-	id theLastObject = [self FA_  lastObject];
-	[self FA_  removeLastObject];
+	if (self.length == 0) return nil;
+	id theLastObject = [self.lastObject];
+	[self.removeLastObject];
 	return theLastObject;
 }
 - (int) push:(id)x{
-	[self FA_  addObject:x];
-	return [self FA_  count];
+	[self.addObject:x];
+	return [self.count];
 }
 - (void) unshift:(id)x{
 	[self insertObject:x atIndex:0];
 }
 - (BOOL) remove:(id)x{
-	BOOL containsObject = [self FA_  containsObject:x];
-	if (containsObject) [self FA_  removeObject:x];
+	BOOL containsObject = [self.containsObject:x];
+	if (containsObject) [self.removeObject:x];
 	return containsObject;
 }
 - (void) reverse{
-	id reverseArray = [[self FA_  reverseObjectEnumerator]FA_TAnon_ -GFA2-allObjects];
+	id reverseArray = [[self.reverseObjectEnumerator]FA_TAnon_ -GFA2-allObjects];
 }
 - (id) shift{
-	if ([self FA_  count] > 0) {
-		id obj = [self FA_  objectAtIndex:0];
-		[self FA_  removeObjectAtIndex:0];
+	if ([self.count] > 0) {
+		id obj = [self.objectAtIndex:0];
+		[self.removeObjectAtIndex:0];
 		return obj;
 	}
 	return nil;
 }
 - (NSMutableArray*) slice:(int)pos end:(int)end{
 	if (end==nil) end=nil;
-	return [self FA_  splice:pos len:end - pos];
+	return [self.splice:pos len:end - pos];
 }
 - (void) sort:(SEL*)f{
 }
 - (NSMutableArray*) splice:(int)pos len:(int)len{
 	
-	NSMutableArray *newArray = [self FA_  subarrayWithRange:NSMakeRange (pos,len)];
-	[self FA_  removeObjectsInArray:newArray];
-	return [NSMutableArrayFA_TAnon_ FA_  arrayWithArray:newArray];
+	NSMutableArray *newArray = [self.subarrayWithRange:NSMakeRange (pos,len)];
+	[self.removeObjectsInArray:newArray];
+	return [NSMutableArrayFA_TAnon_ arrayWithArray:newArray];
 }
 - (id) init{
 	self = [super init];

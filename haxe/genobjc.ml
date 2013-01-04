@@ -709,8 +709,8 @@ let rec generateCall ctx func arg_list =
 				| TInst (c,tl) -> ctx.writer#write "-TInst"
 				| TType (t,tl) -> ctx.writer#write "-TType"
 				| TAbstract (a,tl) -> ctx.writer#write "-TAbstract"
-				| TAnon a -> ctx.writer#write "-TAnon"
-				| TDynamic t2 -> ctx.writer#write "-TDynamic"
+				| TAnon a -> ctx.writer#write "-TAnon-"
+				| TDynamic t2 -> ctx.writer#write "-TDynamic-"
 				| TLazy f -> ctx.writer#write "-TLazy") in
 			gen func.etype;
 			
@@ -760,24 +760,27 @@ and generateFieldAccess ctx etype s to_method =
 			(match s with
 			| "now" -> ctx.writer#write s
 			| "fromTime" -> ctx.writer#write s
-			| _ -> ctx.writer#write ((if ctx.generating_self_access then "." else " ") ^ s))
+			| _ -> ctx.writer#write ((if ctx.generating_self_access then "" else " ") ^ s))
 		
-		| _ -> ctx.writer#write "FA_ ";
+		| _ -> 
+			(* self.someMethod *)
 			(* Generating dot notation for property and space for methods *)
-			let accesor = if to_method then
-				(if ctx.generating_self_access then "." else " ")
-			else if ctx.generating_call then
-				" "
-			else
-				"." in
+			let accesor = ""(* if to_method then
+							(if ctx.generating_self_access then "." else " ")
+						else if ctx.generating_call then
+							""
+						else
+							"" *) in
 			ctx.writer#write (Printf.sprintf "%s%s" accesor s);
 			ctx.generating_self_access <- false
 	in
 	match follow etype with
 	(* untyped str.intValue(); *)
 	| TInst (c,_) ->
-		let accessor = if ctx.generating_call then " " else "." in
-		ctx.writer#write accessor; field c
+		let accessor = if (ctx.generating_call && not ctx.generating_self_access) then " " else "." in
+		ctx.writer#write accessor;
+		field c;
+		ctx.generating_self_access <- false;
 	| TAnon a ->ctx.writer#write "FA_TAnon_ ";
 		(match !(a.a_status) with
 			(* Generate a static field access *)

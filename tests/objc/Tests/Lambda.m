@@ -15,7 +15,7 @@
 	{
 		{ var $it : * = [itFA_TAnon_ -GFA2-iterator]
 		for ( $it.hasNext() ) { var i : id = $it.next()
-		[a FA_  push:i]
+		[a push:i]
 	}
 	return a;
 }
@@ -25,12 +25,12 @@
 	{
 		{ var $it : * = [aFA_TAnon_ -GFA2-iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
-		[l FA_  add:x]
+		[l add:x]
 	}
 	{
 		{ var $it2 : * = [bFA_TAnon_ -GFA2-iterator]
 		for ( $it2.hasNext() ) { var x : id = $it2.next()
-		[l FA_  add:x]
+		[l add:x]
 	}
 	return l;
 }

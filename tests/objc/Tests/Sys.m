@@ -13,8 +13,8 @@
 	print(v);
 }
 + (void) println:(id)v{
-	[SysFA_TAnon_ FA_  print:v];
-	[SysFA_TAnon_ FA_  print:@"\n"];
+	[SysFA_TAnon_ print:v];
+	[SysFA_TAnon_ print:@"\n"];
 }
 + (Input*) stdin{
 	return [[FileInput alloc] init:[file_stdin]];
@@ -74,19 +74,19 @@
 		}
 	}
 	if (ok) return arg;
-	return [[@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:@"\""].FA_ .join:@"\\\""]] stringByAppendingString:@"\""];
+	return [[@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:@"\""].join:@"\\\""]] stringByAppendingString:@"\""];
 }
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args==nil) args=nil;
 	if (args != nil) {
-		cmd = [SysFA_TAnon_ FA_  escapeArgument:cmd];
+		cmd = [SysFA_TAnon_ escapeArgument:cmd];
 		{
 			int _g = 0;
-			while (_g < args.FA_ .length) {
+			while (_g < args.length) {
 				
 				NSMutableString *a = [args objectAtIndex:_g];
 				++_g;
-				[cmd appendString:[@" " stringByAppendingString:[SysFA_TAnon_ FA_  escapeArgument:a]]];
+				[cmd appendString:[@" " stringByAppendingString:[SysFA_TAnon_ escapeArgument:a]]];
 			}
 		}
 	}
@@ -110,8 +110,8 @@
 	
 	Hash *result = [[Hash alloc] init];
 	int i = 0;
-	while (i < vars.FA_ .length) {
-		[result FA_  set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
+	while (i < vars.length) {
+		[result set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
 		i += 2;
 	}
 	return result;

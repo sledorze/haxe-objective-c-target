@@ -14,64 +14,64 @@
 		case @"%":{
 			__r__ = @"%"}break;
 		case @"C":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[StdFA_TAnon_ FA_  int:[d  getFullYear] / 100]] c:@"0" l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[StdFA_TAnon_ int:[d  getFullYear] / 100]] c:@"0" l:2]}break;
 		case @"d":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getDate]] c:@"0" l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getDate]] c:@"0" l:2]}break;
 		case @"D":{
-			__r__ = [DateToolsFA_TAnon_ FA_  __format:d f:@"%m/%d/%y"]}break;
+			__r__ = [DateToolsFA_TAnon_ __format:d f:@"%m/%d/%y"]}break;
 		case @"e":{
-			__r__ = [StdFA_TAnon_ FA_  string:[d  getDate]]}break;
+			__r__ = [StdFA_TAnon_ string:[d  getDate]]}break;
 		case @"H":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
 		case @"k":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getHours]] c:( (e == @"H") ? @"0" : @" ") l:2]}break;
 		case @"I":{
 			__r__ = - (NSMutableString*) int hour = [d  getHours] % 12
-			__r__2 = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
+			__r__2 = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
 			return __r__2{
 				
 				NSMutableString* __r__2}
 			}()}break;
 		case @"l":{
 			__r__ = - (NSMutableString*) int hour = [d  getHours] % 12
-			__r__3 = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
+			__r__3 = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:( (hour == 0) ? 12 : hour)] c:( (e == @"I") ? @"0" : @" ") l:2]
 			return __r__3{
 				
 				NSMutableString* __r__3}
 			}()}break;
 		case @"m":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getMonth] + 1] c:@"0" l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getMonth] + 1] c:@"0" l:2]}break;
 		case @"M":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getMinutes]] c:@"0" l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getMinutes]] c:@"0" l:2]}break;
 		case @"n":{
 			__r__ = @"\n"}break;
 		case @"p":{
 			__r__ = ( ([d  getHours] > 11) ? @"PM" : @"AM")}break;
 		case @"r":{
-			__r__ = [DateToolsFA_TAnon_ FA_  __format:d f:@"%I:%M:%S %p"]}break;
+			__r__ = [DateToolsFA_TAnon_ __format:d f:@"%I:%M:%S %p"]}break;
 		case @"R":{
-			__r__ = [DateToolsFA_TAnon_ FA_  __format:d f:@"%H:%M"]}break;
+			__r__ = [DateToolsFA_TAnon_ __format:d f:@"%H:%M"]}break;
 		case @"s":{
-			__r__ = [StdFA_TAnon_ FA_  string:[StdFA_TAnon_ FA_  int:[d  getTime] / 1000]]}break;
+			__r__ = [StdFA_TAnon_ string:[StdFA_TAnon_ int:[d  getTime] / 1000]]}break;
 		case @"S":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getSeconds]] c:@"0" l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getSeconds]] c:@"0" l:2]}break;
 		case @"t":{
 			__r__ = @"\t"}break;
 		case @"T":{
-			__r__ = [DateToolsFA_TAnon_ FA_  __format:d f:@"%H:%M:%S"]}break;
+			__r__ = [DateToolsFA_TAnon_ __format:d f:@"%H:%M:%S"]}break;
 		case @"u":{
 			__r__ = - (NSMutableString*) int t = [d  getDay]
-			__r__4 = ( (t == 0) ? @"7" : [StdFA_TAnon_ FA_  string:t])
+			__r__4 = ( (t == 0) ? @"7" : [StdFA_TAnon_ string:t])
 			return __r__4{
 				
 				NSMutableString* __r__4}
 			}()}break;
 		case @"w":{
-			__r__ = [StdFA_TAnon_ FA_  string:[d  getDay]]}break;
+			__r__ = [StdFA_TAnon_ string:[d  getDay]]}break;
 		case @"y":{
-			__r__ = [StringToolsFA_TAnon_ FA_  lpad:[StdFA_TAnon_ FA_  string:[d  getFullYear] % 100] c:@"0" l:2]}break;
+			__r__ = [StringToolsFA_TAnon_ lpad:[StdFA_TAnon_ string:[d  getFullYear] % 100] c:@"0" l:2]}break;
 		case @"Y":{
-			__r__ = [StdFA_TAnon_ FA_  string:[d  getFullYear]]}break;
+			__r__ = [StdFA_TAnon_ string:[d  getFullYear]]}break;
 		default:{
 			__r__ = - (NSMutableString*) @throw [[@"Date.format %" stringByAppendingString:e] stringByAppendingString:@"- not implemented yet."]
 			return __r__5{
@@ -91,15 +91,15 @@
 	while (YES) {
 		int np = [f  rangeOfString:@"%" startIndex:p];
 		if (np < 0) break;
-		r.FA_ .b += [f  substringWithRange:p len:np - p];
-		r.FA_ .b += [StdFA_TAnon_ FA_  string:[DateToolsFA_TAnon_ FA_  __format_get:d e:[f  substringWithRange:np + 1 len:1]]];
+		r.b += [f  substringWithRange:p len:np - p];
+		r.b += [StdFA_TAnon_ string:[DateToolsFA_TAnon_ __format_get:d e:[f  substringWithRange:np + 1 len:1]]];
 		p = np + 2;
 	}
-	r.FA_ .b += [f  substringWithRange:p len:f length - p];
-	return r.FA_ .b;
+	r.b += [f  substringWithRange:p len:f length - p];
+	return r.b;
 }
 + (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f{
-	return [DateToolsFA_TAnon_ FA_  __format:d f:f];
+	return [DateToolsFA_TAnon_ __format:d f:f];
 }
 + (NSDate*) delta:(NSDate*)d t:(float)t{
 	return [NSDateFA_TAnon_ fromTime:[d  getTime] + t];
@@ -113,7 +113,7 @@
 + (int) getMonthDays:(NSDate*)d{
 	int month = [d  getMonth];
 	int year = [d  getFullYear];
-	if (month != 1) return [DateToolsFA_TAnon_ FA_ .DAYS_OF_MONTH objectAtIndex:month];
+	if (month != 1) return [DateToolsFA_TAnon_ DAYS_OF_MONTH objectAtIndex:month];
 	BOOL isB = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 	return ( (isB) ? 29 : 28);
 }
@@ -134,7 +134,7 @@
 	float m = s / 60;
 	float h = m / 60;
 	return struct {
-	ms:t % 1000; seconds:[StdFA_TAnon_ FA_  int:s % 60]; minutes:[StdFA_TAnon_ FA_  int:m % 60]; hours:[StdFA_TAnon_ FA_  int:h % 24]; days:[StdFA_TAnon_ FA_  int:h / 24]
+	ms:t % 1000; seconds:[StdFA_TAnon_ int:s % 60]; minutes:[StdFA_TAnon_ int:m % 60]; hours:[StdFA_TAnon_ int:h % 24]; days:[StdFA_TAnon_ int:h / 24]
 	} structName;
 }
 + (float) make:(id_anon*)o{

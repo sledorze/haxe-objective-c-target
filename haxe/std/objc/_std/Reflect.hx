@@ -52,7 +52,7 @@
 			if (func!=null && func.__GetType()==__global__.vtString)
 				func = o.__Field(func,true);
 			untyped func.__SetThis(o);
-         return untyped func.__Run(args);
+         return untyped func.performSelector(args);
 	}
 
 	public static function fields( o : Dynamic ) : Array<String> untyped {

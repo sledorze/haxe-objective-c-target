@@ -21,7 +21,6 @@
 		2875300816906C1A0048F960 /* Lambda.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF016906C190048F960 /* Lambda.m */; };
 		2875300916906C1A0048F960 /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF216906C190048F960 /* List.m */; };
 		2875300A16906C1A0048F960 /* Reflect.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF416906C190048F960 /* Reflect.m */; };
-		2875300B16906C1A0048F960 /* SEL.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF616906C190048F960 /* SEL.m */; };
 		2875300C16906C1A0048F960 /* Std.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FF816906C190048F960 /* Std.m */; };
 		2875300D16906C1A0048F960 /* StringBuf.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FFA16906C1A0048F960 /* StringBuf.m */; };
 		2875300E16906C1A0048F960 /* StringTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FFC16906C1A0048F960 /* StringTools.m */; };
@@ -85,8 +84,6 @@
 		28752FF216906C190048F960 /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = List.m; path = Tests/List.m; sourceTree = SOURCE_ROOT; };
 		28752FF316906C190048F960 /* Reflect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reflect.h; path = Tests/Reflect.h; sourceTree = SOURCE_ROOT; };
 		28752FF416906C190048F960 /* Reflect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reflect.m; path = Tests/Reflect.m; sourceTree = SOURCE_ROOT; };
-		28752FF516906C190048F960 /* SEL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SEL.h; path = Tests/SEL.h; sourceTree = SOURCE_ROOT; };
-		28752FF616906C190048F960 /* SEL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SEL.m; path = Tests/SEL.m; sourceTree = SOURCE_ROOT; };
 		28752FF716906C190048F960 /* Std.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Std.h; path = Tests/Std.h; sourceTree = SOURCE_ROOT; };
 		28752FF816906C190048F960 /* Std.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Std.m; path = Tests/Std.m; sourceTree = SOURCE_ROOT; };
 		28752FF916906C190048F960 /* StringBuf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringBuf.h; path = Tests/StringBuf.h; sourceTree = SOURCE_ROOT; };
@@ -209,8 +206,6 @@
 				28752FF216906C190048F960 /* List.m */,
 				28752FF316906C190048F960 /* Reflect.h */,
 				28752FF416906C190048F960 /* Reflect.m */,
-				28752FF516906C190048F960 /* SEL.h */,
-				28752FF616906C190048F960 /* SEL.m */,
 				28752FF716906C190048F960 /* Std.h */,
 				28752FF816906C190048F960 /* Std.m */,
 				28752FF916906C190048F960 /* StringBuf.h */,
@@ -387,7 +382,6 @@
 				2875300816906C1A0048F960 /* Lambda.m in Sources */,
 				2875300916906C1A0048F960 /* List.m in Sources */,
 				2875300A16906C1A0048F960 /* Reflect.m in Sources */,
-				2875300B16906C1A0048F960 /* SEL.m in Sources */,
 				2875300C16906C1A0048F960 /* Std.m in Sources */,
 				2875300D16906C1A0048F960 /* StringBuf.m in Sources */,
 				2875300E16906C1A0048F960 /* StringTools.m in Sources */,

@@ -2,13 +2,6 @@
 
 import Tests3;
 
-@:orientation("UIInterfaceOrientationPortrait")
-@:orientation("UIInterfaceOrientationLandscapeLeft")
-@:identifier("com.ralcr.HelloWorld")
-@:owner("Baluta Cristian")
-@:bundle_name("TestsWorld")
-@:version("1.0.1")
-
 enum Color {
 	Red;
 	Green;
@@ -554,7 +547,12 @@ class Tests implements Interface1, implements Interface2 {
 	
 	// Various methods
 	
-	public function callLotsOfArguments (arg1:Int, arg2:Int, arg3:Int, arg4:Int) :Void {}
+	public function callLotsOfArguments (arg1:Int, arg2:Int, arg3:Int, arg4:Int) :Void {
+		optionalArguments (0,1,2);
+		optionalArguments1 (0,1,2);
+		optionalArguments2 (0,null,null,3);
+		optionalArguments3 (0,1,2,3);
+	}
 	public function optionalArguments (arg1:Int, arg2:Int, arg3:Int, ?arg4:Int) :Void {}
 	public function optionalArguments1 (arg1:Int, arg2:Int, arg3:Int, arg4:Int=5) :Void {}
 	public function optionalArguments2 (arg1:Int, ?arg2:Int, ?arg3:Int, arg4:Int) :Void {}

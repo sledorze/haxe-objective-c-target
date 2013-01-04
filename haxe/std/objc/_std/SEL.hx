@@ -1,3 +1,3 @@
-class SEL {
+extern class SEL {
 	public function new (sel:Dynamic) {}
 }

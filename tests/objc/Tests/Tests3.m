@@ -12,7 +12,7 @@
 @synthesize d1;
 - (id) init{
 	self = [super init];
-	self.FA_ .d1 = 34;
+	self.d1 = 34;
 	return self;
 }
 

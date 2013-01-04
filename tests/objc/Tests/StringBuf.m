@@ -12,7 +12,7 @@
 @synthesize b;
 - (id) init{
 	self = [super init];
-	self.FA_ .b = @"";
+	self.b = @"";
 	return self;
 }
 

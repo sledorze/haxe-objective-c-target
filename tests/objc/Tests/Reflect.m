@@ -10,21 +10,21 @@
 @implementation Reflect
 
 + (BOOL) hasField:(id)o field:(NSMutableString*)field{
-	return o != nil && [o __HasField-TDynamic];
+	return o != nil && [o __HasField-TDynamic-];
 }
 + (id) field:(id)o field:(NSMutableString*)field{
-	return ( (o == nil) ? nil : [o __Field-TDynamic]);
+	return ( (o == nil) ? nil : [o __Field-TDynamic-]);
 }
 + (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args{
-	if (func != nil && [func __GetType] == __global__FA_TAnon_ -GFA2-vtString) func = [o __Field-TDynamic];
-	[func __SetThis-TDynamic];
-	return [func __Run-TDynamic];
+	if (func != nil && [func __GetType] == __global__FA_TAnon_ -GFA2-vtString) func = [o __Field-TDynamic-];
+	[func __SetThis-TDynamic-];
+	return [func performSelector-TDynamic-];
 }
 + (NSMutableArray*) fields:(id)o{
 	if (o == nil) return [[NSMutableArray alloc] init];
 	
 	NSMutableArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
-	[o __GetFields-TDynamic];
+	[o __GetFields-TDynamic-];
 	return a;
 }
 + (BOOL) isFunction:(id)f{
@@ -35,7 +35,7 @@
 }
 + (BOOL) compareMethods:(id)f1 f2:(id)f2{
 	if (f1 == f2) return YES;
-	if (![ReflectFA_TAnon_ FA_  isFunction:f1] || ![ReflectFA_TAnon_ FA_  isFunction:f2]) return NO;
+	if (![ReflectFA_TAnon_ isFunction:f1] || ![ReflectFA_TAnon_ isFunction:f2]) return NO;
 	return [__global__FA_TAnon_ -GFA2-__hxcpp_same_closure:f1 :f2];
 }
 + (BOOL) isObject:(id)v{
@@ -49,19 +49,19 @@
 }
 + (id) copy:(id)o{
 	if (o == nil) return nil;
-	if ([o FA_  __GetType] == __global__FA_TAnon_ -GFA2-vtString) return o;
-	if ([o FA_  __GetType] == __global__FA_TAnon_ -GFA2-vtArray) return [[o FA_  __Field:@"copy" :YES]];
+	if ([o __GetType] == __global__FA_TAnon_ -GFA2-vtString) return o;
+	if ([o __GetType] == __global__FA_TAnon_ -GFA2-vtArray) return [[o __Field:@"copy" :YES]];
 	id o2 = struct {
 	
 	} structName;
 	{
 		int _g = 0; 
-		NSMutableArray *_g1 = [ReflectFA_TAnon_ FA_  fields:o];
-		while (_g < _g1.FA_ .length) {
+		NSMutableArray *_g1 = [ReflectFA_TAnon_ fields:o];
+		while (_g < _g1.length) {
 			
 			NSMutableString *f = [_g1 objectAtIndex:_g];
 			++_g;
-			if (o2 != nil) [o2 __SetField-TDynamic];
+			if (o2 != nil) [o2 __SetField-TDynamic-];
 		}
 	}
 	return o2;

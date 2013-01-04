@@ -17,11 +17,11 @@
 }
 + (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(BOOL)quotes{
 	if (quotes==nil) quotes=nil;
-	s = [[[[[[s  componentsSeparatedByString:@"&"].FA_ .join:@"&amp;"]. componentsSeparatedByString:@"<"].FA_ .join:@"&lt;"]. componentsSeparatedByString:@">"].FA_ .join:@"&gt;"];
-	return ( (quotes) ? [[[[s  componentsSeparatedByString:@"\""].FA_ .join:@"&quot;"]. componentsSeparatedByString:@"'"].FA_ .join:@"&#039;"] : s);
+	s = [[[[[[s  componentsSeparatedByString:@"&"].join:@"&amp;"]. componentsSeparatedByString:@"<"].join:@"&lt;"]. componentsSeparatedByString:@">"].join:@"&gt;"];
+	return ( (quotes) ? [[[[s  componentsSeparatedByString:@"\""].join:@"&quot;"]. componentsSeparatedByString:@"'"].join:@"&#039;"] : s);
 }
 + (NSMutableString*) htmlUnescape:(NSMutableString*)s{
-	return [[[[[[[[[[s  componentsSeparatedByString:@"&gt;"].FA_ .join:@">"]. componentsSeparatedByString:@"&lt;"].FA_ .join:@"<"]. componentsSeparatedByString:@"&quot;"].FA_ .join:@"\""]. componentsSeparatedByString:@"&#039;"].FA_ .join:@"'"]. componentsSeparatedByString:@"&amp;"].FA_ .join:@"&"];
+	return [[[[[[[[[[s  componentsSeparatedByString:@"&gt;"].join:@">"]. componentsSeparatedByString:@"&lt;"].join:@"<"]. componentsSeparatedByString:@"&quot;"].join:@"\""]. componentsSeparatedByString:@"&#039;"].join:@"'"]. componentsSeparatedByString:@"&amp;"].join:@"&"];
 }
 + (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start{
 	return s.length >= start.length && [s  substringWithRange:0 len:start length] == start;
@@ -38,7 +38,7 @@
 + (NSMutableString*) ltrim:(NSMutableString*)s{
 	int l = s.length;
 	int r = 0;
-	while (r < l && [StringToolsFA_TAnon_ FA_  isSpace:s pos:r]) r++;
+	while (r < l && [StringToolsFA_TAnon_ isSpace:s pos:r]) r++;
 	if (r > 0) return [s  substringWithRange:r len:l - r]
 	else return s;
 	return nil;
@@ -46,13 +46,13 @@
 + (NSMutableString*) rtrim:(NSMutableString*)s{
 	int l = s.length;
 	int r = 0;
-	while (r < l && [StringToolsFA_TAnon_ FA_  isSpace:s pos:l - r - 1]) r++;
+	while (r < l && [StringToolsFA_TAnon_ isSpace:s pos:l - r - 1]) r++;
 	if (r > 0) return [s  substringWithRange:0 len:l - r]
 	else return s;
 	return nil;
 }
 + (NSMutableString*) trim:(NSMutableString*)s{
-	return [StringToolsFA_TAnon_ FA_  ltrim:[StringToolsFA_TAnon_ FA_  rtrim:s]];
+	return [StringToolsFA_TAnon_ ltrim:[StringToolsFA_TAnon_ rtrim:s]];
 }
 + (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l{
 	if (c.length <= 0) return s;
