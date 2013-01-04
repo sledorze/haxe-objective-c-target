@@ -17,6 +17,7 @@
 + (Bytes*) alloc:(int)length;
 + (Bytes*) ofString:(NSMutableString*)s;
 + (Bytes*) ofData:(NSMutableArray*)b;
++ (int) fastGet:(NSMutableArray*)b pos:(int)pos;
 @property (nonatomic) int length;
 @property (nonatomic, strong) NSMutableArray *b;
 - (int) get:(int)pos;

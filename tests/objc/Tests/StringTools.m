@@ -80,5 +80,11 @@
 	if (digits != nil) while (s.length < digits) s = [(NSMutableString*)@"0" stringByAppendingString:s];
 	return s;
 }
++ (int) fastCodeAt:(NSMutableString*)s index:(int)index{
+	return [s cca:index];
+}
++ (BOOL) isEof:(int)c{
+	return c == -1;
+}
 
 @end

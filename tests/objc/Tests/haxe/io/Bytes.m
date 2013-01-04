@@ -25,10 +25,10 @@
 	
 	NSMutableArray *a = [[NSMutableArray alloc] init];
 	{
-		int _g1 = 0; int _g = slength;
+		int _g1 = 0; int _g = s.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int c = [scca:i];
+			int c = [s cca:i];
 			if (c <= 127) [a push:c]
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];
@@ -52,6 +52,9 @@
 + (Bytes*) ofData:(NSMutableArray*)b{
 	return [[Bytes alloc] init:b length b:b];
 }
++ (int) fastGet:(NSMutableArray*)b pos:(int)pos{
+	return [b objectAtIndex:pos];
+}
 @synthesize length;
 @synthesize b;
 - (int) get:(int)pos{
@@ -61,7 +64,7 @@
 	[self.b objectAtIndex:pos] = (v & 255);
 }
 - (void) blit:(int)pos src:(Bytes*)src srcpos:(int)srcpos len:(int)len{
-	if (pos < 0 || srcpos < 0 || len < 0 || pos + len > self.length || srcpos + len > src.length) @throw Error.OutsideBounds;
+	if (pos < 0 || srcpos < 0 || len < 0 || pos + len > self.length || srcpos + len > src.length) @throw Error OutsideBounds;;
 	
 	NSMutableArray *b1 = self.b;
 	
@@ -83,8 +86,8 @@
 	}
 }
 - (Bytes*) sub:(int)pos len:(int)len{
-	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error.OutsideBounds;
-	return [[Bytes alloc] init:len b:[self b slice:pos end:pos + len]];
+	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error OutsideBounds;;
+	return [[Bytes alloc] init:len b:[self.b slice:pos end:pos + len]];
 }
 - (int) compare:(Bytes*)other{
 	
@@ -102,13 +105,13 @@
 	return self.length - other.length;
 }
 - (NSMutableString*) readString:(int)pos len:(int)len{
-	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error.OutsideBounds;
+	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error OutsideBounds;;
 	
-	NSMutableString *s = @"";
+	NSMutableString *s = (NSMutableString*)@"";
 	
 	NSMutableArray *b = self.b;
 	
-	SEL *fcc = @selector(fromCharCode);
+	SEL *fcc = NSMutableString fromCharCode;
 	int i = pos;
 	int max = pos + len;
 	while (i < max) {
@@ -131,7 +134,7 @@
 	return s;
 }
 - (NSMutableString*) toString{
-	return [self readString:0 len:self length];
+	return [self.readString:0 len:self.length];
 }
 - (NSMutableString*) toHex{
 	
@@ -139,12 +142,12 @@
 	
 	NSMutableArray *chars = [[NSMutableArray alloc] initWithObjects:, nil]];
 	
-	NSMutableString *str = @"0123456789abcdef";
+	NSMutableString *str = (NSMutableString*)@"0123456789abcdef";
 	{
-		int _g1 = 0; int _g = strlength;
+		int _g1 = 0; int _g = str.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			[chars push:[str characterAtIndex:i]];
+			[chars push:[str  characterAtIndex:i]];
 		}
 	}
 	{
@@ -154,11 +157,11 @@
 			int c = [self.b objectAtIndex:i];
 			{
 				int c1 = [chars objectAtIndex:c >> 4];
-				s.b += [NSMutableStringfromCharCode:c1];
+				s.b += [NSMutableString fromCharCode:c1];
 			}
 			{
 				int c1 = [chars objectAtIndex:c & 15];
-				s.b += [NSMutableStringfromCharCode:c1];
+				s.b += [NSMutableString fromCharCode:c1];
 			}
 		}
 	}

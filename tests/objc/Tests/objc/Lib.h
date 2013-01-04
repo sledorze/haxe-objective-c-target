@@ -6,13 +6,16 @@
 //
 
 
+#import <CoreLocation/CoreLocation.h>
 
 #import "Lib.h"
 
 @interface Lib : NSObject
 
++ (void) log:(id)v;
 + (void) print:(id)v;
 + (void) println:(id)v;
++ (CLLocation*) location;
 
 @end
 

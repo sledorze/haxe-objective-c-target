@@ -13,5 +13,7 @@
 	if (infos==nil) infos=nil;
 	NSLog (@"%@:%@: %@", [infos objectForKey:@"fileName"], [infos objectForKey:@"lineNumber"], v);
 }
++ (void) clear{
+}
 
 @end

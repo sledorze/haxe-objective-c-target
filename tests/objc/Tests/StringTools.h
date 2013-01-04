@@ -25,6 +25,8 @@
 + (NSMutableString*) rpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l;
 + (NSMutableString*) replace:(NSMutableString*)s sub:(NSMutableString*)sub by:(NSMutableString*)by;
 + (NSMutableString*) hex:(int)n digits:(int)digits;
++ (int) fastCodeAt:(NSMutableString*)s index:(int)index;
++ (BOOL) isEof:(int)c;
 
 @end
 

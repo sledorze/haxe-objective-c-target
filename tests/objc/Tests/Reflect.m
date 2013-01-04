@@ -15,6 +15,15 @@
 + (id) field:(id)o field:(NSMutableString*)field{
 	return ( (o == nil) ? nil : [o __Field-TDynamic-]);
 }
++ (void) setField:(id)o field:(NSMutableString*)field value:(id)value{
+	if (o != nil) [o __SetField-TDynamic-];
+}
++ (id) getProperty:(id)o field:(NSMutableString*)field{
+	return ( (o == nil) ? nil : [o __Field-TDynamic-]);
+}
++ (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value{
+	if (o != nil) [o __SetField-TDynamic-];
+}
 + (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args{
 	if (func != nil && [func __GetType] == __global__ vtString) func = [o __Field-TDynamic-];
 	[func __SetThis-TDynamic-];
@@ -65,6 +74,9 @@
 		}
 	}
 	return o2;
+}
++ (id) makeVarArgs:(SEL*)f{
+	return [__global__ __hxcpp_create_var_args:f];
 }
 
 @end

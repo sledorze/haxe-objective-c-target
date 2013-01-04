@@ -19,6 +19,130 @@
 	}
 	return a;
 }
++ (List*) list:(id_anon*)it{
+	
+	List *l = [[List alloc] init];
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var i : id = $it.next()
+		[l add:i]
+	}
+	return l;
+}
++ (List*) map:(id_anon*)it f:(SEL*)f{
+	
+	List *l = [[List alloc] init];
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		[l add:[f:x]]
+	}
+	return l;
+}
++ (List*) mapi:(id_anon*)it f:(SEL*)f{
+	
+	List *l = [[List alloc] init];
+	int i = 0;
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		[l add:[f:i++ :x]]
+	}
+	return l;
+}
++ (BOOL) has:(id_anon*)it elt:(id)elt cmp:(SEL*)cmp{
+	if (cmp==nil) cmp=nil;
+	if (cmp == nil) {
+		{
+			{ var $it : * = [it iterator]
+			for ( $it.hasNext() ) { var x : id = $it.next()
+			if (x == elt) return YES
+		}
+	}
+	else {
+		{
+			{ var $it2 : * = [it iterator]
+			for ( $it2.hasNext() ) { var x : id = $it2.next()
+			if ([cmp:x :elt]) return YES
+		}
+	}
+	return NO;
+}
++ (BOOL) exists:(id_anon*)it f:(SEL*)f{
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		if ([f:x]) return YES
+	}
+	return NO;
+}
++ (BOOL) foreach:(id_anon*)it f:(SEL*)f{
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		if (![f:x]) return NO
+	}
+	return YES;
+}
++ (void) iter:(id_anon*)it f:(SEL*)f{
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		[f:x]
+	}
+}
++ (List*) filter:(id_anon*)it f:(SEL*)f{
+	
+	List *l = [[List alloc] init];
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		if ([f:x]) [l add:x]
+	}
+	return l;
+}
++ (id) fold:(id_anon*)it f:(SEL*)f first:(id)first{
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var x : id = $it.next()
+		first = [f:x :first]
+	}
+	return first;
+}
++ (int) count:(id_anon*)it pred:(SEL*)pred{
+	if (pred==nil) pred=nil;
+	int n = 0;
+	if (pred == nil) {
+		{
+			{ var $it : * = [it iterator]
+			for ( $it.hasNext() ) { var _ : id = $it.next()
+			n++
+		}
+	}
+	else {
+		{
+			{ var $it2 : * = [it iterator]
+			for ( $it2.hasNext() ) { var x : id = $it2.next()
+			if ([pred:x]) n++
+		}
+	}
+	return n;
+}
++ (BOOL) empty:(id_anon*)it{
+	return ![[it iterator] hasNext];
+}
++ (int) indexOf:(id_anon*)it v:(id)v{
+	int i = 0;
+	{
+		{ var $it : * = [it iterator]
+		for ( $it.hasNext() ) { var v2 : id = $it.next()
+		{
+			if (v == v2) return i;
+			i++;
+		}
+	}
+	return -1;
+}
 + (List*) concat:(id_anon*)a b:(id_anon*)b{
 	
 	List *l = [[List alloc] init];

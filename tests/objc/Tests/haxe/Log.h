@@ -11,6 +11,7 @@
 @interface Log : NSObject
 
 + (void) trace:(id)v infos:(id_anon*)infos;
++ (void) clear;
 
 @end
 

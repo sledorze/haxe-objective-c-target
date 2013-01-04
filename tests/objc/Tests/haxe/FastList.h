@@ -20,10 +20,19 @@
 
 
 #import "FastList.h"
+#import "FastCell.h"
+#import "Array.h"
 
 @interface FastList : NSObject
 
 @property (nonatomic, strong) FastCell *head;
+- (void) add:(id)item;
+- (id) first;
+- (id) pop;
+- (BOOL) isEmpty;
+- (BOOL) remove:(id)v;
+- (id_anon*) iterator;
+- (NSMutableString*) toString;
 - (id) init;
 
 @end
