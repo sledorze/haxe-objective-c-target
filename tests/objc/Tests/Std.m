@@ -10,8 +10,7 @@
 @implementation Std
 
 + (BOOL) is:(id)v t:(id)t{
-	return [v isEqual-TDynamic-];
-	return [v isKindOfClass-TDynamic-];
+	return NO;
 }
 + (NSMutableString*) string:(id)s{
 	return [s description];

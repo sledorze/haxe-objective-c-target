@@ -13,7 +13,7 @@
 	printf ( [[v description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy] );
 }
 + (void) println:(id)v{
-	[LibFA_TAnon_ print:v];
+	[Lib print:v];
 	printf ( "\n" );
 }
 

@@ -39,9 +39,9 @@
 	NSMutableArray *me = [[NSMutableArray alloc] initWithObjects:self, nil]];
 	return struct {
 	hasNext:^(BOOL){
-		return [[it objectAtIndex:0]FA_TAnon_ -GFA2-hasNext];
+		return [[it objectAtIndex:0] hasNext];
 	}; next:^(id){
-		return [[me objectAtIndex:0].__InternalFA_TAnon_ -GFA2-__Field:[[it objectAtIndex:0]FA_TAnon_ -GFA2-next] :YES];
+		return [[me objectAtIndex:0].__Internal __Field:[[it objectAtIndex:0] next] :YES];
 	}
 	} structName;
 }

@@ -49,8 +49,7 @@ import objc.foundation.NSCalendar;
 		_components.setMinute ( min );
 		_components.setSecond ( sec );
 		
-		untyped __objc__("self = _calendar.dateFromComponents ( _components )");
-		
+		untyped __objc__("self = [self._calendar dateFromComponents:self._components]");
 	}
 
 	public function getTime() : Float {

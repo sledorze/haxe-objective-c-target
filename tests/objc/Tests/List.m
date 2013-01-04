@@ -89,7 +89,7 @@
 	while (l != nil) {
 		if (first) first = NO
 		else [s.b appendString:@", "];
-		s.b += [StdFA_TAnon_ string:[StdFA_TAnon_ string:[l objectAtIndex:0]]];
+		s.b += [Std string:[Std string:[l objectAtIndex:0]]];
 		l = [l objectAtIndex:1];
 	}
 	[s.b appendString:@"}"];
@@ -103,8 +103,8 @@
 	NSMutableArray *l = self.h;
 	while (l != nil) {
 		if (first) first = NO
-		else s.b += [StdFA_TAnon_ string:sep];
-		s.b += [StdFA_TAnon_ string:[l objectAtIndex:0]];
+		else s.b += [Std string:sep];
+		s.b += [Std string:[l objectAtIndex:0]];
 		l = [l objectAtIndex:1];
 	}
 	return s.b;

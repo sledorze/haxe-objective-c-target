@@ -38,7 +38,7 @@
 + (NSMutableString*) ltrim:(NSMutableString*)s{
 	int l = s.length;
 	int r = 0;
-	while (r < l && [StringToolsFA_TAnon_ isSpace:s pos:r]) r++;
+	while (r < l && [StringTools isSpace:s pos:r]) r++;
 	if (r > 0) return [s  substringWithRange:r len:l - r]
 	else return s;
 	return nil;
@@ -46,13 +46,13 @@
 + (NSMutableString*) rtrim:(NSMutableString*)s{
 	int l = s.length;
 	int r = 0;
-	while (r < l && [StringToolsFA_TAnon_ isSpace:s pos:l - r - 1]) r++;
+	while (r < l && [StringTools isSpace:s pos:l - r - 1]) r++;
 	if (r > 0) return [s  substringWithRange:0 len:l - r]
 	else return s;
 	return nil;
 }
 + (NSMutableString*) trim:(NSMutableString*)s{
-	return [StringToolsFA_TAnon_ ltrim:[StringToolsFA_TAnon_ rtrim:s]];
+	return [StringTools ltrim:[StringTools rtrim:s]];
 }
 + (NSMutableString*) lpad:(NSMutableString*)s c:(NSMutableString*)c l:(int)l{
 	if (c.length <= 0) return s;

@@ -9,6 +9,7 @@
 
 @implementation NSRegularExpression ( EReg )
 
+// Getters/setters for property r
 static id r__;
 - (id) r{
 	return r__;
@@ -16,6 +17,7 @@ static id r__;
 - (void) setR:(id)val{
 	r__ = val;
 }
+// Getters/setters for property last
 static NSMutableString* last__;
 - (NSMutableString*) last{
 	return last__;
@@ -23,6 +25,7 @@ static NSMutableString* last__;
 - (void) setLast:(NSMutableString*)val{
 	last__ = val;
 }
+// Getters/setters for property global
 static BOOL global__;
 - (BOOL) global{
 	return global__;
@@ -44,12 +47,12 @@ static BOOL global__;
 - (NSMutableString*) matchedLeft{
 	
 	id_anon *p = nil;
-	return [self.last  substringWithRange:0 len:pFA_TAnon_ -GFA2-pos];
+	return [self.last  substringWithRange:0 len:p pos];
 }
 - (NSMutableString*) matchedRight{
 	
 	id_anon *p = nil;
-	int sz = pFA_TAnon_ -GFA2-pos + pFA_TAnon_ -GFA2-len;
+	int sz = p pos + p len;
 	return [self.last  substringWithRange:sz len:self.last length - sz];
 }
 - (id_anon*) matchedPos{
@@ -64,12 +67,12 @@ static BOOL global__;
 	do {
 		
 		id_anon *p = nil;
-		if (pFA_TAnon_ -GFA2-len == 0 && !first) {
-			if (pFA_TAnon_ -GFA2-pos == s.length) break;
-			pFA_TAnon_ -GFA2-pos += 1;
+		if (p len == 0 && !first) {
+			if (p pos == s.length) break;
+			p pos += 1;
 		}
-		[a push:[s  substringWithRange:pos len:pFA_TAnon_ -GFA2-pos - pos]];
-		int tot = pFA_TAnon_ -GFA2-pos + pFA_TAnon_ -GFA2-len - pos;
+		[a push:[s  substringWithRange:pos len:p pos - pos]];
+		int tot = p pos + p len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
@@ -88,12 +91,12 @@ static BOOL global__;
 	do {
 		
 		id_anon *p = nil;
-		if (pFA_TAnon_ -GFA2-len == 0 && !first) {
-			if (pFA_TAnon_ -GFA2-pos == s.length) break;
-			pFA_TAnon_ -GFA2-pos += 1;
+		if (p len == 0 && !first) {
+			if (p pos == s.length) break;
+			p pos += 1;
 		}
-		b.b += [s  substringWithRange:pos len:pFA_TAnon_ -GFA2-pos - pos];
-		if (a.length > 0) b.b += [StdFA_TAnon_ string:[a objectAtIndex:0]];
+		b.b += [s  substringWithRange:pos len:p pos - pos];
+		if (a.length > 0) b.b += [Std string:[a objectAtIndex:0]];
 		int i = 1;
 		while (i < a.length) {
 			
@@ -104,10 +107,10 @@ static BOOL global__;
 				id_anon *p1 = nil;
 				if (p1 == nil) {
 					[b.b appendString:@"$"];
-					b.b += [StdFA_TAnon_ string:k];
+					b.b += [Std string:k];
 				}
 				else {
-					b.b += [s  substringWithRange:p1FA_TAnon_ -GFA2-pos len:p1FA_TAnon_ -GFA2-len];
+					b.b += [s  substringWithRange:p1 pos len:p1 len];
 					b.b += [k  substringWithRange:1 len:k length - 1];
 				}
 			}
@@ -116,12 +119,12 @@ static BOOL global__;
 				i++;
 				
 				NSMutableString *k2 = [a objectAtIndex:i];
-				if (k2 != nil && k2.length > 0) b.b += [StdFA_TAnon_ string:k2];
+				if (k2 != nil && k2.length > 0) b.b += [Std string:k2];
 			}
-			else b.b += [StdFA_TAnon_ string:[@"$" stringByAppendingString:k]];
+			else b.b += [Std string:[@"$" stringByAppendingString:k]];
 			i++;
 		}
-		int tot = pFA_TAnon_ -GFA2-pos + pFA_TAnon_ -GFA2-len - pos;
+		int tot = p pos + p len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
@@ -134,11 +137,11 @@ static BOOL global__;
 	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {
 		if (![self.match:s]) break;
-		buf.b += [StdFA_TAnon_ string:[self.matchedLeft]];
-		buf.b += [StdFA_TAnon_ string:[f:self]];
+		buf.b += [Std string:[self.matchedLeft]];
+		buf.b += [Std string:[f:self]];
 		s = [self.matchedRight];
 	}
-	buf.b += [StdFA_TAnon_ string:s];
+	buf.b += [Std string:s];
 	return buf.b;
 }
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{

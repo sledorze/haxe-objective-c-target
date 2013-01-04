@@ -9,6 +9,7 @@
 
 @implementation NSMutableArray ( Array )
 
+// Getters/setters for property length
 static int length__;
 - (int) length{
 	return length__;
@@ -20,12 +21,12 @@ static int length__;
 	return [self.arrayByAddingObjectsFromArray:a];
 }
 - (NSMutableArray*) copy{
-	return [NSMutableArrayFA_TAnon_ arrayWithArray:self];
+	return [NSMutableArray arrayWithArray:self];
 }
 - (id_anon*) iterator{
 	return struct {
 	a:self; p:0; hasNext:^(BOOL){
-		return self.p < self.aFA_TAnon_ -GFA2-length;
+		return self.p < self.a length;
 	}; next:^(id){
 		id i = [self.a objectAtIndex:self.p];
 		self.p += 1;
@@ -61,7 +62,7 @@ static int length__;
 	return containsObject;
 }
 - (void) reverse{
-	id reverseArray = [[self.reverseObjectEnumerator]FA_TAnon_ -GFA2-allObjects];
+	id reverseArray = [[self.reverseObjectEnumerator] allObjects];
 }
 - (id) shift{
 	if ([self.count] > 0) {
@@ -81,7 +82,7 @@ static int length__;
 	
 	NSMutableArray *newArray = [self.subarrayWithRange:NSMakeRange (pos,len)];
 	[self.removeObjectsInArray:newArray];
-	return [NSMutableArrayFA_TAnon_ arrayWithArray:newArray];
+	return [NSMutableArray arrayWithArray:newArray];
 }
 - (id) init{
 	self = [super init];

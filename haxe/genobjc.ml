@@ -781,12 +781,12 @@ and generateFieldAccess ctx etype s to_method =
 		ctx.writer#write accessor;
 		field c;
 		ctx.generating_self_access <- false;
-	| TAnon a ->ctx.writer#write "FA_TAnon_ ";
+	| TAnon a ->(* ctx.writer#write "FA_TAnon_ "; *)
 		(match !(a.a_status) with
 			(* Generate a static field access *)
-			| Statics c -> field c
+			| Statics c -> ctx.writer#write " "; field c
 			(* Generate field access for an anonymous object, Dynamic *)
-			| _ -> ctx.writer#write (Printf.sprintf "-GFA2-%s" s))
+			| _ -> ctx.writer#write (Printf.sprintf " %s" s))
 	| _ ->
 		(* Method call on a Dynamic *)
 		ctx.writer#write (Printf.sprintf " %s" s)
@@ -995,7 +995,8 @@ and generateExpression ctx e =
 		ctx.writer#write ", nil]]"
 	| TThrow e ->
 		ctx.writer#write "@throw ";
-		generateValue ctx e
+		generateValue ctx e;
+		ctx.writer#write ";";
 	| TVars [] ->
 		()
 	| TVars vl ->
@@ -1170,7 +1171,7 @@ and generateExpression ctx e =
 		| Some e ->
 			ctx.writer#write "default:";
 			generateBlock ctx e;
-			ctx.writer#write "break";
+			ctx.writer#write "break;";
 			ctx.writer#new_line;
 		);
 		(* ctx.writer#write "}" *)
@@ -1352,7 +1353,6 @@ let generateProperty ctx field pos is_static =
 			let gen_init_value () = match field.cf_expr with
 			| None -> ()
 			| Some e -> generateValue ctx e in
-		
 			ctx.writer#write ("+ ("^t^(addPointerIfNeeded t)^") "^id^":("^t^(addPointerIfNeeded t)^")val {
 	static "^t^" "^(addPointerIfNeeded t)^"_val;
 	if (val == nil) { if (_val == nil) _val = ");
@@ -1367,6 +1367,7 @@ let generateProperty ctx field pos is_static =
 				(* A category can't use the @synthesize, so we create a getter and setter for the property *)
 				(* http://ddeville.me/2011/03/add-variables-to-an-existing-class-in-objective-c/ *)
 				let retain = String.length t == String.length (addPointerIfNeeded t) in
+				ctx.writer#write ("// Getters/setters for property "^id^"\n");
 				ctx.writer#write ("static "^t^(addPointerIfNeeded t)^" "^id^"__;\n");
 				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id);
 				ctx.writer#begin_block;

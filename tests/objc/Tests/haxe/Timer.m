@@ -22,13 +22,13 @@
 }
 + (id) measure:(SEL*)f pos:(id_anon*)pos{
 	if (pos==nil) pos=nil;
-	float t0 = [TimerFA_TAnon_ stamp];
+	float t0 = [Timer stamp];
 	id r = [f];
-	[LogFA_TAnon_ trace:[[TimerFA_TAnon_ stamp] - t0 stringByAppendingString:@"s"] infos:pos];
+	[Log trace:[[Timer stamp] - t0 stringByAppendingString:@"s"] infos:pos];
 	return r;
 }
 + (float) stamp{
-	return [SysFA_TAnon_ time];
+	return [Sys time];
 }
 @synthesize nstimer;
 @synthesize id;
@@ -42,7 +42,7 @@
 }
 - (id) init:(int)time_ms{
 	self = [super init];
-	self.nstimer = [NSTimerFA_TAnon_ timerWithTimeInterval:time_ms target:self selector:self.run userInfo:nil repeats:YES];
+	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:self.run userInfo:nil repeats:YES];
 	return self;
 }
 

@@ -13,8 +13,8 @@
 	print(v);
 }
 + (void) println:(id)v{
-	[SysFA_TAnon_ print:v];
-	[SysFA_TAnon_ print:@"\n"];
+	[Sys print:v];
+	[Sys print:@"\n"];
 }
 + (Input*) stdin{
 	return [[FileInput alloc] init:[file_stdin]];
@@ -79,14 +79,14 @@
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args==nil) args=nil;
 	if (args != nil) {
-		cmd = [SysFA_TAnon_ escapeArgument:cmd];
+		cmd = [Sys escapeArgument:cmd];
 		{
 			int _g = 0;
 			while (_g < args.length) {
 				
 				NSMutableString *a = [args objectAtIndex:_g];
 				++_g;
-				[cmd appendString:[@" " stringByAppendingString:[SysFA_TAnon_ escapeArgument:a]]];
+				[cmd appendString:[@" " stringByAppendingString:[Sys escapeArgument:a]]];
 			}
 		}
 	}
