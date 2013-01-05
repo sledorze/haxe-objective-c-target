@@ -1066,16 +1066,22 @@ and generateExpression ctx e =
 		generateValue ctx (parent cond);
 		handleBreak();
 	| TFor (v,it,e) ->
-		(* When is this generated? *)
+		(* Generated for Iterable *)
 		ctx.writer#begin_block;
 		let handleBreak = handleBreak ctx e in
-		let tmp = genLocal ctx "$it" in
-		ctx.writer#write (Printf.sprintf "{ var %s : * = " tmp);
+		let tmp = genLocal ctx "_it" in
+		ctx.writer#write (Printf.sprintf "id %s = " tmp);
 		generateValue ctx it;
+		ctx.writer#write ";";
 		ctx.writer#new_line;
-		ctx.writer#write (Printf.sprintf "for ( %s.hasNext() ) { var %s : %s = %s.next()" tmp (remapKeyword v.v_name) (typeToString ctx v.v_type e.epos) tmp);
+		ctx.writer#write (Printf.sprintf "while ( [%s hasNext] ) do " tmp);
+		ctx.writer#begin_block;
+		ctx.writer#write (Printf.sprintf "%s %s = [%s next];" (typeToString ctx v.v_type e.epos) (remapKeyword v.v_name) tmp);
 		ctx.writer#new_line;
 		generateExpression ctx e;
+		ctx.writer#write ";";
+		ctx.writer#new_line;
+		ctx.writer#end_block;
 		ctx.writer#new_line;
 		ctx.writer#end_block;
 		handleBreak();

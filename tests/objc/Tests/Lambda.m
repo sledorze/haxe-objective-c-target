@@ -13,9 +13,11 @@
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var i : id = $it.next()
-		[a push:i]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id i = [_it next];
+			[a push:i];
+		}
 	}
 	return a;
 }
@@ -23,9 +25,11 @@
 	
 	List *l = [[List alloc] init];
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var i : id = $it.next()
-		[l add:i]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id i = [_it next];
+			[l add:i];
+		}
 	}
 	return l;
 }
@@ -33,9 +37,11 @@
 	
 	List *l = [[List alloc] init];
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		[l add:[f:x]]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			[l add:[f:x]];
+		}
 	}
 	return l;
 }
@@ -44,9 +50,11 @@
 	List *l = [[List alloc] init];
 	int i = 0;
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		[l add:[f:i++ :x]]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			[l add:[f:i++ :x]];
+		}
 	}
 	return l;
 }
@@ -56,58 +64,72 @@
 	
 	if (cmp == nil) {
 		{
-			{ var $it : * = [it iterator]
-			for ( $it.hasNext() ) { var x : id = $it.next()
-			if (x == elt) return YES
+			id _it = [it iterator];
+			while ( [_it hasNext] ) do {
+				id x = [_it next];
+				if (x == elt) return YES;
+			}
 		}
 	}
 	else {
 		{
-			{ var $it2 : * = [it iterator]
-			for ( $it2.hasNext() ) { var x : id = $it2.next()
-			if ([cmp:x :elt]) return YES
+			id _it2 = [it iterator];
+			while ( [_it2 hasNext] ) do {
+				id x = [_it2 next];
+				if ([cmp:x :elt]) return YES;
+			}
 		}
 	}
 	return NO;
 }
 + (BOOL) exists:(id)it f:(SEL*)f{
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		if ([f:x]) return YES
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			if ([f:x]) return YES;
+		}
 	}
 	return NO;
 }
 + (BOOL) foreach:(id)it f:(SEL*)f{
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		if (![f:x]) return NO
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			if (![f:x]) return NO;
+		}
 	}
 	return YES;
 }
 + (void) iter:(id)it f:(SEL*)f{
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		[f:x]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			[f:x];
+		}
 	}
 }
 + (List*) filter:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		if ([f:x]) [l add:x]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			if ([f:x]) [l add:x];
+		}
 	}
 	return l;
 }
 + (id) fold:(id)it f:(SEL*)f first:(id)first{
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		first = [f:x :first]
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			first = [f:x :first];
+		}
 	}
 	return first;
 }
@@ -118,16 +140,20 @@
 	int n = 0;
 	if (pred == nil) {
 		{
-			{ var $it : * = [it iterator]
-			for ( $it.hasNext() ) { var _ : id = $it.next()
-			n++
+			id _it = [it iterator];
+			while ( [_it hasNext] ) do {
+				id _ = [_it next];
+				n++;
+			}
 		}
 	}
 	else {
 		{
-			{ var $it2 : * = [it iterator]
-			for ( $it2.hasNext() ) { var x : id = $it2.next()
-			if ([pred:x]) n++
+			id _it2 = [it iterator];
+			while ( [_it2 hasNext] ) do {
+				id x = [_it2 next];
+				if ([pred:x]) n++;
+			}
 		}
 	}
 	return n;
@@ -138,11 +164,13 @@
 + (int) indexOf:(id)it v:(id)v{
 	int i = 0;
 	{
-		{ var $it : * = [it iterator]
-		for ( $it.hasNext() ) { var v2 : id = $it.next()
-		{
-			if (v == v2) return i;
-			i++;
+		id _it = [it iterator];
+		while ( [_it hasNext] ) do {
+			id v2 = [_it next];
+			{
+				if (v == v2) return i;
+				i++;
+			};
 		}
 	}
 	return -1;
@@ -151,14 +179,18 @@
 	
 	List *l = [[List alloc] init];
 	{
-		{ var $it : * = [a iterator]
-		for ( $it.hasNext() ) { var x : id = $it.next()
-		[l add:x]
+		id _it = [a iterator];
+		while ( [_it hasNext] ) do {
+			id x = [_it next];
+			[l add:x];
+		}
 	}
 	{
-		{ var $it2 : * = [b iterator]
-		for ( $it2.hasNext() ) { var x : id = $it2.next()
-		[l add:x]
+		id _it2 = [b iterator];
+		while ( [_it2 hasNext] ) do {
+			id x = [_it2 next];
+			[l add:x];
+		}
 	}
 	return l;
 }
