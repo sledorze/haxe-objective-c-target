@@ -63,14 +63,6 @@ let getFrameworkOfPath class_path =
 	| _ -> ""
 ;;
 
-let processFunctionName name = 
-	match name with
-	| "applicationWillFinishLaunchingWithOptions" -> "application"
-	| "applicationDidFinishLaunchingWithOptions" -> "application"
-	| "applicationHandleOpenURL" -> "application"
-	| _ -> name
-;;
-
 type fileKind =
 	| FSource
 	| FResource
