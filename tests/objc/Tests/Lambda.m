@@ -9,7 +9,7 @@
 
 @implementation Lambda
 
-+ (NSMutableArray*) array:(id_anon*)it{
++ (NSMutableArray*) array:(id)it{
 	
 	NSMutableArray *a = [[NSMutableArray alloc] init];
 	{
@@ -19,7 +19,7 @@
 	}
 	return a;
 }
-+ (List*) list:(id_anon*)it{
++ (List*) list:(id)it{
 	
 	List *l = [[List alloc] init];
 	{
@@ -29,7 +29,7 @@
 	}
 	return l;
 }
-+ (List*) map:(id_anon*)it f:(SEL*)f{
++ (List*) map:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	{
@@ -39,7 +39,7 @@
 	}
 	return l;
 }
-+ (List*) mapi:(id_anon*)it f:(SEL*)f{
++ (List*) mapi:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	int i = 0;
@@ -50,7 +50,7 @@
 	}
 	return l;
 }
-+ (BOOL) has:(id_anon*)it elt:(id)elt cmp:(SEL*)cmp{
++ (BOOL) has:(id)it elt:(id)elt cmp:(SEL*)cmp{
 	if (cmp==nil) cmp=nil;
 	if (cmp == nil) {
 		{
@@ -68,7 +68,7 @@
 	}
 	return NO;
 }
-+ (BOOL) exists:(id_anon*)it f:(SEL*)f{
++ (BOOL) exists:(id)it f:(SEL*)f{
 	{
 		{ var $it : * = [it iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -76,7 +76,7 @@
 	}
 	return NO;
 }
-+ (BOOL) foreach:(id_anon*)it f:(SEL*)f{
++ (BOOL) foreach:(id)it f:(SEL*)f{
 	{
 		{ var $it : * = [it iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -84,14 +84,14 @@
 	}
 	return YES;
 }
-+ (void) iter:(id_anon*)it f:(SEL*)f{
++ (void) iter:(id)it f:(SEL*)f{
 	{
 		{ var $it : * = [it iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
 		[f:x]
 	}
 }
-+ (List*) filter:(id_anon*)it f:(SEL*)f{
++ (List*) filter:(id)it f:(SEL*)f{
 	
 	List *l = [[List alloc] init];
 	{
@@ -101,7 +101,7 @@
 	}
 	return l;
 }
-+ (id) fold:(id_anon*)it f:(SEL*)f first:(id)first{
++ (id) fold:(id)it f:(SEL*)f first:(id)first{
 	{
 		{ var $it : * = [it iterator]
 		for ( $it.hasNext() ) { var x : id = $it.next()
@@ -109,7 +109,7 @@
 	}
 	return first;
 }
-+ (int) count:(id_anon*)it pred:(SEL*)pred{
++ (int) count:(id)it pred:(SEL*)pred{
 	if (pred==nil) pred=nil;
 	int n = 0;
 	if (pred == nil) {
@@ -128,10 +128,10 @@
 	}
 	return n;
 }
-+ (BOOL) empty:(id_anon*)it{
++ (BOOL) empty:(id)it{
 	return ![[it iterator] hasNext];
 }
-+ (int) indexOf:(id_anon*)it v:(id)v{
++ (int) indexOf:(id)it v:(id)v{
 	int i = 0;
 	{
 		{ var $it : * = [it iterator]
@@ -143,7 +143,7 @@
 	}
 	return -1;
 }
-+ (List*) concat:(id_anon*)a b:(id_anon*)b{
++ (List*) concat:(id)a b:(id)b{
 	
 	List *l = [[List alloc] init];
 	{

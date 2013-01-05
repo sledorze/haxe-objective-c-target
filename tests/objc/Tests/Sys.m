@@ -58,23 +58,23 @@
 		int _g1 = 0; int _g = arg.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int _g2 = [arg  characterAtIndex:i];
+			int _g2 = [arg characterAtIndex:i];
 			switch (_g2){
 				case 32:{
 					ok = NO}break;
 				case 34:{
 					ok = NO}break;
 				case 0:{
-					arg = [arg  substringWithRange:0 len:i]}break;
+					arg = [arg substringWithRange:0 len:i]}break;
 				case 13:{
-					arg = [arg  substringWithRange:0 len:i]}break;
+					arg = [arg substringWithRange:0 len:i]}break;
 				case 10:{
-					arg = [arg  substringWithRange:0 len:i]}break;
+					arg = [arg substringWithRange:0 len:i]}break;
 			}
 		}
 	}
 	if (ok) return arg;
-	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg  componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
+	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
 }
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	if (args==nil) args=nil;

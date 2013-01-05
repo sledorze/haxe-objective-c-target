@@ -445,17 +445,7 @@ let rec typeToString ctx t p =
 			(match e.e_path with
 			| [], "Void" -> "void"
 			| [], "Bool" -> "BOOL"
-			| _ ->
-				let rec loop = function
-					| [] -> "Object"
-					| (":fakeEnum",[Ast.EConst (Ast.Ident n),_],_) :: _ ->
-						(match n with
-						| "Int" -> "int"
-						| "UInt" -> "uint"
-						| _ -> n)
-					| _ :: l -> loop l
-				in
-				loop e.e_meta)
+			| _ -> "id")
 		else begin
 			ctx.imports_manager#add_class_path e.e_module.m_path;
 			remapHaxeTypeToObjc ctx true e.e_module.m_path p
@@ -468,7 +458,7 @@ let rec typeToString ctx t p =
 		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
 	| TFun _ -> "SEL"
 	| TMono r -> (match !r with None -> "id" | Some t -> typeToString ctx t p)
-	| TAnon _ -> "id_anon"
+	| TAnon anon -> "id"
 	| TDynamic _ -> "id"
 	| TType (t,args) ->
 		(* ctx.writer#write "?TType?"; *)
@@ -598,7 +588,9 @@ let generateConstant ctx p = function
 ;;
 
 let defaultValue s =
-	"nil"
+	match s with
+	| "Bool" | "BOOL" -> "NO"
+	| _ -> "nil"
 ;;
 
 (* A function header in objc is a message *)
@@ -629,11 +621,9 @@ let generateFunctionHeader ctx name f params p =
 		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
 		first_arg := false;
 		if not ctx.generating_header then begin
-			(* TODO: init args that have default values in the body of the function *)
-			(* Match default values *)
 			match c with
-			| None -> ()
-				(* Hashtbl.add ctx.function_arguments arg_name (defaultValue type_name) *)
+			| None ->
+				Hashtbl.add ctx.function_arguments arg_name (defaultValue arg_name)
 			| Some c ->
 				Hashtbl.add ctx.function_arguments arg_name c
 		end
@@ -647,7 +637,7 @@ let generateFunctionHeader ctx name f params p =
 
 (* arg_list is of type Type.texpr list *)
 let rec generateCall ctx func arg_list =
-	debug ctx (" \"-CALL-"^(Type.s_expr_kind func)^">\" ");
+	debug ctx ("\"-CALL-"^(Type.s_expr_kind func)^">\"");
 	
 	(* Generate a C call for some low level operations *)
 	if ctx.generating_c_call then begin
@@ -727,7 +717,7 @@ and generateValueOp ctx e =
 	| _ ->
 		generateValue ctx e
 
-and generateFieldAccess ctx etype s to_method =
+and generateFieldAccess ctx etype s =
 	debug ctx "\"-FA-\"";
 	(* ctx.writer#write (Printf.sprintf ">%s<" t); *)
 	let field c = match fst c.cl_path, snd c.cl_path with
@@ -745,6 +735,7 @@ and generateFieldAccess ctx etype s to_method =
 		
 		| [], "String" ->(* ctx.writer#write "FA_TInst_String_"; *)
 			(match s with
+			| "length" -> ctx.writer#write ".length"
 			| "toLowerCase" -> ctx.writer#write " lowercaseString"
 			| "toUpperCase" -> ctx.writer#write " uppercaseString"
 			| "toString" -> ctx.writer#write " description"
@@ -760,31 +751,29 @@ and generateFieldAccess ctx etype s to_method =
 			(match s with
 			| "now" -> ctx.writer#write s
 			| "fromTime" -> ctx.writer#write s
-			| _ -> ctx.writer#write ((if ctx.generating_self_access then "" else " ") ^ s))
+			| _ ->
+				let accesor = if ctx.generating_self_access then "."
+				else if ctx.generating_calls > 0 then " " else "." in
+				ctx.writer#write (Printf.sprintf "%s%s" accesor s));
 		
 		| _ -> 
 			(* self.someMethod *)
 			(* Generating dot notation for property and space for methods *)
-			let accesor = ""(* if to_method then
-							(if ctx.generating_self_access then "." else " ")
-						else if ctx.generating_calls then
-							""
-						else
-							"" *) in
+			let accesor = if ctx.generating_calls > 0 then " " else "." in
 			ctx.writer#write (Printf.sprintf "%s%s" accesor s);
 			ctx.generating_self_access <- false
 	in
 	match follow etype with
 	(* untyped str.intValue(); *)
 	| TInst (c,_) ->
-		let accessor = if (ctx.generating_calls > 0 && not ctx.generating_self_access) then " " else "." in
-		ctx.writer#write accessor;
+		(* let accessor = if (ctx.generating_calls > 0 && not ctx.generating_self_access) then " " else "." in *)
+		(* ctx.writer#write accessor; *)
 		field c;
 		ctx.generating_self_access <- false;
-	| TAnon a ->(* ctx.writer#write "FA_TAnon_ "; *)
+	| TAnon a ->
 		(match !(a.a_status) with
 			(* Generate a static field access *)
-			| Statics c -> ctx.writer#write " "; field c
+			| Statics c -> (* ctx.writer#write " "; *) field c
 			(* Generate field access for an anonymous object, Dynamic *)
 			| _ -> ctx.writer#write (Printf.sprintf " %s" s))
 	| _ ->
@@ -843,22 +832,6 @@ and generateExpression ctx e =
 			ctx.writer#write (Printf.sprintf " %s " s_op);
 			generateValueOp ctx e2
 		end;
-		
-		(* | TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s }))
-				when (try (match (PMap.find s c.cl_fields).cf_kind with Var _ -> true | _ -> false) with Not_found -> false) ->
-				spr ctx "(";
-				gen_value ctx e;
-				print ctx "[\"%s\"]" s;
-				print ctx " as %s)" (type_str ctx e.etype e.epos);
-			| TField({eexpr = TArrayDecl _} as e1,s) ->
-				spr ctx "(";
-				gen_expr ctx e1;
-				spr ctx ")";
-				gen_field_access ctx e1.etype (field_name s)
-			| TField (e,s) ->
-		   		gen_value ctx e;
-				gen_field_access ctx e.etype (field_name s) *)
-			
 	(* variable fields on interfaces are generated as (class["field"] as class) *)
 	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s })) ->
 	(* | TClosure ({etype = TInst({cl_interface = true} as c,_)} as e,s) *)
@@ -871,16 +844,11 @@ and generateExpression ctx e =
 		ctx.writer#write "(";
 		generateExpression ctx e1;
 		ctx.writer#write ")";
-		generateFieldAccess ctx e1.etype (field_name s) false;
+		generateFieldAccess ctx e1.etype (field_name s);
 	| TField (e,s) ->
 		(* This is important, is generating a field access . *)
    		generateValue ctx e;
-		generateFieldAccess ctx e.etype (field_name s) false;
-	(* | TClosure (e,s) ->
-		(* Used in Reflect.isFunction *)
-		ctx.writer#write (Printf.sprintf "@selector(%s)" s);
-   		(* generateValue ctx e; *)
-		(* generateFieldAccess ctx e.etype s true *) *)
+		generateFieldAccess ctx e.etype (field_name s);
 	| TTypeExpr t ->
 		(* Do not generate the Math class, make C calls *)
 		let p = t_path t in
@@ -1369,17 +1337,8 @@ let generateProperty ctx field pos is_static =
 				let retain = String.length t == String.length (addPointerIfNeeded t) in
 				ctx.writer#write ("// Getters/setters for property "^id^"\n");
 				ctx.writer#write ("static "^t^(addPointerIfNeeded t)^" "^id^"__;\n");
-				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id);
-				ctx.writer#begin_block;
-				(* ctx.writer#write ("return objc_getAssociatedObject(self, &"^id^"__);\n"); *)
-				ctx.writer#write ("return "^id^"__;\n");
-				ctx.writer#end_block;
-				ctx.writer#new_line;
-				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val");
-				ctx.writer#begin_block;
-				(* ctx.writer#write ("return objc_setAssociatedObject(self, &"^id^"__, val, " ^ (if retain then "OBJC_ASSOCIATION_RETAIN_NONATOMIC" else "OBJC_ASSOCIATION_ASSIGN") ^ ");\n"); *)
-				ctx.writer#write (id^"__ = val;\n");
-				ctx.writer#end_block;
+				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id^" { return "^id^"__; }\n");
+				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val { "^id^"__ = val; }\n");
 			end else begin
 				ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
 			end

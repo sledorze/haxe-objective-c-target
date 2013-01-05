@@ -12,20 +12,20 @@
 
 @interface Lambda : NSObject
 
-+ (NSMutableArray*) array:(id_anon*)it;
-+ (List*) list:(id_anon*)it;
-+ (List*) map:(id_anon*)it f:(SEL*)f;
-+ (List*) mapi:(id_anon*)it f:(SEL*)f;
-+ (BOOL) has:(id_anon*)it elt:(id)elt cmp:(SEL*)cmp;
-+ (BOOL) exists:(id_anon*)it f:(SEL*)f;
-+ (BOOL) foreach:(id_anon*)it f:(SEL*)f;
-+ (void) iter:(id_anon*)it f:(SEL*)f;
-+ (List*) filter:(id_anon*)it f:(SEL*)f;
-+ (id) fold:(id_anon*)it f:(SEL*)f first:(id)first;
-+ (int) count:(id_anon*)it pred:(SEL*)pred;
-+ (BOOL) empty:(id_anon*)it;
-+ (int) indexOf:(id_anon*)it v:(id)v;
-+ (List*) concat:(id_anon*)a b:(id_anon*)b;
++ (NSMutableArray*) array:(id)it;
++ (List*) list:(id)it;
++ (List*) map:(id)it f:(SEL*)f;
++ (List*) mapi:(id)it f:(SEL*)f;
++ (BOOL) has:(id)it elt:(id)elt cmp:(SEL*)cmp;
++ (BOOL) exists:(id)it f:(SEL*)f;
++ (BOOL) foreach:(id)it f:(SEL*)f;
++ (void) iter:(id)it f:(SEL*)f;
++ (List*) filter:(id)it f:(SEL*)f;
++ (id) fold:(id)it f:(SEL*)f first:(id)first;
++ (int) count:(id)it pred:(SEL*)pred;
++ (BOOL) empty:(id)it;
++ (int) indexOf:(id)it v:(id)v;
++ (List*) concat:(id)a b:(id)b;
 
 @end
 

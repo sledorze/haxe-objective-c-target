@@ -31,7 +31,7 @@
 - (id) pop;
 - (BOOL) isEmpty;
 - (BOOL) remove:(id)v;
-- (id_anon*) iterator;
+- (id) iterator;
 - (NSMutableString*) toString;
 - (id) init;
 

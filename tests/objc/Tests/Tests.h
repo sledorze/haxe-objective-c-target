@@ -62,7 +62,7 @@ typedef enum{
 - (void) testArray;
 - (void) testDate;
 - (int) enumToInt:(Tests*)c;
-- (void) testEnum:(Object*)v;
+- (void) testEnum:(id)v;
 - (void) testEReg;
 - (void) testHash;
 - (void) testLambda;
@@ -84,7 +84,7 @@ typedef enum{
 - (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
 - (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
-- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
+- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(BOOL)arg4;
 - (void) init;
 - (void) printHello;
 - (id) init;

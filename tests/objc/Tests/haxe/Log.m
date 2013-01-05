@@ -9,7 +9,7 @@
 
 @implementation Log
 
-+ (void) trace:(id)v infos:(id_anon*)infos{
++ (void) trace:(id)v infos:(id)infos{
 	if (infos==nil) infos=nil;
 	NSLog (@"%@:%@: %@", [infos objectForKey:@"fileName"], [infos objectForKey:@"lineNumber"], v);
 }

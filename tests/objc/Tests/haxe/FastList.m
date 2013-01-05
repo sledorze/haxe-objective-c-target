@@ -24,7 +24,7 @@
 
 @synthesize head;
 - (void) add:(id)item{
-	self.head = [[FastCell alloc] init:item next:self.head];
+	self.head = [[FastCell alloc] init:item next:self head];
 }
 - (id) first{
 	return ( (self.head == nil) ? nil : self.head.elt);
@@ -43,8 +43,7 @@
 	return self.head == nil;
 }
 - (BOOL) remove:(id)v{
-	
-	id_anon *prev = nil;
+	id prev = nil;
 	
 	FastCell *l = self.head;
 	while (l != nil) {
@@ -58,7 +57,7 @@
 	}
 	return l != nil;
 }
-- (id_anon*) iterator{
+- (id) iterator{
 	
 	NSMutableArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil]];
 	return struct {

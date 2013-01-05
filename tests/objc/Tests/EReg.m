@@ -11,28 +11,19 @@
 
 // Getters/setters for property r
 static id r__;
-- (id) r{
-	return r__;
-}
-- (void) setR:(id)val{
-	r__ = val;
-}
+- (id) r { return r__; }
+- (void) setR:(id)val { r__ = val; }
+
 // Getters/setters for property last
 static NSMutableString* last__;
-- (NSMutableString*) last{
-	return last__;
-}
-- (void) setLast:(NSMutableString*)val{
-	last__ = val;
-}
+- (NSMutableString*) last { return last__; }
+- (void) setLast:(NSMutableString*)val { last__ = val; }
+
 // Getters/setters for property global
 static BOOL global__;
-- (BOOL) global{
-	return global__;
-}
-- (void) setGlobal:(BOOL)val{
-	global__ = val;
-}
+- (BOOL) global { return global__; }
+- (void) setGlobal:(BOOL)val { global__ = val; }
+
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
 	if (p) self.last = s
@@ -45,17 +36,15 @@ static BOOL global__;
 	return m;
 }
 - (NSMutableString*) matchedLeft{
-	
-	id_anon *p = nil;
-	return [self.last  substringWithRange:0 len:p pos];
+	id p = nil;
+	return [self last substringWithRange:0 len:p pos];
 }
 - (NSMutableString*) matchedRight{
-	
-	id_anon *p = nil;
+	id p = nil;
 	int sz = p pos + p len;
-	return [self.last  substringWithRange:sz len:self.last length - sz];
+	return [self last substringWithRange:sz len:self last.length - sz];
 }
-- (id_anon*) matchedPos{
+- (id) matchedPos{
 	return nil;
 }
 - (NSMutableArray*) split:(NSMutableString*)s{
@@ -65,19 +54,18 @@ static BOOL global__;
 	NSMutableArray *a = [[NSMutableArray alloc] init];
 	BOOL first = YES;
 	do {
-		
-		id_anon *p = nil;
+		id p = nil;
 		if (p len == 0 && !first) {
 			if (p pos == s.length) break;
 			p pos += 1;
 		}
-		[a push:[s  substringWithRange:pos len:p pos - pos]];
+		[a push:[s substringWithRange:pos len:p pos - pos]];
 		int tot = p pos + p len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
 	}while (self.global);
-	[a push:[s  substringWithRange:pos len:len]];
+	[a push:[s substringWithRange:pos len:len]];
 	return a;
 }
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by{
@@ -86,32 +74,30 @@ static BOOL global__;
 	int pos = 0;
 	int len = s.length;
 	
-	NSMutableArray *a = [by  componentsSeparatedByString:(NSMutableString*)@"$"];
+	NSMutableArray *a = [by componentsSeparatedByString:(NSMutableString*)@"$"];
 	BOOL first = YES;
 	do {
-		
-		id_anon *p = nil;
+		id p = nil;
 		if (p len == 0 && !first) {
 			if (p pos == s.length) break;
 			p pos += 1;
 		}
-		b.b += [s  substringWithRange:pos len:p pos - pos];
+		b.b += [s substringWithRange:pos len:p pos - pos];
 		if (a.length > 0) b.b += [Std string:[a objectAtIndex:0]];
 		int i = 1;
 		while (i < a.length) {
 			
 			NSMutableString *k = [a objectAtIndex:i];
-			int c = [k  characterAtIndex:0];
+			int c = [k characterAtIndex:0];
 			if (c >= 49 && c <= 57) {
-				
-				id_anon *p1 = nil;
+				id p1 = nil;
 				if (p1 == nil) {
 					[b.b appendString:(NSMutableString*)@"$"];
 					b.b += [Std string:k];
 				}
 				else {
-					b.b += [s  substringWithRange:p1 pos len:p1 len];
-					b.b += [k  substringWithRange:1 len:k length - 1];
+					b.b += [s substringWithRange:p1 pos len:p1 len];
+					b.b += [k substringWithRange:1 len:k.length - 1];
 				}
 			}
 			else if (c == nil) {
@@ -129,17 +115,17 @@ static BOOL global__;
 		len -= tot;
 		first = NO;
 	}while (self.global);
-	b.b += [s  substringWithRange:pos len:len];
+	b.b += [s substringWithRange:pos len:len];
 	return b.b;
 }
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL*)f{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {
-		if (![self.match:s]) break;
-		buf.b += [Std string:[self.matchedLeft]];
+		if (![self match:s]) break;
+		buf.b += [Std string:[self matchedLeft]];
 		buf.b += [Std string:[f:self]];
-		s = [self.matchedRight];
+		s = [self matchedRight];
 	}
 	buf.b += [Std string:s];
 	return buf.b;
@@ -147,7 +133,7 @@ static BOOL global__;
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	
-	NSMutableArray *a = [opt  componentsSeparatedByString:(NSMutableString*)@"g"];
+	NSMutableArray *a = [opt componentsSeparatedByString:(NSMutableString*)@"g"];
 	self.global = a.length > 1;
 	if (self.global) opt = [a join:(NSMutableString*)@""];
 	self.r = nil;

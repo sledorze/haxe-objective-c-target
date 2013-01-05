@@ -11,8 +11,7 @@
 
 + (Class*) getClass:(id)o{
 	if (o == nil || ![Reflect isObject:o]) return nil;
-	
-	id_anon *c = [o __GetClass];
+	id c = [o __GetClass];
 	{
 		
 		NSMutableString *_g = [c toString];

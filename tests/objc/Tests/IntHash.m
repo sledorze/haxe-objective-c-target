@@ -19,24 +19,24 @@
 	return [self objectForKey:[NSString stringWithFormat:@"%i",key]] != nil;
 }
 - (BOOL) remove:(int)key{
-	if ([self.exists:key]) {
+	if ([self exists:key]) {
 		[self removeObjectForKey:[NSString stringWithFormat:@"%i",key]];
 		return YES;
 	}
 	return NO;
 }
-- (id_anon*) keys{
+- (id) keys{
 	
-	NSMutableArray *a = [self.allKeys];
+	NSMutableArray *a = [self allKeys];
 	return [a iterator];
 }
-- (id_anon*) iterator{
+- (id) iterator{
 	
-	NSMutableArray *a = [self.allValues];
+	NSMutableArray *a = [self allValues];
 	return [a iterator];
 }
 - (NSMutableString*) toString{
-	return [self.description];
+	return [self description];
 }
 - (id) init{
 	self = [super init];

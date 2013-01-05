@@ -19,10 +19,10 @@
 	return (int)x;
 }
 + (int) parseInt:(NSMutableString*)x{
-	return [x intValue];
+	return [xintValue];
 }
 + (float) parseFloat:(NSMutableString*)x{
-	return [x floatValue];
+	return [xfloatValue];
 }
 + (int) random:(int)x{
 	if (x <= 0) return 0;

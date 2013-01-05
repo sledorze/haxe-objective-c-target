@@ -26,8 +26,8 @@
 + (float) minutes:(float)n;
 + (float) hours:(float)n;
 + (float) days:(float)n;
-+ (id_anon*) parse:(float)t;
-+ (float) make:(id_anon*)o;
++ (id) parse:(float)t;
++ (float) make:(id)o;
 
 @end
 

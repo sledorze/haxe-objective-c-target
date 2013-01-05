@@ -67,8 +67,8 @@
 	}
 	return NO;
 }
-- (id_anon*) iterator{
-	return (id_anon*)struct {
+- (id) iterator{
+	return (id)struct {
 	h:self.h; hasNext:^(id){
 		return self.h != nil;
 	}; next:^(id){

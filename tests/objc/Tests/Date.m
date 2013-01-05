@@ -19,7 +19,7 @@
 + (NSDate*) fromTime:(float)t{
 	
 	NSDate *result = [[NSDate alloc] init:0 month:0 day:0 hour:0 min:0 sec:0];
-	result. _seconds = t * 0.001;
+	result._seconds = t * 0.001;
 	return result;
 }
 + (NSDate*) fromString:(NSMutableString*)s{
@@ -27,7 +27,7 @@
 		case 8:{
 			{
 				
-				NSMutableArray *k = [s  componentsSeparatedByString:(NSMutableString*)@":"];
+				NSMutableArray *k = [s componentsSeparatedByString:(NSMutableString*)@":"];
 				
 				NSDate *d = [[NSDate alloc] init:0 month:0 day:0 hour:[Std parseInt:[k objectAtIndex:0]] min:[Std parseInt:[k objectAtIndex:1]] sec:[Std parseInt:[k objectAtIndex:2]]];
 				return d;
@@ -35,17 +35,17 @@
 		case 10:{
 			{
 				
-				NSMutableArray *k = [s  componentsSeparatedByString:(NSMutableString*)@"-"];
+				NSMutableArray *k = [s componentsSeparatedByString:(NSMutableString*)@"-"];
 				return [[NSDate alloc] init:[Std parseInt:[k objectAtIndex:0]] month:[Std parseInt:[k objectAtIndex:1]] - 1 day:[Std parseInt:[k objectAtIndex:2]] hour:0 min:0 sec:0];
 			}}break;
 		case 19:{
 			{
 				
-				NSMutableArray *k = [s  componentsSeparatedByString:(NSMutableString*)@" "];
+				NSMutableArray *k = [s componentsSeparatedByString:(NSMutableString*)@" "];
 				
-				NSMutableArray *y = [[k objectAtIndex:0]  componentsSeparatedByString:(NSMutableString*)@"-"];
+				NSMutableArray *y = [[k objectAtIndex:0] componentsSeparatedByString:(NSMutableString*)@"-"];
 				
-				NSMutableArray *t = [[k objectAtIndex:1]  componentsSeparatedByString:(NSMutableString*)@":"];
+				NSMutableArray *t = [[k objectAtIndex:1] componentsSeparatedByString:(NSMutableString*)@":"];
 				return [[NSDate alloc] init:[Std parseInt:[y objectAtIndex:0]] month:[Std parseInt:[y objectAtIndex:1]] - 1 day:[Std parseInt:[y objectAtIndex:2]] hour:[Std parseInt:[t objectAtIndex:0]] min:[Std parseInt:[t objectAtIndex:1]] sec:[Std parseInt:[t objectAtIndex:2]]];
 			}}break;
 		default:{
@@ -55,28 +55,19 @@
 }
 // Getters/setters for property _seconds
 static float _seconds__;
-- (float) _seconds{
-	return _seconds__;
-}
-- (void) set_seconds:(float)val{
-	_seconds__ = val;
-}
+- (float) _seconds { return _seconds__; }
+- (void) set_seconds:(float)val { _seconds__ = val; }
+
 // Getters/setters for property _calendar
 static NSCalendar* _calendar__;
-- (NSCalendar*) _calendar{
-	return _calendar__;
-}
-- (void) set_calendar:(NSCalendar*)val{
-	_calendar__ = val;
-}
+- (NSCalendar*) _calendar { return _calendar__; }
+- (void) set_calendar:(NSCalendar*)val { _calendar__ = val; }
+
 // Getters/setters for property _components
 static NSDateComponents* _components__;
-- (NSDateComponents*) _components{
-	return _components__;
-}
-- (void) set_components:(NSDateComponents*)val{
-	_components__ = val;
-}
+- (NSDateComponents*) _components { return _components__; }
+- (void) set_components:(NSDateComponents*)val { _components__ = val; }
+
 - (float) getTime{
 	return self._seconds * 1000.0;
 }

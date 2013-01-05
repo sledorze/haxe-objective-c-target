@@ -14,11 +14,11 @@
 	self.b += [Std string:x];
 }
 - (void) addChar:(int)c{
-	self.b += [NSMutableString fromCharCode:c];
+	self.b += [NSMutableStringfromCharCode:c];
 }
 - (void) addSub:(NSMutableString*)s pos:(int)pos len:(int)len{
 	if (len==nil) len=nil;
-	self.b += [s  substringWithRange:pos len:len];
+	self.b += [s substringWithRange:pos len:len];
 }
 - (NSMutableString*) toString{
 	return self.b;

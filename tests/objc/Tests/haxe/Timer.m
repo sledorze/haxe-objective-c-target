@@ -20,7 +20,7 @@
 	}
 	return [t objectAtIndex:0];
 }
-+ (id) measure:(SEL*)f pos:(id_anon*)pos{
++ (id) measure:(SEL*)f pos:(id)pos{
 	if (pos==nil) pos=nil;
 	float t0 = [Timer stamp];
 	id r = [f];
@@ -34,7 +34,7 @@
 @synthesize id;
 - (void) stop{
 	if (self.id == nil) return;
-	[self.nstimer invalidate];
+	[self nstimer invalidate];
 	self.nstimer = nil;
 	self.id = nil;
 }
@@ -42,7 +42,7 @@
 }
 - (id) init:(int)time_ms{
 	self = [super init];
-	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:self.run userInfo:nil repeats:YES];
+	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:self run userInfo:nil repeats:YES];
 	return self;
 }
 

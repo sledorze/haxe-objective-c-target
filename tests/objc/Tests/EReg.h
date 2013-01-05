@@ -20,7 +20,7 @@
 - (NSMutableString*) matched:(int)n;
 - (NSMutableString*) matchedLeft;
 - (NSMutableString*) matchedRight;
-- (id_anon*) matchedPos;
+- (id) matchedPos;
 - (NSMutableArray*) split:(NSMutableString*)s;
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by;
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL*)f;

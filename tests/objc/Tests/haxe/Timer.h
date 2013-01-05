@@ -17,7 +17,7 @@
 @interface Timer : NSObject
 
 + (Timer*) delay:(SEL*)f time_ms:(int)time_ms;
-+ (id) measure:(SEL*)f pos:(id_anon*)pos;
++ (id) measure:(SEL*)f pos:(id)pos;
 + (float) stamp;
 @property (nonatomic, strong) NSTimer *nstimer;
 @property (nonatomic) int _id;

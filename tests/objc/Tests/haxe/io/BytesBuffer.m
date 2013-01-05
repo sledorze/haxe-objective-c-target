@@ -11,7 +11,7 @@
 
 @synthesize b;
 - (void) addByte:(int)byte{
-	[self.b push:byte];
+	[self b push:byte];
 }
 - (void) add:(Bytes*)src{
 	
@@ -22,7 +22,7 @@
 		int _g1 = 0; int _g = src.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			[self.b push:[b2 objectAtIndex:i]];
+			[self b push:[b2 objectAtIndex:i]];
 		}
 	}
 }
@@ -36,13 +36,13 @@
 		int _g1 = pos; int _g = pos + len;
 		while (_g1 < _g) {
 			int i = _g1++;
-			[self.b push:[b2 objectAtIndex:i]];
+			[self b push:[b2 objectAtIndex:i]];
 		}
 	}
 }
 - (Bytes*) getBytes{
 	
-	Bytes *bytes = [[Bytes alloc] init:self.b length b:self.b];
+	Bytes *bytes = [[Bytes alloc] init:self b length b:self b];
 	self.b = nil;
 	return bytes;
 }

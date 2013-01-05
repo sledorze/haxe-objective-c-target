@@ -28,7 +28,7 @@
 		int _g1 = 0; int _g = s.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int c = [s cca:i];
+			int c = [scca:i];
 			if (c <= 127) [a push:c]
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];
@@ -87,7 +87,7 @@
 }
 - (Bytes*) sub:(int)pos len:(int)len{
 	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error OutsideBounds;;
-	return [[Bytes alloc] init:len b:[self.b slice:pos end:pos + len]];
+	return [[Bytes alloc] init:len b:[self b slice:pos end:pos + len]];
 }
 - (int) compare:(Bytes*)other{
 	
@@ -111,7 +111,7 @@
 	
 	NSMutableArray *b = self.b;
 	
-	SEL *fcc = NSMutableString fromCharCode;
+	SEL *fcc = NSMutableStringfromCharCode;
 	int i = pos;
 	int max = pos + len;
 	while (i < max) {
@@ -134,7 +134,7 @@
 	return s;
 }
 - (NSMutableString*) toString{
-	return [self.readString:0 len:self.length];
+	return [self readString:0 len:self length];
 }
 - (NSMutableString*) toHex{
 	
@@ -147,7 +147,7 @@
 		int _g1 = 0; int _g = str.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			[chars push:[str  characterAtIndex:i]];
+			[chars push:[str characterAtIndex:i]];
 		}
 	}
 	{
@@ -157,11 +157,11 @@
 			int c = [self.b objectAtIndex:i];
 			{
 				int c1 = [chars objectAtIndex:c >> 4];
-				s.b += [NSMutableString fromCharCode:c1];
+				s.b += [NSMutableStringfromCharCode:c1];
 			}
 			{
 				int c1 = [chars objectAtIndex:c & 15];
-				s.b += [NSMutableString fromCharCode:c1];
+				s.b += [NSMutableStringfromCharCode:c1];
 			}
 		}
 	}
