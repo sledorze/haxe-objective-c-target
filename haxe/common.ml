@@ -402,7 +402,7 @@ let get_config com =
 		}
 	| ObjC ->
 		{
-			pf_static = true;
+			pf_static = false;
 			pf_sys = true;
 			pf_locals_scope = true;
 			pf_captured_scope = true;

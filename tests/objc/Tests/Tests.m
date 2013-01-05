@@ -383,16 +383,16 @@
 	
 	NSMutableString *s = [string characterAtIndex:5];
 	int ch = [string characterAtIndex:5];
-	int i = [string rangeOfString:(NSMutableString*)@"abc" startIndex:nil];
-	int i1 = [string rangeOfString:(NSMutableString*)@"abc" startIndex:2];
-	int li = [string rangeOfString options:NSBackwardsSearch:(NSMutableString*)@"abc" startIndex:nil];
+	int i = [string indexOf:(NSMutableString*)@"abc" startIndex:nil];
+	int i1 = [string indexOf:(NSMutableString*)@"abc" startIndex:2];
+	int li = [string lastIndexOf:(NSMutableString*)@"abc" startIndex:nil];
 	
 	NSMutableArray *components = (NSMutableArray*)[string componentsSeparatedByString:(NSMutableString*)@"-"];
 	
 	NSMutableString *s2 = [string substr:5 len:nil];
 	s2 = [string substr:5 len:len];
-	s2 = [string substr:5 endIndex:nil];
-	s2 = [string substr:1 endIndex:len];
+	s2 = [string substring:5 endIndex:nil];
+	s2 = [string substring:1 endIndex:len];
 	s2 = [string lowercaseString];
 	s2 = [string uppercaseString];
 	s2 = [string description];

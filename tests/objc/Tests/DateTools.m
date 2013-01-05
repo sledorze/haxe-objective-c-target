@@ -89,7 +89,7 @@
 	StringBuf *r = [[StringBuf alloc] init];
 	int p = 0;
 	while (YES) {
-		int np = [f rangeOfString:(NSMutableString*)@"%" startIndex:p];
+		int np = [f indexOf:(NSMutableString*)@"%" startIndex:p];
 		if (np < 0) break;
 		r.b += [f substr:p len:np - p];
 		r.b += [Std string:[DateTools __format_get:d e:[f substr:np + 1 len:1]]];

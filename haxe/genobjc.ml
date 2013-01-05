@@ -77,7 +77,6 @@ class importsManager =
 		| ([],"StdTypes")
 		| ([],"Int")
 		| ([],"Float")
-		| ([],"String")
 		| ([],"Dynamic")
 		| ([],"Bool") -> ();
 		| _ -> let f_name = getFrameworkOfPath class_path in
@@ -726,20 +725,21 @@ and generateFieldAccess ctx etype s =
 			| "min" | "max" | "abs" -> ctx.writer#write ("f" ^ s ^ "f")
 			| _ -> ctx.writer#write (s ^ "f"))
 		
-		| [], "String" ->(* ctx.writer#write "FA_TInst_String_"; *)
+		| [], "String" ->
 			(match s with
 			| "length" -> ctx.writer#write ".length"
 			| "toLowerCase" -> ctx.writer#write " lowercaseString"
 			| "toUpperCase" -> ctx.writer#write " uppercaseString"
 			| "toString" -> ctx.writer#write " description"
-			| "indexOf" -> ctx.writer#write " rangeOfString"
-			| "lastIndexOf" -> ctx.writer#write " rangeOfString options:NSBackwardsSearch"
+			(* | "indexOf" -> ctx.writer#write " rangeOfString" *)
+			(* | "lastIndexOf" -> ctx.writer#write " rangeOfString options:NSBackwardsSearch" *)
 			| "charAt" -> ctx.writer#write " characterAtIndex"
 			| "charCodeAt" -> ctx.writer#write " characterAtIndex"
 			| "split" -> ctx.writer#write " componentsSeparatedByString"
-			| "substr" | "substring" -> ctx.writer#write " substr"
-			| "fromCharCode" -> ctx.writer#write " fromCharCode"
-			| _ -> ctx.writer#write s)
+			(* | "substr" -> ctx.writer#write " substr" *)
+			(* | "substring" -> ctx.writer#write " substring" *)
+			(* | "fromCharCode" -> ctx.writer#write " fromCharCode" *)
+			| _ -> ctx.writer#write (" "^s))
 		
 		| [], "Date" ->
 			(match s with

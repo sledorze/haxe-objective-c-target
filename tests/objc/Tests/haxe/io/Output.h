@@ -15,6 +15,7 @@
 #import "Int32.h"
 #import "CppInt32__.h"
 #import "Input.h"
+#import "String.h"
 
 @interface Output : NSObject
 

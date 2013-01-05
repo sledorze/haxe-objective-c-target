@@ -7,6 +7,7 @@
 
 
 
+#import "String.h"
 #import "Array.h"
 
 @interface NSMutableString ( String )

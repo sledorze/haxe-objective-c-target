@@ -22,6 +22,7 @@
 #import "FastList.h"
 #import "FastCell.h"
 #import "Array.h"
+#import "String.h"
 
 @interface FastList : NSObject
 

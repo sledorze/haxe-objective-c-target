@@ -9,6 +9,7 @@
 
 #import "Bytes.h"
 #import "Array.h"
+#import "String.h"
 #import "Error.h"
 #import "StringBuf.h"
 

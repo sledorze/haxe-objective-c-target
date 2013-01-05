@@ -7,6 +7,7 @@
 
 
 
+#import "String.h"
 #import "Array.h"
 #import "Reflect.h"
 

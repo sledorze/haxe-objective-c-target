@@ -7,6 +7,7 @@
 
 
 
+#import "String.h"
 #import "Date.h"
 #import "StringTools.h"
 #import "Std.h"

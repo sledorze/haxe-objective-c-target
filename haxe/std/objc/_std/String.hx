@@ -87,7 +87,8 @@
 		If [str] cannot be found, -1 is returned.
 	**/
 	public function indexOf( str : String, ?startIndex : Int ) : Int {
-		untyped __objc__("NSRange range = [self rangeOfString:str];
+		startIndex = ( startIndex == null ) ? 0 : startIndex;
+		untyped __objc__("NSRange range = [self rangeOfString:str options:NSLiteralSearch range:NSMakeRange(startIndex,self.length-startIndex)];
 	if ( range.location != NSNotFound ) {
 		return range.location;
 	}");
@@ -106,7 +107,8 @@
 		If [str] cannot be found, -1 is returned.
 	**/
 	public function lastIndexOf( str : String, ?startIndex : Int ) : Int {
-		untyped __objc__("NSRange range = [self rangeOfString:str options:NSBackwardsSearch];
+		startIndex = ( startIndex == null ) ? 0 : startIndex;
+		untyped __objc__("NSRange range = [self rangeOfString:str options:NSBackwardsSearch range:NSMakeRange(startIndex,self.length-startIndex)];
 	if ( range.location != NSNotFound ) {
 		return range.location;
 	}");
@@ -145,6 +147,30 @@
 		If [len] is negative, the result is unspecified.
 	**/
 	public function substr( pos : Int, ?len : Int ) : String {
+		if( len == 0 ) return "";
+		var sl = length;
+
+		if( len == null ) len = sl;
+
+		if( pos == null ) pos = 0;
+		if( pos != 0 && len < 0 ){
+			return "";
+		}
+
+		if( pos < 0 ){
+			pos = sl + pos;
+			if( pos < 0 ) pos = 0;
+		}else if( len < 0 ){
+			len = sl + len - pos;
+		}
+
+		if( pos + len > sl ){
+			len = sl - pos;
+		}
+
+		if( pos < 0 || len <= 0 ) return "";
+		
+		return untyped __objc__("[self substringFromIndex:pos]");
 		return untyped __objc__("[self substringWithRange:NSMakeRange(pos,len)]");
 	}
 
@@ -158,7 +184,27 @@
 		If [startIndex] exceeds [endIndex], they are swapped.
 	**/
 	public function substring( startIndex : Int, ?endIndex : Int ) : String {
-		return untyped __objc__("[self substringWithRange:NSMakeRange(startIndex,endIndex-startIndex)]");
+		if (endIndex == null) {
+			endIndex = length;
+		} else if ( endIndex < 0 ) {
+			endIndex = 0;
+		} else if ( endIndex > length ) {
+			endIndex = length;
+		}
+
+		if ( startIndex < 0 ) {
+			startIndex = 0;
+		} else if ( startIndex > length ) {
+			startIndex = length;
+		}
+
+		if ( startIndex > endIndex ) {
+			var tmp = startIndex;
+			startIndex = endIndex;
+			endIndex = tmp;
+		}
+
+		return substr( startIndex, endIndex - startIndex );
 	}
 
 	/**

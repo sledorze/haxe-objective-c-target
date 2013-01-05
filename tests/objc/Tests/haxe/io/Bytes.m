@@ -28,7 +28,7 @@
 		int _g1 = 0; int _g = s.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int c = [scca:i];
+			int c = [s cca:i];
 			if (c <= 127) [a push:c]
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];
@@ -155,14 +155,8 @@
 		while (_g1 < _g) {
 			int i = _g1++;
 			int c = [self.b objectAtIndex:i];
-			{
-				int c1 = [chars objectAtIndex:c >> 4];
-				s.b += [NSMutableString fromCharCode:c1];
-			}
-			{
-				int c1 = [chars objectAtIndex:c & 15];
-				s.b += [NSMutableString fromCharCode:c1];
-			}
+			s.b += [NSMutableString fromCharCode:[chars objectAtIndex:c >> 4]];
+			s.b += [NSMutableString fromCharCode:[chars objectAtIndex:c & 15]];
 		}
 	}
 	return s.b;

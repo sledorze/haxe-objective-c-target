@@ -13,6 +13,7 @@
 #import "Output.h"
 #import "FileOutput.h"
 #import "Array.h"
+#import "String.h"
 #import "Hash.h"
 
 @interface Sys : NSObject
