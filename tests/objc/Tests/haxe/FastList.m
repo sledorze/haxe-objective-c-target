@@ -73,7 +73,7 @@
 }
 - (NSMutableString*) toString{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] init];
+	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
 	
 	FastCell *l = self.head;
 	while (l != nil) {

@@ -20,7 +20,7 @@
 - (int) readBytes:(Bytes*)s pos:(int)pos len:(int)len{
 	int k = len;
 	
-	NSMutableArray *b = s.b;
+	NSMutableArray *b = (NSMutableArray*)s.b;
 	if (pos < 0 || len < 0 || pos + len > s.length) @throw Error OutsideBounds;;
 	while (k > 0) {
 		[b objectAtIndex:pos] = (int)[self readByte];
@@ -51,9 +51,9 @@
 			{
 				if (len < 0 || len > buf.length) @throw Error OutsideBounds;;
 				
-				NSMutableArray *b1 = total.b;
+				NSMutableArray *b1 = (NSMutableArray*)total.b;
 				
-				NSMutableArray *b2 = buf.b;
+				NSMutableArray *b2 = (NSMutableArray*)buf.b;
 				{
 					int _g1 = 0; int _g = len;
 					while (_g1 < _g) {

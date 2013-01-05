@@ -966,7 +966,7 @@ and generateExpression ctx e =
 			let t = (typeToString ctx v.v_type e.epos) in
 			if isPointer t then ctx.writer#new_line;
 			ctx.writer#write (Printf.sprintf "%s %s%s" t (addPointerIfNeeded t) (remapKeyword v.v_name));
-			(* Check if this Type is a Class and if is imported *)
+			(* Check if this Type is a Class and if it's imported *)
 			(match v.v_type with
 			| TMono r -> (match !r with None -> () | Some t -> 
 				match t with
@@ -977,6 +977,14 @@ and generateExpression ctx e =
 			| None -> ()
 			| Some e ->
 				ctx.writer#write " = ";
+				(* Cast values in order for Xcode to ignore the warnings *)
+				(match e.eexpr with
+					| TArrayDecl _ -> ()
+					| _ -> (match t with
+						| "NSMutableArray" -> ctx.writer#write "(NSMutableArray*)";
+						| _ -> ()
+					)
+				);
 				generateValue ctx e
 		) vl;
 	| TNew (c,params,el) ->

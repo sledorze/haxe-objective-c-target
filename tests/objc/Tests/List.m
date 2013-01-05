@@ -51,9 +51,9 @@
 }
 - (BOOL) remove:(id)v{
 	
-	NSMutableArray *prev = nil;
+	NSMutableArray *prev = (NSMutableArray*)nil;
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = (NSMutableArray*)self.h;
 	while (l != nil) {
 		if ([l objectAtIndex:0] == v) {
 			if (prev == nil) self.h = [l objectAtIndex:1]
@@ -84,7 +84,7 @@
 	StringBuf *s = [[StringBuf alloc] init];
 	BOOL first = YES;
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = (NSMutableArray*)self.h;
 	[s.b appendString:(NSMutableString*)@"{"];
 	while (l != nil) {
 		if (first) first = NO
@@ -100,7 +100,7 @@
 	StringBuf *s = [[StringBuf alloc] init];
 	BOOL first = YES;
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = (NSMutableArray*)self.h;
 	while (l != nil) {
 		if (first) first = NO
 		else s.b += [Std string:sep];
@@ -113,7 +113,7 @@
 	
 	List *l2 = [[List alloc] init];
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = (NSMutableArray*)self.h;
 	while (l != nil) {
 		id v = [l objectAtIndex:0];
 		l = [l objectAtIndex:1];
@@ -125,7 +125,7 @@
 	
 	List *b = [[List alloc] init];
 	
-	NSMutableArray *l = self.h;
+	NSMutableArray *l = (NSMutableArray*)self.h;
 	while (l != nil) {
 		id v = [l objectAtIndex:0];
 		l = [l objectAtIndex:1];

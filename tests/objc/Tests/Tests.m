@@ -36,7 +36,7 @@
 @synthesize s;
 - (void) testVariables{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] init];
+	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
 	int b = 5;
 	float c = 5.0;
 	
@@ -112,13 +112,13 @@
 }
 - (void) testArray{
 	
-	NSMutableArray *as = [[NSMutableArray alloc] init];
+	NSMutableArray *as = (NSMutableArray*)[[NSMutableArray alloc] init];
 	
 	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 	float aaa = [aa objectAtIndex:2];
 	[aa objectAtIndex:3];
 	
-	NSMutableArray *concatArray = [as concat:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"5", (NSMutableString*)@"6", (NSMutableString*)@"7", nil]]];
+	NSMutableArray *concatArray = (NSMutableArray*)[as concat:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"5", (NSMutableString*)@"6", (NSMutableString*)@"7", nil]]];
 	concatArray = [as copy];
 	[concatArray insert:2 x:(NSMutableString*)@"2"];
 	id iter = [as iterator];
@@ -131,7 +131,7 @@
 	[as reverse];
 	item = [as shift];
 	
-	NSMutableArray *sliceArray = [as slice:1 end:3];
+	NSMutableArray *sliceArray = (NSMutableArray*)[as slice:1 end:3];
 	[as sort:^(int):(NSMutableString*)a b:(NSMutableString*)b{
 		return 0;
 	}];
@@ -257,7 +257,7 @@
 	s = [ereg matchedRight];
 	s = [ereg replace:(NSMutableString*)@"s" by:(NSMutableString*)@"by"];
 	
-	NSMutableArray *arr = [ereg split:(NSMutableString*)@","];
+	NSMutableArray *arr = (NSMutableArray*)[ereg split:(NSMutableString*)@","];
 }
 - (void) testHash{
 	
@@ -283,7 +283,7 @@
 }
 - (void) testLambda{
 	
-	NSMutableArray *a = [Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]]];
+	NSMutableArray *a = (NSMutableArray*)[Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]]];
 	
 	List *l = [Lambda concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]]];
 }
@@ -358,7 +358,7 @@
 	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]]];
 	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
 	
-	NSMutableArray *fs = [Reflect fields:obj];
+	NSMutableArray *fs = (NSMutableArray*)[Reflect fields:obj];
 	BOOL isf = [Reflect isFunction:self testStd];
 	int i = [Reflect compare:1 b:2];
 	BOOL cm = [Reflect compareMethods:self testStd f2:self testString];
@@ -387,7 +387,7 @@
 	int i1 = [string rangeOfString:(NSMutableString*)@"abc" startIndex:2];
 	int li = [string rangeOfString options:NSBackwardsSearch:(NSMutableString*)@"abc" startIndex:nil];
 	
-	NSMutableArray *components = [string componentsSeparatedByString:(NSMutableString*)@"-"];
+	NSMutableArray *components = (NSMutableArray*)[string componentsSeparatedByString:(NSMutableString*)@"-"];
 	
 	NSMutableString *s2 = [string substringWithRange:5 len:nil];
 	s2 = [string substringWithRange:5 len:len];
@@ -433,7 +433,7 @@
 	[Sys print:(NSMutableString*)@"hello world"];
 	[Sys println:(NSMutableString*)@"hello world"];
 	
-	NSMutableArray *arr = [Sys args];
+	NSMutableArray *arr = (NSMutableArray*)[Sys args];
 	int _int = [Sys command:(NSMutableString*)@"cd" args:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"~", nil]]];
 	_int = [Sys command:(NSMutableString*)@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]]];
 	float _float = [Sys cpuTime];

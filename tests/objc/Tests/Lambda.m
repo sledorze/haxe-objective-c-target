@@ -11,7 +11,7 @@
 
 + (NSMutableArray*) array:(id)it{
 	
-	NSMutableArray *a = [[NSMutableArray alloc] init];
+	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
 	{
 		{ var $it : * = [it iterator]
 		for ( $it.hasNext() ) { var i : id = $it.next()

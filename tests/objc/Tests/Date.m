@@ -27,7 +27,7 @@
 		case 8:{
 			{
 				
-				NSMutableArray *k = [s componentsSeparatedByString:(NSMutableString*)@":"];
+				NSMutableArray *k = (NSMutableArray*)[s componentsSeparatedByString:(NSMutableString*)@":"];
 				
 				NSDate *d = [[NSDate alloc] init:0 month:0 day:0 hour:[Std parseInt:[k objectAtIndex:0]] min:[Std parseInt:[k objectAtIndex:1]] sec:[Std parseInt:[k objectAtIndex:2]]];
 				return d;
@@ -35,17 +35,17 @@
 		case 10:{
 			{
 				
-				NSMutableArray *k = [s componentsSeparatedByString:(NSMutableString*)@"-"];
+				NSMutableArray *k = (NSMutableArray*)[s componentsSeparatedByString:(NSMutableString*)@"-"];
 				return [[NSDate alloc] init:[Std parseInt:[k objectAtIndex:0]] month:[Std parseInt:[k objectAtIndex:1]] - 1 day:[Std parseInt:[k objectAtIndex:2]] hour:0 min:0 sec:0];
 			}}break;
 		case 19:{
 			{
 				
-				NSMutableArray *k = [s componentsSeparatedByString:(NSMutableString*)@" "];
+				NSMutableArray *k = (NSMutableArray*)[s componentsSeparatedByString:(NSMutableString*)@" "];
 				
-				NSMutableArray *y = [[k objectAtIndex:0] componentsSeparatedByString:(NSMutableString*)@"-"];
+				NSMutableArray *y = (NSMutableArray*)[[k objectAtIndex:0] componentsSeparatedByString:(NSMutableString*)@"-"];
 				
-				NSMutableArray *t = [[k objectAtIndex:1] componentsSeparatedByString:(NSMutableString*)@":"];
+				NSMutableArray *t = (NSMutableArray*)[[k objectAtIndex:1] componentsSeparatedByString:(NSMutableString*)@":"];
 				return [[NSDate alloc] init:[Std parseInt:[y objectAtIndex:0]] month:[Std parseInt:[y objectAtIndex:1]] - 1 day:[Std parseInt:[y objectAtIndex:2]] hour:[Std parseInt:[t objectAtIndex:0]] min:[Std parseInt:[t objectAtIndex:1]] sec:[Std parseInt:[t objectAtIndex:2]]];
 			}}break;
 		default:{

@@ -65,7 +65,7 @@
 	} structName;
 	{
 		int _g = 0; 
-		NSMutableArray *_g1 = [Reflect fields:o];
+		NSMutableArray *_g1 = (NSMutableArray*)[Reflect fields:o];
 		while (_g < _g1.length) {
 			
 			NSMutableString *f = [_g1 objectAtIndex:_g];

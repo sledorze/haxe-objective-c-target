@@ -79,7 +79,7 @@ static int length__;
 }
 - (NSMutableArray*) splice:(int)pos len:(int)len{
 	
-	NSMutableArray *newArray = [self subarrayWithRange:NSMakeRange (pos,len)];
+	NSMutableArray *newArray = (NSMutableArray*)[self subarrayWithRange:NSMakeRange (pos,len)];
 	[self removeObjectsInArray:newArray];
 	return [NSMutableArray arrayWithArray:newArray];
 }

@@ -108,7 +108,7 @@
 }
 + (Hash*) environment{
 	
-	NSMutableArray *vars = nil;
+	NSMutableArray *vars = (NSMutableArray*)nil;
 	
 	Hash *result = [[Hash alloc] init];
 	int i = 0;

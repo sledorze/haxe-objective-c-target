@@ -51,7 +51,7 @@ static BOOL global__;
 	int pos = 0;
 	int len = s.length;
 	
-	NSMutableArray *a = [[NSMutableArray alloc] init];
+	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
 	BOOL first = YES;
 	do {
 		id p = nil;
@@ -74,7 +74,7 @@ static BOOL global__;
 	int pos = 0;
 	int len = s.length;
 	
-	NSMutableArray *a = [by componentsSeparatedByString:(NSMutableString*)@"$"];
+	NSMutableArray *a = (NSMutableArray*)[by componentsSeparatedByString:(NSMutableString*)@"$"];
 	BOOL first = YES;
 	do {
 		id p = nil;
@@ -133,7 +133,7 @@ static BOOL global__;
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	
-	NSMutableArray *a = [opt componentsSeparatedByString:(NSMutableString*)@"g"];
+	NSMutableArray *a = (NSMutableArray*)[opt componentsSeparatedByString:(NSMutableString*)@"g"];
 	self.global = a.length > 1;
 	if (self.global) opt = [a join:(NSMutableString*)@""];
 	self.r = nil;

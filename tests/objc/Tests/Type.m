@@ -94,7 +94,7 @@
 }
 + (NSMutableArray*) enumParameters:(EnumValue*)e{
 	
-	NSMutableArray *result = [e __EnumParams];
+	NSMutableArray *result = (NSMutableArray*)[e __EnumParams];
 	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil]] : result);
 }
 + (int) enumIndex:(EnumValue*)e{
@@ -102,9 +102,9 @@
 }
 + (NSMutableArray*) allEnums:(Enum*)e{
 	
-	NSMutableArray *names = [e GetClassFields];
+	NSMutableArray *names = (NSMutableArray*)[e GetClassFields];
 	
-	NSMutableArray *enums = [[NSMutableArray alloc] init];
+	NSMutableArray *enums = (NSMutableArray*)[[NSMutableArray alloc] init];
 	{
 		int _g = 0;
 		while (_g < names.length) {
