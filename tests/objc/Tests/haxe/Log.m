@@ -10,7 +10,9 @@
 @implementation Log
 
 + (void) trace:(id)v infos:(id)infos{
-	if (infos==nil) infos=nil;
+	// Simulated optional arguments
+	if (infos == nil) infos = nil;
+	
 	NSLog (@"%@:%@: %@", [infos objectForKey:@"fileName"], [infos objectForKey:@"lineNumber"], v);
 }
 + (void) clear{

@@ -17,7 +17,9 @@
 	self.b += [NSMutableStringfromCharCode:c];
 }
 - (void) addSub:(NSMutableString*)s pos:(int)pos len:(int)len{
-	if (len==nil) len=nil;
+	// Simulated optional arguments
+	if (len == nil) len = nil;
+	
 	self.b += [s substringWithRange:pos len:len];
 }
 - (NSMutableString*) toString{

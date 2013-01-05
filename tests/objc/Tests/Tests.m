@@ -502,19 +502,27 @@
 	[self optionalArguments3:0 arg2:1 arg3:nil arg4:nil];
 }
 - (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
-	if (arg4==nil) arg4=nil;
+	// Simulated optional arguments
+	if (arg4 == nil) arg4 = nil;
+	
 }
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
-	if (arg4==nil) arg4=5;
+	// Simulated optional arguments
+	if (arg4 == nil) arg4 = 5;
+	
 }
 - (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
-	if (arg3==nil) arg3=nil;
-	if (arg2==nil) arg2=nil;
+	// Simulated optional arguments
+	if (arg3 == nil) arg3 = nil;
+	if (arg2 == nil) arg2 = nil;
+	
 }
 - (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(BOOL)arg4{
-	if (arg4==nil) arg4=nil;
-	if (arg2==nil) arg2=6;
-	if (arg3==nil) arg3=nil;
+	// Simulated optional arguments
+	if (arg4 == nil) arg4 = nil;
+	if (arg2 == nil) arg2 = 6;
+	if (arg3 == nil) arg3 = nil;
+	
 }
 - (void) init{
 	int x = 6;

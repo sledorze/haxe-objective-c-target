@@ -201,7 +201,9 @@
 - (void) prepare:(int)nbytes{
 }
 - (void) writeInput:(Input*)i bufsize:(int)bufsize{
-	if (bufsize==nil) bufsize=nil;
+	// Simulated optional arguments
+	if (bufsize == nil) bufsize = nil;
+	
 	if (bufsize == nil) bufsize = 4096;
 	
 	Bytes *buf = [Bytes alloc:bufsize];

@@ -36,7 +36,9 @@
 	return b;
 }
 - (Bytes*) readAll:(int)bufsize{
-	if (bufsize==nil) bufsize=nil;
+	// Simulated optional arguments
+	if (bufsize == nil) bufsize = nil;
+	
 	if (bufsize == nil) bufsize = 16384;
 	
 	Bytes *buf = [Bytes alloc:bufsize];

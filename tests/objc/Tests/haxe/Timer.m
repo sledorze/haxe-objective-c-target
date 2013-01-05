@@ -21,7 +21,9 @@
 	return [t objectAtIndex:0];
 }
 + (id) measure:(SEL*)f pos:(id)pos{
-	if (pos==nil) pos=nil;
+	// Simulated optional arguments
+	if (pos == nil) pos = nil;
+	
 	float t0 = [Timer stamp];
 	id r = [f];
 	[Log trace:[[Timer stamp] - t0 stringByAppendingString:(NSMutableString*)@"s"] infos:pos];

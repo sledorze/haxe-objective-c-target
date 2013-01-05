@@ -598,7 +598,7 @@ let generateFunctionHeader ctx name f params p =
 	(* Generate function name. Some of them will need a rename, check with the database *)
 	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
-			| [] -> processFunctionName n
+			| [] -> (* processFunctionName *) n
 			| _ :: l -> loop l
 		in
 		" " ^ loop meta
@@ -614,10 +614,8 @@ let generateFunctionHeader ctx name f params p =
 		first_arg := false;
 		if not ctx.generating_header then begin
 			match c with
-			| None ->
-				Hashtbl.add ctx.function_arguments arg_name (defaultValue arg_name)
-			| Some c ->
-				Hashtbl.add ctx.function_arguments arg_name c
+			| None -> ();(* Hashtbl.add ctx.function_arguments arg_name (defaultValue arg_name) *)
+			| Some c -> Hashtbl.add ctx.function_arguments arg_name c
 		end
 	) f.tf_args;
 	(fun () ->
@@ -883,14 +881,17 @@ and generateExpression ctx e =
 			ctx.writer#new_line
 		end;
 		if Hashtbl.length ctx.function_arguments > 0 then begin
+			ctx.writer#write "// Simulated optional arguments";
+			ctx.writer#new_line;
 			Hashtbl.iter (
 				fun name data ->
-					ctx.writer#write ("if ("^name^"==nil) "^name^"=");
+					ctx.writer#write ("if ("^name^" == nil) "^name^" = ");
 					generateConstant ctx e.epos data;
 					ctx.writer#write ";";
 					ctx.writer#new_line;
 			) ctx.function_arguments;
 			Hashtbl.clear ctx.function_arguments;
+			ctx.writer#new_line;
 		end;
 		List.iter (fun e ->
 			generateExpression ctx e;

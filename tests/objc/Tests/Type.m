@@ -58,12 +58,16 @@
 	return [cl alloc];
 }
 + (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params{
-	if (params==nil) params=nil;
+	// Simulated optional arguments
+	if (params == nil) params = nil;
+	
 	if (e mConstructEnum != nil) return [e mConstructEnum:constr :params];
 	return nil;
 }
 + (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{
-	if (params==nil) params=nil;
+	// Simulated optional arguments
+	if (params == nil) params = nil;
+	
 	
 	NSMutableString *c = [[Type getEnumConstructs:e] objectAtIndex:index];
 	if (c == nil) @throw [index stringByAppendingString:(NSMutableString*)@" is not a valid enum constructor index"];;

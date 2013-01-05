@@ -16,7 +16,9 @@
 	return [s stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 + (NSMutableString*) htmlEscape:(NSMutableString*)s quotes:(BOOL)quotes{
-	if (quotes==nil) quotes=nil;
+	// Simulated optional arguments
+	if (quotes == nil) quotes = nil;
+	
 	s = [[[[[[s componentsSeparatedByString:(NSMutableString*)@"&"] join:(NSMutableString*)@"&amp;"] componentsSeparatedByString:(NSMutableString*)@"<"] join:(NSMutableString*)@"&lt;"] componentsSeparatedByString:(NSMutableString*)@">"] join:(NSMutableString*)@"&gt;"];
 	return ( (quotes) ? [[[[s componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"&quot;"] componentsSeparatedByString:(NSMutableString*)@"'"] join:(NSMutableString*)@"&#039;"] : s);
 }
@@ -68,7 +70,9 @@
 	return [s replaceOccurrencesOfString:sub withString:by options:nil range:nil];
 }
 + (NSMutableString*) hex:(int)n digits:(int)digits{
-	if (digits==nil) digits=nil;
+	// Simulated optional arguments
+	if (digits == nil) digits = nil;
+	
 	
 	NSMutableString *s = (NSMutableString*)@"";
 	

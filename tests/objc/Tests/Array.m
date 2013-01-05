@@ -70,7 +70,9 @@ static int length__;
 	return nil;
 }
 - (NSMutableArray*) slice:(int)pos end:(int)end{
-	if (end==nil) end=nil;
+	// Simulated optional arguments
+	if (end == nil) end = nil;
+	
 	return [self splice:pos len:end - pos];
 }
 - (void) sort:(SEL*)f{

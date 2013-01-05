@@ -51,7 +51,9 @@
 	return l;
 }
 + (BOOL) has:(id)it elt:(id)elt cmp:(SEL*)cmp{
-	if (cmp==nil) cmp=nil;
+	// Simulated optional arguments
+	if (cmp == nil) cmp = nil;
+	
 	if (cmp == nil) {
 		{
 			{ var $it : * = [it iterator]
@@ -110,7 +112,9 @@
 	return first;
 }
 + (int) count:(id)it pred:(SEL*)pred{
-	if (pred==nil) pred=nil;
+	// Simulated optional arguments
+	if (pred == nil) pred = nil;
+	
 	int n = 0;
 	if (pred == nil) {
 		{
