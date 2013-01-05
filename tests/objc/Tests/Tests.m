@@ -48,7 +48,7 @@
 	id g2 = (id)a;
 	int xy = a.length;
 	[a push:(NSMutableString*)@"6"];
-	if (a.length > 3) f = 3
+	if (a.length > 3) f = 3;
 	else f = a.length;
 	f = ( (a.length > 3) ? 3 : a.length);
 	int x = [[[Tests alloc] init] add:1 b:1];

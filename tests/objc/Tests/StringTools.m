@@ -41,7 +41,7 @@
 	int l = s.length;
 	int r = 0;
 	while (r < l && [StringTools isSpace:s pos:r]) r++;
-	if (r > 0) return [s substr:r len:l - r]
+	if (r > 0) return [s substr:r len:l - r];
 	else return s;
 	return nil;
 }
@@ -49,7 +49,7 @@
 	int l = s.length;
 	int r = 0;
 	while (r < l && [StringTools isSpace:s pos:l - r - 1]) r++;
-	if (r > 0) return [s substr:0 len:l - r]
+	if (r > 0) return [s substr:0 len:l - r];
 	else return s;
 	return nil;
 }

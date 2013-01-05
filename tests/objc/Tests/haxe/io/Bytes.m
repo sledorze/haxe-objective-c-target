@@ -29,7 +29,7 @@
 		while (_g1 < _g) {
 			int i = _g1++;
 			int c = [s cca:i];
-			if (c <= 127) [a push:c]
+			if (c <= 127) [a push:c];
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];
 				[a push:128 | (c & 63)];
@@ -120,7 +120,7 @@
 			if (c == 0) break;
 			[s appendString:[fcc:c]];
 		}
-		else if (c < 224) [s appendString:[fcc: (c & @"63") << @"6" | ([b objectAtIndex:i++] & @"127")]]
+		else if (c < 224) [s appendString:[fcc: (c & @"63") << @"6" | ([b objectAtIndex:i++] & @"127")]];
 		else if (c < 240) {
 			int c2 = [b objectAtIndex:i++];
 			[s appendString:[fcc:( (c & @"31") << @"12" |  (c2 & @"127") << @"6") | ([b objectAtIndex:i++] & @"127")]];

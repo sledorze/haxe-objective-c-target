@@ -32,7 +32,7 @@
 - (id) pop{
 	
 	FastCell *k = self.head;
-	if (k == nil) return nil
+	if (k == nil) return nil;
 	else {
 		self.head = k.next;
 		return k.elt;
@@ -48,7 +48,7 @@
 	FastCell *l = self.head;
 	while (l != nil) {
 		if (l.elt == v) {
-			if (prev == nil) self.head = l.next
+			if (prev == nil) self.head = l.next;
 			else prev next = l.next;
 			break;
 		}

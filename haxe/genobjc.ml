@@ -1034,13 +1034,15 @@ and generateExpression ctx e =
 		generateValue ctx (parent cond);
 		ctx.writer#write " ";
 		generateExpression ctx e;
-		(* ctx.writer#write ";"; *)
 		(match eelse with
 		| None -> ()
-		| Some e ->
+		| Some e2 ->
+			(match e.eexpr with
+				| TBlock _ -> ()
+				| _ ->ctx.writer#write ";");
 			ctx.writer#new_line;
 			ctx.writer#write "else ";
-			generateExpression ctx e);
+			generateExpression ctx e2);
 	| TUnop (op,Ast.Prefix,e) ->
 		ctx.writer#write (Ast.s_unop op);
 		generateValue ctx e

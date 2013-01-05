@@ -15,7 +15,7 @@
 - (void) add:(id)item{
 	
 	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, nil]];
-	if (self.h == nil) self.h = x
+	if (self.h == nil) self.h = x;
 	else [self.q objectAtIndex:1] = x;
 	self.q = x;
 	self.length++;
@@ -56,7 +56,7 @@
 	NSMutableArray *l = (NSMutableArray*)self.h;
 	while (l != nil) {
 		if ([l objectAtIndex:0] == v) {
-			if (prev == nil) self.h = [l objectAtIndex:1]
+			if (prev == nil) self.h = [l objectAtIndex:1];
 			else [prev objectAtIndex:1] = [l objectAtIndex:1];
 			if (self.q == l) self.q = prev;
 			self.length--;
@@ -87,7 +87,7 @@
 	NSMutableArray *l = (NSMutableArray*)self.h;
 	[s.b appendString:(NSMutableString*)@"{"];
 	while (l != nil) {
-		if (first) first = NO
+		if (first) first = NO;
 		else [s.b appendString:(NSMutableString*)@", "];
 		s.b += [Std string:[Std string:[l objectAtIndex:0]]];
 		l = [l objectAtIndex:1];
@@ -102,7 +102,7 @@
 	
 	NSMutableArray *l = (NSMutableArray*)self.h;
 	while (l != nil) {
-		if (first) first = NO
+		if (first) first = NO;
 		else s.b += [Std string:sep];
 		s.b += [Std string:[l objectAtIndex:0]];
 		l = [l objectAtIndex:1];

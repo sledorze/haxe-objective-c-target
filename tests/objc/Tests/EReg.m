@@ -26,7 +26,7 @@ static BOOL global__;
 
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
-	if (p) self.last = s
+	if (p) self.last = s;
 	else self.last = nil;
 	return p;
 }

@@ -77,10 +77,10 @@ static int length__;
 	// Simulated optional arguments
 	if (endIndex == nil) endIndex = nil;
 	
-	if (endIndex == nil) endIndex = self.length
-	else if (endIndex < 0) endIndex = 0
+	if (endIndex == nil) endIndex = self.length;
+	else if (endIndex < 0) endIndex = 0;
 	else if (endIndex > self.length) endIndex = self.length;
-	if (startIndex < 0) startIndex = 0
+	if (startIndex < 0) startIndex = 0;
 	else if (startIndex > self.length) startIndex = self.length;
 	if (startIndex > endIndex) {
 		int tmp = startIndex;
