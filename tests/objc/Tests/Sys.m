@@ -65,11 +65,11 @@
 				case 34:{
 					ok = NO}break;
 				case 0:{
-					arg = [arg substringWithRange:0 len:i]}break;
+					arg = [arg substr:0 len:i]}break;
 				case 13:{
-					arg = [arg substringWithRange:0 len:i]}break;
+					arg = [arg substr:0 len:i]}break;
 				case 10:{
-					arg = [arg substringWithRange:0 len:i]}break;
+					arg = [arg substr:0 len:i]}break;
 			}
 		}
 	}

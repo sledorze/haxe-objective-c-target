@@ -26,12 +26,12 @@
 	return [[[[[[[[[[s componentsSeparatedByString:(NSMutableString*)@"&gt;"] join:(NSMutableString*)@">"] componentsSeparatedByString:(NSMutableString*)@"&lt;"] join:(NSMutableString*)@"<"] componentsSeparatedByString:(NSMutableString*)@"&quot;"] join:(NSMutableString*)@"\""] componentsSeparatedByString:(NSMutableString*)@"&#039;"] join:(NSMutableString*)@"'"] componentsSeparatedByString:(NSMutableString*)@"&amp;"] join:(NSMutableString*)@"&"];
 }
 + (BOOL) startsWith:(NSMutableString*)s start:(NSMutableString*)start{
-	return s.length >= start.length && [s substringWithRange:0 len:start.length] == start;
+	return s.length >= start.length && [s substr:0 len:start.length] == start;
 }
 + (BOOL) endsWith:(NSMutableString*)s end:(NSMutableString*)end{
 	int elen = end.length;
 	int slen = s.length;
-	return slen >= elen && [s substringWithRange:slen - elen len:elen] == end;
+	return slen >= elen && [s substr:slen - elen len:elen] == end;
 }
 + (BOOL) isSpace:(NSMutableString*)s pos:(int)pos{
 	int c = [s characterAtIndex:pos];
@@ -41,7 +41,7 @@
 	int l = s.length;
 	int r = 0;
 	while (r < l && [StringTools isSpace:s pos:r]) r++;
-	if (r > 0) return [s substringWithRange:r len:l - r]
+	if (r > 0) return [s substr:r len:l - r]
 	else return s;
 	return nil;
 }
@@ -49,7 +49,7 @@
 	int l = s.length;
 	int r = 0;
 	while (r < l && [StringTools isSpace:s pos:l - r - 1]) r++;
-	if (r > 0) return [s substringWithRange:0 len:l - r]
+	if (r > 0) return [s substr:0 len:l - r]
 	else return s;
 	return nil;
 }

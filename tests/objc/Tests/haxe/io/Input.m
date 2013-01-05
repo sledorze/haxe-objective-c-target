@@ -91,7 +91,7 @@
 	
 	StringBuf *buf = [[StringBuf alloc] init];
 	int last;
-	while ( (last = [self readByte]) != end) buf.b += [NSMutableStringfromCharCode:last];
+	while ( (last = [self readByte]) != end) buf.b += [NSMutableString fromCharCode:last];
 	return buf.b;
 }
 - (NSMutableString*) readLine{
@@ -101,9 +101,9 @@
 	
 	NSMutableString *s;
 	@try {
-		while ( (last = [self readByte]) != 10) buf.b += [NSMutableStringfromCharCode:last];
+		while ( (last = [self readByte]) != 10) buf.b += [NSMutableString fromCharCode:last];
 		s = buf.b;
-		if ([s characterAtIndex:s.length - 1] == 13) s = [s substringWithRange:0 len:-1];
+		if ([s characterAtIndex:s.length - 1] == 13) s = [s substr:0 len:-1];
 	}
 	@catch (NSException *e) {
 		s = buf.b;

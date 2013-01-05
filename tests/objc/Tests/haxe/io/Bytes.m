@@ -111,7 +111,7 @@
 	
 	NSMutableArray *b = (NSMutableArray*)self.b;
 	
-	SEL *fcc = NSMutableStringfromCharCode;
+	SEL *fcc = NSMutableString fromCharCode;
 	int i = pos;
 	int max = pos + len;
 	while (i < max) {
@@ -157,11 +157,11 @@
 			int c = [self.b objectAtIndex:i];
 			{
 				int c1 = [chars objectAtIndex:c >> 4];
-				s.b += [NSMutableStringfromCharCode:c1];
+				s.b += [NSMutableString fromCharCode:c1];
 			}
 			{
 				int c1 = [chars objectAtIndex:c & 15];
-				s.b += [NSMutableStringfromCharCode:c1];
+				s.b += [NSMutableString fromCharCode:c1];
 			}
 		}
 	}

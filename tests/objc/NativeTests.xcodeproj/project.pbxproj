@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28534A1C169832E8005B2D11 /* String.m in Sources */ = {isa = PBXBuildFile; fileRef = 28534A1B169832E8005B2D11 /* String.m */; };
 		28752FD4169042690048F960 /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD3169042690048F960 /* Array.m */; };
 		28752FD7169042840048F960 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD6169042840048F960 /* Log.m */; };
 		28752FDA169042B00048F960 /* Lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD9169042B00048F960 /* Lib.m */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28534A1A169832E8005B2D11 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = String.h; path = Tests/String.h; sourceTree = SOURCE_ROOT; };
+		28534A1B169832E8005B2D11 /* String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = String.m; path = Tests/String.m; sourceTree = SOURCE_ROOT; };
 		28752FD2169042690048F960 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = Tests/Array.h; sourceTree = SOURCE_ROOT; };
 		28752FD3169042690048F960 /* Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Array.m; path = Tests/Array.m; sourceTree = SOURCE_ROOT; };
 		28752FD5169042840048F960 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = Tests/haxe/Log.h; sourceTree = SOURCE_ROOT; };
@@ -208,6 +211,8 @@
 				28752FF416906C190048F960 /* Reflect.m */,
 				28752FF716906C190048F960 /* Std.h */,
 				28752FF816906C190048F960 /* Std.m */,
+				28534A1A169832E8005B2D11 /* String.h */,
+				28534A1B169832E8005B2D11 /* String.m */,
 				28752FF916906C190048F960 /* StringBuf.h */,
 				28752FFA16906C1A0048F960 /* StringBuf.m */,
 				28752FFB16906C1A0048F960 /* StringTools.h */,
@@ -387,6 +392,7 @@
 				2875300E16906C1A0048F960 /* StringTools.m in Sources */,
 				2875300F16906C1A0048F960 /* Sys.m in Sources */,
 				2875301016906C1A0048F960 /* Type.m in Sources */,
+				28534A1C169832E8005B2D11 /* String.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

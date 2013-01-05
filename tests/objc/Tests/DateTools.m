@@ -91,11 +91,11 @@
 	while (YES) {
 		int np = [f rangeOfString:(NSMutableString*)@"%" startIndex:p];
 		if (np < 0) break;
-		r.b += [f substringWithRange:p len:np - p];
-		r.b += [Std string:[DateTools __format_get:d e:[f substringWithRange:np + 1 len:1]]];
+		r.b += [f substr:p len:np - p];
+		r.b += [Std string:[DateTools __format_get:d e:[f substr:np + 1 len:1]]];
 		p = np + 2;
 	}
-	r.b += [f substringWithRange:p len:f.length - p];
+	r.b += [f substr:p len:f.length - p];
 	return r.b;
 }
 + (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f{

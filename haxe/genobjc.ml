@@ -308,6 +308,7 @@ let isSpecialCompare e1 e2 =
 ;;
 
 let rec isString e =
+	(* TODO: left part of the binop is never discovered as string *)
 	(match e.eexpr with
 	| TBinop (op,e1,e2) -> isString e1 or isString e2
 	| TLocal v ->
@@ -336,6 +337,8 @@ let rec isString e =
 		(match v with
 		| TString s -> true
 		| _ -> false)
+	| TField (e,fa) -> isString e
+	| TCall (e,el) -> isString e
 	| _ -> false)
 ;;
 
@@ -734,7 +737,8 @@ and generateFieldAccess ctx etype s =
 			| "charAt" -> ctx.writer#write " characterAtIndex"
 			| "charCodeAt" -> ctx.writer#write " characterAtIndex"
 			| "split" -> ctx.writer#write " componentsSeparatedByString"
-			| "substr" | "substring" -> ctx.writer#write " substringWithRange"
+			| "substr" | "substring" -> ctx.writer#write " substr"
+			| "fromCharCode" -> ctx.writer#write " fromCharCode"
 			| _ -> ctx.writer#write s)
 		
 		| [], "Date" ->

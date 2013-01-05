@@ -84,7 +84,7 @@ typedef enum{
 - (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
 - (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4;
-- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(BOOL)arg4;
+- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(BOOL)arg3 arg4:(BOOL)arg4;
 - (void) init;
 - (void) printHello;
 - (id) init;

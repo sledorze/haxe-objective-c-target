@@ -389,10 +389,10 @@
 	
 	NSMutableArray *components = (NSMutableArray*)[string componentsSeparatedByString:(NSMutableString*)@"-"];
 	
-	NSMutableString *s2 = [string substringWithRange:5 len:nil];
-	s2 = [string substringWithRange:5 len:len];
-	s2 = [string substringWithRange:5 endIndex:nil];
-	s2 = [string substringWithRange:1 endIndex:len];
+	NSMutableString *s2 = [string substr:5 len:nil];
+	s2 = [string substr:5 len:len];
+	s2 = [string substr:5 endIndex:nil];
+	s2 = [string substr:1 endIndex:len];
 	s2 = [string lowercaseString];
 	s2 = [string uppercaseString];
 	s2 = [string description];
@@ -402,8 +402,8 @@
 	StringBuf *buf = [[StringBuf alloc] init];
 	[buf.b appendString:(NSMutableString*)@"abc"];
 	[buf.b appendString:(NSMutableString*)@""];
-	buf.b += [(NSMutableString*)@"abcdefghijklmnopqerstuvwxyz" substringWithRange:5 len:nil];
-	buf.b += [(NSMutableString*)@"abcdefghijklmnopqerstuvwxyz" substringWithRange:5 len:10];
+	[buf.b appendString:[(NSMutableString*)@"abcdefghijklmnopqerstuvwxyz" substr:@"5" len:nil]];
+	[buf.b appendString:[(NSMutableString*)@"abcdefghijklmnopqerstuvwxyz" substr:@"5" len:@"10"]];
 	
 	NSMutableString *strbuf = buf.b;
 	
@@ -517,11 +517,11 @@
 	if (arg2 == nil) arg2 = nil;
 	
 }
-- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(BOOL)arg4{
+- (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(BOOL)arg3 arg4:(BOOL)arg4{
 	// Simulated optional arguments
 	if (arg4 == nil) arg4 = nil;
 	if (arg2 == nil) arg2 = 6;
-	if (arg3 == nil) arg3 = nil;
+	if (arg3 == nil) arg3 = YES;
 	
 }
 - (void) init{

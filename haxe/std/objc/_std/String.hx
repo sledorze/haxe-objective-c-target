@@ -35,26 +35,26 @@
 	/**
 		The number of characters in [this] String.
 	**/
-	var length(default,null) : Int;
+	public var length(default,null) : Int;
 
 	/**
 		Creates a copy from a given String.
 	**/
-	function new(string:String) : Void;
+	public function new(string:String) : Void {}
 
 	/**
 		Returns a String where all characters of [this] String are upper case.
 		
 		Affects the characters [a-z]. Other characters remain unchanged.
 	**/
-	function toUpperCase() : String;
+	public function toUpperCase() : String {return null;}
 
 	/**
 		Returns a String where all characters of [this] String are lower case.
 		
 		Affects the characters [A-Z]. Other characters remain unchanged.
 	**/
-	function toLowerCase() : String;
+	public function toLowerCase() : String {return null;}
 
 	/**
 		Returns the character at position [index] of [this] String.
@@ -62,7 +62,7 @@
 		If [index] is negative or exceeds [this].length, the empty String ""
 		is returned.
 	**/
-	function charAt(index : Int) : String;
+	public function charAt(index : Int) : String {return null;}
 
 	/**
 		Returns the character code at position [index] of [this] String.
@@ -73,7 +73,7 @@
 		instead to inline the character code at compile time. Note that this
 		only works on String literals of length 1.
 	**/
-	function charCodeAt( index : Int) : Null<Int>;
+	public function charCodeAt( index : Int) : Null<Int> {return null;}
 
 	/**
 		Returns the position of the leftmost occurence of [str] within [this]
@@ -86,7 +86,13 @@
 		
 		If [str] cannot be found, -1 is returned.
 	**/
-	function indexOf( str : String, ?startIndex : Int ) : Int;
+	public function indexOf( str : String, ?startIndex : Int ) : Int {
+		untyped __objc__("NSRange range = [self rangeOfString:str];
+	if ( range.location != NSNotFound ) {
+		return range.location;
+	}");
+		return -1;
+	}
 
 	/**
 		Returns the position of the rightmost occurence of [str] within [this]
@@ -99,7 +105,13 @@
 		
 		If [str] cannot be found, -1 is returned.
 	**/
-	function lastIndexOf( str : String, ?startIndex : Int ) : Int;
+	public function lastIndexOf( str : String, ?startIndex : Int ) : Int {
+		untyped __objc__("NSRange range = [self rangeOfString:str options:NSBackwardsSearch];
+	if ( range.location != NSNotFound ) {
+		return range.location;
+	}");
+		return -1;
+	}
 
 	/**
 		Splits [this] String at each occurence of [delimiter].
@@ -118,7 +130,7 @@
 		result Array contains a leading (or trailing) empty String "" element.
 		Two subsequent delimiters also result in an empty String "" element.
 	**/
-	function split( delimiter : String ) : Array<String>;
+	public function split( delimiter : String ) : Array<String> {return null;}
 
 	/**
 		Returns [len] characters of [this] String, starting at position [pos].
@@ -132,7 +144,9 @@
 		
 		If [len] is negative, the result is unspecified.
 	**/
-	function substr( pos : Int, ?len : Int ) : String;
+	public function substr( pos : Int, ?len : Int ) : String {
+		return untyped __objc__("[self substringWithRange:NSMakeRange(pos,len)]");
+	}
 
 	/**
 		Returns the part of [this] String from [startIndex] to [endIndex].
@@ -143,12 +157,14 @@
 		
 		If [startIndex] exceeds [endIndex], they are swapped.
 	**/
-	function substring( startIndex : Int, ?endIndex : Int ) : String;
+	public function substring( startIndex : Int, ?endIndex : Int ) : String {
+		return untyped __objc__("[self substringWithRange:NSMakeRange(startIndex,endIndex-startIndex)]");
+	}
 
 	/**
 		Returns the String itself.
 	**/
-	function toString() : String;
+	public function toString() : String {return null;}
 
 	/**
 		Returns the String corresponding to the character code [code].
@@ -156,5 +172,7 @@
 		If [code] is negative or has another invalid value, the result is
 		unspecified.
 	**/	
-	static function fromCharCode( code : Int ) : String;
+	static public function fromCharCode( code : Int ) : String {
+		return untyped __objc__("[NSString stringWithFormat: @\"%C\", code]");
+	}
 }

@@ -556,7 +556,7 @@ class Tests implements Interface1, implements Interface2 {
 	public function optionalArguments (arg1:Int, arg2:Int, arg3:Int, ?arg4:Int) :Void {}
 	public function optionalArguments1 (arg1:Int, arg2:Int, arg3:Int, arg4:Int=5) :Void {}
 	public function optionalArguments2 (arg1:Int, ?arg2:Int, ?arg3:Int, arg4:Int) :Void {}
-	public function optionalArguments3 (arg1:Int, arg2:Int=6, ?arg3:Int, ?arg4:Null<Bool>) :Void {}
+	public function optionalArguments3 (arg1:Int, arg2:Int=6, ?arg3:Bool=true, ?arg4:Null<Bool>) :Void {}
 	
 	// When an init method is present make a call to super.init and make the new method to call this init instead the super.init
 	public function init () {

@@ -37,12 +37,12 @@ static BOOL global__;
 }
 - (NSMutableString*) matchedLeft{
 	id p = nil;
-	return [self last substringWithRange:0 len:p pos];
+	return [self last substr:0 len:p pos];
 }
 - (NSMutableString*) matchedRight{
 	id p = nil;
 	int sz = p pos + p len;
-	return [self last substringWithRange:sz len:self last.length - sz];
+	return [self last substr:sz len:self last.length - sz];
 }
 - (id) matchedPos{
 	return nil;
@@ -59,13 +59,13 @@ static BOOL global__;
 			if (p pos == s.length) break;
 			p pos += 1;
 		}
-		[a push:[s substringWithRange:pos len:p pos - pos]];
+		[a push:[s substr:pos len:p pos - pos]];
 		int tot = p pos + p len - pos;
 		pos += tot;
 		len -= tot;
 		first = NO;
 	}while (self.global);
-	[a push:[s substringWithRange:pos len:len]];
+	[a push:[s substr:pos len:len]];
 	return a;
 }
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by{
@@ -82,7 +82,7 @@ static BOOL global__;
 			if (p pos == s.length) break;
 			p pos += 1;
 		}
-		b.b += [s substringWithRange:pos len:p pos - pos];
+		b.b += [s substr:pos len:p pos - pos];
 		if (a.length > 0) b.b += [Std string:[a objectAtIndex:0]];
 		int i = 1;
 		while (i < a.length) {
@@ -96,8 +96,8 @@ static BOOL global__;
 					b.b += [Std string:k];
 				}
 				else {
-					b.b += [s substringWithRange:p1 pos len:p1 len];
-					b.b += [k substringWithRange:1 len:k.length - 1];
+					b.b += [s substr:p1 pos len:p1 len];
+					[b.b appendString:[k substr:@"1" len:k.length - @"1"]];
 				}
 			}
 			else if (c == nil) {
@@ -115,7 +115,7 @@ static BOOL global__;
 		len -= tot;
 		first = NO;
 	}while (self.global);
-	b.b += [s substringWithRange:pos len:len];
+	b.b += [s substr:pos len:len];
 	return b.b;
 }
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL*)f{
