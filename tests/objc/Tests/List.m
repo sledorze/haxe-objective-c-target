@@ -109,7 +109,7 @@
 	}
 	return s.b;
 }
-- (List*) filter:(SEL*)f{
+- (List*) filter:(SEL)f{
 	
 	List *l2 = [[List alloc] init];
 	
@@ -121,7 +121,7 @@
 	}
 	return l2;
 }
-- (List*) map:(SEL*)f{
+- (List*) map:(SEL)f{
 	
 	List *b = [[List alloc] init];
 	

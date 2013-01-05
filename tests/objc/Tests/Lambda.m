@@ -33,7 +33,7 @@
 	}
 	return l;
 }
-+ (List*) map:(id)it f:(SEL*)f{
++ (List*) map:(id)it f:(SEL)f{
 	
 	List *l = [[List alloc] init];
 	{
@@ -45,7 +45,7 @@
 	}
 	return l;
 }
-+ (List*) mapi:(id)it f:(SEL*)f{
++ (List*) mapi:(id)it f:(SEL)f{
 	
 	List *l = [[List alloc] init];
 	int i = 0;
@@ -58,7 +58,7 @@
 	}
 	return l;
 }
-+ (BOOL) has:(id)it elt:(id)elt cmp:(SEL*)cmp{
++ (BOOL) has:(id)it elt:(id)elt cmp:(SEL)cmp{
 	// Simulated optional arguments
 	if (cmp == nil) cmp = nil;
 	
@@ -82,7 +82,7 @@
 	}
 	return NO;
 }
-+ (BOOL) exists:(id)it f:(SEL*)f{
++ (BOOL) exists:(id)it f:(SEL)f{
 	{
 		id _it = [it iterator];
 		while ( [_it hasNext] ) do {
@@ -92,7 +92,7 @@
 	}
 	return NO;
 }
-+ (BOOL) foreach:(id)it f:(SEL*)f{
++ (BOOL) foreach:(id)it f:(SEL)f{
 	{
 		id _it = [it iterator];
 		while ( [_it hasNext] ) do {
@@ -102,7 +102,7 @@
 	}
 	return YES;
 }
-+ (void) iter:(id)it f:(SEL*)f{
++ (void) iter:(id)it f:(SEL)f{
 	{
 		id _it = [it iterator];
 		while ( [_it hasNext] ) do {
@@ -111,7 +111,7 @@
 		}
 	}
 }
-+ (List*) filter:(id)it f:(SEL*)f{
++ (List*) filter:(id)it f:(SEL)f{
 	
 	List *l = [[List alloc] init];
 	{
@@ -123,7 +123,7 @@
 	}
 	return l;
 }
-+ (id) fold:(id)it f:(SEL*)f first:(id)first{
++ (id) fold:(id)it f:(SEL)f first:(id)first{
 	{
 		id _it = [it iterator];
 		while ( [_it hasNext] ) do {
@@ -133,7 +133,7 @@
 	}
 	return first;
 }
-+ (int) count:(id)it pred:(SEL*)pred{
++ (int) count:(id)it pred:(SEL)pred{
 	// Simulated optional arguments
 	if (pred == nil) pred = nil;
 	

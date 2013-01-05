@@ -239,9 +239,9 @@ type context = {
 	mutable handle_break : bool;
 	mutable generating_header : bool;
 	mutable generating_constructor : bool;
-	mutable generating_calls : int;
 	mutable generating_self_access : bool;
 	mutable generating_c_call : bool;
+	mutable generating_calls : int;
 	mutable generating_string_append : int;
 	mutable require_pointer : bool;
 	mutable gen_uid : int;
@@ -261,9 +261,9 @@ let newContext common_ctx writer imports_manager file_info = {
 	handle_break = false;
 	generating_header = false;
 	generating_constructor = false;
-	generating_calls = 0;
 	generating_self_access = false;
 	generating_c_call = false;
+	generating_calls = 0;
 	generating_string_append = 0;
 	require_pointer = false;
 	gen_uid = 0;
@@ -307,7 +307,7 @@ let isSpecialCompare e1 e2 =
 ;;
 
 let rec isString e =
-	(* TODO: left part of the binop is never discovered as string *)
+	(* TODO: left part of the binop is never discovered as being string *)
 	(match e.eexpr with
 	| TBinop (op,e1,e2) -> isString e1 or isString e2
 	| TLocal v ->
@@ -344,7 +344,7 @@ let rec isString e =
 (* 'id' is a pointer but does not need to specify it *)
 let isPointer t =
 	match t with
-	| "void" | "id" | "BOOL" | "int" | "uint" | "float" | "CGRect" | "CGPoint" | "CGSize" -> false
+	| "void" | "id" | "BOOL" | "int" | "uint" | "float" | "CGRect" | "CGPoint" | "CGSize" | "SEL" -> false
 	| _ -> true
 	(* TODO: enum is not pointer *)
 ;;
@@ -1189,7 +1189,7 @@ and generateValue ctx e =
 		let r = alloc_var (genLocal ctx "__r__") e.etype in
 		ctx.in_value <- Some r;
 		if ctx.in_static then
-			ctx.writer#write (Printf.sprintf "- (%s*) " t)
+			ctx.writer#write (Printf.sprintf "^(%s%s)" t (addPointerIfNeeded t))
 		else
 			ctx.writer#write (Printf.sprintf "((%s)($this:%s) " t "(snd ctx.path)");
 		(fun() ->
@@ -1247,7 +1247,7 @@ and generateValue ctx e =
 	| TContinue ->
 		unsupported e.epos
 	| TVars _
-	| TFor _ -> ctx.writer#write "generate TFor"
+	| TFor _
 	| TWhile _
 	| TThrow _ ->
 		(* value is discarded anyway *)
@@ -1454,6 +1454,7 @@ let generateMain ctx fd =
 #import \"" ^ !app_delegate_class ^ ".h\"
 
 int main(int argc, char *argv[]) {
+	srand(time(NULL));
 	@autoreleasepool {
 		return " ^ !platform_class ^ "(argc, argv, nil, NSStringFromClass([" ^ !app_delegate_class ^ " class]));
 	}

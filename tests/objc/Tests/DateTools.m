@@ -10,7 +10,7 @@
 @implementation DateTools
 
 + (NSMutableString*) __format_get:(NSDate*)d e:(NSMutableString*)e{
-	return - (NSMutableString*) switch (e){
+	return ^(NSMutableString*)switch (e){
 		case (NSMutableString*)@"%":{
 			__r__ = (NSMutableString*)@"%"}break;
 		case (NSMutableString*)@"C":{
@@ -26,14 +26,14 @@
 		case (NSMutableString*)@"k":{
 			__r__ = [StringTools lpad:[Std string:[d getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
 		case (NSMutableString*)@"I":{
-			__r__ = - (NSMutableString*) int hour = [d getHours] % 12
+			__r__ = ^(NSMutableString*)int hour = [d getHours] % 12
 			__r__2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
 			return __r__2{
 				
 				NSMutableString* __r__2}
 			}()}break;
 		case (NSMutableString*)@"l":{
-			__r__ = - (NSMutableString*) int hour = [d getHours] % 12
+			__r__ = ^(NSMutableString*)int hour = [d getHours] % 12
 			__r__3 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
 			return __r__3{
 				
@@ -60,7 +60,7 @@
 		case (NSMutableString*)@"T":{
 			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M:%S"]}break;
 		case (NSMutableString*)@"u":{
-			__r__ = - (NSMutableString*) int t = [d getDay]
+			__r__ = ^(NSMutableString*)int t = [d getDay]
 			__r__4 = ( (t == 0) ? (NSMutableString*)@"7" : [Std string:t])
 			return __r__4{
 				
@@ -73,7 +73,7 @@
 		case (NSMutableString*)@"Y":{
 			__r__ = [Std string:[d getFullYear]]}break;
 		default:{
-			__r__ = - (NSMutableString*) @throw [[(NSMutableString*)@"Date.format %" stringByAppendingString:e] stringByAppendingString:(NSMutableString*)@"- not implemented yet."];
+			__r__ = ^(NSMutableString*)@throw [[(NSMutableString*)@"Date.format %" stringByAppendingString:e] stringByAppendingString:(NSMutableString*)@"- not implemented yet."];
 			return __r__5{
 				
 				NSMutableString* __r__5}

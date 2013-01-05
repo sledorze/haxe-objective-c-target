@@ -75,7 +75,7 @@ static int length__;
 	
 	return [self splice:pos len:end - pos];
 }
-- (void) sort:(SEL*)f{
+- (void) sort:(SEL)f{
 }
 - (NSMutableArray*) splice:(int)pos len:(int)len{
 	

@@ -26,7 +26,7 @@
 + (BOOL) isObject:(id)v;
 + (BOOL) deleteField:(id)o f:(NSMutableString*)f;
 + (id) copy:(id)o;
-+ (id) makeVarArgs:(SEL*)f;
++ (id) makeVarArgs:(SEL)f;
 
 @end
 

@@ -75,7 +75,7 @@
 	}
 	return o2;
 }
-+ (id) makeVarArgs:(SEL*)f{
++ (id) makeVarArgs:(SEL)f{
 	return [__global__ __hxcpp_create_var_args:f];
 }
 

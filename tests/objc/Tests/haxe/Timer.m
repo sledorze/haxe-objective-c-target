@@ -9,7 +9,7 @@
 
 @implementation Timer
 
-+ (Timer*) delay:(SEL*)f time_ms:(int)time_ms{
++ (Timer*) delay:(SEL)f time_ms:(int)time_ms{
 	
 	NSMutableArray *f1 = [[NSMutableArray alloc] initWithObjects:f, nil]];
 	
@@ -20,7 +20,7 @@
 	}
 	return [t objectAtIndex:0];
 }
-+ (id) measure:(SEL*)f pos:(id)pos{
++ (id) measure:(SEL)f pos:(id)pos{
 	// Simulated optional arguments
 	if (pos == nil) pos = nil;
 	

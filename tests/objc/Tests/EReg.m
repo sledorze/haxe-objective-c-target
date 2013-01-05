@@ -118,7 +118,7 @@ static BOOL global__;
 	b.b += [s substr:pos len:len];
 	return b.b;
 }
-- (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL*)f{
+- (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL)f{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {

@@ -27,23 +27,40 @@
 	
 	NSLog(@"%i", [Std random:100]);
 	NSLog(@"%i", [Std random:100]);
-	NSLog(@"%@", [Std string:self]);
-	NSLog(@"%i", [Std parseInt:(NSMutableString*)@"5425345.3"]);
-	NSLog(@"%2f", [Std parseFloat:@"5425345.3"]);
-	NSLog(@"%i", [Std int:54.53]);
+//	NSLog(@"%@", [Std string:self]);
+//	NSLog(@"%i", [Std parseInt:(NSMutableString*)@"5425345.3"]);
+//	NSLog(@"%2f", [Std parseFloat:(NSMutableString*)@"5425345.3"]);
+//	NSLog(@"%i", [Std int:54.53]);
+//	
+//	NSDate *date = [NSDate now];
+//	NSLog(@"%@", date);
+//	NSDate *date2 = [NSDate fromTime:1000000000];
+//	NSLog(@"%@", date2);
+//	NSDate *date3 = [NSDate fromString:(NSMutableString*)@"2013-02-18 15:34:50"];
+//	NSLog(@"%@", date3);
+//	NSLog(@"%@", [date toString]);
+	//
+	NSLog(@"%i", rand() % 100);
+	NSLog(@"%i", rand() % 100);
 	
-	NSDate *date = [NSDate now];
-	NSLog(@"%@", date);
-	NSDate *date2 = [NSDate fromTime:1000000000];
-	NSLog(@"%@", date2);
-	NSDate *date3 = [NSDate fromString:@"2013-02-18 15:34:50"];
-	NSLog(@"%@", date3);
-	NSLog(@"%@", [date toString]);
-	NSLog(@"%i", [date getHours]);
-	NSLog(@"%i", [date getMinutes]);
+	[self callThis:@selector(func)];
+	//[self callBlock:^(){ NSLog(@"Block was called"); }];
 	
     return YES;
 }
+
+- (void) callThis:(SEL)sel {
+	[self performSelector:sel];
+}
+//- (void) callBlock:(void)(^sel) {
+//	//[self performSelector:sel];
+//	sel();
+//}
+- (void) func {
+	NSLog(@"This was called");
+}
+
+
 
 static int length__;
 - (int) length{

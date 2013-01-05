@@ -28,7 +28,7 @@
 		int _g1 = 0; int _g = s.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int c = [s cca:i];
+			int c = [s characterAtIndex:i];
 			if (c <= 127) [a push:c];
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];
@@ -110,8 +110,7 @@
 	NSMutableString *s = (NSMutableString*)@"";
 	
 	NSMutableArray *b = (NSMutableArray*)self.b;
-	
-	SEL *fcc = NSMutableString fromCharCode;
+	SEL fcc = NSMutableString fromCharCode;
 	int i = pos;
 	int max = pos + len;
 	while (i < max) {

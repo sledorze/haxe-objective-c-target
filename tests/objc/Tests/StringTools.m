@@ -85,7 +85,7 @@
 	return s;
 }
 + (int) fastCodeAt:(NSMutableString*)s index:(int)index{
-	return [s cca:index];
+	return [s characterAtIndex:index];
 }
 + (BOOL) isEof:(int)c{
 	return c == -1;
