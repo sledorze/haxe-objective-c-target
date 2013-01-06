@@ -14,7 +14,7 @@
 		case (NSMutableString*)@"%":{
 			__r__ = (NSMutableString*)@"%"}break;
 		case (NSMutableString*)@"C":{
-			__r__ = [StringTools lpad:[Std string:[Std int:[d getFullYear] / 100]] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[Std _int:[d getFullYear] / 100]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"d":{
 			__r__ = [StringTools lpad:[Std string:[d getDate]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"D":{
@@ -52,7 +52,7 @@
 		case (NSMutableString*)@"R":{
 			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M"]}break;
 		case (NSMutableString*)@"s":{
-			__r__ = [Std string:[Std int:[d getTime] / 1000]]}break;
+			__r__ = [Std string:[Std _int:[d getTime] / 1000]]}break;
 		case (NSMutableString*)@"S":{
 			__r__ = [StringTools lpad:[Std string:[d getSeconds]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"t":{
@@ -134,7 +134,7 @@
 	float m = s / 60;
 	float h = m / 60;
 	return struct {
-	ms:t % 1000; seconds:[Std int:s % 60]; minutes:[Std int:m % 60]; hours:[Std int:h % 24]; days:[Std int:h / 24]
+	ms:t % 1000; seconds:[Std _int:s % 60]; minutes:[Std _int:m % 60]; hours:[Std _int:h % 24]; days:[Std _int:h / 24]
 	} structName;
 }
 + (float) make:(id)o{

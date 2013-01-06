@@ -22,7 +22,7 @@
 @property (nonatomic, strong) NSTimer *nstimer;
 @property (nonatomic) int _id;
 - (void) stop;
-- (void) run;
+@property (nonatomic,copy) (void) run;
 - (id) init:(int)time_ms;
 
 @end

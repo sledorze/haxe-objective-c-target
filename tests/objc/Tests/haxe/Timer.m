@@ -35,13 +35,12 @@
 @synthesize nstimer;
 @synthesize _id;
 - (void) stop{
-	if (self.id == nil) return;
+	if (self._id == nil) return;
 	[self nstimer invalidate];
 	self.nstimer = nil;
-	self.id = nil;
+	self._id = nil;
 }
-- (void) run{
-}
+@synthesize block1
 - (id) init:(int)time_ms{
 	self = [super init];
 	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:self run userInfo:nil repeats:YES];

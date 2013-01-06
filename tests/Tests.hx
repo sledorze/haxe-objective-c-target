@@ -37,10 +37,6 @@ class Tests implements Interface1, implements Interface2 {
 	public static var staticVar2 :Int = 5;
 	inline public static var staticVar3 :Int = 5;
 	
-	public function new () {
-		// The constructor automaticall call the method init and init variables
-	}
-	
 	function testVariables () :Void {
 		// declare some random variables
 		var a = new Array<String>();
@@ -383,7 +379,9 @@ class Tests implements Interface1, implements Interface2 {
 		s2 = string.substring(1, len);
 		s2 = string.toLowerCase();//
 		s2 = string.toUpperCase();//
+		#if !cpp
 		s2 = string.toString();
+		#end
 		var s3:String = String.fromCharCode ( 9 );
 		
 		var buf = new StringBuf();
@@ -520,6 +518,13 @@ class Tests implements Interface1, implements Interface2 {
 		var f = haxe.Timer.stamp();
 	}
 	#end
+		
+		
+		
+	function testCrypto () {
+		var str1 = haxe.crypto.Md5.encode("Hello world");
+		var str2 = haxe.crypto.Sha1.encode("Hello world");
+	}
 	
 	
 	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
@@ -570,6 +575,12 @@ class Tests implements Interface1, implements Interface2 {
 		trace("Hello from Haxe Objective-C");
 	}
 	
+	public function new () {
+		// The constructor automaticall call the method init and init variables
+		var test2 = new Tests2();
+		test2.block1 = init;
+	}
+	
 	// The main entry point is converted to a main.m file
 	
 	public static function main() {
@@ -579,10 +590,13 @@ class Tests implements Interface1, implements Interface2 {
 
 class Tests2 {
 	var d1 = 34;
-	function new () {
+	public function new () {
 		var arr = [d1, d1, 50];
 	}
-	function methodInTests2(){}
+	function methodInTests2(){
+		block1();
+	}
+	dynamic public function block1():Void{}
 }
 enum Color2 {
 	Red2;

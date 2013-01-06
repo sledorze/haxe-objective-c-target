@@ -10,8 +10,8 @@
 
 @interface Log : NSObject
 
-+ (void) trace:(id)v infos:(id)infos;
-+ (void) clear;
+@property (nonatomic,copy) (void) trace:(id)v infos:(id)infos;
+@property (nonatomic,copy) (void) clear;
 
 @end
 

@@ -239,6 +239,7 @@ type context = {
 	mutable is_category : bool;(* In categories @synthesize should be replaced with the getter and setter *)
 	mutable handle_break : bool;
 	mutable generating_header : bool;
+	mutable generating_objc_block : bool;
 	mutable generating_constructor : bool;
 	mutable generating_self_access : bool;
 	mutable generating_c_call : bool;
@@ -261,6 +262,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	is_category = false;
 	handle_break = false;
 	generating_header = false;
+	generating_objc_block = false;
 	generating_constructor = false;
 	generating_self_access = false;
 	generating_c_call = false;
@@ -749,13 +751,13 @@ and generateFieldAccess ctx etype s =
 			| _ ->
 				let accesor = if ctx.generating_self_access then "."
 				else if ctx.generating_calls > 0 then " " else "." in
-				ctx.writer#write (Printf.sprintf "%s%s" accesor s));
+				ctx.writer#write (Printf.sprintf "%s%s" accesor (remapKeyword s)));
 		
 		| _ -> 
 			(* self.someMethod *)
 			(* Generating dot notation for property and space for methods *)
 			let accesor = if ctx.generating_calls > 0 then " " else "." in
-			ctx.writer#write (Printf.sprintf "%s%s" accesor s);
+			ctx.writer#write (Printf.sprintf "%s%s" accesor (remapKeyword s));
 			ctx.generating_self_access <- false
 	in
 	match follow etype with
@@ -770,10 +772,10 @@ and generateFieldAccess ctx etype s =
 			(* Generate a static field access *)
 			| Statics c -> (* ctx.writer#write " "; *) field c
 			(* Generate field access for an anonymous object, Dynamic *)
-			| _ -> ctx.writer#write (Printf.sprintf " %s" s))
+			| _ -> ctx.writer#write (Printf.sprintf " %s" (remapKeyword s)))
 	| _ ->
 		(* Method call on a Dynamic *)
-		ctx.writer#write (Printf.sprintf " %s" s)
+		ctx.writer#write (Printf.sprintf " %s" (remapKeyword s))
 	
 and generateExpression ctx e =
 	debug ctx ("\"-E-"^(Type.s_expr_kind e)^">\"");
@@ -1501,9 +1503,7 @@ let generateField ctx is_static field =
 	(f.cf_name = "main" && static) || f.cf_name = "resolve" || has_meta ":public" f.cf_meta in *)
 	let pos = ctx.class_def.cl_pos in
 	match field.cf_expr, field.cf_kind with
-	(* MethDynamic not sure if must be here *)
-	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline | MethDynamic) ->
-		(* Find the static main method and generate a main.m file from it. *)
+	| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
 		if field.cf_name = "main" && is_static then begin
 			if not ctx.generating_header then generateMain ctx fd;
 		end
@@ -1517,6 +1517,17 @@ let generateField ctx is_static field =
 			else
 				ctx.writer#write ";";
 		end
+	| Some { eexpr = TFunction fd }, Method (MethDynamic) ->
+		ctx.generating_objc_block <- true;
+		if ctx.generating_header then begin
+			ctx.writer#write (Printf.sprintf "@property (nonatomic,copy) ");
+			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
+			ctx.writer#write ";";
+		end else begin
+			ctx.writer#write (Printf.sprintf "@synthesize block1");
+			(* generateExpression ctx fd.tf_expr *)
+		end;
+		ctx.generating_objc_block <- false;
 	| _ ->
 		let is_getset = (match field.cf_kind with Var { v_read = AccCall _ } | Var { v_write = AccCall _ } -> true | _ -> false) in
 		match follow field.cf_type with

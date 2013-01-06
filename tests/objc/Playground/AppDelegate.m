@@ -39,12 +39,14 @@
 //	NSDate *date3 = [NSDate fromString:(NSMutableString*)@"2013-02-18 15:34:50"];
 //	NSLog(@"%@", date3);
 //	NSLog(@"%@", [date toString]);
-	//
-	NSLog(@"%i", rand() % 100);
-	NSLog(@"%i", rand() % 100);
 	
-	[self callThis:@selector(func)];
+	//[self callThis:@selector(func)];
 	//[self callBlock:^(){ NSLog(@"Block was called"); }];
+	
+	// redefine a method
+	Tests2 *test2 = [[Tests2 alloc] init];
+	test2.block1 = ^(){ [self func]; };
+	[test2 methodInTests2];
 	
     return YES;
 }
@@ -57,7 +59,7 @@
 //	sel();
 //}
 - (void) func {
-	NSLog(@"This was called");
+	NSLog(@"func was called");
 }
 
 
@@ -72,3 +74,26 @@ static int length__;
 
 
 @end
+
+
+
+@implementation Tests2
+
+@synthesize d1;
+@synthesize block1;
+- (void) methodInTests2{
+	NSLog(@"methodInTests2 is calling block1 : %@", block1);
+	block1();
+}
+- (void) redefineThisMethod{
+}
+- (id) init{
+	self = [super init];
+	self.d1 = 34;
+	
+	//NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil];
+	return self;
+}
+
+@end
+

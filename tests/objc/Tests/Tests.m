@@ -84,7 +84,7 @@
 - (void) testWhile{
 	int aa = 5;
 	do {
-		[Log trace:(NSMutableString*)@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"88",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:(NSMutableString*)@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"84",@"Tests",@"testWhile",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 		aa++;
 	}while (aa < 10);
 	while (aa > 0) aa--;
@@ -94,7 +94,7 @@
 		int a = 3;
 	}
 	@catch (NSException *e) {
-		[Log trace:(NSMutableString*)@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"105",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+		[Log trace:(NSMutableString*)@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"101",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
 - (void) testSwitch{
@@ -305,9 +305,9 @@
 	item = [l last];
 	item = [l pop];
 	BOOL r = [l remove:5];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"285",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"281",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[l clear];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"287",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"283",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
 	List *newList = [l map:^(NSMutableString*):(int)i{
 		return [Std string:i];
@@ -450,10 +450,10 @@
 	BOOL bool = [Sys setTimeLocale:(NSMutableString*)@"loc"];
 	[Sys sleep:5.5];
 	
-	Output *_out = [Sys stderr];
+	Output *_out = [Sys _stderr];
 	
-	Input *_in = [Sys stdin];
-	_out = [Sys stdout];
+	Input *_in = [Sys _stdin];
+	_out = [Sys _stdout];
 	string = [Sys systemName];
 	_float = [Sys time];
 }
@@ -478,8 +478,14 @@
 	timer = [Timer delay:^(void){
 		[[_g objectAtIndex:0] testTimer];
 	} time_ms:50];
-	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"519",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"517",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
+}
+- (void) testCrypto{
+	
+	NSMutableString *str1 = [Md5 encode:(NSMutableString*)@"Hello world"];
+	
+	NSMutableString *str2 = [Sha1 encode:(NSMutableString*)@"Hello world"];
 }
 - (void) testFrameworksImport{
 }
@@ -529,13 +535,16 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"570",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"575",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) init{
 	self = [super init];
 	self.s = (NSMutableString*)@"str";
 	self.d2 = 4.5;
 	self.d1 = 34;
+	
+	Tests2 *test2 = [[Tests2 alloc] init];
+	test2.block1 = self.init;
 	return self;
 }
 
@@ -545,7 +554,9 @@
 
 @synthesize d1;
 - (void) methodInTests2{
+	[self block1];
 }
+@synthesize block1
 - (id) init{
 	self = [super init];
 	self.d1 = 34;

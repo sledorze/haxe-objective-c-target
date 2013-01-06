@@ -14,3 +14,13 @@
 @property (nonatomic) int length;
 
 @end
+
+@interface Tests2 : NSObject
+
+@property (nonatomic) int d1;
+@property (nonatomic,copy) void(^block1)(void);
+- (void) methodInTests2;
+- (void) redefineThisMethod;
+- (id) init;
+
+@end

@@ -42,6 +42,9 @@ typedef enum{
 #import "Class.h"
 #import "Type.h"
 #import "Timer.h"
+#import "Md5.h"
+#import "Sha1.h"
+#import "Tests2.h"
 
 @interface Tests : NSObject<Interface2, Interface1>
 
@@ -76,6 +79,7 @@ typedef enum{
 - (void) testType;
 - (void) testXml;
 - (void) testTimer;
+- (void) testCrypto;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;
@@ -100,6 +104,7 @@ typedef enum{
 
 @property (nonatomic) int d1;
 - (void) methodInTests2;
+@property (nonatomic,copy) (void) block1;
 - (id) init;
 
 @end

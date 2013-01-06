@@ -189,10 +189,10 @@
 		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:24]]];
 		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:16]] & 255];
 		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:8]] & 255];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ and:x b:[CppInt32__ ofInt:255]]]];
+		[self writeByte:[CppInt32__ toInt:[CppInt32__ _and:x b:[CppInt32__ ofInt:255]]]];
 	}
 	else {
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ and:x b:[CppInt32__ ofInt:255]]]];
+		[self writeByte:[CppInt32__ toInt:[CppInt32__ _and:x b:[CppInt32__ ofInt:255]]]];
 		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:8]] & 255];
 		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:16]] & 255];
 		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:24]]];
