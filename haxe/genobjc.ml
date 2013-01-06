@@ -78,6 +78,7 @@ class importsManager =
 		| ([],"Int")
 		| ([],"Float")
 		| ([],"Dynamic")
+		| ([],"T")
 		| ([],"Bool") -> ();
 		| _ -> let f_name = getFrameworkOfPath class_path in
 		if f_name <> "" then begin
@@ -1353,7 +1354,7 @@ let generateProperty ctx field pos is_static =
 				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id^" { return "^id^"__; }\n");
 				ctx.writer#write ("- (void) set"^(String.capitalize id)^":("^t^(addPointerIfNeeded t)^")val { "^id^"__ = val; }\n");
 			end else begin
-				ctx.writer#write (Printf.sprintf "@synthesize %s;" id)
+				ctx.writer#write (Printf.sprintf "@synthesize %s;" (remapKeyword id))
 			end
 		end;
 	end

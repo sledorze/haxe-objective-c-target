@@ -33,7 +33,7 @@
 	return [Sys time];
 }
 @synthesize nstimer;
-@synthesize id;
+@synthesize _id;
 - (void) stop{
 	if (self.id == nil) return;
 	[self nstimer invalidate];

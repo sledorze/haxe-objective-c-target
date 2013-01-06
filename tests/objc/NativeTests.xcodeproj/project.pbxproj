@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		28534A1C169832E8005B2D11 /* String.m in Sources */ = {isa = PBXBuildFile; fileRef = 28534A1B169832E8005B2D11 /* String.m */; };
+		28534A2216996664005B2D11 /* FastList.m in Sources */ = {isa = PBXBuildFile; fileRef = 28534A1F16996663005B2D11 /* FastList.m */; };
+		28534A2316996664005B2D11 /* Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 28534A2116996664005B2D11 /* Timer.m */; };
 		28752FD4169042690048F960 /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD3169042690048F960 /* Array.m */; };
 		28752FD7169042840048F960 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD6169042840048F960 /* Log.m */; };
 		28752FDA169042B00048F960 /* Lib.m in Sources */ = {isa = PBXBuildFile; fileRef = 28752FD9169042B00048F960 /* Lib.m */; };
@@ -57,6 +59,10 @@
 /* Begin PBXFileReference section */
 		28534A1A169832E8005B2D11 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = String.h; path = Tests/String.h; sourceTree = SOURCE_ROOT; };
 		28534A1B169832E8005B2D11 /* String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = String.m; path = Tests/String.m; sourceTree = SOURCE_ROOT; };
+		28534A1E16996662005B2D11 /* FastList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FastList.h; path = Tests/haxe/FastList.h; sourceTree = SOURCE_ROOT; };
+		28534A1F16996663005B2D11 /* FastList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FastList.m; path = Tests/haxe/FastList.m; sourceTree = SOURCE_ROOT; };
+		28534A2016996663005B2D11 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Timer.h; path = Tests/haxe/Timer.h; sourceTree = SOURCE_ROOT; };
+		28534A2116996664005B2D11 /* Timer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Timer.m; path = Tests/haxe/Timer.m; sourceTree = SOURCE_ROOT; };
 		28752FD2169042690048F960 /* Array.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Array.h; path = Tests/Array.h; sourceTree = SOURCE_ROOT; };
 		28752FD3169042690048F960 /* Array.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Array.m; path = Tests/Array.m; sourceTree = SOURCE_ROOT; };
 		28752FD5169042840048F960 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = Tests/haxe/Log.h; sourceTree = SOURCE_ROOT; };
@@ -222,6 +228,10 @@
 				28752FFF16906C1A0048F960 /* Type.h */,
 				2875300016906C1A0048F960 /* Type.m */,
 				287530F81695918B0048F960 /* TestsEnumExtern.h */,
+				28534A1E16996662005B2D11 /* FastList.h */,
+				28534A1F16996663005B2D11 /* FastList.m */,
+				28534A2016996663005B2D11 /* Timer.h */,
+				28534A2116996664005B2D11 /* Timer.m */,
 				288B519B167673C000926232 /* AppDelegate.h */,
 				288B519C167673C100926232 /* AppDelegate.m */,
 				288B5193167673C000926232 /* Supporting Files */,
@@ -393,6 +403,8 @@
 				2875300F16906C1A0048F960 /* Sys.m in Sources */,
 				2875301016906C1A0048F960 /* Type.m in Sources */,
 				28534A1C169832E8005B2D11 /* String.m in Sources */,
+				28534A2216996664005B2D11 /* FastList.m in Sources */,
+				28534A2316996664005B2D11 /* Timer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
