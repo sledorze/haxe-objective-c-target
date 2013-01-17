@@ -8,8 +8,9 @@
 #import "String.h"
 
 @implementation NSMutableString ( String )
+id me;
 
-NSMutableString*(^block_fromCharCode)(int code) = ^(int code) { [me fromCharCode:code]; };
+NSMutableString*(^block_fromCharCode)(int code) = ^(int code) { return [me fromCharCode:code]; };
 + (NSMutableString*) fromCharCode:(int)code{
 	return [NSString stringWithFormat: @"%C", code];
 }
@@ -18,23 +19,23 @@ static int length__;
 - (int) length { return length__; }
 - (void) setLength:(int)val { length__ = val; }
 
-NSMutableString*(^block_toUpperCase)() = ^() { [me toUpperCase]; };
+NSMutableString*(^block_toUpperCase)() = ^() { return [me toUpperCase]; };
 - (NSMutableString*) toUpperCase{
 	return nil;
 }
-NSMutableString*(^block_toLowerCase)() = ^() { [me toLowerCase]; };
+NSMutableString*(^block_toLowerCase)() = ^() { return [me toLowerCase]; };
 - (NSMutableString*) toLowerCase{
 	return nil;
 }
-NSMutableString*(^block_charAt)(int index) = ^(int index) { [me charAt:index]; };
+NSMutableString*(^block_charAt)(int index) = ^(int index) { return [me charAt:index]; };
 - (NSMutableString*) charAt:(int)index{
 	return nil;
 }
-int(^block_charCodeAt)(int index) = ^(int index) { [me charCodeAt:index]; };
+int(^block_charCodeAt)(int index) = ^(int index) { return [me charCodeAt:index]; };
 - (int) charCodeAt:(int)index{
 	return nil;
 }
-int(^block_indexOf)(NSMutableString *str, int startIndex) = ^(NSMutableString *str, int startIndex) { [me indexOf:str startIndex:startIndex]; };
+int(^block_indexOf)(NSMutableString *str, int startIndex) = ^(NSMutableString *str, int startIndex) { return [me indexOf:str startIndex:startIndex]; };
 - (int) indexOf:(NSMutableString*)str startIndex:(int)startIndex{
 	// Simulated optional arguments
 	if (startIndex == nil) startIndex = nil;
@@ -46,7 +47,7 @@ int(^block_indexOf)(NSMutableString *str, int startIndex) = ^(NSMutableString *s
 	};
 	return -1;
 }
-int(^block_lastIndexOf)(NSMutableString *str, int startIndex) = ^(NSMutableString *str, int startIndex) { [me lastIndexOf:str startIndex:startIndex]; };
+int(^block_lastIndexOf)(NSMutableString *str, int startIndex) = ^(NSMutableString *str, int startIndex) { return [me lastIndexOf:str startIndex:startIndex]; };
 - (int) lastIndexOf:(NSMutableString*)str startIndex:(int)startIndex{
 	// Simulated optional arguments
 	if (startIndex == nil) startIndex = nil;
@@ -58,11 +59,11 @@ int(^block_lastIndexOf)(NSMutableString *str, int startIndex) = ^(NSMutableStrin
 	};
 	return -1;
 }
-NSMutableArray*(^block_split)(NSMutableString *delimiter) = ^(NSMutableString *delimiter) { [me split:delimiter]; };
+NSMutableArray*(^block_split)(NSMutableString *delimiter) = ^(NSMutableString *delimiter) { return [me split:delimiter]; };
 - (NSMutableArray*) split:(NSMutableString*)delimiter{
 	return nil;
 }
-NSMutableString*(^block_substr)(int pos, int len) = ^(int pos, int len) { [me substr:pos len:len]; };
+NSMutableString*(^block_substr)(int pos, int len) = ^(int pos, int len) { return [me substr:pos len:len]; };
 - (NSMutableString*) substr:(int)pos len:(int)len{
 	// Simulated optional arguments
 	if (len == nil) len = nil;
@@ -82,7 +83,7 @@ NSMutableString*(^block_substr)(int pos, int len) = ^(int pos, int len) { [me su
 	return [self substringFromIndex:pos];
 	return [self substringWithRange:NSMakeRange(pos,len)];
 }
-NSMutableString*(^block_substring)(int startIndex, int endIndex) = ^(int startIndex, int endIndex) { [me substring:startIndex endIndex:endIndex]; };
+NSMutableString*(^block_substring)(int startIndex, int endIndex) = ^(int startIndex, int endIndex) { return [me substring:startIndex endIndex:endIndex]; };
 - (NSMutableString*) substring:(int)startIndex endIndex:(int)endIndex{
 	// Simulated optional arguments
 	if (endIndex == nil) endIndex = nil;
@@ -99,11 +100,11 @@ NSMutableString*(^block_substring)(int startIndex, int endIndex) = ^(int startIn
 	}
 	return [self substr:startIndex len:endIndex - startIndex];
 }
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return nil;
 }
-id(^block_init)(NSMutableString *string) = ^(NSMutableString *string) { [me init:string]; };
+id(^block_init)(NSMutableString *string) = ^(NSMutableString *string) { return [me init:string]; };
 - (id) init:(NSMutableString*)string{
 	self = [super init];
 	me = self;

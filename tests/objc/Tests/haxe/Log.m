@@ -8,6 +8,7 @@
 #import "Log.h"
 
 @implementation Log
+id me;
 
 // Defining a dynamic method
 void(^block_trace)(id v, id infos) = ^(id v, id infos) { [me trace:v infos:infos]; };
@@ -17,13 +18,13 @@ void(^block_trace)(id v, id infos) = ^(id v, id infos) { [me trace:v infos:infos
 	
 	NSLog (@"%@:%@: %@", [infos objectForKey:@"fileName"], [infos objectForKey:@"lineNumber"], v);
 }
-@synthesize block_trace;
+@synthesize property_trace;
 
 // Defining a dynamic method
 void(^block_clear)() = ^() { [me clear]; };
 + (void) clear{
 }
-@synthesize block_clear;
+@synthesize property_clear;
 
 
 @end

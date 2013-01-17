@@ -8,8 +8,9 @@
 #import "Bytes.h"
 
 @implementation Bytes
+id me;
 
-Bytes*(^block_alloc)(int length) = ^(int length) { [me alloc:length]; };
+Bytes*(^block_alloc)(int length) = ^(int length) { return [me alloc:length]; };
 + (Bytes*) alloc:(int)length{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -22,7 +23,7 @@ Bytes*(^block_alloc)(int length) = ^(int length) { [me alloc:length]; };
 	}
 	return [[Bytes alloc] init:length b:a];
 }
-Bytes*(^block_ofString)(NSMutableString *s) = ^(NSMutableString *s) { [me ofString:s]; };
+Bytes*(^block_ofString)(NSMutableString *s) = ^(NSMutableString *s) { return [me ofString:s]; };
 + (Bytes*) ofString:(NSMutableString*)s{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -51,17 +52,17 @@ Bytes*(^block_ofString)(NSMutableString *s) = ^(NSMutableString *s) { [me ofStri
 	}
 	return [[Bytes alloc] init:a length b:a];
 }
-Bytes*(^block_ofData)(NSMutableArray *b) = ^(NSMutableArray *b) { [me ofData:b]; };
+Bytes*(^block_ofData)(NSMutableArray *b) = ^(NSMutableArray *b) { return [me ofData:b]; };
 + (Bytes*) ofData:(NSMutableArray*)b{
 	return [[Bytes alloc] init:b length b:b];
 }
-int(^block_fastGet)(NSMutableArray *b, int pos) = ^(NSMutableArray *b, int pos) { [me fastGet:b pos:pos]; };
+int(^block_fastGet)(NSMutableArray *b, int pos) = ^(NSMutableArray *b, int pos) { return [me fastGet:b pos:pos]; };
 + (int) fastGet:(NSMutableArray*)b pos:(int)pos{
 	return [b objectAtIndex:pos];
 }
 @synthesize length;
 @synthesize b;
-int(^block_get)(int pos) = ^(int pos) { [me get:pos]; };
+int(^block_get)(int pos) = ^(int pos) { return [me get:pos]; };
 - (int) get:(int)pos{
 	return [self.b objectAtIndex:pos];
 }
@@ -92,12 +93,12 @@ void(^block_blit)(int pos, Bytes *src, int srcpos, int len) = ^(int pos, Bytes *
 		}
 	}
 }
-Bytes*(^block_sub)(int pos, int len) = ^(int pos, int len) { [me sub:pos len:len]; };
+Bytes*(^block_sub)(int pos, int len) = ^(int pos, int len) { return [me sub:pos len:len]; };
 - (Bytes*) sub:(int)pos len:(int)len{
 	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
 	return [[Bytes alloc] init:len b:[self b slice:pos end:pos + len]];
 }
-int(^block_compare)(Bytes *other) = ^(Bytes *other) { [me compare:other]; };
+int(^block_compare)(Bytes *other) = ^(Bytes *other) { return [me compare:other]; };
 - (int) compare:(Bytes*)other{
 	
 	NSMutableArray *b1 = (NSMutableArray*)self.b;
@@ -113,7 +114,7 @@ int(^block_compare)(Bytes *other) = ^(Bytes *other) { [me compare:other]; };
 	}
 	return self.length - block_length;
 }
-NSMutableString*(^block_readString)(int pos, int len) = ^(int pos, int len) { [me readString:pos len:len]; };
+NSMutableString*(^block_readString)(int pos, int len) = ^(int pos, int len) { return [me readString:pos len:len]; };
 - (NSMutableString*) readString:(int)pos len:(int)len{
 	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
 	
@@ -142,11 +143,11 @@ NSMutableString*(^block_readString)(int pos, int len) = ^(int pos, int len) { [m
 	}
 	return s;
 }
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return [self readString:0 len:self length];
 }
-NSMutableString*(^block_toHex)() = ^() { [me toHex]; };
+NSMutableString*(^block_toHex)() = ^() { return [me toHex]; };
 - (NSMutableString*) toHex{
 	
 	StringBuf *s = [[StringBuf alloc] init];
@@ -172,11 +173,11 @@ NSMutableString*(^block_toHex)() = ^() { [me toHex]; };
 	}
 	return s.b;
 }
-NSMutableArray*(^block_getData)() = ^() { [me getData]; };
+NSMutableArray*(^block_getData)() = ^() { return [me getData]; };
 - (NSMutableArray*) getData{
 	return self.b;
 }
-id(^block_init)(int length, NSMutableArray *b) = ^(int length, NSMutableArray *b) { [me init:length b:b]; };
+id(^block_init)(int length, NSMutableArray *b) = ^(int length, NSMutableArray *b) { return [me init:length b:b]; };
 - (id) init:(int)length b:(NSMutableArray*)b{
 	self = [super init];
 	me = self;

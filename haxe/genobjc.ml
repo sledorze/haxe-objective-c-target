@@ -625,7 +625,7 @@ let generateFunctionHeader ctx name f params p is_static =
 		gen_block_args();
 		ctx.writer#write " = ^";
 		gen_block_args();
-		ctx.writer#write " { [me ";
+		ctx.writer#write (Printf.sprintf " { %s[%s " (if return_type="void" then "" else "return ") (if is_static then "me" else "me"));
 		ctx.writer#write func_name;
 		let first_arg = ref true in
 		concat ctx " " (fun (v,c) ->
@@ -643,7 +643,7 @@ let generateFunctionHeader ctx name f params p is_static =
 		ctx.writer#write (Printf.sprintf "%s (%s%s)" (if is_static then "+" else "-") return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
 
 	if ctx.generating_objc_block then
-		ctx.writer#write (Printf.sprintf "(^block_%s)" func_name)
+		ctx.writer#write (Printf.sprintf "(^property_%s)" func_name)
 	else
 		ctx.writer#write (Printf.sprintf " %s" func_name);
 	
@@ -1586,7 +1586,7 @@ let generateField ctx is_static field =
 		ctx.generating_objc_block <- true;
 		if ctx.generating_header then begin
 			ctx.writer#write (Printf.sprintf "@property (nonatomic,copy) ");
-			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
+			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static;
 			ctx.writer#write ";";
 		end else begin
 			let func_name = (match (Some (field.cf_name, field.cf_meta)) with None -> "" | Some (n,meta) ->
@@ -1596,7 +1596,7 @@ let generateField ctx is_static field =
 				in
 				"" ^ loop field.cf_meta
 			) in
-			ctx.writer#write (Printf.sprintf "\n@synthesize block_%s;\n" func_name);
+			ctx.writer#write (Printf.sprintf "\n@synthesize property_%s;\n" func_name);
 			(* generateExpression ctx fd.tf_expr *)
 		end;
 		ctx.generating_objc_block <- false;
@@ -2242,6 +2242,8 @@ let generateImplementation ctx files_manager imports_manager =
 	end else
 		ctx.writer#write ("@implementation " ^ (snd ctx.class_def.cl_path));
 	
+	ctx.writer#new_line;
+	ctx.writer#write "id me;";
 	ctx.writer#new_line;
 	
 	(* Generate functions and variables *)

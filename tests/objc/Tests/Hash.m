@@ -8,20 +8,21 @@
 #import "Hash.h"
 
 @implementation NSMutableDictionary ( Hash )
+id me;
 
 void(^block_set)(NSMutableString *key, id value) = ^(NSMutableString *key, id value) { [me set:key value:value]; };
 - (void) set:(NSMutableString*)key value:(id)value{
 	[self setObject:value forKey:key];
 }
-id(^block_get)(NSMutableString *key) = ^(NSMutableString *key) { [me get:key]; };
+id(^block_get)(NSMutableString *key) = ^(NSMutableString *key) { return [me get:key]; };
 - (id) get:(NSMutableString*)key{
 	return [self objectForKey:key];
 }
-BOOL(^block_exists)(NSMutableString *key) = ^(NSMutableString *key) { [me exists:key]; };
+BOOL(^block_exists)(NSMutableString *key) = ^(NSMutableString *key) { return [me exists:key]; };
 - (BOOL) exists:(NSMutableString*)key{
 	return [self objectForKey:key] != nil;
 }
-BOOL(^block_remove)(NSMutableString *key) = ^(NSMutableString *key) { [me remove:key]; };
+BOOL(^block_remove)(NSMutableString *key) = ^(NSMutableString *key) { return [me remove:key]; };
 - (BOOL) remove:(NSMutableString*)key{
 	if ([self exists:key]) {
 		[self removeObjectForKey:key];
@@ -29,13 +30,13 @@ BOOL(^block_remove)(NSMutableString *key) = ^(NSMutableString *key) { [me remove
 	}
 	return NO;
 }
-id(^block_keys)() = ^() { [me keys]; };
+id(^block_keys)() = ^() { return [me keys]; };
 - (id) keys{
 	
 	NSMutableArray *a = (NSMutableArray*)[self allKeys];
 	return [a iterator];
 }
-id(^block_iterator)() = ^() { [me iterator]; };
+id(^block_iterator)() = ^() { return [me iterator]; };
 - (id) iterator{
 	
 	NSMutableArray *a = (NSMutableArray*)[self allValues];
@@ -44,20 +45,20 @@ id(^block_iterator)() = ^() { [me iterator]; };
 	
 	NSMutableArray *me = [[NSMutableArray alloc] initWithObjects:self, nil];
 	return struct {
-	hasNext:^BOOL(^block_)() = ^() { [me ]; };
+	hasNext:^BOOL(^block_)() = ^() { return [me ]; };
 - (BOOL) {
 		return [[it objectAtIndex:0] hasNext];
-	}; next:^id(^block_)() = ^() { [me ]; };
+	}; next:^id(^block_)() = ^() { return [me ]; };
 - (id) {
 		return [[me objectAtIndex:0] __Internal __Field:[[it objectAtIndex:0] next] :YES];
 	}
 	} structName;
 }
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return [self description];
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

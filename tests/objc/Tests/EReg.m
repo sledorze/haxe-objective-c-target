@@ -8,6 +8,7 @@
 #import "EReg.h"
 
 @implementation NSRegularExpression ( EReg )
+id me;
 
 // Getters/setters for property r
 static id r__;
@@ -24,35 +25,35 @@ static BOOL global__;
 - (BOOL) global { return global__; }
 - (void) setGlobal:(BOOL)val { global__ = val; }
 
-BOOL(^block_match)(NSMutableString *s) = ^(NSMutableString *s) { [me match:s]; };
+BOOL(^block_match)(NSMutableString *s) = ^(NSMutableString *s) { return [me match:s]; };
 - (BOOL) match:(NSMutableString*)s{
 	BOOL p = YES;
 	if (p) self.last = s;
 	else self.last = nil;
 	return p;
 }
-NSMutableString*(^block_matched)(int n) = ^(int n) { [me matched:n]; };
+NSMutableString*(^block_matched)(int n) = ^(int n) { return [me matched:n]; };
 - (NSMutableString*) matched:(int)n{
 	
 	NSMutableString *m = nil;
 	return m;
 }
-NSMutableString*(^block_matchedLeft)() = ^() { [me matchedLeft]; };
+NSMutableString*(^block_matchedLeft)() = ^() { return [me matchedLeft]; };
 - (NSMutableString*) matchedLeft{
 	id p = nil;
 	return [self last substr:0 len:p pos];
 }
-NSMutableString*(^block_matchedRight)() = ^() { [me matchedRight]; };
+NSMutableString*(^block_matchedRight)() = ^() { return [me matchedRight]; };
 - (NSMutableString*) matchedRight{
 	id p = nil;
 	int sz = p pos + block_len;
 	return [self last substr:sz len:self last.length - sz];
 }
-id(^block_matchedPos)() = ^() { [me matchedPos]; };
+id(^block_matchedPos)() = ^() { return [me matchedPos]; };
 - (id) matchedPos{
 	return nil;
 }
-NSMutableArray*(^block_split)(NSMutableString *s) = ^(NSMutableString *s) { [me split:s]; };
+NSMutableArray*(^block_split)(NSMutableString *s) = ^(NSMutableString *s) { return [me split:s]; };
 - (NSMutableArray*) split:(NSMutableString*)s{
 	int pos = 0;
 	int len = s.length;
@@ -74,7 +75,7 @@ NSMutableArray*(^block_split)(NSMutableString *s) = ^(NSMutableString *s) { [me 
 	[a push:[s substr:pos len:len]];
 	return a;
 }
-NSMutableString*(^block_replace)(NSMutableString *s, NSMutableString *by) = ^(NSMutableString *s, NSMutableString *by) { [me replace:s by:by]; };
+NSMutableString*(^block_replace)(NSMutableString *s, NSMutableString *by) = ^(NSMutableString *s, NSMutableString *by) { return [me replace:s by:by]; };
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by{
 	
 	StringBuf *b = [[StringBuf alloc] init];
@@ -125,7 +126,7 @@ NSMutableString*(^block_replace)(NSMutableString *s, NSMutableString *by) = ^(NS
 	b.b += [block_substr:pos len:len];
 	return b.b;
 }
-NSMutableString*(^block_customReplace)(NSMutableString *s, SEL f) = ^(NSMutableString *s, SEL f) { [me customReplace:s f:f]; };
+NSMutableString*(^block_customReplace)(NSMutableString *s, SEL f) = ^(NSMutableString *s, SEL f) { return [me customReplace:s f:f]; };
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL)f{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
@@ -138,7 +139,7 @@ NSMutableString*(^block_customReplace)(NSMutableString *s, SEL f) = ^(NSMutableS
 	buf.b += [block_string:s];
 	return buf.b;
 }
-id(^block_init)(NSMutableString *r, NSMutableString *opt) = ^(NSMutableString *r, NSMutableString *opt) { [me init:r opt:opt]; };
+id(^block_init)(NSMutableString *r, NSMutableString *opt) = ^(NSMutableString *r, NSMutableString *opt) { return [me init:r opt:opt]; };
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt{
 	self = [super init];
 	me = self;

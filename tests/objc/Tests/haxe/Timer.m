@@ -8,8 +8,9 @@
 #import "Timer.h"
 
 @implementation Timer
+id me;
 
-Timer*(^block_delay)(SEL f, int time_ms) = ^(SEL f, int time_ms) { [me delay:f time_ms:time_ms]; };
+Timer*(^block_delay)(SEL f, int time_ms) = ^(SEL f, int time_ms) { return [me delay:f time_ms:time_ms]; };
 + (Timer*) delay:(SEL)f time_ms:(int)time_ms{
 	
 	NSMutableArray *f1 = [[NSMutableArray alloc] initWithObjects:f, nil];
@@ -22,7 +23,7 @@ Timer*(^block_delay)(SEL f, int time_ms) = ^(SEL f, int time_ms) { [me delay:f t
 	}
 	return [t objectAtIndex:0];
 }
-id(^block_measure)(SEL f, id pos) = ^(SEL f, id pos) { [me measure:f pos:pos]; };
+id(^block_measure)(SEL f, id pos) = ^(SEL f, id pos) { return [me measure:f pos:pos]; };
 + (id) measure:(SEL)f pos:(id)pos{
 	// Simulated optional arguments
 	if (pos == nil) pos = nil;
@@ -32,7 +33,7 @@ id(^block_measure)(SEL f, id pos) = ^(SEL f, id pos) { [me measure:f pos:pos]; }
 	[Log trace:[[Timer stamp] - t0 stringByAppendingString:(NSMutableString*)@"s"] infos:pos];
 	return r;
 }
-float(^block_stamp)() = ^() { [me stamp]; };
+float(^block_stamp)() = ^() { return [me stamp]; };
 + (float) stamp{
 	return [Sys time];
 }
@@ -49,9 +50,9 @@ void(^block_stop)() = ^() { [me stop]; };
 void(^block_run)() = ^() { [me run]; };
 - (void) run{
 }
-@synthesize block_run;
+@synthesize property_run;
 
-id(^block_init)(int time_ms) = ^(int time_ms) { [me init:time_ms]; };
+id(^block_init)(int time_ms) = ^(int time_ms) { return [me init:time_ms]; };
 - (id) init:(int)time_ms{
 	self = [super init];
 	me = self;

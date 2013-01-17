@@ -8,6 +8,7 @@
 #import "BytesBuffer.h"
 
 @implementation BytesBuffer
+id me;
 
 @synthesize b;
 void(^block_addByte)(int byte) = ^(int byte) { [me addByte:byte]; };
@@ -21,12 +22,12 @@ void(^block_addBytes)(Bytes *src, int pos, int len) = ^(Bytes *src, int pos, int
 - (void) addBytes:(Bytes*)src pos:(int)pos len:(int)len{
 	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
 }
-Bytes*(^block_getBytes)() = ^() { [me getBytes]; };
+Bytes*(^block_getBytes)() = ^() { return [me getBytes]; };
 - (Bytes*) getBytes{
 	self.b = nil;
 	return bytes;
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

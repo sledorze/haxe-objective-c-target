@@ -8,12 +8,13 @@
 #import "Eof.h"
 
 @implementation Eof
+id me;
 
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return (NSMutableString*)@"Eof";
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

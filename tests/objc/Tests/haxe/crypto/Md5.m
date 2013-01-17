@@ -8,8 +8,9 @@
 #import "Md5.h"
 
 @implementation Md5
+id me;
 
-NSMutableString*(^block_encode)(NSMutableString *s) = ^(NSMutableString *s) { [me encode:s]; };
+NSMutableString*(^block_encode)(NSMutableString *s) = ^(NSMutableString *s) { return [me encode:s]; };
 + (NSMutableString*) encode:(NSMutableString*)s{
 	const char *cStr = [input UTF8String];
 	unsigned char digest[16];
@@ -18,7 +19,7 @@ NSMutableString*(^block_encode)(NSMutableString *s) = ^(NSMutableString *s) { [m
 	for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) [output appendFormat:@"%02x", digest[i]];;
 	return output;
 }
-Bytes*(^block_make)(Bytes *b) = ^(Bytes *b) { [me make:b]; };
+Bytes*(^block_make)(Bytes *b) = ^(Bytes *b) { return [me make:b]; };
 + (Bytes*) make:(Bytes*)b{
 	
 	NSMutableArray *h = (NSMutableArray*)[[[Md5 alloc] init] doEncode:[Md5 bytes2blks:b]];
@@ -37,7 +38,7 @@ Bytes*(^block_make)(Bytes *b) = ^(Bytes *b) { [me make:b]; };
 	}
 	return _out;
 }
-NSMutableArray*(^block_bytes2blks)(Bytes *b) = ^(Bytes *b) { [me bytes2blks:b]; };
+NSMutableArray*(^block_bytes2blks)(Bytes *b) = ^(Bytes *b) { return [me bytes2blks:b]; };
 + (NSMutableArray*) bytes2blks:(Bytes*)b{
 	int nblk =  (b.length + 8 >> 6) + 1;
 	
@@ -64,7 +65,7 @@ NSMutableArray*(^block_bytes2blks)(Bytes *b) = ^(Bytes *b) { [me bytes2blks:b]; 
 	[blks objectAtIndex:k] |=  (l >>> 24 & 255) << 24;
 	return blks;
 }
-NSMutableArray*(^block_str2blks)(NSMutableString *str) = ^(NSMutableString *str) { [me str2blks:str]; };
+NSMutableArray*(^block_str2blks)(NSMutableString *str) = ^(NSMutableString *str) { return [me str2blks:str]; };
 + (NSMutableArray*) str2blks:(NSMutableString*)str{
 	int nblk =  (str.length + 8 >> 6) + 1;
 	
@@ -91,31 +92,31 @@ NSMutableArray*(^block_str2blks)(NSMutableString *str) = ^(NSMutableString *str)
 	[blks objectAtIndex:k] |=  (l >>> 24 & 255) << 24;
 	return blks;
 }
-int(^block_bitOR)(int a, int b) = ^(int a, int b) { [me bitOR:a b:b]; };
+int(^block_bitOR)(int a, int b) = ^(int a, int b) { return [me bitOR:a b:b]; };
 - (int) bitOR:(int)a b:(int)b{
 	int lsb = (a & 1) | (b & 1);
 	int msb31 = a >>> 1 | b >>> 1;
 	return msb31 << 1 | lsb;
 }
-int(^block_bitXOR)(int a, int b) = ^(int a, int b) { [me bitXOR:a b:b]; };
+int(^block_bitXOR)(int a, int b) = ^(int a, int b) { return [me bitXOR:a b:b]; };
 - (int) bitXOR:(int)a b:(int)b{
 	int lsb = (a & 1) ^ (b & 1);
 	int msb31 = a >>> 1 ^ b >>> 1;
 	return msb31 << 1 | lsb;
 }
-int(^block_bitAND)(int a, int b) = ^(int a, int b) { [me bitAND:a b:b]; };
+int(^block_bitAND)(int a, int b) = ^(int a, int b) { return [me bitAND:a b:b]; };
 - (int) bitAND:(int)a b:(int)b{
 	int lsb = (a & 1) &  (b & 1);
 	int msb31 = a >>> 1 & b >>> 1;
 	return msb31 << 1 | lsb;
 }
-int(^block_addme)(int x, int y) = ^(int x, int y) { [me addme:x y:y]; };
+int(^block_addme)(int x, int y) = ^(int x, int y) { return [me addme:x y:y]; };
 - (int) addme:(int)x y:(int)y{
 	int lsw =  (x & 65535) +  (y & 65535);
 	int msw =  (x >> 16) +  (y >> 16) +  (lsw >> 16);
 	return msw << 16 | (lsw & 65535);
 }
-NSMutableString*(^block_hex)(NSMutableArray *a) = ^(NSMutableArray *a) { [me hex:a]; };
+NSMutableString*(^block_hex)(NSMutableArray *a) = ^(NSMutableArray *a) { return [me hex:a]; };
 - (NSMutableString*) hex:(NSMutableArray*)a{
 	
 	NSMutableString *str = (NSMutableString*)@"";
@@ -135,31 +136,31 @@ NSMutableString*(^block_hex)(NSMutableArray *a) = ^(NSMutableArray *a) { [me hex
 	}
 	return str;
 }
-int(^block_rol)(int num, int cnt) = ^(int num, int cnt) { [me rol:num cnt:cnt]; };
+int(^block_rol)(int num, int cnt) = ^(int num, int cnt) { return [me rol:num cnt:cnt]; };
 - (int) rol:(int)num cnt:(int)cnt{
 	return num << cnt | num >>> 32 - cnt;
 }
-int(^block_cmn)(int q, int a, int b, int x, int s, int t) = ^(int q, int a, int b, int x, int s, int t) { [me cmn:q a:a b:b x:x s:s t:t]; };
+int(^block_cmn)(int q, int a, int b, int x, int s, int t) = ^(int q, int a, int b, int x, int s, int t) { return [me cmn:q a:a b:b x:x s:s t:t]; };
 - (int) cmn:(int)q a:(int)a b:(int)b x:(int)x s:(int)s t:(int)t{
 	return [self addme:[self rol:[self addme:[self addme:a y:q] y:[self addme:x y:t]] cnt:s] y:b];
 }
-int(^block_ff)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { [me ff:a b:b c:c d:d x:x s:s t:t]; };
+int(^block_ff)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { return [me ff:a b:b c:c d:d x:x s:s t:t]; };
 - (int) ff:(int)a b:(int)b c:(int)c d:(int)d x:(int)x s:(int)s t:(int)t{
 	return [self cmn:[self bitOR:[self bitAND:b b:c] b:[self bitAND:~b b:d]] a:a b:b x:x s:s t:t];
 }
-int(^block_gg)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { [me gg:a b:b c:c d:d x:x s:s t:t]; };
+int(^block_gg)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { return [me gg:a b:b c:c d:d x:x s:s t:t]; };
 - (int) gg:(int)a b:(int)b c:(int)c d:(int)d x:(int)x s:(int)s t:(int)t{
 	return [self cmn:[self bitOR:[self bitAND:b b:d] b:[self bitAND:c b:~d]] a:a b:b x:x s:s t:t];
 }
-int(^block_hh)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { [me hh:a b:b c:c d:d x:x s:s t:t]; };
+int(^block_hh)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { return [me hh:a b:b c:c d:d x:x s:s t:t]; };
 - (int) hh:(int)a b:(int)b c:(int)c d:(int)d x:(int)x s:(int)s t:(int)t{
 	return [self cmn:[self bitXOR:[self bitXOR:b b:c] b:d] a:a b:b x:x s:s t:t];
 }
-int(^block_ii)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { [me ii:a b:b c:c d:d x:x s:s t:t]; };
+int(^block_ii)(int a, int b, int c, int d, int x, int s, int t) = ^(int a, int b, int c, int d, int x, int s, int t) { return [me ii:a b:b c:c d:d x:x s:s t:t]; };
 - (int) ii:(int)a b:(int)b c:(int)c d:(int)d x:(int)x s:(int)s t:(int)t{
 	return [self cmn:[self bitXOR:c b:[self bitOR:b b:~d]] a:a b:b x:x s:s t:t];
 }
-NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { [me doEncode:x]; };
+NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { return [me doEncode:x]; };
 - (NSMutableArray*) doEncode:(NSMutableArray*)x{
 	int a = 1732584193;
 	int b = -271733879;
@@ -245,7 +246,7 @@ NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { [me
 	}
 	return [[NSMutableArray alloc] initWithObjects:a, b, c, d, nil];
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

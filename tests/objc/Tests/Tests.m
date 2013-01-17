@@ -8,6 +8,7 @@
 #import "Tests.h"
 
 @implementation Tests
+id me;
 
 + (NSMutableString*) staticVar1:(NSMutableString*)val {
 	static NSMutableString *_val;
@@ -138,7 +139,7 @@ void(^block_testArray)() = ^() { [me testArray]; };
 	item = [block_shift];
 	
 	NSMutableArray *sliceArray = (NSMutableArray*)[as slice:1 end:3];
-	[as sort:^int(^block_)(NSMutableString *a, NSMutableString *b) = ^(NSMutableString *a, NSMutableString *b) { [me :a b:b]; };
+	[as sort:^int(^block_)(NSMutableString *a, NSMutableString *b) = ^(NSMutableString *a, NSMutableString *b) { return [me :a b:b]; };
 - (int) :(NSMutableString*)a b:(NSMutableString*)b{
 		return 0;
 	}];
@@ -228,7 +229,7 @@ void(^block_testDate)() = ^() { [me testDate]; };
 	id obj = [DateTools parse:45546];
 	_float = [block_seconds:1000];
 }
-int(^block_enumToInt)(Tests *c) = ^(Tests *c) { [me enumToInt:c]; };
+int(^block_enumToInt)(Tests *c) = ^(Tests *c) { return [me enumToInt:c]; };
 - (int) enumToInt:(Tests*)c{
 	[self testEnum:TestsEnumExtern ExternEnumValue1];
 	return ((int)($this:(snd ctx.path)) 
@@ -308,7 +309,7 @@ void(^block_testEReg)() = ^() { [me testEReg]; };
 	
 	EReg *ereg = [[EReg alloc] init:(NSMutableString*)@"ytrytrevev76" opt:(NSMutableString*)@"099"];
 	
-	NSMutableString *s = [ereg customReplace:(NSMutableString*)@"s" f:^NSMutableString*(^block_)(EReg *e) = ^(EReg *e) { [me :e]; };
+	NSMutableString *s = [ereg customReplace:(NSMutableString*)@"s" f:^NSMutableString*(^block_)(EReg *e) = ^(EReg *e) { return [me :e]; };
 - (NSMutableString*) :(EReg*)e{
 		return (NSMutableString*)@"ss";
 	}];
@@ -358,7 +359,7 @@ void(^block_testList)() = ^() { [me testList]; };
 	[l add:2];
 	[l push:18];
 	
-	List *l2 = [l filter:^BOOL(^block_)(int i) = ^(int i) { [me :i]; };
+	List *l2 = [l filter:^BOOL(^block_)(int i) = ^(int i) { return [me :i]; };
 - (BOOL) :(int)i{
 		return i > 5;
 	}];
@@ -375,7 +376,7 @@ void(^block_testList)() = ^() { [me testList]; };
 	[l clear];
 	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"287",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
-	List *newList = [l map:^NSMutableString*(^block_)(int i) = ^(int i) { [me :i]; };
+	List *newList = [l map:^NSMutableString*(^block_)(int i) = ^(int i) { return [me :i]; };
 - (NSMutableString*) :(int)i{
 		return [Std string:i];
 	}];
@@ -577,19 +578,19 @@ void(^block_testOverload)() = ^() { [me testOverload]; };
 void(^block_testFrameworksImport)() = ^() { [me testFrameworksImport]; };
 - (void) testFrameworksImport{
 }
-int(^block_getWidth)() = ^() { [me getWidth]; };
+int(^block_getWidth)() = ^() { return [me getWidth]; };
 - (int) getWidth{
 	return 0;
 }
-int(^block_setWidth)(int v) = ^(int v) { [me setWidth:v]; };
+int(^block_setWidth)(int v) = ^(int v) { return [me setWidth:v]; };
 - (int) setWidth:(int)v{
 	return 0;
 }
-int(^block_add)(int a, int b) = ^(int a, int b) { [me add:a b:b]; };
+int(^block_add)(int a, int b) = ^(int a, int b) { return [me add:a b:b]; };
 - (int) add:(int)a b:(int)b{
 	return a + b;
 }
-int(^block_minus)(int a, int b) = ^(int a, int b) { [me minus:a b:b]; };
+int(^block_minus)(int a, int b) = ^(int a, int b) { return [me minus:a b:b]; };
 - (int) minus:(int)a b:(int)b{
 	return a - b;
 }
@@ -644,7 +645,7 @@ void(^block_functionToRedefine2)(int param1, NSMutableString *param2) = ^(int pa
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 	int i = param1;
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;
@@ -661,6 +662,7 @@ id(^block_init)() = ^() { [me init]; };
 @end
 
 @implementation Tests2
+id me;
 
 @synthesize d1;
 void(^block_methodInTests2)() = ^() { [me methodInTests2]; };
@@ -673,15 +675,15 @@ void(^block_functionToRedefine)() = ^() { [me functionToRedefine]; };
 - (void) functionToRedefine{
 	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"626",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
-@synthesize block_functionToRedefine;
+@synthesize property_functionToRedefine;
 
 // Defining a dynamic method
 void(^block_functionToRedefine2)(int param1, NSMutableString *param2) = ^(int param1, NSMutableString *param2) { [me functionToRedefine2:param1 param2:param2]; };
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 }
-@synthesize block_functionToRedefine2;
+@synthesize property_functionToRedefine2;
 
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

@@ -24,7 +24,7 @@
 - (void) stop;
 // Defining a dynamic method
 - (void) run;
-@property (nonatomic,copy) ;
+@property (nonatomic,copy) void(^property_run)();
 - (id) init:(int)time_ms;
 
 @end

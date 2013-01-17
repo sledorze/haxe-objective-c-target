@@ -8,8 +8,9 @@
 #import "Lambda.h"
 
 @implementation Lambda
+id me;
 
-NSMutableArray*(^block_array)(id it) = ^(id it) { [me array:it]; };
+NSMutableArray*(^block_array)(id it) = ^(id it) { return [me array:it]; };
 + (NSMutableArray*) array:(id)it{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -22,7 +23,7 @@ NSMutableArray*(^block_array)(id it) = ^(id it) { [me array:it]; };
 	}
 	return a;
 }
-List*(^block_list)(id it) = ^(id it) { [me list:it]; };
+List*(^block_list)(id it) = ^(id it) { return [me list:it]; };
 + (List*) list:(id)it{
 	
 	List *l = [[List alloc] init];
@@ -35,7 +36,7 @@ List*(^block_list)(id it) = ^(id it) { [me list:it]; };
 	}
 	return l;
 }
-List*(^block_map)(id it, SEL f) = ^(id it, SEL f) { [me map:it f:f]; };
+List*(^block_map)(id it, SEL f) = ^(id it, SEL f) { return [me map:it f:f]; };
 + (List*) map:(id)it f:(SEL)f{
 	
 	List *l = [[List alloc] init];
@@ -48,7 +49,7 @@ List*(^block_map)(id it, SEL f) = ^(id it, SEL f) { [me map:it f:f]; };
 	}
 	return l;
 }
-List*(^block_mapi)(id it, SEL f) = ^(id it, SEL f) { [me mapi:it f:f]; };
+List*(^block_mapi)(id it, SEL f) = ^(id it, SEL f) { return [me mapi:it f:f]; };
 + (List*) mapi:(id)it f:(SEL)f{
 	
 	List *l = [[List alloc] init];
@@ -62,7 +63,7 @@ List*(^block_mapi)(id it, SEL f) = ^(id it, SEL f) { [me mapi:it f:f]; };
 	}
 	return l;
 }
-BOOL(^block_has)(id it, id elt, SEL cmp) = ^(id it, id elt, SEL cmp) { [me has:it elt:elt cmp:cmp]; };
+BOOL(^block_has)(id it, id elt, SEL cmp) = ^(id it, id elt, SEL cmp) { return [me has:it elt:elt cmp:cmp]; };
 + (BOOL) has:(id)it elt:(id)elt cmp:(SEL)cmp{
 	// Simulated optional arguments
 	if (cmp == nil) cmp = nil;
@@ -87,7 +88,7 @@ BOOL(^block_has)(id it, id elt, SEL cmp) = ^(id it, id elt, SEL cmp) { [me has:i
 	}
 	return NO;
 }
-BOOL(^block_exists)(id it, SEL f) = ^(id it, SEL f) { [me exists:it f:f]; };
+BOOL(^block_exists)(id it, SEL f) = ^(id it, SEL f) { return [me exists:it f:f]; };
 + (BOOL) exists:(id)it f:(SEL)f{
 	{
 		id _it = [it iterator];
@@ -98,7 +99,7 @@ BOOL(^block_exists)(id it, SEL f) = ^(id it, SEL f) { [me exists:it f:f]; };
 	}
 	return NO;
 }
-BOOL(^block_foreach)(id it, SEL f) = ^(id it, SEL f) { [me foreach:it f:f]; };
+BOOL(^block_foreach)(id it, SEL f) = ^(id it, SEL f) { return [me foreach:it f:f]; };
 + (BOOL) foreach:(id)it f:(SEL)f{
 	{
 		id _it = [it iterator];
@@ -119,7 +120,7 @@ void(^block_iter)(id it, SEL f) = ^(id it, SEL f) { [me iter:it f:f]; };
 		}
 	}
 }
-List*(^block_filter)(id it, SEL f) = ^(id it, SEL f) { [me filter:it f:f]; };
+List*(^block_filter)(id it, SEL f) = ^(id it, SEL f) { return [me filter:it f:f]; };
 + (List*) filter:(id)it f:(SEL)f{
 	
 	List *l = [[List alloc] init];
@@ -132,7 +133,7 @@ List*(^block_filter)(id it, SEL f) = ^(id it, SEL f) { [me filter:it f:f]; };
 	}
 	return l;
 }
-id(^block_fold)(id it, SEL f, id first) = ^(id it, SEL f, id first) { [me fold:it f:f first:first]; };
+id(^block_fold)(id it, SEL f, id first) = ^(id it, SEL f, id first) { return [me fold:it f:f first:first]; };
 + (id) fold:(id)it f:(SEL)f first:(id)first{
 	{
 		id _it = [it iterator];
@@ -143,7 +144,7 @@ id(^block_fold)(id it, SEL f, id first) = ^(id it, SEL f, id first) { [me fold:i
 	}
 	return first;
 }
-int(^block_count)(id it, SEL pred) = ^(id it, SEL pred) { [me count:it pred:pred]; };
+int(^block_count)(id it, SEL pred) = ^(id it, SEL pred) { return [me count:it pred:pred]; };
 + (int) count:(id)it pred:(SEL)pred{
 	// Simulated optional arguments
 	if (pred == nil) pred = nil;
@@ -169,11 +170,11 @@ int(^block_count)(id it, SEL pred) = ^(id it, SEL pred) { [me count:it pred:pred
 	}
 	return n;
 }
-BOOL(^block_empty)(id it) = ^(id it) { [me empty:it]; };
+BOOL(^block_empty)(id it) = ^(id it) { return [me empty:it]; };
 + (BOOL) empty:(id)it{
 	return ![[it iterator] hasNext];
 }
-int(^block_indexOf)(id it, id v) = ^(id it, id v) { [me indexOf:it v:v]; };
+int(^block_indexOf)(id it, id v) = ^(id it, id v) { return [me indexOf:it v:v]; };
 + (int) indexOf:(id)it v:(id)v{
 	int i = 0;
 	{
@@ -188,7 +189,7 @@ int(^block_indexOf)(id it, id v) = ^(id it, id v) { [me indexOf:it v:v]; };
 	}
 	return -1;
 }
-List*(^block_concat)(id a, id b) = ^(id a, id b) { [me concat:a b:b]; };
+List*(^block_concat)(id a, id b) = ^(id a, id b) { return [me concat:a b:b]; };
 + (List*) concat:(id)a b:(id)b{
 	
 	List *l = [[List alloc] init];

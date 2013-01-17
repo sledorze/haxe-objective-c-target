@@ -8,6 +8,7 @@
 #import "List.h"
 
 @implementation List
+id me;
 
 @synthesize h;
 @synthesize q;
@@ -29,15 +30,15 @@ void(^block_push)(id item) = ^(id item) { [me push:item]; };
 	if (self.q == nil) self.q = x;
 	self.length++;
 }
-id(^block_first)() = ^() { [me first]; };
+id(^block_first)() = ^() { return [me first]; };
 - (id) first{
 	return ( (self.h == nil) ? nil : [self.h objectAtIndex:0]);
 }
-id(^block_last)() = ^() { [me last]; };
+id(^block_last)() = ^() { return [me last]; };
 - (id) last{
 	return ( (self.q == nil) ? nil : [self.q objectAtIndex:0]);
 }
-id(^block_pop)() = ^() { [me pop]; };
+id(^block_pop)() = ^() { return [me pop]; };
 - (id) pop{
 	if (self.h == nil) return nil;
 	id x = [self.h objectAtIndex:0];
@@ -46,7 +47,7 @@ id(^block_pop)() = ^() { [me pop]; };
 	self.length--;
 	return x;
 }
-BOOL(^block_isEmpty)() = ^() { [me isEmpty]; };
+BOOL(^block_isEmpty)() = ^() { return [me isEmpty]; };
 - (BOOL) isEmpty{
 	return self.h == nil;
 }
@@ -56,7 +57,7 @@ void(^block_clear)() = ^() { [me clear]; };
 	self.q = nil;
 	self.length = 0;
 }
-BOOL(^block_remove)(id v) = ^(id v) { [me remove:v]; };
+BOOL(^block_remove)(id v) = ^(id v) { return [me remove:v]; };
 - (BOOL) remove:(id)v{
 	
 	NSMutableArray *prev = (NSMutableArray*)nil;
@@ -75,13 +76,13 @@ BOOL(^block_remove)(id v) = ^(id v) { [me remove:v]; };
 	}
 	return NO;
 }
-id(^block_iterator)() = ^() { [me iterator]; };
+id(^block_iterator)() = ^() { return [me iterator]; };
 - (id) iterator{
 	return (id)struct {
-	h:self.h; hasNext:^id(^block_)() = ^() { [me ]; };
+	h:self.h; hasNext:^id(^block_)() = ^() { return [me ]; };
 - (id) {
 		return self.h != nil;
-	}; next:^id(^block_)() = ^() { [me ]; };
+	}; next:^id(^block_)() = ^() { return [me ]; };
 - (id) {
 		if (self.h == nil) return nil;
 		id x = [self.h objectAtIndex:0];
@@ -90,7 +91,7 @@ id(^block_iterator)() = ^() { [me iterator]; };
 	}
 	} structName;
 }
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	
 	StringBuf *s = [[StringBuf alloc] init];
@@ -107,7 +108,7 @@ NSMutableString*(^block_toString)() = ^() { [me toString]; };
 	[s.b appendString:(NSMutableString*)@"}"];
 	return s.b;
 }
-NSMutableString*(^block_join)(NSMutableString *sep) = ^(NSMutableString *sep) { [me join:sep]; };
+NSMutableString*(^block_join)(NSMutableString *sep) = ^(NSMutableString *sep) { return [me join:sep]; };
 - (NSMutableString*) join:(NSMutableString*)sep{
 	
 	StringBuf *s = [[StringBuf alloc] init];
@@ -122,7 +123,7 @@ NSMutableString*(^block_join)(NSMutableString *sep) = ^(NSMutableString *sep) { 
 	}
 	return s.b;
 }
-List*(^block_filter)(SEL f) = ^(SEL f) { [me filter:f]; };
+List*(^block_filter)(SEL f) = ^(SEL f) { return [me filter:f]; };
 - (List*) filter:(SEL)f{
 	
 	List *l2 = [[List alloc] init];
@@ -135,7 +136,7 @@ List*(^block_filter)(SEL f) = ^(SEL f) { [me filter:f]; };
 	}
 	return l2;
 }
-List*(^block_map)(SEL f) = ^(SEL f) { [me map:f]; };
+List*(^block_map)(SEL f) = ^(SEL f) { return [me map:f]; };
 - (List*) map:(SEL)f{
 	
 	List *b = [[List alloc] init];
@@ -148,7 +149,7 @@ List*(^block_map)(SEL f) = ^(SEL f) { [me map:f]; };
 	}
 	return b;
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

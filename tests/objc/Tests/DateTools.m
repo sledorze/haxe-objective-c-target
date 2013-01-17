@@ -8,8 +8,9 @@
 #import "DateTools.h"
 
 @implementation DateTools
+id me;
 
-NSMutableString*(^block___format_get)(NSDate *d, NSMutableString *e) = ^(NSDate *d, NSMutableString *e) { [me __format_get:d e:e]; };
+NSMutableString*(^block___format_get)(NSDate *d, NSMutableString *e) = ^(NSDate *d, NSMutableString *e) { return [me __format_get:d e:e]; };
 + (NSMutableString*) __format_get:(NSDate*)d e:(NSMutableString*)e{
 	return ^(NSMutableString*)switch (e){
 		case (NSMutableString*)@"%":{
@@ -76,7 +77,7 @@ NSMutableString*(^block___format_get)(NSDate *d, NSMutableString *e) = ^(NSDate 
 		NSMutableString* __r__}
 	}();
 }
-NSMutableString*(^block___format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, NSMutableString *f) { [me __format:d f:f]; };
+NSMutableString*(^block___format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, NSMutableString *f) { return [me __format:d f:f]; };
 + (NSMutableString*) __format:(NSDate*)d f:(NSMutableString*)f{
 	
 	StringBuf *r = [[StringBuf alloc] init];
@@ -91,11 +92,11 @@ NSMutableString*(^block___format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, 
 	r.b += [block_substr:p len:block_length - p];
 	return r.b;
 }
-NSMutableString*(^block_format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, NSMutableString *f) { [me format:d f:f]; };
+NSMutableString*(^block_format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, NSMutableString *f) { return [me format:d f:f]; };
 + (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f{
 	return [DateTools __format:d f:f];
 }
-NSDate*(^block_delta)(NSDate *d, float t) = ^(NSDate *d, float t) { [me delta:d t:t]; };
+NSDate*(^block_delta)(NSDate *d, float t) = ^(NSDate *d, float t) { return [me delta:d t:t]; };
 + (NSDate*) delta:(NSDate*)d t:(float)t{
 	return [NSDatefromTime:[d getTime] + t];
 }
@@ -105,7 +106,7 @@ NSDate*(^block_delta)(NSDate *d, float t) = ^(NSDate *d, float t) { [me delta:d 
 	else { if (_val != nil) _val = val; }
 	return _val;
 }
-int(^block_getMonthDays)(NSDate *d) = ^(NSDate *d) { [me getMonthDays:d]; };
+int(^block_getMonthDays)(NSDate *d) = ^(NSDate *d) { return [me getMonthDays:d]; };
 + (int) getMonthDays:(NSDate*)d{
 	int month = [d getMonth];
 	int year = [d getFullYear];
@@ -113,23 +114,23 @@ int(^block_getMonthDays)(NSDate *d) = ^(NSDate *d) { [me getMonthDays:d]; };
 	BOOL isB = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 	return ( (isB) ? 29 : 28);
 }
-float(^block_seconds)(float n) = ^(float n) { [me seconds:n]; };
+float(^block_seconds)(float n) = ^(float n) { return [me seconds:n]; };
 + (float) seconds:(float)n{
 	return n * 1000.0;
 }
-float(^block_minutes)(float n) = ^(float n) { [me minutes:n]; };
+float(^block_minutes)(float n) = ^(float n) { return [me minutes:n]; };
 + (float) minutes:(float)n{
 	return n * 60.0 * 1000.0;
 }
-float(^block_hours)(float n) = ^(float n) { [me hours:n]; };
+float(^block_hours)(float n) = ^(float n) { return [me hours:n]; };
 + (float) hours:(float)n{
 	return n * 60.0 * 60.0 * 1000.0;
 }
-float(^block_days)(float n) = ^(float n) { [me days:n]; };
+float(^block_days)(float n) = ^(float n) { return [me days:n]; };
 + (float) days:(float)n{
 	return n * 24.0 * 60.0 * 60.0 * 1000.0;
 }
-id(^block_parse)(float t) = ^(float t) { [me parse:t]; };
+id(^block_parse)(float t) = ^(float t) { return [me parse:t]; };
 + (id) parse:(float)t{
 	float s = t / 1000;
 	float m = s / 60;
@@ -138,7 +139,7 @@ id(^block_parse)(float t) = ^(float t) { [me parse:t]; };
 	ms:t % 1000; seconds:[Std _int:s % 60]; minutes:[Std _int:m % 60]; hours:[Std _int:h % 24]; days:[Std _int:h / 24]
 	} structName;
 }
-float(^block_make)(id o) = ^(id o) { [me make:o]; };
+float(^block_make)(id o) = ^(id o) { return [me make:o]; };
 + (float) make:(id)o{
 	return o ms + 1000.0 *  (block_seconds + 60.0 *  (block_minutes + 60.0 *  (block_hours + 24.0 * block_days)));
 }

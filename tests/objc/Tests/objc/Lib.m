@@ -8,6 +8,7 @@
 #import "Lib.h"
 
 @implementation Lib
+id me;
 
 void(^block_log)(id v) = ^(id v) { [me log:v]; };
 + (void) log:(id)v{
@@ -21,7 +22,7 @@ void(^block_println)(id v) = ^(id v) { [me println:v]; };
 	[Lib print:v];
 	printf ( "\n" );
 }
-CLLocation*(^block_location)() = ^() { [me location]; };
+CLLocation*(^block_location)() = ^() { return [me location]; };
 + (CLLocation*) location{
 	return nil;
 }

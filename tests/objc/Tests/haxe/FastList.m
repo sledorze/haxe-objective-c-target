@@ -8,10 +8,11 @@
 #import "FastList.h"
 
 @implementation FastCell
+id me;
 
 @synthesize elt;
 @synthesize next;
-id(^block_init)(id elt, FastCell *next) = ^(id elt, FastCell *next) { [me init:elt next:next]; };
+id(^block_init)(id elt, FastCell *next) = ^(id elt, FastCell *next) { return [me init:elt next:next]; };
 - (id) init:(id)elt next:(FastCell*)next{
 	self = [super init];
 	me = self;
@@ -23,17 +24,18 @@ id(^block_init)(id elt, FastCell *next) = ^(id elt, FastCell *next) { [me init:e
 @end
 
 @implementation FastList
+id me;
 
 @synthesize head;
 void(^block_add)(id item) = ^(id item) { [me add:item]; };
 - (void) add:(id)item{
 	self.head = [[FastCell alloc] init:item next:block_head];
 }
-id(^block_first)() = ^() { [me first]; };
+id(^block_first)() = ^() { return [me first]; };
 - (id) first{
 	return ( (self.head == nil) ? nil : self.head.elt);
 }
-id(^block_pop)() = ^() { [me pop]; };
+id(^block_pop)() = ^() { return [me pop]; };
 - (id) pop{
 	
 	FastCell *k = self.head;
@@ -44,11 +46,11 @@ id(^block_pop)() = ^() { [me pop]; };
 	}
 	return nil;
 }
-BOOL(^block_isEmpty)() = ^() { [me isEmpty]; };
+BOOL(^block_isEmpty)() = ^() { return [me isEmpty]; };
 - (BOOL) isEmpty{
 	return self.head == nil;
 }
-BOOL(^block_remove)(id v) = ^(id v) { [me remove:v]; };
+BOOL(^block_remove)(id v) = ^(id v) { return [me remove:v]; };
 - (BOOL) remove:(id)v{
 	id prev = nil;
 	
@@ -64,15 +66,15 @@ BOOL(^block_remove)(id v) = ^(id v) { [me remove:v]; };
 	}
 	return l != nil;
 }
-id(^block_iterator)() = ^() { [me iterator]; };
+id(^block_iterator)() = ^() { return [me iterator]; };
 - (id) iterator{
 	
 	NSMutableArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil];
 	return struct {
-	hasNext:^BOOL(^block_)() = ^() { [me ]; };
+	hasNext:^BOOL(^block_)() = ^() { return [me ]; };
 - (BOOL) {
 		return [l objectAtIndex:0] != nil;
-	}; next:^id(^block_)() = ^() { [me ]; };
+	}; next:^id(^block_)() = ^() { return [me ]; };
 - (id) {
 		
 		FastCell *k = [l objectAtIndex:0];
@@ -81,7 +83,7 @@ id(^block_iterator)() = ^() { [me iterator]; };
 	}
 	} structName;
 }
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -93,7 +95,7 @@ NSMutableString*(^block_toString)() = ^() { [me toString]; };
 	}
 	return [[(NSMutableString*)@"{" stringByAppendingString:[a join:(NSMutableString*)@","]] stringByAppendingString:(NSMutableString*)@"}"];
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

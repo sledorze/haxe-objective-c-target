@@ -37,6 +37,7 @@ typedef void (*FunctionType3)(int);
 #import "Std.h"
 
 @implementation AppDelegate
+id me;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -101,7 +102,6 @@ typedef void (*FunctionType3)(int);
     return YES;
 }
 
-id me;
 void(^block_block1)(void) = ^{ NSLog(@"block_block1 block_block1 block_block1"); };
 void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); [me login]; };
 //void(^block_block22)(int i, id self) = ^(int i, id self){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); [self login]; };

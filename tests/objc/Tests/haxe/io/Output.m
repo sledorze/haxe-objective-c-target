@@ -8,6 +8,7 @@
 #import "Output.h"
 
 @implementation Output
+id me;
 
 + (float) LN2:(float)val {
 	static float _val;
@@ -20,7 +21,7 @@ void(^block_writeByte)(int c) = ^(int c) { [me writeByte:c]; };
 - (void) writeByte:(int)c{
 	@throw (NSMutableString*)@"Not implemented";;
 }
-int(^block_writeBytes)(Bytes *s, int pos, int len) = ^(Bytes *s, int pos, int len) { [me writeBytes:s pos:pos len:len]; };
+int(^block_writeBytes)(Bytes *s, int pos, int len) = ^(Bytes *s, int pos, int len) { return [me writeBytes:s pos:pos len:len]; };
 - (int) writeBytes:(Bytes*)s pos:(int)pos len:(int)len{
 	int k = len;
 	
@@ -39,7 +40,7 @@ void(^block_flush)() = ^() { [me flush]; };
 void(^block_close)() = ^() { [me close]; };
 - (void) close{
 }
-BOOL(^block_set_bigEndian)(BOOL b) = ^(BOOL b) { [me set_bigEndian:b]; };
+BOOL(^block_set_bigEndian)(BOOL b) = ^(BOOL b) { return [me set_bigEndian:b]; };
 - (BOOL) set_bigEndian:(BOOL)b{
 	self.bigEndian = b;
 	return b;

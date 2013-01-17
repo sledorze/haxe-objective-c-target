@@ -112,10 +112,10 @@ typedef enum{
 - (void) methodInTests2;
 // Defining a dynamic method
 - (void) functionToRedefine;
-@property (nonatomic,copy) ;
+@property (nonatomic,copy) void(^property_functionToRedefine)();
 // Defining a dynamic method
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2;
-@property (nonatomic,copy) ;
+@property (nonatomic,copy) void(^property_functionToRedefine2)(int, NSMutableString*);
 - (id) init;
 
 @end

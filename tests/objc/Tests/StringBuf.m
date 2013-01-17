@@ -8,6 +8,7 @@
 #import "StringBuf.h"
 
 @implementation StringBuf
+id me;
 
 @synthesize b;
 void(^block_add)(id x) = ^(id x) { [me add:x]; };
@@ -25,11 +26,11 @@ void(^block_addSub)(NSMutableString *s, int pos, int len) = ^(NSMutableString *s
 	
 	self.b += [block_substr:pos len:len];
 }
-NSMutableString*(^block_toString)() = ^() { [me toString]; };
+NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return self.b;
 }
-id(^block_init)() = ^() { [me init]; };
+id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
 	me = self;

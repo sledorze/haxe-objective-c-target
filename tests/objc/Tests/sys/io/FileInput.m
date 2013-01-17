@@ -8,13 +8,14 @@
 #import "FileInput.h"
 
 @implementation FileInput
+id me;
 
 @synthesize __f;
-int(^block_readByte)() = ^() { [me readByte]; };
+int(^block_readByte)() = ^() { return [me readByte]; };
 - (int) readByte{
 	return 0;
 }
-int(^block_readBytes)(Bytes *s, int p, int l) = ^(Bytes *s, int p, int l) { [me readBytes:s p:p l:l]; };
+int(^block_readBytes)(Bytes *s, int p, int l) = ^(Bytes *s, int p, int l) { return [me readBytes:s p:p l:l]; };
 - (int) readBytes:(Bytes*)s p:(int)p l:(int)l{
 	return 0;
 }
@@ -25,15 +26,15 @@ void(^block_close)() = ^() { [me close]; };
 void(^block_seek)(int p, FileSeek *pos) = ^(int p, FileSeek *pos) { [me seek:p pos:pos]; };
 - (void) seek:(int)p pos:(FileSeek*)pos{
 }
-int(^block_tell)() = ^() { [me tell]; };
+int(^block_tell)() = ^() { return [me tell]; };
 - (int) tell{
 	return 0;
 }
-BOOL(^block_eof)() = ^() { [me eof]; };
+BOOL(^block_eof)() = ^() { return [me eof]; };
 - (BOOL) eof{
 	return NO;
 }
-id(^block_init)(id f) = ^(id f) { [me init:f]; };
+id(^block_init)(id f) = ^(id f) { return [me init:f]; };
 - (id) init:(id)f{
 	self = [super init];
 	me = self;

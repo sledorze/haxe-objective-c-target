@@ -8,8 +8,9 @@
 #import "Type.h"
 
 @implementation Type
+id me;
 
-Class*(^block_getClass)(id o) = ^(id o) { [me getClass:o]; };
+Class*(^block_getClass)(id o) = ^(id o) { return [me getClass:o]; };
 + (Class*) getClass:(id)o{
 	if (o == nil || ![block_isObject:o]) return nil;
 	id c = [o __GetClass];
@@ -25,48 +26,48 @@ Class*(^block_getClass)(id o) = ^(id o) { [me getClass:o]; };
 	}
 	return c;
 }
-Enum*(^block_getEnum)(EnumValue *o) = ^(EnumValue *o) { [me getEnum:o]; };
+Enum*(^block_getEnum)(EnumValue *o) = ^(EnumValue *o) { return [me getEnum:o]; };
 + (Enum*) getEnum:(EnumValue*)o{
 	if (o == nil) return nil;
 	return [o __GetClass];
 }
-Class*(^block_getSuperClass)(Class *c) = ^(Class *c) { [me getSuperClass:c]; };
+Class*(^block_getSuperClass)(Class *c) = ^(Class *c) { return [me getSuperClass:c]; };
 + (Class*) getSuperClass:(Class*)c{
 	if (c == nil) return nil;
 	return NSStringFromClass([c class]);
 }
-NSMutableString*(^block_getClassName)(Class *c) = ^(Class *c) { [me getClassName:c]; };
+NSMutableString*(^block_getClassName)(Class *c) = ^(Class *c) { return [me getClassName:c]; };
 + (NSMutableString*) getClassName:(Class*)c{
 	if (c == nil) return nil;
 	return NSStringFromClass([c class]);
 }
-NSMutableString*(^block_getEnumName)(Enum *e) = ^(Enum *e) { [me getEnumName:e]; };
+NSMutableString*(^block_getEnumName)(Enum *e) = ^(Enum *e) { return [me getEnumName:e]; };
 + (NSMutableString*) getEnumName:(Enum*)e{
 	return [e __ToString];
 }
-Class*(^block_resolveClass)(NSMutableString *name) = ^(NSMutableString *name) { [me resolveClass:name]; };
+Class*(^block_resolveClass)(NSMutableString *name) = ^(NSMutableString *name) { return [me resolveClass:name]; };
 + (Class*) resolveClass:(NSMutableString*)name{
 	
 	Class *result = NSClassFromString ( name );
 	return result;
 }
-Enum*(^block_resolveEnum)(NSMutableString *name) = ^(NSMutableString *name) { [me resolveEnum:name]; };
+Enum*(^block_resolveEnum)(NSMutableString *name) = ^(NSMutableString *name) { return [me resolveEnum:name]; };
 + (Enum*) resolveEnum:(NSMutableString*)name{
 	
 	Class *result = [Class Resolve:name];
 	if (result != nil && ![block___IsEnum]) return nil;
 	return result;
 }
-id(^block_createInstance)(Class *cl, NSMutableArray *args) = ^(Class *cl, NSMutableArray *args) { [me createInstance:cl args:args]; };
+id(^block_createInstance)(Class *cl, NSMutableArray *args) = ^(Class *cl, NSMutableArray *args) { return [me createInstance:cl args:args]; };
 + (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
 	if (cl != nil) return [[cl alloc] init];
 	return nil;
 }
-id(^block_createEmptyInstance)(Class *cl) = ^(Class *cl) { [me createEmptyInstance:cl]; };
+id(^block_createEmptyInstance)(Class *cl) = ^(Class *cl) { return [me createEmptyInstance:cl]; };
 + (id) createEmptyInstance:(Class*)cl{
 	return [cl alloc];
 }
-id(^block_createEnum)(Enum *e, NSMutableString *constr, NSMutableArray *params) = ^(Enum *e, NSMutableString *constr, NSMutableArray *params) { [me createEnum:e constr:constr params:params]; };
+id(^block_createEnum)(Enum *e, NSMutableString *constr, NSMutableArray *params) = ^(Enum *e, NSMutableString *constr, NSMutableArray *params) { return [me createEnum:e constr:constr params:params]; };
 + (id) createEnum:(Enum*)e constr:(NSMutableString*)constr params:(NSMutableArray*)params{
 	// Simulated optional arguments
 	if (params == nil) params = nil;
@@ -74,7 +75,7 @@ id(^block_createEnum)(Enum *e, NSMutableString *constr, NSMutableArray *params) 
 	if (e mConstructEnum != nil) return [e mConstructEnum:constr :params];
 	return nil;
 }
-id(^block_createEnumIndex)(Enum *e, int index, NSMutableArray *params) = ^(Enum *e, int index, NSMutableArray *params) { [me createEnumIndex:e index:index params:params]; };
+id(^block_createEnumIndex)(Enum *e, int index, NSMutableArray *params) = ^(Enum *e, int index, NSMutableArray *params) { return [me createEnumIndex:e index:index params:params]; };
 + (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{
 	// Simulated optional arguments
 	if (params == nil) params = nil;
@@ -84,42 +85,42 @@ id(^block_createEnumIndex)(Enum *e, int index, NSMutableArray *params) = ^(Enum 
 	if (c == nil) @throw [index stringByAppendingString:(NSMutableString*)@" is not a valid enum constructor index"];;
 	return [Type createEnum:e constr:c params:params];
 }
-NSMutableArray*(^block_getInstanceFields)(Class *c) = ^(Class *c) { [me getInstanceFields:c]; };
+NSMutableArray*(^block_getInstanceFields)(Class *c) = ^(Class *c) { return [me getInstanceFields:c]; };
 + (NSMutableArray*) getInstanceFields:(Class*)c{
 	return [c GetInstanceFields];
 }
-NSMutableArray*(^block_getClassFields)(Class *c) = ^(Class *c) { [me getClassFields:c]; };
+NSMutableArray*(^block_getClassFields)(Class *c) = ^(Class *c) { return [me getClassFields:c]; };
 + (NSMutableArray*) getClassFields:(Class*)c{
 	return [c GetClassFields];
 }
-NSMutableArray*(^block_getEnumConstructs)(Enum *e) = ^(Enum *e) { [me getEnumConstructs:e]; };
+NSMutableArray*(^block_getEnumConstructs)(Enum *e) = ^(Enum *e) { return [me getEnumConstructs:e]; };
 + (NSMutableArray*) getEnumConstructs:(Enum*)e{
 	return [e GetClassFields];
 }
-Type*(^block_typeof)(id v) = ^(id v) { [me typeof:v]; };
+Type*(^block_typeof)(id v) = ^(id v) { return [me typeof:v]; };
 + (Type*) typeof:(id)v{
 	if (v == nil) return ValueType TNull;
 	return ValueType TNull;
 }
-BOOL(^block_enumEq)(id a, id b) = ^(id a, id b) { [me enumEq:a b:b]; };
+BOOL(^block_enumEq)(id a, id b) = ^(id a, id b) { return [me enumEq:a b:b]; };
 + (BOOL) enumEq:(id)a b:(id)b{
 	return a == b;
 }
-NSMutableString*(^block_enumConstructor)(EnumValue *e) = ^(EnumValue *e) { [me enumConstructor:e]; };
+NSMutableString*(^block_enumConstructor)(EnumValue *e) = ^(EnumValue *e) { return [me enumConstructor:e]; };
 + (NSMutableString*) enumConstructor:(EnumValue*)e{
 	return [e __Tag];
 }
-NSMutableArray*(^block_enumParameters)(EnumValue *e) = ^(EnumValue *e) { [me enumParameters:e]; };
+NSMutableArray*(^block_enumParameters)(EnumValue *e) = ^(EnumValue *e) { return [me enumParameters:e]; };
 + (NSMutableArray*) enumParameters:(EnumValue*)e{
 	
 	NSMutableArray *result = (NSMutableArray*)[e __EnumParams];
 	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil] : result);
 }
-int(^block_enumIndex)(EnumValue *e) = ^(EnumValue *e) { [me enumIndex:e]; };
+int(^block_enumIndex)(EnumValue *e) = ^(EnumValue *e) { return [me enumIndex:e]; };
 + (int) enumIndex:(EnumValue*)e{
 	return [e __Index];
 }
-NSMutableArray*(^block_allEnums)(Enum *e) = ^(Enum *e) { [me allEnums:e]; };
+NSMutableArray*(^block_allEnums)(Enum *e) = ^(Enum *e) { return [me allEnums:e]; };
 + (NSMutableArray*) allEnums:(Enum*)e{
 	
 	NSMutableArray *names = (NSMutableArray*)[e GetClassFields];
