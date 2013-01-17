@@ -19,7 +19,6 @@ typedef enum{
 
 
 #import "Class.h"
-#import "Reflect.h"
 #import "String.h"
 #import "Enum.h"
 #import "EnumValue.h"

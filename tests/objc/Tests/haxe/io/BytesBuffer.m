@@ -10,20 +10,26 @@
 @implementation BytesBuffer
 
 @synthesize b;
+void(^block_addByte)(int byte) = ^(int byte) { [me addByte:byte]; };
 - (void) addByte:(int)byte{
 	[self b appendBytes:self b mutableBytes length:byte];
 }
+void(^block_add)(Bytes *src) = ^(Bytes *src) { [me add:src]; };
 - (void) add:(Bytes*)src{
 }
+void(^block_addBytes)(Bytes *src, int pos, int len) = ^(Bytes *src, int pos, int len) { [me addBytes:src pos:pos len:len]; };
 - (void) addBytes:(Bytes*)src pos:(int)pos len:(int)len{
-	if (pos < 0 || len < 0 || pos + len > src.length) @throw Error OutsideBounds;;
+	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
 }
+Bytes*(^block_getBytes)() = ^() { [me getBytes]; };
 - (Bytes*) getBytes{
 	self.b = nil;
 	return bytes;
 }
+id(^block_init)() = ^() { [me init]; };
 - (id) init{
 	self = [super init];
+	me = self;
 	self.b = [[NSMutableData alloc] init];
 	return self;
 }

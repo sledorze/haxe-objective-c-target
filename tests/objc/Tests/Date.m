@@ -9,6 +9,7 @@
 
 @implementation NSDate ( Date )
 
+NSDate*(^block_now)() = ^() { [me now]; };
 + (NSDate*) now{
 	
 	NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -16,12 +17,14 @@
 	NSDateComponents *components = [calendar components:7 fromDate:[NSDate date]];
 	return [[NSDate alloc] init:[components year] month:[components month] day:[components day] hour:[components hour] min:[components minute] sec:[components second]];
 }
+NSDate*(^block_fromTime)(float t) = ^(float t) { [me fromTime:t]; };
 + (NSDate*) fromTime:(float)t{
 	
 	NSDate *result = [[NSDate alloc] init:0 month:0 day:0 hour:0 min:0 sec:0];
 	result._seconds = t * 0.001;
 	return result;
 }
+NSDate*(^block_fromString)(NSMutableString *s) = ^(NSMutableString *s) { [me fromString:s]; };
 + (NSDate*) fromString:(NSMutableString*)s{
 	switch (s.length){
 		case 8:{
@@ -68,37 +71,48 @@ static NSDateComponents* _components__;
 - (NSDateComponents*) _components { return _components__; }
 - (void) set_components:(NSDateComponents*)val { _components__ = val; }
 
+float(^block_getTime)() = ^() { [me getTime]; };
 - (float) getTime{
 	return self._seconds * 1000.0;
 }
+int(^block_getHours)() = ^() { [me getHours]; };
 - (int) getHours{
 	return [self._components hour];
 }
+int(^block_getMinutes)() = ^() { [me getMinutes]; };
 - (int) getMinutes{
 	return [self._components minute];
 }
+int(^block_getSeconds)() = ^() { [me getSeconds]; };
 - (int) getSeconds{
 	return [self._components second];
 }
+int(^block_getFullYear)() = ^() { [me getFullYear]; };
 - (int) getFullYear{
 	return [self._components year];
 }
+int(^block_getMonth)() = ^() { [me getMonth]; };
 - (int) getMonth{
 	return [self._components month];
 }
+int(^block_getDate)() = ^() { [me getDate]; };
 - (int) getDate{
 	return [self._components weekday];
 }
+int(^block_getDay)() = ^() { [me getDay]; };
 - (int) getDay{
 	return [self._components day];
 }
+NSMutableString*(^block_toString)() = ^() { [me toString]; };
 - (NSMutableString*) toString{
 	return nil;
 }
+id(^block_init)(int year, int month, int day, int hour, int min, int sec) = ^(int year, int month, int day, int hour, int min, int sec) { [me init:year month:month day:day hour:hour min:min sec:sec]; };
 - (id) init:(int)year month:(int)month day:(int)day hour:(int)hour min:(int)min sec:(int)sec{
 	self = [super init];
-	self._calendar = [NSCalendar currentCalendar];
-	self._components = [self._calendar components:7 fromDate:[NSDate date]];
+	me = self;
+	self._calendar = [block_currentCalendar];
+	self._components = [block_components:7 fromDate:[block_date]];
 	[self._components setYear:year];
 	[self._components setMonth:month];
 	[self._components setDay:day];

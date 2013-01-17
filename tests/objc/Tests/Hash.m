@@ -9,15 +9,19 @@
 
 @implementation NSMutableDictionary ( Hash )
 
+void(^block_set)(NSMutableString *key, id value) = ^(NSMutableString *key, id value) { [me set:key value:value]; };
 - (void) set:(NSMutableString*)key value:(id)value{
 	[self setObject:value forKey:key];
 }
+id(^block_get)(NSMutableString *key) = ^(NSMutableString *key) { [me get:key]; };
 - (id) get:(NSMutableString*)key{
 	return [self objectForKey:key];
 }
+BOOL(^block_exists)(NSMutableString *key) = ^(NSMutableString *key) { [me exists:key]; };
 - (BOOL) exists:(NSMutableString*)key{
 	return [self objectForKey:key] != nil;
 }
+BOOL(^block_remove)(NSMutableString *key) = ^(NSMutableString *key) { [me remove:key]; };
 - (BOOL) remove:(NSMutableString*)key{
 	if ([self exists:key]) {
 		[self removeObjectForKey:key];
@@ -25,11 +29,13 @@
 	}
 	return NO;
 }
+id(^block_keys)() = ^() { [me keys]; };
 - (id) keys{
 	
 	NSMutableArray *a = (NSMutableArray*)[self allKeys];
 	return [a iterator];
 }
+id(^block_iterator)() = ^() { [me iterator]; };
 - (id) iterator{
 	
 	NSMutableArray *a = (NSMutableArray*)[self allValues];
@@ -38,18 +44,23 @@
 	
 	NSMutableArray *me = [[NSMutableArray alloc] initWithObjects:self, nil];
 	return struct {
-	hasNext:^(BOOL) {
+	hasNext:^BOOL(^block_)() = ^() { [me ]; };
+- (BOOL) {
 		return [[it objectAtIndex:0] hasNext];
-	}; next:^(id) {
+	}; next:^id(^block_)() = ^() { [me ]; };
+- (id) {
 		return [[me objectAtIndex:0] __Internal __Field:[[it objectAtIndex:0] next] :YES];
 	}
 	} structName;
 }
+NSMutableString*(^block_toString)() = ^() { [me toString]; };
 - (NSMutableString*) toString{
 	return [self description];
 }
+id(^block_init)() = ^() { [me init]; };
 - (id) init{
 	self = [super init];
+	me = self;
 	return self;
 }
 

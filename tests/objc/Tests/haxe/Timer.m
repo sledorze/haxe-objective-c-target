@@ -9,17 +9,20 @@
 
 @implementation Timer
 
+Timer*(^block_delay)(SEL f, int time_ms) = ^(SEL f, int time_ms) { [me delay:f time_ms:time_ms]; };
 + (Timer*) delay:(SEL)f time_ms:(int)time_ms{
 	
 	NSMutableArray *f1 = [[NSMutableArray alloc] initWithObjects:f, nil];
 	
 	NSMutableArray *t = [[NSMutableArray alloc] initWithObjects:[[Timer alloc] init:time_ms], nil];
-	[t objectAtIndex:0].run = ^(void) {
-		[[t objectAtIndex:0] stop];
+	[t objectAtIndex:0].run = ^void(^block_)() = ^() { [me ]; };
++ (void) {
+		[block_stop];
 		[[f1 objectAtIndex:0]];
 	}
 	return [t objectAtIndex:0];
 }
+id(^block_measure)(SEL f, id pos) = ^(SEL f, id pos) { [me measure:f pos:pos]; };
 + (id) measure:(SEL)f pos:(id)pos{
 	// Simulated optional arguments
 	if (pos == nil) pos = nil;
@@ -29,11 +32,13 @@
 	[Log trace:[[Timer stamp] - t0 stringByAppendingString:(NSMutableString*)@"s"] infos:pos];
 	return r;
 }
+float(^block_stamp)() = ^() { [me stamp]; };
 + (float) stamp{
 	return [Sys time];
 }
 @synthesize nstimer;
 @synthesize _id;
+void(^block_stop)() = ^() { [me stop]; };
 - (void) stop{
 	if (self._id == nil) return;
 	[self nstimer invalidate];
@@ -41,13 +46,16 @@
 	self._id = nil;
 }
 // Defining a dynamic method
+void(^block_run)() = ^() { [me run]; };
 - (void) run{
 }
 @synthesize block_run;
 
+id(^block_init)(int time_ms) = ^(int time_ms) { [me init:time_ms]; };
 - (id) init:(int)time_ms{
 	self = [super init];
-	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:self run userInfo:nil repeats:YES];
+	me = self;
+	self.nstimer = [block_timerWithTimeInterval:time_ms target:self selector:block_run userInfo:nil repeats:YES];
 	return self;
 }
 

@@ -10,23 +10,31 @@
 @implementation FileOutput
 
 @synthesize __f;
+void(^block_writeByte)(int c) = ^(int c) { [me writeByte:c]; };
 - (void) writeByte:(int)c{
 }
+int(^block_writeBytes)(Bytes *s, int p, int l) = ^(Bytes *s, int p, int l) { [me writeBytes:s p:p l:l]; };
 - (int) writeBytes:(Bytes*)s p:(int)p l:(int)l{
 	return 0;
 }
+void(^block_flush)() = ^() { [me flush]; };
 - (void) flush{
 }
+void(^block_close)() = ^() { [me close]; };
 - (void) close{
 	[super close];
 }
+void(^block_seek)(int p, FileSeek *pos) = ^(int p, FileSeek *pos) { [me seek:p pos:pos]; };
 - (void) seek:(int)p pos:(FileSeek*)pos{
 }
+int(^block_tell)() = ^() { [me tell]; };
 - (int) tell{
 	return 0;
 }
+id(^block_init)(id f) = ^(id f) { [me init:f]; };
 - (id) init:(id)f{
 	self = [super init];
+	me = self;
 	self.__f = f;
 	return self;
 }

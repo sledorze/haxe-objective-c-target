@@ -11,14 +11,18 @@
 
 @synthesize min;
 @synthesize max;
+BOOL(^block_hasNext)() = ^() { [me hasNext]; };
 - (BOOL) hasNext{
-	return self.min < self.max;
+	return self.min < block_max;
 }
+int(^block_next)() = ^() { [me next]; };
 - (int) next{
 	return self.min++;
 }
+id(^block_init)(int min, int max) = ^(int min, int max) { [me init:min max:max]; };
 - (id) init:(int)min max:(int)max{
 	self = [super init];
+	me = self;
 	self.min = min;
 	self.max = max;
 	return self;

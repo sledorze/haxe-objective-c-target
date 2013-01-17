@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
 
+id self_c;
+}
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int length;
 
@@ -28,5 +30,6 @@
 - (id) init;
 -(void)ttt;
 -(void)ttt2:(NSString*)str;
+- (void)login;
 
 @end

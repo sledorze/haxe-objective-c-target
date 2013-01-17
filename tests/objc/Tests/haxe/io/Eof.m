@@ -9,11 +9,14 @@
 
 @implementation Eof
 
+NSMutableString*(^block_toString)() = ^() { [me toString]; };
 - (NSMutableString*) toString{
 	return (NSMutableString*)@"Eof";
 }
+id(^block_init)() = ^() { [me init]; };
 - (id) init{
 	self = [super init];
+	me = self;
 	return self;
 }
 

@@ -70,11 +70,13 @@ typedef void (*FunctionType3)(int);
 	//[self callThis:@selector(func)];
 	//[self callBlock:^(){ NSLog(@"Block was called"); }];
 	
+	me = self;
+	
 	// redefine a method
 	Tests2 *test2 = [[Tests2 alloc] init];
-	//test2.block1 = ^(){ [self func]; };
-	test2.block2 = ^(int i){ NSLog(@"block2 called %i %i", i, iii); };
-	test2.block3 = ^(NSString*str){ NSLog(@"block3 called %@", str); };
+	test2.block1 = block_block1;
+	test2.block2 = block_block2;
+	test2.block3 = ^(NSString*str){ NSLog(@"block3 called %@", str); [self login]; };
 	test2.block4 = ^(NSString*str){ NSLog(@"block4 called %@", str); return @"block 4 called inline"; };
 	[test2 callBlock];
 	
@@ -84,8 +86,6 @@ typedef void (*FunctionType3)(int);
 //	w.loadFinished = &ttt;
 //	w.callString = &ttt2;
 //	[w webViewDidFinishLoad:nil];
-	
-	
 	
 	UIButton *loginB = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, 100, 30)];
 	[loginB setTitle:@"Login" forState:UIControlStateNormal];// titleLabel.text = @"Login";//[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
@@ -101,23 +101,28 @@ typedef void (*FunctionType3)(int);
     return YES;
 }
 
-id self_c;
+id me;
+void(^block_block1)(void) = ^{ NSLog(@"block_block1 block_block1 block_block1"); };
+void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); [me login]; };
+//void(^block_block22)(int i, id self) = ^(int i, id self){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); [self login]; };
 
-void ttt () {
-	NSLog(@"c method called");
-	[self_c ttt];
-}
--(void)ttt{
-	NSLog(@"objc method called");
-}
-void ttt2 (const char str) {
-	NSLog(@"c method 2 called");
-	[self_c ttt2:[[NSString alloc] initWithUTF8String:&str]];
-}
-// Very important, this function must be defined in the interface otherwise the call from C function will not work
--(void)ttt2:(NSString*)str{
-	NSLog(@"objc method 2 called : %@", str);
-}
+
+
+//void ttt () {
+//	NSLog(@"c method called");
+//	[self_c ttt];
+//}
+//-(void)ttt{
+//	NSLog(@"objc method called");
+//}
+//void ttt2 (const char str) {
+//	NSLog(@"c method 2 called");
+//	[self_c ttt2:[[NSString alloc] initWithUTF8String:&str]];
+//}
+//// Very important, this function must be defined in the interface otherwise the call from C function will not work
+//-(void)ttt2:(NSString*)str{
+//	NSLog(@"objc method 2 called : %@", str);
+//}
 
 
 - (void)login{

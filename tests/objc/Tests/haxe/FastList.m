@@ -11,8 +11,10 @@
 
 @synthesize elt;
 @synthesize next;
+id(^block_init)(id elt, FastCell *next) = ^(id elt, FastCell *next) { [me init:elt next:next]; };
 - (id) init:(id)elt next:(FastCell*)next{
 	self = [super init];
+	me = self;
 	self.elt = elt;
 	self.next = next;
 	return self;
@@ -23,54 +25,63 @@
 @implementation FastList
 
 @synthesize head;
+void(^block_add)(id item) = ^(id item) { [me add:item]; };
 - (void) add:(id)item{
-	self.head = [[FastCell alloc] init:item next:self head];
+	self.head = [[FastCell alloc] init:item next:block_head];
 }
+id(^block_first)() = ^() { [me first]; };
 - (id) first{
 	return ( (self.head == nil) ? nil : self.head.elt);
 }
+id(^block_pop)() = ^() { [me pop]; };
 - (id) pop{
 	
 	FastCell *k = self.head;
 	if (k == nil) return nil;
 	else {
-		self.head = k.next;
+		self.head = block_next;
 		return k.elt;
 	}
 	return nil;
 }
+BOOL(^block_isEmpty)() = ^() { [me isEmpty]; };
 - (BOOL) isEmpty{
 	return self.head == nil;
 }
+BOOL(^block_remove)(id v) = ^(id v) { [me remove:v]; };
 - (BOOL) remove:(id)v{
 	id prev = nil;
 	
 	FastCell *l = self.head;
 	while (l != nil) {
 		if (l.elt == v) {
-			if (prev == nil) self.head = l.next;
-			else prev next = l.next;
+			if (prev == nil) self.head = block_next;
+			else prev next = block_next;
 			break;
 		}
 		prev = l;
-		l = l.next;
+		l = block_next;
 	}
 	return l != nil;
 }
+id(^block_iterator)() = ^() { [me iterator]; };
 - (id) iterator{
 	
 	NSMutableArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil];
 	return struct {
-	hasNext:^(BOOL) {
+	hasNext:^BOOL(^block_)() = ^() { [me ]; };
+- (BOOL) {
 		return [l objectAtIndex:0] != nil;
-	}; next:^(id) {
+	}; next:^id(^block_)() = ^() { [me ]; };
+- (id) {
 		
 		FastCell *k = [l objectAtIndex:0];
-		[l objectAtIndex:0] = k.next;
+		[l objectAtIndex:0] = block_next;
 		return k.elt;
 	}
 	} structName;
 }
+NSMutableString*(^block_toString)() = ^() { [me toString]; };
 - (NSMutableString*) toString{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -78,12 +89,14 @@
 	FastCell *l = self.head;
 	while (l != nil) {
 		[a push:l elt];
-		l = l.next;
+		l = block_next;
 	}
 	return [[(NSMutableString*)@"{" stringByAppendingString:[a join:(NSMutableString*)@","]] stringByAppendingString:(NSMutableString*)@"}"];
 }
+id(^block_init)() = ^() { [me init]; };
 - (id) init{
 	self = [super init];
+	me = self;
 	return self;
 }
 

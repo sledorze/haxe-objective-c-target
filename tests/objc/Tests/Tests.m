@@ -34,6 +34,7 @@
 @synthesize d1;
 @synthesize d2;
 @synthesize s;
+void(^block_testVariables)() = ^() { [me testVariables]; };
 - (void) testVariables{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -49,12 +50,13 @@
 	int xy = a.length;
 	[a push:(NSMutableString*)@"6"];
 	if (a.length > 3) f = 3;
-	else f = a.length;
-	f = ( (a.length > 3) ? 3 : a.length);
+	else f = block_length;
+	f = ( (block_length > 3) ? 3 : a.length);
 	int x = [[[Tests alloc] init] add:1 b:1];
 	[Lib print:(NSMutableString*)@"print print and print again"];
 	[Lib println:(NSMutableString*)@"print print and print again"];
 }
+void(^block_testingFor)() = ^() { [me testingFor]; };
 - (void) testingFor{
 	
 	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil];
@@ -74,13 +76,14 @@
 	}
 	{
 		int _g = 0;
-		while (_g < aa.length) {
+		while (_g < block_length) {
 			int i = [aa objectAtIndex:_g];
 			++_g;
 			[aa push:i];
 		}
 	}
 }
+void(^block_testWhile)() = ^() { [me testWhile]; };
 - (void) testWhile{
 	int aa = 5;
 	do {
@@ -89,6 +92,7 @@
 	}while (aa < 10);
 	while (aa > 0) aa--;
 }
+void(^block_testTry)() = ^() { [me testTry]; };
 - (void) testTry{
 	@try {
 		int a = 3;
@@ -97,6 +101,7 @@
 		[Log trace:(NSMutableString*)@"error" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"101",@"Tests",@"testTry",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	}
 }
+void(^block_testSwitch)() = ^() { [me testSwitch]; };
 - (void) testSwitch{
 	BOOL _g = YES;
 	switch (_g){
@@ -110,6 +115,7 @@
 			}}break;
 	}
 }
+void(^block_testArray)() = ^() { [me testArray]; };
 - (void) testArray{
 	
 	NSMutableArray *as = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -119,7 +125,7 @@
 	[aa objectAtIndex:3];
 	
 	NSMutableArray *concatArray = (NSMutableArray*)[as concat:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"5", (NSMutableString*)@"6", (NSMutableString*)@"7", nil]];
-	concatArray = [as copy];
+	concatArray = [block_copy];
 	[concatArray insert:2 x:(NSMutableString*)@"2"];
 	id iter = [as iterator];
 	
@@ -129,14 +135,15 @@
 	[as push:(NSMutableString*)@"454"];
 	BOOL bool = [as remove:(NSMutableString*)@"5"];
 	[as reverse];
-	item = [as shift];
+	item = [block_shift];
 	
 	NSMutableArray *sliceArray = (NSMutableArray*)[as slice:1 end:3];
-	[as sort:^(int) :(NSMutableString*)a b:(NSMutableString*)b{
+	[as sort:^int(^block_)(NSMutableString *a, NSMutableString *b) = ^(NSMutableString *a, NSMutableString *b) { [me :a b:b]; };
+- (int) :(NSMutableString*)a b:(NSMutableString*)b{
 		return 0;
 	}];
-	sliceArray = [as splice:2 len:2];
-	s = [as toString];
+	sliceArray = [block_splice:2 len:2];
+	s = [block_toString];
 	[as unshift:(NSMutableString*)@"44"];
 	
 	NSMutableArray *a_comprehention = (NSMutableArray*)((NSMutableArray)($this:(snd ctx.path)) 
@@ -158,7 +165,7 @@
 	NSMutableArray *_g1 = [[NSMutableArray alloc] initWithObjects:, nil]
 	{
 		int _g2 = 0;
-		while (_g2 < a_comprehention.length) {
+		while (_g2 < block_length) {
 			int x = [a_comprehention objectAtIndex:_g2];
 			++_g2;
 			if (x % 2 == 0) [_g1 push:x];
@@ -189,37 +196,39 @@
 		NSMutableArray* __r__3}
 	}(self));
 }
+void(^block_testDate)() = ^() { [me testDate]; };
 - (void) testDate{
 	
 	NSDate *d = [[NSDate alloc] init:2012 month:11 day:13 hour:19 min:30 sec:0];
 	int _int = [d getDate];
-	_int = [d getDay];
-	_int = [d getFullYear];
-	_int = [d getHours];
-	_int = [d getMinutes];
-	_int = [d getMonth];
-	_int = [d getSeconds];
+	_int = [block_getDay];
+	_int = [block_getFullYear];
+	_int = [block_getHours];
+	_int = [block_getMinutes];
+	_int = [block_getMonth];
+	_int = [block_getSeconds];
 	float _float = [d getTime];
 	
 	NSMutableString *str = [d toString];
 	
 	NSDate *d2 = [NSDate fromString:(NSMutableString*)@"2012-12-12 06:40:00"];
-	d2 = [NSDatefromTime:120000];
-	d2 = [NSDatenow];
+	d2 = [block_fromTime:120000];
+	d2 = [block_now];
 	int x = [DateTools getMonthDays:d2];
-	_float = [DateTools days:5];
+	_float = [block_days:5];
 	
 	NSDate *d3 = [DateTools delta:d t:1000.0];
-	str = [DateTools format:d f:(NSMutableString*)@"HH:mm"];
-	_int = [DateTools getMonthDays:d];
-	_float = [DateTools hours:1000];
-	_float = [DateTools make:struct {
+	str = [block_format:d f:(NSMutableString*)@"HH:mm"];
+	_int = [block_getMonthDays:d];
+	_float = [block_hours:1000];
+	_float = [block_make:struct {
 	seconds:0; ms:(float)110; minutes:6; hours:8; days:5
 	} structName];
-	_float = [DateTools minutes:56];
+	_float = [block_minutes:56];
 	id obj = [DateTools parse:45546];
-	_float = [DateTools seconds:1000];
+	_float = [block_seconds:1000];
 }
+int(^block_enumToInt)(Tests *c) = ^(Tests *c) { [me enumToInt:c]; };
 - (int) enumToInt:(Tests*)c{
 	[self testEnum:TestsEnumExtern ExternEnumValue1];
 	return ((int)($this:(snd ctx.path)) 
@@ -246,13 +255,14 @@
 		case 5:
 		
 		var MATCH c_eAlpha_1 : Tests = $e2.params[1], MATCH c_eAlpha_0 : int = $e2.params[0]{
-			__r__ = (c_eAlpha_0 << 24 | ([self enumToInt:c_eAlpha_1] & 16777215))}break
+			__r__ = (c_eAlpha_0 << 24 | ([block_enumToInt:c_eAlpha_1] & 16777215))}break
 	}
 	return __r__{
 		
 		int* __r__}
 	}(self));
 }
+void(^block_testEnum)(id v) = ^(id v) { [me testEnum:v]; };
 - (void) testEnum:(id)v{
 	int i = ((int)($this:(snd ctx.path)) 
 	var $e2 : enum =  (v)
@@ -293,22 +303,25 @@
 		int* __r__3}
 	}(self));
 }
+void(^block_testEReg)() = ^() { [me testEReg]; };
 - (void) testEReg{
 	
 	EReg *ereg = [[EReg alloc] init:(NSMutableString*)@"ytrytrevev76" opt:(NSMutableString*)@"099"];
 	
-	NSMutableString *s = [ereg customReplace:(NSMutableString*)@"s" f:^(NSMutableString*) :(EReg*)e{
+	NSMutableString *s = [ereg customReplace:(NSMutableString*)@"s" f:^NSMutableString*(^block_)(EReg *e) = ^(EReg *e) { [me :e]; };
+- (NSMutableString*) :(EReg*)e{
 		return (NSMutableString*)@"ss";
 	}];
 	BOOL b = [ereg match:(NSMutableString*)@"s"];
-	s = [ereg matched:5];
-	s = [ereg matchedLeft];
+	s = [block_matched:5];
+	s = [block_matchedLeft];
 	id o = [ereg matchedPos];
-	s = [ereg matchedRight];
-	s = [ereg replace:(NSMutableString*)@"s" by:(NSMutableString*)@"by"];
+	s = [block_matchedRight];
+	s = [block_replace:(NSMutableString*)@"s" by:(NSMutableString*)@"by"];
 	
 	NSMutableArray *arr = (NSMutableArray*)[ereg split:(NSMutableString*)@","];
 }
+void(^block_testHash)() = ^() { [me testHash]; };
 - (void) testHash{
 	
 	Hash *h = [[Hash alloc] init];
@@ -331,19 +344,22 @@
 	
 	NSMutableString *stri = [hi toString];
 }
+void(^block_testLambda)() = ^() { [me testLambda]; };
 - (void) testLambda{
 	
 	NSMutableArray *a = (NSMutableArray*)[Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]];
 	
 	List *l = [Lambda concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 }
+void(^block_testList)() = ^() { [me testList]; };
 - (void) testList{
 	
 	List *l = [[List alloc] init];
 	[l add:2];
 	[l push:18];
 	
-	List *l2 = [l filter:^(BOOL) :(int)i{
+	List *l2 = [l filter:^BOOL(^block_)(int i) = ^(int i) { [me :i]; };
+- (BOOL) :(int)i{
 		return i > 5;
 	}];
 	int item = [l first];
@@ -351,51 +367,54 @@
 	id iter = [l iterator];
 	
 	NSMutableString *s = [l join:(NSMutableString*)@", "];
-	s = [l toString];
-	item = [l last];
-	item = [l pop];
+	s = [block_toString];
+	item = [block_last];
+	item = [block_pop];
 	BOOL r = [l remove:5];
 	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"285",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[l clear];
 	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"287",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
-	List *newList = [l map:^(NSMutableString*) :(int)i{
+	List *newList = [l map:^NSMutableString*(^block_)(int i) = ^(int i) { [me :i]; };
+- (NSMutableString*) :(int)i{
 		return [Std string:i];
 	}];
 	
 	FastList *fl = [[FastList alloc] init];
-	fl.head = [[FastCell alloc] init:8 next:fl head];
+	fl.head = [[FastCell alloc] init:8 next:block_head];
 }
+void(^block_testMath)() = ^() { [me testMath]; };
 - (void) testMath{
 	float pi = M_PI;
 	float max = -DBL_MAX;
 	float min = DBL_MAX;
 	float nan = NAN;
 	float x = sqrtf(5);
-	x = fabsf(5);
-	x = fmaxf(5, 45555);
-	x = fminf(5, 45555);
-	x = sinf(5);
-	x = cosf(5);
-	x = atan2f(5, 3);
-	x = tanf(5);
-	x = expf(5);
-	x = logf(5);
-	x = sqrtf(5);
+	x = block_abs(5);
+	x = block_max(5, 45555);
+	x = block_min(5, 45555);
+	x = block_sin(5);
+	x = block_cos(5);
+	x = block_atan2(5, 3);
+	x = block_tan(5);
+	x = block_exp(5);
+	x = block_log(5);
+	x = block_sqrt(5);
 	int xr = roundf(5);
-	xr = floorf(5);
-	xr = ceilf(5);
-	x = atanf(5);
-	x = asinf(5);
-	x = acosf(5);
-	x = powf(5, 4);
-	x = rand() * 5;
+	xr = block_floor(5);
+	xr = block_ceil(5);
+	x = block_atan(5);
+	x = block_asin(5);
+	x = block_acos(5);
+	x = block_pow(5, 4);
+	x = block_random() * 5;
 	BOOL b = isfinite(45454);
-	b = isnan(45454);
+	b = block_isNaN(45454);
 	float j = x + xr;
 	j += x;
 	float k = ( (b) ? -x : x);
 }
+void(^block_testReflect)() = ^() { [me testReflect]; };
 - (void) testReflect{
 	id obj = struct {
 	a:(NSMutableString*)@"aaaaa"
@@ -413,19 +432,21 @@
 	int i = [Reflect compare:1 b:2];
 	BOOL cm = [Reflect compareMethods:self testStd f2:self testString];
 	BOOL isobj = [Reflect isObject:obj];
-	isobj = [Reflect isObject:self testStd];
+	isobj = [block_isObject:block_testStd];
 	[Reflect deleteField:obj f:(NSMutableString*)@"a"];
 	id obj2 = [Reflect copy:obj];
 }
+void(^block_testStd)() = ^() { [me testStd]; };
 - (void) testStd{
 	int _int = 3;
 	BOOL _BOOL = [Std is:self d1 t:float];
 	float _float = [Std parseFloat:(NSMutableString*)@"55454.65"];
-	_int = [Std parseInt:(NSMutableString*)@"435345.23"];
-	_int = [Std random:543];
+	_int = [block_parseInt:(NSMutableString*)@"435345.23"];
+	_int = [block_random:543];
 	
 	NSMutableString *string = [Std string:_int];
 }
+void(^block_testString)() = ^() { [me testString]; };
 - (void) testString{
 	
 	NSMutableString *string = [[NSMutableString alloc] init:(NSMutableString*)@"abcdefghijklmnopqrstuvwxyz"];
@@ -440,12 +461,12 @@
 	NSMutableArray *components = (NSMutableArray*)[string componentsSeparatedByString:(NSMutableString*)@"-"];
 	
 	NSMutableString *s2 = [string substr:5 len:nil];
-	s2 = [string substr:5 len:len];
-	s2 = [string substring:5 endIndex:nil];
-	s2 = [string substring:1 endIndex:len];
-	s2 = [string lowercaseString];
-	s2 = [string uppercaseString];
-	s2 = [string description];
+	s2 = [block_substr:5 len:len];
+	s2 = [block_substring:5 endIndex:nil];
+	s2 = [block_substring:1 endIndex:len];
+	s2 = [block_toLowerCase];
+	s2 = [block_toUpperCase];
+	s2 = [block_toString];
 	
 	NSMutableString *s3 = (NSMutableString*)@"\t";
 	
@@ -458,18 +479,18 @@
 	NSMutableString *strbuf = buf.b;
 	
 	NSMutableString *st = [StringTools urlEncode:(NSMutableString*)@"http://imagin.ro/Gorgeous Elena/2"];
-	st = [StringTools urlDecode:(NSMutableString*)@"http://imagin.ro/Gorgeous Elena/2"];
-	st = [StringTools htmlEscape:(NSMutableString*)@"<a href= &>" quotes:nil];
-	st = [StringTools htmlUnescape:(NSMutableString*)@"<a href= &>"];
-	st = [StringTools ltrim:(NSMutableString*)@" abcdefgh"];
-	st = [StringTools rtrim:(NSMutableString*)@"abcdefgh "];
-	st = [StringTools trim:(NSMutableString*)@" abcdefgh "];
-	st = [StringTools rpad:(NSMutableString*)@"abcdefgh" c:(NSMutableString*)@"0" l:10];
-	st = [StringTools lpad:(NSMutableString*)@"abcdefgh" c:(NSMutableString*)@"0" l:10];
-	st = [StringTools replace:(NSMutableString*)@"abcdefgh" sub:(NSMutableString*)@"abc" by:(NSMutableString*)@"_abc"];
+	st = [block_urlDecode:(NSMutableString*)@"http://imagin.ro/Gorgeous Elena/2"];
+	st = [block_htmlEscape:(NSMutableString*)@"<a href= &>" quotes:nil];
+	st = [block_htmlUnescape:(NSMutableString*)@"<a href= &>"];
+	st = [block_ltrim:(NSMutableString*)@" abcdefgh"];
+	st = [block_rtrim:(NSMutableString*)@"abcdefgh "];
+	st = [block_trim:(NSMutableString*)@" abcdefgh "];
+	st = [block_rpad:(NSMutableString*)@"abcdefgh" c:(NSMutableString*)@"0" l:10];
+	st = [block_lpad:(NSMutableString*)@"abcdefgh" c:(NSMutableString*)@"0" l:10];
+	st = [block_replace:(NSMutableString*)@"abcdefgh" sub:(NSMutableString*)@"abc" by:(NSMutableString*)@"_abc"];
 	BOOL b = [StringTools startsWith:(NSMutableString*)@"abcdefg" start:(NSMutableString*)@"abc"];
-	b = [StringTools endsWith:(NSMutableString*)@"abcdefg" end:(NSMutableString*)@"efg"];
-	b = [StringTools isSpace:(NSMutableString*)@"abcdefg" pos:3];
+	b = [block_endsWith:(NSMutableString*)@"abcdefg" end:(NSMutableString*)@"efg"];
+	b = [block_isSpace:(NSMutableString*)@"abcdefg" pos:3];
 	
 	NSMutableString *i2 = [StringTools hex:345345 digits:10];
 	
@@ -479,22 +500,23 @@
 	sfin = [[st stringByAppendingString:(NSMutableString*)@"abc"] stringByAppendingString:@"5"];
 	sfin = [@"55" stringByAppendingString:(NSMutableString*)@"abc"];
 }
+void(^block_testSys)() = ^() { [me testSys]; };
 - (void) testSys{
 	[Sys print:(NSMutableString*)@"hello world"];
 	[Sys println:(NSMutableString*)@"hello world"];
 	
 	NSMutableArray *arr = (NSMutableArray*)[Sys args];
 	int _int = [Sys command:(NSMutableString*)@"cd" args:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"~", nil]];
-	_int = [Sys command:(NSMutableString*)@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]];
+	_int = [block_command:(NSMutableString*)@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]];
 	float _float = [Sys cpuTime];
 	
 	Hash *hash = [Sys environment];
 	
 	NSMutableString *string = [Sys executablePath];
 	[Sys exit:0];
-	_int = [Sys getChar:YES];
-	string = [Sys getCwd];
-	string = [Sys getEnv:(NSMutableString*)@"VAR1"];
+	_int = [block_getChar:YES];
+	string = [block_getCwd];
+	string = [block_getEnv:(NSMutableString*)@"VAR1"];
 	[Sys putEnv:(NSMutableString*)@"VAR1" v:(NSMutableString*)@"val 1"];
 	[Sys setCwd:(NSMutableString*)@"thisdir"];
 	BOOL bool = [Sys setTimeLocale:(NSMutableString*)@"loc"];
@@ -503,10 +525,11 @@
 	Output *_out = [Sys _stderr];
 	
 	Input *_in = [Sys _stdin];
-	_out = [Sys _stdout];
-	string = [Sys systemName];
-	_float = [Sys time];
+	_out = [block_stdout];
+	string = [block_systemName];
+	_float = [block_time];
 }
+void(^block_testType)() = ^() { [me testType]; };
 - (void) testType{
 	
 	Class *sup = [Type getSuperClass:NSString];
@@ -515,72 +538,88 @@
 	
 	Class *cl = [Type resolveClass:(NSMutableString*)@"ios.map.MKMapView"];
 }
+void(^block_testXml)() = ^() { [me testXml]; };
 - (void) testXml{
 }
+void(^block_testTimer)() = ^() { [me testTimer]; };
 - (void) testTimer{
 	
 	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil];
 	
 	Timer *timer = [[Timer alloc] init:50];
-	timer.run = self.testXml;
+	timer.run = block_testXml;
 	[timer stop];
-	timer = [Timer delay:self testTimer time_ms:50];
-	timer = [Timer delay:^(void) {
-		[[_g objectAtIndex:0] testTimer];
+	timer = [block_delay:block_testTimer time_ms:50];
+	timer = [block_delay:^void(^block_)() = ^() { [me ]; };
+- (void) {
+		[block_testTimer];
 	} time_ms:50];
 	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"521",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
+void(^block_testCrypto)() = ^() { [me testCrypto]; };
 - (void) testCrypto{
 	
 	NSMutableString *str1 = [Md5 encode:(NSMutableString*)@"Hello world"];
 	
 	NSMutableString *str2 = [Sha1 encode:(NSMutableString*)@"Hello world"];
 }
+void(^block_foo)() = ^() { [me foo]; };
 - (void) foo{
 }
+void(^block_testOverload)() = ^() { [me testOverload]; };
 - (void) testOverload{
 	[self foo];
 	[self foo:(NSMutableString*)@"bar"];
 	[self foo:(NSMutableString*)@"str" arr:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar1", (NSMutableString*)@"bar2", nil]];
 	[self foo:[[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"1", nil], [[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"2", nil], nil]];
 }
+void(^block_testFrameworksImport)() = ^() { [me testFrameworksImport]; };
 - (void) testFrameworksImport{
 }
+int(^block_getWidth)() = ^() { [me getWidth]; };
 - (int) getWidth{
 	return 0;
 }
+int(^block_setWidth)(int v) = ^(int v) { [me setWidth:v]; };
 - (int) setWidth:(int)v{
 	return 0;
 }
+int(^block_add)(int a, int b) = ^(int a, int b) { [me add:a b:b]; };
 - (int) add:(int)a b:(int)b{
 	return a + b;
 }
+int(^block_minus)(int a, int b) = ^(int a, int b) { [me minus:a b:b]; };
 - (int) minus:(int)a b:(int)b{
 	return a - b;
 }
+void(^block_callLotsOfArguments)(int arg1, int arg2, int arg3, int arg4) = ^(int arg1, int arg2, int arg3, int arg4) { [me callLotsOfArguments:arg1 arg2:arg2 arg3:arg3 arg4:arg4]; };
 - (void) callLotsOfArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 	[self optionalArguments:0 arg2:1 arg3:2 arg4:nil];
 	[self optionalArguments1:0 arg2:1 arg3:2 arg4:nil];
 	[self optionalArguments2:0 arg2:nil arg3:nil arg4:3];
 	[self optionalArguments3:0 arg2:1 arg3:nil arg4:nil];
 }
+void(^block_optionalArguments)(int arg1, int arg2, int arg3, int arg4) = ^(int arg1, int arg2, int arg3, int arg4) { [me optionalArguments:arg1 arg2:arg2 arg3:arg3 arg4:arg4]; };
 - (void) optionalArguments:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 	// Simulated optional arguments
 	if (arg4 == nil) arg4 = nil;
 	
 }
+void(^block_optionalArguments1)(int arg1, int arg2, int arg3, int arg4) = ^(int arg1, int arg2, int arg3, int arg4) { [me optionalArguments1:arg1 arg2:arg2 arg3:arg3 arg4:arg4]; };
 - (void) optionalArguments1:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 	// Simulated optional arguments
 	if (arg4 == nil) arg4 = 5;
 	
 }
+void(^block_optionalArguments2)(int arg1, int arg2, int arg3, int arg4) = ^(int arg1, int arg2, int arg3, int arg4) { [me optionalArguments2:arg1 arg2:arg2 arg3:arg3 arg4:arg4]; };
 - (void) optionalArguments2:(int)arg1 arg2:(int)arg2 arg3:(int)arg3 arg4:(int)arg4{
 	// Simulated optional arguments
 	if (arg3 == nil) arg3 = nil;
 	if (arg2 == nil) arg2 = nil;
 	
 }
+void(^block_optionalArguments3)(int arg1, int arg2, BOOL arg3, BOOL arg4) = ^(int arg1, int arg2, BOOL arg3, BOOL arg4) { [me optionalArguments3:arg1 arg2:arg2 arg3:arg3 arg4:arg4]; };
 - (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(BOOL)arg3 arg4:(BOOL)arg4{
 	// Simulated optional arguments
 	if (arg4 == nil) arg4 = nil;
@@ -588,28 +627,34 @@
 	if (arg3 == nil) arg3 = YES;
 	
 }
+void(^block_init)() = ^() { [me init]; };
 - (void) init{
 	int x = 6;
 	self.s = (NSMutableString*)@"init";
 }
+void(^block_printHello)() = ^() { [me printHello]; };
 - (void) printHello{
 	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"593",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
+void(^block_functionToRedefine)() = ^() { [me functionToRedefine]; };
 - (void) functionToRedefine{
 	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"603",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
+void(^block_functionToRedefine2)(int param1, NSMutableString *param2) = ^(int param1, NSMutableString *param2) { [me functionToRedefine2:param1 param2:param2]; };
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 	int i = param1;
 }
+id(^block_init)() = ^() { [me init]; };
 - (id) init{
 	self = [super init];
+	me = self;
 	self.s = (NSMutableString*)@"str";
 	self.d2 = 4.5;
 	self.d1 = 34;
 	
 	Tests2 *test2 = [[Tests2 alloc] init];
-	test2.functionToRedefine = self.functionToRedefine;
-	test2.functionToRedefine2 = self.functionToRedefine2;
+	test2.functionToRedefine = block_functionToRedefine;
+	test2.functionToRedefine2 = block_functionToRedefine2;
 	return self;
 }
 
@@ -618,23 +663,28 @@
 @implementation Tests2
 
 @synthesize d1;
+void(^block_methodInTests2)() = ^() { [me methodInTests2]; };
 - (void) methodInTests2{
 	[self functionToRedefine];
 	[self functionToRedefine2:0 param2:(NSMutableString*)@"00"];
 }
 // Defining a dynamic method
+void(^block_functionToRedefine)() = ^() { [me functionToRedefine]; };
 - (void) functionToRedefine{
 	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"626",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 @synthesize block_functionToRedefine;
 
 // Defining a dynamic method
+void(^block_functionToRedefine2)(int param1, NSMutableString *param2) = ^(int param1, NSMutableString *param2) { [me functionToRedefine2:param1 param2:param2]; };
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 }
 @synthesize block_functionToRedefine2;
 
+id(^block_init)() = ^() { [me init]; };
 - (id) init{
 	self = [super init];
+	me = self;
 	self.d1 = 34;
 	
 	NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil];

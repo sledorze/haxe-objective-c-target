@@ -242,6 +242,7 @@ type context = {
 	mutable generating_objc_block : bool;
 	mutable generating_constructor : bool;
 	mutable generating_self_access : bool;
+	mutable generating_right_side_of_operator : bool;
 	mutable generating_c_call : bool;
 	mutable generating_calls : int;
 	mutable generating_string_append : int;
@@ -265,6 +266,7 @@ let newContext common_ctx writer imports_manager file_info = {
 	generating_objc_block = false;
 	generating_constructor = false;
 	generating_self_access = false;
+	generating_right_side_of_operator = false;
 	generating_c_call = false;
 	generating_calls = 0;
 	generating_string_append = 0;
@@ -593,19 +595,13 @@ let defaultValue s =
 
 (* A function header in objc is a message *)
 (* We need to follow some strict rules *)
-let generateFunctionHeader ctx name f params p =
+let generateFunctionHeader ctx name f params p is_static =
 	let old = ctx.in_value in
 	let locals = saveLocals ctx in
 	let old_t = ctx.local_types in
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
 	let return_type = if ctx.generating_constructor then "id" else typeToString ctx f.tf_type p in
-	if ctx.generating_objc_block then
-		(* void(^block3)(NSString); *)
-		ctx.writer#write (Printf.sprintf "%s%s" return_type (addPointerIfNeeded return_type))
-	else
-		ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
-
 	(* This part generates the name of the function, the first part of the objc message *)
 	let func_name = (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
@@ -614,6 +610,38 @@ let generateFunctionHeader ctx name f params p =
 		in
 		"" ^ loop meta
 	) in
+	(* Generate the block version of the method. When we pass a reference to a function we pass to this block *)
+	if not ctx.generating_header then begin
+		(* void(^block_block2)(int i) = ^(int i){ [me login]; }; *)
+		ctx.writer#write (Printf.sprintf "%s%s(^block_%s)" return_type (addPointerIfNeeded return_type) func_name);
+		let gen_block_args = fun() -> (
+			ctx.writer#write "(";
+			concat ctx ", " (fun (v,c) ->
+				let type_name = typeToString ctx v.v_type p in
+				ctx.writer#write (Printf.sprintf "%s %s%s" type_name (addPointerIfNeeded type_name) (remapKeyword v.v_name));
+			) f.tf_args;
+			ctx.writer#write ")";
+		) in
+		gen_block_args();
+		ctx.writer#write " = ^";
+		gen_block_args();
+		ctx.writer#write " { [me ";
+		ctx.writer#write func_name;
+		let first_arg = ref true in
+		concat ctx " " (fun (v,c) ->
+			let type_name = typeToString ctx v.v_type p in
+			let message_name = if !first_arg then "" else (remapKeyword v.v_name) in
+			ctx.writer#write (Printf.sprintf "%s:%s" message_name (remapKeyword v.v_name));
+			first_arg := false;
+		) f.tf_args;
+		ctx.writer#write "]; };\n"
+	end;
+	if ctx.generating_objc_block then
+		(* void(^block3)(NSString); *)
+		ctx.writer#write (Printf.sprintf "%s%s" return_type (addPointerIfNeeded return_type))
+	else
+		ctx.writer#write (Printf.sprintf "%s (%s%s)" (if is_static then "+" else "-") return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
+
 	if ctx.generating_objc_block then
 		ctx.writer#write (Printf.sprintf "(^block_%s)" func_name)
 	else
@@ -848,7 +876,9 @@ and generateExpression ctx e =
 		end else begin
 			generateValueOp ctx e1;
 			ctx.writer#write (Printf.sprintf " %s " s_op);
-			generateValueOp ctx e2
+			ctx.generating_right_side_of_operator <- true;
+			generateValueOp ctx e2;
+			ctx.generating_right_side_of_operator <- false;
 		end;
 	(* variable fields on interfaces are generated as (class["field"] as class) *)
 	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s })) ->
@@ -864,9 +894,13 @@ and generateExpression ctx e =
 		ctx.writer#write ")";
 		generateFieldAccess ctx e1.etype (field_name s);
 	| TField (e,s) ->
-		(* This is important, is generating a field access . *)
-   		generateValue ctx e;
-		generateFieldAccess ctx e.etype (field_name s);
+		if ctx.generating_right_side_of_operator then begin
+			ctx.writer#write ("block_"^(field_name s));
+		end else begin
+			(* This is important, is generating a field access . *)
+   			generateValue ctx e;
+			generateFieldAccess ctx e.etype (field_name s);
+		end
 	| TTypeExpr t ->
 		(* Do not generate the Math class, make C calls *)
 		let p = t_path t in
@@ -906,6 +940,8 @@ and generateExpression ctx e =
 		ctx.writer#begin_block;
 		if ctx.generating_constructor then begin
 			ctx.writer#write "self = [super init];";
+			ctx.writer#new_line;
+			ctx.writer#write "me = self;";
 			ctx.writer#new_line
 		end;
 		if Hashtbl.length ctx.function_arguments > 0 then begin
@@ -933,7 +969,7 @@ and generateExpression ctx e =
 		ctx.writer#end_block;
 	| TFunction f ->
 		ctx.writer#write "^";
-		let h = generateFunctionHeader ctx None f [] e.epos in
+		let h = generateFunctionHeader ctx None f [] e.epos ctx.in_static in
 		let old = ctx.in_static in
 		ctx.in_static <- true;
 		generateExpression ctx f.tf_expr;
@@ -1529,9 +1565,8 @@ let generateField ctx is_static field =
 			if not ctx.generating_header then generateMain ctx fd;
 		end
 		else begin
-			ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
 			(* Generate function header *)
-			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
+			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static;
 			(* Generate function content if is not a header file *)
 			if not ctx.generating_header then
 				generateExpression ctx fd.tf_expr
@@ -1540,9 +1575,9 @@ let generateField ctx is_static field =
 		end
 	| Some { eexpr = TFunction fd }, Method (MethDynamic) ->
 		ctx.writer#write "// Defining a dynamic method\n";
-		ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
+		(* ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-")); *)
 		(* Generate function header *)
-		generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
+		generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static;
 		(* Generate function content if is not a header file *)
 		if not ctx.generating_header then
 			generateExpression ctx fd.tf_expr

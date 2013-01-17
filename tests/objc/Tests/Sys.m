@@ -9,49 +9,64 @@
 
 @implementation Sys
 
+void(^block_print)(id v) = ^(id v) { [me print:v]; };
 + (void) print:(id)v{
 	print(v);
 }
+void(^block_println)(id v) = ^(id v) { [me println:v]; };
 + (void) println:(id)v{
 	[Sys print:v];
 	[Sys print:(NSMutableString*)@"\n"];
 }
+Input*(^block_stdin)() = ^() { [me stdin]; };
 + (Input*) stdin{
 	return [[FileInput alloc] init:[file_stdin]];
 }
+Output*(^block_stdout)() = ^() { [me stdout]; };
 + (Output*) stdout{
 	return [[FileOutput alloc] init:[file_stdout]];
 }
+Output*(^block_stderr)() = ^() { [me stderr]; };
 + (Output*) stderr{
 	return [[FileOutput alloc] init:[file_stderr]];
 }
+int(^block_getChar)(BOOL echo) = ^(BOOL echo) { [me getChar:echo]; };
 + (int) getChar:(BOOL)echo{
 	return 0;
 }
+NSMutableArray*(^block_args)() = ^() { [me args]; };
 + (NSMutableArray*) args{
 	return nil;
 }
+NSMutableString*(^block_getEnv)(NSMutableString *s) = ^(NSMutableString *s) { [me getEnv:s]; };
 + (NSMutableString*) getEnv:(NSMutableString*)s{
 	
 	NSMutableString *v = nil;
 	if (v == nil) return nil;
 	return v;
 }
+void(^block_putEnv)(NSMutableString *s, NSMutableString *v) = ^(NSMutableString *s, NSMutableString *v) { [me putEnv:s v:v]; };
 + (void) putEnv:(NSMutableString*)s v:(NSMutableString*)v{
 }
+void(^block_sleep)(float seconds) = ^(float seconds) { [me sleep:seconds]; };
 + (void) sleep:(float)seconds{
 }
+BOOL(^block_setTimeLocale)(NSMutableString *loc) = ^(NSMutableString *loc) { [me setTimeLocale:loc]; };
 + (BOOL) setTimeLocale:(NSMutableString*)loc{
 	return YES;
 }
+NSMutableString*(^block_getCwd)() = ^() { [me getCwd]; };
 + (NSMutableString*) getCwd{
 	return nil;
 }
+void(^block_setCwd)(NSMutableString *s) = ^(NSMutableString *s) { [me setCwd:s]; };
 + (void) setCwd:(NSMutableString*)s{
 }
+NSMutableString*(^block_systemName)() = ^() { [me systemName]; };
 + (NSMutableString*) systemName{
 	return nil;
 }
+NSMutableString*(^block_escapeArgument)(NSMutableString *arg) = ^(NSMutableString *arg) { [me escapeArgument:arg]; };
 + (NSMutableString*) escapeArgument:(NSMutableString*)arg{
 	BOOL ok = YES;
 	{
@@ -63,22 +78,23 @@
 				case 32:case 34:{
 					ok = NO}break;
 				case 0:case 13:case 10:{
-					arg = [arg substr:0 len:i]}break;
+					arg = [block_substr:0 len:i]}break;
 			}
 		}
 	}
 	if (ok) return arg;
 	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
 }
+int(^block_command)(NSMutableString *cmd, NSMutableArray *args) = ^(NSMutableString *cmd, NSMutableArray *args) { [me command:cmd args:args]; };
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	// Simulated optional arguments
 	if (args == nil) args = nil;
 	
 	if (args != nil) {
-		cmd = [Sys escapeArgument:cmd];
+		cmd = [block_escapeArgument:cmd];
 		{
 			int _g = 0;
-			while (_g < args.length) {
+			while (_g < block_length) {
 				
 				NSMutableString *a = [args objectAtIndex:_g];
 				++_g;
@@ -88,25 +104,30 @@
 	}
 	return 0;
 }
+void(^block_exit)(int code) = ^(int code) { [me exit:code]; };
 + (void) exit:(int)code{
 	exit(code);
 }
+float(^block_time)() = ^() { [me time]; };
 + (float) time{
 	return 0;
 }
+float(^block_cpuTime)() = ^() { [me cpuTime]; };
 + (float) cpuTime{
 	return 0;
 }
+NSMutableString*(^block_executablePath)() = ^() { [me executablePath]; };
 + (NSMutableString*) executablePath{
 	return nil;
 }
+Hash*(^block_environment)() = ^() { [me environment]; };
 + (Hash*) environment{
 	
 	NSMutableArray *vars = (NSMutableArray*)nil;
 	
 	Hash *result = [[Hash alloc] init];
 	int i = 0;
-	while (i < vars.length) {
+	while (i < block_length) {
 		[result set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
 		i += 2;
 	}
