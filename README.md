@@ -21,13 +21,9 @@ Build Haxe with:
 	make clean
 	make haxe
 
-or:
+On Mac you can run the build.sh script that will compile Haxe but will run the tests and demos as well:
 
 	./build.sh
-
-(for Mac to automatically compile and run Haxe with the demos provided)
-	 
-> At request i can provide the Mac executable
 
 ## Getting started
 

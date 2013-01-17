@@ -80,6 +80,8 @@ typedef enum{
 - (void) testXml;
 - (void) testTimer;
 - (void) testCrypto;
+- (void) foo;
+- (void) testOverload;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;

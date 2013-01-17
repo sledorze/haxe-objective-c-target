@@ -48,20 +48,7 @@
 		while (YES) {
 			int len = [self readBytes:buf pos:0 len:bufsize];
 			if (len == 0) @throw Error Blocked;;
-			{
-				if (len < 0 || len > buf.length) @throw Error OutsideBounds;;
-				
-				NSMutableArray *b1 = (NSMutableArray*)total.b;
-				
-				NSMutableArray *b2 = (NSMutableArray*)buf.b;
-				{
-					int _g1 = 0; int _g = len;
-					while (_g1 < _g) {
-						int i = _g1++;
-						[total b push:[b2 objectAtIndex:i]];
-					}
-				}
-			}
+			if (len < 0 || len > buf.length) @throw Error OutsideBounds;;
 		}
 	}
 	@catch (NSException *e) {
@@ -113,7 +100,7 @@
 }
 - (float) readFloat{
 	
-	NSMutableArray *bytes = [[NSMutableArray alloc] initWithObjects:, nil]];
+	NSMutableArray *bytes = [[NSMutableArray alloc] initWithObjects:, nil];
 	[bytes push:(int)[self readByte]];
 	[bytes push:(int)[self readByte]];
 	[bytes push:(int)[self readByte]];

@@ -57,7 +57,7 @@
 }
 - (void) testingFor{
 	
-	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
+	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil];
 	{
 		int _g = 0;
 		while (_g < 5) {
@@ -114,11 +114,11 @@
 	
 	NSMutableArray *as = (NSMutableArray*)[[NSMutableArray alloc] init];
 	
-	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
+	NSMutableArray *aa = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithFloat:1.0], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil];
 	float aaa = [aa objectAtIndex:2];
 	[aa objectAtIndex:3];
 	
-	NSMutableArray *concatArray = (NSMutableArray*)[as concat:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"5", (NSMutableString*)@"6", (NSMutableString*)@"7", nil]]];
+	NSMutableArray *concatArray = (NSMutableArray*)[as concat:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"5", (NSMutableString*)@"6", (NSMutableString*)@"7", nil]];
 	concatArray = [as copy];
 	[concatArray insert:2 x:(NSMutableString*)@"2"];
 	id iter = [as iterator];
@@ -283,9 +283,9 @@
 }
 - (void) testLambda{
 	
-	NSMutableArray *a = (NSMutableArray*)[Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]]];
+	NSMutableArray *a = (NSMutableArray*)[Lambda array:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]];
 	
-	List *l = [Lambda concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil]] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]]];
+	List *l = [Lambda concat:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], nil] b:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:4], [NSNumber numberWithInt:5], nil]];
 }
 - (void) testList{
 	
@@ -355,8 +355,8 @@
 	if (obj != nil) [obj __SetField-TDynamic-];
 	[self __SetField-TDynamic-];
 	id p = (id)[self __Field-TDynamic-];
-	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]]];
-	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]]];
+	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]];
+	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]];
 	
 	NSMutableArray *fs = (NSMutableArray*)[Reflect fields:obj];
 	BOOL isf = [Reflect isFunction:self testStd];
@@ -434,8 +434,8 @@
 	[Sys println:(NSMutableString*)@"hello world"];
 	
 	NSMutableArray *arr = (NSMutableArray*)[Sys args];
-	int _int = [Sys command:(NSMutableString*)@"cd" args:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"~", nil]]];
-	_int = [Sys command:(NSMutableString*)@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]]];
+	int _int = [Sys command:(NSMutableString*)@"cd" args:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"~", nil]];
+	_int = [Sys command:(NSMutableString*)@"ls" args:[[NSMutableArray alloc] initWithObjects:, nil]];
 	float _float = [Sys cpuTime];
 	
 	Hash *hash = [Sys environment];
@@ -469,7 +469,7 @@
 }
 - (void) testTimer{
 	
-	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil]];
+	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil];
 	
 	Timer *timer = [[Timer alloc] init:50];
 	timer.run = self.testXml;
@@ -486,6 +486,14 @@
 	NSMutableString *str1 = [Md5 encode:(NSMutableString*)@"Hello world"];
 	
 	NSMutableString *str2 = [Sha1 encode:(NSMutableString*)@"Hello world"];
+}
+- (void) foo{
+}
+- (void) testOverload{
+	[self foo];
+	[self foo:(NSMutableString*)@"bar"];
+	[self foo:(NSMutableString*)@"str" arr:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar1", (NSMutableString*)@"bar2", nil]];
+	[self foo:[[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"1", nil], [[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"2", nil], nil]];
 }
 - (void) testFrameworksImport{
 }
@@ -535,7 +543,7 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"575",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"589",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (id) init{
 	self = [super init];
@@ -544,7 +552,7 @@
 	self.d1 = 34;
 	
 	Tests2 *test2 = [[Tests2 alloc] init];
-	test2.block1 = self.init;
+	test2.block1 = self._init;
 	return self;
 }
 
@@ -561,7 +569,7 @@
 	self = [super init];
 	self.d1 = 34;
 	
-	NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil]];
+	NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil];
 	return self;
 }
 

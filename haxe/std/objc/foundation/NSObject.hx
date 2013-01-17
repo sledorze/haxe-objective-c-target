@@ -44,7 +44,7 @@ extern class NSObject {
 	public static function mutableCopyWithZone (zone:NSZone) :NSObject;
 
 	public static function superclass () :Class<Dynamic>;
-	public static function _class () :Class<Dynamic>;
+	public static function __class__ () :Class<Dynamic>;
 	public static function instancesRespondToSelector (aSelector:SEL) :Bool;
 	public static function conformsToProtocol (protocol:Protocol) :Bool;
 	public function methodForSelector (aSelector:SEL) :IMP;
@@ -86,7 +86,7 @@ extern interface NSObjectProtocol {
 	public function hash () :Int;
 
 	public function superclass () :Class<Dynamic>;
-	public function _class () :Class<Dynamic>;
+	public function __class__ () :Class<Dynamic>;
 	public function self () :NSObject;
 
 	//public function performSelector (aSelector:SEL) :NSObject;

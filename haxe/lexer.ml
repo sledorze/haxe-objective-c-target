@@ -59,7 +59,7 @@ let keywords =
 		Switch;Case;Default;Public;Private;Try;Untyped;
 		Catch;New;This;Throw;Extern;Enum;In;Interface;
 		Cast;Override;Dynamic;Typedef;Package;
-		Inline;Using;Null;True;False;Abstract];
+		Inline;Using;Null;True;False;Abstract;Macro];
 	h
 
 let init file =
@@ -976,7 +976,7 @@ and __ocaml_lex_token_rec lexbuf __ocaml_lex_state =
              (
 			let v = lexeme lexbuf in
 			let v = String.sub v 1 (String.length v - 1) in
-			mk lexbuf (Macro v)
+			mk lexbuf (Sharp v)
 		)
 # 982 "lexer.ml"
 

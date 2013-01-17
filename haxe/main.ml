@@ -76,6 +76,7 @@ let deprecated = [
 	"Class not found : IntIter","IntIter was renamed to IntIterator";
 	"EReg has no field customReplace","EReg.customReplace was renamed to EReg.map";
 	"#StringTools has no field isEOF","StringTools.isEOF was renamed to StringTools.isEof";
+	"Class not found : haxe.BaseCode","haxe.BaseCode was moved to haxe.crypto.BaseCode"
 ]
 
 let error ctx msg p =
@@ -828,6 +829,12 @@ try
 		), ": add debug informations to the compiled code");
 	] in
 	let adv_args_spec = [
+		("-dce", Arg.String (fun mode ->
+			(match mode with
+			| "std" | "full" | "no" -> ()
+			| _ -> raise (Arg.Bad "Invalid DCE mode, expected std | full | no"));
+			Common.define_value com Define.Dce mode
+		),"[std|full|no] : set the dead code elimination mode");
 		("-swf-version",Arg.Float (fun v ->
 			com.flash_version <- v;
 		),"<version> : change the SWF version (6 to 10)");
@@ -953,12 +960,6 @@ try
 			force_typing := true;
 			config_macros := e :: !config_macros
 		)," : call the given macro before typing anything else");
-		("--dce", Arg.String (fun mode ->
-			(match mode with
-			| "std" | "full" | "no" -> ()
-			| _ -> raise (Arg.Bad "Invalid DCE mode, expected std | full | no"));
-			Common.define_value com Define.Dce mode
-		),"[std|full|no] : set the dead code elimination mode");
 		("--wait", Arg.String (fun hp ->
 			let host, port = (try ExtString.String.split hp ":" with _ -> "127.0.0.1", hp) in
 			wait_loop com host (try int_of_string port with _ -> raise (Arg.Bad "Invalid port"))
@@ -1109,7 +1110,7 @@ try
 		Common.log com ("Classpath : " ^ (String.concat ";" com.class_path));
 		Common.log com ("Defines : " ^ (String.concat ";" (PMap.foldi (fun v _ acc -> v :: acc) com.defines [])));
 		let t = Common.timer "typing" in
-		Typecore.type_expr_ref := (fun ctx e need_val -> Typer.type_expr ~need_val ctx e);
+		Typecore.type_expr_ref := (fun ctx e with_type -> Typer.type_expr ctx e with_type);
 		let tctx = Typer.create com in
 		List.iter (Typer.call_init_macro tctx) (List.rev !config_macros);
 		List.iter (fun cpath -> ignore(tctx.Typecore.g.Typecore.do_load_module tctx cpath Ast.null_pos)) (List.rev !classes);

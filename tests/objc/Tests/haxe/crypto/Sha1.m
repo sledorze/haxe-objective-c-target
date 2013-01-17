@@ -125,7 +125,7 @@
 		e += olde;
 		i += 16;
 	}
-	return [[NSMutableArray alloc] initWithObjects:a, b, c, d, e, nil]];
+	return [[NSMutableArray alloc] initWithObjects:a, b, c, d, e, nil];
 }
 - (int) rol:(int)num cnt:(int)cnt{
 	return num << cnt | num >>> 32 - cnt;

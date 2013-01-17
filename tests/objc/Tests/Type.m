@@ -95,7 +95,7 @@
 + (NSMutableArray*) enumParameters:(EnumValue*)e{
 	
 	NSMutableArray *result = (NSMutableArray*)[e __EnumParams];
-	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil]] : result);
+	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil] : result);
 }
 + (int) enumIndex:(EnumValue*)e{
 	return [e __Index];

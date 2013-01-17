@@ -1,53 +1,82 @@
 package objc.foundation;
 
 
-extern class NSFileHandle, implements NSSecureCoding
-{
+extern class NSFileHandle extends NSObject, implements NSSecureCoding {
 
-	//Constants
+- (NSData *)availableData;
 
-	//Static Methods
-	public  function fileHandleForWritingAtPath( path:String):Dynamic;
-	public  function fileHandleWithStandardOutput():Dynamic;
-	public  function fileHandleForReadingFromURL( url:NSURL,  error:NSError*):Dynamic;
-	public  function fileHandleWithStandardInput():Dynamic;
-	public  function fileHandleWithStandardError():Dynamic;
-	public  function fileHandleForUpdatingURL( url:NSURL,  error:NSError*):Dynamic;
-	public  function pipe():Dynamic;
-	public  function fileHandleForReadingAtPath( path:String):Dynamic;
-	public  function fileHandleForWritingToURL( url:NSURL,  error:NSError*):Dynamic;
-	public  function fileHandleForUpdatingAtPath( path:String):Dynamic;
-	public  function fileHandleWithNullDevice():Dynamic;
+- (NSData *)readDataToEndOfFile;
+- (NSData *)readDataOfLength:(NSUInteger)length;
 
-	//Properties
-	public var )(default, default):NSFileHandle;
-	public var )(default, default):NSFileHandle;
+	public function writeData (data:NSData) :Void;
 
-	//Methods
-	public  function readDataToEndOfFile():NSData;
-	public  function fileHandleForWriting():NSFileHandle;
-	public  function offsetInFile():unsignedlonglong;
-	public  function acceptConnectionInBackgroundAndNotifyForModes( modes:Array<>):Void;
-	public  function waitForDataInBackgroundAndNotify():Void;
-	public  function waitForDataInBackgroundAndNotifyForModes( modes:Array<>):Void;
-	public  function readInBackgroundAndNotify():Void;
-	public  function initWithFileDescriptor( fd:Int,  closeopt:Bool):Dynamic;
-	//@:overload !!NEED CUSTOM META DATA !!
-	public  function initWithFileDescriptor1( fd:Int):Dynamic;
-	public  function fileDescriptor():Int;
-	public  function truncateFileAtOffset( offset:unsignedlonglong):Void;
-	public  function readToEndOfFileInBackgroundAndNotifyForModes( modes:Array<>):Void;
-	public  function acceptConnectionInBackgroundAndNotify():Void;
-	public  function synchronizeFile():Void;
-	public  function availableData():NSData;
-	public  function readDataOfLength( length:Int):NSData;
-	public  function writeData( data:NSData):Void;
-	public  function seekToEndOfFile():unsignedlonglong;
-	public  function fileHandleForReading():NSFileHandle;
-	public  function closeFile():Void;
-	public  function readInBackgroundAndNotifyForModes( modes:Array<>):Void;
-	public  function readToEndOfFileInBackgroundAndNotify():Void;
-	public  function seekToFileOffset( offset:unsignedlonglong):Void;
-	public  function init():Dynamic;
+- (unsigned long long)offsetInFile;
+- (unsigned long long)seekToEndOfFile;
+	public function seekToFileOffset (offset:Int) :Void;
+
+	public function truncateFileAtOffset (offset:Int) :Void;
+	public function synchronizeFile () :Void;
+	public function closeFile () :Void;
+
+// NSFileHandleCreation
+
++ (id)fileHandleWithStandardInput;
++ (id)fileHandleWithStandardOutput;
++ (id)fileHandleWithStandardError;
++ (id)fileHandleWithNullDevice;
+
++ (id)fileHandleForReadingAtPath:(NSString *)path;
++ (id)fileHandleForWritingAtPath:(NSString *)path;
++ (id)fileHandleForUpdatingAtPath:(NSString *)path;
+
++ (id)fileHandleForReadingFromURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
++ (id)fileHandleForWritingToURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
++ (id)fileHandleForUpdatingURL:(NSURL *)url error:(NSError **)error NS_AVAILABLE(10_6, 4_0);
+
+}
+
+/*FOUNDATION_EXPORT NSString * const NSFileHandleOperationException;
+
+FOUNDATION_EXPORT NSString * const NSFileHandleReadCompletionNotification;
+FOUNDATION_EXPORT NSString * const NSFileHandleReadToEndOfFileCompletionNotification;
+FOUNDATION_EXPORT NSString * const NSFileHandleConnectionAcceptedNotification;
+FOUNDATION_EXPORT NSString * const NSFileHandleDataAvailableNotification;
+
+FOUNDATION_EXPORT NSString * const NSFileHandleNotificationDataItem;
+FOUNDATION_EXPORT NSString * const NSFileHandleNotificationFileHandleItem;
+FOUNDATION_EXPORT NSString * const NSFileHandleNotificationMonitorModes NS_DEPRECATED(10_0, 10_7, 2_0, 5_0);
+*/
+	public function readInBackgroundAndNotifyForModes:(Array<> *)modes;
+	public function readInBackgroundAndNotify;
+
+	public function readToEndOfFileInBackgroundAndNotifyForModes:(Array<> *)modes;
+	public function readToEndOfFileInBackgroundAndNotify;
+
+	public function acceptConnectionInBackgroundAndNotifyForModes:(Array<> *)modes;
+	public function acceptConnectionInBackgroundAndNotify;
+
+	public function waitForDataInBackgroundAndNotifyForModes:(Array<> *)modes;
+	public function waitForDataInBackgroundAndNotify () :Void;
+
+#if __BLOCKS__
+	public var  (copy) void (^readabilityHandler)(NSFileHandle *)  NS_AVAILABLE(10_7, 5_0);
+	public var  (copy) void (^writeabilityHandler)(NSFileHandle *) NS_AVAILABLE(10_7, 5_0);
+#end
+
+
+	public function initWithFileDescriptor (fd:Int, closeOnDealloc:Bool) :NSFileHandle;
+	public function initWithFileDescriptor (fd:Int) :NSFileHandle;
+	public function fileDescriptor () :Int;
+
+}
+
+extern class NSPipe extends NSObject
+
+	public function fileHandleForReading () :NSFileHandle;
+	public function fileHandleForWriting () :NSFileHandle;
+
+	public function init () :NSPipe;
+	public static function pipe () :NSPipe;
+
 }
 

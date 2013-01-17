@@ -21,23 +21,14 @@
 			__r__ = [DateTools __format:d f:(NSMutableString*)@"%m/%d/%y"]}break;
 		case (NSMutableString*)@"e":{
 			__r__ = [Std string:[d getDate]]}break;
-		case (NSMutableString*)@"H":{
+		case (NSMutableString*)@"H":case (NSMutableString*)@"k":{
 			__r__ = [StringTools lpad:[Std string:[d getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
-		case (NSMutableString*)@"k":{
-			__r__ = [StringTools lpad:[Std string:[d getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
-		case (NSMutableString*)@"I":{
+		case (NSMutableString*)@"I":case (NSMutableString*)@"l":{
 			__r__ = ^(NSMutableString*)int hour = [d getHours] % 12
 			__r__2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
 			return __r__2{
 				
 				NSMutableString* __r__2}
-			}()}break;
-		case (NSMutableString*)@"l":{
-			__r__ = ^(NSMutableString*)int hour = [d getHours] % 12
-			__r__3 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
-			return __r__3{
-				
-				NSMutableString* __r__3}
 			}()}break;
 		case (NSMutableString*)@"m":{
 			__r__ = [StringTools lpad:[Std string:[d getMonth] + 1] c:(NSMutableString*)@"0" l:2]}break;
@@ -61,10 +52,10 @@
 			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M:%S"]}break;
 		case (NSMutableString*)@"u":{
 			__r__ = ^(NSMutableString*)int t = [d getDay]
-			__r__4 = ( (t == 0) ? (NSMutableString*)@"7" : [Std string:t])
-			return __r__4{
+			__r__3 = ( (t == 0) ? (NSMutableString*)@"7" : [Std string:t])
+			return __r__3{
 				
-				NSMutableString* __r__4}
+				NSMutableString* __r__3}
 			}()}break;
 		case (NSMutableString*)@"w":{
 			__r__ = [Std string:[d getDay]]}break;
@@ -74,9 +65,9 @@
 			__r__ = [Std string:[d getFullYear]]}break;
 		default:{
 			__r__ = ^(NSMutableString*)@throw [[(NSMutableString*)@"Date.format %" stringByAppendingString:e] stringByAppendingString:(NSMutableString*)@"- not implemented yet."];
-			return __r__5{
+			return __r__4{
 				
-				NSMutableString* __r__5}
+				NSMutableString* __r__4}
 			}()}break;
 	}
 	return __r__{
@@ -106,7 +97,7 @@
 }
 + (NSMutableArray*) DAYS_OF_MONTH:(NSMutableArray*)val {
 	static NSMutableArray *_val;
-	if (val == nil) { if (_val == nil) _val = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]]; }
+	if (val == nil) { if (_val == nil) _val = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:31], [NSNumber numberWithInt:28], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], [NSNumber numberWithInt:30], [NSNumber numberWithInt:31], nil]; }
 	else { if (_val != nil) _val = val; }
 	return _val;
 }

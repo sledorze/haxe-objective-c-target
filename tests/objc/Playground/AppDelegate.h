@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int length;
@@ -19,8 +19,13 @@
 
 @property (nonatomic) int d1;
 @property (nonatomic,copy) void(^block1)(void);
-- (void) methodInTests2;
+@property (nonatomic,copy) void(^block2)(int);
+@property (nonatomic,copy) void(^block3)(NSString*);
+
+- (void) callBlock;
 - (void) redefineThisMethod;
 - (id) init;
+-(void)ttt;
+-(void)ttt2:(NSString*)str;
 
 @end

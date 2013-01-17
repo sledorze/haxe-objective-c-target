@@ -14,7 +14,7 @@
 @synthesize length;
 - (void) add:(id)item{
 	
-	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, nil]];
+	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, nil];
 	if (self.h == nil) self.h = x;
 	else [self.q objectAtIndex:1] = x;
 	self.q = x;
@@ -22,7 +22,7 @@
 }
 - (void) push:(id)item{
 	
-	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, self.h, nil]];
+	NSMutableArray *x = [[NSMutableArray alloc] initWithObjects:item, self.h, nil];
 	self.h = x;
 	if (self.q == nil) self.q = x;
 	self.length++;

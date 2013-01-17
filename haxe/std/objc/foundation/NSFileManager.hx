@@ -10,7 +10,7 @@ typedef NSFileManagerItemReplacementOptions = Int;
 
 extern class NSFileManager extends NSObject {
 
-	inline public static var NSFoundationVersionWithFileManagerResourceForkSupport = 412;
+/*	inline public static var NSFoundationVersionWithFileManagerResourceForkSupport = 412;
 	
 	inline public static var NSVolumeEnumerationSkipHiddenVolumes = 1UL << 1;
 	inline public static var NSVolumeEnumerationProduceFileReferenceURLs = 1UL << 2;
@@ -20,7 +20,7 @@ extern class NSFileManager extends NSObject {
 	inline public static var NSDirectoryEnumerationSkipsHiddenFiles             = 1UL << 2;
 
 	inline public static var NSFileManagerItemReplacementUsingNewMetadataOnly = 1UL << 0;
-	inline public static var NSFileManagerItemReplacementWithoutDeletingBackupItem = 1UL << 1;
+	inline public static var NSFileManagerItemReplacementWithoutDeletingBackupItem = 1UL << 1;*/
 	
 	
 	public static function defaultManager () :NSFileManager;
@@ -169,7 +169,7 @@ FOUNDATION_EXPORT String * const NSFileSystemFreeSize;
 FOUNDATION_EXPORT String * const NSFileSystemNodes;
 FOUNDATION_EXPORT String * const NSFileSystemFreeNodes;*/
 
-extern class NSDictionary (NSFileAttributes)
+/*extern class NSDictionary (NSFileAttributes)
 
 - (unsigned long long)fileSize;
 - (NSDate *)fileModificationDate;
@@ -187,5 +187,5 @@ extern class NSDictionary (NSFileAttributes)
 - (NSDate *)fileCreationDate;
 - (NSNumber *)fileOwnerAccountID;
 - (NSNumber *)fileGroupOwnerAccountID;
-}
+}*/
 

@@ -376,17 +376,18 @@ let remapHaxeTypeToObjc ctx is_static path pos =
 (* Convert function names that can't be written in c++ ... *)
 let remapKeyword name =
 	match name with
-	| "int" | "self" | "id" | "bycopy" | "inout" | "oneway" | "byref" | "SEL" | "IMP" | "Protocol" 
-	| "YES" | "NO" | "const" | "long" | "char" | "signed" | "unsigned" | "volatile"
-	| "in" | "out" | "bycopy" | "super" | "auto" | "char" | "const" | "delete" | "double" | "float" 
-	| "enum" | "extern" | "float" | "friend" | "goto" | "long" | "operator" | "protected" | "register" 
-	| "short" | "signed" | "sizeof" | "template" | "typedef" | "union" | "unsigned" | "void" 
+	| "int" | "float" | "double" | "long" | "long" | "short" | "char"
+	| "self" | "id" | "init" | "bycopy" | "inout" | "oneway" | "byref" 
+	| "SEL" | "IMP" | "Protocol" | "BOOL" | "YES" | "NO" | "const"
+	| "in" | "out" | "bycopy" | "super" | "auto" | "char" | "const" | "delete"
+	| "enum" | "extern" | "friend" | "goto" | "operator" | "protected" | "register" 
+	| "sizeof" | "template" | "typedef" | "union" | "void" 
 	| "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
 	| "and_eq" | "xor_eq" | "typeof" | "stdin" | "stdout" | "stderr"
 	| "BIG_ENDIAN" | "LITTLE_ENDIAN" | "assert" | "NULL" | "nil" | "wchar_t" | "EOF"
-	| "BOOL" | "const_cast" | "dynamic_cast" | "explicit" | "export" | "mutable" | "namespace"
+	| "const_cast" | "dynamic_cast" | "explicit" | "export" | "mutable" | "namespace"
  	| "reinterpret_cast" | "static_cast" | "typeid" | "typename" | "virtual"
-	| "struct" -> "_" ^ name
+	| "signed" | "unsigned" | "struct" -> "_" ^ name
 	| "asm" -> "_asm_"
 	| x -> x
 
@@ -941,8 +942,8 @@ and generateExpression ctx e =
 		generateCall ctx func arg_list;
 		ctx.generating_calls <- ctx.generating_calls - 1;
 		
-		if not ctx.generating_c_call then ctx.writer#write "]";
-		ctx.generating_c_call <- false
+		if not ctx.generating_c_call then ctx.writer#write "]"
+		else ctx.generating_c_call <- false
 	| TObjectDecl (
 		("fileName" , { eexpr = (TConst (TString file)) }) ::
 		("lineNumber" , { eexpr = (TConst (TInt line)) }) ::
@@ -960,7 +961,7 @@ and generateExpression ctx e =
 		ctx.require_pointer <- true;
 		concat ctx ", " (generateValue ctx) el;
 		ctx.require_pointer <- false;
-		ctx.writer#write ", nil]]"
+		ctx.writer#write ", nil]"
 	| TThrow e ->
 		ctx.writer#write "@throw ";
 		generateValue ctx e;
@@ -1350,7 +1351,7 @@ let generateProperty ctx field pos is_static =
 			if ctx.is_category then begin
 				(* A category can't use the @synthesize, so we create a getter and setter for the property *)
 				(* http://ddeville.me/2011/03/add-variables-to-an-existing-class-in-objective-c/ *)
-				let retain = String.length t == String.length (addPointerIfNeeded t) in
+				(* let retain = String.length t == String.length (addPointerIfNeeded t) in *)
 				ctx.writer#write ("// Getters/setters for property "^id^"\n");
 				ctx.writer#write ("static "^t^(addPointerIfNeeded t)^" "^id^"__;\n");
 				ctx.writer#write ("- ("^t^(addPointerIfNeeded t)^") "^id^" { return "^id^"__; }\n");

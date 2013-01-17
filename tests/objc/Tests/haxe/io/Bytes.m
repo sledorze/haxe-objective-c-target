@@ -139,7 +139,7 @@
 	
 	StringBuf *s = [[StringBuf alloc] init];
 	
-	NSMutableArray *chars = [[NSMutableArray alloc] initWithObjects:, nil]];
+	NSMutableArray *chars = [[NSMutableArray alloc] initWithObjects:, nil];
 	
 	NSMutableString *str = (NSMutableString*)@"0123456789abcdef";
 	{

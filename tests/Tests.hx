@@ -527,6 +527,20 @@ class Tests implements Interface1, implements Interface2 {
 	}
 	
 	
+	// Test overload
+	@:overload(function(str:String):Void{})
+	@:overload(function(str:String, arr:Array<String>):Void{})
+	@:overload(function(arr:Array<Array<String>>):Void{})
+	public function foo() :Void {}
+
+	function testOverload(){
+		foo();
+		foo("bar");
+		foo("str", ["bar1", "bar2"]);
+		foo([["bar", "1"], ["bar", "2"]]);
+	}
+	
+	
 	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
 	
 	function testFrameworksImport(){

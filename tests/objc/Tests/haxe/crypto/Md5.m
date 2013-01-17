@@ -227,7 +227,7 @@
 		d = [self addme:d y:oldd];
 		i += 16;
 	}
-	return [[NSMutableArray alloc] initWithObjects:a, b, c, d, nil]];
+	return [[NSMutableArray alloc] initWithObjects:a, b, c, d, nil];
 }
 - (id) init{
 	self = [super init];

@@ -5,6 +5,32 @@
 //  Created by Baluta Cristian on 03/01/2013.
 //  Copyright (c) 2013 Baluta Cristian. All rights reserved.
 //
+typedef void (*FunctionType)();
+typedef void (*FunctionType2)(const char);
+typedef void (*FunctionType3)(int);
+
+@interface WebViewDelegate : NSObject <UIWebViewDelegate>
+
+@property (nonatomic) FunctionType loadFinished;
+@property (nonatomic) FunctionType2 callString;
+@property (nonatomic) FunctionType3 callInt;
+
+@end
+
+
+@implementation WebViewDelegate
+@synthesize loadFinished;
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	NSLog(@"load complete at url %@", webView.request.URL);
+	loadFinished();
+	//callString("Http://imagin.ro");
+	//callInt(0);
+}
+
+@end
+
+
 
 #import "AppDelegate.h"
 #import "Date.h"
@@ -24,7 +50,8 @@
 //	NSLog(@"%i", self.length);
 //	self.length += 5;
 //	NSLog(@"%i", self.length);
-	
+	int iii = 555;
+	int i = 666;
 	NSLog(@"%i", [Std random:100]);
 	NSLog(@"%i", [Std random:100]);
 //	NSLog(@"%@", [Std string:self]);
@@ -45,10 +72,91 @@
 	
 	// redefine a method
 	Tests2 *test2 = [[Tests2 alloc] init];
-	test2.block1 = ^(){ [self func]; };
-	[test2 methodInTests2];
+	//test2.block1 = ^(){ [self func]; };
+	test2.block2 = ^(int i){ NSLog(@"block2 called %i %i", i, iii); };
+	test2.block3 = ^(NSString*str){ NSLog(@"block3 called %@", str); };
+	[test2 callBlock];
 	
+	// Redefine a method approach 2
+	self_c = self;
+//	WebViewDelegate *w = [[WebViewDelegate alloc] init];
+//	w.loadFinished = &ttt;
+//	w.callString = &ttt2;
+//	[w webViewDidFinishLoad:nil];
+	
+	
+	
+	UIButton *loginB = [[UIButton alloc] initWithFrame:CGRectMake(0, 50, 100, 30)];
+	[loginB setTitle:@"Login" forState:UIControlStateNormal];// titleLabel.text = @"Login";//[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+	[loginB addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+	[self.window addSubview:loginB];
+	
+	UIButton *logoutB = [[UIButton alloc] initWithFrame:CGRectMake(100, 50, 100, 30)];
+	[logoutB setTitle:@"Logout" forState:UIControlStateNormal];// titleLabel.text = @"Login";//[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+	[logoutB addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+	[self.window addSubview:logoutB];
+	
+	self.window.backgroundColor = [UIColor grayColor];
     return YES;
+}
+
+id self_c;
+
+void ttt () {
+	NSLog(@"c method called");
+	[self_c ttt];
+}
+-(void)ttt{
+	NSLog(@"objc method called");
+}
+void ttt2 (const char str) {
+	NSLog(@"c method 2 called");
+	[self_c ttt2:[[NSString alloc] initWithUTF8String:&str]];
+}
+// Very important, this function must be defined in the interface otherwise the call from C function will not work
+-(void)ttt2:(NSString*)str{
+	NSLog(@"objc method 2 called : %@", str);
+}
+
+
+- (void)login{
+	UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 80, 320, 500)];
+	webView.delegate = self;
+	NSURL *url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/oauth/authorize?client_id=456093077787894&redirect_uri=http://www.facebook.com/connect/login_success.html&display=touch"];
+	NSURLRequest *req = [[NSURLRequest alloc] initWithURL:url];
+	[webView loadRequest:req];
+	[self.window addSubview:webView];
+}
+-(void)logout {
+	//NSURL *url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/oauth/authorize_cancel"];
+	NSURL *url = [[NSURL alloc] initWithString:@"https://m.ffffacebook.com/logout.php?confirm=1&next=&access_token=AQDL_hbmha9O60BC2yqKLNVOcVPmySS5b4JyacZXxcUDjev9UY-Ew3MBZkRae6R_qsgkeNvatliVH0VfRvuBs7N0hhc1nRYI0W0r5W-tveY5Dcr1YERmoE_SBawYJssJYTFQO2mNxJA2H-cInXMz1lTFpO2LMNE3ecY4CIMDJvbDdoSwxuNhuxkUmyLmTaWIS3u2VfNfeJJX5_rj7Kwo0zEi#_=_"];
+	NSURLRequest *req = [NSURLRequest requestWithURL:url];
+	
+	UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 80, 320, 500)];
+	webView.delegate = self;
+	[webView loadRequest:req];
+	[self.window addSubview:webView];
+	
+	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:req delegate:self startImmediately:YES];
+}
+
+-(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    //[receivingData appendData:data];
+    //the received data is added to receivingData
+}
+
+-(void) connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	NSLog(@"done logout");
+   // NSString *str = [[NSString alloc] initWithData:receivingData encoding:NSUTF8StringEncoding];
+    //We make the data a string
+    //receivedData = [NSMutableArray arrayWithArray:[str componentsSeparatedByString:@"\n"]];
+    //receivedData now has an array with every line of the request
+    //You could do something with the data here, store it, or send it to another function
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+	NSLog(@"load complete at url %@", webView.request.URL);
 }
 
 - (void) callThis:(SEL)sel {
@@ -59,7 +167,7 @@
 //	sel();
 //}
 - (void) func {
-	NSLog(@"func was called");
+	NSLog(@"block1 was called");
 }
 
 
@@ -81,9 +189,14 @@ static int length__;
 
 @synthesize d1;
 @synthesize block1;
-- (void) methodInTests2{
-	NSLog(@"methodInTests2 is calling block1 : %@", block1);
+@synthesize block2;
+@synthesize block3;
+
+- (void) callBlock{
+	NSLog(@"callBlock is calling block1 : %@", block1);
 	block1();
+	block2(0);
+	block3(@"dgdcgdfgcgcgdfg");
 }
 - (void) redefineThisMethod{
 }
@@ -91,8 +204,13 @@ static int length__;
 	self = [super init];
 	self.d1 = 34;
 	
+	self.block1 = ^(){ [self block1default]; };
+	
 	//NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil];
 	return self;
+}
+-(void)block1default{
+	NSLog(@"block1default was called");
 }
 
 @end

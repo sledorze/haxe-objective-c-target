@@ -32,7 +32,7 @@
 + (NSMutableArray*) fields:(id)o{
 	if (o == nil) return [[NSMutableArray alloc] init];
 	
-	NSMutableArray *a = [[NSMutableArray alloc] initWithObjects:, nil]];
+	NSMutableArray *a = [[NSMutableArray alloc] initWithObjects:, nil];
 	[o __GetFields-TDynamic-];
 	return a;
 }

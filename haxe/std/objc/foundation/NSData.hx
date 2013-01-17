@@ -28,7 +28,7 @@ extern enum NSDataSearchOptions {
 
 /****************	Immutable Data		****************/
 
-extern class NSData/* implements NSCopying, NSMutableCopying, NSCoding*/ {
+extern class NSData extends NSObject/* implements NSCopying, NSMutableCopying, NSCoding*/ {
 	public function length () :Int;
 	public function bytes () :Dynamic;
 
@@ -69,10 +69,11 @@ extern class NSData/* implements NSCopying, NSMutableCopying, NSCoding*/ {
 
 extern class NSMutableData extends NSData {
 	
-/*	- (void *)mutableBytes;
-	- (void)setLength:(NSUInteger)length;
+	public var mutableBytes :Dynamic;
+	public function setLength (length:Int) :Void;
+	public function appendBytes (bytes:Dynamic, length:Int) :Void;
+/*	
 	
-	- (void)appendBytes:(const void *)bytes length:(NSUInteger)length;
 	- (void)appendData:(NSData *)other;
 	- (void)increaseLengthBy:(NSUInteger)extraLength;
 	- (void)replaceBytesInRange:(NSRange)range withBytes:(const void *)bytes;
@@ -89,8 +90,8 @@ extern class NSMutableData extends NSData {
 
 
 /****************	    Purgeable Data	****************/
-
-/*extern class NSPurgeableData extends NSMutableData implements NSDiscardableContent {
+/*
+extern class NSPurgeableData extends NSMutableData implements NSDiscardableContent {
 
     NSUInteger _length;
     int32_t _accessCount;
