@@ -10,8 +10,12 @@
 
 @interface Log : NSObject
 
-@property (nonatomic,copy) (void) trace:(id)v infos:(id)infos;
-@property (nonatomic,copy) (void) clear;
+// Defining a dynamic method
++ (void) trace:(id)v infos:(id)infos;
+@property (nonatomic,copy) void(^block_trace)(id, id);
+// Defining a dynamic method
++ (void) clear;
+@property (nonatomic,copy) void(^block_clear)();
 
 @end
 

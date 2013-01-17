@@ -61,9 +61,9 @@
 	
 	NSMutableArray *l = [[NSMutableArray alloc] initWithObjects:self.head, nil];
 	return struct {
-	hasNext:^(BOOL){
+	hasNext:^(BOOL) {
 		return [l objectAtIndex:0] != nil;
-	}; next:^(id){
+	}; next:^(id) {
 		
 		FastCell *k = [l objectAtIndex:0];
 		[l objectAtIndex:0] = k.next;

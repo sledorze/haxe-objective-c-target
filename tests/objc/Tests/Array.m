@@ -22,9 +22,9 @@ static int length__;
 }
 - (id) iterator{
 	return struct {
-	a:self; p:0; hasNext:^(BOOL){
+	a:self; p:0; hasNext:^(BOOL) {
 		return self.p < self.a length;
-	}; next:^(id){
+	}; next:^(id) {
 		id i = [self.a objectAtIndex:self.p];
 		self.p += 1;
 		return i;

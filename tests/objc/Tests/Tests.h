@@ -94,19 +94,28 @@ typedef enum{
 - (void) optionalArguments3:(int)arg1 arg2:(int)arg2 arg3:(BOOL)arg3 arg4:(BOOL)arg4;
 - (void) init;
 - (void) printHello;
+- (void) functionToRedefine;
+- (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2;
 - (id) init;
 
 @end
 
 
 
+#import "Log.h"
+#import "String.h"
 #import "Array.h"
 
 @interface Tests2 : NSObject
 
 @property (nonatomic) int d1;
 - (void) methodInTests2;
-@property (nonatomic,copy) (void) block1;
+// Defining a dynamic method
+- (void) functionToRedefine;
+@property (nonatomic,copy) void(^block_functionToRedefine)();
+// Defining a dynamic method
+- (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2;
+@property (nonatomic,copy) void(^block_functionToRedefine2)(int, NSMutableString*);
 - (id) init;
 
 @end

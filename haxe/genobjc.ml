@@ -600,30 +600,50 @@ let generateFunctionHeader ctx name f params p =
 	ctx.in_value <- None;
 	ctx.local_types <- List.map snd params @ ctx.local_types;
 	let return_type = if ctx.generating_constructor then "id" else typeToString ctx f.tf_type p in
-	ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
-	(* Generate function name. Some of them will need a rename, check with the database *)
-	ctx.writer#write (Printf.sprintf "%s" (match name with None -> "" | Some (n,meta) ->
+	if ctx.generating_objc_block then
+		(* void(^block3)(NSString); *)
+		ctx.writer#write (Printf.sprintf "%s%s" return_type (addPointerIfNeeded return_type))
+	else
+		ctx.writer#write (Printf.sprintf "(%s%s)" return_type (addPointerIfNeeded return_type));(* Print the return type of the function *)
+
+	(* This part generates the name of the function, the first part of the objc message *)
+	let func_name = (match name with None -> "" | Some (n,meta) ->
 		let rec loop = function
 			| [] -> (* processFunctionName *) n
 			| _ :: l -> loop l
 		in
-		" " ^ loop meta
-	));
+		"" ^ loop meta
+	) in
+	if ctx.generating_objc_block then
+		ctx.writer#write (Printf.sprintf "(^block_%s)" func_name)
+	else
+		ctx.writer#write (Printf.sprintf " %s" func_name);
+	
 	Hashtbl.clear ctx.function_arguments;
 	(* Generate the arguments of the function. Ignore the message name of the first arg *)
-	let first_arg = ref true in
-	concat ctx " " (fun (v,c) ->
-		let type_name = typeToString ctx v.v_type p in
-		let arg_name = (remapKeyword v.v_name) in
-		let message_name = if !first_arg then "" else arg_name in
-		ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
-		first_arg := false;
-		if not ctx.generating_header then begin
-			match c with
-			| None -> ();(* Hashtbl.add ctx.function_arguments arg_name (defaultValue arg_name) *)
-			| Some c -> Hashtbl.add ctx.function_arguments arg_name c
-		end
-	) f.tf_args;
+	(* TODO: add (void) if no argument is present. Not mandatory *)
+	if ctx.generating_objc_block then begin
+		ctx.writer#write "(";
+		concat ctx ", " (fun (v,c) ->
+			let type_name = typeToString ctx v.v_type p in
+			ctx.writer#write (Printf.sprintf "%s%s" type_name (addPointerIfNeeded type_name));
+		) f.tf_args;
+		ctx.writer#write ")";
+	end else begin
+		let first_arg = ref true in
+		concat ctx " " (fun (v,c) ->
+			let type_name = typeToString ctx v.v_type p in
+			let arg_name = (remapKeyword v.v_name) in
+			let message_name = if !first_arg then "" else arg_name in
+			ctx.writer#write (Printf.sprintf "%s:(%s%s)%s" message_name type_name (addPointerIfNeeded type_name) arg_name);
+			first_arg := false;
+			if not ctx.generating_header then begin
+				match c with
+				| None -> ();(* Hashtbl.add ctx.function_arguments arg_name (defaultValue arg_name) *)
+				| Some c -> Hashtbl.add ctx.function_arguments arg_name c
+			end
+		) f.tf_args;
+	end;
 	(fun () ->
 		ctx.in_value <- old;
 		locals();
@@ -1519,13 +1539,29 @@ let generateField ctx is_static field =
 				ctx.writer#write ";";
 		end
 	| Some { eexpr = TFunction fd }, Method (MethDynamic) ->
+		ctx.writer#write "// Defining a dynamic method\n";
+		ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-"));
+		(* Generate function header *)
+		generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
+		(* Generate function content if is not a header file *)
+		if not ctx.generating_header then
+			generateExpression ctx fd.tf_expr
+		else
+			ctx.writer#write ";\n";
 		ctx.generating_objc_block <- true;
 		if ctx.generating_header then begin
 			ctx.writer#write (Printf.sprintf "@property (nonatomic,copy) ");
 			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos;
 			ctx.writer#write ";";
 		end else begin
-			ctx.writer#write (Printf.sprintf "@synthesize block1");
+			let func_name = (match (Some (field.cf_name, field.cf_meta)) with None -> "" | Some (n,meta) ->
+				let rec loop = function
+					| [] -> (* processFunctionName *) n
+					| _ :: l -> loop l
+				in
+				"" ^ loop field.cf_meta
+			) in
+			ctx.writer#write (Printf.sprintf "\n@synthesize block_%s;\n" func_name);
 			(* generateExpression ctx fd.tf_expr *)
 		end;
 		ctx.generating_objc_block <- false;

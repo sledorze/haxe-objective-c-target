@@ -9,7 +9,19 @@
 
 @implementation Log
 
-@synthesize block1
-@synthesize block1
+// Defining a dynamic method
++ (void) trace:(id)v infos:(id)infos{
+	// Simulated optional arguments
+	if (infos == nil) infos = nil;
+	
+	NSLog (@"%@:%@: %@", [infos objectForKey:@"fileName"], [infos objectForKey:@"lineNumber"], v);
+}
+@synthesize block_trace;
+
+// Defining a dynamic method
++ (void) clear{
+}
+@synthesize block_clear;
+
 
 @end

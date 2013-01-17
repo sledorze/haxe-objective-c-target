@@ -132,12 +132,62 @@
 	item = [as shift];
 	
 	NSMutableArray *sliceArray = (NSMutableArray*)[as slice:1 end:3];
-	[as sort:^(int):(NSMutableString*)a b:(NSMutableString*)b{
+	[as sort:^(int) :(NSMutableString*)a b:(NSMutableString*)b{
 		return 0;
 	}];
 	sliceArray = [as splice:2 len:2];
 	s = [as toString];
 	[as unshift:(NSMutableString*)@"44"];
+	
+	NSMutableArray *a_comprehention = (NSMutableArray*)((NSMutableArray)($this:(snd ctx.path)) 
+	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:, nil]
+	{
+		int _g1 = 0;
+		while (_g1 < 10) {
+			int x = _g1++;
+			[_g push:x];
+		}
+	}
+	__r__ = _g
+	return __r__{
+		
+		NSMutableArray* __r__}
+	}(self));
+	
+	NSMutableArray *b_comprehention = (NSMutableArray*)((NSMutableArray)($this:(snd ctx.path)) 
+	NSMutableArray *_g1 = [[NSMutableArray alloc] initWithObjects:, nil]
+	{
+		int _g2 = 0;
+		while (_g2 < a_comprehention.length) {
+			int x = [a_comprehention objectAtIndex:_g2];
+			++_g2;
+			if (x % 2 == 0) [_g1 push:x];
+		}
+	}
+	__r__2 = _g1
+	return __r__2{
+		
+		NSMutableArray* __r__2}
+	}(self));
+	
+	NSMutableArray *c_comprehention = (NSMutableArray*)((NSMutableArray)($this:(snd ctx.path)) 
+	NSMutableArray *_g2 = [[NSMutableArray alloc] initWithObjects:, nil]
+	{
+		int _g3 = 0;
+		while (_g3 < 4) {
+			int x = _g3++;
+			int _g5 = 0; int _g4 = x + 1;
+			while (_g5 < _g4) {
+				int i = _g5++;
+				[_g2 push:i];
+			}
+		}
+	}
+	__r__3 = _g2
+	return __r__3{
+		
+		NSMutableArray* __r__3}
+	}(self));
 }
 - (void) testDate{
 	
@@ -247,7 +297,7 @@
 	
 	EReg *ereg = [[EReg alloc] init:(NSMutableString*)@"ytrytrevev76" opt:(NSMutableString*)@"099"];
 	
-	NSMutableString *s = [ereg customReplace:(NSMutableString*)@"s" f:^(NSMutableString*):(EReg*)e{
+	NSMutableString *s = [ereg customReplace:(NSMutableString*)@"s" f:^(NSMutableString*) :(EReg*)e{
 		return (NSMutableString*)@"ss";
 	}];
 	BOOL b = [ereg match:(NSMutableString*)@"s"];
@@ -293,7 +343,7 @@
 	[l add:2];
 	[l push:18];
 	
-	List *l2 = [l filter:^(BOOL):(int)i{
+	List *l2 = [l filter:^(BOOL) :(int)i{
 		return i > 5;
 	}];
 	int item = [l first];
@@ -305,11 +355,11 @@
 	item = [l last];
 	item = [l pop];
 	BOOL r = [l remove:5];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"281",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"285",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[l clear];
-	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"283",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:l length infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"287",@"Tests",@"testList",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	
-	List *newList = [l map:^(NSMutableString*):(int)i{
+	List *newList = [l map:^(NSMutableString*) :(int)i{
 		return [Std string:i];
 	}];
 	
@@ -475,10 +525,10 @@
 	timer.run = self.testXml;
 	[timer stop];
 	timer = [Timer delay:self testTimer time_ms:50];
-	timer = [Timer delay:^(void){
+	timer = [Timer delay:^(void) {
 		[[_g objectAtIndex:0] testTimer];
 	} time_ms:50];
-	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"517",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"521",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testCrypto{
@@ -543,7 +593,13 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"589",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"593",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+}
+- (void) functionToRedefine{
+	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"603",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+}
+- (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
+	int i = param1;
 }
 - (id) init{
 	self = [super init];
@@ -552,7 +608,8 @@
 	self.d1 = 34;
 	
 	Tests2 *test2 = [[Tests2 alloc] init];
-	test2.block1 = self._init;
+	test2.functionToRedefine = self.functionToRedefine;
+	test2.functionToRedefine2 = self.functionToRedefine2;
 	return self;
 }
 
@@ -562,9 +619,20 @@
 
 @synthesize d1;
 - (void) methodInTests2{
-	[self block1];
+	[self functionToRedefine];
+	[self functionToRedefine2:0 param2:(NSMutableString*)@"00"];
 }
-@synthesize block1
+// Defining a dynamic method
+- (void) functionToRedefine{
+	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"626",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+}
+@synthesize block_functionToRedefine;
+
+// Defining a dynamic method
+- (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
+}
+@synthesize block_functionToRedefine2;
+
 - (id) init{
 	self = [super init];
 	self.d1 = 34;

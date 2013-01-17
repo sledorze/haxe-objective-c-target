@@ -18,9 +18,10 @@
 @interface Tests2 : NSObject
 
 @property (nonatomic) int d1;
-@property (nonatomic,copy) void(^block1)(void);
+@property (nonatomic,copy) void(^block1)();
 @property (nonatomic,copy) void(^block2)(int);
 @property (nonatomic,copy) void(^block3)(NSString*);
+@property (nonatomic,copy) NSString*(^block4)(NSString*);
 
 - (void) callBlock;
 - (void) redefineThisMethod;

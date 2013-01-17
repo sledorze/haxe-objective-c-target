@@ -22,7 +22,9 @@
 @property (nonatomic, strong) NSTimer *nstimer;
 @property (nonatomic) int _id;
 - (void) stop;
-@property (nonatomic,copy) (void) run;
+// Defining a dynamic method
+- (void) run;
+@property (nonatomic,copy) void(^block_run)();
 - (id) init:(int)time_ms;
 
 @end

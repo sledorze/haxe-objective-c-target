@@ -75,6 +75,7 @@ typedef void (*FunctionType3)(int);
 	//test2.block1 = ^(){ [self func]; };
 	test2.block2 = ^(int i){ NSLog(@"block2 called %i %i", i, iii); };
 	test2.block3 = ^(NSString*str){ NSLog(@"block3 called %@", str); };
+	test2.block4 = ^(NSString*str){ NSLog(@"block4 called %@", str); return @"block 4 called inline"; };
 	[test2 callBlock];
 	
 	// Redefine a method approach 2
@@ -191,12 +192,14 @@ static int length__;
 @synthesize block1;
 @synthesize block2;
 @synthesize block3;
+@synthesize block4;
 
 - (void) callBlock{
 	NSLog(@"callBlock is calling block1 : %@", block1);
 	block1();
 	block2(0);
 	block3(@"dgdcgdfgcgcgdfg");
+	block4(@"block 4 called");
 }
 - (void) redefineThisMethod{
 }
@@ -204,12 +207,12 @@ static int length__;
 	self = [super init];
 	self.d1 = 34;
 	
-	self.block1 = ^(){ [self block1default]; };
+	self.block1 = ^(){ [self _block1]; };
 	
 	//NSMutableArray *arr = [[NSMutableArray alloc] initWithObjects:self.d1, self.d1, [NSNumber numberWithInt:50], nil];
 	return self;
 }
--(void)block1default{
+-(void)_block1{
 	NSLog(@"block1default was called");
 }
 

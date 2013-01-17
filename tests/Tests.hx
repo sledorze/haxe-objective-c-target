@@ -138,6 +138,10 @@ class Tests implements Interface1, implements Interface2 {
 		sliceArray = as.splice (2, 2);
 		s = as.toString();
 		as.unshift ("44");
+		// array comprehention
+		var a_comprehention = [for( x in 0...10 ) x];
+		var b_comprehention = [for( x in a_comprehention ) if( x % 2 == 0 ) x];
+		var c_comprehention = [for( x in 0...4 ) for( i in 0...x+1 ) i];
 	}
 	
 	
@@ -592,7 +596,14 @@ class Tests implements Interface1, implements Interface2 {
 	public function new () {
 		// The constructor automaticall call the method init and init variables
 		var test2 = new Tests2();
-		test2.block1 = init;
+		test2.functionToRedefine = functionToRedefine;
+		test2.functionToRedefine2 = functionToRedefine2;
+	}
+	function functionToRedefine () {
+		trace("do something else");
+	}
+	function functionToRedefine2(param1:Int, param2:String):Void {
+		var i = param1;
 	}
 	
 	// The main entry point is converted to a main.m file
@@ -608,9 +619,13 @@ class Tests2 {
 		var arr = [d1, d1, 50];
 	}
 	function methodInTests2(){
-		block1();
+		functionToRedefine();
+		functionToRedefine2(0, "00");
 	}
-	dynamic public function block1():Void{}
+	dynamic public function functionToRedefine():Void {
+		trace("originally do something");
+	}
+	dynamic public function functionToRedefine2(param1:Int, param2:String):Void{}
 }
 enum Color2 {
 	Red2;

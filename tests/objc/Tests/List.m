@@ -69,9 +69,9 @@
 }
 - (id) iterator{
 	return (id)struct {
-	h:self.h; hasNext:^(id){
+	h:self.h; hasNext:^(id) {
 		return self.h != nil;
-	}; next:^(id){
+	}; next:^(id) {
 		if (self.h == nil) return nil;
 		id x = [self.h objectAtIndex:0];
 		self.h = [self.h objectAtIndex:1];
