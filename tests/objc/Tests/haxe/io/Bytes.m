@@ -8,9 +8,7 @@
 #import "Bytes.h"
 
 @implementation Bytes
-id me;
 
-Bytes*(^block_alloc)(int length) = ^(int length) { return [me alloc:length]; };
 + (Bytes*) alloc:(int)length{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -23,7 +21,6 @@ Bytes*(^block_alloc)(int length) = ^(int length) { return [me alloc:length]; };
 	}
 	return [[Bytes alloc] init:length b:a];
 }
-Bytes*(^block_ofString)(NSMutableString *s) = ^(NSMutableString *s) { return [me ofString:s]; };
 + (Bytes*) ofString:(NSMutableString*)s{
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -52,27 +49,22 @@ Bytes*(^block_ofString)(NSMutableString *s) = ^(NSMutableString *s) { return [me
 	}
 	return [[Bytes alloc] init:a length b:a];
 }
-Bytes*(^block_ofData)(NSMutableArray *b) = ^(NSMutableArray *b) { return [me ofData:b]; };
 + (Bytes*) ofData:(NSMutableArray*)b{
 	return [[Bytes alloc] init:b length b:b];
 }
-int(^block_fastGet)(NSMutableArray *b, int pos) = ^(NSMutableArray *b, int pos) { return [me fastGet:b pos:pos]; };
 + (int) fastGet:(NSMutableArray*)b pos:(int)pos{
 	return [b objectAtIndex:pos];
 }
 @synthesize length;
 @synthesize b;
-int(^block_get)(int pos) = ^(int pos) { return [me get:pos]; };
 - (int) get:(int)pos{
 	return [self.b objectAtIndex:pos];
 }
-void(^block_set)(int pos, int v) = ^(int pos, int v) { [me set:pos v:v]; };
 - (void) set:(int)pos v:(int)v{
 	[self.b objectAtIndex:pos] = (v & 255);
 }
-void(^block_blit)(int pos, Bytes *src, int srcpos, int len) = ^(int pos, Bytes *src, int srcpos, int len) { [me blit:pos src:src srcpos:srcpos len:len]; };
 - (void) blit:(int)pos src:(Bytes*)src srcpos:(int)srcpos len:(int)len{
-	if (pos < 0 || srcpos < 0 || len < 0 || pos + len > block_length || srcpos + len > block_length) @throw Error OutsideBounds;;
+	if (pos < 0 || srcpos < 0 || len < 0 || pos + len > self.length || srcpos + len > src.length) @throw Error OutsideBounds;;
 	
 	NSMutableArray *b1 = (NSMutableArray*)self.b;
 	
@@ -93,18 +85,16 @@ void(^block_blit)(int pos, Bytes *src, int srcpos, int len) = ^(int pos, Bytes *
 		}
 	}
 }
-Bytes*(^block_sub)(int pos, int len) = ^(int pos, int len) { return [me sub:pos len:len]; };
 - (Bytes*) sub:(int)pos len:(int)len{
-	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
+	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error OutsideBounds;;
 	return [[Bytes alloc] init:len b:[self b slice:pos end:pos + len]];
 }
-int(^block_compare)(Bytes *other) = ^(Bytes *other) { return [me compare:other]; };
 - (int) compare:(Bytes*)other{
 	
 	NSMutableArray *b1 = (NSMutableArray*)self.b;
 	
 	NSMutableArray *b2 = (NSMutableArray*)other.b;
-	int len = ( (self.length < block_length) ? self.length : other.length);
+	int len = ( (self.length < other.length) ? self.length : other.length);
 	{
 		int _g = 0;
 		while (_g < (int)len) {
@@ -112,11 +102,10 @@ int(^block_compare)(Bytes *other) = ^(Bytes *other) { return [me compare:other];
 			if ([b1 objectAtIndex:i] != [b2 objectAtIndex:i]) return [b1 objectAtIndex:i] - [b2 objectAtIndex:i];
 		}
 	}
-	return self.length - block_length;
+	return self.length - other.length;
 }
-NSMutableString*(^block_readString)(int pos, int len) = ^(int pos, int len) { return [me readString:pos len:len]; };
 - (NSMutableString*) readString:(int)pos len:(int)len{
-	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
+	if (pos < 0 || len < 0 || pos + len > self.length) @throw Error OutsideBounds;;
 	
 	NSMutableString *s = (NSMutableString*)@"";
 	
@@ -143,11 +132,9 @@ NSMutableString*(^block_readString)(int pos, int len) = ^(int pos, int len) { re
 	}
 	return s;
 }
-NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return [self readString:0 len:self length];
 }
-NSMutableString*(^block_toHex)() = ^() { return [me toHex]; };
 - (NSMutableString*) toHex{
 	
 	StringBuf *s = [[StringBuf alloc] init];
@@ -167,20 +154,17 @@ NSMutableString*(^block_toHex)() = ^() { return [me toHex]; };
 		while (_g1 < _g) {
 			int i = _g1++;
 			int c = [self.b objectAtIndex:i];
-			s.b += [block_fromCharCode:[chars objectAtIndex:c >> 4]];
-			s.b += [block_fromCharCode:[chars objectAtIndex:c & 15]];
+			s.b += [NSMutableString fromCharCode:[chars objectAtIndex:c >> 4]];
+			s.b += [NSMutableString fromCharCode:[chars objectAtIndex:c & 15]];
 		}
 	}
 	return s.b;
 }
-NSMutableArray*(^block_getData)() = ^() { return [me getData]; };
 - (NSMutableArray*) getData{
 	return self.b;
 }
-id(^block_init)(int length, NSMutableArray *b) = ^(int length, NSMutableArray *b) { return [me init:length b:b]; };
 - (id) init:(int)length b:(NSMutableArray*)b{
 	self = [super init];
-	me = self;
 	self.length = length;
 	self.b = b;
 	return self;

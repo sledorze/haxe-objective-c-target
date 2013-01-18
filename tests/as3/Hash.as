@@ -29,7 +29,7 @@ package  {
 				$r = new Array();
 				for(var $k2 : String in $this.h) $r.push($k2);
 				return $r;
-			}(this)).iterator(), hasNext : function() : * {
+			}(this)).iterator(), hasNext : function() : Boolean {
 				return this.it.hasNext();
 			}, next : function() : * {
 				var i : * = this.it.next();

@@ -127,6 +127,6 @@ package  {
 		
 		public var length : int;
 		protected var q : Array;
-		protected var h : Array;
+		public var h : Array;
 	}
 }

@@ -13,6 +13,7 @@
 #import "BytesBuffer.h"
 #import "String.h"
 #import "StringBuf.h"
+#import "Math.h"
 #import "Int32.h"
 #import "CppInt32__.h"
 

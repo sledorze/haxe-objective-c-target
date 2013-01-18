@@ -24,7 +24,7 @@ package  {
 		}
 		
 		public function iterator() : * {
-			return { ref : this.h, it : this.keys(), hasNext : function() : * {
+			return { ref : this.h, it : this.keys(), hasNext : function() : Boolean {
 				return this.it.hasNext();
 			}, next : function() : * {
 				var i : int = this.it.next();

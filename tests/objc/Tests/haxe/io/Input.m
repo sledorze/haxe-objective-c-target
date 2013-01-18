@@ -8,10 +8,8 @@
 #import "Input.h"
 
 @implementation Input
-id me;
 
 
-int(^block_readByte)() = ^() { return [me readByte]; };
 - (int) readByte{
 	return ((int)($this:(snd ctx.path)) @throw (NSMutableString*)@"Not implemented";
 	return __r__{
@@ -19,28 +17,24 @@ int(^block_readByte)() = ^() { return [me readByte]; };
 		int* __r__}
 	}(self));
 }
-int(^block_readBytes)(Bytes *s, int pos, int len) = ^(Bytes *s, int pos, int len) { return [me readBytes:s pos:pos len:len]; };
 - (int) readBytes:(Bytes*)s pos:(int)pos len:(int)len{
 	int k = len;
 	
 	NSMutableArray *b = (NSMutableArray*)s.b;
-	if (pos < 0 || len < 0 || pos + len > block_length) @throw Error OutsideBounds;;
+	if (pos < 0 || len < 0 || pos + len > s.length) @throw Error OutsideBounds;;
 	while (k > 0) {
-		[b objectAtIndex:pos] = (int)[block_readByte];
+		[b objectAtIndex:pos] = (int)[self readByte];
 		pos++;
 		k--;
 	}
 	return len;
 }
-void(^block_close)() = ^() { [me close]; };
 - (void) close{
 }
-BOOL(^block_set_bigEndian)(BOOL b) = ^(BOOL b) { return [me set_bigEndian:b]; };
 - (BOOL) set_bigEndian:(BOOL)b{
 	self.bigEndian = b;
 	return b;
 }
-Bytes*(^block_readAll)(int bufsize) = ^(int bufsize) { return [me readAll:bufsize]; };
 - (Bytes*) readAll:(int)bufsize{
 	// Simulated optional arguments
 	if (bufsize == nil) bufsize = nil;
@@ -54,14 +48,13 @@ Bytes*(^block_readAll)(int bufsize) = ^(int bufsize) { return [me readAll:bufsiz
 		while (YES) {
 			int len = [self readBytes:buf pos:0 len:bufsize];
 			if (len == 0) @throw Error Blocked;;
-			if (len < 0 || len > block_length) @throw Error OutsideBounds;;
+			if (len < 0 || len > buf.length) @throw Error OutsideBounds;;
 		}
 	}
 	@catch (NSException *e) {
 	}
 	return [total getBytes];
 }
-void(^block_readFullBytes)(Bytes *s, int pos, int len) = ^(Bytes *s, int pos, int len) { [me readFullBytes:s pos:pos len:len]; };
 - (void) readFullBytes:(Bytes*)s pos:(int)pos len:(int)len{
 	while (len > 0) {
 		int k = [self readBytes:s pos:pos len:len];
@@ -69,7 +62,6 @@ void(^block_readFullBytes)(Bytes *s, int pos, int len) = ^(Bytes *s, int pos, in
 		len -= k;
 	}
 }
-Bytes*(^block_read)(int nbytes) = ^(int nbytes) { return [me read:nbytes]; };
 - (Bytes*) read:(int)nbytes{
 	
 	Bytes *s = [Bytes alloc:nbytes];
@@ -82,15 +74,13 @@ Bytes*(^block_read)(int nbytes) = ^(int nbytes) { return [me read:nbytes]; };
 	}
 	return s;
 }
-NSMutableString*(^block_readUntil)(int end) = ^(int end) { return [me readUntil:end]; };
 - (NSMutableString*) readUntil:(int)end{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
 	int last;
-	while ( (last = [block_readByte]) != end) buf.b += [block_fromCharCode:last];
+	while ( (last = [self readByte]) != end) buf.b += [NSMutableString fromCharCode:last];
 	return buf.b;
 }
-NSMutableString*(^block_readLine)() = ^() { return [me readLine]; };
 - (NSMutableString*) readLine{
 	
 	StringBuf *buf = [[StringBuf alloc] init];
@@ -98,17 +88,16 @@ NSMutableString*(^block_readLine)() = ^() { return [me readLine]; };
 	
 	NSMutableString *s;
 	@try {
-		while ( (last = [block_readByte]) != 10) buf.b += [block_fromCharCode:last];
-		s = block_b;
-		if ([s characterAtIndex:s.length - 1] == 13) s = [block_substr:0 len:-1];
+		while ( (last = [self readByte]) != 10) buf.b += [NSMutableString fromCharCode:last];
+		s = buf.b;
+		if ([s characterAtIndex:s.length - 1] == 13) s = [s substr:0 len:-1];
 	}
 	@catch (NSException *e) {
-		s = block_b;
+		s = buf.b;
 		if (s.length == 0) @throw e;;
 	}
 	return s;
 }
-float(^block_readFloat)() = ^() { return [me readFloat]; };
 - (float) readFloat{
 	
 	NSMutableArray *bytes = [[NSMutableArray alloc] initWithObjects:, nil];
@@ -121,9 +110,8 @@ float(^block_readFloat)() = ^() { return [me readFloat]; };
 	int exp =  (([bytes objectAtIndex:0] << 1 & 255) | [bytes objectAtIndex:1] >> 7) - 127;
 	int sig = ( ([bytes objectAtIndex:1] & 127) << 16 | [bytes objectAtIndex:2] << 8) | [bytes objectAtIndex:3];
 	if (sig == 0 && exp == -127) return 0.0;
-	return sign *  (1 + block_pow(2, -23) * sig) * block_pow(2, exp);
+	return sign *  (1 + powf(2, -23) * sig) * powf(2, exp);
 }
-float(^block_readDouble)() = ^() { return [me readDouble]; };
 - (float) readDouble{
 	return ((float)($this:(snd ctx.path)) @throw (NSMutableString*)@"not implemented";
 	return __r__{
@@ -131,13 +119,11 @@ float(^block_readDouble)() = ^() { return [me readDouble]; };
 		float* __r__}
 	}(self));
 }
-int(^block_readInt8)() = ^() { return [me readInt8]; };
 - (int) readInt8{
 	int n = [self readByte];
 	if (n >= 128) return n - 256;
 	return n;
 }
-int(^block_readInt16)() = ^() { return [me readInt16]; };
 - (int) readInt16{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
@@ -145,13 +131,11 @@ int(^block_readInt16)() = ^() { return [me readInt16]; };
 	if ( (n & 32768) != 0) return n - 65536;
 	return n;
 }
-int(^block_readUInt16)() = ^() { return [me readUInt16]; };
 - (int) readUInt16{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
 	return ( (self.bigEndian) ? ch2 | ch1 << 8 : ch1 | ch2 << 8);
 }
-int(^block_readInt24)() = ^() { return [me readInt24]; };
 - (int) readInt24{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
@@ -160,32 +144,29 @@ int(^block_readInt24)() = ^() { return [me readInt24]; };
 	if ( (n & 8388608) != 0) return n - 16777216;
 	return n;
 }
-int(^block_readUInt24)() = ^() { return [me readUInt24]; };
 - (int) readUInt24{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
 	int ch3 = [self readByte];
 	return ( (self.bigEndian) ? (ch3 | ch2 << 8) | ch1 << 16 : (ch1 | ch2 << 8) | ch3 << 16);
 }
-int(^block_readInt31)() = ^() { return [me readInt31]; };
 - (int) readInt31{
 	int ch1; int ch2; int ch3; int ch4;
 	if (self.bigEndian) {
-		ch4 = [block_readByte];
-		ch3 = [block_readByte];
-		ch2 = [block_readByte];
-		ch1 = [block_readByte];
+		ch4 = [self readByte];
+		ch3 = [self readByte];
+		ch2 = [self readByte];
+		ch1 = [self readByte];
 	}
 	else {
-		ch1 = [block_readByte];
-		ch2 = [block_readByte];
-		ch3 = [block_readByte];
-		ch4 = [block_readByte];
+		ch1 = [self readByte];
+		ch2 = [self readByte];
+		ch3 = [self readByte];
+		ch4 = [self readByte];
 	}
 	if ( (ch4 & 128) == 0 !=  ( (ch4 & 64) == 0)) @throw Error Overflow;;
 	return ((ch1 | ch2 << 8) | ch3 << 16) | ch4 << 24;
 }
-int(^block_readUInt30)() = ^() { return [me readUInt30]; };
 - (int) readUInt30{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
@@ -194,7 +175,6 @@ int(^block_readUInt30)() = ^() { return [me readUInt30]; };
 	if ( (( (self.bigEndian) ? ch1 : ch4)) >= 64) @throw Error Overflow;;
 	return ( (self.bigEndian) ? ((ch4 | ch3 << 8) | ch2 << 16) | ch1 << 24 : ((ch1 | ch2 << 8) | ch3 << 16) | ch4 << 24);
 }
-CppInt32__*(^block_readInt32)() = ^() { return [me readInt32]; };
 - (CppInt32__*) readInt32{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
@@ -202,7 +182,6 @@ CppInt32__*(^block_readInt32)() = ^() { return [me readInt32]; };
 	int ch4 = [self readByte];
 	return ( (self.bigEndian) ? [CppInt32__ make:ch1 << 8 | ch2 b:ch3 << 8 | ch4] : [CppInt32__ make:ch4 << 8 | ch3 b:ch2 << 8 | ch1]);
 }
-NSMutableString*(^block_readString)(int len) = ^(int len) { return [me readString:len]; };
 - (NSMutableString*) readString:(int)len{
 	
 	Bytes *b = [Bytes alloc:len];

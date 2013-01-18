@@ -8,29 +8,22 @@
 #import "Std.h"
 
 @implementation Std
-id me;
 
-BOOL(^block_is)(id v, id t) = ^(id v, id t) { return [me is:v t:t]; };
 + (BOOL) is:(id)v t:(id)t{
 	return NO;
 }
-NSMutableString*(^block_string)(id s) = ^(id s) { return [me string:s]; };
 + (NSMutableString*) string:(id)s{
 	return [s description];
 }
-int(^block_int)(float x) = ^(float x) { return [me int:x]; };
 + (int) int:(float)x{
 	return (int)x;
 }
-int(^block_parseInt)(NSMutableString *x) = ^(NSMutableString *x) { return [me parseInt:x]; };
 + (int) parseInt:(NSMutableString*)x{
 	return [x intValue];
 }
-float(^block_parseFloat)(NSMutableString *x) = ^(NSMutableString *x) { return [me parseFloat:x]; };
 + (float) parseFloat:(NSMutableString*)x{
 	return [x floatValue];
 }
-int(^block_random)(int x) = ^(int x) { return [me random:x]; };
 + (int) random:(int)x{
 	if (x <= 0) return 0;
 	return rand() % x;

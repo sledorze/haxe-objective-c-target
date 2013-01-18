@@ -1,13 +1,27 @@
 package  {
+	import haxe.crypto.Md5;
 	import haxe.FastList_Int;
-	import haxe.Timer;
 	import haxe.Log;
+	import haxe.Timer;
+	import flash.Boot;
+	import haxe.crypto.Sha1;
 	public class Tests implements Interface2, Interface1{
-		public function Tests() : void {
+		public function Tests() : void { if( !flash.Boot.skip_constructor ) {
+			var test2 : Tests2 = new Tests2();
+			test2.functionToRedefine = this.functionToRedefine;
+			test2.functionToRedefine2 = this.functionToRedefine2;
+		}}
+		
+		protected function functionToRedefine2(param1 : int,param2 : String) : void {
+			var i : int = param1;
+		}
+		
+		protected function functionToRedefine() : void {
+			haxe.Log._trace("do something else",{ fileName : "Tests.hx", lineNumber : 603, className : "Tests", methodName : "functionToRedefine"});
 		}
 		
 		public function printHello() : void {
-			haxe.Log._trace("Hello from Haxe Objective-C",{ fileName : "Tests.hx", lineNumber : 594, className : "Tests", methodName : "printHello"});
+			haxe.Log._trace("Hello from Haxe Objective-C",{ fileName : "Tests.hx", lineNumber : 593, className : "Tests", methodName : "printHello"});
 		}
 		
 		public function init() : void {
@@ -15,7 +29,8 @@ package  {
 			this.s = "init";
 		}
 		
-		public function optionalArguments3(arg1 : int,arg2 : int = 6,arg3 : * = null,arg4 : int) : void {
+		public function optionalArguments3(arg1 : int,arg2 : int = 6,arg3 : * = true,arg4 : * = null) : void {
+			if(arg3==null) arg3=true;
 		}
 		
 		public function optionalArguments2(arg1 : int,arg2 : * = null,arg3 : * = null,arg4 : int) : void {
@@ -28,6 +43,10 @@ package  {
 		}
 		
 		public function callLotsOfArguments(arg1 : int,arg2 : int,arg3 : int,arg4 : int) : void {
+			this.optionalArguments(0,1,2);
+			this.optionalArguments1(0,1,2);
+			this.optionalArguments2(0,null,null,3);
+			this.optionalArguments3(0,1);
 		}
 		
 		public function minus(a : int,b : int) : int {
@@ -49,6 +68,21 @@ package  {
 		protected function testFrameworksImport() : void {
 		}
 		
+		protected function testOverload() : void {
+			this.foo();
+			this.foo("bar");
+			this.foo("str",["bar1","bar2"]);
+			this.foo([["bar","1"],["bar","2"]]);
+		}
+		
+		public function foo() : void {
+		}
+		
+		protected function testCrypto() : void {
+			var str1 : String = haxe.crypto.Md5.encode("Hello world");
+			var str2 : String = haxe.crypto.Sha1.encode("Hello world");
+		}
+		
 		protected function testTimer() : void {
 			var _g : Tests = this;
 			var timer : haxe.Timer = new haxe.Timer(50);
@@ -58,7 +92,7 @@ package  {
 			timer = haxe.Timer.delay(function() : void {
 				_g.testTimer();
 			},50);
-			haxe.Timer.measure(this.testTimer,{ fileName : "Tests.hx", lineNumber : 548, className : "Tests", methodName : "testTimer"});
+			haxe.Timer.measure(this.testTimer,{ fileName : "Tests.hx", lineNumber : 521, className : "Tests", methodName : "testTimer"});
 			var f : Number = haxe.Timer.stamp();
 		}
 		
@@ -187,9 +221,9 @@ package  {
 			item = l.last();
 			item = l.pop();
 			var r : Boolean = l.remove(5);
-			haxe.Log._trace(l.length,{ fileName : "Tests.hx", lineNumber : 314, className : "Tests", methodName : "testList"});
+			haxe.Log._trace(l.length,{ fileName : "Tests.hx", lineNumber : 285, className : "Tests", methodName : "testList"});
 			l.clear();
-			haxe.Log._trace(l.length,{ fileName : "Tests.hx", lineNumber : 316, className : "Tests", methodName : "testList"});
+			haxe.Log._trace(l.length,{ fileName : "Tests.hx", lineNumber : 287, className : "Tests", methodName : "testList"});
 			var newList : List = l.map(function(i1 : int) : String {
 				return Std.string(i1);
 			});
@@ -292,16 +326,16 @@ package  {
 					$r = 255;
 					break;
 					case 3:
-					var v : int = $e2.params[0];
-					$r = ((v << 16 | v << 8) | v);
+					var c_eGrey_0 : int = $e2.params[0];
+					$r = ((c_eGrey_0 << 16 | c_eGrey_0 << 8) | c_eGrey_0);
 					break;
 					case 4:
-					var b : int = $e2.params[2], g : int = $e2.params[1], r : int = $e2.params[0];
-					$r = ((r << 16 | g << 8) | b);
+					var c_eRgb_2 : int = $e2.params[2], c_eRgb_1 : int = $e2.params[1], c_eRgb_0 : int = $e2.params[0];
+					$r = ((c_eRgb_0 << 16 | c_eRgb_1 << 8) | c_eRgb_2);
 					break;
 					case 5:
-					var c1 : Color = $e2.params[1], a : int = $e2.params[0];
-					$r = (a << 24 | ($this.enumToInt(c1) & 16777215));
+					var c_eAlpha_1 : Color = $e2.params[1], c_eAlpha_0 : int = $e2.params[0];
+					$r = (c_eAlpha_0 << 24 | ($this.enumToInt(c_eAlpha_1) & 16777215));
 					break;
 					}
 				}
@@ -311,8 +345,28 @@ package  {
 		
 		protected function testDate() : void {
 			var d : Date = new Date(2012,11,13,19,30,0);
-			var d2 : Date = Date["now"]();
+			var _int : int = d.getDate();
+			_int = d.getDay();
+			_int = d.getFullYear();
+			_int = d.getHours();
+			_int = d.getMinutes();
+			_int = d.getMonth();
+			_int = d.getSeconds();
+			var float : Number = d.getTime();
+			var str : String = d["toStringHX"]();
+			var d2 : Date = Date["fromString"]("2012-12-12 06:40:00");
+			d2 = Date["fromTime"](120000);
+			d2 = Date["now"]();
 			var x : int = DateTools.getMonthDays(d2);
+			float = DateTools.days(5);
+			var d3 : Date = DateTools.delta(d,1000.0);
+			str = DateTools.format(d,"HH:mm");
+			_int = DateTools.getMonthDays(d);
+			float = DateTools.hours(1000);
+			float = DateTools.make({ seconds : 0, ms : 110, minutes : 6, hours : 8, days : 5});
+			float = DateTools.minutes(56);
+			var obj : * = DateTools.parse(45546);
+			float = DateTools.seconds(1000);
 		}
 		
 		protected function testArray() : void {
@@ -337,10 +391,55 @@ package  {
 			sliceArray = _as.splice(2,2);
 			s = _as.toString();
 			_as.unshift("44");
+			var a_comprehention : Array = (function($this:Tests) : Array {
+				var $r : Array;
+				var _g : Array = [];
+				{
+					var _g1 : int = 0;
+					while(_g1 < 10) {
+						var x : int = _g1++;
+						_g.push(x);
+					}
+				}
+				$r = _g;
+				return $r;
+			}(this));
+			var b_comprehention : Array = (function($this:Tests) : Array {
+				var $r2 : Array;
+				var _g11 : Array = [];
+				{
+					var _g2 : int = 0;
+					while(_g2 < a_comprehention.length) {
+						var x1 : int = a_comprehention[_g2];
+						++_g2;
+						if(x1 % 2 == 0) _g11.push(x1);
+					}
+				}
+				$r2 = _g11;
+				return $r2;
+			}(this));
+			var c_comprehention : Array = (function($this:Tests) : Array {
+				var $r3 : Array;
+				var _g21 : Array = [];
+				{
+					var _g3 : int = 0;
+					while(_g3 < 4) {
+						var x2 : int = _g3++;
+						var _g5 : int = 0, _g4 : int = x2 + 1;
+						while(_g5 < _g4) {
+							var i : int = _g5++;
+							_g21.push(i);
+						}
+					}
+				}
+				$r3 = _g21;
+				return $r3;
+			}(this));
 		}
 		
 		protected function testSwitch() : void {
-			switch(true) {
+			var _g : Boolean = true;
+			switch(_g) {
 			case true:
 			{
 				var x : int = 0;
@@ -359,14 +458,14 @@ package  {
 				var a : int = 3;
 			}
 			catch( e : * ){
-				haxe.Log._trace("error",{ fileName : "Tests.hx", lineNumber : 110, className : "Tests", methodName : "testTry"});
+				haxe.Log._trace("error",{ fileName : "Tests.hx", lineNumber : 101, className : "Tests", methodName : "testTry"});
 			}
 		}
 		
 		protected function testWhile() : void {
 			var aa : int = 5;
 			do {
-				haxe.Log._trace("do something",{ fileName : "Tests.hx", lineNumber : 93, className : "Tests", methodName : "testWhile"});
+				haxe.Log._trace("do something",{ fileName : "Tests.hx", lineNumber : 84, className : "Tests", methodName : "testWhile"});
 				aa++;
 			} while(aa < 10);
 			while(aa > 0) aa--;

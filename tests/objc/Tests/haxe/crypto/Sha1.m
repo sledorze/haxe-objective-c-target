@@ -8,9 +8,7 @@
 #import "Sha1.h"
 
 @implementation Sha1
-id me;
 
-NSMutableString*(^block_encode)(NSMutableString *s) = ^(NSMutableString *s) { return [me encode:s]; };
 + (NSMutableString*) encode:(NSMutableString*)s{
 	const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
 	NSData *data = [NSData dataWithBytes:cstr length:input.length];
@@ -20,7 +18,6 @@ NSMutableString*(^block_encode)(NSMutableString *s) = ^(NSMutableString *s) { re
 	for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) [output appendFormat:@"%02x", digest[i]];;
 	return output;
 }
-Bytes*(^block_make)(Bytes *b) = ^(Bytes *b) { return [me make:b]; };
 + (Bytes*) make:(Bytes*)b{
 	
 	NSMutableArray *h = (NSMutableArray*)[[[Sha1 alloc] init] doEncode:[Sha1 bytes2blks:b]];
@@ -39,7 +36,6 @@ Bytes*(^block_make)(Bytes *b) = ^(Bytes *b) { return [me make:b]; };
 	}
 	return _out;
 }
-NSMutableArray*(^block_str2blks)(NSMutableString *s) = ^(NSMutableString *s) { return [me str2blks:s]; };
 + (NSMutableArray*) str2blks:(NSMutableString*)s{
 	int nblk =  (s.length + 8 >> 6) + 1;
 	
@@ -56,16 +52,15 @@ NSMutableArray*(^block_str2blks)(NSMutableString *s) = ^(NSMutableString *s) { r
 		while (_g1 < _g) {
 			int i = _g1++;
 			int p = i >> 2;
-			[blks objectAtIndex:p] |= [block_charCodeAt:i] << 24 -  ( (i & 3) << 3);
+			[blks objectAtIndex:p] |= [s characterAtIndex:i] << 24 -  ( (i & 3) << 3);
 		}
 	}
 	int i = s.length;
 	int p = i >> 2;
 	[blks objectAtIndex:p] |= 128 << 24 -  ( (i & 3) << 3);
-	[blks objectAtIndex:nblk * 16 - 1] = block_length * 8;
+	[blks objectAtIndex:nblk * 16 - 1] = s.length * 8;
 	return blks;
 }
-NSMutableArray*(^block_bytes2blks)(Bytes *b) = ^(Bytes *b) { return [me bytes2blks:b]; };
 + (NSMutableArray*) bytes2blks:(Bytes*)b{
 	int nblk =  (b.length + 8 >> 6) + 1;
 	
@@ -82,16 +77,15 @@ NSMutableArray*(^block_bytes2blks)(Bytes *b) = ^(Bytes *b) { return [me bytes2bl
 		while (_g1 < _g) {
 			int i = _g1++;
 			int p = i >> 2;
-			[blks objectAtIndex:p] |= [block_b objectAtIndex:i] << 24 -  ( (i & 3) << 3);
+			[blks objectAtIndex:p] |= [b.b objectAtIndex:i] << 24 -  ( (i & 3) << 3);
 		}
 	}
 	int i = b.length;
 	int p = i >> 2;
 	[blks objectAtIndex:p] |= 128 << 24 -  ( (i & 3) << 3);
-	[blks objectAtIndex:nblk * 16 - 1] = block_length * 8;
+	[blks objectAtIndex:nblk * 16 - 1] = b.length * 8;
 	return blks;
 }
-NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { return [me doEncode:x]; };
 - (NSMutableArray*) doEncode:(NSMutableArray*)x{
 	
 	NSMutableArray *w = (NSMutableArray*)[[NSMutableArray alloc] init];
@@ -101,7 +95,7 @@ NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { ret
 	int d = 271733878;
 	int e = -1009589776;
 	int i = 0;
-	while (i < block_length) {
+	while (i < x.length) {
 		int olda = a;
 		int oldb = b;
 		int oldc = c;
@@ -116,7 +110,7 @@ NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { ret
 				
 				int* __r__}
 			}(self));
-			int t =  (a << 5 | a >>> 27) + [block_ft:j b:b c:c d:d] + e + [w objectAtIndex:j] + [block_kt:j];
+			int t =  (a << 5 | a >>> 27) + [self ft:j b:b c:c d:d] + e + [w objectAtIndex:j] + [self kt:j];
 			e = d;
 			d = c;
 			c = (b << 30 | b >>> 2);
@@ -133,25 +127,21 @@ NSMutableArray*(^block_doEncode)(NSMutableArray *x) = ^(NSMutableArray *x) { ret
 	}
 	return [[NSMutableArray alloc] initWithObjects:a, b, c, d, e, nil];
 }
-int(^block_rol)(int num, int cnt) = ^(int num, int cnt) { return [me rol:num cnt:cnt]; };
 - (int) rol:(int)num cnt:(int)cnt{
 	return num << cnt | num >>> 32 - cnt;
 }
-int(^block_ft)(int t, int b, int c, int d) = ^(int t, int b, int c, int d) { return [me ft:t b:b c:c d:d]; };
 - (int) ft:(int)t b:(int)b c:(int)c d:(int)d{
 	if (t < 20) return (b & c) | (~b & d);
 	if (t < 40) return (b ^ c) ^ d;
 	if (t < 60) return ((b & c) | (b & d)) | (c & d);
 	return (b ^ c) ^ d;
 }
-int(^block_kt)(int t) = ^(int t) { return [me kt:t]; };
 - (int) kt:(int)t{
 	if (t < 20) return 1518500249;
 	if (t < 40) return 1859775393;
 	if (t < 60) return -1894007588;
 	return -899497514;
 }
-NSMutableString*(^block_hex)(NSMutableArray *a) = ^(NSMutableArray *a) { return [me hex:a]; };
 - (NSMutableString*) hex:(NSMutableArray*)a{
 	
 	NSMutableString *str = (NSMutableString*)@"";
@@ -159,7 +149,7 @@ NSMutableString*(^block_hex)(NSMutableArray *a) = ^(NSMutableArray *a) { return 
 	NSMutableString *hex_chr = (NSMutableString*)@"0123456789abcdef";
 	{
 		int _g = 0;
-		while (_g < block_length) {
+		while (_g < a.length) {
 			int num = [a objectAtIndex:_g];
 			++_g;
 			int j = 7;
@@ -171,10 +161,8 @@ NSMutableString*(^block_hex)(NSMutableArray *a) = ^(NSMutableArray *a) { return 
 	}
 	return str;
 }
-id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
-	me = self;
 	return self;
 }
 

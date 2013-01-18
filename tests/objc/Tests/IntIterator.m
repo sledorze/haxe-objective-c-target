@@ -8,22 +8,17 @@
 #import "IntIterator.h"
 
 @implementation IntIterator
-id me;
 
 @synthesize min;
 @synthesize max;
-BOOL(^block_hasNext)() = ^() { return [me hasNext]; };
 - (BOOL) hasNext{
-	return self.min < block_max;
+	return self.min < self.max;
 }
-int(^block_next)() = ^() { return [me next]; };
 - (int) next{
 	return self.min++;
 }
-id(^block_init)(int min, int max) = ^(int min, int max) { return [me init:min max:max]; };
 - (id) init:(int)min max:(int)max{
 	self = [super init];
-	me = self;
 	self.min = min;
 	self.max = max;
 	return self;

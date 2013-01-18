@@ -8,35 +8,27 @@
 #import "Reflect.h"
 
 @implementation Reflect
-id me;
 
-BOOL(^block_hasField)(id o, NSMutableString *field) = ^(id o, NSMutableString *field) { return [me hasField:o field:field]; };
 + (BOOL) hasField:(id)o field:(NSMutableString*)field{
-	return o != nil && [block___HasField-TDynamic-];
+	return o != nil && [o __HasField-TDynamic-];
 }
-id(^block_field)(id o, NSMutableString *field) = ^(id o, NSMutableString *field) { return [me field:o field:field]; };
 + (id) field:(id)o field:(NSMutableString*)field{
 	return ( (o == nil) ? nil : [o __Field-TDynamic-]);
 }
-void(^block_setField)(id o, NSMutableString *field, id value) = ^(id o, NSMutableString *field, id value) { [me setField:o field:field value:value]; };
 + (void) setField:(id)o field:(NSMutableString*)field value:(id)value{
 	if (o != nil) [o __SetField-TDynamic-];
 }
-id(^block_getProperty)(id o, NSMutableString *field) = ^(id o, NSMutableString *field) { return [me getProperty:o field:field]; };
 + (id) getProperty:(id)o field:(NSMutableString*)field{
 	return ( (o == nil) ? nil : [o __Field-TDynamic-]);
 }
-void(^block_setProperty)(id o, NSMutableString *field, id value) = ^(id o, NSMutableString *field, id value) { [me setProperty:o field:field value:value]; };
 + (void) setProperty:(id)o field:(NSMutableString*)field value:(id)value{
 	if (o != nil) [o __SetField-TDynamic-];
 }
-id(^block_callMethod)(id o, id func, NSMutableArray *args) = ^(id o, id func, NSMutableArray *args) { return [me callMethod:o func:func args:args]; };
 + (id) callMethod:(id)o func:(id)func args:(NSMutableArray*)args{
-	if (func != nil && [block___GetType] == block_vtString) func = [block___Field-TDynamic-];
+	if (func != nil && [func __GetType] == __global__ vtString) func = [o __Field-TDynamic-];
 	[func __SetThis-TDynamic-];
 	return [func performSelector-TDynamic-];
 }
-NSMutableArray*(^block_fields)(id o) = ^(id o) { return [me fields:o]; };
 + (NSMutableArray*) fields:(id)o{
 	if (o == nil) return [[NSMutableArray alloc] init];
 	
@@ -44,43 +36,37 @@ NSMutableArray*(^block_fields)(id o) = ^(id o) { return [me fields:o]; };
 	[o __GetFields-TDynamic-];
 	return a;
 }
-BOOL(^block_isFunction)(id f) = ^(id f) { return [me isFunction:f]; };
 + (BOOL) isFunction:(id)f{
-	return f != nil && [block___GetType] == block_vtFunction;
+	return f != nil && [f __GetType] == __global__ vtFunction;
 }
-int(^block_compare)(id a, id b) = ^(id a, id b) { return [me compare:a b:b]; };
 + (int) compare:(id)a b:(id)b{
 	return ( (a == b) ? 0 : ( ((int)a > (int)b) ? 1 : -1));
 }
-BOOL(^block_compareMethods)(id f1, id f2) = ^(id f1, id f2) { return [me compareMethods:f1 f2:f2]; };
 + (BOOL) compareMethods:(id)f1 f2:(id)f2{
 	if (f1 == f2) return YES;
-	if (![Reflect isFunction:f1] || ![block_isFunction:f2]) return NO;
+	if (![Reflect isFunction:f1] || ![Reflect isFunction:f2]) return NO;
 	return [__global__ __hxcpp_same_closure:f1 :f2];
 }
-BOOL(^block_isObject)(id v) = ^(id v) { return [me isObject:v]; };
 + (BOOL) isObject:(id)v{
 	if (v == nil) return NO;
 	int t = [v __GetType];
-	return t == block_vtObject || t == block_vtClass || t == block_vtString || t == block_vtArray;
+	return t == __global__ vtObject || t == __global__ vtClass || t == __global__ vtString || t == __global__ vtArray;
 }
-BOOL(^block_deleteField)(id o, NSMutableString *f) = ^(id o, NSMutableString *f) { return [me deleteField:o f:f]; };
 + (BOOL) deleteField:(id)o f:(NSMutableString*)f{
 	if (o == nil) return NO;
 	return [__global__ __hxcpp_anon_remove:o :f];
 }
-id(^block_copy)(id o) = ^(id o) { return [me copy:o]; };
 + (id) copy:(id)o{
 	if (o == nil) return nil;
-	if ([o __GetType] == block_vtString) return o;
-	if ([o __GetType] == block_vtArray) return [[o __Field:(NSMutableString*)@"copy" :YES]];
+	if ([o __GetType] == __global__ vtString) return o;
+	if ([o __GetType] == __global__ vtArray) return [[o __Field:(NSMutableString*)@"copy" :YES]];
 	id o2 = struct {
 	
 	} structName;
 	{
 		int _g = 0; 
 		NSMutableArray *_g1 = (NSMutableArray*)[Reflect fields:o];
-		while (_g < block_length) {
+		while (_g < _g1.length) {
 			
 			NSMutableString *f = [_g1 objectAtIndex:_g];
 			++_g;
@@ -89,7 +75,6 @@ id(^block_copy)(id o) = ^(id o) { return [me copy:o]; };
 	}
 	return o2;
 }
-id(^block_makeVarArgs)(SEL f) = ^(SEL f) { return [me makeVarArgs:f]; };
 + (id) makeVarArgs:(SEL)f{
 	return [__global__ __hxcpp_create_var_args:f];
 }

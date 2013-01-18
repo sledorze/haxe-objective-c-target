@@ -8,6 +8,7 @@
 
 
 #import "String.h"
+#import "Std.h"
 
 @interface StringBuf : NSObject
 

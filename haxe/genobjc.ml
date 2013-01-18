@@ -611,7 +611,7 @@ let generateFunctionHeader ctx name f params p is_static =
 		"" ^ loop meta
 	) in
 	(* Generate the block version of the method. When we pass a reference to a function we pass to this block *)
-	if not ctx.generating_header then begin
+	(* if not ctx.generating_header then begin
 		(* void(^block_block2)(int i) = ^(int i){ [me login]; }; *)
 		ctx.writer#write (Printf.sprintf "%s%s(^block_%s)" return_type (addPointerIfNeeded return_type) func_name);
 		let gen_block_args = fun() -> (
@@ -635,7 +635,7 @@ let generateFunctionHeader ctx name f params p is_static =
 			first_arg := false;
 		) f.tf_args;
 		ctx.writer#write "]; };\n"
-	end;
+	end; *)
 	if ctx.generating_objc_block then
 		(* void(^block3)(NSString); *)
 		ctx.writer#write (Printf.sprintf "%s%s" return_type (addPointerIfNeeded return_type))
@@ -893,13 +893,57 @@ and generateExpression ctx e =
 		generateExpression ctx e1;
 		ctx.writer#write ")";
 		generateFieldAccess ctx e1.etype (field_name s);
-	| TField (e,s) ->
+	| TField (e,fa) ->
 		if ctx.generating_right_side_of_operator then begin
-			ctx.writer#write ("block_"^(field_name s));
+			(match fa with
+			(* | FInstance _ -> ctx.writer#write "-FInstance-";
+			| FStatic _ -> ctx.writer#write "-FStatic-";
+			| FAnon _ -> ctx.writer#write "-FAnon-";
+			| FDynamic _ -> ctx.writer#write "-FDynamic-"; *)
+			| FClosure (_,fa2) ->
+				(match fa2.cf_expr, fa2.cf_kind with
+				| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
+					
+					(* let generateFunctionHeader ctx name f params p is_static = *)	
+					(* let name = (Some (fa2.cf_name, fa2.cf_meta)) in *)
+					
+					ctx.writer#write "^";
+					let gen_block_args = fun() -> (
+						ctx.writer#write "(";
+						concat ctx ", " (fun (v,c) ->
+							let pos = ctx.class_def.cl_pos in
+							let type_name = typeToString ctx v.v_type pos in
+							ctx.writer#write (Printf.sprintf "%s %s%s" type_name (addPointerIfNeeded type_name) (remapKeyword v.v_name));
+						) fd.tf_args;
+						ctx.writer#write ")";
+					) in
+					gen_block_args();
+					ctx.writer#write (Printf.sprintf "{ [%s " (if false then "Static" else "self"));
+					ctx.writer#write fa2.cf_name;
+					let first_arg = ref true in
+					concat ctx " " (fun (v,c) ->
+						let pos = ctx.class_def.cl_pos in
+						let type_name = typeToString ctx v.v_type pos in
+						let message_name = if !first_arg then "" else (remapKeyword v.v_name) in
+						ctx.writer#write (Printf.sprintf "%s:%s" message_name (remapKeyword v.v_name));
+						first_arg := false;
+					) fd.tf_args;
+					ctx.writer#write "]; }";
+					
+					
+				| Some { eexpr = TFunction fd }, Method (MethDynamic) ->
+					ctx.writer#write "MethDynamic";
+				| _ -> ctx.writer#write "CCCCCCCCCCCCCCCC");
+			(* | FEnum _ -> ctx.writer#write "-FEnum-"; *)
+			| _ ->
+				generateValue ctx e;
+				generateFieldAccess ctx e.etype (field_name fa));
+			
+			(* ctx.writer#write ("block_"^(field_name s)); *)
 		end else begin
 			(* This is important, is generating a field access . *)
    			generateValue ctx e;
-			generateFieldAccess ctx e.etype (field_name s);
+			generateFieldAccess ctx e.etype (field_name fa);
 		end
 	| TTypeExpr t ->
 		(* Do not generate the Math class, make C calls *)
@@ -941,8 +985,8 @@ and generateExpression ctx e =
 		if ctx.generating_constructor then begin
 			ctx.writer#write "self = [super init];";
 			ctx.writer#new_line;
-			ctx.writer#write "me = self;";
-			ctx.writer#new_line
+			(* ctx.writer#write "me = self;";
+			ctx.writer#new_line *)
 		end;
 		if Hashtbl.length ctx.function_arguments > 0 then begin
 			ctx.writer#write "// Simulated optional arguments";
@@ -2243,8 +2287,8 @@ let generateImplementation ctx files_manager imports_manager =
 		ctx.writer#write ("@implementation " ^ (snd ctx.class_def.cl_path));
 	
 	ctx.writer#new_line;
-	ctx.writer#write "id me;";
-	ctx.writer#new_line;
+	(* ctx.writer#write "id me;";
+	ctx.writer#new_line; *)
 	
 	(* Generate functions and variables *)
 	List.iter (generateField ctx true) ctx.class_def.cl_ordered_statics;

@@ -8,66 +8,50 @@
 #import "Sys.h"
 
 @implementation Sys
-id me;
 
-void(^block_print)(id v) = ^(id v) { [me print:v]; };
 + (void) print:(id)v{
 	print(v);
 }
-void(^block_println)(id v) = ^(id v) { [me println:v]; };
 + (void) println:(id)v{
 	[Sys print:v];
 	[Sys print:(NSMutableString*)@"\n"];
 }
-Input*(^block_stdin)() = ^() { return [me stdin]; };
 + (Input*) stdin{
 	return [[FileInput alloc] init:[file_stdin]];
 }
-Output*(^block_stdout)() = ^() { return [me stdout]; };
 + (Output*) stdout{
 	return [[FileOutput alloc] init:[file_stdout]];
 }
-Output*(^block_stderr)() = ^() { return [me stderr]; };
 + (Output*) stderr{
 	return [[FileOutput alloc] init:[file_stderr]];
 }
-int(^block_getChar)(BOOL echo) = ^(BOOL echo) { return [me getChar:echo]; };
 + (int) getChar:(BOOL)echo{
 	return 0;
 }
-NSMutableArray*(^block_args)() = ^() { return [me args]; };
 + (NSMutableArray*) args{
 	return nil;
 }
-NSMutableString*(^block_getEnv)(NSMutableString *s) = ^(NSMutableString *s) { return [me getEnv:s]; };
 + (NSMutableString*) getEnv:(NSMutableString*)s{
 	
 	NSMutableString *v = nil;
 	if (v == nil) return nil;
 	return v;
 }
-void(^block_putEnv)(NSMutableString *s, NSMutableString *v) = ^(NSMutableString *s, NSMutableString *v) { [me putEnv:s v:v]; };
 + (void) putEnv:(NSMutableString*)s v:(NSMutableString*)v{
 }
-void(^block_sleep)(float seconds) = ^(float seconds) { [me sleep:seconds]; };
 + (void) sleep:(float)seconds{
 }
-BOOL(^block_setTimeLocale)(NSMutableString *loc) = ^(NSMutableString *loc) { return [me setTimeLocale:loc]; };
 + (BOOL) setTimeLocale:(NSMutableString*)loc{
 	return YES;
 }
-NSMutableString*(^block_getCwd)() = ^() { return [me getCwd]; };
 + (NSMutableString*) getCwd{
 	return nil;
 }
-void(^block_setCwd)(NSMutableString *s) = ^(NSMutableString *s) { [me setCwd:s]; };
 + (void) setCwd:(NSMutableString*)s{
 }
-NSMutableString*(^block_systemName)() = ^() { return [me systemName]; };
 + (NSMutableString*) systemName{
 	return nil;
 }
-NSMutableString*(^block_escapeArgument)(NSMutableString *arg) = ^(NSMutableString *arg) { return [me escapeArgument:arg]; };
 + (NSMutableString*) escapeArgument:(NSMutableString*)arg{
 	BOOL ok = YES;
 	{
@@ -79,23 +63,22 @@ NSMutableString*(^block_escapeArgument)(NSMutableString *arg) = ^(NSMutableStrin
 				case 32:case 34:{
 					ok = NO}break;
 				case 0:case 13:case 10:{
-					arg = [block_substr:0 len:i]}break;
+					arg = [arg substr:0 len:i]}break;
 			}
 		}
 	}
 	if (ok) return arg;
 	return [[(NSMutableString*)@"\"" stringByAppendingString:[[arg componentsSeparatedByString:(NSMutableString*)@"\""] join:(NSMutableString*)@"\\\""]] stringByAppendingString:(NSMutableString*)@"\""];
 }
-int(^block_command)(NSMutableString *cmd, NSMutableArray *args) = ^(NSMutableString *cmd, NSMutableArray *args) { return [me command:cmd args:args]; };
 + (int) command:(NSMutableString*)cmd args:(NSMutableArray*)args{
 	// Simulated optional arguments
 	if (args == nil) args = nil;
 	
 	if (args != nil) {
-		cmd = [block_escapeArgument:cmd];
+		cmd = [Sys escapeArgument:cmd];
 		{
 			int _g = 0;
-			while (_g < block_length) {
+			while (_g < args.length) {
 				
 				NSMutableString *a = [args objectAtIndex:_g];
 				++_g;
@@ -105,30 +88,25 @@ int(^block_command)(NSMutableString *cmd, NSMutableArray *args) = ^(NSMutableStr
 	}
 	return 0;
 }
-void(^block_exit)(int code) = ^(int code) { [me exit:code]; };
 + (void) exit:(int)code{
 	exit(code);
 }
-float(^block_time)() = ^() { return [me time]; };
 + (float) time{
 	return 0;
 }
-float(^block_cpuTime)() = ^() { return [me cpuTime]; };
 + (float) cpuTime{
 	return 0;
 }
-NSMutableString*(^block_executablePath)() = ^() { return [me executablePath]; };
 + (NSMutableString*) executablePath{
 	return nil;
 }
-Hash*(^block_environment)() = ^() { return [me environment]; };
 + (Hash*) environment{
 	
 	NSMutableArray *vars = (NSMutableArray*)nil;
 	
 	Hash *result = [[Hash alloc] init];
 	int i = 0;
-	while (i < block_length) {
+	while (i < vars.length) {
 		[result set:[vars objectAtIndex:i] value:[vars objectAtIndex:i + 1]];
 		i += 2;
 	}

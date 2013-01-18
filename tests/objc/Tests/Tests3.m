@@ -8,13 +8,10 @@
 #import "Tests3.h"
 
 @implementation Tests3
-id me;
 
 @synthesize d1;
-id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
-	me = self;
 	self.d1 = 34;
 	return self;
 }

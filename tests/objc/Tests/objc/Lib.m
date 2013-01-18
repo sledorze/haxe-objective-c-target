@@ -8,21 +8,16 @@
 #import "Lib.h"
 
 @implementation Lib
-id me;
 
-void(^block_log)(id v) = ^(id v) { [me log:v]; };
 + (void) log:(id)v{
 }
-void(^block_print)(id v) = ^(id v) { [me print:v]; };
 + (void) print:(id)v{
 	printf ( [[v description] cStringUsingEncoding:NSStringEncodingConversionAllowLossy] );
 }
-void(^block_println)(id v) = ^(id v) { [me println:v]; };
 + (void) println:(id)v{
 	[Lib print:v];
 	printf ( "\n" );
 }
-CLLocation*(^block_location)() = ^() { return [me location]; };
 + (CLLocation*) location{
 	return nil;
 }

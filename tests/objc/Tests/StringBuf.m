@@ -8,32 +8,25 @@
 #import "StringBuf.h"
 
 @implementation StringBuf
-id me;
 
 @synthesize b;
-void(^block_add)(id x) = ^(id x) { [me add:x]; };
 - (void) add:(id)x{
-	self.b += [block_string:x];
+	self.b += [Std string:x];
 }
-void(^block_addChar)(int c) = ^(int c) { [me addChar:c]; };
 - (void) addChar:(int)c{
-	self.b += [block_fromCharCode:c];
+	self.b += [NSMutableString fromCharCode:c];
 }
-void(^block_addSub)(NSMutableString *s, int pos, int len) = ^(NSMutableString *s, int pos, int len) { [me addSub:s pos:pos len:len]; };
 - (void) addSub:(NSMutableString*)s pos:(int)pos len:(int)len{
 	// Simulated optional arguments
 	if (len == nil) len = nil;
 	
-	self.b += [block_substr:pos len:len];
+	self.b += [s substr:pos len:len];
 }
-NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return self.b;
 }
-id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
-	me = self;
 	self.b = (NSMutableString*)@"";
 	return self;
 }

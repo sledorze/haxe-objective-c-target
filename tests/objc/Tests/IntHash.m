@@ -8,21 +8,16 @@
 #import "IntHash.h"
 
 @implementation NSMutableDictionary ( IntHash )
-id me;
 
-void(^block_set)(int key, id value) = ^(int key, id value) { [me set:key value:value]; };
 - (void) set:(int)key value:(id)value{
 	[self setObject:value forKey:[NSString stringWithFormat:@"%i",key]];
 }
-id(^block_get)(int key) = ^(int key) { return [me get:key]; };
 - (id) get:(int)key{
 	return [self objectForKey:[NSString stringWithFormat:@"%i",key]];
 }
-BOOL(^block_exists)(int key) = ^(int key) { return [me exists:key]; };
 - (BOOL) exists:(int)key{
 	return [self objectForKey:[NSString stringWithFormat:@"%i",key]] != nil;
 }
-BOOL(^block_remove)(int key) = ^(int key) { return [me remove:key]; };
 - (BOOL) remove:(int)key{
 	if ([self exists:key]) {
 		[self removeObjectForKey:[NSString stringWithFormat:@"%i",key]];
@@ -30,26 +25,21 @@ BOOL(^block_remove)(int key) = ^(int key) { return [me remove:key]; };
 	}
 	return NO;
 }
-id(^block_keys)() = ^() { return [me keys]; };
 - (id) keys{
 	
 	NSMutableArray *a = (NSMutableArray*)[self allKeys];
 	return [a iterator];
 }
-id(^block_iterator)() = ^() { return [me iterator]; };
 - (id) iterator{
 	
 	NSMutableArray *a = (NSMutableArray*)[self allValues];
 	return [a iterator];
 }
-NSMutableString*(^block_toString)() = ^() { return [me toString]; };
 - (NSMutableString*) toString{
 	return [self description];
 }
-id(^block_init)() = ^() { return [me init]; };
 - (id) init{
 	self = [super init];
-	me = self;
 	return self;
 }
 

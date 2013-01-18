@@ -8,63 +8,61 @@
 #import "DateTools.h"
 
 @implementation DateTools
-id me;
 
-NSMutableString*(^block___format_get)(NSDate *d, NSMutableString *e) = ^(NSDate *d, NSMutableString *e) { return [me __format_get:d e:e]; };
 + (NSMutableString*) __format_get:(NSDate*)d e:(NSMutableString*)e{
 	return ^(NSMutableString*)switch (e){
 		case (NSMutableString*)@"%":{
 			__r__ = (NSMutableString*)@"%"}break;
 		case (NSMutableString*)@"C":{
-			__r__ = [block_lpad:[block_string:[block_int:[block_getFullYear] / 100]] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[Std _int:[d getFullYear] / 100]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"d":{
-			__r__ = [block_lpad:[block_string:[block_getDate]] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[d getDate]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"D":{
-			__r__ = [block___format:d f:(NSMutableString*)@"%m/%d/%y"]}break;
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%m/%d/%y"]}break;
 		case (NSMutableString*)@"e":{
-			__r__ = [block_string:[block_getDate]]}break;
+			__r__ = [Std string:[d getDate]]}break;
 		case (NSMutableString*)@"H":case (NSMutableString*)@"k":{
-			__r__ = [block_lpad:[block_string:[block_getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[d getHours]] c:( (e == (NSMutableString*)@"H") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]}break;
 		case (NSMutableString*)@"I":case (NSMutableString*)@"l":{
-			__r__ = ^(NSMutableString*)int hour = [block_getHours] % 12
-			__r__2 = [block_lpad:[block_string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
+			__r__ = ^(NSMutableString*)int hour = [d getHours] % 12
+			__r__2 = [StringTools lpad:[Std string:( (hour == 0) ? 12 : hour)] c:( (e == (NSMutableString*)@"I") ? (NSMutableString*)@"0" : (NSMutableString*)@" ") l:2]
 			return __r__2{
 				
 				NSMutableString* __r__2}
 			}()}break;
 		case (NSMutableString*)@"m":{
-			__r__ = [block_lpad:[block_string:[block_getMonth] + 1] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[d getMonth] + 1] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"M":{
-			__r__ = [block_lpad:[block_string:[block_getMinutes]] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[d getMinutes]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"n":{
 			__r__ = (NSMutableString*)@"\n"}break;
 		case (NSMutableString*)@"p":{
-			__r__ = ( ([block_getHours] > 11) ? (NSMutableString*)@"PM" : (NSMutableString*)@"AM")}break;
+			__r__ = ( ([d getHours] > 11) ? (NSMutableString*)@"PM" : (NSMutableString*)@"AM")}break;
 		case (NSMutableString*)@"r":{
-			__r__ = [block___format:d f:(NSMutableString*)@"%I:%M:%S %p"]}break;
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%I:%M:%S %p"]}break;
 		case (NSMutableString*)@"R":{
-			__r__ = [block___format:d f:(NSMutableString*)@"%H:%M"]}break;
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M"]}break;
 		case (NSMutableString*)@"s":{
-			__r__ = [block_string:[block_int:[block_getTime] / 1000]]}break;
+			__r__ = [Std string:[Std _int:[d getTime] / 1000]]}break;
 		case (NSMutableString*)@"S":{
-			__r__ = [block_lpad:[block_string:[block_getSeconds]] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[d getSeconds]] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"t":{
 			__r__ = (NSMutableString*)@"\t"}break;
 		case (NSMutableString*)@"T":{
-			__r__ = [block___format:d f:(NSMutableString*)@"%H:%M:%S"]}break;
+			__r__ = [DateTools __format:d f:(NSMutableString*)@"%H:%M:%S"]}break;
 		case (NSMutableString*)@"u":{
-			__r__ = ^(NSMutableString*)int t = [block_getDay]
+			__r__ = ^(NSMutableString*)int t = [d getDay]
 			__r__3 = ( (t == 0) ? (NSMutableString*)@"7" : [Std string:t])
 			return __r__3{
 				
 				NSMutableString* __r__3}
 			}()}break;
 		case (NSMutableString*)@"w":{
-			__r__ = [block_string:[block_getDay]]}break;
+			__r__ = [Std string:[d getDay]]}break;
 		case (NSMutableString*)@"y":{
-			__r__ = [block_lpad:[block_string:[block_getFullYear] % 100] c:(NSMutableString*)@"0" l:2]}break;
+			__r__ = [StringTools lpad:[Std string:[d getFullYear] % 100] c:(NSMutableString*)@"0" l:2]}break;
 		case (NSMutableString*)@"Y":{
-			__r__ = [block_string:[block_getFullYear]]}break;
+			__r__ = [Std string:[d getFullYear]]}break;
 		default:{
 			__r__ = ^(NSMutableString*)@throw [[(NSMutableString*)@"Date.format %" stringByAppendingString:e] stringByAppendingString:(NSMutableString*)@"- not implemented yet."];
 			return __r__4{
@@ -77,7 +75,6 @@ NSMutableString*(^block___format_get)(NSDate *d, NSMutableString *e) = ^(NSDate 
 		NSMutableString* __r__}
 	}();
 }
-NSMutableString*(^block___format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, NSMutableString *f) { return [me __format:d f:f]; };
 + (NSMutableString*) __format:(NSDate*)d f:(NSMutableString*)f{
 	
 	StringBuf *r = [[StringBuf alloc] init];
@@ -85,18 +82,16 @@ NSMutableString*(^block___format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, 
 	while (YES) {
 		int np = [f indexOf:(NSMutableString*)@"%" startIndex:p];
 		if (np < 0) break;
-		r.b += [block_substr:p len:np - p];
-		r.b += [block_string:[block___format_get:d e:[block_substr:np + 1 len:1]]];
+		r.b += [f substr:p len:np - p];
+		r.b += [Std string:[DateTools __format_get:d e:[f substr:np + 1 len:1]]];
 		p = np + 2;
 	}
-	r.b += [block_substr:p len:block_length - p];
+	r.b += [f substr:p len:f.length - p];
 	return r.b;
 }
-NSMutableString*(^block_format)(NSDate *d, NSMutableString *f) = ^(NSDate *d, NSMutableString *f) { return [me format:d f:f]; };
 + (NSMutableString*) format:(NSDate*)d f:(NSMutableString*)f{
 	return [DateTools __format:d f:f];
 }
-NSDate*(^block_delta)(NSDate *d, float t) = ^(NSDate *d, float t) { return [me delta:d t:t]; };
 + (NSDate*) delta:(NSDate*)d t:(float)t{
 	return [NSDatefromTime:[d getTime] + t];
 }
@@ -106,7 +101,6 @@ NSDate*(^block_delta)(NSDate *d, float t) = ^(NSDate *d, float t) { return [me d
 	else { if (_val != nil) _val = val; }
 	return _val;
 }
-int(^block_getMonthDays)(NSDate *d) = ^(NSDate *d) { return [me getMonthDays:d]; };
 + (int) getMonthDays:(NSDate*)d{
 	int month = [d getMonth];
 	int year = [d getFullYear];
@@ -114,23 +108,18 @@ int(^block_getMonthDays)(NSDate *d) = ^(NSDate *d) { return [me getMonthDays:d];
 	BOOL isB = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 	return ( (isB) ? 29 : 28);
 }
-float(^block_seconds)(float n) = ^(float n) { return [me seconds:n]; };
 + (float) seconds:(float)n{
 	return n * 1000.0;
 }
-float(^block_minutes)(float n) = ^(float n) { return [me minutes:n]; };
 + (float) minutes:(float)n{
 	return n * 60.0 * 1000.0;
 }
-float(^block_hours)(float n) = ^(float n) { return [me hours:n]; };
 + (float) hours:(float)n{
 	return n * 60.0 * 60.0 * 1000.0;
 }
-float(^block_days)(float n) = ^(float n) { return [me days:n]; };
 + (float) days:(float)n{
 	return n * 24.0 * 60.0 * 60.0 * 1000.0;
 }
-id(^block_parse)(float t) = ^(float t) { return [me parse:t]; };
 + (id) parse:(float)t{
 	float s = t / 1000;
 	float m = s / 60;
@@ -139,9 +128,8 @@ id(^block_parse)(float t) = ^(float t) { return [me parse:t]; };
 	ms:t % 1000; seconds:[Std _int:s % 60]; minutes:[Std _int:m % 60]; hours:[Std _int:h % 24]; days:[Std _int:h / 24]
 	} structName;
 }
-float(^block_make)(id o) = ^(id o) { return [me make:o]; };
 + (float) make:(id)o{
-	return o ms + 1000.0 *  (block_seconds + 60.0 *  (block_minutes + 60.0 *  (block_hours + 24.0 * block_days)));
+	return o ms + 1000.0 *  (o seconds + 60.0 *  (o minutes + 60.0 *  (o hours + 24.0 * o days)));
 }
 
 @end
