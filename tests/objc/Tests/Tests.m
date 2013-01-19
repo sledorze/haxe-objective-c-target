@@ -214,7 +214,7 @@
 	_int = [DateTools getMonthDays:d];
 	_float = [DateTools hours:1000];
 	_float = [DateTools make:struct {
-	seconds:0; ms:(float)110; minutes:6; hours:8; days:5
+	seconds:0; ms:110; minutes:6; hours:8; days:5
 	} structName];
 	_float = [DateTools minutes:56];
 	id obj = [DateTools parse:45546];
