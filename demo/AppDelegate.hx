@@ -1,18 +1,17 @@
 
-import objc.ios.ui.UIApplicationDelegate;
-import objc.ios.ui.UIResponder;
-import objc.ios.ui.UIWebView;
-import objc.ios.ui.UILabel;
-import objc.ios.ui.UIWindow;
-import objc.ios.ui.UIScreen;
-import objc.ios.ui.UIView;
-import objc.ios.ui.UIViewController;
-import objc.ios.ui.UIApplication;
-import objc.ios.ui.UIColor;
-import objc.ios.ui.UIFont;
-import objc.ios.ui.UIViewAutoresizing;
+import ios.ui.UIApplicationDelegate;
+import ios.ui.UIResponder;
+import ios.ui.UIWebView;
+import ios.ui.UILabel;
+import ios.ui.UIWindow;
+import ios.ui.UIScreen;
+import ios.ui.UIView;
+import ios.ui.UIViewController;
+import ios.ui.UIApplication;
+import ios.ui.UIColor;
+import ios.ui.UIFont;
+import ios.ui.UIViewAutoresizing;
 import objc.foundation.NSDictionary;
-
 
 
 class AppDelegate extends UIResponder, implements UIApplicationDelegate {

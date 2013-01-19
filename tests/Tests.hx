@@ -514,13 +514,14 @@ class Tests implements Interface1, implements Interface2 {
 	#if !cpp
 	function testTimer () {
 		var timer = new haxe.Timer ( 50 );
-		timer.run = testXml;
+		timer.run = testTimerLoop;
 		timer.stop();
-		timer = haxe.Timer.delay (testTimer, 50);
-		timer = haxe.Timer.delay ( function() { testTimer(); }, 50);
-		haxe.Timer.measure (testTimer);
+		timer = haxe.Timer.delay (testTimerLoop, 50);
+		timer = haxe.Timer.delay ( function() { testTimerLoop(); }, 50);
+		haxe.Timer.measure (testTimerLoop);
 		var f = haxe.Timer.stamp();
 	}
+	function testTimerLoop () {}
 	#end
 		
 		

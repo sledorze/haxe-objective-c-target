@@ -79,7 +79,7 @@ id me;
 	test2.block2 = block_block2;
 	test2.block3 = ^(NSString*str){ NSLog(@"block3 called %@", str); [self login]; };
 	test2.block4 = ^(NSString*str){ NSLog(@"block4 called %@", str); return @"block 4 called inline"; };
-	[test2 callBlock];
+	[test2 callBlocks];
 	
 	// Redefine a method approach 2
 	self_c = self;
@@ -199,7 +199,7 @@ static int length__;
 @synthesize block3;
 @synthesize block4;
 
-- (void) callBlock{
+- (void) callBlocks{
 	NSLog(@"callBlock is calling block1 : %@", block1);
 	block1();
 	block2(0);

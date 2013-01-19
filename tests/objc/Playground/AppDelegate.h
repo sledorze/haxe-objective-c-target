@@ -25,7 +25,7 @@ id self_c;
 @property (nonatomic,copy) void(^block3)(NSString*);
 @property (nonatomic,copy) NSString*(^block4)(NSString*);
 
-- (void) callBlock;
+- (void) callBlocks;
 - (void) redefineThisMethod;
 - (id) init;
 -(void)ttt;

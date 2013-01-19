@@ -1,11 +1,4 @@
-import objc.ios.ui.UIApplicationMain;
-
-
-@:orientation("portrait")
-@:identifier("com.ralcr.HelloWorld")
-@:bundle_name("HelloWorld")
-
-
+import ios.ui.UIApplicationMain;
 
 class HelloWorld {
 	

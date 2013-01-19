@@ -1,5 +1,5 @@
 
-import objc.ios.map.MKMapView;
+import ios.map.MKMapView;
 
 class CustomMapView extends MKMapView {
 	
@@ -7,5 +7,6 @@ class CustomMapView extends MKMapView {
 		locate (50.8, -0.5, 1.2);
 	}
 	public function locate (lat:Float, long:Float, zoom:Float) {
+		
 	}
 }

@@ -378,12 +378,12 @@ let remapHaxeTypeToObjc ctx is_static path pos =
 (* Convert function names that can't be written in c++ ... *)
 let remapKeyword name =
 	match name with
-	| "int" | "float" | "double" | "long" | "long" | "short" | "char"
-	| "self" | "id" | "init" | "bycopy" | "inout" | "oneway" | "byref" 
-	| "SEL" | "IMP" | "Protocol" | "BOOL" | "YES" | "NO" | "const"
-	| "in" | "out" | "bycopy" | "super" | "auto" | "char" | "const" | "delete"
+	| "int" | "float" | "double" | "long" | "short" | "char" | "void" 
+	| "self" | "super" | "id" | "init" | "bycopy" | "inout" | "oneway" | "byref" 
+	| "SEL" | "IMP" | "Protocol" | "BOOL" | "YES" | "NO"
+	| "in" | "out" | "auto" | "const" | "delete"
 	| "enum" | "extern" | "friend" | "goto" | "operator" | "protected" | "register" 
-	| "sizeof" | "template" | "typedef" | "union" | "void" 
+	| "sizeof" | "template" | "typedef" | "union"
 	| "volatile" | "or" | "and" | "xor" | "or_eq" | "not"
 	| "and_eq" | "xor_eq" | "typeof" | "stdin" | "stdout" | "stderr"
 	| "BIG_ENDIAN" | "LITTLE_ENDIAN" | "assert" | "NULL" | "nil" | "wchar_t" | "EOF"
@@ -455,7 +455,7 @@ let rec typeToString ctx t p =
 		| KNormal | KGeneric | KGenericInstance _ ->
 			ctx.imports_manager#add_class_path c.cl_module.m_path;
 			remapHaxeTypeToObjc ctx false c.cl_path p
-		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType -> "id")
+		| KTypeParameter _ | KExtension _ | KExpr _ | KMacroType | KAbstractImpl _ -> "id")
 	| TFun _ -> "SEL"
 	| TMono r -> (match !r with None -> "id" | Some t -> typeToString ctx t p)
 	| TAnon anon -> "id"
@@ -881,13 +881,13 @@ and generateExpression ctx e =
 			ctx.generating_right_side_of_operator <- false;
 		end;
 	(* variable fields on interfaces are generated as (class["field"] as class) *)
-	| TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s })) ->
+	(* | TField ({etype = TInst({cl_interface = true} as c,_)} as e,FInstance (_,{ cf_name = s })) ->
 	(* | TClosure ({etype = TInst({cl_interface = true} as c,_)} as e,s) *)
 		(* when (try (match (PMap.find s c.cl_fields).cf_kind with Var _ -> true | _ -> false) with Not_found -> false) -> *)
 		ctx.writer#write "(";
 		generateValue ctx e;
 		ctx.writer#write (Printf.sprintf "[\"%s\"]" s);
-		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos));
+		ctx.writer#write (Printf.sprintf " as %s)" (typeToString ctx e.etype e.epos)); *)
 	| TField({eexpr = TArrayDecl _} as e1,s) ->
 		ctx.writer#write "(";
 		generateExpression ctx e1;
@@ -922,8 +922,8 @@ and generateExpression ctx e =
 					ctx.writer#write fa2.cf_name;
 					let first_arg = ref true in
 					concat ctx " " (fun (v,c) ->
-						let pos = ctx.class_def.cl_pos in
-						let type_name = typeToString ctx v.v_type pos in
+						(* let pos = ctx.class_def.cl_pos in *)
+						(* let type_name = typeToString ctx v.v_type pos in *)
 						let message_name = if !first_arg then "" else (remapKeyword v.v_name) in
 						ctx.writer#write (Printf.sprintf "%s:%s" message_name (remapKeyword v.v_name));
 						first_arg := false;
@@ -1610,7 +1610,7 @@ let generateField ctx is_static field =
 		end
 		else begin
 			(* Generate function header *)
-			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static;
+			let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static in h();
 			(* Generate function content if is not a header file *)
 			if not ctx.generating_header then
 				generateExpression ctx fd.tf_expr
@@ -1621,7 +1621,7 @@ let generateField ctx is_static field =
 		ctx.writer#write "// Defining a dynamic method\n";
 		(* ctx.writer#write (Printf.sprintf "%s " (if is_static then "+" else "-")); *)
 		(* Generate function header *)
-		generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static;
+		let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static in h();
 		(* Generate function content if is not a header file *)
 		if not ctx.generating_header then
 			generateExpression ctx fd.tf_expr
@@ -1630,7 +1630,7 @@ let generateField ctx is_static field =
 		ctx.generating_objc_block <- true;
 		if ctx.generating_header then begin
 			ctx.writer#write (Printf.sprintf "@property (nonatomic,copy) ");
-			generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static;
+			let h = generateFunctionHeader ctx (Some (field.cf_name, field.cf_meta)) fd field.cf_params pos is_static in h();
 			ctx.writer#write ";";
 		end else begin
 			let func_name = (match (Some (field.cf_name, field.cf_meta)) with None -> "" | Some (n,meta) ->
@@ -2199,7 +2199,7 @@ let getMetaString key meta =
 	loop meta
 ;;
 let generatePlist common_ctx file_info  =
-	let main_class_def = common_ctx.main_class in
+	(* let main_class_def = common_ctx.main_class in *)
 	let app_name = appName common_ctx in
 	let src_dir = srcDir common_ctx in
 	let identifier = match common_ctx.objc_identifier with 

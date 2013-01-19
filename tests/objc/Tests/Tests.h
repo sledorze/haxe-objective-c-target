@@ -79,6 +79,7 @@ typedef enum{
 - (void) testType;
 - (void) testXml;
 - (void) testTimer;
+- (void) testTimerLoop;
 - (void) testCrypto;
 - (void) foo;
 - (void) testOverload;

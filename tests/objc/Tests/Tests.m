@@ -522,14 +522,16 @@
 	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil];
 	
 	Timer *timer = [[Timer alloc] init:50];
-	timer.run = ^(){ [self testXml]; };
+	timer.run = ^(){ [self testTimerLoop]; };
 	[timer stop];
-	timer = [Timer delay:^(){ [self testTimer]; } time_ms:50];
+	timer = [Timer delay:^(){ [self testTimerLoop]; } time_ms:50];
 	timer = [Timer delay:^- (void) {
-		[[_g objectAtIndex:0] testTimer];
+		[[_g objectAtIndex:0] testTimerLoop];
 	} time_ms:50];
-	[Timer measure:self testTimer pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"521",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"521",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
+}
+- (void) testTimerLoop{
 }
 - (void) testCrypto{
 	
@@ -593,10 +595,10 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"593",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"594",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"603",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"604",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 	int i = param1;
@@ -624,7 +626,7 @@
 }
 // Defining a dynamic method
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"626",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"627",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 @synthesize property_functionToRedefine;
 
