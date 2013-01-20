@@ -1,28 +1,15 @@
-/* CoreImage - CIImage.h
+package objc.image;
 
-   Copyright (c) 2011 Apple, Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
+import objc.graphics.CGGeometry;
+//#import <CoreVideo/CoreVideo.h>
 
-#import <Foundation/Foundation.h>
-#import <CoreImage/CoreImageDefines.h>
-#import <CoreVideo/CoreVideo.h>
 
-@class NSData, NSURL, NSDictionary;
-
-@class CIContext, CIFilter, CIFilterShape, CIColor;
-
-CORE_IMAGE_CLASS_EXPORT
-extern class CIImage extends NSObject, implements NSObject, NSCopying>
-{
-#if !TARGET_OS_IPHONE
-    __strong void *_state;
-#endif
-	void *_priv;
-}
+extern class CIImage extends NSObject, implements NSCopying {
 
 /* Pixel formats. */
 
-typedef int CIFormat;
+typedef CIFormat = Int;
 
 CORE_IMAGE_EXPORT CIFormat kCIFormatARGB8 __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_6_0);
 CORE_IMAGE_EXPORT CIFormat kCIFormatBGRA8 __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
@@ -49,117 +36,112 @@ CORE_IMAGE_EXPORT NSString *kCIImageColorSpace;
 CORE_IMAGE_EXPORT NSString *kCIImageProperties __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
 
 /* Creates a new image from the contents of 'image'. */
-+ (CIImage *)imageWithCGImage:(CGImageRef)image;
-+ (CIImage *)imageWithCGImage:(CGImageRef)image options:(NSDictionary *)d;
+	public static function imageWithCGImage (image:CGImageRef) :CIImage;
+	public static function imageWithCGImage (image:CGImageRef, options:NSDictionary) :CIImage;
 
 /* Creates a new image from the contents of 'layer'. */
-+ (CIImage *)imageWithCGLayer:(CGLayerRef)layer __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
-+ (CIImage *)imageWithCGLayer:(CGLayerRef)layer options:(NSDictionary *)d __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function imageWithCGLayer (layer:CGLayerRef) :CIImage;
+	@:require(osx_10_4) public static function imageWithCGLayer (layer:CGLayerRef, options:NSDictionary) :CIImage;
 
 /* Creates a new image whose bitmap data is from 'd'. Each row contains 'bpr'
  * bytes. The dimensions of the image are defined by 'size'. 'f' defines
  * the format and size of each pixel. 'cs' defines the color space
  * that the image is defined in, if nil, the image is not color matched. */
-+ (CIImage *)imageWithBitmapData:(NSData *)d bytesPerRow:(size_t)bpr
- size:(CGSize)size format:(CIFormat)f colorSpace:(CGColorSpaceRef)cs;
+	public static function imageWithBitmapData (d:NSData, bytesPerRow:size_t, size:CGSize, format:CIFormat, colorSpace:CGColorSpaceRef) :CIImage;
 
 /* Creates a new image referencing the contents of the GL texture object
  * with identifier 'name'. The texture should have dimensions as defined
  * by 'size'. If 'flag' is true, then the contents of the texture are
  * flipped vertically when referenced. 'cs' defines the color space
  * that the image is defined in, if nil, the texture is not color matched.*/
-+ (CIImage *)imageWithTexture:(unsigned int)name size:(CGSize)size
- flipped:(BOOL)flag colorSpace:(CGColorSpaceRef)cs __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_6_0);
+	@:require(osx_10_4,ios_6_0) public static function imageWithTexture (name:Int, size:CGSize, flipped:Bool colorSpace:CGColorSpaceRef) :CIImage;
 
-+ (CIImage *)imageWithContentsOfURL:(NSURL *)url;
-+ (CIImage *)imageWithContentsOfURL:(NSURL *)url options:(NSDictionary *)d;
+	public static function imageWithContentsOfURL (url:NSURL) :CIImage;
+	public static function imageWithContentsOfURL (url:NSURL, options:NSDictionary) :CIImage;
 
-+ (CIImage *)imageWithData:(NSData *)data;
-+ (CIImage *)imageWithData:(NSData *)data options:(NSDictionary *)d;
+	public static function imageWithData (data:NSData) :CIImage;
+	public static function imageWithData (data:NSData, options:NSDictionary) :CIImage;
 
 /* Creates a new image whose data is from the contents of a CVImageBuffer. */
-+ (CIImage *)imageWithCVImageBuffer:(CVImageBufferRef)imageBuffer __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
-+ (CIImage *)imageWithCVImageBuffer:(CVImageBufferRef)imageBuffer
- options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function imageWithCVImageBuffer (imageBuffer:CVImageBufferRef) :CIImage;
+	@:require(osx_10_4) public static function imageWithCVImageBuffer (imageBuffer:CVImageBufferRef, options:NSDictionary) :CIImage;
 
 /* Creates a new image whose data is from the contents of a CVPixelBufferRef. */
-+ (CIImage *)imageWithCVPixelBuffer:(CVPixelBufferRef)buffer __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-+ (CIImage *)imageWithCVPixelBuffer:(CVPixelBufferRef)buffer options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	@:require(ios_5_0) public static function imageWithCVPixelBuffer (buffer:CVPixelBufferRef) :CIImage;
+	@:require(ios_5_0) public static function imageWithCVPixelBuffer (buffer:CVPixelBufferRef, options:NSDictionary) :CIImage;
 
 /* Creates a new image from the contents of an IOSurface. */
-#if !TARGET_OS_IPHONE
-+ (CIImage *)imageWithIOSurface:(IOSurfaceRef)surface __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
-+ (CIImage *)imageWithIOSurface:(IOSurfaceRef)surface options:(NSDictionary *)d __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
-#endif
+#if !ios
+	@:require(osx_10_6) public static function imageWithIOSurface (surface:IOSurfaceRef) :CIImage;
+	@:require(osx_10_6) public static function imageWithIOSurface (surface:IOSurfaceRef, options:NSDictionary) :CIImage;
+#end
 
 /* Return or initialize a new image with an infinite amount of the color
  * 'color'. */
-+ (CIImage *)imageWithColor:(CIColor *)color;
+	public static function imageWithColor (color:CIColor) :CIImage;
 
 /* Create an empty Image. */
-+ (CIImage *)emptyImage;
+	public static function emptyImage () :CIImage;
 
 /* Initializers. */
 
-- (id)initWithCGImage:(CGImageRef)image;
-- (id)initWithCGImage:(CGImageRef)image options:(NSDictionary *)d;
+	public function initWithCGImage:(CGImageRef)image;
+	public function initWithCGImage:(CGImageRef)image options:(NSDictionary *)d;
 
-- (id)initWithCGLayer:(CGLayerRef)layer __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
-- (id)initWithCGLayer:(CGLayerRef)layer options:(NSDictionary *)d __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	public function initWithCGLayer:(CGLayerRef)layer __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	public function initWithCGLayer:(CGLayerRef)layer options:(NSDictionary *)d __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
 
-- (id)initWithData:(NSData *)data;
-- (id)initWithData:(NSData *)data options:(NSDictionary *)d;
+	public function initWithData:(NSData *)data;
+	public function initWithData:(NSData *)data options:(NSDictionary *)d;
 
-- (id)initWithBitmapData:(NSData *)d bytesPerRow:(size_t)bpr size:(CGSize)size 
+	public function initWithBitmapData:(NSData *)d bytesPerRow:(size_t)bpr size:(CGSize)size 
 format:(CIFormat)f colorSpace:(CGColorSpaceRef)c;
 
-- (id)initWithTexture:(unsigned int)name size:(CGSize)size flipped:(BOOL)flag colorSpace:(CGColorSpaceRef)cs __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_6_0);
+	public function initWithTexture:(unsigned int)name size:(CGSize)size flipped:(BOOL)flag colorSpace:(CGColorSpaceRef)cs __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_6_0);
 
-- (id)initWithContentsOfURL:(NSURL *)url;
-- (id)initWithContentsOfURL:(NSURL *)url options:(NSDictionary *)d;
+	public function initWithContentsOfURL:(NSURL *)url;
+	public function initWithContentsOfURL:(NSURL *)url options:(NSDictionary *)d;
 
-#if !TARGET_OS_IPHONE
-- (id)initWithIOSurface:(IOSurfaceRef)surface __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
-- (id)initWithIOSurface:(IOSurfaceRef)surface options:(NSDictionary *)d __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
-#endif
+#if !ios
+	public function initWithIOSurface:(IOSurfaceRef)surface __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
+	public function initWithIOSurface:(IOSurfaceRef)surface options:(NSDictionary *)d __OSX_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
+#end
 
-- (id)initWithCVImageBuffer:(CVImageBufferRef)imageBuffer __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
-- (id)initWithCVImageBuffer:(CVImageBufferRef)imageBuffer options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	public function initWithCVImageBuffer:(CVImageBufferRef)imageBuffer __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	public function initWithCVImageBuffer:(CVImageBufferRef)imageBuffer options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
 
-- (id)initWithCVPixelBuffer:(CVPixelBufferRef)buffer __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-- (id)initWithCVPixelBuffer:(CVPixelBufferRef)buffer options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	public function initWithCVPixelBuffer:(CVPixelBufferRef)buffer __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	public function initWithCVPixelBuffer:(CVPixelBufferRef)buffer options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 
-- (id)initWithColor:(CIColor *)color;
+	public function initWithColor (color:CIColor) :CIImage;
 
 /* Returns a new image representing the original image with the transform
  * 'matrix' appended to it. */
-- (CIImage *)imageByApplyingTransform:(CGAffineTransform)matrix;
+	public function imageByApplyingTransform (matrix:CGAffineTransform) :CIImage;
 
 /* Return a new image cropped to the rectangle or shape. */
-- (CIImage *)imageByCroppingToRect:(CGRect)r;
+	public function imageByCroppingToRect (r:CGRect) :CIImage;
 
 /* Return a rect the defines the bounds of non-(0,0,0,0) pixels */
-- (CGRect)extent;
+	public function extent () :CGRect;
 
 /* Returns the metadata properties of an image. If the image is the
  * output of one or more CIFilters, then the metadata of the root inputImage
  * will be returned. See also kCIImageProperties. */
-- (NSDictionary*)properties __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
+	@:require(osx_10_8,ios_5_0) public function properties () :NSDictionary;
 
 /* Return the Domain of Definition of the image. */
-- (CIFilterShape *)definition __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public function definition () :CIFilterShape;
 
 /* Returns the URL of the image when the image was created using the imageWithContentsOfURL APIs.
  * This method will return nil, if the URL cannot be determined. */
-- (NSURL *)url __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public function url () :NSURL;
 
 /* Returns if possible the color space of the image it was defined in.
  * This method will return nil, if the color space cannot be determined. */
-- (CGColorSpaceRef)colorSpace __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public function colorSpace () :CGColorSpaceRef;
 
-}
-
-extern class CIImage (AutoAdjustment)
+//extern class CIImage (AutoAdjustment)
 
 /* Image auto adjustment keys. */
 
@@ -193,7 +175,7 @@ CORE_IMAGE_EXPORT NSString *kCIImageAutoAdjustFeatures __OSX_AVAILABLE_STARTING(
  * based on that orientation but any coordinates in the returned filters will
  * still be based on those of the sender image.
  */
-- (NSArray *)autoAdjustmentFilters __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
-- (NSArray *)autoAdjustmentFiltersWithOptions:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
+	@:require(osx_10_8,ios_5_0) public function autoAdjustmentFilters () :Array<CIFilter>;
+	@:require(osx_10_8,ios_5_0) public function autoAdjustmentFiltersWithOptions (dict:NSDictionary) :Array<CIFilter>;
 
 }

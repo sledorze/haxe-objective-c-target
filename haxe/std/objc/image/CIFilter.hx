@@ -1,14 +1,8 @@
-/* CoreImage - CIFilter.h
+package objc.image;
 
-   Copyright (c) 2011 Apple, Inc.
-   All rights reserved. */
-
-
-#import <Foundation/Foundation.h>
-#import <CoreImage/CoreImageDefines.h>
-
-@class NSURL;
-
+import objc.foundation.NSObject;
+import objc.foundation.NSDictionary;
+import objc.foundation.NSURL;
 
 
 /* Filter attribute strings. */
@@ -174,35 +168,28 @@ CORE_IMAGE_EXPORT NSString *kCIInputTargetImageKey __OSX_AVAILABLE_STARTING(__MA
 CORE_IMAGE_EXPORT NSString *kCIInputExtentKey __OSX_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
 CORE_IMAGE_EXPORT NSString *kCIInputVersionKey __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
 
-@class NSArray, NSDictionary;
-@class CIKernel, CIImage;
-@protocol CIFilterConstructor;
-
 /** CIFilter are filter objects for Core Image that encapsulate the filter with its attributes
  
  The CIFilter class produces a CIImage object as output. Typically, a filter takes one or more images as input. Some filters, however, generate an image based on other types of input parameters. The parameters of a CIFilter object are set and retrieved through the use of key-value pairs. You use the CIFilter object in conjunction with the CIImage, CIContext, CIVector, CIImageAccumulator, and CIColor objects to take advantage of the built-in Core Image filters when processing images. CIFilter objects are also used along with CIKernel, CISampler, and CIFilterShape objects to create custom filters. */
-CORE_IMAGE_CLASS_EXPORT
-extern class CIFilter extends NSObject, implements NSObject, NSCopying>
-{
-    void *_priv[8];
-}
 
-	public var  (readonly, nonatomic) CIImage *outputImage;
+extern class CIFilter extends NSObject, implements NSCopying {
+
+	public var (default, null) outputImage :CIImage;
 
 /* name of the filter */
-- (NSString*)name __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	public function name () :String;// __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
 
 /** Returns an array containing the names of all inputs in the filter. */
-- (NSArray *)inputKeys;
+	public function inputKeys () :Array<String>;
 
 /** Returns an array containing the names of all outputs in the filter. */
-- (NSArray *)outputKeys;
+	public function outputKeys () :Array<String>;
 
 /** Sets all inputs to their default values (where default values are defined, other inputs are left as-is). */
-- (void)setDefaults;
+	public function setDefaults () :Void;
 
 /** Returns a dictionary containing key/value pairs describing the filter. (see description of keys below) */
-- (NSDictionary *)attributes;
+	public function attributes () :NSDictionary;
 	
 
 /** Used by CIFilter subclasses to apply the array of argument values 'args' to the kernel function 'k'. The supplied arguments must be type-compatible with the function signature of the kernel.
@@ -214,33 +201,29 @@ extern class CIFilter extends NSObject, implements NSObject, NSCopying>
  @param  args      Array of arguments that are applied to the kernel
  @param  options   Array of additional options
 */
-- (CIImage *)apply:(CIKernel *)k
-		 arguments:(NSArray *)args
-		   options:(NSDictionary *)dict __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public function apply (k:CIKernel, arguments:Array, options:NSDictionary) :CIImage;
 
 /** Similar to above except that all argument values and option key-value are specified inline. The list of key-value pairs must be terminated by the 'nil' object. */
-- (CIImage *)apply:(CIKernel *)k, ... NS_REQUIRES_NIL_TERMINATION __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
-
-}
+//- (CIImage *)apply:(CIKernel *)k, ... NS_REQUIRES_NIL_TERMINATION __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
 
 
 /** Methods to register a filter and get access to the list of registered filters
  Use these methods to create filters and find filters. */
-extern class CIFilter (CIFilterRegistry)
+//extern class CIFilter (CIFilterRegistry)
 
 /** Creates a new filter of type 'name'. All input values will be undefined. */
-+ (CIFilter *) filterWithName:(NSString *) name;
+	public static function filterWithName (name:String) :CIFilter;
 
 /** Creates a new filter of type 'name'.
  
  Convenience method that creates a filter objects with the specified key-value pairs set as input values on it; the argument list is terminated by a nil value.*/
-+ (CIFilter *)filterWithName:(NSString *)name keysAndValues:key0, ... NS_REQUIRES_NIL_TERMINATION;
+	//public static function filterWithName (name:NSString, keysAndValues:) :CIFilter;//NS_REQUIRES_NIL_TERMINATION;
 
 /** Returns an array containing all published filter names in a category. */
-+ (NSArray *)filterNamesInCategory:(NSString *)category;
+	public static function filterNamesInCategory (category:String) :Array<String>;
 
 /** Returns an array containing all published filter names that belong to all listed categories. */
-+ (NSArray *)filterNamesInCategories:(NSArray *)categories;
+	public static function filterNamesInCategories (category:String) :Array<String>;
 
 
 /** Publishes a new filter called 'name'.
@@ -248,23 +231,21 @@ extern class CIFilter (CIFilterRegistry)
  The constructor object 'anObject' should implement the filterWithName: method, it will be invoked with the name of the filter to create. The class attributes must have akCIAttributeFilterCategories key associated with a set of categories.
  @param   attributes    Dictionary of the registration attributes of the filter. See below for attribute keys.
 */
-+ (void)registerFilterName:(NSString *)name
-			   constructor:(id<CIFilterConstructor>)anObject
-		   classAttributes:(NSDictionary *)attributes __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function registerFilterName (name:String, constructor:CIFilterConstructor, classAttributes:NSDictionary) :Void;
 
 /** Returns the localized name of a filter for display in the UI. */
-+ (NSString *)localizedNameForFilterName:(NSString *)filterName __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function localizedNameForFilterName (filterName:String) :String;
 
 /** Returns the localized name of a category for display in the UI. */
-+ (NSString *)localizedNameForCategory:(NSString *)category __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function localizedNameForCategory (category:String) :String;
 
 /** Returns the localized description of a filter for display in the UI. */
-+ (NSString *)localizedDescriptionForFilterName:(NSString *)filterName __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function localizedDescriptionForFilterName (filterName:String) :String;
 
 /** Returns the URL to the localized reference documentation describing the filter.
     
  The URL can be a local file or a remote document on a webserver. It is possible, that this method returns nil (like filters that predate this feature). A client of this API has to handle this case gracefully. */
-+ (NSURL *)localizedReferenceDocumentationForFilterName:(NSString *)filterName __OSX_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+	@:require(osx_10_4) public static function localizedReferenceDocumentationForFilterName (filterName:String) :NSURL;
 
 /* Given an array of filters, serialize the filters' parameters 
    into XMP form that is suitable for embedding in to an image.
@@ -273,15 +254,9 @@ extern class CIFilter (CIFilterRegistry)
    [CIImage autoAdjustmentFilters].  
    The parameters of other filter classes will not be serialized.
  */
-+ (NSData*)serializedXMPFromFilters:(NSArray *)filters
-                   inputImageExtent:(CGRect)extent
-   __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
+	@:require(ios_6_0) public static function serializedXMPFromFilters (filters:Array<CIFilter>, inputImageExtent:CGRect) :NSData;
 
 /* Return an array of CIFilters de-serialized from XMP data.
  */
-+ (NSArray*)filterArrayFromSerializedXMP:(NSData *)xmpData
-                        inputImageExtent:(CGRect)extent
-                                   error:(NSError **)outError
-   __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_6_0);
-
+	@:require(ios_6_0) public static function filterArrayFromSerializedXMP (xmpData:NSData, inputImageExtent:CGRect, error:NSError) :Array<CIFIlter>;
 }

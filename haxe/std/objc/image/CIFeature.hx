@@ -1,32 +1,26 @@
-/* CoreImage - CIFeature.h
+package objc.image;
 
-   Copyright (c) 2011 Apple, Inc.
-   All rights reserved. */
-
-#import <CoreImage/CoreImageDefines.h>
-#import <Foundation/Foundation.h>
+import objc.foundation.NSObject;
 
 
-/** Generic feature found by a CIDetector. */
-CORE_IMAGE_CLASS_EXPORT
-extern class CIFeature extends NSObject {}
+extern class CIFeature extends NSObject {
 
 /** The type of the feature. */
-	public var (default, null) NSString *type;
+	public var (default, null) type :String;
 /** The bounds of the feature in the image it was detected in. */
-	public var (default, null) CGRect bounds;
+	public var (default, null) bounds :CGRect;
 
 }
 
 
 /** Specifies the type of a feature that is a face. */
-CORE_IMAGE_EXPORT NSString* const CIFeatureTypeFace;
+//CORE_IMAGE_EXPORT NSString* const CIFeatureTypeFace;
 
 
 /** A face feature found by a CIDetector.
  All positions are relative to the original image. */
-CORE_IMAGE_CLASS_EXPORT
-extern class CIFaceFeature : CIFeature {}
+
+extern class CIFaceFeature extends CIFeature {
 
 /** coordinates of various cardinal points within a face.
  
@@ -34,17 +28,17 @@ extern class CIFaceFeature : CIFeature {}
  from the observer's perspective. It is not the left eye from
  the subject's perspective. */
 
-	public var (default, null) BOOL hasLeftEyePosition;
-	public var (default, null) CGPoint leftEyePosition;
-	public var (default, null) BOOL hasRightEyePosition;
-	public var (default, null) CGPoint rightEyePosition;
-	public var (default, null) BOOL hasMouthPosition;
-	public var (default, null) CGPoint mouthPosition;
+	public var (default, null) hasLeftEyePosition :Bool;
+	public var (default, null) leftEyePosition :CGPoint;
+	public var (default, null) hasRightEyePosition :Bool;
+	public var (default, null) rightEyePosition :CGPoint;
+	public var (default, null) hasMouthPosition :Bool;
+	public var (default, null) mouthPosition :CGPoint;
 
-	public var (default, null) BOOL hasTrackingID;
-	public var (default, null) int trackingID;
-	public var (default, null) BOOL hasTrackingFrameCount;
-	public var (default, null) int trackingFrameCount;
+	public var (default, null) hasTrackingID :Bool;
+	public var (default, null) trackingID :Int;
+	public var (default, null) hasTrackingFrameCount :Bool;
+	public var (default, null) trackingFrameCount :Int;
 
 }
 

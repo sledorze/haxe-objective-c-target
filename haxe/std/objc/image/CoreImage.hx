@@ -1,23 +1,21 @@
 package objc.image;
 
-#import <CoreImage/CIColor.h>
-#import <CoreImage/CIContext.h>
-#import <CoreImage/CIFilter.h>
-#if !TARGET_OS_IPHONE
-#import <CoreImage/CIFilterGenerator.h>
-#import <CoreImage/CIFilterShape.h>
-#endif
-#import <CoreImage/CIImage.h>
-#if !TARGET_OS_IPHONE
-#import <CoreImage/CIImageAccumulator.h>
-#import <CoreImage/CIImageProvider.h>
-#import <CoreImage/CIKernel.h>
-#import <CoreImage/CIPlugIn.h>
-#import <CoreImage/CIRAWFilter.h>
-#import <CoreImage/CISampler.h>
-#endif
-#import <CoreImage/CIVector.h>
-#import <CoreImage/CIDetector.h>
-#import <CoreImage/CIFeature.h>
-
-#endif /* __OBJC__ */
+typedef CIColor = objc.image.CIColor;
+typedef CIContext = objc.image.CIContext;
+typedef CIFilter = objc.image.CIFilter;
+#if !ios
+/*typedef CIFilterGenerator = objc.image.;
+typedef CIFilterShape = objc.image.;*/
+#end
+typedef CIImage = objc.image.CIImage;
+#if !ios
+/*typedef CIImageAccumulator = objc.image.;
+typedef CIImageProvider = objc.image.;
+typedef CIKernel = objc.image.;
+typedef CIPlugIn = objc.image.;
+typedef CIRAWFilter = objc.image.;
+typedef CISampler = objc.image.;*/
+#end
+typedef CIVector = objc.image.CIVector;
+typedef CIDetector = objc.image.CIDetector;
+typedef CIFeature = objc.image.CIFeature;

@@ -1,23 +1,14 @@
-/* CoreImage - CIDetector.h
+package objc.image;
 
-   Copyright (c) 2011 Apple, Inc.
-   All rights reserved. */
-
-
-#import <CoreImage/CoreImageDefines.h>
-#import <Foundation/Foundation.h>
-
-@class CIImage;
-@class CIContext;
-
+import objc.foundation.NSObject;
+import objc.foundation.NSDictionary;
 
 
 /** Detects features in images.
  
  This class potentially holds onto a lot of state. Hence it may be beneficial from a performance perspective to re-use the same CIDetector instance. Specifying a CIContext when creating a detector may have an impact on performance since this context may be used when analyzing an image.
  */
-CORE_IMAGE_CLASS_EXPORT
-extern class CIDetector extends NSObject {}
+@require(osx_10_7, ios_5_0) extern class CIDetector extends NSObject {
 
 /** Returns a new detector instance of the given type.
  
@@ -30,18 +21,13 @@ extern class CIDetector extends NSObject {}
  The detector may do image processing in this context and if the image is on the GPU and the specified context is a GPU context this may avoid additional upload to / download from the GPU. If the input image is on the CPU (or the output from a CPU based context) specifying a GPU based context (or vice versa) may reduce performance.
  
  The options parameter lets you optinally specify a accuracy / performance tradeoff. Can be nil or an empty dictionary. */
-+ (CIDetector *)detectorOfType:(NSString*)type context:(CIContext *)context options:(NSDictionary *)options __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_5_0);
+	public static function detectorOfType (type:String, context:CIContext, options:NSDictionary) :CIDetector;
 
 /** Returns an array of CIFeature instances in the given image.
- The array is sorted by confidence, highest confidence first. */
-- (NSArray *)featuresInImage:(CIImage *)image __OSX_AVAILABLE_STARTING(__MAC_10_7, __IPHONE_5_0);
-
-/** Returns an array of CIFeature instances in the given image.
- The array is sorted by confidence, highest confidence first. 
+ The array is sorted by confidence, highest confidence first.
  The options dictionary can contain a CIDetectorImageOrientation key value. */
-- (NSArray *)featuresInImage:(CIImage *)image options:(NSDictionary *)options __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
-
-}
+	@overload( function (image:CIImage, options:NSDictionary) :Array<CIFeature>{})
+	public function featuresInImage (image:CIImage) :Array<CIFeature>;
 
 
 // Types to be used for +[CIDetector detectorOfType:context:options:]
@@ -79,3 +65,4 @@ CORE_IMAGE_EXPORT NSString* const CIDetectorMinFeatureSize __OSX_AVAILABLE_START
  still be based on those of the image. */
 CORE_IMAGE_EXPORT NSString *const CIDetectorImageOrientation __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0);
 
+}

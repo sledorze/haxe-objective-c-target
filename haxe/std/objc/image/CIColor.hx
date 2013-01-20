@@ -1,52 +1,43 @@
-/* CoreImage - CIColor.h
+package objc.image;
 
-   Copyright (c) 2011 Apple, Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
 
-#import <CoreImage/CoreImageDefines.h>
-#import <Foundation/Foundation.h>
-
-CORE_IMAGE_CLASS_EXPORT
-extern class CIColor extends NSObject, implements NSObject, NSCopying>
-{
-    void *_priv;
-    void *_pad[3];
-}
+extern class CIColor extends NSObject, implements NSCopying {
 
 /* Create a new color object. */
-+ (CIColor *)colorWithCGColor:(CGColorRef)c;
+	public static function colorWithCGColor (c:CGColorRef) :CIColor;;
 
 /* Create a new color object.
  It's created using the GenericRGB color space. To create a CIColor with a different color space, use +colorWithCGColor:. */
-+ (CIColor *)colorWithRed:(Float)r green:(Float)g blue:(Float)b alpha:(Float)a;
-+ (CIColor *)colorWithRed:(Float)r green:(Float)g blue:(Float)b;
+	public static function colorWithRed (r:Float, green:Float, blue:Float, alpha:Float) :CIColor;
+	public static function colorWithRed (r:Float, green:Float, blue:Float) :CIColor;
 
 /* Create a new color object, 'representation' should be a string in one of
  * the formats returned by the stringRepresentation method. */
-+ (CIColor *)colorWithString:(NSString *)representation;
+	public static function colorWithString (representation:String) :CIColor;
 
 /* Initializer. */
 
-- (id)initWithCGColor:(CGColorRef)c;
+	public function initWithCGColor (c:CGColorRef) :CIColor;
 
 /* Return the number of color components (including alpha). */
-- (size_t)numberOfComponents;
+	public function numberOfComponents () :Int;
 
 /* Return the color components (including alpha). */
-- (const Float *)components;
+	public function components () :Array<Float>;
 
 /* Return the alpha value of the color. */
-- (Float)alpha;
+	public function alpha () :Float;
 
 /* Return the color space object associated with the color. */
-- (CGColorSpaceRef)colorSpace;
+	public function colorSpace () :CGColorSpaceRef;
 
 /* Return the (unpremultiplied) red, green or blue components of the color. */
-- (Float)red;
-- (Float)green;
-- (Float)blue;
+	public function red () :Float;
+	public function green () :Float;
+	public function blue () :Float;
 
 /* Returns a formatted string with the components of the color. */
-- (NSString *)stringRepresentation;
+	public function stringRepresentation () :String;
 
 }

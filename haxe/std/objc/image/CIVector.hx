@@ -1,77 +1,65 @@
-/* CoreImage - CIVector.h
+package objc.image;
 
-   Copyright (c) 2011 Apple, Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
 
-#import <CoreImage/CoreImageDefines.h>
-#import <Foundation/Foundation.h>
 
-CORE_IMAGE_CLASS_EXPORT
-extern class CIVector extends NSObject, implements NSCopying, NSCoding>
-{
-    size_t _count;
-    
-    union {
-        Float vec[4];
-        Float *ptr;
-    }
-    _u;
-}
+extern class CIVector extends NSObject, implements NSCopying, implements NSCoding {
 
 /* Create a new vector object. */
 
-+ (CIVector *)vectorWithValues:(const Float *)values count:(size_t)count;
+	public static function vectorWithValues (values:Array<Float>, count:Int) :CIVector;
 
-+ (CIVector *)vectorWithX:(Float)x;
-+ (CIVector *)vectorWithX:(Float)x Y:(Float)y;
-+ (CIVector *)vectorWithX:(Float)x Y:(Float)y Z:(Float)z;
-+ (CIVector *)vectorWithX:(Float)x Y:(Float)y Z:(Float)z W:(Float)w;
+	@:overload( static function (x:Float) :CIVector {})
+	@:overload( static function (x:Float, Y:Float) :CIVector {})
+	@:overload( static function (x:Float, Y:Float, Z:Float) :CIVector {})
+	public static function vectorWithX (x:Float, Y:Float, Z:Float, W:Float) :CIVector;
 
 /* the CGPoint x and y values are stored in the first X and Y values of the CIVector. */
-+ (CIVector *)vectorWithCGPoint:(CGPoint)p __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	@:require(ios_5_0) public static function vectorWithCGPoint (p:CGPoint) :CIVector;
 
 /* the CGRect x, y, width, height values are stored in the first X, Y, Z, W values of the CIVector. */
-+ (CIVector *)vectorWithCGRect:(CGRect)r __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	@:require(ios_5_0) public static function vectorWithCGRect (r:CGRect) :CIVector;
 
 /* the CGAffineTransform's six values are stored in the first six values of the CIVector. */
-+ (CIVector *)vectorWithCGAffineTransform:(CGAffineTransform)t __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	@:require(ios_5_0) public static function vectorWithCGAffineTransform (t:CGAffineTransform) :CIVector;
 
-+ (CIVector *)vectorWithString:(NSString *)representation;
+	public static function vectorWithString (representation:String) :CIVector;
 
 /* Initializers. */
 
-- (id)initWithValues:(const Float *)values count:(size_t)count;
+	public function initWithValues (values:Array<Float>, count:Int) :CIVector;
+	
+	@:overload( function (X:Float) :CIVector {})
+	@:overload( function (X:Float, Y:Float) :CIVector {})
+	@:overload( function (X:Float, Y:Float, Z:Float) :CIVector {})
+	public function initWithX (X:Float, Y:Float, Z:Float, W:Float) :CIVector;
+	
+	@:require(ios_5_0) public function initWithCGPoint (p:CGPoint) :CIVector;
+	@:require(ios_5_0) public function initWithCGRect (r:CGRect) :CIVector;
+	@:require(ios_5_0) public function initWithCGAffineTransform (r:CGAffineTransform) :CIVector;
 
-- (id)initWithX:(Float)x;
-- (id)initWithX:(Float)x Y:(Float)y;
-- (id)initWithX:(Float)x Y:(Float)y Z:(Float)z;
-- (id)initWithX:(Float)x Y:(Float)y Z:(Float)z W:(Float)w;
-- (id)initWithCGPoint:(CGPoint)p __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-- (id)initWithCGRect:(CGRect)r __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-- (id)initWithCGAffineTransform:(CGAffineTransform)r __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-
-- (id)initWithString:(NSString *)representation;
+	public function initWithString (representation:String) :CIVector;
 
 /* Return the value from the vector at position 'index' (zero-based).
  * Any 'index' value is valid, if the component would otherwise be
  * undefined, zero is returned. */
-- (Float)valueAtIndex:(size_t)index;
+	public function valueAtIndex (index:Int) :Float;
 
 /* Return the number of values stored in the vector. */
-- (size_t)count;
+	public function count () :Int;
 
 /* Getters. */
 
-- (Float)X;
-- (Float)Y;
-- (Float)Z;
-- (Float)W;
-- (CGPoint)CGPointValue __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-- (CGRect)CGRectValue __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
-- (CGAffineTransform)CGAffineTransformValue __OSX_AVAILABLE_STARTING(__MAC_NA, __IPHONE_5_0);
+	public function X () :Float;
+	public function Y () :Float;
+	public function Z () :Float;
+	public function W () :Float;
+	@:require(ios_5_0) public function CGPointValue () :CGPoint;
+	@:require(ios_5_0) public function CGRectValue () :CGRect;
+	@:require(ios_5_0) public function CGAffineTransformValue () :CGAffineTransform;
 
 /* Return a string representing the vector such that a similar vector
  * can be created by calling the vectorWithString: method. */
-- (NSString *)stringRepresentation;
+	public function stringRepresentation () :String;
 
 }
