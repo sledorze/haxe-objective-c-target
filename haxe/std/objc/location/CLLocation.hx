@@ -1,11 +1,12 @@
 package objc.location;
+
 import objc.foundation.NSObject;
-import objc.foundation.NSDate;
 
 typedef CLLocationDegrees = Float;
 typedef CLLocationAccuracy = Float;
 typedef CLLocationSpeed = Float;
 typedef CLLocationDirection = Float;
+typedef CLLocationDistance = Float;
 
 
 extern class CLLocationCoordinate2D {
@@ -14,7 +15,6 @@ extern class CLLocationCoordinate2D {
 // Convert this class in the compiler to:
 //CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)
 
-typedef CLLocationDistance = Float;
 /*extern const CLLocationDistance kCLDistanceFilterNone;
 extern const CLLocationAccuracy kCLLocationAccuracyBestForNavigation __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
 extern const CLLocationAccuracy kCLLocationAccuracyBest;
@@ -35,11 +35,11 @@ BOOL CLLocationCoordinate2DIsValid(CLLocationCoordinate2D coord) __OSX_AVAILABLE
  *  Discussion:
  *    Represents a geographical coordinate along with accuracy and timestamp information.
  */
-extern class CLLocation extends NSObject /*<NSCopying, NSCoding>*/ {
+extern class CLLocation extends NSObject, implements NSCopying, implements NSCoding {
 
 	public function initWithLatitude (latitude:CLLocationDegrees, longitude:CLLocationDegrees) :CLLocation;
+	@:overload( function initWithCoordinate (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, course:CLLocationDirection, speed:CLLocationSpeed, timestamp:NSDate) :CLLocation {})
 	public function initWithCoordinate (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, timestamp:NSDate) :CLLocation;
-	//public function initWithCoordinate (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, course:CLLocationDirection, speed:CLLocationSpeed, timestamp:NSDate) :CLLocation;
 
 	public var coordinate :CLLocationCoordinate2D;
 	public var altitude :CLLocationDistance;
@@ -47,7 +47,7 @@ extern class CLLocation extends NSObject /*<NSCopying, NSCoding>*/ {
 	public var verticalAccuracy :CLLocationAccuracy;
 	public var course :CLLocationDirection;
 	public var speed :CLLocationSpeed;
-	public var timestamp :NSDate;
+	public var timestamp :Date;
 
 	public function description () :String;
 	public function getDistanceFrom (location:CLLocation) :CLLocationDistance;

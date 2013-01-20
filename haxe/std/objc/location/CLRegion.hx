@@ -1,28 +1,9 @@
-/*
- *  CLRegion.h
- *  CoreLocation
- *
- *  Copyright (c) 2009-2010 Apple Inc. All rights reserved.
- *
- */
+package objc.location;
 
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CLLocation.h>
-#import <CoreLocation/CLAvailability.h>
+import objc.foundation.NSObject;
+import objc.location.CLLocation;
 
-/*
- *  CLRegion
- *  
- *  Discussion:
- *    A geographic area.
- */
-NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
-{
-@private
-	id _internal;
-}
-
+extern class CLRegion extends NSObject, implements NSCopying, implements NSCoding {
 
 /*
  *  initCircularRegionWithCenter:radius:identifier:
@@ -32,9 +13,7 @@ extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
  *    the distance in meters between the center and the region's boundary. identifier is a description
  *    for the region that could be displayed to the user, and ideally should be chosen by the user.
  */
-- (id)initCircularRegionWithCenter:(CLLocationCoordinate2D)center
-                            radius:(CLLocationDistance)radius
-                        identifier:(NSString *)identifier __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public function initCircularRegionWithCenter (center:CLLocationCoordinate2D, radius:CLLocationDistance, identifier:String) :CLRegion;
 
 /*
  *  center
@@ -42,7 +21,7 @@ extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
  *  Discussion:
  *    Returns the coordinate of the center of the region.
  */
-	public var  (readonly, nonatomic) CLLocationCoordinate2D center __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var (default, null) center :CLLocationCoordinate2D;
 
 /*
  *  radius
@@ -50,7 +29,7 @@ extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
  *  Discussion:
  *    Returns the radius of the region.
  */
-	public var  (readonly, nonatomic) CLLocationDistance radius __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var (default, null) radius :CLLocationDistance;
 
 /*
  *  identifier
@@ -58,7 +37,7 @@ extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
  *  Discussion:
  *    Returns the region's identifier.
  */
-	public var  (readonly, nonatomic) NSString *identifier __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var (default, null) identifier :String;
 
 /*
  *  containsCoordinate:
@@ -66,6 +45,6 @@ extern class CLRegion extends NSObject, implements NSCopying, NSCoding>
  *  Discussion:
  *    Returns YES if the coordinate lies inside the region, and NO otherwise.
  */
-- (BOOL)containsCoordinate:(CLLocationCoordinate2D)coordinate __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public function containsCoordinate (coordinate:CLLocationCoordinate2D) :Bool;
 
 }

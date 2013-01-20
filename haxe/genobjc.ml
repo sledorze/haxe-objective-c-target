@@ -2199,6 +2199,10 @@ let getMetaString key meta =
 	loop meta
 ;;
 let generatePlist common_ctx file_info  =
+	(* TODO: Allows the application to specify what location will be used for in their app. 
+	This will be displayed along with the standard Location permissions dialogs. 
+	This property will need to be set prior to calling startUpdatingLocation.
+	Set the purpose string in Info.plist using key NSLocationUsageDescription. *)
 	(* let main_class_def = common_ctx.main_class in *)
 	let app_name = appName common_ctx in
 	let src_dir = srcDir common_ctx in

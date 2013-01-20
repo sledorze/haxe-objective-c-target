@@ -56,7 +56,7 @@ enum ValueType {
 	public static function getSuperClass( c : Class<Dynamic> ) : Class<Dynamic> {
 		if( c == null )
 			return null;
-		return untyped __objc__("NSStringFromClass([c class])");
+		return untyped c.superclass();//__objc__("class_getSuperclass(c);");
 	}
 
 	public static function getClassName( c : Class<Dynamic> ) : String {
@@ -85,7 +85,7 @@ enum ValueType {
 
 	public static function createInstance<T>( cl : Class<T>, args : Array<Dynamic> ) : T {
 		if (cl!=null)
-			return untyped __objc__("[[cl alloc] init]");
+			return untyped __objc__("[[cl alloc] initFromArray:args]");
 		return null;
 	}
 

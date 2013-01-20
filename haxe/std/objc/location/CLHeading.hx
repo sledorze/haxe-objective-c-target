@@ -1,19 +1,19 @@
 package objc.location;
+import objc.foundation.NSObject;
+import objc.location.CLLocation;
 
 typedef CLHeadingComponentValue = Float;
+//extern const CLLocationDegrees kCLHeadingFilterNone;
 
-
-extern const CLLocationDegrees kCLHeadingFilterNone;
-
-extern class CLHeading extends NSObject /*<NSCopying, NSCoding>*/{
+extern class CLHeading extends NSObject, implements NSCopying, implements NSCoding {
 
 	public var magneticHeading :CLLocationDirection;
 	public var trueHeading :CLLocationDirection;
 	public var headingAccuracy :CLLocationDirection;
-	public var x :CLHeadingComponentValue x;
-	public var y :CLHeadingComponentValue y;
-	public var z :CLHeadingComponentValue z;
-	public var timestamp :NSDate;
+	public var x :CLHeadingComponentValue;
+	public var y :CLHeadingComponentValue;
+	public var z :CLHeadingComponentValue;
+	public var timestamp :Date;
 	public var description :String;
 
 }

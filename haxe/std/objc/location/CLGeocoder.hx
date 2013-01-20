@@ -1,18 +1,12 @@
+#if ios
 package objc.location;
 
+import objc.location.CLLocation;
+import objc.foundation.NSObject;
 
-#if ios
-
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CLLocation.h>
-#import <CoreLocation/CLAvailability.h>
-
-@class CLRegion;
-@class CLPlacemark;
-@class CLGeocoderInternal;
 
 // geocoding handler, CLPlacemarks are provided in order of most confident to least confident
-//typedef void (^CLGeocodeCompletionHandler)(NSArray *placemarks, NSError *error);
+typedef CLGeocodeCompletionHandler = Array<CLPlacemarks>->NSError->Void;// Objc block
 
 extern class CLGeocoder extends NSObject {
 	

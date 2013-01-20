@@ -191,7 +191,18 @@ static int length__;
 
 
 
-@implementation Tests2
+@implementation Tests2 {
+	int gender;
+	struct features *appearance;
+@private
+	int age;
+	char *evaluation;
+@protected
+	id job;
+	float wage;
+@public
+	id boss;
+}
 
 @synthesize d1;
 @synthesize block1;
@@ -219,6 +230,12 @@ static int length__;
 }
 -(void)_block1{
 	NSLog(@"block1default was called");
+}
+- makeIdenticalTwin {
+	Tests2 *twin = [[Tests2 alloc] init];
+	twin->gender = gender;
+	twin->appearance = appearance;
+	return twin;
 }
 
 @end

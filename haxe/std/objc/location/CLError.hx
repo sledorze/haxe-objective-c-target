@@ -20,4 +20,4 @@ enum CLError {
     kCLErrorDeferredCanceled;             // Deferred mode request canceled a previous request
 }
 
-extern public static var kCLErrorUserInfoAlternateRegionKey :String;
+//extern public static var kCLErrorUserInfoAlternateRegionKey :String;

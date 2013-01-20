@@ -6,10 +6,11 @@
  *  Copyright (c) 2008-2010 Apple Inc. All rights reserved.
  *
  */
+package objc.location;
 
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CLAvailability.h>
-#import <CoreLocation/CLLocation.h>
+import objc.foundation.NSObject;
+import objc.foundation.NSSet;
+import objc.location.CLLocation;
 
 /*
  *  CLDeviceOrientation
@@ -18,15 +19,15 @@
  *      Specifies a physical device orientation, equivalent to UIDeviceOrientation.
  *      
  */
-typedef enum {
-	CLDeviceOrientationUnknown = 0,
-	CLDeviceOrientationPortrait,
-	CLDeviceOrientationPortraitUpsideDown,
-	CLDeviceOrientationLandscapeLeft,
-	CLDeviceOrientationLandscapeRight,
-	CLDeviceOrientationFaceUp,
-	CLDeviceOrientationFaceDown
-} CLDeviceOrientation;
+extern enum CLDeviceOrientation {
+	CLDeviceOrientationUnknown;
+	CLDeviceOrientationPortrait;
+	CLDeviceOrientationPortraitUpsideDown;
+	CLDeviceOrientationLandscapeLeft;
+	CLDeviceOrientationLandscapeRight;
+	CLDeviceOrientationFaceUp;
+	CLDeviceOrientationFaceDown;
+}
 
 /*
  *  CLAuthorizationStatus
@@ -35,15 +36,15 @@ typedef enum {
  *      Represents the current authorization state of the application.
  *      
  */
-typedef enum {
-    kCLAuthorizationStatusNotDetermined = 0, // User has not yet made a choice with regards to this application
-    kCLAuthorizationStatusRestricted,        // This application is not authorized to use location services.  Due
+extern enum CLAuthorizationStatus {
+    kCLAuthorizationStatusNotDetermined; // User has not yet made a choice with regards to this application
+    kCLAuthorizationStatusRestricted;        // This application is not authorized to use location services.  Due
                                              // to active restrictions on location services, the user cannot change
                                              // this status, and may not have personally denied authorization
-    kCLAuthorizationStatusDenied,            // User has explicitly denied authorization for this application, or
+    kCLAuthorizationStatusDenied;            // User has explicitly denied authorization for this application, or
                                              // location services are disabled in Settings
-    kCLAuthorizationStatusAuthorized         // User has authorized this application to use location services
-} CLAuthorizationStatus;
+    kCLAuthorizationStatusAuthorized;         // User has authorized this application to use location services
+}
 
 /*
  *	CLActivityType
@@ -53,18 +54,12 @@ typedef enum {
  *		affects behavior such as the determination of when location updates
  *		may be automatically paused.
  */
-enum {
-    CLActivityTypeOther = 1,
-    CLActivityTypeAutomotiveNavigation,	// for automotive navigation
-    CLActivityTypeFitness,				// includes any pedestrian activities
-    CLActivityTypeOtherNavigation 		// for other navigation cases (excluding pedestrian navigation), e.g. navigation for boats, trains, or planes
-};
-typedef NSInteger CLActivityType;
-
-@class CLLocation;
-@class CLHeading;
-@class CLRegion;
-@protocol CLLocationManagerDelegate;
+extern enum CLActivityType {
+    CLActivityTypeOther;
+    CLActivityTypeAutomotiveNavigation;	// for automotive navigation
+    CLActivityTypeFitness;				// includes any pedestrian activities
+    CLActivityTypeOtherNavigation; 		// for other navigation cases (excluding pedestrian navigation), e.g. navigation for boats, trains, or planes
+}
 
 /*
  *  CLLocationManager
@@ -72,12 +67,7 @@ typedef NSInteger CLActivityType;
  *  Discussion:
  *    The CLLocationManager object is your entry point to the location service.
  */
-NS_CLASS_AVAILABLE(10_6, 2_0)
-extern class CLLocationManager extends NSObject
-{
-@private
-	id _internal;
-}
+extern class CLLocationManager extends NSObject {
 
 /*
  *  locationServicesEnabled
@@ -87,7 +77,7 @@ extern class CLLocationManager extends NSObject
  *      If NO, and you proceed to call other CoreLocation API, user will be prompted with the warning
  *      dialog. You may want to check this property and use location services only when explicitly requested by the user.
  */
-+ (BOOL)locationServicesEnabled __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public static function locationServicesEnabled () :Bool;
 
 /*
  *  headingAvailable
@@ -95,7 +85,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Returns YES if the device supports the heading service, otherwise NO.
  */
-+ (BOOL)headingAvailable __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public static function headingAvailable () :Bool;
 
 /*
  *  significantLocationChangeMonitoringAvailable
@@ -103,7 +93,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Returns YES if the device supports significant location change monitoring, otherwise NO.
  */
-+ (BOOL)significantLocationChangeMonitoringAvailable __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public static function significantLocationChangeMonitoringAvailable () :Bool;
 
 /*
  *  regionMonitoringAvailable
@@ -112,7 +102,7 @@ extern class CLLocationManager extends NSObject
  *      Determines whether the device supports region monitoring.
  *      If NO, all attempts to monitor regions will fail.
  */
-+ (BOOL)regionMonitoringAvailable __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public static function regionMonitoringAvailable () :Bool;
 
 /*
  *  regionMonitoringEnabled
@@ -120,7 +110,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Deprecated. Use +regionMonitoringAvailable and +authorizationStatus instead.
  */
-+ (BOOL)regionMonitoringEnabled __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA, __MAC_NA,__IPHONE_4_0, __IPHONE_6_0);
+	//public static function regionMonitoringEnabled () :Bool;
 
 /*
  *  authorizationStatus
@@ -128,29 +118,9 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Returns the current authorization status of the calling application.
  */
-+ (CLAuthorizationStatus)authorizationStatus __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_2);
+	public static function authorizationStatus () :CLAuthorizationStatus;
 
-	public var (assign, nonatomic) id<CLLocationManagerDelegate> delegate;
-
-/*
- *  locationServicesEnabled
- *  
- *  Discussion:
- *      Deprecated. Use +locationServicesEnabled instead.
- */
-	public var (readonly, nonatomic) BOOL locationServicesEnabled __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_2_0,__IPHONE_4_0);
-
-/*
- *  purpose
- *  
- *  Discussion:
- *      Allows the application to specify what location will be used for in their app. This
- *      will be displayed along with the standard Location permissions dialogs. This property will need to be
- *      set prior to calling startUpdatingLocation.
- *
- *      Deprecated.  Set the purpose string in Info.plist using key NSLocationUsageDescription.
- */
-	public var (copy, nonatomic) NSString *purpose __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_7, __MAC_NA, __IPHONE_3_2, __IPHONE_6_0);
+	public var delegate :CLLocationManagerDelegate;
 
 /*
  *	activityType
@@ -160,7 +130,7 @@ extern class CLLocationManager extends NSObject
  *		the determination of when location updates may be automatically paused.
  *		By default, CLActivityTypeOther is used.
  */
-	public var (assign, nonatomic) CLActivityType activityType __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	@:require(ios_6_0) public var activityType :CLActivityType;
 
 /*
  *  distanceFilter
@@ -170,7 +140,7 @@ extern class CLLocationManager extends NSObject
  *      than the stated value, unless the accuracy has improved. Pass in kCLDistanceFilterNone to be 
  *      notified of all movements. By default, kCLDistanceFilterNone is used.
  */
-	public var (assign, nonatomic) CLLocationDistance distanceFilter;
+	public var distanceFilter :CLLocationDistance;
 
 /*
  *  desiredAccuracy
@@ -183,7 +153,7 @@ extern class CLLocationManager extends NSObject
  *      achieve the best possible accuracy. Use kCLLocationAccuracyBestForNavigation for navigation.
  *      By default, kCLLocationAccuracyBest is used.
  */
-	public var (assign, nonatomic) CLLocationAccuracy desiredAccuracy;
+	public var desiredAccuracy :CLLocationAccuracy;
 
 /*
  *	pausesLocationUpdatesAutomatically
@@ -192,7 +162,7 @@ extern class CLLocationManager extends NSObject
  *		Specifies that location updates may automatically be paused when possible.
  *		By default, this is YES for applications linked against iOS 6.0 or later.
  */
-	public var (assign, nonatomic) BOOL pausesLocationUpdatesAutomatically __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	@:require(ios_6_0) public var pausesLocationUpdatesAutomatically :Bool;
 
 /*
  *  location
@@ -200,15 +170,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      The last location received. Will be nil until a location has been received.
  */
-	public var (readonly, nonatomic) CLLocation *location;
-
-/*
- *  headingAvailable
- *
- *  Discussion:
- *      Deprecated. Use +headingAvailable instead.
- */
-	public var (readonly, nonatomic) BOOL headingAvailable __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_3_0,__IPHONE_4_0);
+	public var (default, null) location :CLLocation;
 
 /*
  *  headingFilter
@@ -218,7 +180,7 @@ extern class CLLocationManager extends NSObject
  *      be notified of updates less than the stated filter value. Pass in kCLHeadingFilterNone to be
  *      notified of all updates. By default, 1 degree is used.
  */
-	public var (assign, nonatomic) CLLocationDegrees headingFilter __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public var headingFilter :CLLocationDegrees;
 
 /*
  *  headingOrientation
@@ -229,7 +191,7 @@ extern class CLLocationManager extends NSObject
  *      CLDeviceOrientationFaceDown are ignored.
  *      
  */
-	public var (assign, nonatomic) CLDeviceOrientation headingOrientation __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
+	public var headingOrientation :CLDeviceOrientation;
 
 /*
  *  heading
@@ -237,7 +199,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Returns the latest heading update received, or nil if none is available.
  */
-	public var (readonly, nonatomic) CLHeading *heading __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_4_0);
+	public var heading :CLHeading;
 
 /*
  *  maximumRegionMonitoringDistance
@@ -247,7 +209,7 @@ extern class CLLocationManager extends NSObject
  *       Attempts to register a region larger than this will generate a kCLErrorRegionMonitoringFailure.
  *       This value may vary based on the hardware features of the device, as well as on dynamically changing resource constraints.
  */
-	public var  (readonly, nonatomic) CLLocationDistance maximumRegionMonitoringDistance __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var maximumRegionMonitoringDistance :CLLocationDistance;
 
 /*
  *  monitoredRegions
@@ -257,7 +219,7 @@ extern class CLLocationManager extends NSObject
  *       has been instructed to monitor a region, during this or previous launches of your application, it will
  *       be present in this set.
  */
-	public var  (readonly, nonatomic) NSSet *monitoredRegions __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public var (default, null) monitoredRegions :NSSet;
 
 /*
  *  startUpdatingLocation
@@ -265,7 +227,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Start updating locations.
  */
-- (void)startUpdatingLocation;
+	public function startUpdatingLocation () :Void;
 
 /*
  *  stopUpdatingLocation
@@ -273,7 +235,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Stop updating locations.
  */
-- (void)stopUpdatingLocation;
+	public function stopUpdatingLocation () :Void;
 
 /*
  *  startUpdatingHeading
@@ -281,7 +243,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Start updating heading.
  */
-- (void)startUpdatingHeading __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function startUpdatingHeading () :Void;
 
 /*
  *  stopUpdatingHeading
@@ -289,7 +251,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Stop updating heading.
  */
-- (void)stopUpdatingHeading __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function stopUpdatingHeading () :Void;
 
 /*
  *  dismissHeadingCalibrationDisplay
@@ -297,7 +259,7 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Dismiss the heading calibration immediately.
  */
-- (void)dismissHeadingCalibrationDisplay __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_3_0);
+	public function dismissHeadingCalibrationDisplay () :Void;
 
 /*
  *  startMonitoringSignificantLocationChanges
@@ -308,7 +270,7 @@ extern class CLLocationManager extends NSObject
  *      location service.
  *
  */
-- (void)startMonitoringSignificantLocationChanges __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public function startMonitoringSignificantLocationChanges () :Void;
 
 /*
  *  stopMonitoringSignificantLocationChanges
@@ -317,7 +279,7 @@ extern class CLLocationManager extends NSObject
  *      Stop monitoring significant location changes.
  *
  */
-- (void)stopMonitoringSignificantLocationChanges __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public function stopMonitoringSignificantLocationChanges () :Void;
 
 /*
  *  startMonitoringForRegion:desiredAccuracy:
@@ -333,9 +295,8 @@ extern class CLLocationManager extends NSObject
  *
  *      This is done asynchronously and may not be immediately reflected in monitoredRegions.
  */
-- (void)startMonitoringForRegion:(CLRegion *)region
-                 desiredAccuracy:(CLLocationAccuracy)accuracy __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA, __MAC_NA,__IPHONE_4_0, __IPHONE_6_0);
-		
+	public function startMonitoringForRegion (region:CLRegion, desiredAccuracy:CLLocationAccuracy) :Void;
+	
 /*
  *  stopMonitoringForRegion:
  *
@@ -345,7 +306,7 @@ extern class CLLocationManager extends NSObject
  *
  *      This is done asynchronously and may not be immediately reflected in monitoredRegions.
  */
-- (void)stopMonitoringForRegion:(CLRegion *)region __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
+	public function stopMonitoringForRegion (region:CLRegion) :Void;
 
 /*
  *  startMonitoringForRegion:
@@ -358,7 +319,7 @@ extern class CLLocationManager extends NSObject
  *
  *      This is done asynchronously and may not be immediately reflected in monitoredRegions.
  */
-- (void)startMonitoringForRegion:(CLRegion *)region __OSX_AVAILABLE_STARTING(__MAC_TBD,__IPHONE_5_0);
+	@:require(ios_5_0) public function startMonitoringForRegion (region:CLRegion) :Void;
 
 /*
  *	allowDeferredLocationUpdatesUntilTraveled:timeout:
@@ -394,8 +355,7 @@ extern class CLLocationManager extends NSObject
  *		will be returned if the manager will not defer updates and the exit
  *		criteria have not been met.
  */
-- (void)allowDeferredLocationUpdatesUntilTraveled:(CLLocationDistance)distance
-					  timeout:(NSTimeInterval)timeout __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	@:require(ios_6_0) public function allowDeferredLocationUpdatesUntilTraveled (distance:CLLocationDistance, timeout:Float) :Void;
 
 /*
  *	disallowDeferredLocationUpdates
@@ -404,7 +364,7 @@ extern class CLLocationManager extends NSObject
  *		Disallow deferred location updates if previously enabled. Any outstanding
  *		updates will be sent and regular location updates will resume.
  */
-- (void)disallowDeferredLocationUpdates __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	@:require(ios_6_0) public function disallowDeferredLocationUpdates () :Void;
 
 /*
  *  deferredLocationUpdatesAvailable
@@ -412,6 +372,6 @@ extern class CLLocationManager extends NSObject
  *  Discussion:
  *      Returns YES if the device supports deferred location updates, otherwise NO.
  */
-+ (BOOL)deferredLocationUpdatesAvailable __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_6_0);
+	@:require(ios_6_0) public static function deferredLocationUpdatesAvailable () :Bool;
 
 }

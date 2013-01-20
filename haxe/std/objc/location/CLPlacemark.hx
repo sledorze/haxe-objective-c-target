@@ -5,14 +5,13 @@
  *  Copyright (c) 2010 Apple Inc. All rights reserved.
  */
 
-#if TARGET_OS_IPHONE
+#if ios
 
-#import <Foundation/Foundation.h>
-#import <CoreLocation/CLAvailability.h>
+package objc.location;
 
-@class CLLocation;
-@class CLRegion;
-@class CLPlacemarkInternal;
+import objc.foundation.NSObject;
+import objc.foundation.NSDictionary;
+
 
 /*
  *  CLPlacemark
@@ -22,12 +21,7 @@
  *    information such as the country, state, city, and street address.
  */
 
-NS_CLASS_AVAILABLE(TBD,5_0)
-extern class CLPlacemark extends NSObject, implements NSCopying, NSCoding>
-{
-@private
-    CLPlacemarkInternal *_internal;
-}
+extern class CLPlacemark extends NSObject, implements NSCopying, implements NSCoding {
 
 /*
  * initWithPlacemark:
@@ -35,7 +29,7 @@ extern class CLPlacemark extends NSObject, implements NSCopying, NSCoding>
  * Discussion:
  *   Initialize a newly allocated placemark from another placemark, copying its data.
  */
-- (id)initWithPlacemark:(CLPlacemark *)placemark;
+	public function initWithPlacemark (placemark:CLPlacemark) :CLPlacemark;
 
 /*
  *  location
@@ -43,7 +37,7 @@ extern class CLPlacemark extends NSObject, implements NSCopying, NSCoding>
  *  Discussion:
  *    Returns the geographic location associated with the placemark.
  */
-	public var CLLocation *location;
+	public var location :CLLocation;
 
 /*
  *  region
@@ -51,7 +45,7 @@ extern class CLPlacemark extends NSObject, implements NSCopying, NSCoding>
  *  Discussion:
  *    Returns the geographic region associated with the placemark.
  */
-	public var CLRegion *region;
+	public var region :CLRegion;
 
 /*
  *  addressDictionary
@@ -60,22 +54,22 @@ extern class CLPlacemark extends NSObject, implements NSCopying, NSCoding>
  *    This dictionary can be formatted as an address using ABCreateStringWithAddressDictionary,
  *    defined in the AddressBookUI framework.
  */
-	public var NSDictionary *addressDictionary;
+	public var addressDictionary :NSDictionary;
 
 // address dictionary properties
-	public var NSString *name; // eg. Apple Inc.
-	public var NSString *thoroughfare; // street address, eg. 1 Infinite Loop
-	public var NSString *subThoroughfare; // eg. 1
-	public var NSString *locality; // city, eg. Cupertino
-	public var NSString *subLocality; // neighborhood, common name, eg. Mission District
-	public var NSString *administrativeArea; // state, eg. CA
-	public var NSString *subAdministrativeArea; // county, eg. Santa Clara
-	public var NSString *postalCode; // zip code, eg. 95014
-	public var NSString *ISOcountryCode; // eg. US
-	public var NSString *country; // eg. United States
-	public var NSString *inlandWater; // eg. Lake Tahoe
-	public var NSString *ocean; // eg. Pacific Ocean
-	public var NSArray *areasOfInterest; // eg. Golden Gate Park
+	public var name :String; // eg. Apple Inc.
+	public var thoroughfare :String; // street address, eg. 1 Infinite Loop
+	public var subThoroughfare :String; // eg. 1
+	public var locality :String; // city, eg. Cupertino
+	public var subLocality :String; // neighborhood, common name, eg. Mission District
+	public var administrativeArea :String; // state, eg. CA
+	public var subAdministrativeArea :String; // county, eg. Santa Clara
+	public var postalCode :String; // zip code, eg. 95014
+	public var ISOcountryCode :String; // eg. US
+	public var country :String; // eg. United States
+	public var inlandWater :String; // eg. Lake Tahoe
+	public var ocean :String; // eg. Pacific Ocean
+	public var areasOfInterest :Array<String>; // eg. Golden Gate Park
 }
 
-#endif //TARGET_OS_IPHONE
+#end

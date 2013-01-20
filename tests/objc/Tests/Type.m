@@ -30,7 +30,7 @@
 }
 + (Class*) getSuperClass:(Class*)c{
 	if (c == nil) return nil;
-	return NSStringFromClass([c class]);
+	return [c superclass];
 }
 + (NSMutableString*) getClassName:(Class*)c{
 	if (c == nil) return nil;
