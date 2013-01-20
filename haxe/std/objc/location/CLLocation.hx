@@ -38,8 +38,8 @@ BOOL CLLocationCoordinate2DIsValid(CLLocationCoordinate2D coord) __OSX_AVAILABLE
 extern class CLLocation extends NSObject, implements NSCopying, implements NSCoding {
 
 	public function initWithLatitude (latitude:CLLocationDegrees, longitude:CLLocationDegrees) :CLLocation;
-	@:overload( function initWithCoordinate (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, course:CLLocationDirection, speed:CLLocationSpeed, timestamp:NSDate) :CLLocation {})
-	public function initWithCoordinate (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, timestamp:NSDate) :CLLocation;
+	@:overload( function (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, course:CLLocationDirection, speed:CLLocationSpeed, timestamp:Date) :CLLocation {})
+	public function initWithCoordinate (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, timestamp:Date) :CLLocation;
 
 	public var coordinate :CLLocationCoordinate2D;
 	public var altitude :CLLocationDistance;
