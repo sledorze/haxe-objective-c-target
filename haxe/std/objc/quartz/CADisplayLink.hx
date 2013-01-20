@@ -1,21 +1,19 @@
 package objc.quartz;
 
+import objc.foundation.NSObject;
+
 extern class CADisplayLink extends NSObject {
 
-+ (CADisplayLink *)displayLinkWithTarget:(id)target selector:(SEL)sel;
+	public static function displayLinkWithTarget (target:Dynamic, selector:SEL) :CADisplayLink;
+
+	public function addToRunLoop (runLoop:NSRunLoop, forMode:String) :Void;
+	public function removeFromRunLoop (runLoop:NSRunLoop, forMode:String) :Void;
+	public function invalidate () :Void;
 
 
-- (void)addToRunLoop:(NSRunLoop *)runloop forMode:(NSString *)mode;
-
-- (void)removeFromRunLoop:(NSRunLoop *)runloop forMode:(NSString *)mode;
-
-- (void)invalidate;
-
-
-	public var (readonly, nonatomic) CFTimeInterval timestamp, duration;
-
-	public var (getter=isPaused, nonatomic) BOOL paused;
-
-	public var  NSInteger frameInterval;
+	public var (default, null) timestamp :Float;
+	public var (default, null) duration :Float;
+	public var (isPaused, null) paused :Bool;
+	public var frameInterval :Int;
 
 }

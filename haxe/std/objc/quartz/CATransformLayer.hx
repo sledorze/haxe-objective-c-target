@@ -1,9 +1,5 @@
-/* CoreAnimation - CATransformLayer.h
+package objc.quartz;
 
-   Copyright (c) 2006-2008 Apple Inc.
-   All rights reserved. */
-
-#import <QuartzCore/CALayer.h>
 
 /* "Transform" layers are used to create true 3D layer hierarchies.
  *

@@ -12,4 +12,3 @@ typedef CFHTTPAuthentication = objc.network.CFHTTPAuthentication;
 typedef CFNetDiagnostics = objc.network.CFNetDiagnostics;
 typedef CFNetServices = objc.network.CFNetServices;
 typedef CFProxySupport = objc.network.CFProxySupport;
-

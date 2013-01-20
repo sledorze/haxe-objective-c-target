@@ -4,14 +4,12 @@ import objc.foundation.NSObject;
 import objc.graphics.CGGeometry;
 
 
-/*enum CAEdgeAntialiasingMask
-{
-  kCALayerLeftEdge	= 1U << 0,	 Minimum X edge. 
-  kCALayerRightEdge	= 1U << 1,	 Maximum X edge. 
-  kCALayerBottomEdge	= 1U << 2,	 Minimum Y edge. 
-  kCALayerTopEdge	= 1U << 3,	 Maximum Y edge. 
-};
-*/
+extern enum CAEdgeAntialiasingMask {
+	kCALayerLeftEdge;//Minimum X edge. 
+	kCALayerRightEdge;//Maximum X edge. 
+	kCALayerBottomEdge;//Minimum Y edge. 
+	kCALayerTopEdge;//Maximum Y edge. 
+}
 
 extern class CALayer extends NSObject, implements NSCoding/*, implements CAMediaTiming*/ {
 
@@ -31,221 +29,156 @@ extern class CALayer extends NSObject, implements NSCoding/*, implements CAMedia
 	public var position :CGPoint;
 	public var zPosition :Float;
 
-/*	public var  CGPoint anchorPoint;
-	public var  Float anchorPointZ;
-	public var  CATransform3D transform;
+	public var anchorPoint :CGPoint;
+	public var anchorPointZ :Float;
+	public var transform :CATransform3D;
 
-- (CGAffineTransform)affineTransform;
-- (void)setAffineTransform:(CGAffineTransform)m;
+	public function affineTransform () :CGAffineTransform;
+	public function setAffineTransform (m:CGAffineTransform) :Void;
 
-	public var  CGRect frame;
-	public var (getter=isHidden) BOOL hidden;
-	public var (getter=isDoubleSided) BOOL doubleSided;
-	public var (getter=isGeometryFlipped) BOOL geometryFlipped;
-- (BOOL)contentsAreFlipped;
-	public var  (default, null) : CALayer *superlayer; 
-- (void)removeFromSuperlayer;
- 	public var NSArray *sublayers;
- - (void)addSublayer:(CALayer *)layer;
- - (void)insertSublayer:(CALayer *)layer atIndex:(unsigned)idx;
- - (void)insertSublayer:(CALayer *)layer below:(CALayer *)sibling;
-- (void)insertSublayer:(CALayer *)layer above:(CALayer *)sibling;
+	public var frame :CGRect;
+	public var hidden :Bool;
+	public var doubleSided :Bool;
+	public var geometryFlipped :Bool;
+	public function contentsAreFlipped () :Bool;
+	public var (default, null) superlayer :CALayer; 
+	public function removeFromSuperlayer () :Void;
+ 	public var sublayers :Array<CALayer>;
+	public function addSublayer (layer:CALayer) :Void;
+	public function insertSublayer (layer:CALayer, atIndex:Int) :Void;
+	public function insertSublayer (layer:CALayer, below:CALayer) :Void;
+	public function insertSublayer (layer:CALayer, above:CALayer) :Void;
 
-- (void)replaceSublayer:(CALayer *)layer with:(CALayer *)layer2;
+	public function replaceSublayer (layer:CALayer, with:CALayer) :Void;
 
-	public var  CATransform3D sublayerTransform;
-
-	public var CALayer *mask;
-
-	public var  BOOL masksToBounds;
+	public var sublayerTransform :CATransform3D;
+	public var mask :CALayer;
+	public var masksToBounds :Bool;
 
 //Mapping between layer coordinate and time spaces. 
 
-- (CGPoint)convertPoint:(CGPoint)p fromLayer:(CALayer *)l;
-- (CGPoint)convertPoint:(CGPoint)p toLayer:(CALayer *)l;
-- (CGRect)convertRect:(CGRect)r fromLayer:(CALayer *)l;
-- (CGRect)convertRect:(CGRect)r toLayer:(CALayer *)l;
-
-- (CFTimeInterval)convertTime:(CFTimeInterval)t fromLayer:(CALayer *)l;
-- (CFTimeInterval)convertTime:(CFTimeInterval)t toLayer:(CALayer *)l;
-
-
-- (CALayer *)hitTest:(CGPoint)p;
-
-- (BOOL)containsPoint:(CGPoint)p;
+	public function convertPoint (p:CGPoint, fromLayer:CALayer) :CGPoint;
+	public function convertPoint (p:CGPoint, toLayer:CALayer) :CGPoint;
+	public function convertRect (r:CGRect, fromLayer:CALayer) :CGRect;
+	public function convertRect (r:CGRect, toLayer:CALayer) :CGRect;
+	public function convertTime (t:CFTimeInterval, fromLayer:CALayer) :CFTimeInterval;
+	public function convertTime (t:CFTimeInterval, toLayer:CALayer) :CFTimeInterval;
 
 
-	public var id contents;
+	public function hitTest (p:CGPoint) :CALayer;
 
-	public var  CGRect contentsRect;
-
-	public var NSString *contentsGravity;
-
-	public var  Float contentsScale;
-
-	public var  CGRect contentsCenter;
-
-	public var NSString *minificationFilter, *magnificationFilter;
-
-	public var  float minificationFilterBias;
-
-	public var (getter=isOpaque) BOOL opaque;
-
-- (void)display;
-
-- (void)setNeedsDisplay;
-- (void)setNeedsDisplayInRect:(CGRect)r;
-
-- (BOOL)needsDisplay;
-
-- (void)displayIfNeeded;
-
-	public var  BOOL needsDisplayOnBoundsChange;
-
-	public var  BOOL drawsAsynchronously;
-
-- (void)drawInContext:(CGContextRef)ctx;
-
-- (void)renderInContext:(CGContextRef)ctx;
-
-	public var  unsigned int edgeAntialiasingMask;
-
-	public var  CGColorRef backgroundColor;
-
-	public var  Float cornerRadius;
-
-	public var  Float borderWidth;
-
-	public var  CGColorRef borderColor;
-
-	public var  float opacity;
-
-	public var id compositingFilter;
-
-	public var NSArray *filters;
-	
-	public var NSArray *backgroundFilters;
-
-	public var  BOOL shouldRasterize;
-
-	public var  Float rasterizationScale;
-
-	public var  CGColorRef shadowColor;
-
-	public var  float shadowOpacity;
-
-	public var  CGSize shadowOffset;
-
-	public var  Float shadowRadius;
-
-	public var  CGPathRef shadowPath;
-
-- (CGSize)preferredFrameSize;
-
-- (void)setNeedsLayout;
-
-- (BOOL)needsLayout;
-
-- (void)layoutIfNeeded;
-
-- (void)layoutSublayers;
-
-+ (id<CAAction>)defaultActionForKey:(NSString *)event;
-
-- (id<CAAction>)actionForKey:(NSString *)event;
-
-	public var NSDictionary *actions;
-
-- (void)addAnimation:(CAAnimation *)anim forKey:(NSString *)key;
-
-- (void)removeAllAnimations;
-
-- (void)removeAnimationForKey:(NSString *)key;
-
-- (NSArray *)animationKeys;
-
-- (CAAnimation *)animationForKey:(NSString *)key;
-
-	public var NSString *name;
-
-	public var (assign) id delegate;
-
-	public var NSDictionary *style;
+	public function containsPoint (p:CGPoint) :Bool;
 
 
+	public var contents :Dynamic;
+	public var contentsRect :CGRect;
+	public var contentsGravity :String;
+	public var contentsScale :Float;
+	public var contentsCenter :CGRect;
+	public var minificationFilter :String;
+	public var magnificationFilter :String;
+	public var minificationFilterBias :Float;
+	public var opaque :Bool;
 
-@protocol CAAction
+	public function display () :Void;
 
-- (void)runActionForKey:(NSString *)event object:(id)anObject
-    arguments:(NSDictionary *)dict;
+	public function setNeedsDisplay () :Void;
+	public function setNeedsDisplayInRect (r:CGRect) :Void;
+
+	public function needsDisplay () :Bool;
+
+	public function displayIfNeeded () :Void;
+
+	public var needsDisplayOnBoundsChange :Bool;
+	public var drawsAsynchronously :Bool;
+
+	public function drawInContext (ctx:CGContextRef) :Void;
+
+	public function renderInContext (ctx:CGContextRef) :Void;
+
+	public var edgeAntialiasingMask :Int;
+	public var backgroundColor :CGColorRef;
+	public var cornerRadius :Float;
+	public var borderWidth :Float;
+	public var borderColor :CGColorRef;
+	public var opacity :Float;
+	public var compositingFilter :Dynamic;
+	public var filters :Array<Dynamic>;
+	public var backgroundFilters :Array<Dynamic>;
+	public var shouldRasterize :Bool;
+	public var rasterizationScale :Float;
+	public var shadowColor :CGColorRef;
+	public var shadowOpacity :Float;
+	public var shadowOffset :CGSize;
+	public var shadowRadius :Float;
+	public var shadowPath :CGPathRef;
+
+	public function preferredFrameSize () :CGSize;
+	public function setNeedsLayout () :Void;
+	public function needsLayout () :Bool;
+	public function layoutIfNeeded () :Void;
+	public function layoutSublayers () :Void;
+	public static function defaultActionForKey (event:String) :CAAction;
+	public function actionForKey (event:String) :CAAction;
+
+	public var actions :NSDictionary;
+
+	public function addAnimation (anim:CAAnimation, forKey:String) :Void;
+	public function removeAllAnimations () :Void;
+	public function removeAnimationForKey (key:String) :Void;
+	public function animationKeys () :Array<String>;
+	public function animationForKey (key:String) :CAAnimation;
+
+	public var name :String;
+	public var delegate :Dynamic;
+	public var style :NSDictionary;
 
 }
 
-Delegate methods. 
+extern interface CAAction {
 
-extern class NSObject (CALayerDelegate)
-
-
-- (void)displayLayer:(CALayer *)layer;
-
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx;
-
-- (void)layoutSublayersOfLayer:(CALayer *)layer;
-
-- (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event;
+	public function runActionForKey (event:String, object:Dynamic, arguments:NSDictionary) :Void;
 
 }
 
-CA_EXTERN NSString * const kCAGravityCenter
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityTop
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityBottom
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityLeft
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityRight
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityTopLeft
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityTopRight
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityBottomLeft
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityBottomRight
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityResize
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityResizeAspect
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAGravityResizeAspectFill
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
+//Delegate methods. 
 
-Contents filter names. 
+extern class CALayerDelegate {
+	// category for NSObject
 
-CA_EXTERN NSString * const kCAFilterNearest
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAFilterLinear
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
+	public function displayLayer (layer:CALayer) :Void;
+	public function drawLayer (layer:CALayer, inContext:CGContextRef) :Void;
+	public function layoutSublayersOfLayer (layer:CALayer) :Void;
+	public function actionForLayer (layer:CALayer, forKey:String) :CAAction;
 
- Trilinear minification filter. Enables mipmap generation. Some
- * renderers may ignore this, or impose additional restrictions, such
- * as source images requiring power-of-two dimensions. 
 
-CA_EXTERN NSString * const kCAFilterTrilinear
-    __OSX_AVAILABLE_STARTING (__MAC_10_6, __IPHONE_3_0);
+	public static var kCAGravityCenter :String;
+	public static var kCAGravityTop :String;
+	public static var kCAGravityBottom :String;
+	public static var kCAGravityLeft :String;
+	public static var kCAGravityRight :String;
+	public static var kCAGravityTopLeft :String;
+	public static var kCAGravityTopRight :String;
+	public static var kCAGravityBottomLeft :String;
+	public static var kCAGravityBottomRight :String;
+	public static var kCAGravityResize :String;
+	public static var kCAGravityResizeAspect :String;
+	public static var kCAGravityResizeAspectFill :String;
 
-Layer event names. 
+//Contents filter names. 
 
-CA_EXTERN NSString * const kCAOnOrderIn
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-CA_EXTERN NSString * const kCAOnOrderOut
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
+	public static var kCAFilterNearest :String;
+	public static var kCAFilterLinear :String;
 
-The animation key used for transitions. 
+	public static var kCAFilterTrilinear :String;
 
-CA_EXTERN NSString * const kCATransition
-    __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-*/
+//Layer event names. 
+
+	public static var kCAOnOrderIn :String;
+	public static var kCAOnOrderOut :String;
+
+//The animation key used for transitions. 
+
+	public static var kCATransition :String;
 	
 }

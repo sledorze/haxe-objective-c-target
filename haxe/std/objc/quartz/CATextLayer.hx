@@ -1,58 +1,49 @@
-/* CoreAnimation - CATextLayer.h
-
-   Copyright (c) 2006-2007 Apple Inc.
-   All rights reserved. */
-
-#import <QuartzCore/CALayer.h>
+package objc.quartz;
 
 /* The text layer provides simple text layout and rendering of plain
  * or attributed strings. The first line is aligned to the top of the
  * layer. */
 
-extern class CATextLayer : CALayer
-{
-@private
-  struct CATextLayerPrivate *_state;
-}
+extern class CATextLayer extends CALayer {
 
 /* The text to be rendered, should be either an NSString or an
  * NSAttributedString. Defaults to nil. */
 
-	public var id string;
+	public var string :String;
 
 /* The font to use, currently may be either a CTFontRef, a CGFontRef,
  * or a string naming the font. Defaults to the Helvetica font. Only
  * used when the `string' property is not an NSAttributedString. */
 
-	public var  CFTypeRef font;
+	public var font :CFTypeRef;
 
 /* The font size. Defaults to 36. Only used when the `string' property
  * is not an NSAttributedString. Animatable (Mac OS X 10.6 and later.) */
 
-	public var  Float fontSize;
+	public var fontSize :Float;
 
 /* The color object used to draw the text. Defaults to opaque white.
  * Only used when the `string' property is not an NSAttributedString.
  * Animatable (Mac OS X 10.6 and later.) */
 
-	public var  CGColorRef foregroundColor;
+	public var foregroundColor :CGColorRef;
 
 /* When true the string is wrapped to fit within the layer bounds.
  * Defaults to NO.*/
 
-	public var (getter=isWrapped) BOOL wrapped;
+	public var wrapped :Bool;
 
 /* Describes how the string is truncated to fit within the layer
  * bounds. The possible options are `none', `start', `middle' and
  * `end'. Defaults to `none'. */
 
-	public var NSString *truncationMode;
+	public var truncationMode :String;
 
 /* Describes how individual lines of text are aligned within the layer
  * bounds. The possible options are `natural', `left', `right',
  * `center' and `justified'. Defaults to `natural'. */
 
-	public var NSString *alignmentMode;
+	public var alignmentMode :String;
 
 }
 

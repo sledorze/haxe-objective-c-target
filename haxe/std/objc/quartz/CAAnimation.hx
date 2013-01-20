@@ -1,7 +1,6 @@
 package objc.quartz;
 
 import objc.foundation.NSObject;
-import objc.foundation.NSArray;
 
 
 extern class CAAnimation extends NSObject/*,implements NSObject, NSCopying, CAMediaTiming, CAAction>*/{
@@ -55,14 +54,14 @@ extern class CABasicAnimation : CAPropertyAnimation {
 
 extern class CAKeyframeAnimation : CAPropertyAnimation {
 
-	public var values :NSArray;
+	public var values :Array<>;
 	public var path :CGPathRef;
-	public var keyTimes :NSArray;
-	public var timingFunctions :NSArray;
+	public var keyTimes :Array<>;
+	public var timingFunctions :Array<Dynamic>;
 	public var calculationMode :String;
-	public var tensionValues :NSArray;
-	public var continuityValues :NSArray;
-	public var biasValues :NSArray;
+	public var tensionValues :Array<>;
+	public var continuityValues :Array<>;
+	public var biasValues :Array<>;
 	public var rotationMode :String;
 
 }
@@ -121,6 +120,6 @@ CA_EXTERN NSString * const kCATransitionFromBottom
 
 extern class CAAnimationGroup extends CAAnimation {
 
-	public var animations :NSArray;
+	public var animations :Array<CAAnimation>;
 
 }

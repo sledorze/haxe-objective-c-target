@@ -5,6 +5,6 @@ package objc.quartz;
  * `drawableProperties' property defined by the protocol to configure
  * the created surface. */
 
-extern class CAEAGLLayer extends CALayer <EAGLDrawable> {
+extern class CAEAGLLayer extends CALayer /*<EAGLDrawable>*/ {
 
 }

@@ -1,24 +1,22 @@
-/* CoreAnimation - CAScrollLayer.h
+package objc.quartz;
 
-   Copyright (c) 2006-2007 Apple Inc.
-   All rights reserved. */
+import objc.graphics.CGGeometry;
 
-#import <QuartzCore/CALayer.h>
 
-extern class CAScrollLayer : CALayer
+extern class CAScrollLayer extends CALayer {
 
 /* Changes the origin of the layer to point 'p'. */
 
-- (void)scrollToPoint:(CGPoint)p;
+	public function scrollToPoint (p:CGPoint) :Void;
 
 /* Scroll the contents of the layer to ensure that rect 'r' is visible. */
 
-- (void)scrollToRect:(CGRect)r;
+	public function scrollToRect (r:CGRect) :Void;
 
 /* Defines the axes in which the layer may be scrolled. Possible values
  * are `none', `vertically', `horizontally' or `both' (the default). */
 
-	public var NSString *scrollMode;
+	public var scrollMode :String;
 
 }
 
@@ -29,15 +27,14 @@ extern class CALayer (CALayerScrolling)
  * that layer with the specified geometry converted from the coordinate
  * space of the receiver to that of the found scroll layer. */
 
-- (void)scrollPoint:(CGPoint)p;
-
-- (void)scrollRectToVisible:(CGRect)r;
+	public function scrollPoint (p:CGPoint) :Void;
+	public function scrollRectToVisible (r:CGRect) :Void;
 
 /* Returns the visible region of the receiver, in its own coordinate
  * space. The visible region is the area not clipped by the containing
  * scroll layer. */
 
-	public var  (default, null) : CGRect visibleRect;
+	public var (default, null) visibleRect :CGRect;
 
 }
 

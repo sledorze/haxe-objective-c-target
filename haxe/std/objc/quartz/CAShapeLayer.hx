@@ -1,9 +1,4 @@
-/* CoreAnimation - CAShapeLayer.h
-
-   Copyright (c) 2008 Apple Inc.
-   All rights reserved. */
-
-#import <QuartzCore/CALayer.h>
+package objc.quartz;
 
 /* The shape layer draws a cubic Bezier spline in its coordinate space.
  *
@@ -28,7 +23,7 @@
  * Note: rasterization may favor speed over accuracy, e.g. pixels with
  * multiple intersecting path segments may not give exact results. */
 
-extern class CAShapeLayer : CALayer
+extern class CAShapeLayer extends CALayer {
 
 /* The path defining the shape to be rendered. If the path extends
  * outside the layer bounds it will not automatically be clipped to the
@@ -37,22 +32,22 @@ extern class CAShapeLayer : CALayer
  * animatable, no implicit animation will be created when the property
  * is changed.) */
 
-	public var  CGPathRef path;
+	public var path :CGPathRef;
 
 /* The color to fill the path, or nil for no fill. Defaults to opaque
  * black. Animatable. */
 
-	public var  CGColorRef fillColor;
+	public var fillColor :CGColorRef;
 
 /* The fill rule used when filling the path. Options are `non-zero' and
  * `even-odd'. Defaults to `non-zero'. */
 
-	public var NSString *fillRule;
+	public var fillRule :String;
 
 /* The color to fill the path's stroked outline, or nil for no stroking.
  * Defaults to nil. Animatable. */
 
-	public var  CGColorRef strokeColor;
+	public var strokeColor :CGColorRef;
 
 /* These values define the subregion of the path used to draw the
  * stroked outline. The values must be in the range [0,1] with zero
@@ -61,37 +56,38 @@ extern class CAShapeLayer : CALayer
  * length. strokeStart defaults to zero and strokeEnd to one. Both are
  * animatable. */
 
-	public var  Float strokeStart, strokeEnd;
+	public var strokeStart :Float;
+	public var strokeEnd :Float;
 
 /* The line width used when stroking the path. Defaults to one.
  * Animatable. */
 
-	public var  Float lineWidth;
+	public var lineWidth :Float;
 
 /* The miter limit used when stroking the path. Defaults to ten.
  * Animatable. */
 
-	public var  Float miterLimit;
+	public var miterLimit :Float;
 
 /* The cap style used when stroking the path. Options are `butt', `round'
  * and `square'. Defaults to `butt'. */
 
-	public var NSString *lineCap;
+	public var lineCap :String;
 
 /* The join style used when stroking the path. Options are `miter', `round'
  * and `bevel'. Defaults to `miter'. */
 
-	public var NSString *lineJoin;
+	public var lineJoin :String;
 
 /* The phase of the dashing pattern applied when creating the stroke.
  * Defaults to zero. Animatable. */
 
-	public var  Float lineDashPhase;
+	public var lineDashPhase :Float;
 
 /* The dash pattern (an array of NSNumbers) applied when creating the
  * stroked version of the path. Defaults to nil. */
 
-	public var NSArray *lineDashPattern;
+	public var lineDashPattern :Array<NSNumber>;
 
 }
 

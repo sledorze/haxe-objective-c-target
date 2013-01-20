@@ -1,30 +1,29 @@
-/* CoreAnimation - CATransform3D.h
+package objc.quartz;
 
-   Copyright (c) 2006-2007 Apple Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
 
-#ifndef CATRANSFORM_H
-#define CATRANSFORM_H
-
-#include <QuartzCore/CABase.h>
-
-#ifdef __OBJC__
-#import <Foundation/NSValue.h>
-#endif
 
 /* Homogeneous three-dimensional transforms. */
 
-struct CATransform3D
-{
-  Float m11, m12, m13, m14;
-  Float m21, m22, m23, m24;
-  Float m31, m32, m33, m34;
-  Float m41, m42, m43, m44;
-};
+typedef CATransform3D = {
+	public var m11 :Float;
+	public var m12 :Float;
+	public var m13 :Float;
+	public var m14 :Float;
+	public var m21 :Float;
+	public var m22 :Float;
+	public var m23 :Float;
+	public var m24 :Float;
+	public var m31 :Float;
+	public var m32 :Float;
+	public var m33 :Float;
+	public var m34 :Float;
+	public var m41 :Float;
+	public var m42 :Float;
+	public var m43 :Float;
+	public var m44 :Float;
+}
 
-typedef struct CATransform3D CATransform3D;
-
-CA_EXTERN_C_BEGIN
 
 /* The identity transform: [1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1]. */
 
@@ -114,11 +113,6 @@ CA_EXTERN bool CATransform3DIsAffine (CATransform3D t)
 CA_EXTERN CGAffineTransform CATransform3DGetAffineTransform (CATransform3D t)
     __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
 
-CA_EXTERN_C_END
-
-/** NSValue support. **/
-
-#ifdef __OBJC__
 
 extern class NSValue (CATransform3DAdditions)
 
@@ -127,7 +121,3 @@ extern class NSValue (CATransform3DAdditions)
 - (CATransform3D)CATransform3DValue;
 
 }
-
-#endif /* __OBJC__ */
-
-#endif /* CATRANSFORM_H */

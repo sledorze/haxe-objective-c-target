@@ -51,7 +51,7 @@
 	return result;
 }
 + (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
-	if (cl != nil) return [[cl alloc] init];
+	if (cl != nil) return [[cl alloc] initFromArray:args];
 	return nil;
 }
 + (id) createEmptyInstance:(Class*)cl{

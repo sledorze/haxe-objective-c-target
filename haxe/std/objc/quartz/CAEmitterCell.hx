@@ -1,34 +1,36 @@
 package objc.quartz;
+import objc.foundation.NSObject;
+import objc.foundation.NSDictionary;
 
-extern class CAEmitterCell extends NSObject, implements NSObject, implements CAMediaTiming>
-{
+extern class CAEmitterCell extends NSObject, implements CAMediaTiming {
 
-+ (id)emitterCell;
+	public static function emitterCell () :CAEmitterCell;
 
 /* Emitter cells implement the same property model as defined by CALayer.
  * See CALayer.h for more details. */
 
-+ (id)defaultValueForKey:(NSString *)key;
-- (BOOL)shouldArchiveValueForKey:(NSString *)key;
+	public static function defaultValueForKey (key:String) :CAEmitterCell;
+	public function shouldArchiveValueForKey (key:String) :Bool;
 
 /* The name of the cell. Used to construct key paths. Defaults to nil. */
 
-	public var NSString *name;
+	public var name :String;
 
 /* Controls whether or not cells from this emitter are rendered. */
 
-	public var (getter=isEnabled) BOOL enabled;
+	public var enabled :Bool;
 
 /* The number of emitted objects created every second. Default value is
  * zero. Animatable. */
 
-	public var  float birthRate;
+	public var birthRate :Float;
 
 /* The lifetime of each emitted object in seconds, specified as a mean
  * value and a range about the mean. Both values default to zero.
  * Animatable. */
 
-	public var  float lifetime, lifetimeRange;
+	public var lifetime :Float;
+	public var lifetimeRange :Float;
 
 /* The orientation of the emission angle in radians, relative to the
  * natural orientation angle of the emission shape. Note that latitude
@@ -39,65 +41,79 @@ extern class CAEmitterCell extends NSObject, implements NSObject, implements CAM
  * relative to the emission shape's direction. Both values are
  * animatable. */
 
-	public var  Float emissionLatitude, emissionLongitude;
+	public var emissionLatitude :Float;
+	public var emissionLongitude :Float;
 
 /* An angle (in radians) defining a cone around the emission angle.
  * Emitted objects are uniformly distributed across this cone. Defaults
  * to zero.  Animatable. */
 
-	public var  Float emissionRange;
+	public var emissionRange :Float;
 
 /* The initial mean velocity of each emitted object, and its range. Both
  * values default to zero. Animatable. */
 
-	public var  Float velocity, velocityRange;
+	public var velocity :Float;
+	public var velocityRange :Float;
 
 /* The acceleration vector applied to emitted objects. Defaults to
  * (0, 0, 0). Animatable. */
 
-	public var  Float xAcceleration, yAcceleration, zAcceleration;
+	public var xAcceleration :Float;
+	public var yAcceleration :Float;
+	public var zAcceleration :Float;
 
 /* The scale factor applied to each emitted object, defined as mean and
  * range about the mean. Scale defaults to one, range to zero.
  * Animatable. */
 
-	public var  Float scale, scaleRange, scaleSpeed;
+	public var scale :Float;
+	public var scaleRange :Float;
+	public var scaleSpeed :Float;
 
 /* The rotation speed applied to each emitted object, defined as mean
  * and range about the mean. Defaults to zero. Animatable. */
 
-	public var  Float spin, spinRange;
+	public var spin :Float;
+	public var spinRange :Float;
 
 /* The mean color of each emitted object, and the range from that mean
  * color. `color' defaults to opaque white, `colorRange' to (0, 0, 0,
  * 0). Animatable. */
 
-	public var  CGColorRef color;
+	public var color :CGColorRef;
 
-	public var  float redRange, greenRange, blueRange, alphaRange;
+	public var redRange :Float;
+	public var greenRange :Float;
+	public var blueRange :Float;
+	public var alphaRange :Float;
 
 /* The speed at which color components of emitted objects change over
  * their lifetime, defined as the rate of change per second. Defaults
  * to (0, 0, 0, 0). Animatable. */
 
-	public var  float redSpeed, greenSpeed, blueSpeed, alphaSpeed;
+	public var redSpeed :Float;
+	public var greenSpeed :Float;
+	public var blueSpeed :Float;
+	public var alphaSpeed :Float;
 
 /* The cell contents, typically a CGImageRef. Defaults to nil.
  * Animatable. */
 
-	public var id contents;
+	public var contents :Dynamic;
 
 /* The sub-rectangle of the contents image that will be drawn. See
  * CALayer.h for more details. Defaults to the unit rectangle [0 0 1 1].
  * Animatable. */
 
-	public var  CGRect contentsRect;
+	public var contentsRect :CGRect;
 
 /* The filter parameters used when rendering the `contents' image. See
  * CALayer.h for more details. */
 
-	public var NSString *minificationFilter, *magnificationFilter;
-	public var  float minificationFilterBias;
+	public var minificationFilter :String;
+	public var magnificationFilter :String;
+	public var minificationFilterBias :Float;
 
 /* An array containing the sub-cells of this cell, or nil (the default
  * value). When non-nil each particle emitted by the cell will act as
@@ -105,10 +121,10 @@ extern class CAEmitterCell extends NSObject, implements NSObject, implements CAM
  * the current particle position and the emission angle is relative to
  * the current direction of the particle. Animatable. */
 
-	public var NSArray *emitterCells;
+	public var emitterCells :Array<CAEmitterCell>;
 
 /* Inherited attributes similar to in layers. */
 
-	public var NSDictionary *style;
+	public var style :NSDictionary;
 
 }

@@ -1,12 +1,7 @@
-/* CoreAnimation - CAMediaTimingFunction.h
+package objc.quartz;
 
-   Copyright (c) 2006-2007 Apple Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
 
-#import <QuartzCore/CAMediaTiming.h>
-#import <Foundation/NSObject.h>
-
-@class NSArray, NSString;
 
 /* Represents one segment of a function describing a timing curve. The
  * function maps an input time normalized to the range [0,1] to an
@@ -14,31 +9,27 @@
  * to define the pacing of an animation over its duration (or over the
  * duration of one keyframe). */
 
-extern class CAMediaTimingFunction extends NSObject, implements NSObject>
-{
-@private
-  struct CAMediaTimingFunctionPrivate *_priv;
-}
+extern class CAMediaTimingFunction extends NSObject {
 
 /* A convenience method for creating common timing functions. The
  * currently supported names are `linear', `easeIn', `easeOut' and
  * `easeInEaseOut' and `default' (the curve used by implicit animations
  * created by Core Animation). */
 
-+ (id)functionWithName:(NSString *)name;
+	public static function functionWithName (name:String) :CAMediaTimingFunction;
 
 /* Creates a timing function modelled on a cubic Bezier curve. The end
  * points of the curve are at (0,0) and (1,1), the two points 'c1' and
  * 'c2' defined by the class instance are the control points. Thus the
  * points defining the Bezier curve are: '[(0,0), c1, c2, (1,1)]' */
 
-+ (id)functionWithControlPoints:(float)c1x :(float)c1y :(float)c2x :(float)c2y;
-
-- (id)initWithControlPoints:(float)c1x :(float)c1y :(float)c2x :(float)c2y;
+/*	TODO: support for functions without argument names*/
+	public static function functionWithControlPoints (c1x:Float __c1y__:Float __c2x__:Float __c2y__:Float) :CAMediaTimingFunction;
+	public function initWithControlPoints (c1x:Float __c1y__:Float __c2x__:Float __c2y__:Float) :CAMediaTimingFunction;
 
 /* 'idx' is a value from 0 to 3 inclusive. */
 
-- (void)getControlPointAtIndex:(size_t)idx values:(float[2])ptr;
+	public function getControlPointAtIndex (idx:Int, values:Array<Float>) :Void;
 
 }
 

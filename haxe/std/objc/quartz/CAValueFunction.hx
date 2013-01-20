@@ -1,21 +1,12 @@
-/* CoreAnimation - CAValueFunction.h
+package objc.quartz;
 
-   Copyright (c) 2008 Apple Inc.
-   All rights reserved. */
+import objc.foundation.NSObject;
 
-#import <QuartzCore/CABase.h>
-#import <Foundation/NSObject.h>
+extern class CAValueFunction extends NSObject {
 
-extern class CAValueFunction extends NSObject, implements NSObject>
-{
-@protected
-  NSString *_string;
-  void *_impl;
-}
+	public static function functionWithName (name:String) :CAValueFunction;
 
-+ (id)functionWithName:(NSString *)name;
-
-	public var  (default, null) : NSString *name;
+	public var (default, null) name :String;
 
 }
 

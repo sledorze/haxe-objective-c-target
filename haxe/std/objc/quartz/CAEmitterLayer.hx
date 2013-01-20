@@ -1,5 +1,7 @@
 package objc.quartz;
 
+import objc.graphics.CGGeometry;
+
 extern class CAEmitterLayer extends CALayer {
 
 /* The array of emitter cells attached to the layer. Each object must
@@ -11,36 +13,36 @@ extern class CAEmitterLayer extends CALayer {
  * actual number of particles created every second. Default value is one.
  * Animatable. */
 
-	public var  float birthRate;
+	public var birthRate :Float;
 
 /* The cell lifetime range is multiplied by this value when particles are
  * created. Defaults to one. Animatable. */
 
-	public var  float lifetime;
+	public var lifetime :Float;
 
 /* The center of the emission shape. Defaults to (0, 0, 0). Animatable. */
 
-	public var  CGPoint emitterPosition;
-	public var  Float emitterZPosition;
+	public var emitterPosition :CGPoint;
+	public var emitterZPosition :Float;
 
 /* The size of the emission shape. Defaults to (0, 0, 0). Animatable.
  * Depending on the `emitterShape' property some of the values may be
  * ignored. */
 
-	public var  CGSize emitterSize;
-	public var  Float emitterDepth;
+	public var emitterSize :CGSize;
+	public var emitterDepth :Float;
 
 /* A string defining the type of emission shape used. Current options are:
  * `point' (the default), `line', `rectangle', `circle', `cuboid' and
  * `sphere'. */
 
-	public var NSString *emitterShape;
+	public var emitterShape :String;
 
 /* A string defining how particles are created relative to the emission
  * shape. Current options are `points', `outline', `surface' and
  * `volume' (the default). */
 
-	public var NSString *emitterMode;
+	public var emitterMode :String;
 
 /* A string defining how particles are composited into the layer's
  * image. Current options are `unordered' (the default), `oldestFirst',
@@ -48,7 +50,7 @@ extern class CAEmitterLayer extends CALayer {
  * `additive'. The first four use source-over compositing, the last
  * uses additive compositing. */
 
-	public var NSString *renderMode;
+	public var renderMode :String;
 
 /* When true the particles are rendered as if they directly inhabit the
  * three dimensional coordinate space of the layer's superlayer, rather
@@ -56,27 +58,27 @@ extern class CAEmitterLayer extends CALayer {
  * If true, the effect of the `filters', `backgroundFilters' and shadow-
  * related properties of the layer is undefined. */
 
-	public var  BOOL preservesDepth;
+	public var preservesDepth :Bool;
 
 /* Multiplies the cell-defined particle velocity. Defaults to one.
  * Animatable. */
 
-	public var  float velocity;
+	public var velocity :Float;
 
 /* Multiplies the cell-defined particle scale. Defaults to one. Animatable. */
 
-	public var  float scale;
+	public var scale :Float;
 
 /* Multiplies the cell-defined particle spin. Defaults to one. Animatable. */
 
-	public var  float spin;
+	public var spin :Float;
 
 /* The seed used to initialize the random number generator. Defaults to
  * zero. Each layer has its own RNG state. For properties with a mean M
  * and a range R, random values of the properties are uniformly
  * distributed in the interval [M - R/2, M + R/2]. */
 
-	public var  unsigned int seed;
+	public var seed :Int;
 
 }
 
