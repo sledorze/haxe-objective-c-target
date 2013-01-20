@@ -1,11 +1,4 @@
-/* CoreImage - CoreImage.h
- 
- Copyright (c) 2011 Apple, Inc.
- All rights reserved. */
-
-#ifdef __OBJC__
-
-#import <Foundation/Foundation.h>
+package objc.image;
 
 #import <CoreImage/CIColor.h>
 #import <CoreImage/CIContext.h>
