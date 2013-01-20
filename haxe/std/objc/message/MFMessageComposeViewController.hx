@@ -16,7 +16,7 @@ extern class MFMessageComposeViewController extends UINavigationController {
 	public static function canSendText () :Bool;
 
 	public static var messageComposeDelegate :MFMessageComposeViewControllerDelegate;
-	public static var recipients :NSArray;
+	public static var recipients :Array<String>;
 	public static var body :String;
 
 }
