@@ -28,7 +28,7 @@
 		int _g1 = 0; int _g = s.length;
 		while (_g1 < _g) {
 			int i = _g1++;
-			int c = [s characterAtIndex:i];
+			int c = FDynamic[s characterAtIndex:i];
 			if (c <= 127) [a push:c];
 			else if (c <= 2047) {
 				[a push:192 | c >> 6];

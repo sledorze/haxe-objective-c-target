@@ -1,11 +1,5 @@
-/* CoreGraphics - CGPDFObject.h
-   Copyright (c) 2002-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
 
-#ifndef CGPDFOBJECT_H_
-#define CGPDFOBJECT_H_
-
-#include <CoreGraphics/CGBase.h>
 
 /* A type for boolean values. */
 
@@ -40,7 +34,7 @@ typedef enum CGPDFObjectType CGPDFObjectType;
 
 /* Return the type of `object'. */
 
-CG_EXTERN CGPDFObjectType CGPDFObjectGetType(CGPDFObjectRef object)
+	@:c public static function CGPDFObjectType CGPDFObjectGetType(CGPDFObjectRef object)
   CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /* Get the value of `object'. If the type of `object' is equal to `type',
@@ -50,7 +44,7 @@ CG_EXTERN CGPDFObjectType CGPDFObjectGetType(CGPDFObjectRef object)
    `object' to floating point and copy the result to `value' (if it's
    non-NULL) and return true. Otherwise, return false. */
 
-CG_EXTERN bool CGPDFObjectGetValue(CGPDFObjectRef object, CGPDFObjectType type,
+	@:c public static function bool CGPDFObjectGetValue(CGPDFObjectRef object, CGPDFObjectType type,
   void *value) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 #endif /* CGPDFOBJECT_H_ */

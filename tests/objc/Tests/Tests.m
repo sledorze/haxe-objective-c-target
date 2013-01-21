@@ -367,10 +367,10 @@
 	fl.head = [[FastCell alloc] init:8 next:fl head];
 }
 - (void) testMath{
-	float pi = M_PI;
-	float max = -DBL_MAX;
-	float min = DBL_MAX;
-	float nan = NAN;
+	float pi = MathM_PI;
+	float max = Math-DBL_MAX;
+	float min = MathDBL_MAX;
+	float nan = MathNAN;
 	float x = sqrtf(5);
 	x = fabsf(5);
 	x = fmaxf(5, 45555);
@@ -402,9 +402,9 @@
 	} structName;
 	BOOL b = [Reflect hasField:obj field:(NSMutableString*)@"a"];
 	id f = [Reflect field:obj field:(NSMutableString*)@"a"];
-	if (obj != nil) [obj __SetField-TDynamic-];
-	[self __SetField-TDynamic-];
-	id p = (id)[self __Field-TDynamic-];
+	if (obj != nil) FDynamic[obj __SetField-TDynamic-];
+	FDynamic[self __SetField-TDynamic-];
+	id p = (id)FDynamic[self __Field-TDynamic-];
 	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]];
 	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]];
 	
@@ -547,6 +547,9 @@
 	[self foo:(NSMutableString*)@"str" arr:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar1", (NSMutableString*)@"bar2", nil]];
 	[self foo:[[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"1", nil], [[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"2", nil], nil]];
 }
+- (void) testC{
+	[[TestC alloc] init];
+}
 - (void) testFrameworksImport{
 }
 - (int) getWidth{
@@ -595,10 +598,10 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"594",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"598",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"604",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"608",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 	int i = param1;
@@ -626,7 +629,7 @@
 }
 // Defining a dynamic method
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"627",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"631",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 @synthesize property_functionToRedefine;
 

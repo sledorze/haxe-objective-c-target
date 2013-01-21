@@ -142,7 +142,7 @@ extern class CGContext {
 
 /* Return the current graphics state's transformation matrix. */
 
-CG_EXTERN CGAffineTransform CGContextGetCTM(c:CGContextRef)
+	@:c public static function CGAffineTransform CGContextGetCTM(c:CGContextRef)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /** Drawing attribute functions. **/
@@ -269,26 +269,26 @@ CG_EXTERN CGAffineTransform CGContextGetCTM(c:CGContextRef)
 /* Return true if the path of `context' contains no elements, false
    otherwise. */
 
-CG_EXTERN bool CGContextIsPathEmpty(c:CGContextRefontext)
+	@:c public static function bool CGContextIsPathEmpty(c:CGContextRefontext)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Return the current point of the current subpath of the path of
    `context'. */
 
-CG_EXTERN CGPoint CGContextGetPathCurrentPoint(c:CGContextRefontext)
+	@:c public static function CGPoint CGContextGetPathCurrentPoint(c:CGContextRefontext)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Return the bounding box of the path of `context'. The bounding box is the
    smallest rectangle completely enclosing all points in the path, including
    control points for Bezier and quadratic curves. */
 
-CG_EXTERN CGRect CGContextGetPathBoundingBox(c:CGContextRefontext)
+	@:c public static function CGRect CGContextGetPathBoundingBox(c:CGContextRefontext)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Return a copy of the path of `context'. The returned path is specified in
    the current user space of `context'. */
 
-CG_EXTERN CGPathRef CGContextCopyPath(c:CGContextRefontext)
+	@:c public static function CGPathRef CGContextCopyPath(c:CGContextRefontext)
     CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Return true if `point' is contained in the current path of `context'. A
@@ -296,7 +296,7 @@ CG_EXTERN CGPathRef CGContextCopyPath(c:CGContextRefontext)
    region when the path is stroked or filled with opaque colors using the
    path drawing mode `mode'. `point' is specified is user space. */
 
-CG_EXTERN bool CGContextPathContainsPoint(c:CGContextRefontext, CGPoint point,
+	@:c public static function bool CGContextPathContainsPoint(c:CGContextRefontext, CGPoint point,
     CGPathDrawingMode mode) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /** Path drawing functions. **/
@@ -415,7 +415,7 @@ CG_EXTERN bool CGContextPathContainsPoint(c:CGContextRefontext, CGPoint point,
    bounding box is the smallest rectangle completely enclosing all points in
    the clip. */
 
-CG_EXTERN CGRect CGContextGetClipBoundingBox(c:CGContextRef)
+	@:c public static function CGRect CGContextGetClipBoundingBox(c:CGContextRef)
     CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
 /** Clipping convenience functions. **/
@@ -573,7 +573,7 @@ CG_EXTERN CGRect CGContextGetClipBoundingBox(c:CGContextRef)
    scaling the image). Note that it is merely a hint to the context: not all
    contexts support all interpolation quality levels. */
 
-CG_EXTERN CGInterpolationQuality CGContextGetInterpolationQuality(CGContextRef
+	@:c public static function CGInterpolationQuality CGContextGetInterpolationQuality(CGContextRef
     context) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the interpolation quality of `context' to `quality'. */
@@ -648,7 +648,7 @@ CG_EXTERN CGInterpolationQuality CGContextGetInterpolationQuality(CGContextRef
 
 /* Return the user-space point at which text will be drawn in `context'. */
 
-CG_EXTERN CGPoint CGContextGetTextPosition(c:CGContextRefontext)
+	@:c public static function CGPoint CGContextGetTextPosition(c:CGContextRefontext)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the text matrix in the context `c' to `t'. */
@@ -657,7 +657,7 @@ CG_EXTERN CGPoint CGContextGetTextPosition(c:CGContextRefontext)
 
 /* Return the text matrix in the context `c'. */
 
-CG_EXTERN CGAffineTransform CGContextGetTextMatrix(c:CGContextRef)
+	@:c public static function CGAffineTransform CGContextGetTextMatrix(c:CGContextRef)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the text drawing mode in the current graphics state of the context
@@ -749,7 +749,7 @@ CG_EXTERN CGAffineTransform CGContextGetTextMatrix(c:CGContextRef)
 
 /* Equivalent to `CFRetain(c)'. */
 
-CG_EXTERN CGContextRef CGContextRetain(c:CGContextRef)
+	@:c public static function CGContextRef CGContextRetain(c:CGContextRef)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Equivalent to `CFRelease(c)'. */
@@ -872,28 +872,28 @@ CG_EXTERN CGContextRef CGContextRetain(c:CGContextRef)
 /* Return the affine transform mapping the user space (abstract coordinates)
    of `context' to device space (pixels). */
 
-CG_EXTERN CGAffineTransform
+	@:c public static function CGAffineTransform
     CGContextGetUserSpaceToDeviceSpaceTransform(c:CGContextRefontext)
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `point' from the user space of `context' to device space. */
 
-CG_EXTERN CGPoint CGContextConvertPointToDeviceSpace(c:CGContextRefontext,
+	@:c public static function CGPoint CGContextConvertPointToDeviceSpace(c:CGContextRefontext,
     CGPoint point) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `point' from device space to the user space of `context'. */
 
-CG_EXTERN CGPoint CGContextConvertPointToUserSpace(c:CGContextRefontext,
+	@:c public static function CGPoint CGContextConvertPointToUserSpace(c:CGContextRefontext,
     CGPoint point) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `size' from the user space of `context' to device space. */
 
-CG_EXTERN CGSize CGContextConvertSizeToDeviceSpace(c:CGContextRefontext,
+	@:c public static function CGSize CGContextConvertSizeToDeviceSpace(c:CGContextRefontext,
     CGSize size) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `size' from device space to the user space of `context'. */
 
-CG_EXTERN CGSize CGContextConvertSizeToUserSpace(c:CGContextRefontext,
+	@:c public static function CGSize CGContextConvertSizeToUserSpace(c:CGContextRefontext,
     CGSize size) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `rect' from the user space of `context' to device space. Since
@@ -901,7 +901,7 @@ CG_EXTERN CGSize CGContextConvertSizeToUserSpace(c:CGContextRefontext,
    returns the smallest rectangle which contains the transformed corner
    points of `rect'. */
 
-CG_EXTERN CGRect CGContextConvertRectToDeviceSpace(c:CGContextRefontext,
+	@:c public static function CGRect CGContextConvertRectToDeviceSpace(c:CGContextRefontext,
     rect:CGRect) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `rect' from device space to the user space of `context'. Since
@@ -909,7 +909,7 @@ CG_EXTERN CGRect CGContextConvertRectToDeviceSpace(c:CGContextRefontext,
    returns the smallest rectangle which contains the transformed corner
    points of `rect'. */
 
-CG_EXTERN CGRect CGContextConvertRectToUserSpace(c:CGContextRefontext,
+	@:c public static function CGRect CGContextConvertRectToUserSpace(c:CGContextRefontext,
     rect:CGRect) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 #endif	/* CGCONTEXT_H_ */

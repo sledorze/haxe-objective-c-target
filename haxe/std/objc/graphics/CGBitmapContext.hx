@@ -1,12 +1,5 @@
-/* CoreGraphics - CGBitmapContext.h
-   Copyright (c) 2000-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
 
-#ifndef CGBITMAPCONTEXT_H_
-#define CGBITMAPCONTEXT_H_
-
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGContext.h>
 
 /* The callback for releasing the data supplied to
    `CGBitmapContextCreateWithData'. */
@@ -14,6 +7,9 @@
 typedef void (*CGBitmapContextReleaseDataCallback)(void *releaseInfo,
   void *data);
 
+
+extern class CGBitmapContext {
+	  
 /* Create a bitmap context. The context draws into a bitmap which is `width'
    pixels wide and `height' pixels high. The number of components for each
    pixel is specified by `space', which may also specify a destination color
@@ -31,11 +27,10 @@ typedef void (*CGBitmapContextReleaseDataCallback)(void *releaseInfo,
    non-NULL, it is called when the context is freed with `releaseInfo' and
    `data' as arguments. */
 
-CG_EXTERN CGContextRef CGBitmapContextCreateWithData(void *data, size_t width,
+	@:c public static function CGBitmapContextCreateWithData(void *data, size_t width,
   size_t height, size_t bitsPerComponent, size_t bytesPerRow,
   CGColorSpaceRef space, CGBitmapInfo bitmapInfo,
-  CGBitmapContextReleaseDataCallback releaseCallback, void *releaseInfo)
-  CG_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_4_0);
+  CGBitmapContextReleaseDataCallback releaseCallback, void *releaseInfo) :CGContextRef;
 
 /* Create a bitmap context. The context draws into a bitmap which is `width'
    pixels wide and `height' pixels high. The number of components for each
@@ -52,7 +47,7 @@ CG_EXTERN CGContextRef CGBitmapContextCreateWithData(void *data, size_t width,
    alpha channel and how it's to be generated, along with whether the
    components are floating-point or integer. */
 
-CG_EXTERN CGContextRef CGBitmapContextCreate(void *data, size_t width,
+	@:c public static function CGBitmapContextCreate(void *data, size_t width,
   size_t height, size_t bitsPerComponent, size_t bytesPerRow,
   CGColorSpaceRef space, CGBitmapInfo bitmapInfo)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
@@ -60,56 +55,47 @@ CG_EXTERN CGContextRef CGBitmapContextCreate(void *data, size_t width,
 /* Return the data associated with the bitmap context `context', or NULL if
    `context' is not a bitmap context. */
 
-CG_EXTERN void *CGBitmapContextGetData(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetData(context:CGContextRef) :Void;
 
 /* Return the width of the bitmap context `context', or 0 if `context' is
    not a bitmap context. */
 
-CG_EXTERN size_t CGBitmapContextGetWidth(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetWidth(context:CGContextRef) :size_t;
 
 /* Return the height of the bitmap context `context', or 0 if `context' is
    not a bitmap context. */
 
-CG_EXTERN size_t CGBitmapContextGetHeight(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetHeight(context:CGContextRef) :size_t;
 
 /* Return the bits per component of the bitmap context `context', or 0 if
    `context' is not a bitmap context. */
 
-CG_EXTERN size_t CGBitmapContextGetBitsPerComponent(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetBitsPerComponent(context:CGContextRef) :size_t;
 
 /* Return the bits per pixel of the bitmap context `context', or 0 if
    `context' is not a bitmap context. */
 
-CG_EXTERN size_t CGBitmapContextGetBitsPerPixel(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetBitsPerPixel(context:CGContextRef) :size_t;
 
 /* Return the bytes per row of the bitmap context `context', or 0 if
    `context' is not a bitmap context. */
 
-CG_EXTERN size_t CGBitmapContextGetBytesPerRow(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetBytesPerRow(context:CGContextRef) :size_t;
 
 /* Return the color space of the bitmap context `context', or NULL if
    `context' is not a bitmap context. */
 
-CG_EXTERN CGColorSpaceRef CGBitmapContextGetColorSpace(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetColorSpace(context:CGContextRef) :CGColorSpaceRef;
 
 /* Return the alpha info of the bitmap context `context', or
    "kCGImageAlphaNone" if `context' is not a bitmap context. */
 
-CG_EXTERN CGImageAlphaInfo CGBitmapContextGetAlphaInfo(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetAlphaInfo(context:CGContextRef) :CGImageAlphaInfo;
 
 /* Return the bitmap info of the bitmap context `context', or 0 if `context'
    is not a bitmap context. */
 
-CG_EXTERN CGBitmapInfo CGBitmapContextGetBitmapInfo(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGBitmapContextGetBitmapInfo(context:CGContextRef) :CGBitmapInfo;
 
 /* Return an image containing a snapshot of the bitmap context `context'. If
    context is not a bitmap context, or if the image cannot be created for
@@ -124,7 +110,6 @@ CG_EXTERN CGBitmapInfo CGBitmapContextGetBitmapInfo(CGContextRef context)
    before performing more drawing into the bitmap context; in this way, the
    actual physical copy of the data may be avoided. */
 
-CG_EXTERN CGImageRef CGBitmapContextCreateImage(CGContextRef context)
-  CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGBitmapContextCreateImage(context:CGContextRef) :CGImageRef;
 
-#endif /* CGBITMAPCONTEXT_H_ */
+}

@@ -1,9 +1,4 @@
-/* CoreGraphics - CGPattern.h
-   Copyright (c) 2000-2011 Apple Inc.
-   All rights reserved. */
-
-#ifndef CGPATTERN_H_
-#define CGPATTERN_H_
+package objc.graphics;
 
 typedef struct CGPattern *CGPatternRef;
 
@@ -52,12 +47,12 @@ typedef struct CGPatternCallbacks CGPatternCallbacks;
 
 /* Return the CFTypeID for CGPatternRefs. */
 
-CG_EXTERN CFTypeID CGPatternGetTypeID(void)
+	@:c public static function CFTypeID CGPatternGetTypeID(void)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Create a pattern. */
 
-CG_EXTERN CGPatternRef CGPatternCreate(void *info, CGRect bounds,
+	@:c public static function CGPatternRef CGPatternCreate(void *info, CGRect bounds,
   CGAffineTransform matrix, Float xStep, Float yStep,
   CGPatternTiling tiling, bool isColored, const CGPatternCallbacks *callbacks)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
@@ -65,13 +60,13 @@ CG_EXTERN CGPatternRef CGPatternCreate(void *info, CGRect bounds,
 /* Equivalent to `CFRetain(pattern)', except it doesn't crash (as CF does)
    if `pattern' is NULL. */
 
-CG_EXTERN CGPatternRef CGPatternRetain(CGPatternRef pattern)
+	@:c public static function CGPatternRef CGPatternRetain(CGPatternRef pattern)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Equivalent to `CFRelease(pattern)', except it doesn't crash (as CF does)
    if `pattern' is NULL. */
 
-CG_EXTERN void CGPatternRelease(CGPatternRef pattern)
+	@:c public static function void CGPatternRelease(CGPatternRef pattern)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 #endif /* CGPATTERN_H_ */

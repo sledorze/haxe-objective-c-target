@@ -546,6 +546,10 @@ class Tests implements Interface1, implements Interface2 {
 	}
 	
 	
+	function testC(){
+		new TestC();
+	}
+	
 	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
 	
 	function testFrameworksImport(){

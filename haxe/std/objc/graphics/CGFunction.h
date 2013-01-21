@@ -1,18 +1,11 @@
-/* CoreGraphics - CGFunction.h
-   Copyright (c) 1999-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
 
-#ifndef CGFUNCTION_H_
-#define CGFUNCTION_H_
 
 /* A CGFunction is a general floating-point function evaluator which uses a
    user-specified callback to map an arbitrary number of inputs to an
    arbitrary number of outputs. */
 
-typedef struct CGFunction *CGFunctionRef;
-
-#include <CoreGraphics/CGBase.h>
-#include <CoreFoundation/CFBase.h>
+typedef struct CGFunction *CGFunctionRef = CGFunction;
 
 /* This callback evaluates a function, using `in' as inputs, and places the
    result in `out'. `info' is the info parameter passed to the CGFunction
@@ -43,7 +36,7 @@ typedef struct CGFunctionCallbacks CGFunctionCallbacks;
 
 /* Return the CFTypeID for CGFunctionRefs. */
 
-CG_EXTERN CFTypeID CGFunctionGetTypeID(void)
+	@:c public static function CFTypeID CGFunctionGetTypeID(void)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Create a CGFunction using `callbacks' to evaluate the function. `info' is
@@ -72,7 +65,7 @@ CG_EXTERN CFTypeID CGFunctionGetTypeID(void)
    The contents of the callbacks structure is copied, so, for example, a
    pointer to a structure on the stack can be passed to this function. */
 
-CG_EXTERN CGFunctionRef CGFunctionCreate(void *info, size_t domainDimension,
+	@:c public static function CGFunctionRef CGFunctionCreate(void *info, size_t domainDimension,
   const Float *domain, size_t rangeDimension, const Float *range,
   const CGFunctionCallbacks *callbacks)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
@@ -80,13 +73,13 @@ CG_EXTERN CGFunctionRef CGFunctionCreate(void *info, size_t domainDimension,
 /* Equivalent to `CFRetain(function)', except it doesn't crash (as CFRetain
    does) if `function' is NULL. */
 
-CG_EXTERN CGFunctionRef CGFunctionRetain(CGFunctionRef function)
+	@:c public static function CGFunctionRef CGFunctionRetain(CGFunctionRef function)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Equivalent to `CFRelease(function)', except it doesn't crash (as
    CFRelease does) if `function' is NULL. */
 
-CG_EXTERN void CGFunctionRelease(CGFunctionRef function)
+	@:c public static function void CGFunctionRelease(CGFunctionRef function)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 #endif /* CGFUNCTION_H_ */

@@ -13,40 +13,40 @@
 	[self setObject:value forKey:key];
 }
 - (id) get:(NSMutableString*)key{
-	return [self objectForKey:key];
+	return FDynamic[self objectForKey:key];
 }
 - (BOOL) exists:(NSMutableString*)key{
-	return [self objectForKey:key] != nil;
+	return FDynamic[self objectForKey:key] != nil;
 }
 - (BOOL) remove:(NSMutableString*)key{
 	if ([self exists:key]) {
-		[self removeObjectForKey:key];
+		FDynamic[self removeObjectForKey:key];
 		return YES;
 	}
 	return NO;
 }
 - (id) keys{
 	
-	NSMutableArray *a = (NSMutableArray*)[self allKeys];
+	NSMutableArray *a = (NSMutableArray*)FDynamic[self allKeys];
 	return [a iterator];
 }
 - (id) iterator{
 	
-	NSMutableArray *a = (NSMutableArray*)[self allValues];
+	NSMutableArray *a = (NSMutableArray*)FDynamic[self allValues];
 	
 	NSMutableArray *it = [[NSMutableArray alloc] initWithObjects:[a iterator], nil];
 	
 	NSMutableArray *me = [[NSMutableArray alloc] initWithObjects:self, nil];
 	return struct {
 	hasNext:^- (BOOL) {
-		return [[it objectAtIndex:0] hasNext];
+		return FAnon[[it objectAtIndex:0] hasNext];
 	}; next:^- (id) {
-		return [[me objectAtIndex:0] __Internal __Field:[[it objectAtIndex:0] next] :YES];
+		return FAnon[[me objectAtIndex:0] __Internal __Field:FAnon[[it objectAtIndex:0] next] :YES];
 	}
 	} structName;
 }
 - (NSMutableString*) toString{
-	return [self description];
+	return FDynamic[self description];
 }
 - (id) init{
 	self = [super init];

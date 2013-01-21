@@ -1,9 +1,5 @@
-/* CoreGraphics - CGGradient.h
-   Copyright (c) 2006-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
 
-#ifndef CGGRADIENT_H_
-#define CGGRADIENT_H_
 
 typedef struct CGGradient *CGGradientRef;
 
@@ -31,7 +27,7 @@ typedef uint32_t CGGradientDrawingOptions;
 
 /* Return the CFTypeID for CGGradients. */
 
-CG_EXTERN CFTypeID CGGradientGetTypeID(void)
+	@:c public static function CFTypeID CGGradientGetTypeID(void)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Creates a gradient by pairing the color components provided in
@@ -47,7 +43,7 @@ CG_EXTERN CFTypeID CGGradientGetTypeID(void)
    gradient will use the color provided at the locations closest to 0 and 1
    for those values. */
 
-CG_EXTERN CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef
+	@:c public static function CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef
   space, const Float components[], const Float locations[], size_t count)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
@@ -67,20 +63,20 @@ CG_EXTERN CGGradientRef CGGradientCreateWithColorComponents(CGColorSpaceRef
    the color provided at the locations closest to 0 and 1 for those
    values. */
 
-CG_EXTERN CGGradientRef CGGradientCreateWithColors(CGColorSpaceRef space,
+	@:c public static function CGGradientRef CGGradientCreateWithColors(CGColorSpaceRef space,
   CFArrayRef colors, const Float locations[])
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Equivalent to `CFRetain' except that it doesn't crash (as `CFRetain'
    does) if `gradient' is NULL. */
 
-CG_EXTERN CGGradientRef CGGradientRetain(CGGradientRef gradient)
+	@:c public static function CGGradientRef CGGradientRetain(CGGradientRef gradient)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /* Equivalent to `CFRelease' except that it doesn't crash (as `CFRelease'
    does) if `gradient' is NULL. */
 
-CG_EXTERN void CGGradientRelease(CGGradientRef gradient)
+	@:c public static function void CGGradientRelease(CGGradientRef gradient)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 #endif /* CGGRADIENT_H_ */

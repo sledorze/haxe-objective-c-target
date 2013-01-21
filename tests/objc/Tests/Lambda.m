@@ -13,7 +13,7 @@
 	
 	NSMutableArray *a = (NSMutableArray*)[[NSMutableArray alloc] init];
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id i = [_it next];
 			[a push:i];
@@ -25,7 +25,7 @@
 	
 	List *l = [[List alloc] init];
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id i = [_it next];
 			[l add:i];
@@ -37,7 +37,7 @@
 	
 	List *l = [[List alloc] init];
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			[l add:[f:x]];
@@ -50,7 +50,7 @@
 	List *l = [[List alloc] init];
 	int i = 0;
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			[l add:[f:i++ :x]];
@@ -64,7 +64,7 @@
 	
 	if (cmp == nil) {
 		{
-			id _it = [it iterator];
+			id _it = FAnon[it iterator];
 			while ( [_it hasNext] ) do {
 				id x = [_it next];
 				if (x == elt) return YES;
@@ -73,7 +73,7 @@
 	}
 	else {
 		{
-			id _it2 = [it iterator];
+			id _it2 = FAnon[it iterator];
 			while ( [_it2 hasNext] ) do {
 				id x = [_it2 next];
 				if ([cmp:x :elt]) return YES;
@@ -84,7 +84,7 @@
 }
 + (BOOL) exists:(id)it f:(SEL)f{
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			if ([f:x]) return YES;
@@ -94,7 +94,7 @@
 }
 + (BOOL) foreach:(id)it f:(SEL)f{
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			if (![f:x]) return NO;
@@ -104,7 +104,7 @@
 }
 + (void) iter:(id)it f:(SEL)f{
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			[f:x];
@@ -115,7 +115,7 @@
 	
 	List *l = [[List alloc] init];
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			if ([f:x]) [l add:x];
@@ -125,7 +125,7 @@
 }
 + (id) fold:(id)it f:(SEL)f first:(id)first{
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			first = [f:x :first];
@@ -140,7 +140,7 @@
 	int n = 0;
 	if (pred == nil) {
 		{
-			id _it = [it iterator];
+			id _it = FAnon[it iterator];
 			while ( [_it hasNext] ) do {
 				id _ = [_it next];
 				n++;
@@ -149,7 +149,7 @@
 	}
 	else {
 		{
-			id _it2 = [it iterator];
+			id _it2 = FAnon[it iterator];
 			while ( [_it2 hasNext] ) do {
 				id x = [_it2 next];
 				if ([pred:x]) n++;
@@ -159,12 +159,12 @@
 	return n;
 }
 + (BOOL) empty:(id)it{
-	return ![[it iterator] hasNext];
+	return !FAnon[FAnon[it iterator] hasNext];
 }
 + (int) indexOf:(id)it v:(id)v{
 	int i = 0;
 	{
-		id _it = [it iterator];
+		id _it = FAnon[it iterator];
 		while ( [_it hasNext] ) do {
 			id v2 = [_it next];
 			{
@@ -179,14 +179,14 @@
 	
 	List *l = [[List alloc] init];
 	{
-		id _it = [a iterator];
+		id _it = FAnon[a iterator];
 		while ( [_it hasNext] ) do {
 			id x = [_it next];
 			[l add:x];
 		}
 	}
 	{
-		id _it2 = [b iterator];
+		id _it2 = FAnon[b iterator];
 		while ( [_it2 hasNext] ) do {
 			id x = [_it2 next];
 			[l add:x];

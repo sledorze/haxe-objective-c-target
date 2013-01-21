@@ -1,5 +1,4 @@
-package objc.ios.coregraphics;
-
+package objc.graphics;
 
 typedef CGBase = objc.ios.coregraphics.CGBase;
 typedef CGAffineTransform = objc.ios.coregraphics.CGAffineTransform;

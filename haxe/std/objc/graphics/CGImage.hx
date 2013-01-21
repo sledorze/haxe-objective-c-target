@@ -1,89 +1,65 @@
-/* CoreGraphics - CGImage.h
- * Copyright (c) 2000-2008 Apple Inc.
- * All rights reserved. */
+package objc.graphics;
 
-#ifndef CGIMAGE_H_
-#define CGIMAGE_H_
+typedef CGImageRef = CGImage;
 
-typedef struct CGImage *CGImageRef;
+extern enum CGImageAlphaInfo {
+    kCGImageAlphaNone;               /* For example, RGB. */
+    kCGImageAlphaPremultipliedLast;  /* For example, premultiplied RGBA */
+    kCGImageAlphaPremultipliedFirst; /* For example, premultiplied ARGB */
+    kCGImageAlphaLast;               /* For example, non-premultiplied RGBA */
+    kCGImageAlphaFirst;              /* For example, non-premultiplied ARGB */
+    kCGImageAlphaNoneSkipLast;       /* For example, RBGX. */
+    kCGImageAlphaNoneSkipFirst;      /* For example, XRGB. */
+    kCGImageAlphaOnly;                /* No color data, alpha data only */
+}
 
-#include <CoreGraphics/CGColorSpace.h>
-#include <CoreGraphics/CGDataProvider.h>
-#include <CoreGraphics/CGGeometry.h>
-
-enum CGImageAlphaInfo {
-    kCGImageAlphaNone,               /* For example, RGB. */
-    kCGImageAlphaPremultipliedLast,  /* For example, premultiplied RGBA */
-    kCGImageAlphaPremultipliedFirst, /* For example, premultiplied ARGB */
-    kCGImageAlphaLast,               /* For example, non-premultiplied RGBA */
-    kCGImageAlphaFirst,              /* For example, non-premultiplied ARGB */
-    kCGImageAlphaNoneSkipLast,       /* For example, RBGX. */
-    kCGImageAlphaNoneSkipFirst,      /* For example, XRGB. */
-    kCGImageAlphaOnly                /* No color data, alpha data only */
-};
-typedef enum CGImageAlphaInfo CGImageAlphaInfo;
-
-enum {
-    kCGBitmapAlphaInfoMask = 0x1F,
-    kCGBitmapFloatComponents = (1 << 8),
+extern enum CGBitmapInfo {
+    kCGBitmapAlphaInfoMask;
+    kCGBitmapFloatComponents;
     
-    kCGBitmapByteOrderMask = 0x7000,
-    kCGBitmapByteOrderDefault = (0 << 12),
-    kCGBitmapByteOrder16Little = (1 << 12),
-    kCGBitmapByteOrder32Little = (2 << 12),
-    kCGBitmapByteOrder16Big = (3 << 12),
-    kCGBitmapByteOrder32Big = (4 << 12)
-};
-typedef uint32_t CGBitmapInfo; /* Available in MAC OS X 10.4 & later. */
+    kCGBitmapByteOrderMask;
+    kCGBitmapByteOrderDefault;
+    kCGBitmapByteOrder16Little;
+    kCGBitmapByteOrder32Little;
+    kCGBitmapByteOrder16Big;
+    kCGBitmapByteOrder32Big;
+}
 
-#ifdef __BIG_ENDIAN__
-#define kCGBitmapByteOrder16Host kCGBitmapByteOrder16Big
-#define kCGBitmapByteOrder32Host kCGBitmapByteOrder32Big
-#else    /* Little endian. */
-#define kCGBitmapByteOrder16Host kCGBitmapByteOrder16Little
-#define kCGBitmapByteOrder32Host kCGBitmapByteOrder32Little
-#endif
 
+extern class CGImage {
 /* Return the CFTypeID for CGImageRefs. */
 
-CG_EXTERN CFTypeID CGImageGetTypeID(void)
-    CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGImageGetTypeID() :CFTypeID;
 
 /* Create an image. */
 
-CG_EXTERN CGImageRef CGImageCreate(size_t width, size_t height,
+	@:c public static function CGImageCreate(size_t width, size_t height,
     size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow,
     CGColorSpaceRef space, CGBitmapInfo bitmapInfo, CGDataProviderRef provider,
     const Float decode[], bool shouldInterpolate,
-    CGColorRenderingIntent intent)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+    CGColorRenderingIntent intent) :CGImageRef;
 
 /* Create an image mask. */
 
-CG_EXTERN CGImageRef CGImageMaskCreate(size_t width, size_t height,
+	@:c public static function CGImageMaskCreate(size_t width, size_t height,
     size_t bitsPerComponent, size_t bitsPerPixel, size_t bytesPerRow,
-    CGDataProviderRef provider, const Float decode[], bool shouldInterpolate)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+    CGDataProviderRef provider, const Float decode[], bool shouldInterpolate) :CGImageRef;
 
 /* Return a copy of `image'. Only the image structure itself is copied; the
    underlying data is not. */
 
-CG_EXTERN CGImageRef CGImageCreateCopy(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGImageCreateCopy(image:CGImageRef) :CGImageRef;
 
 /* Create an image from `source', a data provider of JPEG-encoded data. */
 
-CG_EXTERN CGImageRef CGImageCreateWithJPEGDataProvider(CGDataProviderRef
+	@:c public static function CGImageCreateWithJPEGDataProvider(CGDataProviderRef
     source, const Float decode[], bool shouldInterpolate,
-    CGColorRenderingIntent intent)
-    CG_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_2_0);
+    CGColorRenderingIntent intent) :CGImageRef;
 
 /* Create an image using `source', a data provider for PNG-encoded data. */
 
-CG_EXTERN CGImageRef CGImageCreateWithPNGDataProvider(CGDataProviderRef source,
-    const Float decode[], bool shouldInterpolate,
-    CGColorRenderingIntent intent)
-    CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGImageCreateWithPNGDataProvider(source:CGDataProviderRef,
+    const Float decode[], shouldInterpolate:Bool, intent:CGColorRenderingIntent) :CGImageRef;
 
 /* Create an image using the data contained within the subrectangle `rect'
    of `image'.
@@ -106,8 +82,7 @@ CG_EXTERN CGImageRef CGImageCreateWithPNGDataProvider(CGDataProviderRef source,
    The resulting image retains a reference to the original image, so you may
    release the original image after calling this function. */
 
-CG_EXTERN CGImageRef CGImageCreateWithImageInRect(CGImageRef image,
-    CGRect rect) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGImageCreateWithImageInRect(image:CGImageRef, rect:CGRect) :CGImageRef;
 
 /* Create a new image from `image' masked by `mask', which may be an image
    mask or an image.
@@ -135,8 +110,7 @@ CG_EXTERN CGImageRef CGImageCreateWithImageInRect(CGImageRef image,
    not have alpha, and may not itself be masked by an image mask or a
    masking color. */
 
-CG_EXTERN CGImageRef CGImageCreateWithMask(CGImageRef image, CGImageRef mask)
-    CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGImageCreateWithMask(image:CGImageRef, mask:CGImageRef) :CGImageRef;
 
 /* Create a new image from `image' masked by `components', an array of 2N
    values { min[1], max[1], ... min[N], max[N] } where N is the number of
@@ -154,92 +128,74 @@ CG_EXTERN CGImageRef CGImageCreateWithMask(CGImageRef image, CGImageRef mask)
    The parameter `image' may not be an image mask, and may not already have
    an image mask or masking color associated with it. */
 
-CG_EXTERN CGImageRef CGImageCreateWithMaskingColors(CGImageRef image,
-    const Float components[])
-    CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGImageCreateWithMaskingColors(image:CGImageRef, components:Array<Float>) :CGImageRef;
 
 /* Create a copy of `image', replacing the image's color space with `space'.
    Returns NULL if `image' is an image mask, or if the number of components
    of `space' isn't the same as the number of components of the color space
    of `image'. */
 
-CG_EXTERN CGImageRef CGImageCreateCopyWithColorSpace(CGImageRef image,
-    CGColorSpaceRef space) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
+	@:c public static function CGImageCreateCopyWithColorSpace(image:CGImageRef, space:CGColorSpaceRef) :CGImageRef;
 
 /* Equivalent to `CFRetain(image)'. */
 
-CG_EXTERN CGImageRef CGImageRetain(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageRetain(image:CGImageRef) :CGImageRef;
 
 /* Equivalent to `CFRelease(image)'. */
 
-CG_EXTERN void CGImageRelease(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageRelease(image:CGImageRef) :Void;
 
 /* Return true if `image' is an image mask, false otherwise. */
 
-CG_EXTERN bool CGImageIsMask(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageIsMask(image:CGImageRef) :Bool;
 
 /* Return the width of `image'. */
 
-CG_EXTERN size_t CGImageGetWidth(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetWidth(image:CGImageRef) :size_t;
 
 /* Return the height of `image'. */
 
-CG_EXTERN size_t CGImageGetHeight(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetHeight(image:CGImageRef) :size_t;
 
 /* Return the number of bits/component of `image'. */
 
-CG_EXTERN size_t CGImageGetBitsPerComponent(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetBitsPerComponent(image:CGImageRef) :size_t;
 
 /* Return the number of bits/pixel of `image'. */
 
-CG_EXTERN size_t CGImageGetBitsPerPixel(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetBitsPerPixel(image:CGImageRef) :size_t;
 
 /* Return the number of bytes/row of `image'. */
 
-CG_EXTERN size_t CGImageGetBytesPerRow(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetBytesPerRow(image:CGImageRef) :size_t;
 
 /* Return the color space of `image', or NULL if `image' is an image
    mask. */
 
-CG_EXTERN CGColorSpaceRef CGImageGetColorSpace(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetColorSpace(image:CGImageRef) :CGColorSpaceRef;
 
 /* Return the alpha info of `image'. */
 
-CG_EXTERN CGImageAlphaInfo CGImageGetAlphaInfo(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetAlphaInfo(image:CGImageRef) :CGImageAlphaInfo;
 
 /* Return the data provider of `image'. */
 
-CG_EXTERN CGDataProviderRef CGImageGetDataProvider(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetDataProvider(image:CGImageRef) :CGDataProviderRef;
 
 /* Return the decode array of `image'. */
 
-CG_EXTERN const Float *CGImageGetDecode(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetDecode(image:CGImageRef) :Array<Float>;
 
 /* Return the interpolation parameter of `image'. */
 
-CG_EXTERN bool CGImageGetShouldInterpolate(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetShouldInterpolate(image:CGImageRef) :Bool;
 
 /* Return the rendering intent of `image'. */
 
-CG_EXTERN CGColorRenderingIntent CGImageGetRenderingIntent(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGImageGetRenderingIntent(image:CGImageRef) :CGColorRenderingIntent;
 
 /* Return the bitmap info of `image'. */
 
-CG_EXTERN CGBitmapInfo CGImageGetBitmapInfo(CGImageRef image)
-    CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGImageGetBitmapInfo(image:CGImageRef) :CGBitmapInfo;
 
-#endif	/* CGIMAGE_H_ */
+}

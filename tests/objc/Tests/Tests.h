@@ -44,6 +44,7 @@ typedef enum{
 #import "Timer.h"
 #import "Md5.h"
 #import "Sha1.h"
+#import "TestC.h"
 #import "Tests2.h"
 
 @interface Tests : NSObject<Interface2, Interface1>
@@ -83,6 +84,7 @@ typedef enum{
 - (void) testCrypto;
 - (void) foo;
 - (void) testOverload;
+- (void) testC;
 - (void) testFrameworksImport;
 - (int) getWidth;
 - (int) setWidth:(int)v;

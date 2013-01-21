@@ -11,10 +11,10 @@
 
 + (Class*) getClass:(id)o{
 	if (o == nil || ![Reflect isObject:o]) return nil;
-	id c = [o __GetClass];
+	id c = FDynamic[o __GetClass];
 	{
 		
-		NSMutableString *_g = [c toString];
+		NSMutableString *_g = FAnon[c toString];
 		switch (_g){
 			case (NSMutableString*)@"__Anon":{
 				return nil}break;
@@ -26,18 +26,18 @@
 }
 + (Enum*) getEnum:(EnumValue*)o{
 	if (o == nil) return nil;
-	return [o __GetClass];
+	return FDynamic[o __GetClass];
 }
 + (Class*) getSuperClass:(Class*)c{
 	if (c == nil) return nil;
-	return [c superclass];
+	return FDynamic[c superclass];
 }
 + (NSMutableString*) getClassName:(Class*)c{
 	if (c == nil) return nil;
 	return NSStringFromClass([c class]);
 }
 + (NSMutableString*) getEnumName:(Enum*)e{
-	return [e __ToString];
+	return FDynamic[e __ToString];
 }
 + (Class*) resolveClass:(NSMutableString*)name{
 	
@@ -46,8 +46,8 @@
 }
 + (Enum*) resolveEnum:(NSMutableString*)name{
 	
-	Class *result = [Class Resolve:name];
-	if (result != nil && ![result __IsEnum]) return nil;
+	Class *result = FDynamic[Class Resolve:name];
+	if (result != nil && !FDynamic[result __IsEnum]) return nil;
 	return result;
 }
 + (id) createInstance:(Class*)cl args:(NSMutableArray*)args{
@@ -61,7 +61,7 @@
 	// Simulated optional arguments
 	if (params == nil) params = nil;
 	
-	if (e mConstructEnum != nil) return [e mConstructEnum:constr :params];
+	if (e mConstructEnum != nil) return FDynamic[e mConstructEnum:constr :params];
 	return nil;
 }
 + (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{
@@ -74,13 +74,13 @@
 	return [Type createEnum:e constr:c params:params];
 }
 + (NSMutableArray*) getInstanceFields:(Class*)c{
-	return [c GetInstanceFields];
+	return FDynamic[c GetInstanceFields];
 }
 + (NSMutableArray*) getClassFields:(Class*)c{
-	return [c GetClassFields];
+	return FDynamic[c GetClassFields];
 }
 + (NSMutableArray*) getEnumConstructs:(Enum*)e{
-	return [e GetClassFields];
+	return FDynamic[e GetClassFields];
 }
 + (Type*) typeof:(id)v{
 	if (v == nil) return ValueType TNull;
@@ -90,19 +90,19 @@
 	return a == b;
 }
 + (NSMutableString*) enumConstructor:(EnumValue*)e{
-	return [e __Tag];
+	return FDynamic[e __Tag];
 }
 + (NSMutableArray*) enumParameters:(EnumValue*)e{
 	
-	NSMutableArray *result = (NSMutableArray*)[e __EnumParams];
+	NSMutableArray *result = (NSMutableArray*)FDynamic[e __EnumParams];
 	return ( (result == nil) ? [[NSMutableArray alloc] initWithObjects:, nil] : result);
 }
 + (int) enumIndex:(EnumValue*)e{
-	return [e __Index];
+	return FDynamic[e __Index];
 }
 + (NSMutableArray*) allEnums:(Enum*)e{
 	
-	NSMutableArray *names = (NSMutableArray*)[e GetClassFields];
+	NSMutableArray *names = (NSMutableArray*)FDynamic[e GetClassFields];
 	
 	NSMutableArray *enums = (NSMutableArray*)[[NSMutableArray alloc] init];
 	{
@@ -112,7 +112,7 @@
 			NSMutableString *name = [names objectAtIndex:_g];
 			++_g;
 			@try {
-				id result = [e mConstructEnum:name :nil];
+				id result = FDynamic[e mConstructEnum:name :nil];
 				[enums push:result];
 			}
 			@catch (NSException *invalidArgCount) {

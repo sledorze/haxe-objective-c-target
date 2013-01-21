@@ -1,22 +1,12 @@
-/* CoreGraphics - CGShading.h
-   Copyright (c) 2001-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
+import objc.graphics.CGGeometry;
 
-#ifndef CGSHADING_H_
-#define CGSHADING_H_
+typedef CGShadingRef = CGShading;
 
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGColorSpace.h>
-#include <CoreGraphics/CGFunction.h>
-#include <CoreGraphics/CGGeometry.h>
-#include <CoreFoundation/CFBase.h>
-
-typedef struct CGShading *CGShadingRef;
-
+extern class CGShading {
 /* Return the CFTypeID for CGShadingRefs. */
 
-CG_EXTERN CFTypeID CGShadingGetTypeID(void)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGShadingGetTypeID () :CFTypeID;
 
 /* Create a shading defining a color blend which varies along a linear axis
    between two endpoints and extends indefinitely perpendicular to that
@@ -33,9 +23,7 @@ CG_EXTERN CFTypeID CGShadingGetTypeID(void)
    beyond the starting point of the axis. If `extendEnd' is true, then the
    shading will extend beyond the ending point of the axis. */
 
-CG_EXTERN CGShadingRef CGShadingCreateAxial(CGColorSpaceRef space,
-  CGPoint start, CGPoint end, CGFunctionRef function, bool extendStart,
-  bool extendEnd) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGShadingCreateAxial(space:CGColorSpaceRef, start:CGPoint, end:CGPoint, function:CGFunctionRef, extendStart:Bool, extendEnd:Bool) :CGShadingRef;
 
 /* Create a shading defining a color blend which varies between two circles.
    The shading may optionally extend beyond either circle by continuing the
@@ -52,21 +40,16 @@ CG_EXTERN CGShadingRef CGShadingCreateAxial(CGColorSpaceRef space,
    `extendEnd' is true, then the shading will extend beyond the ending
    circle. */
 
-CG_EXTERN CGShadingRef CGShadingCreateRadial(CGColorSpaceRef space,
-  CGPoint start, Float startRadius, CGPoint end, Float endRadius,
-  CGFunctionRef function, bool extendStart, bool extendEnd)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGShadingCreateRadial(space:CGColorSpaceRef, start:CGPoint, startRadius:Float, end:CGPoint, endRadius:Float, function:CGFunctionRef, extendStart:Bool, extendEnd:Bool) :CGShadingRef;
 
 /* Equivalent to `CFRetain(shading)', except it doesn't crash (as CFRetain
    does) if `shading' is NULL. */
 
-CG_EXTERN CGShadingRef CGShadingRetain(CGShadingRef shading)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGShadingRetain(shading:CGShadingRef) :CGShadingRef;
 
 /* Equivalent to `CFRelease(shading)', except it doesn't crash (as CFRelease
    does) if `shading' is NULL. */
 
-CG_EXTERN void CGShadingRelease(CGShadingRef shading)
-  CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGShadingRelease(shading:CGShadingRef) :Void;
 
-#endif /* CGSHADING_H_ */
+}

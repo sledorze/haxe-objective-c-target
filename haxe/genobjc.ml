@@ -946,13 +946,11 @@ and generateExpression ctx e =
 			generateFieldAccess ctx e.etype (field_name fa);
 		end
 	| TTypeExpr t ->
-		(* Do not generate the Math class, make C calls *)
 		let p = t_path t in
-		(match p with
-		| ([], "Math") -> ctx.generating_c_call <- true;
-		| _ ->
-			ctx.writer#write (remapHaxeTypeToObjc ctx true p e.epos));
-			ctx.imports_manager#add_class_path p;
+		if not ctx.generating_c_call then begin
+			ctx.writer#write (remapHaxeTypeToObjc ctx true p e.epos);
+		end;
+		ctx.imports_manager#add_class_path p;
 	| TParenthesis e ->
 		ctx.writer#write " (";
 		generateValue ctx e;
@@ -1028,15 +1026,19 @@ and generateExpression ctx e =
 		| _ -> error "__objc__ accepts only one string as an argument" func.epos)
 	| TCall (func, arg_list) ->
 		(match func.eexpr with
-		| TField (e,s) ->
-			(match e.eexpr with
-			| TTypeExpr t ->
-				(* Do not generate the Math class, make calls like in C *)
-				(match (t_path t) with
-				| ([], "Math") -> ctx.generating_c_call <- true;
-				| _ -> ctx.writer#write "[")
-			| _ -> ctx.writer#write "[")
-		| _ -> ctx.writer#write "[");
+		| TField (e,fa) ->
+			(match fa with
+			| FInstance _ -> ();(* ctx.writer#write "FInstance" *)
+			| FStatic (cls,cf) ->
+				if has_meta ":c" cf.cf_meta then ctx.generating_c_call <- true else
+				if cls.cl_path = ([], "Math") then ctx.generating_c_call <- true;
+			| FAnon _ -> ctx.writer#write "FAnon"
+			| FDynamic _ -> ctx.writer#write "FDynamic"
+			| FClosure _ -> ctx.writer#write "FClosure"
+			| FEnum _ -> ctx.writer#write "FEnum");
+		| _ -> ());
+		
+		if not ctx.generating_c_call then ctx.writer#write "[";
 		
 		ctx.generating_calls <- ctx.generating_calls + 1;
 		generateCall ctx func arg_list;

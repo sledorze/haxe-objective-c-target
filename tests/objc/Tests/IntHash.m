@@ -27,16 +27,16 @@
 }
 - (id) keys{
 	
-	NSMutableArray *a = (NSMutableArray*)[self allKeys];
+	NSMutableArray *a = (NSMutableArray*)FDynamic[self allKeys];
 	return [a iterator];
 }
 - (id) iterator{
 	
-	NSMutableArray *a = (NSMutableArray*)[self allValues];
+	NSMutableArray *a = (NSMutableArray*)FDynamic[self allValues];
 	return [a iterator];
 }
 - (NSMutableString*) toString{
-	return [self description];
+	return FDynamic[self description];
 }
 - (id) init{
 	self = [super init];

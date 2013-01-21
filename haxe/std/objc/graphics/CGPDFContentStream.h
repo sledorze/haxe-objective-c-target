@@ -1,9 +1,5 @@
-/* CoreGraphics - CGPDFContentStream.h
-   Copyright (c) 2004-2011 Apple Inc.
-   All rights reserved. */
+package objc.graphics;
 
-#ifndef CGPDFCONTENTSTREAM_H_
-#define CGPDFCONTENTSTREAM_H_
 
 typedef struct CGPDFContentStream *CGPDFContentStreamRef;
 
@@ -11,36 +7,36 @@ typedef struct CGPDFContentStream *CGPDFContentStreamRef;
 
 /* Create a content stream from `page'. */
 
-CG_EXTERN CGPDFContentStreamRef CGPDFContentStreamCreateWithPage(
+	@:c public static function CGPDFContentStreamRef CGPDFContentStreamCreateWithPage(
   CGPDFPageRef page) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Create a content stream from `stream'. */
 
-CG_EXTERN CGPDFContentStreamRef CGPDFContentStreamCreateWithStream(
+	@:c public static function CGPDFContentStreamRef CGPDFContentStreamCreateWithStream(
   CGPDFStreamRef stream, CGPDFDictionaryRef streamResources,
   CGPDFContentStreamRef parent)
   CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Increment the retain count of `cs'. */
 
-CG_EXTERN CGPDFContentStreamRef CGPDFContentStreamRetain(
+	@:c public static function CGPDFContentStreamRef CGPDFContentStreamRetain(
   CGPDFContentStreamRef cs) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Decrement the retain count of `cs'. */
 
-CG_EXTERN void CGPDFContentStreamRelease(CGPDFContentStreamRef cs)
+	@:c public static function void CGPDFContentStreamRelease(CGPDFContentStreamRef cs)
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Return the array of CGPDFStreamRefs comprising the entire content stream
    of `cs'. */
 
-CG_EXTERN CFArrayRef CGPDFContentStreamGetStreams(CGPDFContentStreamRef cs)
+	@:c public static function CFArrayRef CGPDFContentStreamGetStreams(CGPDFContentStreamRef cs)
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Return the resource named `name' in category `category' of the resource
    dictionaries of `cs'. */
 
-CG_EXTERN CGPDFObjectRef CGPDFContentStreamGetResource(
+	@:c public static function CGPDFObjectRef CGPDFContentStreamGetResource(
   CGPDFContentStreamRef cs, const char *category, const char *name)
   CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
