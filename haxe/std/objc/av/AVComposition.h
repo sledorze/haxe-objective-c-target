@@ -63,7 +63,7 @@
 @class AVCompositionInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVComposition : AVAsset <NSMutableCopying>
+extern class AVComposition extends AVAsset <NSMutableCopying>
 {
 @private
 	AVCompositionInternal	*_priv;
@@ -84,7 +84,7 @@ extern class AVComposition : AVAsset <NSMutableCopying>
 
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableComposition : AVComposition
+extern class AVMutableComposition extends AVComposition
 {
 @private
     AVMutableCompositionInternal    *_mutablePriv;

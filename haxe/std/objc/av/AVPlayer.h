@@ -519,7 +519,7 @@ extern class AVPlayer (AVPlayerProtectedContent)
 @class AVQueuePlayerInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_1)
-extern class AVQueuePlayer : AVPlayer 
+extern class AVQueuePlayer extends AVPlayer 
 {
 @private
     AVQueuePlayerInternal   *_queuePlayer;

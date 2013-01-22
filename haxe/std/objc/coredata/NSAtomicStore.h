@@ -11,7 +11,7 @@
 #import <CoreData/NSManagedObject.h>
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-extern class NSAtomicStore : NSPersistentStore {
+extern class NSAtomicStore extends NSPersistentStore {
 	@private
     NSMutableDictionary *_nodeCache;
     NSMutableDictionary *_entityCache;

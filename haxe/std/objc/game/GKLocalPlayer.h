@@ -12,7 +12,7 @@
 @class UIViewController;
 
 NS_CLASS_AVAILABLE(10_8, 4_1)
-GK_EXTERN_CLASSextern class GKLocalPlayer : GKPlayer {
+GK_EXTERN_CLASSextern class GKLocalPlayer extends GKPlayer {
 }
 
 // Obtain the GKLocalPlayer object.

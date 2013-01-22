@@ -141,10 +141,10 @@ GK_EXTERN_CLASSextern class GKVoiceChatService extends NSObject {
 	public var (nonatomic, getter=isInputMeteringEnabled) BOOL inputMeteringEnabled;  //default NO
 
 // A value in dB to indicate how loud the other participants are at this moment in time.
-	public var  (default, null) : float outputMeterLevel;  //changes frequently as the far-end participant speaks
+	public var  (default, null) extends float outputMeterLevel;  //changes frequently as the far-end participant speaks
 
 // A value in dB to indicate how loud the the near-end participant is speaking
-	public var  (default, null) : float inputMeterLevel;  //changes frequently as the near-end participant speaks
+	public var  (default, null) extends float inputMeterLevel;  //changes frequently as the near-end participant speaks
 
 }
 

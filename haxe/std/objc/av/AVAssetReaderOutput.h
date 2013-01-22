@@ -82,7 +82,7 @@ extern class AVAssetReaderOutput extends NSObject
 	Clients can read the media data of an asset track by adding an instance of AVAssetReaderTrackOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method. The track's media samples can either be read in the format in which they are stored in the asset, or they can be converted to a different format.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-extern class AVAssetReaderTrackOutput : AVAssetReaderOutput
+extern class AVAssetReaderTrackOutput extends AVAssetReaderOutput
 {
 @private
 	AVAssetReaderTrackOutputInternal	*_trackOutputInternal;
@@ -188,7 +188,7 @@ extern class AVAssetReaderTrackOutput : AVAssetReaderOutput
 	Clients can read the audio data mixed from one or more asset tracks by adding an instance of AVAssetReaderAudioMixOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-extern class AVAssetReaderAudioMixOutput : AVAssetReaderOutput
+extern class AVAssetReaderAudioMixOutput extends AVAssetReaderOutput
 {
 @private
 	AVAssetReaderAudioMixOutputInternal	*_audioMixOutputInternal;
@@ -278,7 +278,7 @@ extern class AVAssetReaderAudioMixOutput : AVAssetReaderOutput
 	Clients can read the video frames composited from one or more asset tracks by adding an instance of AVAssetReaderVideoCompositionOutput to an AVAssetReader using the -[AVAssetReader addOutput:] method.
  */
 NS_CLASS_AVAILABLE(10_7, 4_1)
-extern class AVAssetReaderVideoCompositionOutput : AVAssetReaderOutput
+extern class AVAssetReaderVideoCompositionOutput extends AVAssetReaderOutput
 {
 @private
 	AVAssetReaderVideoCompositionOutputInternal	*_videoCompositionOutputInternal;

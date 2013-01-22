@@ -12,7 +12,7 @@ enum {
 };
 
 NS_CLASS_AVAILABLE(10_5,3_0)
-extern class NSFetchRequestExpression : NSExpression {
+extern class NSFetchRequestExpression extends NSExpression {
 @private
     void* _reserved1;
     void* _reserved2;

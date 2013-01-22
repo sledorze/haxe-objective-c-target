@@ -143,7 +143,7 @@ extern class AVCaptureInputPort extends NSObject
     connected to the system, represented by instances of AVCaptureDevice.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureDeviceInput : AVCaptureInput 
+extern class AVCaptureDeviceInput extends AVCaptureInput 
 {
 @private
 	AVCaptureDeviceInputInternal *_internal;
@@ -219,7 +219,7 @@ extern class AVCaptureDeviceInput : AVCaptureInput
     one of the screens connected to the system, represented by CGDirectDisplayIDs.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-extern class AVCaptureScreenInput : AVCaptureInput 
+extern class AVCaptureScreenInput extends AVCaptureInput 
 {
 @private
 	AVCaptureScreenInputInternal *_internal;

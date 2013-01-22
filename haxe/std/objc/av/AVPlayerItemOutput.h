@@ -156,7 +156,7 @@ extern class AVPlayerItemOutput extends NSObject
 @class AVPlayerItemVideoOutputInternal;
 
 NS_CLASS_AVAILABLE(10_8, 6_0)
-extern class AVPlayerItemVideoOutput : AVPlayerItemOutput
+extern class AVPlayerItemVideoOutput extends AVPlayerItemOutput
 {
 @private
 	AVPlayerItemVideoOutputInternal *_videoOutputInternal;

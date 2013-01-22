@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, NSOperationQueuePriority) {
 
 
 NS_CLASS_AVAILABLE(10_6, 4_0)
-extern class NSBlockOperation : NSOperation {
+extern class NSBlockOperation extends NSOperation {
 @private
     id _private2;
     void *_reserved2;
@@ -80,7 +80,7 @@ extern class NSBlockOperation : NSOperation {
 
 
 NS_CLASS_AVAILABLE(10_5, 2_0)
-extern class NSInvocationOperation : NSOperation {
+extern class NSInvocationOperation extends NSOperation {
 @private
     id _inv;
     id _exception;

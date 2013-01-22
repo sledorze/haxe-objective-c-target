@@ -7,7 +7,7 @@
 
 @class NSLocale, NSError, NSMutableDictionary;
 
-extern class NSNumberFormatter : NSFormatter {
+extern class NSNumberFormatter extends NSFormatter {
 @private
     NSMutableDictionary	*_attributes;
     __strong CFNumberFormatterRef _formatter;

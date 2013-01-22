@@ -35,6 +35,7 @@ enum ValueType {
 	TUnknown;
 }
 
+@:include("objc/runtime.h")
 @:core_api class Type {
 	public static function getClass<T>( o : T ) : Class<T> untyped {
 			if (o==null || !Reflect.isObject(o))  return null;

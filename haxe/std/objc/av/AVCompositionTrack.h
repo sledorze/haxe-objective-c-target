@@ -26,7 +26,7 @@
 @class AVCompositionTrackInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCompositionTrack : AVAssetTrack
+extern class AVCompositionTrack extends AVAssetTrack
 {
 @private
     AVCompositionTrackInternal    *_priv;
@@ -54,7 +54,7 @@ extern class AVCompositionTrack : AVAssetTrack
 @class AVMutableCompositionTrackInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableCompositionTrack : AVCompositionTrack
+extern class AVMutableCompositionTrack extends AVCompositionTrack
 {
 @private
     AVMutableCompositionTrackInternal    *_mutablePriv;

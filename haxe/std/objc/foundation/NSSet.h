@@ -64,7 +64,7 @@ extern class NSSet (NSSetCreation)
 
 /****************	Mutable Set	****************/
 
-extern class NSMutableSet : NSSet
+extern class NSMutableSet extends NSSet
 
 - (void)addObject:(id)object;
 - (void)removeObject:(id)object;
@@ -92,7 +92,7 @@ extern class NSMutableSet (NSMutableSetCreation)
 
 /****************	Counted Set	****************/
 
-extern class NSCountedSet : NSMutableSet {
+extern class NSCountedSet extends NSMutableSet {
     @private
     id _table;
     void *_reserved;

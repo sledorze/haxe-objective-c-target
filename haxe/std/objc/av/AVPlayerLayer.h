@@ -43,7 +43,7 @@
 @class AVPlayerLayerInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVPlayerLayer : CALayer
+extern class AVPlayerLayer extends CALayer
 {
 	AVPlayerLayerInternal		*_playerLayer;
 }

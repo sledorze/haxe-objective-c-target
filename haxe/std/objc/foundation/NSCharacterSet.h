@@ -46,7 +46,7 @@ extern class NSCharacterSet extends NSObject, implements NSCopying, NSMutableCop
 - (Bool)hasMemberInPlane:(uint8_t)thePlane;
 }
 
-extern class NSMutableCharacterSet : NSCharacterSet <NSCopying, NSMutableCopying>
+extern class NSMutableCharacterSet extends NSCharacterSet <NSCopying, NSMutableCopying>
 
 - (void)addCharactersInRange:(NSRange)aRange;
 - (void)removeCharactersInRange:(NSRange)aRange;

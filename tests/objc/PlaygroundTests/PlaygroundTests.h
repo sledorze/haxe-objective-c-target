@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface PlaygroundTests : SenTestCase
+@interface PlaygroundTests extends SenTestCase
 
 @end

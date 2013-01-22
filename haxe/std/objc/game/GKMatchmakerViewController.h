@@ -14,7 +14,7 @@
 
 // View controller to invite friends, respond to invites, and perform auto-matching. Present modally from the top view controller.
 NS_CLASS_AVAILABLE(NA, 4_1)
-extern class GKMatchmakerViewController : UINavigationController {
+extern class GKMatchmakerViewController extends UINavigationController {
 }
 
 	public var  id<GKMatchmakerViewControllerDelegate>     matchmakerDelegate;

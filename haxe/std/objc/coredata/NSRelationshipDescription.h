@@ -21,7 +21,7 @@ typedef NSUInteger NSDeleteRule;
 
 // Relationships represent references to other objects. They usually come in pairs, where the reference back is called the "inverse".
 NS_CLASS_AVAILABLE(10_4,3_0)
-extern class NSRelationshipDescription : NSPropertyDescription {
+extern class NSRelationshipDescription extends NSPropertyDescription {
 @private
 	void *_reserved5;
 	void *_reserved6;

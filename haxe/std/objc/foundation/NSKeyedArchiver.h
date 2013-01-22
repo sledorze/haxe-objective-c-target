@@ -15,7 +15,7 @@
 FOUNDATION_EXPORT NSString * const NSInvalidArchiveOperationException;
 FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 
-extern class NSKeyedArchiver : NSCoder {
+extern class NSKeyedArchiver extends NSCoder {
 @private
     void *_stream;
     NSUInteger _flags;
@@ -69,7 +69,7 @@ extern class NSKeyedArchiver : NSCoder {
 
 }
 
-extern class NSKeyedUnarchiver : NSCoder {
+extern class NSKeyedUnarchiver extends NSCoder {
 @private
     id _delegate;
     uint32_t _flags;

@@ -97,17 +97,17 @@ extern class AVAudioSession extends NSObject {
 
 - (BOOL)setCategory:(NSString *)category error:(NSError **)outError; /* set session category */
 - (BOOL)setCategory:(NSString *)category withOptions: (AVAudioSessionCategoryOptions)options error:(NSError **)outError NS_AVAILABLE_IOS(6_0); /* set session category with options */
-	public var  (default, null) : NSString * category; /* get session category */
-	public var  (default, null) : AVAudioSessionCategoryOptions categoryOptions NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends NSString * category; /* get session category */
+	public var  (default, null) extends AVAudioSessionCategoryOptions categoryOptions NS_AVAILABLE_IOS(6_0);
 
 - (BOOL)setMode:(NSString *)mode error:(NSError **)outError NS_AVAILABLE_IOS(5_0); /* set session mode */
-	public var  (default, null) : NSString * mode NS_AVAILABLE_IOS(5_0); /* get session mode */
+	public var  (default, null) extends NSString * mode NS_AVAILABLE_IOS(5_0); /* get session mode */
 
 - (BOOL)overrideOutputAudioPort:(AVAudioSessionPortOverride)portOverride  error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
 
 	public var (readonly, getter=isOtherAudioPlaying) BOOL otherAudioPlaying  NS_AVAILABLE_IOS(6_0);
 
-	public var  (default, null) : AVAudioSessionRouteDescription * currentRoute NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends AVAudioSessionRouteDescription * currentRoute NS_AVAILABLE_IOS(6_0);
 
 }
 
@@ -118,14 +118,14 @@ extern class AVAudioSession extends NSObject {
 extern class AVAudioSession (AVAudioSessionHardwareConfiguration)
 
 - (BOOL)setPreferredSampleRate:(double)sampleRate  error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
-	public var  (default, null) : double preferredSampleRate NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends double preferredSampleRate NS_AVAILABLE_IOS(6_0);
 
 - (BOOL)setPreferredIOBufferDuration:(NSTimeInterval)duration error:(NSError **)outError;
-	public var  (default, null) : NSTimeInterval preferredIOBufferDuration;
+	public var  (default, null) extends NSTimeInterval preferredIOBufferDuration;
 
 /* inputGain is key-value observable */
 - (BOOL)setInputGain:(float)gain  error:(NSError **)outError NS_AVAILABLE_IOS(6_0);
-	public var  (default, null) : float inputGain NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
+	public var  (default, null) extends float inputGain NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
 
 	public var (readonly, getter=isInputGainSettable) BOOL inputGainSettable  NS_AVAILABLE_IOS(6_0);
 
@@ -134,21 +134,21 @@ extern class AVAudioSession (AVAudioSessionHardwareConfiguration)
 /* For use with certain accessories, such as some USB audio devices, that support input or output data source selection.
 If the attached accessory supports data source selection, the data source properties/methods provide for discovery and 
 selection of input and/or output data sources. */
-	public var  (default, null) : NSArray * inputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
-	public var  (default, null) : AVAudioSessionDataSourceDescription * inputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
+	public var  (default, null) extends NSArray * inputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
+	public var  (default, null) extends AVAudioSessionDataSourceDescription * inputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
 - (BOOL)setInputDataSource:(AVAudioSessionDataSourceDescription *)dataSource error:(NSError **)outError; /* Select from one of the available data sources. */
-	public var  (default, null) : NSArray * outputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
-	public var  (default, null) : AVAudioSessionDataSourceDescription * outputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
+	public var  (default, null) extends NSArray * outputDataSources; /* NSArray of AVAudioSessionDataSourceDescriptions.  Key-value observable. */
+	public var  (default, null) extends AVAudioSessionDataSourceDescription * outputDataSource; /* The currently selected data source.  Will be nil if no data sources are available. */
 - (BOOL)setOutputDataSource:(AVAudioSessionDataSourceDescription *)dataSource error:(NSError **)outError; /* Select from one of the available data sources. */
 
-	public var  (default, null) : double sampleRate NS_AVAILABLE_IOS(6_0);
-	public var  (default, null) : NSInteger inputNumberOfChannels NS_AVAILABLE_IOS(6_0);
-	public var  (default, null) : NSInteger outputNumberOfChannels NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends double sampleRate NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends NSInteger inputNumberOfChannels NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends NSInteger outputNumberOfChannels NS_AVAILABLE_IOS(6_0);
 /* currentOutputVolume is key-value observable */
-	public var  (default, null) : float outputVolume  NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
-	public var  (default, null) : NSTimeInterval inputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
-	public var  (default, null) : NSTimeInterval outputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
-	public var  (default, null) : NSTimeInterval IOBufferDuration  NS_AVAILABLE_IOS(6_0); /* value in seconds */
+	public var  (default, null) extends float outputVolume  NS_AVAILABLE_IOS(6_0); /* value in range [0.0, 1.0] */
+	public var  (default, null) extends NSTimeInterval inputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
+	public var  (default, null) extends NSTimeInterval outputLatency  NS_AVAILABLE_IOS(6_0); /* value in seconds */
+	public var  (default, null) extends NSTimeInterval IOBufferDuration  NS_AVAILABLE_IOS(6_0); /* value in seconds */
 
 }
 
@@ -166,14 +166,14 @@ extern class AVAudioSession (AVAudioSessionDeprecated)
 
 - (BOOL)setActive:(BOOL)active withFlags:(NSInteger)flags error:(NSError **)outError NS_DEPRECATED_IOS(4_0, 6_0);
 
-	public var  (default, null) : BOOL inputIsAvailable NS_DEPRECATED_IOS(3_0, 6_0); /* is input hardware available or not? */
+	public var  (default, null) extends BOOL inputIsAvailable NS_DEPRECATED_IOS(3_0, 6_0); /* is input hardware available or not? */
 
 /* deprecated.  Use the corresponding properties without "Hardware" in their names. */
-	public var  (default, null) : double currentHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
-	public var  (default, null) : NSInteger currentHardwareInputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
-	public var  (default, null) : NSInteger currentHardwareOutputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) extends double currentHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) extends NSInteger currentHardwareInputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) extends NSInteger currentHardwareOutputNumberOfChannels NS_DEPRECATED_IOS(3_0, 6_0);
 - (BOOL)setPreferredHardwareSampleRate:(double)sampleRate error:(NSError **)outError NS_DEPRECATED_IOS(3_0, 6_0);
-	public var  (default, null) : double preferredHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
+	public var  (default, null) extends double preferredHardwareSampleRate NS_DEPRECATED_IOS(3_0, 6_0);
 
 }
 
@@ -299,9 +299,9 @@ extern class AVAudioSessionChannelDescription extends NSObject {
     void *_impl;
 }
 
-	public var  (default, null) : NSString *	channelName;
-	public var  (default, null) : NSString *	owningPortUID;  /* the unique identifier (UID) for the channel's owning port */
-	public var  (default, null) : NSUInteger	channelNumber;  /* the index of this channel in its owning port's array of channels */
+	public var  (default, null) extends NSString *	channelName;
+	public var  (default, null) extends NSString *	owningPortUID;  /* the unique identifier (UID) for the channel's owning port */
+	public var  (default, null) extends NSUInteger	channelNumber;  /* the index of this channel in its owning port's array of channels */
 }
 
 NS_CLASS_AVAILABLE(NA, 6_0)
@@ -311,10 +311,10 @@ extern class AVAudioSessionPortDescription extends NSObject {
 }
 
 
-	public var  (default, null) : NSString *	portType;	/* Value is one of the AVAudioSessionPort constants declared above. */
-	public var  (default, null) : NSString *	portName;	/* A descriptive name for the port */
-	public var  (default, null) : NSString *	UID;		/* A system-assigned unique identifier for the port */
-	public var  (default, null) : NSArray *	channels;	/* Array of AVAudioSessionChannelDescription objects */
+	public var  (default, null) extends NSString *	portType;	/* Value is one of the AVAudioSessionPort constants declared above. */
+	public var  (default, null) extends NSString *	portName;	/* A descriptive name for the port */
+	public var  (default, null) extends NSString *	UID;		/* A system-assigned unique identifier for the port */
+	public var  (default, null) extends NSArray *	channels;	/* Array of AVAudioSessionChannelDescription objects */
 }
 
 NS_CLASS_AVAILABLE(NA, 6_0)
@@ -323,8 +323,8 @@ extern class AVAudioSessionRouteDescription extends NSObject {
     void * _impl;
 }
 
-	public var  (default, null) : NSArray * inputs;  /* Array of AVAudioSessionPortDescription objects */
-	public var  (default, null) : NSArray * outputs; /* Array of AVAudioSessionPortDescription objects */
+	public var  (default, null) extends NSArray * inputs;  /* Array of AVAudioSessionPortDescription objects */
+	public var  (default, null) extends NSArray * outputs; /* Array of AVAudioSessionPortDescription objects */
 }
 
 NS_CLASS_AVAILABLE(NA, 6_0)
@@ -333,8 +333,8 @@ extern class AVAudioSessionDataSourceDescription extends NSObject {
     void * _impl;
 }
 
-	public var  (default, null) : NSNumber * dataSourceID;	/* system-assigned ID for the data source */
-	public var  (default, null) : NSString * dataSourceName;  /* human-readable name for the data source */
+	public var  (default, null) extends NSNumber * dataSourceID;	/* system-assigned ID for the data source */
+	public var  (default, null) extends NSString * dataSourceName;  /* human-readable name for the data source */
 }
 
 

@@ -41,7 +41,7 @@ extern class AVTimedMetadataGroup extends NSObject, implements NSCopying>
 @class AVMutableTimedMetadataGroupInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_3)
-extern class AVMutableTimedMetadataGroup : AVTimedMetadataGroup
+extern class AVMutableTimedMetadataGroup extends AVTimedMetadataGroup
 {
 	AVMutableTimedMetadataGroupInternal	*_mutablePriv;
 }

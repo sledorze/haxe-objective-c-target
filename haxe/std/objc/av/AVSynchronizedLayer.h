@@ -48,7 +48,7 @@
 @class AVSynchronizedLayerInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVSynchronizedLayer : CALayer
+extern class AVSynchronizedLayer extends CALayer
 {
 	AVSynchronizedLayerInternal		*_syncLayer;
 }

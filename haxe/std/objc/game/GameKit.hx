@@ -17,7 +17,7 @@ typedef GKChallenge = objc.game.GKChallenge;
 typedef GKNotificationBanner = objc.game.GKNotificationBanner;
 typedef GKChallengeEventHandler = objc.game.GKChallengeEventHandler;
 
-#if TARGET_OS_IPHONE
+#if ios
 // Game Center UI iOS
 typedef GKMatchmakerViewController = objc.game.GKMatchmakerViewController;
 typedef GKTurnBasedMatchmakerViewController = objc.game.GKTurnBasedMatchmakerViewController;
@@ -43,5 +43,5 @@ typedef GKLeaderboardPanel = objc.game.GKLeaderboardPanel;
 typedef GKAchievementPanel = objc.game.GKAchievementPanel;
 typedef GKFriendRequestComposePanel = objc.game.GKFriendRequestComposePanel;
 
-#endif
+#end
 

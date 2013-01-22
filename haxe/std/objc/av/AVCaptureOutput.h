@@ -120,7 +120,7 @@ extern class AVCaptureOutput extends NSObject
     Applications can access the frames with the captureOutput:didOutputSampleBuffer:fromConnection: delegate method.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureVideoDataOutput : AVCaptureOutput 
+extern class AVCaptureVideoDataOutput extends AVCaptureOutput 
 {
 @private
 	AVCaptureVideoDataOutputInternal *_internal;
@@ -338,7 +338,7 @@ extern class AVCaptureVideoDataOutput : AVCaptureOutput
     method.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureAudioDataOutput : AVCaptureOutput 
+extern class AVCaptureAudioDataOutput extends AVCaptureOutput 
 {
 @private
 	AVCaptureAudioDataOutputInternal *_internal;
@@ -475,7 +475,7 @@ extern class AVCaptureAudioDataOutput : AVCaptureOutput
     file, and AVCaptureAudioFileOutput, which writes audio media to a variety of audio file formats.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureFileOutput : AVCaptureOutput 
+extern class AVCaptureFileOutput extends AVCaptureOutput 
 {
 @private
 	AVCaptureFileOutputInternal *_fileOutputInternal;
@@ -928,7 +928,7 @@ extern class AVCaptureFileOutput : AVCaptureOutput
     specify media encoding options for each track (Mac OS X), and specify an interval at which movie fragments should be written.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureMovieFileOutput : AVCaptureFileOutput
+extern class AVCaptureMovieFileOutput extends AVCaptureFileOutput
 {
 @private
 	AVCaptureMovieFileOutputInternal *_internal;
@@ -1023,7 +1023,7 @@ extern class AVCaptureMovieFileOutput : AVCaptureFileOutput
     audio encoding options.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-extern class AVCaptureAudioFileOutput : AVCaptureFileOutput
+extern class AVCaptureAudioFileOutput extends AVCaptureFileOutput
 {
 @private
 	AVCaptureAudioFileOutputInternal *_internal;
@@ -1119,7 +1119,7 @@ extern class AVCaptureAudioFileOutput : AVCaptureFileOutput
     outputs to produce still images in specific image formats.
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureStillImageOutput : AVCaptureOutput 
+extern class AVCaptureStillImageOutput extends AVCaptureOutput 
 {
 @private
 	AVCaptureStillImageOutputInternal *_internal;
@@ -1234,7 +1234,7 @@ extern class AVCaptureStillImageOutput : AVCaptureOutput
     kAudioDevicePropertyDeviceUID property.
 */
 NS_CLASS_AVAILABLE(10_7, NA)
-extern class AVCaptureAudioPreviewOutput : AVCaptureOutput 
+extern class AVCaptureAudioPreviewOutput extends AVCaptureOutput 
 {
 @private
 	AVCaptureAudioPreviewOutputInternal *_internal;
@@ -1281,7 +1281,7 @@ extern class AVCaptureAudioPreviewOutput : AVCaptureOutput
     delegate method.
 */
 NS_CLASS_AVAILABLE(NA, 6_0)
-extern class AVCaptureMetadataOutput : AVCaptureOutput 
+extern class AVCaptureMetadataOutput extends AVCaptureOutput 
 {
 @private
 	AVCaptureMetadataOutputInternal *_internal;

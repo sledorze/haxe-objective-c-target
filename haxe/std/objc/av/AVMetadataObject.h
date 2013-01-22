@@ -40,7 +40,7 @@ extern class AVMetadataObject extends NSObject
 	which this object was captured. If this metadata object originates from a CMSampleBuffer, its time matches
     the sample buffer's presentation time. This property may return kCMTimeInvalid.
 */
-	public var  (default, null) : CMTime time;
+	public var  (default, null) extends CMTime time;
 
 /*!
  	public var  duration
@@ -52,7 +52,7 @@ extern class AVMetadataObject extends NSObject
     object originates from a CMSampleBuffer, its duration matches the sample buffer's duration. This property 
     may return kCMTimeInvalid.
 */
-	public var  (default, null) : CMTime duration;
+	public var  (default, null) extends CMTime duration;
 
 /*!
  	public var  bounds
@@ -65,7 +65,7 @@ extern class AVMetadataObject extends NSObject
     may be expressed as scalar values from 0. - 1.  If the original video has been scaled down, the bounds of the 
     metadata object still are meaningful.  This property may return CGRectZero if the metadata has no bounds.
 */
-	public var  (default, null) : CGRect bounds;
+	public var  (default, null) extends CGRect bounds;
 
 /*!
  	public var  type
@@ -76,7 +76,7 @@ extern class AVMetadataObject extends NSObject
     The value of this property is an NSString representing the type of the metadata object.  Clients inspecting
     a collection of metadata objects can use this property to filter objects with a matching type.
 */
-	public var  (default, null) : NSString *type;
+	public var  (default, null) extends NSString *type;
 
 }
 
@@ -102,7 +102,7 @@ AVF_EXPORT NSString *const AVMetadataObjectTypeFace;
     On supported platforms, AVCaptureMetadataOutput outputs arrays of detected face objects.  See AVCaptureMetadataOutput.h.
 */
 NS_CLASS_AVAILABLE(NA, 6_0)
-extern class AVMetadataFaceObject : AVMetadataObject
+extern class AVMetadataFaceObject extends AVMetadataObject
 {
 	AVMetadataFaceObjectInternal *_internal;
 }
@@ -118,7 +118,7 @@ extern class AVMetadataFaceObject : AVMetadataObject
     faces leave the picture and new ones enter.  Faces that leave the picture then re-enter are assigned
     a new faceID.
 */
-	public var  (default, null) : NSInteger faceID;
+	public var  (default, null) extends NSInteger faceID;
 
 /*!
  	public var  hasRollAngle
@@ -127,7 +127,7 @@ extern class AVMetadataFaceObject : AVMetadataObject
  
  @discussion
 */
-	public var  (default, null) : BOOL hasRollAngle;
+	public var  (default, null) extends BOOL hasRollAngle;
 
 /*!
  	public var  rollAngle
@@ -139,7 +139,7 @@ extern class AVMetadataFaceObject : AVMetadataObject
     A value of 0.0 indicates that the face is level in the picture.  If -hasRollAngle returns NO,
     then reading this property throws an NSGenericException.
 */
-	public var  (default, null) : Float rollAngle;
+	public var  (default, null) extends Float rollAngle;
 
 /*!
  	public var  hasYawAngle
@@ -148,7 +148,7 @@ extern class AVMetadataFaceObject : AVMetadataObject
  
  @discussion
 */
-	public var  (default, null) : BOOL hasYawAngle;
+	public var  (default, null) extends BOOL hasYawAngle;
 
 /*!
  	public var  yawAngle
@@ -160,6 +160,6 @@ extern class AVMetadataFaceObject : AVMetadataObject
     A value of 0.0 indicates that the face is straight on in the picture.  If -hasYawAngle returns NO,
     then reading this property throws an NSGenericException.
 */
-	public var  (default, null) : Float yawAngle;
+	public var  (default, null) extends Float yawAngle;
 
 }

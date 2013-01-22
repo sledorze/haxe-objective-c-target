@@ -378,7 +378,7 @@ AVF_EXPORT NSString *const AVURLAssetReferenceRestrictionsKey NS_AVAILABLE(10_7,
 @class AVURLAssetInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVURLAsset : AVAsset
+extern class AVURLAsset extends AVAsset
 {
 @private
 	AVURLAssetInternal *_asset;

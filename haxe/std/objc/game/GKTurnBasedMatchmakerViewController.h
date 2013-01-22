@@ -15,7 +15,7 @@
 
 // View controller to manage matches, invite friends and perform auto-matching. Present modally from the top view controller.
 NS_CLASS_AVAILABLE(NA, 5_0)
-extern class GKTurnBasedMatchmakerViewController : UINavigationController {
+extern class GKTurnBasedMatchmakerViewController extends UINavigationController {
 }
 	public var  (nonatomic, readwrite, assign) id<GKTurnBasedMatchmakerViewControllerDelegate> turnBasedMatchmakerDelegate;
 	public var  (nonatomic, readwrite, assign) BOOL showExistingMatches; // defaults to YES

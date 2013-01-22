@@ -29,7 +29,7 @@
     @"orientation" and @"mirrored".
 */
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCaptureVideoPreviewLayer : CALayer
+extern class AVCaptureVideoPreviewLayer extends CALayer
 {
 	AVCaptureVideoPreviewLayerInternal *_internal;
 }

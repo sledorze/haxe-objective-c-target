@@ -34,10 +34,10 @@ If name = nil then GKSession will use the device name.
 
 	public var (assign) id<GKSessionDelegate> delegate;
 
-	public var  (default, null) : NSString *sessionID;
-	public var  (default, null) : NSString *displayName;
-	public var  (default, null) : GKSessionMode sessionMode;
-	public var  (default, null) : NSString *peerID;			// session's peerID
+	public var  (default, null) extends NSString *sessionID;
+	public var  (default, null) extends NSString *displayName;
+	public var  (default, null) extends GKSessionMode sessionMode;
+	public var  (default, null) extends NSString *peerID;			// session's peerID
 
 /* Toggle availability on the network based on session mode and search criteria.  Delegate will get a callback -session:didReceiveConnectionRequestFromPeer: when a peer attempts a connection.
 */

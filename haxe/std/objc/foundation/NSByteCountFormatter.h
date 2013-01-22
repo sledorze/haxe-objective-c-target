@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, NSByteCountFormatterCountStyle) {
 
 
 NS_CLASS_AVAILABLE(10_8, 6_0)
-extern class NSByteCountFormatter : NSFormatter {
+extern class NSByteCountFormatter extends NSFormatter {
     @private
     unsigned int _allowedUnits;
     char _countStyle;

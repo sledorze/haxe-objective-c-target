@@ -19,7 +19,7 @@ typedef enum /*: NSInteger */ {
 } GKGameCenterViewControllerState;
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-extern class GKGameCenterViewController : UINavigationController
+extern class GKGameCenterViewController extends UINavigationController
 
 	public var   id<GKGameCenterControllerDelegate>      gameCenterDelegate;
 	public var   GKGameCenterViewControllerState         viewState;

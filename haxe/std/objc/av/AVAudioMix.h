@@ -39,7 +39,7 @@ extern class AVAudioMix extends NSObject, implements NSCopying, NSMutableCopying
 @class AVMutableAudioMixInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableAudioMix : AVAudioMix {
+extern class AVMutableAudioMix extends AVAudioMix {
 @private
     AVMutableAudioMixInternal    *_mutableAudioMix;
 }
@@ -115,7 +115,7 @@ extern class AVAudioMixInputParameters extends NSObject, implements NSCopying, N
 @class AVMutableAudioMixInputParametersInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableAudioMixInputParameters : AVAudioMixInputParameters {
+extern class AVMutableAudioMixInputParameters extends AVAudioMixInputParameters {
 @private
     AVMutableAudioMixInputParametersInternal    *_mutableInputParameters;
 }

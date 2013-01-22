@@ -42,7 +42,7 @@ typedef NS_OPTIONS(NSUInteger, NSAttributedStringEnumerationOptions) {
 }
 
 NS_CLASS_AVAILABLE(10_0, 3_2)
-extern class NSMutableAttributedString : NSAttributedString
+extern class NSMutableAttributedString extends NSAttributedString
 
 - (void)replaceCharactersInRange:(NSRange)range withString:(NSString *)str;
 - (void)setAttributes:(NSDictionary *)attrs range:(NSRange)range;

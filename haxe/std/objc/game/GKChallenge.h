@@ -35,12 +35,12 @@ extern class GKChallenge extends NSObject, implements NSObject>
 }
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-extern class GKScoreChallenge : GKChallenge
+extern class GKScoreChallenge extends GKChallenge
 	public var (default, null) GKScore *score; // The score to meet to satisfy this challenge
 }
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-extern class GKAchievementChallenge : GKChallenge
+extern class GKAchievementChallenge extends GKChallenge
 	public var (default, null) GKAchievement *achievement; // The achievement to achieve to satisfy this challenge
 }
 

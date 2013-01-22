@@ -11,7 +11,7 @@
 @class NSPersistentStoreRequest;
 
 NS_CLASS_AVAILABLE(10_7,5_0)
-extern class NSSaveChangesRequest : NSPersistentStoreRequest {
+extern class NSSaveChangesRequest extends NSPersistentStoreRequest {
 @private
     NSSet *_insertedObjects;
     NSSet *_updatedObjects;

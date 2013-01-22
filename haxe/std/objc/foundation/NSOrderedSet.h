@@ -109,7 +109,7 @@ extern class NSOrderedSet (NSOrderedSetCreation)
 /****************       Mutable Ordered Set     ****************/
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-extern class NSMutableOrderedSet : NSOrderedSet
+extern class NSMutableOrderedSet extends NSOrderedSet
 
 - (void)insertObject:(id)object atIndex:(NSUInteger)idx;
 - (void)removeObjectAtIndex:(NSUInteger)idx;

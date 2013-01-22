@@ -42,18 +42,18 @@ extern class AVAudioRecorder extends NSObject {
 
 	public var (readonly, getter=isRecording) BOOL recording; /* is it recording or not? */
 
-	public var  (default, null) : NSURL *url; /* URL of the recorded file */
+	public var  (default, null) extends NSURL *url; /* URL of the recorded file */
 
 /* these settings are fully valid only when prepareToRecord has been called */
-	public var  (default, null) : NSDictionary *settings;
+	public var  (default, null) extends NSDictionary *settings;
 
 /* the delegate will be sent messages from the AVAudioRecorderDelegate protocol */ 
 	public var (assign) id<AVAudioRecorderDelegate> delegate;  
 
 /* get the current time of the recording - only valid while recording */
-	public var  (default, null) : NSTimeInterval currentTime;
+	public var  (default, null) extends NSTimeInterval currentTime;
 /* get the device current time - always valid */
-	public var  (default, null) : NSTimeInterval deviceCurrentTime NS_AVAILABLE_IOS(6_0);
+	public var  (default, null) extends NSTimeInterval deviceCurrentTime NS_AVAILABLE_IOS(6_0);
 
 /* metering */
 

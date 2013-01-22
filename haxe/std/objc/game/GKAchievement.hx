@@ -1,15 +1,9 @@
-//
-//  GKAchievement.h
-//  GKAPI
-//
-//  Copyright 2010 Apple, Inc. All rights reserved.
-//
-#import <Foundation/Foundation.h>
+package objc.game;
+import objc.foundation.NSObject;
 
 // GKAchievement represents a game achievement that the player has started or completely achieved.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-extern class GKAchievement extends NSObject, implements NSObject> {
-}
+extern class GKAchievement extends NSObject {
 
 // Asynchronously load all achievements for the local player
 + (void)loadAchievementsWithCompletionHandler:(void(^)(NSArray *achievements, NSError *error))completionHandler;

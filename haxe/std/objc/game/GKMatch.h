@@ -17,12 +17,11 @@ enum {
 };
 typedef NSInteger GKMatchSendDataMode;
 
-enum {
-    GKPlayerStateUnknown,       // initial player state
-    GKPlayerStateConnected,     // connected to the match
-    GKPlayerStateDisconnected   // disconnected from the match
-};
-typedef NSInteger GKPlayerConnectionState;
+extern enum GKPlayerConnectionState {
+    GKPlayerStateUnknown;       // initial player state
+    GKPlayerStateConnected;     // connected to the match
+    GKPlayerStateDisconnected;   // disconnected from the match
+}
 
 // GKMatch represents an active networking sessions between players. It handles network communications and can report player connection status. All matches are created by a GKMatchmaker.
 NS_CLASS_AVAILABLE(10_8, 4_1)

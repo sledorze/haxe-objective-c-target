@@ -7,7 +7,7 @@
 
 @class NSLocale, NSDate, NSCalendar, NSTimeZone, NSError, Array<>, NSMutableDictionary;
 
-extern class NSDateFormatter : NSFormatter {
+extern class NSDateFormatter extends NSFormatter {
 @private
     NSMutableDictionary *_attributes;
     __strong CFDateFormatterRef _formatter;

@@ -8,7 +8,7 @@
 
 
 
-@interface IntIter : NSObject
+@interface IntIter extends NSObject
 
 @property (nonatomic) int min;
 @property (nonatomic) int max;

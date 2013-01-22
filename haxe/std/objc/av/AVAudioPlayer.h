@@ -43,15 +43,15 @@ extern class AVAudioPlayer extends NSObject {
 
 	public var (readonly, getter=isPlaying) BOOL playing; /* is it playing or not? */
 
-	public var  (default, null) : NSUInteger numberOfChannels;
-	public var  (default, null) : NSTimeInterval duration; /* the duration of the sound. */
+	public var  (default, null) extends NSUInteger numberOfChannels;
+	public var  (default, null) extends NSTimeInterval duration; /* the duration of the sound. */
 
 /* the delegate will be sent messages from the AVAudioPlayerDelegate protocol */ 
 	public var (assign) id<AVAudioPlayerDelegate> delegate; 
 
 /* one of these properties will be non-nil based on the init... method used */
-	public var  (default, null) : NSURL *url; /* returns nil if object was not created with a URL */
-	public var  (default, null) : NSData *data; /* returns nil if object was not created with a data object */
+	public var  (default, null) extends NSURL *url; /* returns nil if object was not created with a URL */
+	public var  (default, null) extends NSData *data; /* returns nil if object was not created with a data object */
 
 	public var  float pan NS_AVAILABLE(10_7, 4_0); /* set panning. -1.0 is left, 0.0 is center, 1.0 is right. */
 	public var  float volume; /* The volume for the sound. The nominal range is from 0.0 to 1.0. */
@@ -65,7 +65,7 @@ If the sound is not playing, currentTime is the offset into the sound where play
 	public var  NSTimeInterval currentTime;
 
 /* returns the current time associated with the output device */
-	public var  (default, null) : NSTimeInterval deviceCurrentTime NS_AVAILABLE(10_7, 4_0);
+	public var  (default, null) extends NSTimeInterval deviceCurrentTime NS_AVAILABLE(10_7, 4_0);
 
 /* "numberOfLoops" is the number of times that the sound will return to the beginning upon reaching the end. 
 A value of zero means to play the sound just once.
@@ -75,7 +75,7 @@ Any negative number will loop indefinitely until stopped.
 	public var  NSInteger numberOfLoops;
 
 /* settings */
-	public var  (default, null) : NSDictionary *settings NS_AVAILABLE(10_7, 4_0); /* returns a settings dictionary with keys as described in AVAudioSettings.h */
+	public var  (default, null) extends NSDictionary *settings NS_AVAILABLE(10_7, 4_0); /* returns a settings dictionary with keys as described in AVAudioSettings.h */
 
 /* metering */
 

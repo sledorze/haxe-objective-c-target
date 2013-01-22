@@ -72,7 +72,7 @@ extern class AVVideoComposition extends NSObject, implements NSCopying, NSMutabl
 @class AVMutableVideoCompositionInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableVideoComposition : AVVideoComposition {
+extern class AVMutableVideoComposition extends AVVideoComposition {
 @private
     AVMutableVideoCompositionInternal    *_mutableVideoComposition;
 }
@@ -145,7 +145,7 @@ extern class AVVideoCompositionInstruction extends NSObject, implements NSObject
 @class AVMutableVideoCompositionInstructionInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableVideoCompositionInstruction : AVVideoCompositionInstruction {
+extern class AVMutableVideoCompositionInstruction extends AVVideoCompositionInstruction {
 @private
 	AVMutableVideoCompositionInstructionInternal	*_mutableInstruction;
 }
@@ -230,7 +230,7 @@ extern class AVVideoCompositionLayerInstruction extends NSObject, implements NSO
 @class AVMutableVideoCompositionLayerInstructionInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableVideoCompositionLayerInstruction : AVVideoCompositionLayerInstruction {
+extern class AVMutableVideoCompositionLayerInstruction extends AVVideoCompositionLayerInstruction {
 @private
 	AVMutableVideoCompositionLayerInstructionInternal	*_mutableLayerInstruction;
 };

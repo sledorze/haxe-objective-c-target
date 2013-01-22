@@ -18,7 +18,7 @@
 // This API is designed to allow users to create persistent stores which load and save 
 // data incrementally, allowing for the management of large and/or shared datasets.
 NS_CLASS_AVAILABLE(10_7,5_0)
-extern class NSIncrementalStore : NSPersistentStore {
+extern class NSIncrementalStore extends NSPersistentStore {
 	@private
 	NSDictionary *_storeMetadata;
 	uint64_t _lastIdentifier;

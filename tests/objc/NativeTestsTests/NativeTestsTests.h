@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface NativeTestsTests : SenTestCase
+@interface NativeTestsTests extends SenTestCase
 
 @end

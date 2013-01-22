@@ -1067,7 +1067,7 @@ extern class AVFrameRateRange extends NSObject
     This read-only property indicates the minimum frame rate supported by
     this range in frames per second.
 */
-	public var  (default, null) : Float64 minFrameRate;
+	public var  (default, null) extends Float64 minFrameRate;
 
 /*!
  	public var  maxFrameRate
@@ -1078,7 +1078,7 @@ extern class AVFrameRateRange extends NSObject
     This read-only property indicates the maximum frame rate supported by
     this range in frames per second.
 */
-	public var  (default, null) : Float64 maxFrameRate;
+	public var  (default, null) extends Float64 maxFrameRate;
 
 /*!
  	public var  maxFrameDuration
@@ -1090,7 +1090,7 @@ extern class AVFrameRateRange extends NSObject
     this range.  It is the reciprocal of minFrameRate, and expresses minFrameRate
     as a duration.
 */
-	public var  (default, null) : CMTime maxFrameDuration;
+	public var  (default, null) extends CMTime maxFrameDuration;
 
 /*!
  	public var  minFrameDuration
@@ -1102,7 +1102,7 @@ extern class AVFrameRateRange extends NSObject
     this range.  It is the reciprocal of maxFrameRate, and expresses maxFrameRate
     as a duration.
 */
-	public var  (default, null) : CMTime minFrameDuration;
+	public var  (default, null) extends CMTime minFrameDuration;
 
 }
 

@@ -74,7 +74,7 @@ extern class NSPort extends NSObject, implements NSCopying, NSCoding>
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 
 NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE 
-extern class NSMachPort : NSPort {
+extern class NSMachPort extends NSPort {
     @private
     id _delegate;
     NSUInteger _flags;
@@ -121,7 +121,7 @@ enum {
 // A subclass of NSPort which can be used for local
 // message sending on all platforms.
 NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE 
-extern class NSMessagePort : NSPort {
+extern class NSMessagePort extends NSPort {
     @private
     void * __strong _port;
     id _delegate;
@@ -134,7 +134,7 @@ extern class NSMessagePort : NSPort {
 // A subclass of NSPort which can be used for remote
 // message sending on all platforms.
 
-extern class NSSocketPort : NSPort {
+extern class NSSocketPort extends NSPort {
     @private
     void * __strong _receiver;
     id _connectors;

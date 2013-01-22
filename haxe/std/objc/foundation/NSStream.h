@@ -49,7 +49,7 @@ extern class NSStream extends NSObject
 
 // NSInputStream is an abstract class representing the base functionality of a read stream.
 // Subclassers are required to implement these methods.
-extern class NSInputStream : NSStream
+extern class NSInputStream extends NSStream
 - (NSInteger)read:(uint8_t *)buffer maxLength:(NSUInteger)len;
     // reads up to length bytes into the supplied buffer, which must be at least of size len. Returns the actual number of bytes read.
 
@@ -62,7 +62,7 @@ extern class NSInputStream : NSStream
 
 // NSOutputStream is an abstract class representing the base functionality of a write stream.
 // Subclassers are required to implement these methods.
-extern class NSOutputStream : NSStream
+extern class NSOutputStream extends NSStream
 - (NSInteger)write:(const uint8_t *)buffer maxLength:(NSUInteger)len;
     // writes the bytes from the specified buffer to the stream up to len bytes. Returns the number of bytes actually written.
 

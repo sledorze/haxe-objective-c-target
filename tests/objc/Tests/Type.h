@@ -26,6 +26,7 @@ typedef enum{
 #import "Array.h"
 #import "Type.h"
 #import "ValueType.h"
+#import <objc/runtime.h>
 
 @interface Type : NSObject
 

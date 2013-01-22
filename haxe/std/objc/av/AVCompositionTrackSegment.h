@@ -26,7 +26,7 @@
 @class AVCompositionTrackSegmentInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVCompositionTrackSegment : AVAssetTrackSegment
+extern class AVCompositionTrackSegment extends AVAssetTrackSegment
 {
 @private
 	AVCompositionTrackSegmentInternal	*_priv;

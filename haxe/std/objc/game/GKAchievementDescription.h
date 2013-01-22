@@ -4,8 +4,9 @@
 //
 //  Copyright 2010 Apple, Inc. All rights reserved.
 //
+package objc.game;
+import objc.foundation.NSObject;
 
-#import <Foundation/Foundation.h>
 
 #if TARGET_OS_IPHONE
 @class UIImage;

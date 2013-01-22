@@ -159,7 +159,7 @@ extern class AVMetadataItem (AVMetadataItemArrayFiltering)
 @class AVMutableMetadataItemInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVMutableMetadataItem : AVMetadataItem
+extern class AVMutableMetadataItem extends AVMetadataItem
 {
 	AVMutableMetadataItemInternal	*_mutablePriv;
 }

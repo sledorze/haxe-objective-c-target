@@ -106,7 +106,7 @@ extern class NSIndexSet extends NSObject, implements NSCopying, NSMutableCopying
 
 }
 
-extern class NSMutableIndexSet : NSIndexSet {
+extern class NSMutableIndexSet extends NSIndexSet {
     @protected
     void *_reserved;
 }

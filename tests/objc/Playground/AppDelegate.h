@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreFoundation/CoreFoundation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
+@interface AppDelegate extends UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
 
 id self_c;
 }
@@ -18,7 +18,7 @@ id self_c;
 
 @end
 
-@interface Tests2 : NSObject
+@interface Tests2 extends NSObject
 
 @property (nonatomic) int d1;
 @property (nonatomic,copy) void(^block1)();

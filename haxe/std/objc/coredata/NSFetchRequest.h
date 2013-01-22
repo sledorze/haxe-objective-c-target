@@ -25,7 +25,7 @@ typedef NSUInteger NSFetchRequestResultType;
 
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
-extern class NSFetchRequest : NSPersistentStoreRequest, implements NSObject> {
+extern class NSFetchRequest extends NSPersistentStoreRequest, implements NSObject> {
 @private
 	NSArray *_groupByProperties;
 	NSPredicate *_havingPredicate;
