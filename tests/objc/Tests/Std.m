@@ -13,16 +13,16 @@
 	return NO;
 }
 + (NSMutableString*) string:(id)s{
-	return FDynamic[s description];
+	return [s description];
 }
 + (int) int:(float)x{
 	return (int)x;
 }
 + (int) parseInt:(NSMutableString*)x{
-	return FDynamic[x intValue];
+	return [x intValue];
 }
 + (float) parseFloat:(NSMutableString*)x{
-	return FDynamic[x floatValue];
+	return [x floatValue];
 }
 + (int) random:(int)x{
 	if (x <= 0) return 0;

@@ -13,26 +13,26 @@
 	[self setObject:value forKey:key];
 }
 - (id) get:(NSMutableString*)key{
-	return FDynamic[self objectForKey:key];
+	return [self objectForKey:key];
 }
 - (BOOL) exists:(NSMutableString*)key{
-	return FDynamic[self objectForKey:key] != nil;
+	return [self objectForKey:key] != nil;
 }
 - (BOOL) remove:(NSMutableString*)key{
 	if ([self exists:key]) {
-		FDynamic[self removeObjectForKey:key];
+		[self removeObjectForKey:key];
 		return YES;
 	}
 	return NO;
 }
 - (id) keys{
 	
-	NSMutableArray *a = (NSMutableArray*)FDynamic[self allKeys];
+	NSMutableArray *a = (NSMutableArray*)[self allKeys];
 	return [a iterator];
 }
 - (id) iterator{
 	
-	NSMutableArray *a = (NSMutableArray*)FDynamic[self allValues];
+	NSMutableArray *a = (NSMutableArray*)[self allValues];
 	
 	NSMutableArray *it = [[NSMutableArray alloc] initWithObjects:[a iterator], nil];
 	
@@ -46,7 +46,7 @@
 	} structName;
 }
 - (NSMutableString*) toString{
-	return FDynamic[self description];
+	return [self description];
 }
 - (id) init{
 	self = [super init];

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreFoundation/CoreFoundation.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
 

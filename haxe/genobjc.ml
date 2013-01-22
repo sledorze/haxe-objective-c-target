@@ -73,6 +73,7 @@ class importsManager =
 	val mutable all_frameworks : string list = []
 	val mutable class_frameworks : string list = []
 	val mutable class_imports : path list = []
+	val mutable class_imports_extra : string list = []
 	method add_class_path class_path = match class_path with
 		| ([],"StdTypes")
 		| ([],"Int")
@@ -87,11 +88,14 @@ class importsManager =
 		end else begin
 			if not (List.mem class_path class_imports) then class_imports <- List.append class_imports [class_path];
 		end
-	method remove_class_path (class_path:path) = ()(* List.remove class_imports [class_path] *)
+	method add_class_import_extra (class_path:string) = class_imports_extra <- List.append class_imports_extra ["\""^class_path^"\""];
+	method add_class_include_extra (class_path:string) = class_imports_extra <- List.append class_imports_extra ["<"^class_path^">"];
+	method remove_class_path (class_path:path) = ()(* List.remove class_imports [class_path] *)(* TODO: *)
 	method get_all_frameworks = all_frameworks
 	method get_class_frameworks = class_frameworks
 	method get_imports = class_imports
-	method reset = class_frameworks <- []; class_imports <- []
+	method get_imports_extra = class_imports_extra
+	method reset = class_frameworks <- []; class_imports <- []; class_imports_extra <- []
 end;;
 
 class filesManager imports_manager =
@@ -161,6 +165,8 @@ class sourceWriter write_func close_func =
 	method write_header_import (class_path:path) = this#write ("#import \"" ^ (snd class_path) ^ ".h\"\n")
 	method write_headers_imports class_paths =
 		List.iter (fun class_path -> this#write_header_import class_path ) class_paths
+	method write_headers_imports_extra class_paths =
+		List.iter (fun class_path -> this#write ("#import " ^ class_path ^ "\n")) class_paths
 	method write_frameworks_imports f_list = 
 		List.iter (fun name ->
 			this#write ("#import <" ^ name ^ "/" ^ name ^ ".h>\n")
@@ -1033,7 +1039,7 @@ and generateExpression ctx e =
 				if has_meta ":c" cf.cf_meta then ctx.generating_c_call <- true else
 				if cls.cl_path = ([], "Math") then ctx.generating_c_call <- true;
 			| FAnon _ -> ctx.writer#write "FAnon"
-			| FDynamic _ -> ctx.writer#write "FDynamic"
+			| FDynamic _ -> ();(* ctx.writer#write "FDynamic" *)
 			| FClosure _ -> ctx.writer#write "FClosure"
 			| FEnum _ -> ctx.writer#write "FEnum");
 		| _ -> ());
@@ -2325,6 +2331,18 @@ let generateHeader ctx files_manager imports_manager =
 		| None -> ()
 		| Some (csup,_) -> ctx.imports_manager#add_class_path csup.cl_path);
 	
+	(* Import extra classes *)
+	let has_custom_import = (has_meta ":import" ctx.class_def.cl_meta) in
+	let has_custom_include = (has_meta ":include" ctx.class_def.cl_meta) in
+	if has_custom_import then begin
+	let import_statement = getMetaString ":import" ctx.class_def.cl_meta in
+		 imports_manager#add_class_import_extra import_statement;
+	end;
+	if has_custom_include then begin
+	let include_statement = getMetaString ":include" ctx.class_def.cl_meta in
+		 imports_manager#add_class_include_extra include_statement;
+	end;
+	
 	(* Import frameworks *)
 	ctx.writer#new_line;
 	ctx.writer#write_frameworks_imports imports_manager#get_class_frameworks;
@@ -2332,8 +2350,9 @@ let generateHeader ctx files_manager imports_manager =
 	(* Import classes *)
 	imports_manager#remove_class_path ctx.class_def.cl_path;
 	ctx.writer#write_headers_imports imports_manager#get_imports;
+	ctx.writer#write_headers_imports_extra imports_manager#get_imports_extra;
 	ctx.writer#new_line;
-
+	
 	let class_path = ctx.class_def.cl_path in
 	if ctx.is_category then begin
 		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
@@ -2427,11 +2446,6 @@ let generate common_ctx =
 				(* The frameworks are kept in a non-resetable variable for .pbxproj *)
 				imports_manager#reset;
 				print_endline ("> Generating class : "^(snd class_path)^" in module "^(snd module_path));
-				
-				(* let class_def = (match class_def.cl_path with
-					(*  ["flash"],"FlashXml__" -> { class_def with cl_path = [],"Xml" } *)
-					| (pack,name) -> { class_def with cl_path = (pack, name) }
-				) in *)
 				
 				(* Generate implementation *)
 				(* If it's a new module close the old files and create new ones *)

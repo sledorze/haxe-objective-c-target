@@ -366,45 +366,15 @@
 	FastList *fl = [[FastList alloc] init];
 	fl.head = [[FastCell alloc] init:8 next:fl head];
 }
-- (void) testMath{
-	float pi = MathM_PI;
-	float max = Math-DBL_MAX;
-	float min = MathDBL_MAX;
-	float nan = MathNAN;
-	float x = sqrtf(5);
-	x = fabsf(5);
-	x = fmaxf(5, 45555);
-	x = fminf(5, 45555);
-	x = sinf(5);
-	x = cosf(5);
-	x = atan2f(5, 3);
-	x = tanf(5);
-	x = expf(5);
-	x = logf(5);
-	x = sqrtf(5);
-	int xr = roundf(5);
-	xr = floorf(5);
-	xr = ceilf(5);
-	x = atanf(5);
-	x = asinf(5);
-	x = acosf(5);
-	x = powf(5, 4);
-	x = rand() * 5;
-	BOOL b = isfinite(45454);
-	b = isnan(45454);
-	float j = x + xr;
-	j += x;
-	float k = ( (b) ? -x : x);
-}
 - (void) testReflect{
 	id obj = struct {
 	a:(NSMutableString*)@"aaaaa"
 	} structName;
 	BOOL b = [Reflect hasField:obj field:(NSMutableString*)@"a"];
 	id f = [Reflect field:obj field:(NSMutableString*)@"a"];
-	if (obj != nil) FDynamic[obj __SetField-TDynamic-];
-	FDynamic[self __SetField-TDynamic-];
-	id p = (id)FDynamic[self __Field-TDynamic-];
+	if (obj != nil) [obj __SetField-TDynamic-];
+	[self __SetField-TDynamic-];
+	id p = (id)[self __Field-TDynamic-];
 	[Reflect callMethod:self func:self testStd args:[[NSMutableArray alloc] initWithObjects:, nil]];
 	[Reflect callMethod:self func:self callLotsOfArguments args:[[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:1], [NSNumber numberWithInt:2], [NSNumber numberWithInt:3], [NSNumber numberWithInt:4], nil]];
 	
@@ -528,7 +498,7 @@
 	timer = [Timer delay:^- (void) {
 		[[_g objectAtIndex:0] testTimerLoop];
 	} time_ms:50];
-	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"521",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"486",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testTimerLoop{
@@ -598,10 +568,10 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"598",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"563",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"608",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"573",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 	int i = param1;
@@ -629,7 +599,7 @@
 }
 // Defining a dynamic method
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"631",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"596",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 @synthesize property_functionToRedefine;
 

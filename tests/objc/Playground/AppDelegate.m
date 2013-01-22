@@ -35,9 +35,11 @@ typedef void (*FunctionType3)(int);
 #import "AppDelegate.h"
 #import "Date.h"
 #import "Std.h"
+#import <objc/runtime.h>
 
 @implementation AppDelegate
 id me;
+char fooKey;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -97,6 +99,42 @@ id me;
 	[logoutB setTitle:@"Logout" forState:UIControlStateNormal];// titleLabel.text = @"Login";//[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
 	[logoutB addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
 	[self.window addSubview:logoutB];
+	
+//	static const char * const defaultVtable[] = {
+//		"allocWithZone:",
+//		"alloc",
+//		"class",
+//		"self",
+//		"isKindOfClass:",
+//		"respondsToSelector:",
+//		"isFlipped",
+//		"length",
+//		"objectForKey:",
+//		"count",
+//		"objectAtIndex:",
+//		"isEqualToString:",
+//		"isEqual:",
+//		"retain",
+//		"release",
+//		"autorelease",
+//	};
+//	CFArrayRef arr = CFArrayCreate(NULL, (NSArray)*defaultVtable, 16, NULL);
+//	
+//	NSLog(@"%@", arr);
+	
+	
+	
+	
+	id e = [[NSObject alloc] init];
+	
+    // set
+    //object_setInstanceVariable(e, "dynvar", (__bridge void *)([NSNumber numberWithInt:10908]));
+	
+    // get
+    NSNumber *associatedObject = objc_getAssociatedObject(e, &fooKey);
+    NSLog(@"associatedObject: %@", associatedObject);
+	
+	
 	
 	self.window.backgroundColor = [UIColor grayColor];
     return YES;

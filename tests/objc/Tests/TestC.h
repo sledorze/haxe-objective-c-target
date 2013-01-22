@@ -9,9 +9,12 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 #import "Math.h"
+#import "NSObjCRuntime.h"
+#import <objc/runtime.h>
 
 @interface TestC : NSObject
 
+- (void) testMath;
 - (id) init;
 
 @end

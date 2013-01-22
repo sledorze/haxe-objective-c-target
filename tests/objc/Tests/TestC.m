@@ -9,6 +9,36 @@
 
 @implementation TestC
 
+- (void) testMath{
+	float pi = MathM_PI;
+	float max = Math-DBL_MAX;
+	float min = MathDBL_MAX;
+	float nan = MathNAN;
+	float x = sqrtf(5);
+	x = fabsf(5);
+	x = fmaxf(5, 45555);
+	x = fminf(5, 45555);
+	x = sinf(5);
+	x = cosf(5);
+	x = atan2f(5, 3);
+	x = tanf(5);
+	x = expf(5);
+	x = logf(5);
+	x = sqrtf(5);
+	int xr = roundf(5);
+	xr = floorf(5);
+	xr = ceilf(5);
+	x = atanf(5);
+	x = asinf(5);
+	x = acosf(5);
+	x = powf(5, 4);
+	x = rand() * 5;
+	BOOL b = isfinite(45454);
+	b = isnan(45454);
+	float j = x + xr;
+	j += x;
+	float k = ( (b) ? -x : x);
+}
 - (id) init{
 	self = [super init];
 	float x = rand() * 50;

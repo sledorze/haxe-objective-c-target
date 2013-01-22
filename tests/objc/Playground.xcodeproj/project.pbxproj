@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2839DCB216AE4F9A00068D3B /* HXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2839DCB116AE4F9A00068D3B /* HXObject.m */; };
 		287530BB16957A1D0048F960 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287530BA16957A1D0048F960 /* UIKit.framework */; };
 		287530BD16957A1D0048F960 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287530BC16957A1D0048F960 /* Foundation.framework */; };
 		287530BF16957A1D0048F960 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287530BE16957A1D0048F960 /* CoreGraphics.framework */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2839DCB016AE4F9A00068D3B /* HXObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXObject.h; sourceTree = "<group>"; };
+		2839DCB116AE4F9A00068D3B /* HXObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXObject.m; sourceTree = "<group>"; };
 		287530B616957A1D0048F960 /* Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Playground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		287530BA16957A1D0048F960 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		287530BC16957A1D0048F960 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +123,8 @@
 			children = (
 				287530C916957A1D0048F960 /* AppDelegate.h */,
 				287530CA16957A1D0048F960 /* AppDelegate.m */,
+				2839DCB016AE4F9A00068D3B /* HXObject.h */,
+				2839DCB116AE4F9A00068D3B /* HXObject.m */,
 				287530F91697125F0048F960 /* Date.h */,
 				287530FA1697125F0048F960 /* Date.m */,
 				287530FB1697125F0048F960 /* Std.h */,
@@ -275,6 +280,7 @@
 				287530CB16957A1D0048F960 /* AppDelegate.m in Sources */,
 				287530FD169712600048F960 /* Date.m in Sources */,
 				287530FE169712600048F960 /* Std.m in Sources */,
+				2839DCB216AE4F9A00068D3B /* HXObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

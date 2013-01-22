@@ -32,7 +32,6 @@ typedef enum{
 #import "List.h"
 #import "Std.h"
 #import "FastList.h"
-#import "Math.h"
 #import "Reflect.h"
 #import "StringBuf.h"
 #import "StringTools.h"
@@ -72,7 +71,6 @@ typedef enum{
 - (void) testHash;
 - (void) testLambda;
 - (void) testList;
-- (void) testMath;
 - (void) testReflect;
 - (void) testStd;
 - (void) testString;
