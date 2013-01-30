@@ -18,10 +18,5 @@
 }
 @synthesize property_trace;
 
-// Defining a dynamic method
-+ (void) clear{
-}
-@synthesize property_clear;
-
 
 @end

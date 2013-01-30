@@ -42,6 +42,7 @@
 }
 // Defining a dynamic method
 - (void) run{
+	[Log trace:(NSMutableString*)@"run" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Timer.hx",@"109",@"haxe.Timer",@"run",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 @synthesize property_run;
 

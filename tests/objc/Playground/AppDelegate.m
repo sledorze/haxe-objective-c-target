@@ -22,7 +22,7 @@ typedef void (*FunctionType3)(int);
 @synthesize loadFinished;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	NSLog(@"load complete at url %@", webView.request.URL);
+	//NSLog(@"load complete at url %@", webView.request.URL);
 	loadFinished();
 	//callString("Http://imagin.ro");
 	//callInt(0);
@@ -135,13 +135,16 @@ char fooKey;
     NSLog(@"associatedObject: %@", associatedObject);
 	
 	
+	[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"loop_bkg_game.mp3"];
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"loop_bkg_game.mp3" loop:YES];
+	
 	
 	self.window.backgroundColor = [UIColor grayColor];
     return YES;
 }
 
 void(^block_block1)(void) = ^{ NSLog(@"block_block1 block_block1 block_block1"); };
-void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); [me login]; };
+void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); /*[me login];*/ };
 //void(^block_block22)(int i, id self) = ^(int i, id self){ NSLog(@"block_block2 block_block2 block_block2 called %i", i); [self login]; };
 
 
@@ -164,20 +167,25 @@ void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_b
 
 
 - (void)login{
+	NSLog(@"login");
 	UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 80, 320, 500)];
 	webView.delegate = self;
-	NSURL *url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/oauth/authorize?client_id=456093077787894&redirect_uri=http://www.facebook.com/connect/login_success.html&display=touch"];
+	NSURL *url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/oauth/authorize?client_id=456093077787894&redirect_uri=http://www.facebook.com/connect/login_success.html&display=touch&response_type=token"];
 	NSURLRequest *req = [[NSURLRequest alloc] initWithURL:url];
 	[webView loadRequest:req];
 	[self.window addSubview:webView];
 }
 -(void)logout {
-	//NSURL *url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/oauth/authorize_cancel"];
-	NSURL *url = [[NSURL alloc] initWithString:@"https://m.ffffacebook.com/logout.php?confirm=1&next=&access_token=AQDL_hbmha9O60BC2yqKLNVOcVPmySS5b4JyacZXxcUDjev9UY-Ew3MBZkRae6R_qsgkeNvatliVH0VfRvuBs7N0hhc1nRYI0W0r5W-tveY5Dcr1YERmoE_SBawYJssJYTFQO2mNxJA2H-cInXMz1lTFpO2LMNE3ecY4CIMDJvbDdoSwxuNhuxkUmyLmTaWIS3u2VfNfeJJX5_rj7Kwo0zEi#_=_"];
-	NSURLRequest *req = [NSURLRequest requestWithURL:url];
+	NSLog(@"logout");
+	NSString *str2 = [NSString stringWithFormat:@"https://graph.facebook.com/oauth/authorize_cancel?client_id=456093077787894&redirect_uri=&access_token=%@", token];
+	NSURL *url2 = [[NSURL alloc] initWithString:str2];
+	NSString *str = [NSString stringWithFormat:@"https://m.facebook.com/logout.php?next=&confirm=1&access_token=%@", token];
+	NSURL *url = [[NSURL alloc] initWithString:str];
+	NSURLRequest *req = [NSURLRequest requestWithURL:url2];
+	NSLog(@"logout %@", str);
 	
 	UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 80, 320, 500)];
-	webView.delegate = self;
+	//webView.delegate = self;
 	[webView loadRequest:req];
 	[self.window addSubview:webView];
 	
@@ -201,6 +209,18 @@ void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_b
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
 	NSLog(@"load complete at url %@", webView.request.URL);
+	//[webView.request.URL.absoluteString cStringUsingEncoding:NSUTF8StringEncoding];
+	
+	NSArray *arr = [webView.request.URL.absoluteString componentsSeparatedByString:@"access_token="];
+	NSArray *arr2 = [[arr lastObject] componentsSeparatedByString:@"&"];
+	token = [arr2 objectAtIndex:0];
+	NSLog(@"token = %@", token);
+	webView.delegate = nil;
+	
+	NSString *str = [NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@", token];
+	NSURL *url = [[NSURL alloc] initWithString:str];
+	NSURLRequest *req = [[NSURLRequest alloc] initWithURL:url];
+	[webView loadRequest:req];
 }
 
 - (void) callThis:(SEL)sel {

@@ -13,6 +13,7 @@
 
 @interface FileOutput : Output 
 
++ (id) __meta__:(id)val;
 @property (nonatomic) id __f;
 - (void) writeByte:(int)c;
 - (int) writeBytes:(Bytes*)s p:(int)p l:(int)l;

@@ -8,17 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreFoundation/CoreFoundation.h>
+#import "SimpleAudioEngine.h"
 
-@interface AppDelegate extends UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
 
 id self_c;
+	NSString *token;
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int length;
 
 @end
 
-@interface Tests2 extends NSObject
+@interface Tests2 : NSObject
 
 @property (nonatomic) int d1;
 @property (nonatomic,copy) void(^block1)();

@@ -13,6 +13,7 @@
 
 @interface FileInput : Input 
 
++ (id) __meta__:(id)val;
 @property (nonatomic) id __f;
 - (int) readByte;
 - (int) readBytes:(Bytes*)s p:(int)p l:(int)l;

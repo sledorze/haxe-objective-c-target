@@ -23,18 +23,20 @@
  * DAMAGE.
  */
 package haxe;
+import objc.foundation.NSDictionary;
 
 @:core_api
 class Resource {
-
+	
+	private static var __plist__ :NSMutableDictionary = new NSMutableDictionary();
 	public static function listNames() : Array<String> {
-		return untyped __global__.__hxcpp_resource_names();
+		return untyped __plist__.allKeys();//allKeys is Array<Dynamic>
 	}
 	public static function getString(name:String) : String {
-		return untyped __global__.__hxcpp_resource_string(name);
+		return __plist__.objectForKey(name);
 	}
 	public static function getBytes(name:String) : haxe.io.Bytes {
-		var array:haxe.io.BytesData = untyped __global__.__hxcpp_resource_bytes(name);
+		var array:haxe.io.BytesData = untyped __plist__.__hxcpp_resource_bytes(name);
 		if (array==null) return null;
 		return haxe.io.Bytes.ofData(array);
 	}

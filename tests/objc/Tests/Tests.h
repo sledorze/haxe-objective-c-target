@@ -40,6 +40,7 @@ typedef enum{
 #import "Input.h"
 #import "Class.h"
 #import "Type.h"
+#import "Resource.h"
 #import "Timer.h"
 #import "Md5.h"
 #import "Sha1.h"
@@ -77,6 +78,7 @@ typedef enum{
 - (void) testSys;
 - (void) testType;
 - (void) testXml;
+- (void) testResources;
 - (void) testTimer;
 - (void) testTimerLoop;
 - (void) testCrypto;

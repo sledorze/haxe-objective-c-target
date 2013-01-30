@@ -1035,8 +1035,8 @@ and generateExpression ctx e =
 		| TField (e,fa) ->
 			(match fa with
 			| FInstance _ -> ();(* ctx.writer#write "FInstance" *)
-			| FStatic (cls,cf) ->
-				if has_meta ":c" cf.cf_meta then ctx.generating_c_call <- true else
+			| FStatic (cls,cf) -> ();
+				if Meta.has Meta.C cf.cf_meta then ctx.generating_c_call <- true else
 				if cls.cl_path = ([], "Math") then ctx.generating_c_call <- true;
 			| FAnon _ -> ctx.writer#write "FAnon"
 			| FDynamic _ -> ();(* ctx.writer#write "FDynamic" *)
@@ -2293,7 +2293,7 @@ let generateImplementation ctx files_manager imports_manager =
 	
 	let class_path = ctx.class_def.cl_path in
 	if ctx.is_category then begin
-		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
+		let category_class = getMetaString Meta.Category ctx.class_def.cl_meta in
 		ctx.writer#write ("@implementation " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
 	end else
 		ctx.writer#write ("@implementation " ^ (snd ctx.class_def.cl_path));
@@ -2332,14 +2332,14 @@ let generateHeader ctx files_manager imports_manager =
 		| Some (csup,_) -> ctx.imports_manager#add_class_path csup.cl_path);
 	
 	(* Import extra classes *)
-	let has_custom_import = (has_meta ":import" ctx.class_def.cl_meta) in
-	let has_custom_include = (has_meta ":include" ctx.class_def.cl_meta) in
+	let has_custom_import = (Meta.has Meta.Import ctx.class_def.cl_meta) in
+	let has_custom_include = (Meta.has Meta.Include ctx.class_def.cl_meta) in
 	if has_custom_import then begin
-	let import_statement = getMetaString ":import" ctx.class_def.cl_meta in
+	let import_statement = getMetaString Meta.Import ctx.class_def.cl_meta in
 		 imports_manager#add_class_import_extra import_statement;
 	end;
 	if has_custom_include then begin
-	let include_statement = getMetaString ":include" ctx.class_def.cl_meta in
+	let include_statement = getMetaString Meta.Include ctx.class_def.cl_meta in
 		 imports_manager#add_class_include_extra include_statement;
 	end;
 	
@@ -2355,7 +2355,7 @@ let generateHeader ctx files_manager imports_manager =
 	
 	let class_path = ctx.class_def.cl_path in
 	if ctx.is_category then begin
-		let category_class = getMetaString ":category" ctx.class_def.cl_meta in
+		let category_class = getMetaString Meta.Category ctx.class_def.cl_meta in
 		ctx.writer#write ("@interface " ^ category_class ^ " ( " ^ (snd class_path) ^ " )");
 	end
 	else begin
@@ -2439,7 +2439,7 @@ let generate common_ctx =
 			if not class_def.cl_extern then begin
 				let module_path = class_def.cl_module.m_path in
 				let class_path = class_def.cl_path in
-				let is_category = (has_meta ":category" class_def.cl_meta) in
+				let is_category = (Meta.has Meta.Category class_def.cl_meta) in
 				let is_new_module_m = (m.module_path_m != module_path) in
 				let is_new_module_h = (m.module_path_h != module_path) in
 				(* When we create a new module reset the 'frameworks' and 'imports' that where stored for the previous module *)

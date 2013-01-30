@@ -12,6 +12,7 @@
 
 @interface NSMutableDictionary ( Hash )
 
++ (id) __meta__:(id)val;
 - (void) set:(NSMutableString*)key value:(id)value;
 - (id) get:(NSMutableString*)key;
 - (BOOL) exists:(NSMutableString*)key;

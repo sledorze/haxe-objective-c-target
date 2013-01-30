@@ -421,10 +421,11 @@ class Tests implements Interface1, implements Interface2 {
 		var sups = Type.getClassName ( objc.foundation.NSString );
 		#end
 		var cl = Type.resolveClass ( "ios.map.MKMapView" );
+		var inst = Type.createEmptyInstance ( objc.foundation.NSString );
 		
 /*		allEnums<T>(e : Enum<T>) : Array<T>
 		Returns the list of all enum values that dont take any parameter.
-		static function createEmptyInstance<T>(cl : Class<T>) : T
+		
 		Similar to Reflect.createInstance excepts that the constructor is not called. This enables you to create an instance without any side-effect.
 		static function createEnum<T>(e : Enum<T>, constr : String, ?params : Array<Dynamic>) : T
 		Create an instance of an enum by using a constructor name and parameters.
@@ -472,6 +473,12 @@ class Tests implements Interface1, implements Interface2 {
 		//var xml = Xml.parse("<xml>");
 	}
 	
+	
+	// Test Resources
+	function testResources () {
+		var str = haxe.Resource.getString("welcome");
+		trace(str);
+	}
 	
 	
 	

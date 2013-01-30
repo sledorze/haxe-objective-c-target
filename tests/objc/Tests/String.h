@@ -12,6 +12,7 @@
 
 @interface NSMutableString ( String )
 
++ (id) __meta__:(id)val;
 + (NSMutableString*) fromCharCode:(int)code;
 @property (nonatomic) int length;
 - (NSMutableString*) toUpperCase;

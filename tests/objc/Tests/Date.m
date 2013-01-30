@@ -9,6 +9,16 @@
 
 @implementation NSDate ( Date )
 
++ (id) __meta__:(id)val {
+	static id _val;
+	if (val == nil) { if (_val == nil) _val = struct {
+obj:struct {
+core_api:nil
+} structName
+} structName; }
+	else { if (_val != nil) _val = val; }
+	return _val;
+}
 + (NSDate*) now{
 	
 	NSCalendar *calendar = [NSCalendar currentCalendar];

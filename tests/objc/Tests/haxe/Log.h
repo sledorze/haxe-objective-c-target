@@ -13,9 +13,6 @@
 // Defining a dynamic method
 + (void) trace:(id)v infos:(id)infos;
 @property (nonatomic,copy) void(^property_trace)(id, id);
-// Defining a dynamic method
-+ (void) clear;
-@property (nonatomic,copy) void(^property_clear)();
 
 @end
 

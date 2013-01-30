@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HXObject extends NSObject{
+@interface HXObject : NSObject{
 	NSMutableDictionary *dict;
 }
 -(void) setVariableNamed:(id)key val:(id)val;

@@ -532,14 +532,14 @@ and wait_loop boot_com host port =
 						| TEnumDecl e ->
 							let rec loop acc = function
 								| [] -> ()
-								| (":realPath",[Ast.EConst (Ast.String path),_],_) :: l ->
+								| (Ast.Meta.RealPath,[Ast.EConst (Ast.String path),_],_) :: l ->
 									e.e_path <- Ast.parse_path path;
 									e.e_meta <- (List.rev acc) @ l;
 								| x :: l -> loop (x::acc) l
 							in
 							loop [] e.e_meta
 						| TAbstractDecl a ->
-							a.a_meta <- List.filter (fun (m,_,_) -> m <> ":valueUsed") a.a_meta
+							a.a_meta <- List.filter (fun (m,_,_) -> m <> Ast.Meta.ValueUsed) a.a_meta
 						| _ -> ()
 					) m.m_types;
 					Typeload.add_module ctx m p;
@@ -1153,6 +1153,7 @@ try
 			Codegen.check_remove_metadata;
 			Codegen.check_void_field;
 		] in
+		let type_filters = if ctx.com.platform = Java then Codegen.promote_abstract_parameters :: type_filters else type_filters in
 		List.iter (fun t -> List.iter (fun f -> f tctx t) type_filters) com.types;
 		if ctx.has_error then raise Abort;
 		(match !xml_out with
@@ -1221,9 +1222,10 @@ with
 	| Parser.Error (m,p) ->
 		error ctx (Parser.error_msg m) p
 	| Typecore.Forbid_package ((pack,m,p),pl,pf)  ->
-		if !Common.display_default && ctx.has_next then
-			()
-		else begin
+		if !Common.display_default && ctx.has_next then begin
+			ctx.has_error <- false;
+			ctx.messages <- [];
+		end else begin
 			error ctx (Printf.sprintf "You cannot access the %s package while %s (for %s)" pack (if pf = "macro" then "in a macro" else "targeting " ^ pf) (Ast.s_type_path m) ) p;
 			List.iter (error ctx "    referenced here") (List.rev pl);
 		end

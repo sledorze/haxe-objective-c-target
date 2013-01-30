@@ -222,7 +222,7 @@ let make_generic ctx ps pt p =
 			let path = (match follow t with
 				| TInst (ct,_) -> ct.cl_path
 				| TEnum (e,_) -> e.e_path
-				| TAbstract (a,_) when has_meta ":runtimeValue" a.a_meta -> a.a_path
+				| TAbstract (a,_) when Meta.has Meta.RuntimeValue a.a_meta -> a.a_path
 				| TMono _ -> raise (Generic_Exception (("Could not determine type for parameter " ^ s), p))
 				| t -> raise (Generic_Exception (("Type parameter must be a class or enum instance (found " ^ (s_type (print_context()) t) ^ ")"), p))
 			) in
@@ -267,7 +267,7 @@ let is_generic_parameter ctx c =
 	(* first check field parameters, then class parameters *)
 	try
 		ignore (List.assoc (snd c.cl_path) ctx.curfield.cf_params);
-		has_meta ":generic" ctx.curfield.cf_meta
+		Meta.has Meta.Generic ctx.curfield.cf_meta
 	with Not_found -> try
 		ignore(List.assoc (snd c.cl_path) ctx.type_params);
 		(match ctx.curclass.cl_kind with | KGeneric -> true | _ -> false);
@@ -453,7 +453,7 @@ let build_metadata com t =
 			(a.a_pos, ["",a.a_meta],[],[])
 	) in
 	let filter l =
-		let l = List.map (fun (n,ml) -> n, List.filter (fun (m,_,_) -> m.[0] <> ':') ml) l in
+		let l = List.map (fun (n,ml) -> n, ExtList.List.filter_map (fun (m,el,p) -> match m with Meta.Custom s -> Some (s,el,p) | _ -> None) ml) l in
 		List.filter (fun (_,ml) -> ml <> []) l
 	in
 	let meta, fields, statics = filter meta, filter fields, filter statics in
@@ -610,10 +610,10 @@ let remove_generic_base ctx t = match t with
 (* Rewrites class or enum paths if @:native metadata is set *)
 let apply_native_paths ctx t =
 	let get_real_path meta path =
-		let (_,e,mp) = get_meta ":native" meta in
+		let (_,e,mp) = Meta.get Meta.Native meta in
 		match e with
 		| [Ast.EConst (Ast.String name),p] ->
-			(":realPath",[Ast.EConst (Ast.String (s_type_path path)),p],mp),parse_path name
+			(Meta.RealPath,[Ast.EConst (Ast.String (s_type_path path)),p],mp),parse_path name
 		| _ ->
 			error "String expected" mp
 	in
@@ -636,7 +636,7 @@ let apply_native_paths ctx t =
 let add_rtti ctx t =
 	let has_rtti c =
 		let rec has_rtti_new c =
-			has_meta ":rttiInfos" c.cl_meta || match c.cl_super with None -> false | Some (csup,_) -> has_rtti_new csup
+			Meta.has Meta.RttiInfos c.cl_meta || match c.cl_super with None -> false | Some (csup,_) -> has_rtti_new csup
 		in
 		let rec has_rtti_old c =
 			List.exists (function (t,pl) ->
@@ -665,7 +665,7 @@ let add_rtti ctx t =
 let remove_extern_fields ctx t = match t with
 	| TClassDecl c ->
 		let do_remove f =
-			(not ctx.in_macro && f.cf_kind = Method MethMacro) || has_meta ":extern" f.cf_meta || has_meta ":generic" f.cf_meta
+			(not ctx.in_macro && f.cf_kind = Method MethMacro) || Meta.has Meta.Extern f.cf_meta || Meta.has Meta.Generic f.cf_meta
 		in
 		if not (Common.defined ctx.com Define.DocGen) then begin
 			c.cl_ordered_fields <- List.filter (fun f ->
@@ -775,7 +775,7 @@ let add_meta_field ctx t = match t with
 (* Removes interfaces tagged with @:remove metadata *)
 let check_remove_metadata ctx t = match t with
 	| TClassDecl c ->
-		c.cl_implements <- List.filter (fun (c,_) -> not (has_meta ":remove" c.cl_meta)) c.cl_implements;
+		c.cl_implements <- List.filter (fun (c,_) -> not (Meta.has Meta.Remove c.cl_meta)) c.cl_implements;
 	| _ ->
 		()
 
@@ -787,6 +787,21 @@ let check_void_field ctx t = match t with
 		in
 		List.iter check c.cl_ordered_fields;
 		List.iter check c.cl_ordered_statics;
+	| _ ->
+		()
+
+(* Promotes type parameters of abstracts to their implementation fields *)
+let promote_abstract_parameters ctx t = match t with
+	| TClassDecl ({cl_kind = KAbstractImpl a} as c) when a.a_types <> [] ->
+		List.iter (fun f ->
+			List.iter (fun (n,t) -> match t with
+				| TInst({cl_kind = KTypeParameter _; cl_path=p,n} as cp,[]) when not (List.mem_assoc n f.cf_params) ->
+					let path = List.rev ((snd c.cl_path) :: List.rev (fst c.cl_path)),n in
+					f.cf_params <- (n,TInst({cp with cl_path = path},[])) :: f.cf_params
+				| _ ->
+					()
+			) a.a_types;
+		) c.cl_ordered_statics;
 	| _ ->
 		()
 
@@ -1207,7 +1222,10 @@ let check_local_vars_init e =
 		match e.eexpr with
 		| TLocal v ->
 			let init = (try PMap.find v.v_id !vars with Not_found -> true) in
-			if not init then error ("Local variable " ^ v.v_name ^ " used without being initialized") e.epos;
+			if not init then begin
+				if v.v_name = "this" then error "Missing this = value" e.epos
+				else error ("Local variable " ^ v.v_name ^ " used without being initialized") e.epos
+			end
 		| TVars vl ->
 			List.iter (fun (v,eo) ->
 				match eo with
@@ -1310,43 +1328,36 @@ let handle_abstract_casts ctx e =
 		in
 		(match cf.cf_expr with
 		| Some { eexpr = TFunction fd } when cf.cf_kind = Method MethInline ->
-			(match Optimizer.type_inline ctx cf fd ethis args t (Some (a.a_types <> [], apply_params a.a_types pl)) p true with
+			let config = if Meta.has Meta.Impl cf.cf_meta then (Some (a.a_types <> [], apply_params a.a_types pl)) else None in
+			(match Optimizer.type_inline ctx cf fd ethis args t config p true with
 				| Some e -> e
 				| None ->
 					def())
 		| _ ->
 			def())
 	in
-	let find_cast a pl t from =
-		let rec loop fl = match fl with
-			| [] -> raise Not_found
-			| (t2,Some cf) :: _ when type_iseq t (apply_params a.a_types pl (monomorphs cf.cf_params t2)) -> cf
-			| (t2,_) :: fl -> loop fl
-		in
-		loop (List.rev (if from then a.a_from else a.a_to))
-	in
+	let find_from ab pl a b = List.find (Type.unify_from_field ab pl a b) ab.a_from in
+	let find_to ab pl a b = List.find (Type.unify_to_field ab pl a b) ab.a_to in
 	let rec check_cast tleft eright p =
 		let eright = loop eright in
-		try (match follow tleft,follow eright.etype with
+		try (match follow eright.etype,follow tleft with
 			| (TAbstract({a_impl = Some c1} as a1,pl1) as t1),(TAbstract({a_impl = Some c2} as a2,pl2) as t2) ->
 				if a1 == a2 then
 					eright
 				else begin
-					let c,cf,a,pl = try
-						c1,find_cast a1 pl1 t2 true,a1,pl1
+					let c,cfo,a,pl = try
+						c1,snd (find_to a1 pl1 t1 t2),a1,pl1
 					with Not_found ->
-						c2,find_cast a2 pl2 t1 false,a2,pl2
+						c2,snd (find_from a2 pl2 t1 t2),a2,pl2
 					in
-					make_cast_call c cf a pl [eright] tleft p
+					match cfo with None -> eright | Some cf -> make_cast_call c cf a pl [eright] tleft p
 				end
 			| TDynamic _,_ | _,TDynamic _ ->
 				eright
-			| TAbstract({a_impl = Some c} as a,pl),t ->
-				let cf = find_cast a pl t true in
-				make_cast_call c cf a pl [eright] tleft p
-			| t,TAbstract({a_impl = Some c} as a,pl) ->
-				let cf = find_cast a pl t false in
-				make_cast_call c cf a pl [eright] tleft p
+			| TAbstract({a_impl = Some c} as a,pl) as t1,t2 ->
+				begin match snd (find_to a pl t1 t2) with None -> eright | Some cf -> make_cast_call c cf a pl [eright] tleft p end
+			| t1,(TAbstract({a_impl = Some c} as a,pl) as t2) ->
+				begin match snd (find_from a pl t1 t2) with None -> eright | Some cf -> make_cast_call c cf a pl [eright] tleft p end
 			| _ ->
 				eright)
 		with Not_found ->
@@ -1373,7 +1384,7 @@ let handle_abstract_casts ctx e =
 					let el = loop2 el args in
 					{ e with eexpr = TCall(loop e1,el)}
 				| _ ->
-					e
+					Type.map_expr loop e
 			end
 		| TArrayDecl el ->
 			begin match e.etype with
@@ -1381,7 +1392,7 @@ let handle_abstract_casts ctx e =
 					let el = List.map (fun e -> check_cast t e e.epos) el in
 					{ e with eexpr = TArrayDecl el}
 				| _ ->
-					e
+					Type.map_expr loop e
 			end
 		| TObjectDecl fl ->
 			begin match follow e.etype with
@@ -1396,7 +1407,7 @@ let handle_abstract_casts ctx e =
 				) fl in
 				{ e with eexpr = TObjectDecl fl }
 			| _ ->
-				e
+				Type.map_expr loop e
 			end
 		| _ ->
 			Type.map_expr loop e

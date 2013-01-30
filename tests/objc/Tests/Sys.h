@@ -18,6 +18,7 @@
 
 @interface Sys : NSObject
 
++ (id) __meta__:(id)val;
 + (void) print:(id)v;
 + (void) println:(id)v;
 + (Input*) stdin;
