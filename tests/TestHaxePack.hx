@@ -41,4 +41,11 @@ class TestHaxePack {
 		var arr = haxe.CallStack.callStack();
 	}
 	
+	
+	// Test Callstack
+	function testSerialization () {
+		var str = haxe.Serializer.run ( {a:"a"} );
+		var obj = haxe.Unserializer.run ( str );
+	}
+	
 }

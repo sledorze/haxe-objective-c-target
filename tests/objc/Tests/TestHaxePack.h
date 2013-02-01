@@ -15,6 +15,8 @@
 #import "Resource.h"
 #import "Log.h"
 #import "CallStack.h"
+#import "Serializer.h"
+#import "Unserializer.h"
 
 @interface TestHaxePack : NSObject
 
@@ -23,6 +25,7 @@
 - (void) testCrypto;
 - (void) testResources;
 - (void) testCallstack;
+- (void) testSerialization;
 - (id) init;
 
 @end

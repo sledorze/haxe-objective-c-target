@@ -40,6 +40,13 @@
 	
 	NSMutableArray *arr = (NSMutableArray*)[CallStack callStack];
 }
+- (void) testSerialization{
+	
+	NSMutableString *str = [Serializer run:struct {
+	a:(NSMutableString*)@"a"
+	} structName];
+	id obj = [Unserializer run:str];
+}
 - (id) init{
 	self = [super init];
 	return self;
