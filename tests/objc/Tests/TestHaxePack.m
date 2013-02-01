@@ -20,7 +20,7 @@
 	timer = [Timer delay:^- (void) {
 		[[_g objectAtIndex:0] testTimerLoop];
 	} time_ms:50];
-	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestHaxePack.hx",@"18",@"TestHaxePack",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestHaxePack.hx",@"22",@"TestHaxePack",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testTimerLoop{
@@ -34,7 +34,7 @@
 - (void) testResources{
 	
 	NSMutableString *str = [Resource getString:(NSMutableString*)@"welcome"];
-	[Log trace:str infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestHaxePack.hx",@"35",@"TestHaxePack",@"testResources",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:str infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestHaxePack.hx",@"39",@"TestHaxePack",@"testResources",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) testCallstack{
 	
@@ -49,6 +49,13 @@
 }
 - (id) init{
 	self = [super init];
+	
+	NSMutableString *str = [Json stringify:struct {
+	a:(NSMutableString*)@"a"
+	} structName];
+	id obj = [Json parse:str];
+	
+	Template *t = [[Template alloc] init:str];
 	return self;
 }
 

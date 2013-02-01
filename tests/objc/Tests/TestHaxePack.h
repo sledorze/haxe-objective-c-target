@@ -17,6 +17,8 @@
 #import "CallStack.h"
 #import "Serializer.h"
 #import "Unserializer.h"
+#import "Json.h"
+#import "Template.h"
 
 @interface TestHaxePack : NSObject
 

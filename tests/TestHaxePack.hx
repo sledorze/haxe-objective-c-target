@@ -5,6 +5,10 @@ class TestHaxePack {
 
 	public function new () {
 		
+		var str = haxe.Json.stringify ( {a:"a"} );
+		var obj = haxe.Json.parse ( str );
+		
+		var t = new haxe.Template ( str );
 	}
 	
 	

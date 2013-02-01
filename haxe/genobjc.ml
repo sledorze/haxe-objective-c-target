@@ -962,7 +962,8 @@ and generateExpression ctx e =
 		generateValue ctx e;
 		ctx.writer#write ")";
 	| TReturn eo ->
-		if ctx.in_value <> None then unsupported e.epos;
+		(* TODO: what is supported and what not *)
+		(* if ctx.in_value <> None then unsupported e.epos; *)
 		(match eo with
 		| None ->
 			ctx.writer#write "return"
@@ -979,10 +980,10 @@ and generateExpression ctx e =
 			ctx.writer#write "return ";
 			generateValue ctx e);
 	| TBreak ->
-		if ctx.in_value <> None then unsupported e.epos;
-		if ctx.handle_break then ctx.writer#write "throw \"__break__\"" else ctx.writer#write "break"
+		(* if ctx.in_value <> None then unsupported e.epos; *)
+		if ctx.handle_break then ctx.writer#write "@throw \"__break__\"" else ctx.writer#write "break"
 	| TContinue ->
-		if ctx.in_value <> None then unsupported e.epos;
+		(* if ctx.in_value <> None then unsupported e.epos; *)
 		ctx.writer#write "continue"
 	| TBlock expr_list ->
 		ctx.writer#begin_block;
