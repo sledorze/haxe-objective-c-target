@@ -7,6 +7,15 @@ typedef IMP = Dynamic;
 extern class NSObject {
 	
 	// Sending Messages
+
+	@:overload( function (aSelector:SEL, withObject:Dynamic, waitUntilDone:Bool, modes:Array<String>) :Void {} )
+	public function performSelectorOnMainThread1 (aSelector:SEL, withObject:Dynamic, waitUntilDone:Bool):Void;
+	
+	@:overload( function (aSelector:SEL, onThread:NSThread, withObject:Dynamic, waitUntilDone:Bool, modes:Array<String>):Void {} )
+	public function performSelector1 (aSelector:SEL, onThread:NSThread, withObject:Dynamic, waitUntilDone:Bool):Void;
+	
+	public function performSelectorInBackground (aSelector:SEL, withObject:Dynamic):Void;
+	
 /*	function performSelector:withObject:afterDelay:
 	function performSelector:withObject:afterDelay:inModes:
 	function performSelectorOnMainThread:withObject:waitUntilDone:

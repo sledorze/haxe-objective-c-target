@@ -36,6 +36,7 @@ typedef void (*FunctionType3)(int);
 #import "Date.h"
 #import "Std.h"
 #import <objc/runtime.h>
+#import "RCHTTPRequest.h"
 
 @implementation AppDelegate
 id me;
@@ -134,11 +135,6 @@ char fooKey;
     NSNumber *associatedObject = objc_getAssociatedObject(e, &fooKey);
     NSLog(@"associatedObject: %@", associatedObject);
 	
-	
-	[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"loop_bkg_game.mp3"];
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"loop_bkg_game.mp3" loop:YES];
-	
-	
 	self.window.backgroundColor = [UIColor grayColor];
     return YES;
 }
@@ -217,10 +213,21 @@ void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_b
 	NSLog(@"token = %@", token);
 	webView.delegate = nil;
 	
-	NSString *str = [NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@", token];
-	NSURL *url = [[NSURL alloc] initWithString:str];
-	NSURLRequest *req = [[NSURLRequest alloc] initWithURL:url];
-	[webView loadRequest:req];
+//	NSString *str = [NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@", token];
+//	NSURL *url = [[NSURL alloc] initWithString:str];
+//	NSURLRequest *req = [[NSURLRequest alloc] initWithURL:url];
+//	[webView loadRequest:req];
+	
+	
+	NSArray *keys = [NSArray arrayWithObjects:@"access_token",@"app_secret", @"message", nil];
+	NSArray *objects = [NSArray arrayWithObjects:token, @"7a779b67a3182aece3675e9c81fc41de", @"messagegegegege", nil];
+	NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+	
+//	RCHttpRequest *req = [[RCHttpRequest alloc] initWithURL:@"https://graph.facebook.com/me/friends" delegate:nil];
+//	RCHttpRequest *req = [[RCHttpRequest alloc] initWithURL:@"https://graph.facebook.com/me/feed" delegate:nil];
+	RCHttpRequest *req = [[RCHttpRequest alloc] initWithURL:[NSString stringWithFormat:@"https://graph.facebook.com/me/friends?access_token=%@", token] delegate:nil];
+	//RCHttpRequest *req = [[RCHttpRequest alloc] initWithURL:@"http://ralcr.com/insert.php?" delegate:nil];
+	[req call:@"" variables:dictionary method:@"GET"];
 }
 
 - (void) callThis:(SEL)sel {
@@ -274,6 +281,8 @@ static int length__;
 	block2(0);
 	block3(@"dgdcgdfgcgcgdfg");
 	block4(@"block 4 called");
+	
+	NSLog(@"%@",[NSThread callStackSymbols]);
 }
 - (void) redefineThisMethod{
 }

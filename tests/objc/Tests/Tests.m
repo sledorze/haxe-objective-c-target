@@ -489,33 +489,6 @@
 }
 - (void) testXml{
 }
-- (void) testResources{
-	
-	NSMutableString *str = [Resource getString:(NSMutableString*)@"welcome"];
-	[Log trace:str infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"480",@"Tests",@"testResources",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
-}
-- (void) testTimer{
-	
-	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil];
-	
-	Timer *timer = [[Timer alloc] init:50];
-	timer.run = ^(){ [self testTimerLoop]; };
-	[timer stop];
-	timer = [Timer delay:^(){ [self testTimerLoop]; } time_ms:50];
-	timer = [Timer delay:^- (void) {
-		[[_g objectAtIndex:0] testTimerLoop];
-	} time_ms:50];
-	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"493",@"Tests",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
-	float f = [Timer stamp];
-}
-- (void) testTimerLoop{
-}
-- (void) testCrypto{
-	
-	NSMutableString *str1 = [Md5 encode:(NSMutableString*)@"Hello world"];
-	
-	NSMutableString *str2 = [Sha1 encode:(NSMutableString*)@"Hello world"];
-}
 - (void) foo{
 }
 - (void) testOverload{
@@ -523,9 +496,6 @@
 	[self foo:(NSMutableString*)@"bar"];
 	[self foo:(NSMutableString*)@"str" arr:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar1", (NSMutableString*)@"bar2", nil]];
 	[self foo:[[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"1", nil], [[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"bar", (NSMutableString*)@"2", nil], nil]];
-}
-- (void) testC{
-	[[TestC alloc] init];
 }
 - (void) testFrameworksImport{
 }
@@ -575,10 +545,10 @@
 	self.s = (NSMutableString*)@"init";
 }
 - (void) printHello{
-	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"570",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"Hello from Haxe Objective-C" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"538",@"Tests",@"printHello",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"580",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"do something else" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"551",@"Tests",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 - (void) functionToRedefine2:(int)param1 param2:(NSMutableString*)param2{
 	int i = param1;
@@ -592,6 +562,8 @@
 	Tests2 *test2 = [[Tests2 alloc] init];
 	test2.functionToRedefine = ^(){ [self functionToRedefine]; };
 	test2.functionToRedefine2 = ^(int param1, NSMutableString *param2){ [self functionToRedefine2:param1 param2:param2]; };
+	[[TestC alloc] init];
+	[[TestHaxePack alloc] init];
 	return self;
 }
 
@@ -606,7 +578,7 @@
 }
 // Defining a dynamic method
 - (void) functionToRedefine{
-	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"603",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Log trace:(NSMutableString*)@"originally do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"574",@"Tests2",@"functionToRedefine",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
 @synthesize property_functionToRedefine;
 

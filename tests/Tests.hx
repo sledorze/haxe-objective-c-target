@@ -474,34 +474,6 @@ class Tests implements Interface1, implements Interface2 {
 	}
 	
 	
-	// Test Resources
-	function testResources () {
-		var str = haxe.Resource.getString("welcome");
-		trace(str);
-	}
-	
-	
-	
-	// Test haxe.Timer
-	#if !cpp
-	function testTimer () {
-		var timer = new haxe.Timer ( 50 );
-		timer.run = testTimerLoop;
-		timer.stop();
-		timer = haxe.Timer.delay (testTimerLoop, 50);
-		timer = haxe.Timer.delay ( function() { testTimerLoop(); }, 50);
-		haxe.Timer.measure (testTimerLoop);
-		var f = haxe.Timer.stamp();
-	}
-	function testTimerLoop () {}
-	#end
-		
-		
-		
-	function testCrypto () {
-		var str1 = haxe.crypto.Md5.encode("Hello world");
-		var str2 = haxe.crypto.Sha1.encode("Hello world");
-	}
 	
 	
 	// Test overload
@@ -517,10 +489,6 @@ class Tests implements Interface1, implements Interface2 {
 		foo([["bar", "1"], ["bar", "2"]]);
 	}
 	
-	
-	function testC(){
-		new TestC();
-	}
 	
 	// Framework import. If you use MKMapView the objc target will import the MapKit framework entirely
 	
@@ -575,6 +543,9 @@ class Tests implements Interface1, implements Interface2 {
 		var test2 = new Tests2();
 		test2.functionToRedefine = functionToRedefine;
 		test2.functionToRedefine2 = functionToRedefine2;
+		
+		new TestC();
+		new TestHaxePack();
 	}
 	function functionToRedefine () {
 		trace("do something else");

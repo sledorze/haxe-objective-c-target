@@ -1415,8 +1415,6 @@ and generateValue ctx e =
 		)) e.etype e.epos);
 		v()
 
-let final m = if has_meta ":final" m then "final " else ""
-
 let generateProperty ctx field pos is_static =
 	let id = field.cf_name in
 	let t = typeToString ctx field.cf_type pos in

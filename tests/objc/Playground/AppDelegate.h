@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreFoundation/CoreFoundation.h>
-#import "SimpleAudioEngine.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UIWebViewDelegate>{
 
