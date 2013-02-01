@@ -13,7 +13,7 @@
 	static id _val;
 	if (val == nil) { if (_val == nil) _val = struct {
 obj:struct {
-core_api:nil
+:core_api:nil
 } structName
 } structName; }
 	else { if (_val != nil) _val = val; }

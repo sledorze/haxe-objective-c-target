@@ -1030,6 +1030,11 @@ try
 	loop();
 	(try ignore(Common.find_file com "mt/Include.hx"); Common.raw_define com "mt"; with Not_found -> ());
 	if com.display then begin
+		let mode = Common.defined_value_safe com Define.DisplayMode in
+		if mode = "usage" then begin
+			com.display <- false;
+			Common.display_default := false;
+		end;
 		com.warning <- message ctx;
 		com.error <- error ctx;
 		com.main_class <- None;
@@ -1129,6 +1134,8 @@ try
 		com.main <- main;
 		com.types <- types;
 		com.modules <- modules;
+		if Common.defined_value_safe com Define.DisplayMode = "usage" then
+			Codegen.detect_usage com;
 		let filters = [
 			Codegen.handle_abstract_casts tctx;
 			if com.foptimize then Optimizer.reduce_expression tctx else Optimizer.sanitize tctx;
@@ -1264,6 +1271,27 @@ with
 			Buffer.add_string b (htmlescape (s_type ctx t));
 			Buffer.add_string b "\n</type>\n";
 		) tl;
+		raise (Completion (Buffer.contents b))
+	| Typecore.DisplayPosition pl ->
+		let b = Buffer.create 0 in
+		let error_printer file line = sprintf "%s:%d:" (Common.unique_full_path file) line in
+		List.iter (fun p ->
+			let epos = Lexer.get_error_pos error_printer p in
+			Buffer.add_string b "<pos>\n";
+			Buffer.add_string b epos;
+			Buffer.add_string b "\n</pos>\n";
+		) pl;
+		raise (Completion (Buffer.contents b))
+	| Typer.DisplayMetadata m ->
+		let b = Buffer.create 0 in
+		List.iter (fun (m,el,p) ->
+			Buffer.add_string b ("<meta name=\"" ^ (Ast.Meta.to_string m) ^ "\"");
+			if el = [] then Buffer.add_string b "/>" else begin
+				Buffer.add_string b ">\n";
+				List.iter (fun e -> Buffer.add_string b ((htmlescape (Genxml.sexpr e)) ^ "\n")) el;
+				Buffer.add_string b "</meta>\n";
+			end
+		) m;
 		raise (Completion (Buffer.contents b))
 	| Parser.TypePath (p,c) ->
 		(match c with

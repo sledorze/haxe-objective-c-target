@@ -156,6 +156,7 @@ module Define = struct
 		| DceDebug
 		| Debug
 		| Display
+		| DisplayMode
 		| DocGen
 		| Dump
 		| DumpDependencies
@@ -215,6 +216,7 @@ module Define = struct
 		| DceDebug -> ("dce_debug","Show DCE log")
 		| Debug -> ("debug","Activated when compiling with -debug")
 		| Display -> ("display","Activated during completion")
+		| DisplayMode -> ("display_mode", "The display mode to use (default, position, metadata, usage)")
 		| DocGen -> ("doc_gen","Do not perform any removal/change in order to correctly generate documentation")
 		| Dump -> ("dump","Dump the complete typed AST for internal debugging")
 		| DumpDependencies -> ("dump_dependencies","Dump the classes dependencies")
@@ -545,6 +547,10 @@ let raw_defined_value ctx k =
 
 let defined_value ctx v =
 	raw_defined_value ctx (fst (Define.infos v))
+
+let defined_value_safe ctx v =
+	try defined_value ctx v
+	with Not_found -> ""
 
 let raw_define ctx v =
 	let k,v = try ExtString.String.split v "=" with _ -> v,"1" in
