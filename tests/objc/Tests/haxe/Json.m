@@ -68,7 +68,7 @@
 			}}break
 		case 2:
 		{
-			self.buf.b += [Std string:( (v + 1 == v) ? nil : v)]}break
+			self.buf.b += [Std string:( (isfinite(v)) ? v : (NSMutableString*)@"null")]}break
 		case 5:
 		{
 			[self.buf.b appendString:(NSMutableString*)@"\"<fun>\""]}break
@@ -91,9 +91,9 @@
 				}
 				[self.buf.b appendString:(NSMutableString*)@"]"];
 			}
-			else if (_g_eTClass_0 == Hash) {
+			else if (_g_eTClass_0 == StringMap) {
 				
-				Hash *v1 = v;
+				StringMap *v1 = v;
 				id o = struct {
 				
 				} structName;
@@ -344,7 +344,11 @@
 					int c = [self str characterAtIndex:self pos++];
 					if (c == 34) break;
 					if (c == 92) {
-						buf.b += [self str substr:start len:self pos - start - 1];
+						{
+							
+							NSMutableString *s = self.str; int len = self.pos - start - 1;
+							buf.b += ( (len == nil) ? [s substr:start len:nil] : [s substr:start len:len]);
+						}
 						c = [self str characterAtIndex:self pos++];
 						switch (c){
 							case 114:{
@@ -372,7 +376,11 @@
 					}
 					else if (c == -1) @throw (NSMutableString*)@"Unclosed string";;
 				}
-				buf.b += [self str substr:start len:self pos - start - 1];
+				{
+					
+					NSMutableString *s = self.str; int len = self.pos - start - 1;
+					buf.b += ( (len == nil) ? [s substr:start len:nil] : [s substr:start len:len]);
+				}
 				return buf.b;
 			}
 			- (void) invalidNumber:(int)start{

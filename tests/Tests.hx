@@ -22,11 +22,11 @@ typedef NewType = {
 	var y:Int;
 }
 
-class Tests implements Interface1, implements Interface2 {
+class Tests implements Interface1 implements Interface2 {
 	
 	public var interfaceVar1 :Int;// Generate a @property (nonatomic) int float1; + a @synthesize float1
 	public var interfaceVar2 :Float;
-	public var width (getWidth, setWidth) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
+	public var width (get, set) :Int;// Generate a @property (nonatomic, getter=getWidth, setter=setWidth) + a @synthesizer
 	
 	var d1 = 34;
 	var d2 = 4.5;
@@ -499,8 +499,8 @@ class Tests implements Interface1, implements Interface2 {
 	
 	// Getter setter
 	
-	function getWidth():Int{return 0;}
-	function setWidth(v:Int):Int{return 0;}
+	function get_width():Int{return 0;}
+	function set_width(v:Int):Int{return 0;}
 	
 	
 	

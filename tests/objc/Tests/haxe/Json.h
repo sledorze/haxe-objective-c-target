@@ -14,8 +14,9 @@
 #import "Reflect.h"
 #import "Type.h"
 #import "Std.h"
+#import "Math.h"
 #import "Class.h"
-#import "Hash.h"
+#import "StringMap.h"
 #import "EnumValue.h"
 
 @interface Json : NSObject

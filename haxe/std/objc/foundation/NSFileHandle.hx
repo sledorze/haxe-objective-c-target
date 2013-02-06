@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSFileHandle extends NSObject, implements NSSecureCoding {
+extern class NSFileHandle extends NSObject implements NSSecureCoding {
 
 - (NSData *)availableData;
 

@@ -50,9 +50,4 @@
 		if (x <= 0) return 0;
 		return untyped __objc__("rand() % x");
 	}
-
-	@:macro public static function format( fmt : haxe.macro.Expr.ExprOf<String> ) : haxe.macro.Expr.ExprOf<String> {
-		return haxe.macro.Format.format(fmt);
-	}
-
 }

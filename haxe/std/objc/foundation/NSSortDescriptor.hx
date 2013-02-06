@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSSortDescriptor, implements NSCoding, implements NSCopying
+extern class NSSortDescriptor implements NSCoding implements NSCopying
 {
 
 	//Constants

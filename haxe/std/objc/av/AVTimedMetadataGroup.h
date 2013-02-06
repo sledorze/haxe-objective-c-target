@@ -14,7 +14,7 @@
 @class AVTimedMetadataGroupInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_3)
-extern class AVTimedMetadataGroup extends NSObject, implements NSCopying>
+extern class AVTimedMetadataGroup extends NSObject implements NSCopying>
 {
 	AVTimedMetadataGroupInternal *_priv;
 }

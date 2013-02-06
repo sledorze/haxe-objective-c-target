@@ -106,17 +106,13 @@ extern class NSPurgeableData extends NSMutableData implements NSDiscardableConte
 	
 	
 	
-	/*	NSData.h
-		Copyright (c) 1994-2012, Apple Inc. All rights reserved.
-	*/
+	/*	
 
 	#import <Foundation/NSObject.h>
 	#import <Foundation/NSRange.h>
 
 	@class NSString, NSURL, NSError;
 
-
-	/****************	Read/Write Options	****************/
 
 	typedef NS_OPTIONS(NSUInteger, NSDataReadingOptions) {
 	    NSDataReadingMappedIfSafe =   1UL << 0,	// Hint to map the file in if possible and safe
@@ -144,16 +140,12 @@ extern class NSPurgeableData extends NSMutableData implements NSDiscardableConte
 	};
 
 
-	/****************	Data Search Options	****************/
-
 	typedef NS_OPTIONS(NSUInteger, NSDataSearchOptions) {
 	    NSDataSearchBackwards = 1UL << 0,
 	    NSDataSearchAnchored = 1UL << 1
 	} NS_ENUM_AVAILABLE(10_6, 4_0);
 
-	/****************	Immutable Data		****************/
-
-	extern class NSData : NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding>
+	extern class NSData : NSObject implements NSCopying, NSMutableCopying, NSSecureCoding>
 
 	- (NSUInteger)length;
 	- (const void *)bytes NS_RETURNS_INNER_POINTER;
@@ -199,18 +191,13 @@ extern class NSPurgeableData extends NSMutableData implements NSDiscardableConte
 
 	extern class NSData (NSDeprecated)
 
-	/* This method is unsafe because it could potentially cause buffer overruns. You should use -getBytes:length: or -getBytes:range: instead.
-	*/
+	
 	- (void)getBytes:(void *)buffer;
 
-	/* These methods are deprecated. You should use +dataWithContentsOfURL:options:error: or -initWithContentsOfURL:options:error: with NSDataReadingMappedIfSafe or NSDataReadingMappedAlways instead.
-	*/
 	+ (id)dataWithContentsOfMappedFile:(NSString *)path;
 	- (id)initWithContentsOfMappedFile:(NSString *)path;
 
 	}
-
-	/****************	Mutable Data		****************/
 
 	extern class NSMutableData : NSData
 
@@ -240,8 +227,6 @@ extern class NSPurgeableData extends NSMutableData implements NSDiscardableConte
 
 	}
 
-	/****************	    Purgeable Data	****************/
-
 	NS_CLASS_AVAILABLE(10_6, 4_0)
 	extern class NSPurgeableData : NSMutableData <NSDiscardableContent> {
 	@private
@@ -252,6 +237,6 @@ extern class NSPurgeableData extends NSMutableData implements NSDiscardableConte
 	}
 
 	}
-
+*/
 
 	

@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSPort, implements NSCopying, implements NSCoding
+extern class NSPort implements NSCopying implements NSCoding
 {
 
 	//Constants

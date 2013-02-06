@@ -5,7 +5,7 @@ private typedef NSEnumerationOptions = Dynamic;
 private typedef NSSortOptions = Dynamic;
 private typedef NSComparator = Dynamic;
 
-extern class NSSet extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding/*, implements NSFastEnumeration*/
+extern class NSSet extends NSObject implements NSCopying implements NSMutableCopying implements NSSecureCoding/* implements NSFastEnumeration*/
 {
 
 	//Constants
@@ -75,18 +75,14 @@ extern class NSSet extends NSObject, implements NSCopying, implements NSMutableC
 	public  function descriptionWithLocale( locale:Dynamic):String;
 }
 
-/*	NSSet.h
-	Copyright (c) 1994-2012, Apple Inc. All rights reserved.
-*/
-
+/*	
 #import <Foundation/NSObject.h>
 #import <Foundation/NSEnumerator.h>
 
 @class Array<>, NSDictionary, NSString;
 
-/****************	Immutable Set	****************/
 
-extern class NSSet extends NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSSet extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)member:(id)object;
@@ -139,8 +135,6 @@ extern class NSSet (NSSetCreation)
 
 }
 
-/****************	Mutable Set	****************/
-
 extern class NSMutableSet extends NSSet
 
 - (void)addObject:(id)object;
@@ -167,7 +161,6 @@ extern class NSMutableSet (NSMutableSetCreation)
     
 }
 
-/****************	Counted Set	****************/
 
 extern class NSCountedSet extends NSMutableSet {
     @private
@@ -188,3 +181,4 @@ extern class NSCountedSet extends NSMutableSet {
 
 }
 
+*/

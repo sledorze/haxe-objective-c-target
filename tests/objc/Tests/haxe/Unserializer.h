@@ -17,8 +17,9 @@
 #import "StringTools.h"
 #import "Math.h"
 #import "List.h"
-#import "Hash.h"
-#import "IntHash.h"
+#import "StringMap.h"
+#import "IntMap.h"
+#import "ObjectMap.h"
 #import "Date.h"
 #import "Bytes.h"
 

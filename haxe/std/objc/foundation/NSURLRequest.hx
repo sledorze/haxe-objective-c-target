@@ -172,7 +172,7 @@ typedef NSUInteger NSURLRequestNetworkServiceType;
     which can are used to perform the load of a URL, or as input to the
     NSURLConnection class method which performs synchronous loads.
 */
-extern class NSURLRequest extends NSObject, implements NSObject, NSCopying, NSMutableCopying>
+extern class NSURLRequest extends NSObject implements NSObject, NSCopying, NSMutableCopying>
 {
     @private
     NSURLRequestInternal *_internal;

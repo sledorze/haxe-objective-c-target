@@ -35,7 +35,7 @@ BOOL CLLocationCoordinate2DIsValid(CLLocationCoordinate2D coord) __OSX_AVAILABLE
  *  Discussion:
  *    Represents a geographical coordinate along with accuracy and timestamp information.
  */
-extern class CLLocation extends NSObject, implements NSCopying, implements NSCoding {
+extern class CLLocation extends NSObject implements NSCopying implements NSCoding {
 
 	public function initWithLatitude (latitude:CLLocationDegrees, longitude:CLLocationDegrees) :CLLocation;
 	@:overload( function (coordinate:CLLocationCoordinate2D, altitude:CLLocationDistance, horizontalAccuracy:CLLocationAccuracy, verticalAccuracy:CLLocationAccuracy, course:CLLocationDirection, speed:CLLocationSpeed, timestamp:Date) :CLLocation {})

@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSPredicate, implements NSCoding, implements NSCopying
+extern class NSPredicate implements NSCoding implements NSCopying
 {
 
 	//Constants

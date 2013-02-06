@@ -5,7 +5,7 @@ import objc.location.CLLocation;
 typedef CLHeadingComponentValue = Float;
 //extern const CLLocationDegrees kCLHeadingFilterNone;
 
-extern class CLHeading extends NSObject, implements NSCopying, implements NSCoding {
+extern class CLHeading extends NSObject implements NSCopying implements NSCoding {
 
 	public var magneticHeading :CLLocationDirection;
 	public var trueHeading :CLLocationDirection;

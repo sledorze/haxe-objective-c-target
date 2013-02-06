@@ -109,7 +109,7 @@ FOUNDATION_EXPORT NSString * const NSURLAuthenticationMethodServerTrust NS_AVAIL
     @discussion This class represents a protection space requiring authentication.
 */
 
-extern class NSURLProtectionSpace extends NSObject, implements NSObject, NSCopying>
+extern class NSURLProtectionSpace extends NSObject implements NSObject, NSCopying>
 {
 @private
     NSURLProtectionSpaceInternal *_internal;

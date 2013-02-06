@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSURLCredential, implements NSCoding, implements NSCopying
+extern class NSURLCredential implements NSCoding implements NSCopying
 {
 
 	//Constants

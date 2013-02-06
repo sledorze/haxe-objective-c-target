@@ -26,7 +26,7 @@ FOUNDATION_EXPORT NSString * const NSOldStyleException;*/
 
 /***************	Exception object	***************/
 
-extern class NSException extends NSObject, implements NSCopying, implements NSCoding {
+extern class NSException extends NSObject implements NSCopying implements NSCoding {
 
 	public static function exceptionWithName (name:String, reason:String, userInfo:NSDictionary) :NSException;
 	public function initWithName (name:NSString, reason:String, userInfo:NSDictionary) :NSException;

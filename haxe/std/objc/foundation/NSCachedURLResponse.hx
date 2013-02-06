@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSCachedURLResponse, implements NSCoding, implements NSCopying
+extern class NSCachedURLResponse implements NSCoding implements NSCopying
 {
 
 	//Constants

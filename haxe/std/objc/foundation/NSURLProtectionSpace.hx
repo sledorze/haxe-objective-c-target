@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSURLProtectionSpace, implements NSCoding, implements NSCopying
+extern class NSURLProtectionSpace implements NSCoding implements NSCopying
 {
 
 	//Constants

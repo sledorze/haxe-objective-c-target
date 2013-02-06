@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSAttributedString, implements NSCopying, implements NSMutableCopying, implements NSCoding
+extern class NSAttributedString implements NSCopying implements NSMutableCopying implements NSCoding
 {
 
 	//Constants

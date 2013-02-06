@@ -35,7 +35,7 @@
 }
 + (BOOL) isSpace:(NSMutableString*)s pos:(int)pos{
 	int c = [s characterAtIndex:pos];
-	return c >= 9 && c <= 13 || c == 32;
+	return c > 8 && c < 14 || c == 32;
 }
 + (NSMutableString*) ltrim:(NSMutableString*)s{
 	int l = s.length;

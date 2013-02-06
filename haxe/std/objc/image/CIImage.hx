@@ -5,7 +5,7 @@ import objc.graphics.CGGeometry;
 //#import <CoreVideo/CoreVideo.h>
 
 
-extern class CIImage extends NSObject, implements NSCopying {
+extern class CIImage extends NSObject implements NSCopying {
 
 /* Pixel formats. */
 

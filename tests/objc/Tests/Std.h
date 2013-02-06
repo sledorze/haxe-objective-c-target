@@ -11,7 +11,6 @@
 
 @interface Std : NSObject
 
-+ (id) __meta__:(id)val;
 + (BOOL) is:(id)v t:(id)t;
 + (NSMutableString*) string:(id)s;
 + (int) int:(float)x;

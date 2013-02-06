@@ -62,7 +62,7 @@
     to indicate when it's done.
 */
 
-extern class NSURLAuthenticationChallenge extends NSObject, implements NSObject>
+extern class NSURLAuthenticationChallenge extends NSObject implements NSObject>
 {
 @private
     NSURLAuthenticationChallengeInternal *_internal;

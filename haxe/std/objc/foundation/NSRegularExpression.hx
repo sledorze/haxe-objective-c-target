@@ -27,7 +27,7 @@ extern enum NSMatchingFlags {
 }
 
 @:require(osx_10_7)
-extern class NSRegularExpression extends NSObject, implements NSCopying, implements NSCoding {
+extern class NSRegularExpression extends NSObject implements NSCopying implements NSCoding {
 
 	public static function regularExpressionWithPattern (pattern:String, options:NSRegularExpressionOptions, error:NSError) : NSRegularExpression;
 	public function initWithPattern (pattern:String, options:NSRegularExpressionOptions, error:NSError) : NSRegularExpression;

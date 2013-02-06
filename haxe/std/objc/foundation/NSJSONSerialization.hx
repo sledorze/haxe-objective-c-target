@@ -2,6 +2,9 @@ package objc.foundation;
 import objc.foundation.NSObject;
 import objc.foundation.NSData;
 
+typedef NSInputStream = Dynamic;
+typedef NSOutputStream = Dynamic;
+
 /* A class for converting JSON to Foundation objects and converting Foundation objects to JSON.
    
    An object that may be converted to JSON must have the following properties:
@@ -32,7 +35,7 @@ import objc.foundation.NSData;
 	
 	/* Write JSON data into a stream. The stream should be opened and configured. The return value is the number of bytes written to the stream, or 0 on error. All other behavior of this method is the same as the dataWithJSONObject:options:error: method.
 	 */
-	public static function writeJSONObject( obj:Dynamic,  stream:NSOutputStream, options:NSJSONWritingOptions, error:NSError):Int;
+	public static function writeJSONObject( obj:Dynamic, stream:NSOutputStream, options:NSJSONWritingOptions, error:NSError):Int;
 	
 	/* Create a JSON object from JSON data stream. The stream should be opened and configured. All other behavior of this method is the same as the JSONObjectWithData:options:error: method.
 	 */

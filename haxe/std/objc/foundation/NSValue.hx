@@ -2,7 +2,7 @@ package objc.foundation;
 import objc.foundation.NSObject;
 
 
-extern class NSValue extends NSObject, implements NSCopying, implements NSSecureCoding {
+extern class NSValue extends NSObject implements NSCopying implements NSSecureCoding {
 
 	public function getValue (value:Void) :Void;
 	public function objCType () :String;

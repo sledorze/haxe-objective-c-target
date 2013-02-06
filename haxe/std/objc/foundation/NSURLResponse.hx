@@ -2,7 +2,7 @@ package objc.foundation;
 import objc.foundation.NSObject;
 
 
-extern class NSURLResponse extends NSObject, implements NSObject, implements NSCopying {
+extern class NSURLResponse extends NSObject implements NSObject implements NSCopying {
 	
 	public function initWithURL (URL:NSURL, MIMEType:String, expectedContentLength:Int, textEncodingName:String) :NSURLResponse;
 	public function URL () :NSURL;

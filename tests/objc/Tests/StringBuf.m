@@ -20,7 +20,7 @@
 	// Simulated optional arguments
 	if (len == nil) len = nil;
 	
-	self.b += [s substr:pos len:len];
+	self.b += ( (len == nil) ? [s substr:pos len:nil] : [s substr:pos len:len]);
 }
 - (NSMutableString*) toString{
 	return self.b;

@@ -12,8 +12,6 @@
 #import "Array.h"
 #import "Error.h"
 #import "Output.h"
-#import "Int32.h"
-#import "CppInt32__.h"
 #import "Input.h"
 #import "String.h"
 
@@ -35,9 +33,7 @@
 - (void) writeUInt16:(int)x;
 - (void) writeInt24:(int)x;
 - (void) writeUInt24:(int)x;
-- (void) writeInt31:(int)x;
-- (void) writeUInt30:(int)x;
-- (void) writeInt32:(CppInt32__*)x;
+- (void) writeInt32:(int)x;
 - (void) prepare:(int)nbytes;
 - (void) writeInput:(Input*)i bufsize:(int)bufsize;
 - (void) writeString:(NSMutableString*)s;

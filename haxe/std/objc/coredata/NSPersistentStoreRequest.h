@@ -15,7 +15,7 @@ enum {
 typedef NSUInteger NSPersistentStoreRequestType;
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-extern class NSPersistentStoreRequest extends NSObject, implements NSCopying> {
+extern class NSPersistentStoreRequest extends NSObject implements NSCopying> {
 	@private
 	NSArray *_affectedStores;
 }

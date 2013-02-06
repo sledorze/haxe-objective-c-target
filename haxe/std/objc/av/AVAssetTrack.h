@@ -23,7 +23,7 @@
 @class AVAssetTrackInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
-extern class AVAssetTrack extends NSObject, implements NSCopying, AVAsynchronousKeyValueLoading>
+extern class AVAssetTrack extends NSObject implements NSCopying, AVAsynchronousKeyValueLoading>
 {
 @private
 	AVAssetTrackInternal     *_track;

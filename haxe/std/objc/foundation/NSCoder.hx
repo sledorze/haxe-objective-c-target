@@ -69,7 +69,7 @@ extern class NSCoder extends NSObject
 /*	NSCoder.h
 	Copyright (c) 1993-2012, Apple Inc. All rights reserved.
 */
-
+		/*
 import objc.foundation.NSObject;
 
 @class NSString, NSData, NSSet;
@@ -152,30 +152,5 @@ extern class NSCoder (NSExtendedCoder)
 
 }
 
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
-FOUNDATION_EXPORT NSObject *NXReadNSObjectFromCoder(NSCoder *decoder) NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-/* Given an NSCoder, returns an object previously written with
-   NXWriteNSObject(). The returned object is autoreleased. */
-
-extern class NSCoder (NSTypedstreamCompatibility)
-
-- (void)encodeNXObject:(id)object NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-/* Writes old-style object onto the coder. No sharing is done across
-   separate -encodeNXObject:. Callers must have implemented an
-   -encodeWithCoder:, which parallels the -write: methods, on all of
-   their classes which may be touched by this operation. Object's
-   -replacementObjectForCoder: compatibility method will take care
-   of calling -startArchiving:. */
-    
-- (id)decodeNXObject NS_DEPRECATED(10_0, 10_5, 2_0, 2_0);
-/* Reads an object previously written with -encodeNXObject:. No
-   sharing is done across separate -decodeNXObject. Callers must
-   have implemented an -initWithCoder:, which parallels the -read:
-   methods, on all of their classes which may be touched by this
-   operation. Object's -awakeAfterUsingCoder: compatibility method
-   will take care of calling -awake and -finishUnarchiving. The
-   returned object is autoreleased. */
-
-}
-#endif
+*/
 

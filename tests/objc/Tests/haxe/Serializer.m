@@ -179,11 +179,11 @@
 							[self.buf.b appendString:(NSMutableString*)@"v"];
 							self.buf.b += [Std string:[d toString]];
 						}}break;
-					case Hash:{
+					case StringMap:{
 						{
 							[self.buf.b appendString:(NSMutableString*)@"b"];
 							
-							Hash *v1 = v;
+							StringMap *v1 = v;
 							{
 								id _it3 = [v1 keys];
 								while ( [_it3 hasNext] ) do {
@@ -196,11 +196,11 @@
 							}
 							[self.buf.b appendString:(NSMutableString*)@"h"];
 						}}break;
-					case IntHash:{
+					case IntMap:{
 						{
 							[self.buf.b appendString:(NSMutableString*)@"q"];
 							
-							IntHash *v1 = v;
+							IntMap *v1 = v;
 							{
 								id _it4 = [v1 keys];
 								while ( [_it4 hasNext] ) do {
@@ -208,6 +208,23 @@
 									{
 										[self.buf.b appendString:(NSMutableString*)@":"];
 										self.buf.b += [Std string:k];
+										[self serialize:[v1 get:k]];
+									};
+								}
+							}
+							[self.buf.b appendString:(NSMutableString*)@"h"];
+						}}break;
+					case ObjectMap:{
+						{
+							[self.buf.b appendString:(NSMutableString*)@"M"];
+							
+							ObjectMap *v1 = v;
+							{
+								id _it5 = [v1 keys];
+								while ( [_it5 hasNext] ) do {
+									id k = [_it5 next];
+									{
+										[self serialize:k];
 										[self serialize:[v1 get:k]];
 									};
 								}
@@ -320,7 +337,7 @@
 	self.cache = [[NSMutableArray alloc] init];
 	self.useCache = Serializer.USE_CACHE;
 	self.useEnumIndex = Serializer.USE_ENUM_INDEX;
-	self.shash = [[Hash alloc] init];
+	self.shash = [[StringMap alloc] init];
 	self.scount = 0;
 	return self;
 }

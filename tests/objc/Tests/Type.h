@@ -30,7 +30,6 @@ typedef enum{
 
 @interface Type : NSObject
 
-+ (id) __meta__:(id)val;
 + (Class*) getClass:(id)o;
 + (Enum*) getEnum:(EnumValue*)o;
 + (Class*) getSuperClass:(Class*)c;

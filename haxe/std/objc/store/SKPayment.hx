@@ -4,7 +4,7 @@ import objc.foundation.NSObject;
 import objc.foundation.NSData;
 
 
-extern class SKPayment extends NSObject, implements NSCopying/*, NSMutableCopying>*/ {
+extern class SKPayment extends NSObject implements NSCopying/*, NSMutableCopying>*/ {
 
 	public static function paymentWithProduct (product:SKProduct) :SKPayment;
 

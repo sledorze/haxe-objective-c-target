@@ -14,7 +14,6 @@
 
 @interface NSRegularExpression ( EReg )
 
-+ (id) __meta__:(id)val;
 @property (nonatomic) id r;
 @property (nonatomic, strong) NSMutableString *last;
 @property (nonatomic) BOOL global;

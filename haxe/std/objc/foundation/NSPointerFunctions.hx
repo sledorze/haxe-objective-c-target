@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSPointerFunctions, implements NSCopying
+extern class NSPointerFunctions implements NSCopying
 {
 
 	//Constants

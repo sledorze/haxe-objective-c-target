@@ -21,7 +21,7 @@ import objc.foundation.NSDictionary;
  *    information such as the country, state, city, and street address.
  */
 
-extern class CLPlacemark extends NSObject, implements NSCopying, implements NSCoding {
+extern class CLPlacemark extends NSObject implements NSCopying implements NSCoding {
 
 /*
  * initWithPlacemark:

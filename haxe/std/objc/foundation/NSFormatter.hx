@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSFormatter, implements NSCopying, implements NSCoding
+extern class NSFormatter implements NSCopying implements NSCoding
 {
 
 	//Constants

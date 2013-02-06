@@ -5,7 +5,7 @@ extern interface NSLocking {
 	public function unlock() :Void;
 }
 
-extern class NSLock extends NSObject, implements NSLocking {
+extern class NSLock extends NSObject implements NSLocking {
 
 	public function tryLock () :Bool;
 	public function lockBeforeDate (limit:Date) :Bool;
@@ -13,7 +13,7 @@ extern class NSLock extends NSObject, implements NSLocking {
 	public function setName (n:String) :Void;
 }
 
-extern class NSConditionLock extends NSObject, implements NSLocking {
+extern class NSConditionLock extends NSObject implements NSLocking {
 
 	public function initWithCondition (condition:Int) :NSConditionLock;
 	public function condition () :Int;
@@ -27,7 +27,7 @@ extern class NSConditionLock extends NSObject, implements NSLocking {
 	public function setName (n:String) :Void;
 }
 
-extern class NSRecursiveLock extends NSObject, implements NSLocking {
+extern class NSRecursiveLock extends NSObject implements NSLocking {
 
 	public function tryLock () :Bool;
 	public function lockBeforeDate (limit:Date) :Bool;
@@ -35,7 +35,7 @@ extern class NSRecursiveLock extends NSObject, implements NSLocking {
 	public function setName (n:String) :Void;
 }
 
-extern class NSCondition extends NSObject, implements NSLocking {
+extern class NSCondition extends NSObject implements NSLocking {
 	
 	public function wait () :Void;
 	public function waitUntilDate ( limit:Date) :Bool;

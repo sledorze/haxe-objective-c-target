@@ -1,7 +1,7 @@
 package objc.foundation;
 import objc.foundation.NSObject;
 
-extern class NSNotification extends NSObject, implements NSCopying, implements NSCoding {
+extern class NSNotification extends NSObject implements NSCopying implements NSCoding {
 
 	public function name () :String;
 	public function object () :NSNotification;

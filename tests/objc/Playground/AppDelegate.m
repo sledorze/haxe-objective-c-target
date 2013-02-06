@@ -137,16 +137,30 @@ char fooKey;
 	
 	self.window.backgroundColor = [UIColor grayColor];
 	
-	UIActivityIndicatorViewStyle stl = UIActivityIndicatorViewStyleWhiteLarge;
-	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:stl];
+	int x = 20;
+	int y = 25;
+	BOOL white = YES;
+	BOOL large = YES;
+	UIActivityIndicatorViewStyle style;
+	if (white && large) {
+		style = UIActivityIndicatorViewStyleWhiteLarge;
+	}
+	else if (white && !large) {
+		style = UIActivityIndicatorViewStyleWhite;
+	}
+	else {
+		style = UIActivityIndicatorViewStyleGray;
+	}
+	
+	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
 	CGRect rect = activityIndicator.frame;
-	rect.origin.x = 0 - rect.size.width/2;
-	rect.origin.y = 20 - rect.size.height/2;
+	rect.origin.x = x - rect.size.width/2;
+	rect.origin.y = y - rect.size.height/2;
 	activityIndicator.frame = rect;
+	[activityIndicator startAnimating];
 	
 	[[[UIApplication sharedApplication] keyWindow] addSubview:activityIndicator];
 	
-	[activityIndicator startAnimating];
 	
     return YES;
 }
@@ -176,6 +190,7 @@ void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_b
 
 - (void)login{
 	NSLog(@"login");
+	return;
 	UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 80, 320, 500)];
 	webView.delegate = self;
 	NSURL *url = [[NSURL alloc] initWithString:@"https://graph.facebook.com/oauth/authorize?client_id=456093077787894&redirect_uri=http://www.facebook.com/connect/login_success.html&display=touch&response_type=token"];
@@ -185,6 +200,11 @@ void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_b
 }
 -(void)logout {
 	NSLog(@"logout");
+	[activityIndicator stopAnimating];
+	[activityIndicator removeFromSuperview];
+	//[activityIndicator release];
+	activityIndicator = nil;
+	return;
 	NSString *str2 = [NSString stringWithFormat:@"https://graph.facebook.com/oauth/authorize_cancel?client_id=456093077787894&redirect_uri=&access_token=%@", token];
 	NSURL *url2 = [[NSURL alloc] initWithString:str2];
 	NSString *str = [NSString stringWithFormat:@"https://m.facebook.com/logout.php?next=&confirm=1&access_token=%@", token];

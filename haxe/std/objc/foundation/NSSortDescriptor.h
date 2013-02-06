@@ -8,7 +8,7 @@
 #import <Foundation/NSSet.h>
 
 
-extern class NSSortDescriptor extends NSObject, implements NSObject, NSCopying> {
+extern class NSSortDescriptor extends NSObject implements NSObject, NSCopying> {
 @private
     NSUInteger _sortDescriptorFlags;
     NSString *_key;

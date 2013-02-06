@@ -2,7 +2,7 @@ package objc.foundation;
 import objc.foundation.NSObject;
 
 
-extern class NSLocale extends NSObject, implements NSCopying, implements NSSecureCoding {
+extern class NSLocale extends NSObject implements NSCopying implements NSSecureCoding {
 
 	//Constants
 

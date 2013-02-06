@@ -499,10 +499,10 @@
 }
 - (void) testFrameworksImport{
 }
-- (int) getWidth{
+- (int) get_width{
 	return 0;
 }
-- (int) setWidth:(int)v{
+- (int) set_width:(int)v{
 	return 0;
 }
 - (int) add:(int)a b:(int)b{

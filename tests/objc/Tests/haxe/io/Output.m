@@ -154,8 +154,7 @@
 		[self writeByte:x >> 16];
 	}
 }
-- (void) writeInt31:(int)x{
-	if (x < -1073741824 || x >= 1073741824) @throw Error Overflow;;
+- (void) writeInt32:(int)x{
 	if (self.bigEndian) {
 		[self writeByte:x >>> 24];
 		[self writeByte:x >> 16 & 255];
@@ -167,35 +166,6 @@
 		[self writeByte:x >> 8 & 255];
 		[self writeByte:x >> 16 & 255];
 		[self writeByte:x >>> 24];
-	}
-}
-- (void) writeUInt30:(int)x{
-	if (x < 0 || x >= 1073741824) @throw Error Overflow;;
-	if (self.bigEndian) {
-		[self writeByte:x >>> 24];
-		[self writeByte:x >> 16 & 255];
-		[self writeByte:x >> 8 & 255];
-		[self writeByte:x & 255];
-	}
-	else {
-		[self writeByte:x & 255];
-		[self writeByte:x >> 8 & 255];
-		[self writeByte:x >> 16 & 255];
-		[self writeByte:x >>> 24];
-	}
-}
-- (void) writeInt32:(CppInt32__*)x{
-	if (self.bigEndian) {
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:24]]];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:16]] & 255];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:8]] & 255];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ _and:x b:[CppInt32__ ofInt:255]]]];
-	}
-	else {
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ _and:x b:[CppInt32__ ofInt:255]]]];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:8]] & 255];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:16]] & 255];
-		[self writeByte:[CppInt32__ toInt:[CppInt32__ ushr:x b:24]]];
 	}
 }
 - (void) prepare:(int)nbytes{

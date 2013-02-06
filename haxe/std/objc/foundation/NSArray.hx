@@ -13,7 +13,7 @@ extern enum NSBinarySearchingOptions
 	NSBinarySearchingInsertionIndex;
 }
 
-extern class NSArray extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding/*, implements NSFastEnumeration*/ {
+extern class NSArray extends NSObject implements NSCopying implements NSMutableCopying implements NSSecureCoding/* implements NSFastEnumeration*/ {
 
 	public function count () :Int;
 	public function objectAtIndex (index:Int) :Dynamic;

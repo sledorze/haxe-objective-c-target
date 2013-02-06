@@ -16,7 +16,7 @@ import objc.foundation.NSObject;
 
 // GKAchievementDescription is a full description of the achievement as defined before app submission in iTunes Connect.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-extern class GKAchievementDescription extends NSObject, implements NSObject> {
+extern class GKAchievementDescription extends NSObject implements NSObject> {
 }
 
 // Asynchronously load all achievement descriptions

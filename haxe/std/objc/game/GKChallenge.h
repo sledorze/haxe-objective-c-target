@@ -17,7 +17,7 @@ typedef NS_ENUM(NSInteger, GKChallengeState) {
 };
 
 NS_CLASS_AVAILABLE(NA, 6_0)
-extern class GKChallenge extends NSObject, implements NSObject>
+extern class GKChallenge extends NSObject implements NSObject>
 
 // Query challenges for the current game issued to the local player -- equivalent GKChallenge objects are not guaranteed to be pointer equivalent across calls, but equal GKChallenge objects will have equal hashes
 + (void)loadReceivedChallengesWithCompletionHandler:(void(^)(NSArray *challenges, NSError *error))completionHandler;

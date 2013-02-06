@@ -5,7 +5,7 @@ private typedef NSEnumerationOptions = Dynamic;
 private typedef NSSortOptions = Dynamic;
 private typedef NSComparator = Dynamic;
 
-extern class NSIndexSet extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSCoding
+extern class NSIndexSet extends NSObject implements NSCopying implements NSMutableCopying implements NSCoding
 {
 
 	//Constants

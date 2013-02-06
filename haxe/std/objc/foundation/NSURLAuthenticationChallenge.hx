@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSURLAuthenticationChallenge, implements NSCoding
+extern class NSURLAuthenticationChallenge implements NSCoding
 {
 
 	//Constants

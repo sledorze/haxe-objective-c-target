@@ -15,7 +15,6 @@
 
 @interface Resource : NSObject
 
-+ (id) __meta__:(id)val;
 + (NSMutableDictionary*) __plist__:(NSMutableDictionary*)val;
 + (NSMutableArray*) listNames;
 + (NSMutableString*) getString:(NSMutableString*)name;

@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSOrderedSet, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding, implements NSFastEnumeration
+extern class NSOrderedSet implements NSCopying implements NSMutableCopying implements NSSecureCoding implements NSFastEnumeration
 {
 
 	//Constants

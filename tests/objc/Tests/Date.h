@@ -15,7 +15,6 @@
 
 @interface NSDate ( Date )
 
-+ (id) __meta__:(id)val;
 + (NSDate*) now;
 + (NSDate*) fromTime:(float)t;
 + (NSDate*) fromString:(NSMutableString*)s;

@@ -244,7 +244,7 @@
 			case 98:{
 				{
 					
-					Hash *h = [[Hash alloc] init];
+					StringMap *h = [[StringMap alloc] init];
 					[self cache push:h];
 					
 					NSMutableString *buf = self.buf;
@@ -259,7 +259,7 @@
 			case 113:{
 				{
 					
-					IntHash *h = [[IntHash alloc] init];
+					IntMap *h = [[IntMap alloc] init];
 					[self cache push:h];
 					
 					NSMutableString *buf = self.buf;
@@ -269,7 +269,21 @@
 						[h set:i value:[self unserialize]];
 						c = [self buf characterAtIndex:self pos++];
 					}
-					if (c != 104) @throw (NSMutableString*)@"Invalid IntHash format";;
+					if (c != 104) @throw (NSMutableString*)@"Invalid IntMap format";;
+					return h;
+				}}break;
+			case 77:{
+				{
+					
+					ObjectMap *h = [[ObjectMap alloc] init:nil];
+					[self cache push:h];
+					
+					NSMutableString *buf = self.buf;
+					while ([self buf characterAtIndex:self pos] != 104) {
+						id s = [self unserialize];
+						[h set:s value:[self unserialize]];
+					}
+					self.pos++;
 					return h;
 				}}break;
 			case 118:{

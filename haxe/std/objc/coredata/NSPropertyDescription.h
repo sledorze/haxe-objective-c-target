@@ -13,7 +13,7 @@
 
 // Properties describe values within a managed object. There are different types of properties, each of them represented by a subclass which encapsulates the specific property behavior.
 NS_CLASS_AVAILABLE(10_4,3_0)
-extern class NSPropertyDescription extends NSObject, implements NSObject, NSCopying> {
+extern class NSPropertyDescription extends NSObject implements NSObject, NSCopying> {
 @private
 	NSString *_versionHashModifier;
 	id _underlyingProperty;

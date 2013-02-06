@@ -21,7 +21,7 @@
 @class AVMediaSelectionGroupInternal;
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-extern class AVMediaSelectionGroup extends NSObject, implements NSCopying> {
+extern class AVMediaSelectionGroup extends NSObject implements NSCopying> {
 	AVMediaSelectionGroupInternal	*_mediaSelectionGroup;
 }
 
@@ -131,7 +131,7 @@ extern class AVMediaSelectionGroup (AVMediaSelectionOptionFiltering)
 @class AVMediaSelectionOptionInternal;
 
 NS_CLASS_AVAILABLE(10_8, 5_0)
-extern class AVMediaSelectionOption extends NSObject, implements NSCopying> {
+extern class AVMediaSelectionOption extends NSObject implements NSCopying> {
 	AVMediaSelectionOptionInternal	*_mediaSelectionOption;
 }
 

@@ -3,7 +3,7 @@ package objc.location;
 import objc.foundation.NSObject;
 import objc.location.CLLocation;
 
-extern class CLRegion extends NSObject, implements NSCopying, implements NSCoding {
+extern class CLRegion extends NSObject implements NSCopying implements NSCoding {
 
 /*
  *  initCircularRegionWithCenter:radius:identifier:

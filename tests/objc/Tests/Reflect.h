@@ -13,7 +13,6 @@
 
 @interface Reflect : NSObject
 
-+ (id) __meta__:(id)val;
 + (BOOL) hasField:(id)o field:(NSMutableString*)field;
 + (id) field:(id)o field:(NSMutableString*)field;
 + (void) setField:(id)o field:(NSMutableString*)field value:(id)value;

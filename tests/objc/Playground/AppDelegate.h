@@ -13,6 +13,7 @@
 
 id self_c;
 	NSString *token;
+	UIActivityIndicatorView *activityIndicator;
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) int length;

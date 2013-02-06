@@ -12,7 +12,7 @@
 
 // GKScore represents a score in the leaderboards.
 NS_CLASS_AVAILABLE(10_8, 4_1)
-extern class GKScore extends NSObject, implements NSObject> {
+extern class GKScore extends NSObject implements NSObject> {
 }
 
 // Designated initializer. Will initialize the score with the local player and current date. 

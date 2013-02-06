@@ -2,7 +2,7 @@ package objc.foundation;
 import objc.foundation.NSObject;
 
 
-extern class NSCharacterSet extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSCoding
+extern class NSCharacterSet extends NSObject implements NSCopying implements NSMutableCopying implements NSCoding
 {
 
 	//Constants
@@ -46,9 +46,7 @@ extern class NSCharacterSet extends NSObject, implements NSCopying, implements N
 	public  function bitmapRepresentation():NSData;
 }
 
-/*	NSCharacterSet.h
-	Copyright (c) 1994-2012, Apple Inc. All rights reserved.
-*/
+/*	
 
 #import <CoreFoundation/CFCharacterSet.h>
 import objc.foundation.NSObject;
@@ -61,7 +59,7 @@ enum {
     NSOpenStepUnicodeReservedBase = 0xF400
 };
 
-extern class NSCharacterSet extends NSObject, implements NSCopying, NSMutableCopying, NSCoding>
+extern class NSCharacterSet extends NSObject implements NSCopying, NSMutableCopying, NSCoding>
 
 + (id)controlCharacterSet;
 + (id)whitespaceCharacterSet;
@@ -105,4 +103,4 @@ extern class NSMutableCharacterSet extends NSCharacterSet <NSCopying, NSMutableC
 - (void)invert;
 
 }
-
+*/

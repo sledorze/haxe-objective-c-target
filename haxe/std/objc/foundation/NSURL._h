@@ -326,7 +326,7 @@ extern class NSURL (NSURLPathUtilities)
 #if (TARGET_OS_MAC || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 /* NSFileSecurity encapsulates a file system object's security information. NSFileSecurity and CFFileSecurity are toll-free bridged.
  */
-extern class NSFileSecurity : NSObject, implements NSCopying, NSCoding>
+extern class NSFileSecurity : NSObject implements NSCopying, NSCoding>
 
 }
 #endif

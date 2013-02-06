@@ -9,7 +9,7 @@ import objc.foundation.NSRange;
 typedef NSCalendarUnit = Int;
 private typedef NSTimeInterval = Int;
 
-extern class NSCalendar extends NSObject/*, implements NSCopying, implements NSCoding*/ {
+extern class NSCalendar extends NSObject/* implements NSCopying implements NSCoding*/ {
 	
 	inline public static var kCFCalendarUnitEra = 0;
 	inline public static var kCFCalendarUnitYear = 1;
@@ -71,7 +71,7 @@ extern class NSCalendar extends NSObject/*, implements NSCopying, implements NSC
 
 typedef NSUndefinedDateComponent = Int;
 
-extern class NSDateComponents extends NSObject/*, implements NSCopying, implements NSCoding*/ {
+extern class NSDateComponents extends NSObject/* implements NSCopying implements NSCoding*/ {
 	
 	public function calendar () :NSCalendar;
 	public function timeZone () :NSTimeZone;

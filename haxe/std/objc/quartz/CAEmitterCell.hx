@@ -2,7 +2,7 @@ package objc.quartz;
 import objc.foundation.NSObject;
 import objc.foundation.NSDictionary;
 
-extern class CAEmitterCell extends NSObject, implements CAMediaTiming {
+extern class CAEmitterCell extends NSObject implements CAMediaTiming {
 
 	public static function emitterCell () :CAEmitterCell;
 

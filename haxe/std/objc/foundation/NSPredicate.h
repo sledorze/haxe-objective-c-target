@@ -9,7 +9,7 @@
 // Predicates wrap some combination of expressions and operators and when evaluated return a Bool.
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
-extern class NSPredicate extends NSObject, implements NSObject, NSCopying> {
+extern class NSPredicate extends NSObject implements NSObject, NSCopying> {
     void *_reserved;
 }
 

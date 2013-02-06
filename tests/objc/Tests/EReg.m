@@ -9,16 +9,6 @@
 
 @implementation NSRegularExpression ( EReg )
 
-+ (id) __meta__:(id)val {
-	static id _val;
-	if (val == nil) { if (_val == nil) _val = struct {
-obj:struct {
-:core_api:nil
-} structName
-} structName; }
-	else { if (_val != nil) _val = val; }
-	return _val;
-}
 // Getters/setters for property r
 static id r__;
 - (id) r { return r__; }
@@ -92,7 +82,10 @@ static BOOL global__;
 			if (p pos == s.length) break;
 			p pos += 1;
 		}
-		b.b += [s substr:pos len:p pos - pos];
+		{
+			int len1 = p pos - pos;
+			b.b += ( (len1 == nil) ? [s substr:pos len:nil] : [s substr:pos len:len1]);
+		}
 		if (a.length > 0) b.b += [Std string:[a objectAtIndex:0]];
 		int i = 1;
 		while (i < a.length) {
@@ -106,8 +99,14 @@ static BOOL global__;
 					b.b += [Std string:k];
 				}
 				else {
-					b.b += [s substr:p1 pos len:p1 len];
-					[b.b appendString:[k substr:@"1" len:k.length - @"1"]];
+					{
+						int pos1 = p1 pos; int len1 = p1 len;
+						b.b += ( (len1 == nil) ? [s substr:pos1 len:nil] : [s substr:pos1 len:len1]);
+					}
+					{
+						int len1 = k.length - 1;
+						b.b += ( (len1 == nil) ? [k substr:1 len:nil] : [k substr:1 len:len1]);
+					}
 				}
 			}
 			else if (c == nil) {
@@ -125,7 +124,7 @@ static BOOL global__;
 		len -= tot;
 		first = NO;
 	}while (self.global);
-	b.b += [s substr:pos len:len];
+	b.b += ( (len == nil) ? [s substr:pos len:nil] : [s substr:pos len:len]);
 	return b.b;
 }
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL)f{

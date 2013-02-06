@@ -4,7 +4,7 @@ private typedef NSComparisonResult = Int;
 private typedef NSStringCompareOptions = Int;
 private typedef NSStringEncoding = Int;
 
-extern class NSString extends NSObject, implements NSCopying, implements NSMutableCopying, implements NSSecureCoding {
+extern class NSString extends NSObject implements NSCopying implements NSMutableCopying implements NSSecureCoding {
 
 	inline public static var NSMaximumStringLength = 10000;//INT_MAX-1;
 	
@@ -74,8 +74,8 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	@:overload(function(aString:String, options:NSStringCompareOptions, range:NSRange) :NSRange {})
 	@:overload(function(aString:String, options:NSStringCompareOptions, range:NSRange, locale:NSLocale) :NSRange {})
 	public function rangeOfString (aString:NSString) :NSRange;
-	@:overload(function(aSet:NSCharacterSet, options:StringCompareOptions) :NSRange{})
-	@:overload(function(aSet:NSCharacterSet, options:StringCompareOptions, range:NSRange) :NSRange{})
+	//@:overload(function(aSet:NSCharacterSet, options:StringCompareOptions) :NSRange{})
+	//@:overload(function(aSet:NSCharacterSet, options:StringCompareOptions, range:NSRange) :NSRange{})
 	public function rangeOfCharacterFromSet (aSet:NSCharacterSet) :NSRange;
 	public function rangeOfComposedCharacterSequenceAtIndex (index:Int) :NSRange;
 	public function rangeOfComposedCharacterSequencesForRange (range:NSRange) :NSRange;

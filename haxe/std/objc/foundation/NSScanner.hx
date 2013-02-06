@@ -1,7 +1,7 @@
 package objc.foundation;
 
 
-extern class NSScanner, implements NSCopying
+extern class NSScanner implements NSCopying
 {
 
 	//Constants
@@ -47,7 +47,7 @@ extern class NSScanner, implements NSCopying
 
 @class NSString, NSCharacterSet, NSDictionary;
 
-extern class NSScanner extends NSObject, implements NSCopying>
+extern class NSScanner extends NSObject implements NSCopying>
 
 - (NSString *)string;
 - (NSUInteger)scanLocation;

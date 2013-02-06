@@ -62,7 +62,7 @@ enum {
 typedef NSUInteger NSManagedObjectContextConcurrencyType;
 
 NS_CLASS_AVAILABLE(10_4,3_0)
-extern class NSManagedObjectContext extends NSObject, implements NSObject, NSLocking> {
+extern class NSManagedObjectContext extends NSObject implements NSObject, NSLocking> {
 @private
   int32_t _spinLock;
   id _parentObjectStore;

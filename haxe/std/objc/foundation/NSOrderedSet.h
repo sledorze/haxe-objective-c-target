@@ -12,7 +12,7 @@
 /****************       Immutable Ordered Set   ****************/
 
 NS_CLASS_AVAILABLE(10_7, 5_0)
-extern class NSOrderedSet extends NSObject, implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
+extern class NSOrderedSet extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration>
 
 - (NSUInteger)count;
 - (id)objectAtIndex:(NSUInteger)idx;

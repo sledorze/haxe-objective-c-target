@@ -2,7 +2,7 @@ package objc.image;
 
 import objc.foundation.NSObject;
 
-extern class CIColor extends NSObject, implements NSCopying {
+extern class CIColor extends NSObject implements NSCopying {
 
 /* Create a new color object. */
 	public static function colorWithCGColor (c:CGColorRef) :CIColor;;

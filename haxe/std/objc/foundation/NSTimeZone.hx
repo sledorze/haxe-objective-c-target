@@ -2,7 +2,7 @@ package objc.foundation;
 import objc.foundation.NSObject;
 private typedef NSTimeInterval = Int;
 
-extern class NSTimeZone extends NSObject, implements NSCopying, implements NSSecureCoding {
+extern class NSTimeZone extends NSObject implements NSCopying implements NSSecureCoding {
 
 	//Constants
 

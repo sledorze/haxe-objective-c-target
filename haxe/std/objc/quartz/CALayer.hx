@@ -11,7 +11,7 @@ extern enum CAEdgeAntialiasingMask {
 	kCALayerTopEdge;//Maximum Y edge. 
 }
 
-extern class CALayer extends NSObject, implements NSCoding/*, implements CAMediaTiming*/ {
+extern class CALayer extends NSObject implements NSCoding/* implements CAMediaTiming*/ {
 
 	public static function layer () :CALayer;
 

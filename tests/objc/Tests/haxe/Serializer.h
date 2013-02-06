@@ -11,7 +11,7 @@
 #import "Serializer.h"
 #import "StringBuf.h"
 #import "Array.h"
-#import "Hash.h"
+#import "StringMap.h"
 #import "Std.h"
 #import "StringTools.h"
 #import "Reflect.h"
@@ -20,7 +20,8 @@
 #import "Class.h"
 #import "List.h"
 #import "Date.h"
-#import "IntHash.h"
+#import "IntMap.h"
+#import "ObjectMap.h"
 #import "Bytes.h"
 #import "Enum.h"
 
@@ -32,7 +33,7 @@
 + (NSMutableString*) run:(id)v;
 @property (nonatomic, strong) StringBuf *buf;
 @property (nonatomic, strong) NSMutableArray *cache;
-@property (nonatomic, strong) Hash *shash;
+@property (nonatomic, strong) StringMap *shash;
 @property (nonatomic) int scount;
 @property (nonatomic) BOOL useCache;
 @property (nonatomic) BOOL useEnumIndex;

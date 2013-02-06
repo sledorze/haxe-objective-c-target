@@ -27,7 +27,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileWrapperWritingOptions) {
 
 } NS_ENUM_AVAILABLE(10_6, 4_0);
 
-extern class NSFileWrapper extends NSObject, implements NSObject {
+extern class NSFileWrapper extends NSObject implements NSObject {
 
 
 - (id)initWithURL:(NSURL *)url options:(NSFileWrapperReadingOptions)options error:(NSError **)outError NS_AVAILABLE(10_6, 4_0);

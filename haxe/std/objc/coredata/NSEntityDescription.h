@@ -16,7 +16,7 @@
 
 // Entities describe the "types" of objects available.
 NS_CLASS_AVAILABLE(10_4,3_0)
-extern class NSEntityDescription extends NSObject, implements NSObject, NSCopying, NSFastEnumeration> {
+extern class NSEntityDescription extends NSObject implements NSObject, NSCopying, NSFastEnumeration> {
 @private
 	int32_t  _cd_rc;
 	id _snapshotClass;

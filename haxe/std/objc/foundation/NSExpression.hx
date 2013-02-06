@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, NSExpressionType) {
 };
 
 NS_CLASS_AVAILABLE(10_4, 3_0)
-extern class NSExpression : NSObject, implements NSObject, NSCopying> {
+extern class NSExpression : NSObject implements NSObject, NSCopying> {
     @private
     void *_reserved;
     NSExpressionType _expressionType;

@@ -29,7 +29,7 @@ enum {
 typedef NSUInteger NSHashTableOptions;
 
 NS_CLASS_AVAILABLE(10_5, 6_0)
-extern class NSHashTable : NSObject, implements NSCopying, NSCoding, NSFastEnumeration>
+extern class NSHashTable : NSObject implements NSCopying, NSCoding, NSFastEnumeration>
 
 - (id)initWithOptions:(NSPointerFunctionsOptions)options capacity:(NSUInteger)initialCapacity;
 - (id)initWithPointerFunctions:(NSPointerFunctions *)functions capacity:(NSUInteger)initialCapacity;

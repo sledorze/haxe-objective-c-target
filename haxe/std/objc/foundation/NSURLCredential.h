@@ -32,7 +32,7 @@ typedef NS_ENUM(NSUInteger, NSURLCredentialPersistence) {
     @discussion This class is an immutable object representing an authentication credential.  The actual type of the credential is determined by the constructor called in the categories declared below.
 */
 
-extern class NSURLCredential extends NSObject, implements NSObject, NSCopying>
+extern class NSURLCredential extends NSObject implements NSObject, NSCopying>
 {
     @private
     __strong NSURLCredentialInternal *_internal;

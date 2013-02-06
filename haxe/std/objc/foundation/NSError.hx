@@ -1,7 +1,7 @@
 package objc.foundation;
 import objc.foundation.NSObject;
 
-extern class NSError extends NSObject, implements NSCopying, implements NSSecureCoding {
+extern class NSError extends NSObject implements NSCopying implements NSSecureCoding {
 
 	public static function errorWithDomain( domain:String,  code:Int,  dict:NSDictionary):Dynamic;
 	

@@ -9,16 +9,6 @@
 
 @implementation Resource
 
-+ (id) __meta__:(id)val {
-	static id _val;
-	if (val == nil) { if (_val == nil) _val = struct {
-obj:struct {
-:core_api:nil
-} structName
-} structName; }
-	else { if (_val != nil) _val = val; }
-	return _val;
-}
 + (NSMutableDictionary*) __plist__:(NSMutableDictionary*)val {
 	static NSMutableDictionary *_val;
 	if (val == nil) { if (_val == nil) _val = [[NSMutableDictionary alloc] init]; }

@@ -150,37 +150,12 @@
 	int ch3 = [self readByte];
 	return ( (self.bigEndian) ? (ch3 | ch2 << 8) | ch1 << 16 : (ch1 | ch2 << 8) | ch3 << 16);
 }
-- (int) readInt31{
-	int ch1; int ch2; int ch3; int ch4;
-	if (self.bigEndian) {
-		ch4 = [self readByte];
-		ch3 = [self readByte];
-		ch2 = [self readByte];
-		ch1 = [self readByte];
-	}
-	else {
-		ch1 = [self readByte];
-		ch2 = [self readByte];
-		ch3 = [self readByte];
-		ch4 = [self readByte];
-	}
-	if ( (ch4 & 128) == 0 !=  ( (ch4 & 64) == 0)) @throw Error Overflow;;
-	return ((ch1 | ch2 << 8) | ch3 << 16) | ch4 << 24;
-}
-- (int) readUInt30{
+- (int) readInt32{
 	int ch1 = [self readByte];
 	int ch2 = [self readByte];
 	int ch3 = [self readByte];
 	int ch4 = [self readByte];
-	if ( (( (self.bigEndian) ? ch1 : ch4)) >= 64) @throw Error Overflow;;
 	return ( (self.bigEndian) ? ((ch4 | ch3 << 8) | ch2 << 16) | ch1 << 24 : ((ch1 | ch2 << 8) | ch3 << 16) | ch4 << 24);
-}
-- (CppInt32__*) readInt32{
-	int ch1 = [self readByte];
-	int ch2 = [self readByte];
-	int ch3 = [self readByte];
-	int ch4 = [self readByte];
-	return ( (self.bigEndian) ? [CppInt32__ make:ch1 << 8 | ch2 b:ch3 << 8 | ch4] : [CppInt32__ make:ch4 << 8 | ch3 b:ch2 << 8 | ch1]);
 }
 - (NSMutableString*) readString:(int)len{
 	
