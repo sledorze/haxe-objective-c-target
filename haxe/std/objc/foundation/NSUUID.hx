@@ -4,8 +4,8 @@ import objc.foundation.NSObject;
 
 /* Note: NSUUID is not toll-free bridged with CFUUID. Use UUID strings to convert between CFUUID and NSUUID, if needed. NSUUIDs are not guaranteed to be comparable by pointer value (as CFUUIDRef is); use isEqual: to compare two NSUUIDs. */
 
-#if (osx_10_8 || ios_6_0)
-
+@:require(osx10_8)
+@:require(ios6_0)
 extern class NSUUID extends NSObject, implements NSCopying, implements NSSecureCoding {
 
 /* Create a new autoreleased NSUUID with RFC 4122 version 4 random bytes */
@@ -18,10 +18,10 @@ extern class NSUUID extends NSObject, implements NSCopying, implements NSSecureC
 	public function initWithUUIDString (string:String) :NSUUID;
 
 /* Create an NSUUID with the given bytes */
-	//public function initWithUUIDBytes (bytes:Dynamic) :NSUUID;
+	public function initWithUUIDBytes (bytes:Dynamic) :NSUUID;
 
 /* Get the individual bytes of the receiver */
-	//public function getUUIDBytes (uuid:Dynamic) :Void;
+	public function getUUIDBytes (uuid:Dynamic) :Void;
 
 /* Return a string description of the UUID, such as "E621E1F8-C36C-495A-93FC-0C247A3E6E5F" */
 	public function UUIDString () :String;

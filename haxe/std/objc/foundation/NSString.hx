@@ -70,13 +70,13 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 
 /* These methods return length==0 if the target string is not found. So, to check for containment: ([str rangeOfString:@"target"].length > 0).  Note that the length of the range returned by these methods might be different than the length of the target string, due composed characters and such.
 */
+	@:overload(function(aString:String, options:NSStringCompareOptions) :NSRange {})
+	@:overload(function(aString:String, options:NSStringCompareOptions, range:NSRange) :NSRange {})
+	@:overload(function(aString:String, options:NSStringCompareOptions, range:NSRange, locale:NSLocale) :NSRange {})
 	public function rangeOfString (aString:NSString) :NSRange;
-	//public function rangeOfString(aString:NSString, options:NSStringCompareOptions) :NSRange;
-	//public function rangeOfString(aString:NSString, options:NSStringCompareOptions, range:NSRange) :NSRange;
-	//public function rangeOfString(aString:NSString, options:NSStringCompareOptions, range:NSRange, locale:NSLocale) :NSRange;
+	@:overload(function(aSet:NSCharacterSet, options:StringCompareOptions) :NSRange{})
+	@:overload(function(aSet:NSCharacterSet, options:StringCompareOptions, range:NSRange) :NSRange{})
 	public function rangeOfCharacterFromSet (aSet:NSCharacterSet) :NSRange;
-	//public function rangeOfCharacterFromSet:(NSCharacterSet *)aSet options:(NSStringCompareOptions)mask;
-	//public function rangeOfCharacterFromSet:(NSCharacterSet *)aSet options:(NSStringCompareOptions)mask range:(NSRange)searchRange;
 	public function rangeOfComposedCharacterSequenceAtIndex (index:Int) :NSRange;
 	public function rangeOfComposedCharacterSequencesForRange (range:NSRange) :NSRange;
 
@@ -123,7 +123,7 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function enumerateLinesUsingBlock (block:NSString->Bool) :Void;
 	#end
 
-	public function description () :NSString;
+	public function description () :String;
 	public function hash () :Int;
 
 	public function fastestEncoding () :NSStringEncoding;
@@ -133,7 +133,7 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	//public function dataUsingEncoding (encoding:NSStringEncoding) :NSData;
 
 	public function canBeConvertedToEncoding (encoding:NSStringEncoding) :Bool;
-	//public function getCString (buffer:String, maxLength:Int, encoding:NSStringEncoding) :String;
+	public function getCString (buffer:String, maxLength:Int, encoding:NSStringEncoding) :String;
 
 //- (Bool)getBytes:(void *)buffer maxLength:(NSUInteger)maxBufferCount usedLength:(NSUInteger *)usedBufferCount encoding:(NSStringEncoding)encoding options:(NSStringEncodingConversionOptions)options range:(NSRange)range remainingRange:(NSRangePointer)leftover;
  
@@ -146,7 +146,7 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function precomposedStringWithCompatibilityMapping () :String;
 
 	public function stringByFoldingWithOptions (options:NSStringCompareOptions, locale:NSLocale) :String;
-	//public function stringByReplacingOccurrencesOfString (target:NSString, withString:NSString, options:NSStringCompareOptions, range:NSRange) :String;
+	@:overload(function(target:String, withString:String, options:NSStringCompareOptions, range:NSRange) :String {})
 	public function stringByReplacingOccurrencesOfString (target:NSString, withString:String) :String;
 	public function stringByReplacingCharactersInRange (range:NSRange, withString:String) :String;
 
@@ -177,16 +177,10 @@ extern class NSString extends NSObject, implements NSCopying, implements NSMutab
 	public function initWithCString (nullTerminatedCString:String, encoding:NSStringEncoding) :NSString;
 	public static function stringWithCString (cString:String, encoding:NSStringEncoding) :NSString;
 
-	public function initWithContentsOfURL (url:NSURL, encoding:NSStringEncoding, error:NSError) :NSString;
-	public function initWithContentsOfFile (path:String, encoding:NSStringEncoding, error:NSError) :NSString;
-	public static function stringWithContentsOfURL (url:NSURL, encoding:NSStringEncoding, error:NSError) :NSString;
-	public static function stringWithContentsOfFile (path:String, encoding:NSStringEncoding, error:NSError) :NSString;
-
-/*	public function initWithContentsOfURL (url:NSURL, usedEncoding:NSStringEncoding, error:NSError) :NSString;
-	public function initWithContentsOfFile (path:NSString, usedEncoding:NSStringEncoding, error:NSError) :NSString;
+	public function initWithContentsOfURL (url:NSURL, usedEncoding:NSStringEncoding, error:NSError) :NSString;
+	public function initWithContentsOfFile (path:String, usedEncoding:NSStringEncoding, error:NSError) :NSString;
 	public static function stringWithContentsOfURL (url:NSURL, usedEncoding:NSStringEncoding, error:NSError) :NSString;
-	public static function stringWithContentsOfFile (path:NSString, usedEncoding:NSStringEncoding, error:NSError) :NSString;
-*/
+	public static function stringWithContentsOfFile (path:String, usedEncoding:NSStringEncoding, error:NSError) :NSString;
 
 //- (Bool)writeToURL (NSURL *)url atomically:(Bool)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;
 //- (Bool)writeToFile (NSString *)path atomically:(Bool)useAuxiliaryFile encoding:(NSStringEncoding)enc error:(NSError **)error;

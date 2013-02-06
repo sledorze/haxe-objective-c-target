@@ -25,14 +25,14 @@ extern class NSArray extends NSObject, implements NSCopying, implements NSMutabl
 	public function componentsJoinedByString (separator:String) :String;
 	public function containsObject (anObject:Dynamic) :Bool;
 	public function description():String;
+	@:overload(function(locale:Dynamic, indent:Int):String{})
 	public function descriptionWithLocale (locale:Dynamic) :String;
-	//public function descriptionWithLocale (locale:Dynamic, indent:Int) :String;
 	public function firstObjectCommonWithArray (otherArray:NSArray) :Dynamic;
 	//public function getObjects (id __unsafe_unretained [])objects range (NSRange)range;
+	@:overload(function(anObject:Dynamic, inRange:NSRange):Int{})
 	public function indexOfObject (anObject:Dynamic) :Int;
-	//public function indexOfObject (anObject:Dynamic, inRange:NSRange) :Int;
+	@:overload(function(anObject:Dynamic, inRange:NSRange):Int{})
 	public function indexOfObjectIdenticalTo (anObject:Dynamic) :Int;
-	//public function indexOfObjectIdenticalTo (anObject:Dynamic, inRange:NSRange) :Int;
 	public function isEqualToArray (otherArray:NSArray) :Bool;
 	public function lastObject() :Dynamic;
 	public function objectEnumerator() :NSEnumerator;
@@ -50,7 +50,7 @@ extern class NSArray extends NSObject, implements NSCopying, implements NSMutabl
 
 	public function objectsAtIndexes (indexes:NSIndexSet) :NSArray;
 
-	@:require("ios_6_0") @:require("osx_10_8") public function objectAtIndexedSubscript (idx:Int) :Dynamic;
+	@:require(ios6_0) @:require(osx10_8) public function objectAtIndexedSubscript (idx:Int) :Dynamic;
 
 #if NS_BLOCKS_AVAILABLE
 	public function enumerateObjectsUsingBlock (void (^)(id obj, Int idx, Bool *stop))block  :NSArray;
@@ -124,7 +124,7 @@ extern class NSMutableArray extends NSArray {
 	public function removeObjectsAtIndexes (indexes:NSIndexSet) :Void;
 	public function replaceObjectsAtIndexes (indexes:NSIndexSet, withObjects:NSArray) :Void;
 
-	@:require("ios_6_0") @:require("osx_10_8") public function setObject (obj:Dynamic, atIndexedSubscript:Int) :Void;
+	@:require(ios6_0) @:require(osx10_8) public function setObject (obj:Dynamic, atIndexedSubscript:Int) :Void;
 
 #if NS_BLOCKS_AVAILABLE
 	public function sortUsingComparator (NSComparator)cmptr NS_AVAILABLE(10_6, 4_0);

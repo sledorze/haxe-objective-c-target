@@ -1,20 +1,23 @@
 (*
- *  Haxe Compiler
- *  Copyright (c)2005-2008 Nicolas Cannasse
+ * Copyright (C)2005-2013 Haxe Foundation
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  *)
 
 open Ast
@@ -453,7 +456,7 @@ let build_metadata com t =
 			(a.a_pos, ["",a.a_meta],[],[])
 	) in
 	let filter l =
-		let l = List.map (fun (n,ml) -> n, ExtList.List.filter_map (fun (m,el,p) -> match m with Meta.Custom s -> Some (s,el,p) | _ -> None) ml) l in
+		let l = List.map (fun (n,ml) -> n, ExtList.List.filter_map (fun (m,el,p) -> match m with Meta.Custom s when String.length s > 0 && s.[0] <> ':' -> Some (s,el,p) | _ -> None) ml) l in
 		List.filter (fun (_,ml) -> ml <> []) l
 	in
 	let meta, fields, statics = filter meta, filter fields, filter statics in
@@ -553,10 +556,6 @@ let on_inherit ctx c p h =
 	| HExtends { tpackage = ["mt"]; tname = "AsyncProxy"; tparams = [TPType(CTPath t)] } ->
 		extend_remoting ctx c t p true false;
 		false
-	| HImplements { tpackage = ["haxe";"rtti"]; tname = "Generic"; tparams = [] } ->
-		if Common.defined ctx.com Define.Haxe3 then error ("Implementing haxe.rtti.Generic is deprecated in haxe 3, please use @:generic instead") c.cl_pos;
-		if c.cl_types <> [] then c.cl_kind <- KGeneric;
-		false
 	| HExtends { tpackage = ["haxe";"xml"]; tname = "Proxy"; tparams = [TPExpr(EConst (String file),p);TPType t] } ->
 		extend_xml_proxy ctx c t file p;
 		true
@@ -634,22 +633,8 @@ let apply_native_paths ctx t =
 
 (* Adds the __rtti field if required *)
 let add_rtti ctx t =
-	let has_rtti c =
-		let rec has_rtti_new c =
-			Meta.has Meta.RttiInfos c.cl_meta || match c.cl_super with None -> false | Some (csup,_) -> has_rtti_new csup
-		in
-		let rec has_rtti_old c =
-			List.exists (function (t,pl) ->
-				match t, pl with
-				| { cl_path = ["haxe";"rtti"],"Infos" },[] -> true
-				| _ -> false
-			) c.cl_implements || (match c.cl_super with None -> false | Some (c,_) -> has_rtti_old c)
-		in
-		if Common.defined ctx.com Define.Haxe3 then begin
-			if has_rtti_old c then error ("Implementing haxe.rtti.Infos is deprecated in haxe 3, please use @:rttiInfos instead") c.cl_pos;
-			has_rtti_new c
-		end else
-			has_rtti_old c || has_rtti_new c
+	let rec has_rtti c =
+		Meta.has Meta.Rtti c.cl_meta || match c.cl_super with None -> false | Some (csup,_) -> has_rtti csup
 	in
 	match t with
 	| TClassDecl c when has_rtti c && not (PMap.mem "__rtti" c.cl_statics) ->
@@ -1318,8 +1303,18 @@ let check_local_vars_init e =
 (* -------------------------------------------------------------------------- *)
 (* ABSTRACT CASTS *)
 
+let find_abstract_to ab pl b = List.find (Type.unify_to_field ab pl b) ab.a_to
+
+let get_underlying_type a pl =
+	if Meta.has Meta.MultiType a.a_meta then begin
+		let m = mk_mono() in
+		let _ = find_abstract_to a pl m in
+		follow m
+	end else
+		apply_params a.a_types pl a.a_this
+
 let handle_abstract_casts ctx e =
-	let make_cast_call c cf a pl args t p =
+	let make_static_call c cf a pl args t p =
 		let ta = TAnon { a_fields = c.cl_statics; a_status = ref (Statics c) } in
 		let ethis = mk (TTypeExpr (TClassDecl c)) ta p in
 		let def () =
@@ -1330,14 +1325,13 @@ let handle_abstract_casts ctx e =
 		| Some { eexpr = TFunction fd } when cf.cf_kind = Method MethInline ->
 			let config = if Meta.has Meta.Impl cf.cf_meta then (Some (a.a_types <> [] || cf.cf_params <> [], fun t -> apply_params a.a_types pl (monomorphs cf.cf_params t))) else None in
 			(match Optimizer.type_inline ctx cf fd ethis args t config p true with
-				| Some e -> e
+				| Some e -> (match e.eexpr with TCast(e,None) -> e | _ -> e)
 				| None ->
 					def())
 		| _ ->
 			def())
 	in
 	let find_from ab pl a b = List.find (Type.unify_from_field ab pl a b) ab.a_from in
-	let find_to ab pl a b = List.find (Type.unify_to_field ab pl a b) ab.a_to in
 	let rec check_cast tleft eright p =
 		let eright = loop eright in
 		try (match follow eright.etype,follow tleft with
@@ -1346,18 +1340,18 @@ let handle_abstract_casts ctx e =
 					eright
 				else begin
 					let c,cfo,a,pl = try
-						c1,snd (find_to a1 pl1 t1 t2),a1,pl1
+						c1,snd (find_abstract_to a1 pl1 t2),a1,pl1
 					with Not_found ->
 						c2,snd (find_from a2 pl2 t1 t2),a2,pl2
 					in
-					match cfo with None -> eright | Some cf -> make_cast_call c cf a pl [eright] tleft p
+					match cfo with None -> eright | Some cf -> make_static_call c cf a pl [eright] tleft p
 				end
 			| TDynamic _,_ | _,TDynamic _ ->
 				eright
-			| TAbstract({a_impl = Some c} as a,pl) as t1,t2 ->
-				begin match snd (find_to a pl t1 t2) with None -> eright | Some cf -> make_cast_call c cf a pl [eright] tleft p end
+			| TAbstract({a_impl = Some c} as a,pl),t2 ->
+				begin match snd (find_abstract_to a pl t2) with None -> eright | Some cf -> make_static_call c cf a pl [eright] tleft p end
 			| t1,(TAbstract({a_impl = Some c} as a,pl) as t2) ->
-				begin match snd (find_from a pl t1 t2) with None -> eright | Some cf -> make_cast_call c cf a pl [eright] tleft p end
+				begin match snd (find_from a pl t1 t2) with None -> eright | Some cf -> make_static_call c cf a pl [eright] tleft p end
 			| _ ->
 				eright)
 		with Not_found ->
@@ -1370,7 +1364,7 @@ let handle_abstract_casts ctx e =
 			let vl = List.map (fun (v,eo) -> match eo with
 				| None -> (v,eo)
 				| Some e ->
-					let is_generic_abstract = match e.etype with TAbstract ({a_impl = Some _} as a,_) -> Meta.has Meta.Generic a.a_meta | _ -> false in
+					let is_generic_abstract = match e.etype with TAbstract ({a_impl = Some _} as a,_) -> Meta.has Meta.MultiType a.a_meta | _ -> false in
 					let e = check_cast v.v_type e e.epos in
 					(* we can rewrite this for better field inference *)
 					if is_generic_abstract then v.v_type <- e.etype;
@@ -1382,39 +1376,60 @@ let handle_abstract_casts ctx e =
 			let at = apply_params a.a_types pl a.a_this in
 			let m = mk_mono() in
 			let _,cfo =
-				try find_to a pl at m
-				with Not_found -> error ("Could not determine type for " ^ (s_type (print_context()) at)) e.epos
+				try find_abstract_to a pl m
+				with Not_found ->
+					let st = s_type (print_context()) at in
+					if has_mono at then
+						error ("Type parameters of multi type abstracts must be known (for " ^ st ^ ")") e.epos
+					else
+						error ("Abstract " ^ (s_type_path a.a_path) ^ " has no @:to function that accepts " ^ st) e.epos;
 			in
 			begin match cfo with
 			| None -> assert false
 			| Some cf ->
 				let m = follow m in
-				let e = make_cast_call c cf a pl ((mk (TConst TNull) at e.epos) :: el) m e.epos in
+				let e = make_static_call c cf a pl ((mk (TConst TNull) at e.epos) :: el) m e.epos in
 				{e with etype = m}
 			end
-		| TField({etype = TAbstract({a_impl = Some _} as a,pl)} as e1,fa) when Meta.has Meta.Generic a.a_meta ->
-			let at = apply_params a.a_types pl a.a_this in
-			let m = mk_mono() in
-			begin try
-				let _ = find_to a pl at m in
-				(* we could inline this if we had access to Typer.make_call *)
-				{e with eexpr = TField({e1 with etype = m},quick_field m (field_name fa))}
-			with Not_found ->
-				e
-			end
 		| TCall(e1, el) ->
-			begin match follow e1.etype with
-				| TFun(args,_) ->
-					let rec loop2 el tl = match el,tl with
-						| [],_ -> []
-						| e :: el, [] -> (loop e) :: loop2 el []
-						| e :: el, (_,_,t) :: tl ->
-							(check_cast t e e.epos) :: loop2 el tl
-					in
-					let el = loop2 el args in
-					{ e with eexpr = TCall(loop e1,el)}
-				| _ ->
-					Type.map_expr loop e
+			let e1 = loop e1 in
+			begin try
+				begin match e1.eexpr with
+					| TField(e2,fa) ->
+						begin match follow e2.etype with
+							| TAbstract(a,pl) when Meta.has Meta.MultiType a.a_meta ->
+								let m = get_underlying_type a pl in
+								let fname = field_name fa in
+								begin try
+									let ef = mk (TField({e2 with etype = m},quick_field m fname)) e2.etype e2.epos in
+									make_call ctx ef el e.etype e.epos
+								with Not_found ->
+									(* quick_field raises Not_found if m is an abstract, we have to replicate the 'using' call here *)
+									match follow m with
+									| TAbstract({a_impl = Some c} as a,pl) ->
+										let cf = PMap.find fname c.cl_statics in
+										make_static_call c cf a pl (e2 :: el) e.etype e.epos
+									| _ -> raise Not_found
+								end
+							| _ -> raise Not_found
+						end
+					| _ ->
+						raise Not_found
+				end
+			with Not_found ->
+				begin match follow e1.etype with
+					| TFun(args,_) ->
+						let rec loop2 el tl = match el,tl with
+							| [],_ -> []
+							| e :: el, [] -> (loop e) :: loop2 el []
+							| e :: el, (_,_,t) :: tl ->
+								(check_cast t e e.epos) :: loop2 el tl
+						in
+						let el = loop2 el args in
+						{ e with eexpr = TCall(loop e1,el)}
+					| _ ->
+						Type.map_expr loop e
+				end
 			end
 		| TArrayDecl el ->
 			begin match e.etype with

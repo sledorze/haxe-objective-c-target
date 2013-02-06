@@ -136,6 +136,18 @@ char fooKey;
     NSLog(@"associatedObject: %@", associatedObject);
 	
 	self.window.backgroundColor = [UIColor grayColor];
+	
+	UIActivityIndicatorViewStyle stl = UIActivityIndicatorViewStyleWhiteLarge;
+	UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:stl];
+	CGRect rect = activityIndicator.frame;
+	rect.origin.x = 0 - rect.size.width/2;
+	rect.origin.y = 20 - rect.size.height/2;
+	activityIndicator.frame = rect;
+	
+	[[[UIApplication sharedApplication] keyWindow] addSubview:activityIndicator];
+	
+	[activityIndicator startAnimating];
+	
     return YES;
 }
 

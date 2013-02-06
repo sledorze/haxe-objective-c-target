@@ -16,10 +16,7 @@ extern class NSDate extends NSObject, implements NSCopying, implements NSSecureC
 	public static function dateWithTimeIntervalSinceNow( secs:NSTimeInterval):NSDate;
 	public static function distantFuture():NSDate;
 	public static function distantPast():NSDate;
-
-	//Properties
-
-	//Methods
+	
 	//public  function timeIntervalSinceReferenceDate():NSTimeInterval;
 	public  function timeIntervalSinceNow():NSTimeInterval;
 	public  function timeIntervalSince1970():NSTimeInterval;

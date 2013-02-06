@@ -34,7 +34,7 @@ extern class NSBundle extends NSObject {
 	public function sharedSupportURL () :NSURL;
 	public function builtInPlugInsURL () :NSURL;
 
-	@:require("osx_10_7") public function appStoreReceiptURL () :NSURL;
+	@:require(osx10_7) public function appStoreReceiptURL () :NSURL;
 
 	public function bundlePath () :String;
 	public function resourcePath () :String;
@@ -51,20 +51,20 @@ extern class NSBundle extends NSObject {
 	public static function URLForResource (name:String, withExtension:String, subdirectory:String, inBundleWithURL:NSURL) :NSURL;
 	public static function URLsForResourcesWithExtension (ext:String, subdirectory:String, inBundleWithURL:NSURL) :Array<NSURL>;
 
+	@:overload(function(name:String, withExtension:String, subdirectory:String):NSURL{})
+	@:overload(function(name:String, withExtension:String, subdirectory:String, localization:String):NSURL{})
 	public function URLForResource (name:String, withExtension:String) :NSURL;
-	//public function URLForResource (name:String, withExtension:String, subdirectory:String) :NSURL;
-	//public function URLForResource (name:String, withExtension:String, subdirectory:String, localization:String) :NSURL;
 
+	@:overload(function(ext:String, subdirectory:String, localization:String):Array<NSURL>{})
 	public function URLsForResourcesWithExtension (ext:String, subdirectory:String) :Array<NSURL>;
-	//public function URLsForResourcesWithExtension (ext:String, subdirectory:String, localization:String) :Array<NSURL>;
-
+	
 	public static function pathForResource (name:String, ofType:String, inDirectory:String) :String;
 	public static function pathsForResourcesOfType (ext:String, inDirectory:String) :Array<String>;
 
+	@:overload(function(name:String, ofType:String, inDirectory:String):String{})
+	@:overload(function(name:String, ofType:String, inDirectory:String, forLocalization:String):String{})
 	public function pathForResource (name:String, ofType:String) :String;
-	//public function pathForResource (name:String, ofType:String, inDirectory:String) :String;
-	//public function pathForResource (name:String, ofType:String, inDirectory:String, forLocalization:String) :String;
-
+	
 	public function pathsForResourcesOfType (ext:String, inDirectory:String) :Array<String>;
 	public function pathsForResourcesOfType (ext:String, inDirectory:String, forLocalization:String) :Array<String>;
 
@@ -84,18 +84,18 @@ extern class NSBundle extends NSObject {
 	public function preferredLocalizations () :Array<String>;
 	public function developmentLocalization () :String;
 
+	@:overload(function(localizationsArray:Array<String>, forPreferences:Array<String>):Array<String>{})
 	public static function preferredLocalizationsFromArray (localizationsArray:Array<String>) :Array<String>;
-	//public static function preferredLocalizationsFromArray (localizationsArray:Array<String>, forPreferences:Array<String>) :Array<String>;
+	
+	public function executableArchitectures () :Array<Int>;
+}
 
 /* Method for determining executable architectures. */
-/*enum {
-    NSBundleExecutableArchitectureI386      = 0x00000007,
-    NSBundleExecutableArchitecturePPC       = 0x00000012,
-    NSBundleExecutableArchitectureX86_64    = 0x01000007,
-    NSBundleExecutableArchitecturePPC64     = 0x01000012
-};*/
-
-	public function executableArchitectures () :Array<Int>;
+extern enum NSBundleExecutableArchitecture {
+	NSBundleExecutableArchitectureI386;
+	NSBundleExecutableArchitecturePPC;
+	NSBundleExecutableArchitectureX86_64;
+	NSBundleExecutableArchitecturePPC64;
 }
 
 /*#define NSLocalizedString(key, comment) \

@@ -16,7 +16,7 @@ external interface CLLocationManagerDelegate {
  *    This method is deprecated. If locationManager:didUpdateLocations: is
  *    implemented, this method will not be called.
  */
-	@:require(ios_6_0) public function locationManager (manager:CLLocationManager, didUpdateToLocation:CLLocation, fromLocation:CLLocation) :Void;
+	@:require(ios6_0) public function locationManager (manager:CLLocationManager, didUpdateToLocation:CLLocation, fromLocation:CLLocation) :Void;
 
 /*
  *  locationManager:didUpdateLocations:
@@ -28,7 +28,7 @@ external interface CLLocationManagerDelegate {
  *
  *    locations is an array of CLLocation objects in chronological order.
  */
-	@:require(ios_6_0) public function locationManager (manager:CLLocationManager, didUpdateLocations:Array<CLLocation>) :Void;
+	@:require(ios6_0) public function locationManager (manager:CLLocationManager, didUpdateLocations:Array<CLLocation>) :Void;
 
 /*
  *  locationManager:didUpdateHeading:
@@ -87,7 +87,7 @@ external interface CLLocationManagerDelegate {
  *  Discussion:
  *    Invoked when the authorization status changes for this application.
  */
-	@:require(ios_4_2) public function locationManager (manager:CLLocationManager, didChangeAuthorizationStatus:CLAuthorizationStatus) :Void;
+	@:require(ios4_2) public function locationManager (manager:CLLocationManager, didChangeAuthorizationStatus:CLAuthorizationStatus) :Void;
 
 /*
  *  locationManager:didStartMonitoringForRegion:
@@ -95,13 +95,13 @@ external interface CLLocationManagerDelegate {
  *  Discussion:
  *    Invoked when a monitoring for a region started successfully.
  */
-	@:require(ios_5_0) public function locationManager (manager:CLLocationManager, didStartMonitoringForRegion:CLRegion) :Void;
+	@:require(ios5_0) public function locationManager (manager:CLLocationManager, didStartMonitoringForRegion:CLRegion) :Void;
 
 /*
  *  Discussion:
  *    Invoked when location updates are automatically paused.
  */
-	@:require(ios_6_0) public function locationManagerDidPauseLocationUpdates (manager:CLLocationManager) :Void;
+	@:require(ios6_0) public function locationManagerDidPauseLocationUpdates (manager:CLLocationManager) :Void;
 
 /*
  *  Discussion:
@@ -110,7 +110,7 @@ external interface CLLocationManagerDelegate {
  *    In the event that your application is terminated while suspended, you will
  *	  not receive this notification.
  */
-	@:require(ios_6_0) public function locationManagerDidResumeLocationUpdates (manager:CLLocationManager) :Void;
+	@:require(ios6_0) public function locationManagerDidResumeLocationUpdates (manager:CLLocationManager) :Void;
 
 /*
  *  locationManager:didFinishDeferredUpdatesWithError:
@@ -123,6 +123,6 @@ external interface CLLocationManagerDelegate {
  *    An error will be returned if deferred updates end before the specified
  *    criteria are met (see CLError).
  */
-	@:require(ios_6_0) public function locationManager (manager:CLLocationManager, didFinishDeferredUpdatesWithError:NSError) :Void;
+	@:require(ios6_0) public function locationManager (manager:CLLocationManager, didFinishDeferredUpdatesWithError:NSError) :Void;
 
 }

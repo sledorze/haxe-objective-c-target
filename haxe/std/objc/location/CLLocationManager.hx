@@ -130,7 +130,7 @@ extern class CLLocationManager extends NSObject {
  *		the determination of when location updates may be automatically paused.
  *		By default, CLActivityTypeOther is used.
  */
-	@:require(ios_6_0) public var activityType :CLActivityType;
+	@:require(ios6_0) public var activityType :CLActivityType;
 
 /*
  *  distanceFilter
@@ -162,7 +162,7 @@ extern class CLLocationManager extends NSObject {
  *		Specifies that location updates may automatically be paused when possible.
  *		By default, this is YES for applications linked against iOS 6.0 or later.
  */
-	@:require(ios_6_0) public var pausesLocationUpdatesAutomatically :Bool;
+	@:require(ios6_0) public var pausesLocationUpdatesAutomatically :Bool;
 
 /*
  *  location
@@ -319,7 +319,7 @@ extern class CLLocationManager extends NSObject {
  *
  *      This is done asynchronously and may not be immediately reflected in monitoredRegions.
  */
-	@:require(ios_5_0) public function startMonitoringForRegion (region:CLRegion) :Void;
+	@:require(ios5_0) public function startMonitoringForRegion (region:CLRegion) :Void;
 
 /*
  *	allowDeferredLocationUpdatesUntilTraveled:timeout:
@@ -355,7 +355,7 @@ extern class CLLocationManager extends NSObject {
  *		will be returned if the manager will not defer updates and the exit
  *		criteria have not been met.
  */
-	@:require(ios_6_0) public function allowDeferredLocationUpdatesUntilTraveled (distance:CLLocationDistance, timeout:Float) :Void;
+	@:require(ios6_0) public function allowDeferredLocationUpdatesUntilTraveled (distance:CLLocationDistance, timeout:Float) :Void;
 
 /*
  *	disallowDeferredLocationUpdates
@@ -364,7 +364,7 @@ extern class CLLocationManager extends NSObject {
  *		Disallow deferred location updates if previously enabled. Any outstanding
  *		updates will be sent and regular location updates will resume.
  */
-	@:require(ios_6_0) public function disallowDeferredLocationUpdates () :Void;
+	@:require(ios6_0) public function disallowDeferredLocationUpdates () :Void;
 
 /*
  *  deferredLocationUpdatesAvailable
@@ -372,6 +372,6 @@ extern class CLLocationManager extends NSObject {
  *  Discussion:
  *      Returns YES if the device supports deferred location updates, otherwise NO.
  */
-	@:require(ios_6_0) public static function deferredLocationUpdatesAvailable () :Bool;
+	@:require(ios6_0) public static function deferredLocationUpdatesAvailable () :Bool;
 
 }

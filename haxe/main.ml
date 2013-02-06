@@ -1,21 +1,25 @@
 (*
- *  Haxe Compiler
- *  Copyright (c)2005-2008 Nicolas Cannasse
+ * Copyright (C)2005-2013 Haxe Foundation
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  *)
+
 open Printf
 open Genswf
 open Common
@@ -39,7 +43,7 @@ type cache = {
 exception Abort
 exception Completion of string
 
-let version = 211
+let version = 300
 
 let measure_times = ref false
 let prompt = ref false
@@ -76,7 +80,16 @@ let deprecated = [
 	"Class not found : IntIter","IntIter was renamed to IntIterator";
 	"EReg has no field customReplace","EReg.customReplace was renamed to EReg.map";
 	"#StringTools has no field isEOF","StringTools.isEOF was renamed to StringTools.isEof";
-	"Class not found : haxe.BaseCode","haxe.BaseCode was moved to haxe.crypto.BaseCode"
+	"Class not found : haxe.BaseCode","haxe.BaseCode was moved to haxe.crypto.BaseCode";
+	"Class not found : Hash","Hash was moved to haxe.ds.StringMap";
+	"Class not found : IntHash","IntHash was moved to haxe.ds.IntMap";
+	"Class not found : haxe.FastList","haxe.FastList was moved to haxe.ds.GenericStack";
+	"#Std has no field format","Std.format has been removed, use single quote 'string ${escape}' syntax instead";
+	"Class not found : Int32","Int32 has been removed, use Int instead";
+	"Identifier 'EType' is not part of enum haxe.macro.ExprDef","EType has been removed, use EField instead";
+	"Identifier 'CType' is not part of enum haxe.macro.Constant","CType has been removed, use CIdent instead";
+	"Class not found : haxe.rtti.Infos","Use @:rtti instead of implementing haxe.rtti.Infos";
+	"Class not found : haxe.rtti.Generic","Use @:generic instead of implementing haxe.Generic";
 ]
 
 let error ctx msg p =
@@ -711,7 +724,7 @@ and do_connect host port args =
 
 and init ctx =
 	let usage = Printf.sprintf
-		"Haxe Compiler %d.%.2d - (c)2005-2012 Haxe Foundation\n Usage : haxe%s -main <class> [-swf|-js|-neko|-php|-cpp|-as3] <output> [options]\n Options :"
+		"Haxe Compiler %d.%.2d - (C)2005-2013 Haxe Foundation\n Usage : haxe%s -main <class> [-swf|-js|-neko|-php|-cpp|-as3] <output> [options]\n Options :"
 		(version / 100) (version mod 100) (if Sys.os_type = "Win32" then ".exe" else "")
 	in
 	let com = ctx.com in
@@ -722,6 +735,7 @@ try
 	let cmds = ref [] in
 	let config_macros = ref [] in
 	let cp_libs = ref [] in
+	let added_libs = Hashtbl.create 0 in
 	let gen_as3 = ref false in
 	let no_output = ref false in
 	let did_something = ref false in
@@ -734,8 +748,8 @@ try
 			Common.raw_define com ("haxe_" ^ string_of_int v);
 		done;
 	end else begin
-		Common.define com Define.Haxe3;
 		Common.define_value com Define.HaxeVer (string_of_float (float_of_int version /. 100.));
+		Common.raw_define com "haxe3";
 	end;
 	Common.define_value com Define.Dce "std";
 	com.warning <- (fun msg p -> message ctx ("Warning : " ^ msg) p);
@@ -771,11 +785,19 @@ try
 		if (pf = Flash8 || pf = Flash) && file_extension file = "swc" then Common.define com Define.Swc;
 	in
 	let define f = Arg.Unit (fun () -> Common.define com f) in
-	let extra_args = ref [] in
+	let process_ref = ref (fun args -> ()) in
+	let process_libs() =
+		let libs = List.filter (fun l -> not (Hashtbl.mem added_libs l)) (List.rev !cp_libs) in
+		cp_libs := [];
+		List.iter (fun l -> Hashtbl.add added_libs l ()) libs;
+		(* immediately process the arguments to insert them at the place -lib was defined *)
+		match add_libs com libs with
+		| [] -> ()
+		| args -> (!process_ref) args
+	in
 	let basic_args_spec = [
 		("-cp",Arg.String (fun path ->
-			extra_args := !extra_args @ (add_libs com (!cp_libs));
-			cp_libs := [];
+			process_libs();
 			com.class_path <- normalize_path path :: com.class_path
 		),"<path> : add a directory to find source files");
 		("-js",Arg.String (set_platform Js),"<file> : compile code to JavaScript file");
@@ -854,6 +876,7 @@ try
 				_ -> raise (Arg.Bad "Invalid SWF header format, expected width:height:fps[:color]")
 		),"<header> : define SWF header (width:height:fps:color)");
 		("-swf-lib",Arg.String (fun file ->
+			process_libs(); (* linked swf order matters, and lib might reference swf as well *)
 			Genswf.add_swf_lib com file false
 		),"<file> : add the SWF library to the compiled SWF");
 		("-swf-lib-extern",Arg.String (fun file ->
@@ -1016,18 +1039,9 @@ try
 		let current = ref 0 in
 		Arg.parse_argv ~current (Array.of_list ("" :: List.map expand_env args)) (basic_args_spec @ adv_args_spec) args_callback usage
 	in
+	process_ref := process;
 	process ctx.com.args;
-	let rec loop() =
-		extra_args := !extra_args @ add_libs com (!cp_libs);
-		cp_libs := [];
-		match !extra_args with
-		| [] -> ()
-		| l ->
-			extra_args := [];
-			process l;
-			loop()
-	in
-	loop();
+	process_libs();
 	(try ignore(Common.find_file com "mt/Include.hx"); Common.raw_define com "mt"; with Not_found -> ());
 	if com.display then begin
 		let mode = Common.defined_value_safe com Define.DisplayMode in

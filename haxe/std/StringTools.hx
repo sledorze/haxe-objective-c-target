@@ -140,7 +140,7 @@ class StringTools {
 		
 		If [end] is null, the result is unspecified.
 		
-		If [end] is the empty String "", the result is true.		
+		If [end] is the empty String "", the result is true.
 	**/
 	public static #if (cs || java) inline #end function endsWith( s : String, end : String ) : Bool {
 		#if java
@@ -165,7 +165,7 @@ class StringTools {
 	**/
 	public static function isSpace( s : String, pos : Int ) : Bool {
 		var c = s.charCodeAt( pos );
-		return (c >= 9 && c <= 13) || c == 32;
+		return (c > 8 && c < 14) || c == 32;
 	}
 
 	/**
@@ -254,7 +254,7 @@ class StringTools {
 			s = c + s;
 		}
 		return s;
-	}	
+	}
 
 	/**
 		Appends [c] to [s] until [s].length is at least [l].

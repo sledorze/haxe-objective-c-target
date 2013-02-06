@@ -1,21 +1,25 @@
 (*
- *  Haxe Compiler
- *  Copyright (c)2005-2008 Nicolas Cannasse
+ * Copyright (C)2005-2013 Haxe Foundation
  *
- *  This program is free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
  *)
+
 open Type
 
 type package_rule =
@@ -165,7 +169,6 @@ module Define = struct
 		| FlashUseStage
 		| FormatWarning
 		| GencommonDebug
-		| Haxe3
 		| HaxeBoot
 		| HaxeVer
 		| Interp
@@ -173,7 +176,6 @@ module Define = struct
 		| JsModern
 		| Macro
 		| MacroTimes
-		| MatchDebug
 		| NekoSource
 		| NekoV2
 		| NetworkSandbox
@@ -225,7 +227,6 @@ module Define = struct
 		| FlashUseStage -> ("flash_use_stage","Keep the SWF library initial stage")
 		| FormatWarning -> ("format_warning","Print a warning for each formated string, for 2.x compatibility")
 		| GencommonDebug -> ("gencommon_debug","GenCommon internal")
-		| Haxe3 -> ("haxe3","Enable Haxe3 transition mode")
 		| HaxeBoot -> ("haxe_boot","Given the name 'haxe' to the flash boot class instead of a generated name")
 		| HaxeVer -> ("haxe_ver","The current Haxe version value")
 		| Interp -> ("interp","The code is compiled to be run with --interp")
@@ -233,7 +234,6 @@ module Define = struct
 		| JsModern -> ("js_modern","Use function wrapper and strict mode in JS output")
 		| Macro -> ("macro","Defined when we compile code in the macro context")
 		| MacroTimes -> ("macro_times","Display per-macro timing when used with --times")
-		| MatchDebug -> ("match_debug","Show Pattern Matcher log")
 		| NekoSource -> ("neko_source","Output neko source instead of bytecode")
 		| NekoV2 -> ("neko_v2","Activate Neko 2.0 compatibility")
 		| NetworkSandbox -> ("network-sandbox","Use local network sandbox instead of local file access one")
