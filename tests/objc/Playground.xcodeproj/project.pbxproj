@@ -25,8 +25,10 @@
 		287530E616957A1E0048F960 /* PlaygroundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 287530E516957A1E0048F960 /* PlaygroundTests.m */; };
 		287530FD169712600048F960 /* Date.m in Sources */ = {isa = PBXBuildFile; fileRef = 287530FA1697125F0048F960 /* Date.m */; };
 		287530FE169712600048F960 /* Std.m in Sources */ = {isa = PBXBuildFile; fileRef = 287530FC1697125F0048F960 /* Std.m */; };
-		28BC522D16BB0BCD000072BD /* RCHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BC522C16BB0BCD000072BD /* RCHTTPRequest.m */; };
+		28BC52F516C2F05B000072BD /* haxe in Resources */ = {isa = PBXBuildFile; fileRef = 28BC52F416C2F05B000072BD /* haxe */; };
+		28BC52F816C2F191000072BD /* RCHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BC52F716C2F191000072BD /* RCHTTPRequest.m */; };
 		28F13CCC16B92B9600A69694 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F13CCB16B92B9600A69694 /* AVFoundation.framework */; };
+		28BC52F816C2F19100000001 /* haxe/Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 28BC52F816C2F19100000002 /* haxe/Log.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,8 +68,13 @@
 		287530FA1697125F0048F960 /* Date.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Date.m; path = Tests/Date.m; sourceTree = SOURCE_ROOT; };
 		287530FB1697125F0048F960 /* Std.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Std.h; path = Tests/Std.h; sourceTree = SOURCE_ROOT; };
 		287530FC1697125F0048F960 /* Std.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Std.m; path = Tests/Std.m; sourceTree = SOURCE_ROOT; };
-		28BC522B16BB0BCD000072BD /* RCHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCHTTPRequest.h; sourceTree = "<group>"; };
-		28BC522C16BB0BCD000072BD /* RCHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCHTTPRequest.m; sourceTree = "<group>"; };
+		28BC52F416C2F05B000072BD /* haxe */ = {isa = PBXFileReference; lastKnownFileType = folder; path = haxe; sourceTree = "<group>"; };
+		28BC52F616C2F191000072BD /* RCHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCHTTPRequest.h; sourceTree = "<group>"; };
+		28BC52F716C2F191000072BD /* RCHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCHTTPRequest.m; sourceTree = "<group>"; };
+		
+		28BC52F816C2F19100000003 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Log.h; path = Playground/haxe/Log.h; sourceTree = SOURCE_ROOT; };
+		28BC52F816C2F19100000002 /* Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = Playground/haxe/Log.m; sourceTree = SOURCE_ROOT; };
+		
 		28F13CCB16B92B9600A69694 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -132,6 +139,9 @@
 		287530C016957A1D0048F960 /* Playground */ = {
 			isa = PBXGroup;
 			children = (
+				28BC52F616C2F191000072BD /* RCHTTPRequest.h */,
+				28BC52F716C2F191000072BD /* RCHTTPRequest.m */,
+				28BC52F416C2F05B000072BD /* haxe */,
 				287530C916957A1D0048F960 /* AppDelegate.h */,
 				287530CA16957A1D0048F960 /* AppDelegate.m */,
 				2839DCB016AE4F9A00068D3B /* HXObject.h */,
@@ -140,8 +150,6 @@
 				287530FA1697125F0048F960 /* Date.m */,
 				287530FB1697125F0048F960 /* Std.h */,
 				287530FC1697125F0048F960 /* Std.m */,
-				28BC522B16BB0BCD000072BD /* RCHTTPRequest.h */,
-				28BC522C16BB0BCD000072BD /* RCHTTPRequest.m */,
 				287530C116957A1D0048F960 /* Supporting Files */,
 			);
 			path = Playground;
@@ -255,6 +263,7 @@
 				287530CD16957A1D0048F960 /* Default.png in Resources */,
 				287530CF16957A1D0048F960 /* Default@2x.png in Resources */,
 				287530D116957A1D0048F960 /* Default-568h@2x.png in Resources */,
+				28BC52F516C2F05B000072BD /* haxe in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +303,8 @@
 				287530FD169712600048F960 /* Date.m in Sources */,
 				287530FE169712600048F960 /* Std.m in Sources */,
 				2839DCB216AE4F9A00068D3B /* HXObject.m in Sources */,
-				28BC522D16BB0BCD000072BD /* RCHTTPRequest.m in Sources */,
+				28BC52F816C2F191000072BD /* RCHTTPRequest.m in Sources */,
+				28BC52F816C2F19100000001 /* haxe/Log.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -54,8 +54,14 @@ char fooKey;
 //	NSLog(@"%i", self.length);
 //	self.length += 5;
 //	NSLog(@"%i", self.length);
-	int iii = 555;
-	int i = 666;
+	//int iii = 555;
+	//int i = 666;
+	
+	
+	[Log trace:(NSMutableString*)@"do something" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"Tests.hx",@"84",@"Tests",@"testWhile",nil]
+																				   forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	
+	
 	NSLog(@"%i", [Std random:100]);
 	NSLog(@"%i", [Std random:100]);
 //	NSLog(@"%@", [Std string:self]);
@@ -208,7 +214,7 @@ void(^block_block2)(int i) = ^(int i){ NSLog(@"block_block2 block_block2 block_b
 	NSString *str2 = [NSString stringWithFormat:@"https://graph.facebook.com/oauth/authorize_cancel?client_id=456093077787894&redirect_uri=&access_token=%@", token];
 	NSURL *url2 = [[NSURL alloc] initWithString:str2];
 	NSString *str = [NSString stringWithFormat:@"https://m.facebook.com/logout.php?next=&confirm=1&access_token=%@", token];
-	NSURL *url = [[NSURL alloc] initWithString:str];
+	//NSURL *url = [[NSURL alloc] initWithString:str];
 	NSURLRequest *req = [NSURLRequest requestWithURL:url2];
 	NSLog(@"logout %@", str);
 	

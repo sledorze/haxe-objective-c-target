@@ -127,6 +127,7 @@ class filesManager imports_manager =
 		!cl_path *)
 	method get_source_files = source_files
 	method get_resource_files = resource_files
+	method get_folders = resource_files
 	method get_frameworks =
 		if List.length all_frameworks = 0 then
 			List.iter (
@@ -1699,7 +1700,7 @@ let xcworkspacedata common_ctx =
 let pbxproj common_ctx files_manager = 
 	let src_dir = srcDir common_ctx in
 	let app_name = appName common_ctx in
-	let owner = "Baluta Cristian" in
+	let owner = "You" in
 	let file = newSourceFile (src_dir^".xcodeproj") ([],"project") ".pbxproj" in
 	file#write ("{
 	archiveVersion = 1;
@@ -1710,15 +1711,38 @@ let pbxproj common_ctx files_manager =
 	
 	(* Begin PBXBuildFile section *)
 	(* It holds .m files, resource files, and frameworks *)
-	file#write ("\n/* Begin PBXBuildFile section */\n");
-	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^uuid^" /* "^name^".framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) files_manager#get_frameworks;
-	List.iter ( fun (uuid, fileRef, path, ext) -> if ext=".m" then file#write ("		"^uuid^" /* "^(snd path)^ext^" in Sources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) files_manager#get_source_files;
-	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^uuid^" /* "^(snd path)^" in Resources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); ) files_manager#get_resource_files;
+	let packages = ref [] in (* list of paths *)
+	let can_add_new_package = ref false in
+	file#write ("\n\n/* Begin PBXBuildFile section */\n");
+	
+	List.iter ( fun (uuid, fileRef, name) -> 
+		file#write ("		"^uuid^" /* "^name^".framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n");
+	) files_manager#get_frameworks;
+	
+	List.iter ( fun (uuid, fileRef, path, ext) -> 
+		if List.length (fst path) > 0 then begin
+			can_add_new_package := true;
+			List.iter ( fun (existing_path) -> 
+				if List.hd (fst existing_path) = List.hd (fst path) then can_add_new_package := false;
+				print_endline ((join_class_path existing_path "/")^" = "^(join_class_path path "/"));
+			) !packages;
+			if (!can_add_new_package) then packages := List.append !packages [path];
+		end;
+		if ext=".m" then file#write ("		"^uuid^" /* "^(snd path)^ext^" in Sources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n");
+	) files_manager#get_source_files;
+	
+	List.iter ( fun (path) -> files_manager#register_resource_file ((fst path), "") "") !packages;
+	
+	List.iter ( fun (uuid, fileRef, path, ext) -> 
+		let n = if List.length (fst path) > 0 then List.hd (fst path) else (snd path) in
+		file#write ("		"^uuid^" /* "^n^ext^" in Resources */ = {isa = PBXBuildFile; fileRef = "^fileRef^"; };\n"); 
+	) files_manager#get_resource_files;
+	
 	file#write ("/* End PBXBuildFile section */\n");
 	
 	(* Begin PBXContainerItemProxy section *)
 	let container_item_proxy = files_manager#generate_uuid in
-	let remote_global_id_string = appName common_ctx in
+	let remote_global_id_string = files_manager#generate_uuid in
 	let root_object = files_manager#generate_uuid in
 	file#write ("\n/* Begin PBXContainerItemProxy section */
 		"^container_item_proxy^" /* PBXContainerItemProxy */ = {
@@ -1731,17 +1755,29 @@ let pbxproj common_ctx files_manager =
 /* End PBXContainerItemProxy section */\n");
 
 	(* Begin PBXFileReference section *)
-	file#write ("\n/* Begin PBXFileReference section */\n");
+	(* {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = Playground/haxe/Log.m; sourceTree = SOURCE_ROOT; }; *)
+	file#write ("\n\n/* Begin PBXFileReference section */\n");
 	let app_uuid = files_manager#generate_uuid in
 	file#write ("		"^app_uuid^" /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };\n");
 	List.iter ( fun (uuid, fileRef, name) -> file#write ("		"^fileRef^" /* "^name^".framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "^name^".framework; path = System/Library/Frameworks/"^name^".framework; sourceTree = SDKROOT; };\n"); ) files_manager#get_frameworks;
-	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("		"^fileRef^" /* "^(snd path)^ext^" */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c."^(if ext=".h" then "h" else "objc")^"; path = "^(join_class_path path "/")^ext^"; sourceTree = \"<group>\"; };\n"); ) files_manager#get_source_files;
+	List.iter ( fun (uuid, fileRef, path, ext) -> 
+		let full_path = (join_class_path path "/") in
+		let file_type = (if ext = ".h" then "h" else "objc") in
+		if (fst path = []) then
+			file#write ("		"^fileRef^" /* "^full_path^ext^" */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c."^file_type^"; path = "^full_path^ext^"; sourceTree = \"<group>\"; };\n")
+		else
+			file#write ("		"^fileRef^" /* "^full_path^ext^" */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c."^file_type^"; name = "^(snd path)^ext^"; path = "^app_name^"/"^full_path^ext^"; sourceTree = SOURCE_ROOT; };\n");
+	) files_manager#get_source_files;
+	List.iter ( fun (uuid, fileRef, path, ext) -> 
+		let n = if List.length (fst path) > 0 then List.hd (fst path) else (snd path) in
+		file#write ("		"^fileRef^" /* "^(join_class_path path "/")^" */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "^n^"; sourceTree = \"<group>\"; };\n"); 
+	) files_manager#get_folders;
 	file#write ("/* End PBXFileReference section */\n");
 	
 	(* Begin PBXFrameworksBuildPhase section *)
 	let frameworks_build_phase_app = files_manager#generate_uuid in
 	let frameworks_build_phase_tests = files_manager#generate_uuid in
-	file#write ("\n/* Begin PBXFrameworksBuildPhase section */
+	file#write ("\n\n/* Begin PBXFrameworksBuildPhase section */
 		"^frameworks_build_phase_app^" /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1773,7 +1809,7 @@ let pbxproj common_ctx files_manager =
 	let children_tests = files_manager#generate_uuid in
 	let children_supporting_files = files_manager#generate_uuid in
 	let children_supporting_files_tests = files_manager#generate_uuid in
-	file#write ("\n/* Begin PBXGroup section */
+	file#write ("\n\n/* Begin PBXGroup section */
 		"^main_group^" = {
 			isa = PBXGroup;
 			children = (
@@ -1796,7 +1832,9 @@ let pbxproj common_ctx files_manager =
 		"^frameworks_group^" /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (\n");
-	List.iter ( fun (uuid, fileRef, name) -> file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n"); ) files_manager#get_frameworks;
+	List.iter ( fun (uuid, fileRef, name) ->
+		file#write ("				"^uuid^" /* "^name^".framework in Frameworks */,\n");
+	) files_manager#get_frameworks;
 	file#write ("			);
 			name = Frameworks;
 			sourceTree = \"<group>\";
@@ -1855,7 +1893,7 @@ let pbxproj common_ctx files_manager =
 	let build_config_list_app = files_manager#generate_uuid in
 	let build_config_list_tests = files_manager#generate_uuid in
 	let build_config_list_proj = files_manager#generate_uuid in
-	file#write ("\n/* Begin PBXNativeTarget section */
+	file#write ("\n\n/* Begin PBXNativeTarget section */
 		"^remote_global_id_string^" /* "^app_name^" */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = "^build_config_list_app^" /* Build configuration list for PBXNativeTarget \""^app_name^"\" */;
@@ -1894,7 +1932,7 @@ let pbxproj common_ctx files_manager =
 		};
 /* End PBXNativeTarget section */");
 	(* Begin PBXProject section *)
-	file#write ("\n/* Begin PBXProject section */
+	file#write ("\n\n/* Begin PBXProject section */
 		"^root_object^" /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
@@ -1919,7 +1957,7 @@ let pbxproj common_ctx files_manager =
 		};
 /* End PBXProject section */");
 	(* Begin PBXResourcesBuildPhase section *)
-	file#write ("\n/* Begin PBXResourcesBuildPhase section */
+	file#write ("\n\n/* Begin PBXResourcesBuildPhase section */
 		"^resources_build_phase_app^" /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1938,7 +1976,7 @@ let pbxproj common_ctx files_manager =
 		};
 /* End PBXResourcesBuildPhase section */");
 	(* Begin PBXShellScriptBuildPhase section *)
-	file#write ("\n/* Begin PBXShellScriptBuildPhase section */
+	file#write ("\n\n/* Begin PBXShellScriptBuildPhase section */
 		"^shell_build_phase_tests^" /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1954,12 +1992,14 @@ let pbxproj common_ctx files_manager =
 		};
 /* End PBXShellScriptBuildPhase section */");
 	(* Begin PBXSourcesBuildPhase section *)
-	file#write ("\n/* Begin PBXSourcesBuildPhase section */
+	file#write ("\n\n/* Begin PBXSourcesBuildPhase section */
 		"^sources_build_phase_app^" /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (\n");
-	List.iter ( fun (uuid, fileRef, path, ext) -> if ext=".m" then file#write ("				"^uuid^" /* "^(snd path)^ext^" in Sources */,\n"); ) files_manager#get_source_files;
+	List.iter ( fun (uuid, fileRef, path, ext) -> 
+		if ext=".m" then file#write ("				"^uuid^" /* "^(join_class_path path "/")^ext^" in Sources */,\n");
+	) files_manager#get_source_files;
 	file#write ("			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1973,7 +2013,7 @@ let pbxproj common_ctx files_manager =
 		};
 /* End PBXSourcesBuildPhase section */");
 	(* Begin PBXTargetDependency section *)
-	file#write ("\n/* Begin PBXTargetDependency section */
+	file#write ("\n\n/* Begin PBXTargetDependency section */
 		"^target_dependency^" /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "^remote_global_id_string^" /* "^app_name^" */;
@@ -1981,7 +2021,7 @@ let pbxproj common_ctx files_manager =
 		};
 /* End PBXTargetDependency section */");
 	(* Begin PBXVariantGroup section *)
-	file#write ("\n/* Begin PBXVariantGroup section */
+	file#write ("\n\n/* Begin PBXVariantGroup section */
 		28BFD9E21628A95900882B34 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2006,7 +2046,7 @@ let pbxproj common_ctx files_manager =
 	let build_config_list_app_release = files_manager#generate_uuid in
 	let build_config_list_tests_debug = files_manager#generate_uuid in
 	let build_config_list_tests_release = files_manager#generate_uuid in
-	file#write ("\n/* Begin XCBuildConfiguration section */
+	file#write ("\n\n/* Begin XCBuildConfiguration section */
 		"^build_config_list_proj_debug^" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2030,6 +2070,7 @@ let pbxproj common_ctx files_manager =
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2059,10 +2100,12 @@ let pbxproj common_ctx files_manager =
 		"^build_config_list_app_debug^" /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = \"iPhone Developer\";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = \""^app_name^"/"^app_name^"-Prefix.pch\";
 				INFOPLIST_FILE = \""^app_name^"/"^app_name^"-Info.plist\";
 				PRODUCT_NAME = \"$(TARGET_NAME)\";
+				PROVISIONING_PROFILE = \"\";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2115,7 +2158,7 @@ let pbxproj common_ctx files_manager =
 /* End XCBuildConfiguration section */");
 
 	(* Begin XCConfigurationList section *)
-	file#write ("\n/* Begin XCConfigurationList section */
+	file#write ("\n\n/* Begin XCConfigurationList section */
 		"^build_config_list_proj^" /* Build configuration list for PBXProject \""^app_name^"\" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2143,7 +2186,7 @@ let pbxproj common_ctx files_manager =
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-/* End XCConfigurationList section */");
+/* End XCConfigurationList section */\n");
 
 	file#write ("	};
 	rootObject = "^root_object^" /* Project object */;
@@ -2518,8 +2561,10 @@ let generate common_ctx =
 			()
 	) common_ctx.types;
 	
-	(* Register some default files *)
+	(* Register some default files that were not added by the compiler *)
 	(* files_manager#register_source_file class_def.cl_path ".m"; *)
+	files_manager#register_source_file ([],"main") ".m";
+	files_manager#register_resource_file ([],"InfoPlist") ".strings";
 	
 	generatePch common_ctx file_info;
 	generatePlist common_ctx file_info;
