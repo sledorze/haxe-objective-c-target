@@ -32,7 +32,7 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		view = new UIView();
 		view.frame = new CGRect(0, 0, window.frame.size.width, window.frame.size.height);
 		view.autoresizesSubviews = true;
-		view.autoresizingMask = UIViewAutoresizing.flexibleWidth | UIViewAutoresizing.flexibleHeight;
+		view.autoresizingMask = untyped UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		view.backgroundColor = UIColor.darkGrayColor();
 
 		label = new UILabel();

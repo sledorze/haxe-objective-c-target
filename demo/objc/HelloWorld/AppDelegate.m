@@ -21,7 +21,7 @@
 	self.view = [[UIView alloc] init];
 	self.view.frame = CGRectMake (0,0,self.window.frame.size.width,self.window.frame.size.height);
 	self.view.autoresizesSubviews = YES;
-	self.view.autoresizingMask = (UIViewAutoresizing.flexibleWidth | UIViewAutoresizing.flexibleHeight);
+	self.view.autoresizingMask = (UIViewAutoresizing UIViewAutoresizingFlexibleWidth | UIViewAutoresizing UIViewAutoresizingFlexibleHeight);
 	self.view.backgroundColor = [UIColor darkGrayColor];
 	self.label = [[UILabel alloc] init];
 	self.label.frame = CGRectMake (0,350,self.view.frame.size.width,50);
@@ -35,7 +35,7 @@
 	CustomMapView *map = [[CustomMapView alloc] init];
 	map.frame = CGRectMake (10,10,300,300);
 	[map locateLondon];
-	[map locate:50.8 long:-0.5 zoom:1.2];
+	[map locate:50.8 _long:-0.5 zoom:1.2];
 	[self view addSubview:map];
 	self.viewController = [[UIViewController alloc] init];
 	self.viewController.view = self.view;

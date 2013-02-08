@@ -714,6 +714,7 @@ let rec generateCall ctx func arg_list =
 			concat ctx ", " (generateValue ctx) arg_list;
 			ctx.writer#write ")";
 	
+	(* Generate an Objective-C call with [] *)
 	end else begin
 		
 		generateValue ctx func;	
@@ -738,7 +739,7 @@ let rec generateCall ctx func arg_list =
 				| TFun(args, ret) ->
 					List.iter (
 					fun (name, b, t) ->
-						ctx.writer#write (if !index = 0 then ":" else (" "^name^":"));
+						ctx.writer#write (if !index = 0 then ":" else (" "^(remapKeyword name)^":"));
 						generateValue ctx args_array_e.(!index);
 						index := !index + 1;
 					) args;

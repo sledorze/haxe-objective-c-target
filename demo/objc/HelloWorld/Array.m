@@ -20,17 +20,17 @@ static int length__;
 - (NSMutableArray*) copy{
 	return [NSMutableArray arrayWithArray:self];
 }
-//- (id) iterator{
-//	return struct {
-//	a:self; p:0; hasNext:^- (BOOL) {
-//		return self.p < self.a length;
-//	}; next:^- (id) {
-//		id i = [self.a objectAtIndex:self.p];
-//		self.p += 1;
-//		return i;
-//	}
-//	} structName;
-//}
+- (id) iterator{
+	return struct {
+	a:self; p:0; hasNext:^- (BOOL) {
+		return self.p < self.a length;
+	}; next:^- (id) {
+		id i = [self.a objectAtIndex:self.p];
+		self.p += 1;
+		return i;
+	}
+	} structName;
+}
 - (void) insert:(int)pos x:(id)x{
 	[self insertObject:x atIndex:pos];
 }

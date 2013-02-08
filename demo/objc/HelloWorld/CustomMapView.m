@@ -10,7 +10,7 @@
 @implementation CustomMapView
 
 - (void) locateLondon{
-	[self locate:50.8 long:-0.5 zoom:1.2];
+	[self locate:50.8 _long:-0.5 zoom:1.2];
 }
 - (void) locate:(float)lat _long:(float)_long zoom:(float)zoom{
 }
