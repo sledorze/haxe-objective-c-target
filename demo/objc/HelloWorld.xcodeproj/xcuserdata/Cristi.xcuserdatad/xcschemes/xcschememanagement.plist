@@ -9,15 +9,40 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>HelloWorldTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>28BFD9D41628A95900882B34</key>
+		<key>GEWP6R39WNR9BTAM8684EIKD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>28BFD9FB1628A95900882B34</key>
+		<key>GIK5KS5UACQU89UCUAB6RSEW</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>J6SGPLLLIN5BPHJ6TZ6W3XLU</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>KEZ7WWPX9QZIX7CQVOG1GFK9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>NWL2N31RDIKBKIPMA3ACDCS2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>SGQCKEK79ZGH0OSBTLSOPAN4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

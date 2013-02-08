@@ -1,8 +1,14 @@
 package objc.quartz;
 
 import objc.foundation.NSObject;
+import objc.foundation.NSDictionary;
 import objc.graphics.CGGeometry;
+import objc.graphics.CGAffineTransform;
 
+typedef CGContextRef = Dynamic;
+typedef CGColorRef = Dynamic;
+typedef CGPathRef = Dynamic;
+typedef CFTimeInterval = Float;
 
 extern enum CAEdgeAntialiasingMask {
 	kCALayerLeftEdge;//Minimum X edge. 
@@ -15,7 +21,7 @@ extern class CALayer extends NSObject implements NSCoding/* implements CAMediaTi
 
 	public static function layer () :CALayer;
 
-	public function init () :CALayer;
+	override public function init () :CALayer;
 	public function initWithLayer (layer:CALayer) :CALayer;
 	public function presentationLayer () :CALayer;
 	public function modelLayer () :CALayer;
@@ -41,12 +47,12 @@ extern class CALayer extends NSObject implements NSCoding/* implements CAMediaTi
 	public var doubleSided :Bool;
 	public var geometryFlipped :Bool;
 	public function contentsAreFlipped () :Bool;
-	public var (default, null) superlayer :CALayer; 
+	public var superlayer (default, null) :CALayer; 
 	public function removeFromSuperlayer () :Void;
  	public var sublayers :Array<CALayer>;
 	public function addSublayer (layer:CALayer) :Void;
-	public function insertSublayer (layer:CALayer, atIndex:Int) :Void;
-	public function insertSublayer (layer:CALayer, below:CALayer) :Void;
+	@:overload(function (layer:CALayer, atIndex:Int) :Void {})
+	@:overload(function (layer:CALayer, below:CALayer) :Void {})
 	public function insertSublayer (layer:CALayer, above:CALayer) :Void;
 
 	public function replaceSublayer (layer:CALayer, with:CALayer) :Void;
@@ -57,11 +63,11 @@ extern class CALayer extends NSObject implements NSCoding/* implements CAMediaTi
 
 //Mapping between layer coordinate and time spaces. 
 
-	public function convertPoint (p:CGPoint, fromLayer:CALayer) :CGPoint;
+	@:overload(function (p:CGPoint, fromLayer:CALayer) :CGPoint {})
 	public function convertPoint (p:CGPoint, toLayer:CALayer) :CGPoint;
-	public function convertRect (r:CGRect, fromLayer:CALayer) :CGRect;
+	@:overload(function (r:CGRect, fromLayer:CALayer) :CGRect {})
 	public function convertRect (r:CGRect, toLayer:CALayer) :CGRect;
-	public function convertTime (t:CFTimeInterval, fromLayer:CALayer) :CFTimeInterval;
+	@:overload(function (t:CFTimeInterval, fromLayer:CALayer) :CFTimeInterval {})
 	public function convertTime (t:CFTimeInterval, toLayer:CALayer) :CFTimeInterval;
 
 

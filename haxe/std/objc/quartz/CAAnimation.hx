@@ -1,9 +1,9 @@
 package objc.quartz;
 
 import objc.foundation.NSObject;
+private typedef CGPathRef = Dynamic;
 
-
-extern class CAAnimation extends NSObject/*,implements NSObject, NSCopying, CAMediaTiming, CAAction>*/{
+extern class CAAnimation extends NSObject implements NSCopying/*, CAMediaTiming, CAAction>*/{
 
 	public static function animation () :CAAnimation;
 	public static function defaultValueForKey(key:String) :CAAnimation;
@@ -41,7 +41,7 @@ extern class CAPropertyAnimation extends CAAnimation {
 
 /** Subclass for basic (single-keyframe) animations. **/
 
-extern class CABasicAnimation : CAPropertyAnimation {
+extern class CABasicAnimation extends CAPropertyAnimation {
 
 	public var fromValue :Dynamic;
 	public var toValue :Dynamic;
@@ -52,16 +52,16 @@ extern class CABasicAnimation : CAPropertyAnimation {
 
 /** General keyframe animation class. **/
 
-extern class CAKeyframeAnimation : CAPropertyAnimation {
+extern class CAKeyframeAnimation extends CAPropertyAnimation {
 
-	public var values :Array<>;
+	public var values :Array<Dynamic>;
 	public var path :CGPathRef;
-	public var keyTimes :Array<>;
+	public var keyTimes :Array<Dynamic>;
 	public var timingFunctions :Array<Dynamic>;
 	public var calculationMode :String;
-	public var tensionValues :Array<>;
-	public var continuityValues :Array<>;
-	public var biasValues :Array<>;
+	public var tensionValues :Array<Dynamic>;
+	public var continuityValues :Array<Dynamic>;
+	public var biasValues :Array<Dynamic>;
 	public var rotationMode :String;
 
 }

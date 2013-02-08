@@ -13,7 +13,7 @@ extern class CGAffineTransform {
 }
 
 
-
+/*v
  The identity transform: [ 1 0 0 1 0 0 ]. 
 
 	@:c public static function const CGAffineTransform CGAffineTransformIdentity
@@ -140,3 +140,4 @@ __CGSizeApplyAffineTransform(CGSize size, CGAffineTransform t)
 #define CGSizeApplyAffineTransform __CGSizeApplyAffineTransform
 
 #endif  CGAFFINETRANSFORM_H_ 
+*/

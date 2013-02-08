@@ -1340,17 +1340,19 @@ let handle_abstract_casts ctx e =
 					eright
 				else begin
 					let c,cfo,a,pl = try
+						if Meta.has Meta.MultiType a1.a_meta then raise Not_found;
 						c1,snd (find_abstract_to a1 pl1 t2),a1,pl1
 					with Not_found ->
+						if Meta.has Meta.MultiType a2.a_meta then raise Not_found;
 						c2,snd (find_from a2 pl2 t1 t2),a2,pl2
 					in
 					match cfo with None -> eright | Some cf -> make_static_call c cf a pl [eright] tleft p
 				end
 			| TDynamic _,_ | _,TDynamic _ ->
 				eright
-			| TAbstract({a_impl = Some c} as a,pl),t2 ->
+			| TAbstract({a_impl = Some c} as a,pl),t2 when not (Meta.has Meta.MultiType a.a_meta) ->
 				begin match snd (find_abstract_to a pl t2) with None -> eright | Some cf -> make_static_call c cf a pl [eright] tleft p end
-			| t1,(TAbstract({a_impl = Some c} as a,pl) as t2) ->
+			| t1,(TAbstract({a_impl = Some c} as a,pl) as t2) when not (Meta.has Meta.MultiType a.a_meta) ->
 				begin match snd (find_from a pl t1 t2) with None -> eright | Some cf -> make_static_call c cf a pl [eright] tleft p end
 			| _ ->
 				eright)
@@ -1396,19 +1398,20 @@ let handle_abstract_casts ctx e =
 			begin try
 				begin match e1.eexpr with
 					| TField(e2,fa) ->
+						let e2 = loop e2 in
 						begin match follow e2.etype with
 							| TAbstract(a,pl) when Meta.has Meta.MultiType a.a_meta ->
 								let m = get_underlying_type a pl in
 								let fname = field_name fa in
 								begin try
 									let ef = mk (TField({e2 with etype = m},quick_field m fname)) e2.etype e2.epos in
-									make_call ctx ef el e.etype e.epos
+									make_call ctx ef (List.map loop el) e.etype e.epos
 								with Not_found ->
 									(* quick_field raises Not_found if m is an abstract, we have to replicate the 'using' call here *)
 									match follow m with
 									| TAbstract({a_impl = Some c} as a,pl) ->
 										let cf = PMap.find fname c.cl_statics in
-										make_static_call c cf a pl (e2 :: el) e.etype e.epos
+										make_static_call c cf a pl (e2 :: (List.map loop el)) e.etype e.epos
 									| _ -> raise Not_found
 								end
 							| _ -> raise Not_found
@@ -1811,7 +1814,7 @@ let dump_types com =
 	let s_expr = try if Common.defined_value com Define.Dump = "pretty" then Type.s_expr_pretty "\t" else Type.s_expr with Not_found -> Type.s_expr in
 	List.iter (fun mt ->
 		let path = Type.t_path mt in
-		let buf,close = create_dumpfile [] ("dump" :: fst path @ [snd path]) in
+		let buf,close = create_dumpfile [] ("dump" :: (Common.platform_name com.platform) :: fst path @ [snd path]) in
 		let print fmt = Printf.kprintf (fun s -> Buffer.add_string buf s) fmt in
 		(match mt with
 		| Type.TClassDecl c ->
@@ -1851,7 +1854,7 @@ let dump_types com =
 	) com.types
 
 let dump_dependencies com =
-	let buf,close = create_dumpfile [] ["dump";".dependencies"] in
+	let buf,close = create_dumpfile [] ["dump";Common.platform_name com.platform;".dependencies"] in
 	let print fmt = Printf.kprintf (fun s -> Buffer.add_string buf s) fmt in
 	let dep = Hashtbl.create 0 in
 	List.iter (fun m ->
@@ -1863,7 +1866,7 @@ let dump_dependencies com =
 		) m.m_extra.m_deps;
 	) com.Common.modules;
 	close();
-	let buf,close = create_dumpfile [] ["dump";".dependants"] in
+	let buf,close = create_dumpfile [] ["dump";Common.platform_name com.platform;".dependants"] in
 	let print fmt = Printf.kprintf (fun s -> Buffer.add_string buf s) fmt in
 	Hashtbl.iter (fun n ml ->
 		print "%s:\n" n;

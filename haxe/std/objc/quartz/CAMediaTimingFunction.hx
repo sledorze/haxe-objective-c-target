@@ -24,8 +24,8 @@ extern class CAMediaTimingFunction extends NSObject {
  * points defining the Bezier curve are: '[(0,0), c1, c2, (1,1)]' */
 
 /*	TODO: support for functions without argument names*/
-	public static function functionWithControlPoints (c1x:Float __c1y__:Float __c2x__:Float __c2y__:Float) :CAMediaTimingFunction;
-	public function initWithControlPoints (c1x:Float __c1y__:Float __c2x__:Float __c2y__:Float) :CAMediaTimingFunction;
+	public static function functionWithControlPoints (c1x:Float, __c1y__:Float, __c2x__:Float, __c2y__:Float) :CAMediaTimingFunction;
+	public function initWithControlPoints (c1x:Float, __c1y__:Float, __c2x__:Float, __c2y__:Float) :CAMediaTimingFunction;
 
 /* 'idx' is a value from 0 to 3 inclusive. */
 
@@ -35,7 +35,7 @@ extern class CAMediaTimingFunction extends NSObject {
 
 /** Timing function names. **/
 
-CA_EXTERN NSString * const kCAMediaTimingFunctionLinear
+/*CA_EXTERN NSString * const kCAMediaTimingFunctionLinear
     __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
 CA_EXTERN NSString * const kCAMediaTimingFunctionEaseIn
     __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
@@ -45,3 +45,4 @@ CA_EXTERN NSString * const kCAMediaTimingFunctionEaseInEaseOut
     __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
 CA_EXTERN NSString * const kCAMediaTimingFunctionDefault
     __OSX_AVAILABLE_STARTING (__MAC_10_6, __IPHONE_3_0);
+*/

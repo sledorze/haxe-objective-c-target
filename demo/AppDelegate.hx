@@ -12,9 +12,10 @@ import ios.ui.UIColor;
 import ios.ui.UIFont;
 import ios.ui.UIViewAutoresizing;
 import objc.foundation.NSDictionary;
+import objc.graphics.CGGeometry;
 
 
-class AppDelegate extends UIResponder, implements UIApplicationDelegate {
+class AppDelegate extends UIResponder implements UIApplicationDelegate {
 	
 	public var window :UIWindow;
 	public var viewController :UIViewController;
