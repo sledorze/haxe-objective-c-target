@@ -13,15 +13,15 @@
 @synthesize viewController;
 @synthesize view;
 @synthesize label;
-- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+//- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
 	self.window = [[UIWindow alloc] init];
-	
+	NSLog(@"fdsgfsd");
 	UIScreen *screen = [UIScreen mainScreen];
 	self.window.frame = screen.bounds;
 	self.view = [[UIView alloc] init];
 	self.view.frame = CGRectMake (0,0,self.window.frame.size.width,self.window.frame.size.height);
 	self.view.autoresizesSubviews = YES;
-	self.view.autoresizingMask = (UIViewAutoresizing UIViewAutoresizingFlexibleWidth | UIViewAutoresizing UIViewAutoresizingFlexibleHeight);
 	self.view.backgroundColor = [UIColor darkGrayColor];
 	self.label = [[UILabel alloc] init];
 	self.label.frame = CGRectMake (0,350,self.view.frame.size.width,50);
@@ -30,17 +30,17 @@
 	label.textAlignment = NSTextAlignmentCenter;
 	self.label.font = [UIFont boldSystemFontOfSize:30];
 	self.label.text = (NSMutableString*)@"Hello world!";
-	[self view addSubview:self label];
+	[self.view addSubview:self.label];
 	
 	CustomMapView *map = [[CustomMapView alloc] init];
 	map.frame = CGRectMake (10,10,300,300);
 	[map locateLondon];
 	[map locate:50.8 _long:-0.5 zoom:1.2];
-	[self view addSubview:map];
+	[self.view addSubview:map];
 	self.viewController = [[UIViewController alloc] init];
 	self.viewController.view = self.view;
 	self.window.rootViewController = self.viewController;
-	[self window makeKeyAndVisible];
+	[self.window makeKeyAndVisible];
 	return YES;
 }
 - (void) applicationDidBecomeActive:(UIApplication*)application{

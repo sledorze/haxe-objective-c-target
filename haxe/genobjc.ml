@@ -251,7 +251,9 @@ type context = {
 	mutable generating_self_access : bool;
 	mutable generating_right_side_of_operator : bool;
 	mutable generating_c_call : bool;
-	mutable generating_calls : int;
+	mutable generating_method_argument : bool;
+	mutable generating_calls : int;(* How many calls are generated in a row *)
+	mutable generating_fields : int;(* How many fields are generated in a row *)
 	mutable generating_string_append : int;
 	mutable require_pointer : bool;
 	mutable gen_uid : int;
@@ -275,7 +277,9 @@ let newContext common_ctx writer imports_manager file_info = {
 	generating_self_access = false;
 	generating_right_side_of_operator = false;
 	generating_c_call = false;
+	generating_method_argument = false;
 	generating_calls = 0;
+	generating_fields = 0;
 	generating_string_append = 0;
 	require_pointer = false;
 	gen_uid = 0;
@@ -717,6 +721,7 @@ let rec generateCall ctx func arg_list =
 	(* Generate an Objective-C call with [] *)
 	end else begin
 		
+		ctx.generating_fields <- 0;
 		generateValue ctx func;	
 		(* if List.length arg_list > 0 then ctx.writer#write ":"; *)
 		(* concat ctx " otherArgName:" (generateValue ctx) arg_list *)
@@ -739,10 +744,12 @@ let rec generateCall ctx func arg_list =
 				| TFun(args, ret) ->
 					List.iter (
 					fun (name, b, t) ->
+						ctx.generating_method_argument <- true;
 						ctx.writer#write (if !index = 0 then ":" else (" "^(remapKeyword name)^":"));
 						generateValue ctx args_array_e.(!index);
 						index := !index + 1;
 					) args;
+					ctx.generating_method_argument <- false;
 				(* Generated in Array *)
 				| TMono r -> (match !r with 
 					| None -> ctx.writer#write "-TMonoNone"
@@ -811,11 +818,15 @@ and generateFieldAccess ctx etype s =
 				ctx.writer#write (Printf.sprintf "%s%s" accesor (remapKeyword s)));
 		
 		| _ -> 
+			(* ctx.writer#write "ooooooooo"; *)
 			(* self.someMethod *)
 			(* Generating dot notation for property and space for methods *)
-			let accesor = if ctx.generating_calls > 0 then " " else "." in
+			let accesor = if ctx.generating_fields > 1 then "."
+			else if (ctx.generating_self_access && ctx.generating_method_argument) then "."
+			else if ctx.generating_calls > 0 then " " else "." in
 			ctx.writer#write (Printf.sprintf "%s%s" accesor (remapKeyword s));
-			ctx.generating_self_access <- false
+			ctx.generating_self_access <- false;
+			ctx.generating_fields <- 0
 	in
 	match follow etype with
 	(* untyped str.intValue(); *)
@@ -950,6 +961,7 @@ and generateExpression ctx e =
 			(* ctx.writer#write ("block_"^(field_name s)); *)
 		end else begin
 			(* This is important, is generating a field access . *)
+			ctx.generating_fields <- ctx.generating_fields + 1;
    			generateValue ctx e;
 			generateFieldAccess ctx e.etype (field_name fa);
 		end
@@ -1767,12 +1779,12 @@ let pbxproj common_ctx files_manager =
 	(* Begin PBXFileReference section *)
 	(* {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = Playground/haxe/Log.m; sourceTree = SOURCE_ROOT; }; *)
 	file#write ("\n\n/* Begin PBXFileReference section */\n");
-	let app_uuid = files_manager#generate_uuid in
 	let fileref_en = files_manager#generate_uuid in
 	let fileref_en_tests = files_manager#generate_uuid in
 	let fileref_plist = files_manager#generate_uuid in
 	let fileref_pch = files_manager#generate_uuid in
-	file#write ("		"^app_uuid^" /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };\n");
+	let fileref_app = files_manager#generate_uuid in
+	let fileref_octest = files_manager#generate_uuid in
 	List.iter ( fun (uuid, fileRef, name) -> 
 		file#write ("		"^fileRef^" /* "^name^".framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "^name^".framework; path = System/Library/Frameworks/"^name^".framework; sourceTree = SDKROOT; };\n");
 	) files_manager#get_frameworks;
@@ -1794,6 +1806,8 @@ let pbxproj common_ctx files_manager =
 	file#write ("		"^fileref_plist^" /* "^app_name^"-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = \""^app_name^"-Info.plist\"; sourceTree = \"<group>\"; };\n");
 	file#write ("		"^fileref_pch^" /* "^app_name^"-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = \""^app_name^"-Prefix.pch\"; sourceTree = \"<group>\"; };\n");
 	file#write ("		"^build_file_main_fileref^" /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = \"<group>\"; };\n");
+	file#write ("		"^fileref_app^" /* "^app_name^".app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "^app_name^".app; sourceTree = BUILT_PRODUCTS_DIR; };\n");
+	file#write ("		"^fileref_octest^" /* "^app_name^"Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "^app_name^"Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };\n");
 	file#write ("/* End PBXFileReference section */\n");
 	
 	(* Begin PBXFrameworksBuildPhase section *)
@@ -1822,8 +1836,6 @@ let pbxproj common_ctx files_manager =
 /* End PBXFrameworksBuildPhase section */");
 
 	(* Begin PBXGroup section *)
-	let product_reference = files_manager#generate_uuid in
-	let product_reference_tests = files_manager#generate_uuid in
 	let main_group = files_manager#generate_uuid in
 	let product_ref_group = files_manager#generate_uuid in
 	let frameworks_group = files_manager#generate_uuid in
@@ -1845,8 +1857,8 @@ let pbxproj common_ctx files_manager =
 		"^product_ref_group^" /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				"^product_reference^" /* "^app_name^".app */,
-				"^product_reference_tests^" /* "^app_name^"Tests.octest */,
+				"^fileref_app^" /* "^app_name^".app */,
+				"^fileref_octest^" /* "^app_name^"Tests.octest */,
 			);
 			name = Products;
 			sourceTree = \"<group>\";
@@ -1932,7 +1944,7 @@ let pbxproj common_ctx files_manager =
 			);
 			name = "^app_name^";
 			productName = "^app_name^";
-			productReference = "^product_reference^" /* "^app_name^".app */;
+			productReference = "^fileref_app^" /* "^app_name^".app */;
 			productType = \"com.apple.product-type.application\";
 		};
 		"^remote_global_id_string_tests^" /* "^app_name^"Tests */ = {
@@ -1951,7 +1963,7 @@ let pbxproj common_ctx files_manager =
 			);
 			name = "^app_name^"Tests;
 			productName = "^app_name^"Tests;
-			productReference = "^product_reference_tests^" /* "^app_name^"Tests.octest */;
+			productReference = "^fileref_octest^" /* "^app_name^"Tests.octest */;
 			productType = \"com.apple.product-type.bundle\";
 		};
 /* End PBXNativeTarget section */");
@@ -2289,7 +2301,7 @@ let generatePlist common_ctx file_info  =
 	let executable_name = match common_ctx.objc_bundle_name with 
 		| Some name -> name 
 		| None -> "${EXECUTABLE_NAME}" in
-	let version = Printf.sprintf "%fd" common_ctx.objc_version in
+	let version = Printf.sprintf "%.1f" common_ctx.objc_bundle_version in
 	let orientation = match common_ctx.objc_orientation with 
 		| Some o -> o
 		| None -> "UIInterfaceOrientationPortrait" in

@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "GIK5KS5UACQU89UCUAB6RSEW"
-               BuildableName = "HelloWorldTests"
+               BlueprintIdentifier = "HGL44RQBKO1PVSBS28KU3KKW"
+               BuildableName = "HelloWorldTests.octest"
                BlueprintName = "HelloWorldTests"
                ReferencedContainer = "container:HelloWorld.xcodeproj">
             </BuildableReference>
