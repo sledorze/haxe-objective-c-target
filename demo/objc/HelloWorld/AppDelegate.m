@@ -23,6 +23,7 @@
 	self.view = [[UIView alloc] init];
 	self.view.frame = CGRectMake (0,0,self.window.frame.size.width,self.window.frame.size.height);
 	self.view.autoresizesSubviews = YES;
+	self.view.autoresizingMask = ( UIViewAutoresizingFlexibleWidth |  UIViewAutoresizingFlexibleHeight);
 	self.view.backgroundColor = [UIColor darkGrayColor];
 	self.label = [[UILabel alloc] init];
 	self.label.frame = CGRectMake (0,350,self.view.frame.size.width,50);
@@ -37,7 +38,8 @@
 	[self.view addSubview:self.map];
 	self.but = [[UIButton alloc] init];
 	self.but.frame =  CGRectMake(0, 430, 320, 30);
-	[self.but setTitle:(NSMutableString*)@"Locate London" forState:nil];
+	[self.but setTitle:(NSMutableString*)@"Locate London" forState: UIControlStateNormal];
+	[self.but setTitle:(NSMutableString*)@"...Locate London..." forState: UIControlStateHighlighted];
 	[self.view addSubview:self.but];
 	self.viewController = [[UIViewController alloc] init];
 	self.viewController.view = self.view;

@@ -191,13 +191,12 @@ let rec mkdir base dir_list =
 	| [] -> ()
 	| dir :: remaining ->
 		let path = match base with
-                   | "" ->  dir
-                   | "/" -> "/" ^ dir
-                   | _ -> base ^ "/" ^ dir  in
-         if ( not ( (path="") ||
-           ( ((String.length path)=2) && ((String.sub path 1 1)=":") ) ) ) then
-		         if not (Sys.file_exists path) then
-			          Unix.mkdir path 0o755;
+		| "" ->  dir
+		| "/" -> "/" ^ dir
+		| _ -> base ^ "/" ^ dir  in
+		if (not (path="" || (((String.length path)=2) && ((String.sub path 1 1)=":")))) then
+		if not (Sys.file_exists path) then Unix.mkdir path 0o755;
+		
 		mkdir (if (path="") then "/" else path) remaining
 	)
 ;;
@@ -968,7 +967,12 @@ and generateExpression ctx e =
 	| TTypeExpr t ->
 		let p = t_path t in
 		if not ctx.generating_c_call then begin
-			ctx.writer#write (remapHaxeTypeToObjc ctx true p e.epos);
+			match t with
+			| TClassDecl c -> ctx.writer#write (remapHaxeTypeToObjc ctx true p e.epos); (* of tclass *)
+			| TEnumDecl e -> ();(* ctx.writer#write "TEnumDecl"; (* of tenum *) *)
+			(* TODO: consider the fakeEnum *)
+			| TTypeDecl d -> ctx.writer#write "TTypeDecl"; (* of tdef *)
+			| TAbstractDecl a -> ctx.writer#write "TAbstractDecl"; (* of tabstract *)
 		end;
 		ctx.imports_manager#add_class_path p;
 	| TParenthesis e ->

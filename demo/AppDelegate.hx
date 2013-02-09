@@ -36,7 +36,7 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		view = new UIView();
 		view.frame = new CGRect(0, 0, window.frame.size.width, window.frame.size.height);
 		view.autoresizesSubviews = true;
-		//view.autoresizingMask = untyped UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+		view.autoresizingMask = untyped UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		view.backgroundColor = UIColor.darkGrayColor();
 
 		label = new UILabel();
@@ -54,7 +54,8 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		
 		but = new UIButton();
 		but.frame = CGGeometry.CGRectMake(0, 430, 320, 30);
-		but.setTitle("Locate London", /*UIControlStateNormal*/null);
+		but.setTitle("Locate London", UIControlStateNormal);
+		but.setTitle("...Locate London...", UIControlStateHighlighted);
 		view.addSubview ( but );
 
 		viewController = new UIViewController();
