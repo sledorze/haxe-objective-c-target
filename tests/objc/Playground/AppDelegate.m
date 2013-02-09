@@ -42,6 +42,17 @@ typedef void (*FunctionType3)(int);
 id me;
 char fooKey;
 
+int main(int argc, char *argv[])
+{
+	NSLog(@"start");
+	srand(time(NULL));
+	@autoreleasepool {
+	    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
+	}
+}
+
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

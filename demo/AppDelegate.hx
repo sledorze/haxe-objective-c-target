@@ -6,11 +6,13 @@ import ios.ui.UILabel;
 import ios.ui.UIWindow;
 import ios.ui.UIScreen;
 import ios.ui.UIView;
+import ios.ui.UIButton;
+import ios.ui.UIControl;
 import ios.ui.UIViewController;
 import ios.ui.UIApplication;
 import ios.ui.UIColor;
 import ios.ui.UIFont;
-import ios.ui.UIViewAutoresizing;
+/*import ios.ui.UIViewAutoresizing;*/
 import objc.foundation.NSDictionary;
 import objc.graphics.CGGeometry;
 
@@ -21,9 +23,11 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 	public var viewController :UIViewController;
 	public var view :UIView;
 	public var label :UILabel;
+	var map :CustomMapView;
+	var but :UIButton;
 	
 	
-	public function applicationDidFinishLaunchingWithOptions (application:UIApplication, didFinishLaunchingWithOptions:NSDictionary) :Bool {
+	public function application (application:UIApplication, didFinishLaunchingWithOptions:NSDictionary) :Bool {
 		
 		window = new UIWindow();
 		var screen = UIScreen.mainScreen();
@@ -44,11 +48,14 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		label.text = "Hello world!";
 		view.addSubview(label);
 
-		var map = new CustomMapView();
+		map = new CustomMapView();
 		map.frame = new CGRect(10, 10, 300, 300);
-		map.locateLondon();
-		map.locate (50.8, -0.5, 1.2);
 		view.addSubview(map);
+		
+		but = new UIButton();
+		but.frame = CGGeometry.CGRectMake(0, 430, 320, 30);
+		but.setTitle("Locate London", /*UIControlStateNormal*/null);
+		view.addSubview ( but );
 
 		viewController = new UIViewController();
 		viewController.view = view;
@@ -56,6 +63,9 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		window.makeKeyAndVisible();
 		
 		return true;
+	}
+	function locateLondon () {
+		map.locateLondon();
 	}
 	public function applicationDidBecomeActive (application:UIApplication) :Void {}
 	public function applicationWillResignActive (application:UIApplication) :Void {}

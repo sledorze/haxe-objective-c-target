@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 
 #import "CustomMapView.h"
 
@@ -17,7 +18,10 @@
 @property (nonatomic, strong) UIViewController *viewController;
 @property (nonatomic, strong) UIView *view;
 @property (nonatomic, strong) UILabel *label;
-- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
+@property (nonatomic, strong) CustomMapView *map;
+@property (nonatomic, strong) UIButton *but;
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions;
+- (void) locateLondon;
 - (void) applicationDidBecomeActive:(UIApplication*)application;
 - (void) applicationWillResignActive:(UIApplication*)application;
 

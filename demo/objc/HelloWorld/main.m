@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 int main(int argc, char *argv[]) {
-	NSLog(@"start");
 	srand(time(NULL));
 	@autoreleasepool {
 		return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));

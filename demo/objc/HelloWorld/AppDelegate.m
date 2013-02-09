@@ -13,10 +13,11 @@
 @synthesize viewController;
 @synthesize view;
 @synthesize label;
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-//- (BOOL) applicationDidFinishLaunchingWithOptions:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
+@synthesize map;
+@synthesize but;
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)didFinishLaunchingWithOptions{
 	self.window = [[UIWindow alloc] init];
-	NSLog(@"fdsgfsd");
+	
 	UIScreen *screen = [UIScreen mainScreen];
 	self.window.frame = screen.bounds;
 	self.view = [[UIView alloc] init];
@@ -31,17 +32,21 @@
 	self.label.font = [UIFont boldSystemFontOfSize:30];
 	self.label.text = (NSMutableString*)@"Hello world!";
 	[self.view addSubview:self.label];
-	
-	CustomMapView *map = [[CustomMapView alloc] init];
-	map.frame = CGRectMake (10,10,300,300);
-	[map locateLondon];
-	[map locate:50.8 _long:-0.5 zoom:1.2];
-	[self.view addSubview:map];
+	self.map = [[CustomMapView alloc] init];
+	self.map.frame = CGRectMake (10,10,300,300);
+	[self.view addSubview:self.map];
+	self.but = [[UIButton alloc] init];
+	self.but.frame =  CGRectMake(0, 430, 320, 30);
+	[self.but setTitle:(NSMutableString*)@"Locate London" forState:nil];
+	[self.view addSubview:self.but];
 	self.viewController = [[UIViewController alloc] init];
 	self.viewController.view = self.view;
 	self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];
 	return YES;
+}
+- (void) locateLondon{
+	[self.map locateLondon];
 }
 - (void) applicationDidBecomeActive:(UIApplication*)application{
 }
