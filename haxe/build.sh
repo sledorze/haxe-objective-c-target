@@ -2,9 +2,9 @@ clear
 make haxe
 cd ..
 echo " "
-echo "Build CocoaTouch demo..."
+echo "Build CocoaTouch demos..."
 echo " "
-./haxe/haxe -main HelloWorld -cp demo -objc demo/objc -objc-version 6 -objc-bundle-version 1.0 -objc-identifier org.haxe.objc -lib ios
+./haxe/haxe -main HelloWorld -cp demos/Hello -objc demos/Hello/objc -objc-version 6 -objc-bundle-version 1.0 -objc-identifier org.haxe.objc -lib ios
 
 echo " "
 echo "Build ObjC tests..."

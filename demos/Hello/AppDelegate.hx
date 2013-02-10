@@ -12,7 +12,7 @@ import ios.ui.UIViewController;
 import ios.ui.UIApplication;
 import ios.ui.UIColor;
 import ios.ui.UIFont;
-/*import ios.ui.UIViewAutoresizing;*/
+import ios.ui.NSText;
 import objc.foundation.NSDictionary;
 import objc.graphics.CGGeometry;
 
@@ -43,7 +43,7 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		label.frame = new CGRect (0, 350, view.frame.size.width, 50);
 		label.textColor = UIColor.yellowColor();
 		label.backgroundColor = UIColor.clearColor();
-		untyped __objc__("label.textAlignment = NSTextAlignmentCenter");
+		label.textAlignment = NSTextAlignmentCenter;
 		label.font = UIFont.boldSystemFontOfSize(30);
 		label.text = "Hello world!";
 		view.addSubview(label);
@@ -51,6 +51,7 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		map = new CustomMapView();
 		map.frame = new CGRect(10, 10, 300, 300);
 		view.addSubview(map);
+		map.locateLondon();
 		
 		but = new UIButton();
 		but.frame = CGGeometry.CGRectMake(0, 430, 320, 30);
