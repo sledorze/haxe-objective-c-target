@@ -74,7 +74,7 @@ class importsManager =
 	val mutable class_frameworks : string list = []
 	val mutable class_imports : path list = []
 	val mutable class_imports_extra : string list = []
-	method add_class_path class_path = match class_path with
+	method add_class_path (class_path:path) = match class_path with
 		| ([],"StdTypes")
 		| ([],"Int")
 		| ([],"Float")
@@ -163,9 +163,12 @@ class sourceWriter write_func close_func =
 	method end_block = this#pop_indent; this#write "}"; just_finished_block <- true
 	method terminate_line = this#write (if just_finished_block then "" else ";"); this#new_line
 	
-	method write_header_import (class_path:path) = this#write ("#import \"" ^ (snd class_path) ^ ".h\"\n")
-	method write_headers_imports class_paths =
-		List.iter (fun class_path -> this#write_header_import class_path ) class_paths
+	method write_header_import (module_path:path) (class_path:path) = 
+		let steps = ref "" in
+		if List.length (fst module_path) > 0 then List.iter (fun (p) -> steps := !steps ^ "../") (fst module_path);
+		this#write ("#import \"" ^ !steps ^ (join_class_path class_path "/") ^ ".h\"\n")
+	method write_headers_imports (module_path:path) class_paths =
+		List.iter (fun class_path -> this#write_header_import module_path class_path ) class_paths
 	method write_headers_imports_extra class_paths =
 		List.iter (fun class_path -> this#write ("#import " ^ class_path ^ "\n")) class_paths
 	method write_frameworks_imports f_list = 
@@ -1563,9 +1566,9 @@ let generateMain ctx fd =
 								)) el
 							| _ -> print_endline "No 'new' keyword found")
 					);
-				| _ -> print_endline "objc_error: The main method should have a return");
+				| _ -> print_endline "objc_error: The main method should have a return: new UIApplicationMain()");
 			) expr_list
-		| _ -> print_endline "objc_error: The main method should have a return"
+		| _ -> print_endline "objc_error: The main method should have a return: new UIApplicationMain()"
 	);
 	(* print_endline ("- app_delegate_class: "^ (!app_delegate_class)); *)
 	let src_dir = srcDir ctx.com in
@@ -1879,15 +1882,18 @@ let pbxproj common_ctx files_manager =
 		};
 		"^children_app^" /* "^app_name^" */ = {
 			isa = PBXGroup;
-			children = (
-				"^children_supporting_files^" /* Supporting Files */,\n");
+			children = (\n");
 	List.iter ( fun (uuid, fileRef, path, ext) -> 
 		let full_path = (join_class_path path "/") in
 			if (fst path = []) then
 				file#write ("				"^fileRef^" /* "^full_path^ext^" */,\n")
 	) files_manager#get_source_files;
-	List.iter ( fun (uuid, fileRef, path, ext) -> file#write ("				"^fileRef^" /* "^(join_class_path path "/")^" */,\n"); ) files_manager#get_folders;
-	file#write ("			);
+	List.iter ( fun (uuid, fileRef, path, ext) ->
+		file#write ("				"^fileRef^" /* "^(join_class_path path "/")^" */,\n"); 
+	) files_manager#get_folders;
+	
+	file#write ("				"^children_supporting_files^" /* Supporting Files */,
+			);
 			path = "^app_name^";
 			sourceTree = \"<group>\";
 		};
@@ -2002,8 +2008,12 @@ let pbxproj common_ctx files_manager =
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				"^build_file_infoplist_strings^" /* InfoPlist.strings in Resources */,
-			);
+				"^build_file_infoplist_strings^" /* InfoPlist.strings in Resources */,\n");
+	List.iter ( fun (uuid, fileRef, path, ext) ->
+		file#write ("		"^uuid^" /* "^(join_class_path path "/")^" in Resoures */,\n"); 
+	) files_manager#get_folders;
+	(* TODO: add png resources *)
+	file#write ("			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		"^resources_build_phase_tests^" /* Resources */ = {
@@ -2431,7 +2441,7 @@ let generateHeader ctx files_manager imports_manager =
 	ctx.writer#new_line;
 	(* Import classes *)
 	imports_manager#remove_class_path ctx.class_def.cl_path;
-	ctx.writer#write_headers_imports imports_manager#get_imports;
+	ctx.writer#write_headers_imports ctx.class_def.cl_module.m_path imports_manager#get_imports;
 	ctx.writer#write_headers_imports_extra imports_manager#get_imports_extra;
 	ctx.writer#new_line;
 	
@@ -2547,7 +2557,7 @@ let generate common_ctx =
 						
 						(* Import header *)
 						m.ctx_m.writer#write_copy module_path (appName common_ctx);
-						m.ctx_m.writer#write_header_import module_path;
+						m.ctx_m.writer#write_header_import module_path module_path;
 					end;
 				end;
 				if not class_def.cl_interface then begin

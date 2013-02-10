@@ -64,6 +64,8 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		window.rootViewController = viewController;
 		window.makeKeyAndVisible();
 		
+		trace("Great, it works!");
+		
 		return true;
 	}
 	function locateLondon () {

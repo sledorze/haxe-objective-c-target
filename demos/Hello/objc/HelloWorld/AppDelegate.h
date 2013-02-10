@@ -11,6 +11,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 #import "CustomMapView.h"
+#import "haxe/Log.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
