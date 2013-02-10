@@ -28,7 +28,7 @@ extern enum CGBitmapInfo {
 
 extern class CGImage {
 /* Return the CFTypeID for CGImageRefs. */
-
+#if dddddddd
 	@:c public static function CGImageGetTypeID() :CFTypeID;
 
 /* Create an image. */
@@ -197,5 +197,5 @@ extern class CGImage {
 /* Return the bitmap info of `image'. */
 
 	@:c public static function CGImageGetBitmapInfo(image:CGImageRef) :CGBitmapInfo;
-
+	#end
 }

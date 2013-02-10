@@ -10,10 +10,13 @@ typedef CLLocationDistance = Float;
 
 
 extern class CLLocationCoordinate2D {
+	
+	public var latitude :CLLocationDegrees;
+	public var longitude :CLLocationDegrees;
+	// Shortcut constructor. Convert this in the compiler
 	function new (latitude:CLLocationDegrees, longitude:CLLocationDegrees) :Void;
+	@:c public static function CLLocationCoordinate2DMake (latitude:Float, longitude:Float) :Void;
 }
-// Convert this class in the compiler to:
-//CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)
 
 /*extern const CLLocationDistance kCLDistanceFilterNone;
 extern const CLLocationAccuracy kCLLocationAccuracyBestForNavigation __OSX_AVAILABLE_STARTING(__MAC_10_7,__IPHONE_4_0);
@@ -49,7 +52,7 @@ extern class CLLocation extends NSObject implements NSCopying implements NSCodin
 	public var speed :CLLocationSpeed;
 	public var timestamp :Date;
 
-	public function description () :String;
+/*	public function description () :String;*/
 	public function getDistanceFrom (location:CLLocation) :CLLocationDistance;
 	public function distanceFromLocation (location:CLLocation) :CLLocationDistance;
 

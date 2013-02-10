@@ -1,11 +1,11 @@
 package objc.graphics;
 
-typedef CGBase = objc.ios.coregraphics.CGBase;
-typedef CGAffineTransform = objc.ios.coregraphics.CGAffineTransform;
-typedef CGBitmapContext = objc.ios.coregraphics.CGBitmapContext;
-typedef CGColor = objc.ios.coregraphics.CGColor;
-typedef CGColorSpace = objc.ios.coregraphics.CGColorSpace;
-typedef CGContext = objc.ios.coregraphics.CGContext;
+typedef CGBase = objc.graphics.CGBase;
+typedef CGAffineTransform = objc.graphics.CGAffineTransform;
+typedef CGBitmapContext = objc.graphics.CGBitmapContext;
+typedef CGColor = objc.graphics.CGColor;
+typedef CGColorSpace = objc.graphics.CGColorSpace;
+typedef CGContext = objc.graphics.CGContext;
 
 /*include <CoreGraphics/.h>
 include <CoreGraphics/.h>

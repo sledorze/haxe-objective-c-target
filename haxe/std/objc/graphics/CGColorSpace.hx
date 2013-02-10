@@ -1,36 +1,34 @@
 package objc.graphics;
 
 
-typedef struct CGColorSpace *CGColorSpaceRef;
-
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGDataProvider.h>
+typedef CGColorSpaceRef = CGColorSpace;
 
 /* Color rendering intents. */
 
 enum CGColorRenderingIntent {
-  kCGRenderingIntentDefault,
-  kCGRenderingIntentAbsoluteColorimetric,
-  kCGRenderingIntentRelativeColorimetric,
-  kCGRenderingIntentPerceptual,
-  kCGRenderingIntentSaturation
-};
-typedef enum CGColorRenderingIntent CGColorRenderingIntent;
+  kCGRenderingIntentDefault;
+  kCGRenderingIntentAbsoluteColorimetric;
+  kCGRenderingIntentRelativeColorimetric;
+  kCGRenderingIntentPerceptual;
+  kCGRenderingIntentSaturation;
+}
 
 /* The model of a color space. */
 
 enum CGColorSpaceModel {
-  kCGColorSpaceModelUnknown = -1,
-  kCGColorSpaceModelMonochrome,
-  kCGColorSpaceModelRGB,
-  kCGColorSpaceModelCMYK,
-  kCGColorSpaceModelLab,
-  kCGColorSpaceModelDeviceN,
-  kCGColorSpaceModelIndexed,
-  kCGColorSpaceModelPattern
-};
-typedef enum CGColorSpaceModel CGColorSpaceModel;
+  kCGColorSpaceModelUnknown;
+  kCGColorSpaceModelMonochrome;
+  kCGColorSpaceModelRGB;
+  kCGColorSpaceModelCMYK;
+  kCGColorSpaceModelLab;
+  kCGColorSpaceModelDeviceN;
+  kCGColorSpaceModelIndexed;
+  kCGColorSpaceModelPattern;
+}
 
+
+class CGColorSpace {
+#if ddddddddd
 /* The name of the "Generic" gray color space. */
 
 	@:c public static function const CFStringRef kCGColorSpaceGenericGray
@@ -243,4 +241,5 @@ typedef enum CGColorSpaceModel CGColorSpaceModel;
 	@:c public static function CFDataRef CGColorSpaceCopyICCProfile(CGColorSpaceRef space)
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
 
-#endif /* CGCOLORSPACE_H_ */
+#end
+}

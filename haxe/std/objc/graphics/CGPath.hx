@@ -1,28 +1,27 @@
 package objc.graphics;
 
-typedef struct CGPath *CGMutablePathRef;
-typedef const struct CGPath *CGPathRef;
+typedef CGMutablePathRef = CGPath;
+typedef CGPathRef = CGPath;
 
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGAffineTransform.h>
-#include <CoreFoundation/CFBase.h>
 
 /* Line join styles. */
 
 extern enum CGLineJoin {
-    kCGLineJoinMiter,
-    kCGLineJoinRound,
-    kCGLineJoinBevel
+    kCGLineJoinMiter;
+    kCGLineJoinRound;
+    kCGLineJoinBevel;
 }
 
 /* Line cap styles. */
 
 extern enum CGLineCap {
-    kCGLineCapButt,
-    kCGLineCapRound,
-    kCGLineCapSquare
+    kCGLineCapButt;
+    kCGLineCapRound;
+    kCGLineCapSquare;
 }
 
+extern class CGPath {
+#if ddddddd
 /* Return the CFTypeID for CGPathRefs. */
 
 	@:c public static function CFTypeID CGPathGetTypeID(void)
@@ -337,4 +336,6 @@ typedef void (*CGPathApplierFunction)(void *info,
   CGPathApplierFunction function)
   CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
-#endif /* CGPATH_H_ */
+#end
+   
+}

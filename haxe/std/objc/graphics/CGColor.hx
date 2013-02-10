@@ -1,12 +1,10 @@
 package objc.graphics;
 
 
-typedef struct CGColor *CGColorRef;
+typedef CGColorRef = CGColor;
 
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGColorSpace.h>
-#include <CoreGraphics/CGPattern.h>
-
+class CGColor {
+#if dddddddd
 /* Create a color in the color space `space' with color components
    (including alpha) specified by `components'. `space' may be any color
    space except a pattern color space. */
@@ -119,4 +117,5 @@ typedef struct CGColor *CGColorRef;
 	@:c public static function const CFStringRef kCGColorClear
   CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_NA);
 
-#endif /* CGCOLOR_H_ */
+#end
+}

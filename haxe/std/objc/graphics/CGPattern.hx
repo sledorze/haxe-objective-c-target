@@ -1,10 +1,8 @@
 package objc.graphics;
 
-typedef struct CGPattern *CGPatternRef;
+import objc.graphics.CGContext;
 
-#include <CoreGraphics/CGBase.h>
-#include <CoreGraphics/CGContext.h>
-#include <CoreFoundation/CFBase.h>
+typedef CGPatternRef = CGPattern;
 
 /* kCGPatternTilingNoDistortion: The pattern cell is not distorted when
    painted, however the spacing between pattern cells may vary by as much as
@@ -20,11 +18,10 @@ typedef struct CGPattern *CGPatternRef;
    implementation. */
 
 enum CGPatternTiling {
-  kCGPatternTilingNoDistortion,
-  kCGPatternTilingConstantSpacingMinimalDistortion,
-  kCGPatternTilingConstantSpacing
-};
-typedef enum CGPatternTiling CGPatternTiling;
+  kCGPatternTilingNoDistortion;
+  kCGPatternTilingConstantSpacingMinimalDistortion;
+  kCGPatternTilingConstantSpacing;
+}
 
 /* The drawing of the pattern is delegated to the callbacks. The callbacks
    may be called one or many times to draw the pattern.
@@ -35,16 +32,19 @@ typedef enum CGPatternTiling CGPatternTiling;
       parameter originally passed to the CGPattern creation functions.
     `releaseInfo' is called when the pattern is deallocated. */
 
-typedef void (*CGPatternDrawPatternCallback)(void *info, CGContextRef c);
-typedef void (*CGPatternReleaseInfoCallback)(void *info);
+typedef CGPatternCallbacks = {
+	 var version :Int;
+	 var drawPattern :CGPatternDrawPatternCallback;
+	 var releaseInfo :CGPatternReleaseInfoCallback;
+}
+typedef CGPatternDrawPatternCallback = Void->CGContextRef;
+typedef CGPatternReleaseInfoCallback = Void->Void;
+/*typedef void (*CGPatternDrawPatternCallback)(void *info, CGContextRef c);*/
+/*typedef void (*CGPatternReleaseInfoCallback)(void *info);*/
 
-struct CGPatternCallbacks {
-  unsigned int version;
-  CGPatternDrawPatternCallback drawPattern;
-  CGPatternReleaseInfoCallback releaseInfo;
-};
-typedef struct CGPatternCallbacks CGPatternCallbacks;
 
+class CGPattern {
+	#if ddddddddd
 /* Return the CFTypeID for CGPatternRefs. */
 
 	@:c public static function CFTypeID CGPatternGetTypeID(void)
@@ -69,4 +69,5 @@ typedef struct CGPatternCallbacks CGPatternCallbacks;
 	@:c public static function void CGPatternRelease(CGPatternRef pattern)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-#endif /* CGPATTERN_H_ */
+#end
+}

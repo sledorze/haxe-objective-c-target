@@ -1,6 +1,13 @@
 package objc.graphics;
 
-//typedef struct CGContext *CGContextRef;
+import objc.graphics.CGPath;
+import objc.graphics.CGGeometry;
+import objc.graphics.CGImage;
+import objc.graphics.CGColor;
+import objc.graphics.CGColorSpace;
+import objc.graphics.CGPattern;
+
+typedef CGContextRef = CGContext;
 
 
 /* Drawing modes for paths. */
@@ -103,7 +110,7 @@ extern enum CGBlendMode {
 extern class CGContext {
 /* Return the CFTypeID for CGContextRefs. */
 
-	@:c public static function GetTypeID () :CFTypeID;
+	//@:c public static function GetTypeID () :CFTypeID;
     
 /** Graphics state functions. **/
 
@@ -138,12 +145,11 @@ extern class CGContext {
 /* Concatenate the current graphics state's transformation matrix (the CTM)
    with the affine transform `transform'. */
 
-	@:c public static function CGContextConcatCTM(c:CGContextRef, CGAffineTransform transform) :Void;
+	@:c public static function CGContextConcatCTM(c:CGContextRef, transform:CGAffineTransform) :Void;
 
 /* Return the current graphics state's transformation matrix. */
 
-	@:c public static function CGAffineTransform CGContextGetCTM(c:CGContextRef)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGContextGetCTM(c:CGContextRef) :CGAffineTransform;
 
 /** Drawing attribute functions. **/
 
@@ -153,11 +159,11 @@ extern class CGContext {
 
 /* Set the line cap in the current graphics state to `cap'. */
 
-	@:c public static function CGContextSetLineCap(c:CGContextRef, CGLineCap cap) :Void;
+	@:c public static function CGContextSetLineCap(c:CGContextRef, cap:CGLineCap) :Void;
 
 /* Set the line join in the current graphics state to `join'. */
 
-	@:c public static function CGContextSetLineJoin(c:CGContextRef, CGLineJoin join) :Void;
+	@:c public static function CGContextSetLineJoin(c:CGContextRef, join:CGLineJoin) :Void;
 
 /* Set the miter limit in the current graphics state to `limit'. */
 
@@ -178,7 +184,7 @@ extern class CGContext {
 
 /* Set the blend mode of `context' to `mode'. */
 
-	@:c public static function CGContextSetBlendMode(c:CGContextRefontext, mode:CGBlendMode) :Void;
+	@:c public static function CGContextSetBlendMode(c:CGContextRef, mode:CGBlendMode) :Void;
 
 /** Path construction functions. **/
 
@@ -229,7 +235,7 @@ extern class CGContext {
    function `CGPathAddEllipseInRect' for more information on how the path
    for the ellipse is constructed. */
 
-	@:c public static function CGContextAddEllipseInRect(c:CGContextRefontext, rect:CGRect) :Void;
+	@:c public static function CGContextAddEllipseInRect(c:CGContextRef, rect:CGRect) :Void;
 
 /* Add an arc of a circle to the context's path, possibly preceded by a
    straight line segment. `(x, y)' is the center of the arc; `radius' is its
@@ -245,12 +251,12 @@ extern class CGContext {
    tangent to the line from the current point to `(x1, y1)', and the line
    from `(x1, y1)' to `(x2, y2)'. */
 
-	@:c public static function CGContextAddArcToPoint(c:CGContextRef, x:Float1, y:Float1, x:Float2, y:Float2, radius:Float) :Void;
+	@:c public static function CGContextAddArcToPoint(c:CGContextRef, x1:Float, y1:Float, x2:Float, y2:Float, radius:Float) :Void;
 
 /* Add `path' to the path of context. The points in `path' are transformed
    by the CTM of context before they are added. */
 
-	@:c public static function CGContextAddPath(c:CGContextRefontext, path:CGPathRef) :Void;
+	@:c public static function CGContextAddPath(c:CGContextRef, path:CGPathRef) :Void;
 
 /** Path stroking. **/
 
@@ -269,41 +275,36 @@ extern class CGContext {
 /* Return true if the path of `context' contains no elements, false
    otherwise. */
 
-	@:c public static function bool CGContextIsPathEmpty(c:CGContextRefontext)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGContextIsPathEmpty(c:CGContextRef) :Bool;
 
 /* Return the current point of the current subpath of the path of
    `context'. */
 
-	@:c public static function CGPoint CGContextGetPathCurrentPoint(c:CGContextRefontext)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGContextGetPathCurrentPoint(c:CGContextRef) :CGPoint;
 
 /* Return the bounding box of the path of `context'. The bounding box is the
    smallest rectangle completely enclosing all points in the path, including
    control points for Bezier and quadratic curves. */
 
-	@:c public static function CGRect CGContextGetPathBoundingBox(c:CGContextRefontext)
-    CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function CGContextGetPathBoundingBox(c:CGContextRef) :CGRect;
 
 /* Return a copy of the path of `context'. The returned path is specified in
    the current user space of `context'. */
 
-	@:c public static function CGPathRef CGContextCopyPath(c:CGContextRefontext)
-    CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
+	@:c public static function CGContextCopyPath(c:CGContextRef) :CGPathRef;
 
 /* Return true if `point' is contained in the current path of `context'. A
    point is contained within a context's path if it is inside the painted
    region when the path is stroked or filled with opaque colors using the
    path drawing mode `mode'. `point' is specified is user space. */
 
-	@:c public static function bool CGContextPathContainsPoint(c:CGContextRefontext, CGPoint point,
-    CGPathDrawingMode mode) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+	@:c public static function CGContextPathContainsPoint(c:CGContextRef, point:CGPoint, mode:CGPathDrawingMode) :Bool;
 
 /** Path drawing functions. **/
 
 /* Draw the context's path using drawing mode `mode'. */
 
-	@:c public static function CGContextDrawPath(c:CGContextRef, CGPathDrawingMode mode) :Void;
+	@:c public static function CGContextDrawPath(c:CGContextRef, mode:CGPathDrawingMode) :Void;
 
 /** Path drawing convenience functions. **/
 
@@ -328,8 +329,7 @@ extern class CGContext {
 /* Fill `rects', an array of `count' CGRects, with the current fill
    color. */
 
-	@:c public static function CGContextFillRects(c:CGContextRef, const rect:CGRects[],
-    size_t count) :Void;
+	@:c public static function CGContextFillRects(c:CGContextRef, rect:Array<CGRect>, count:Int) :Void;
 
 /* Stroke `rect' with the current stroke color and the current linewidth. */
 
@@ -338,8 +338,7 @@ extern class CGContext {
 /* Stroke `rect' with the current stroke color, using `width' as the the
    line width. */
 
-	@:c public static function CGContextStrokeRectWithWidth(c:CGContextRef, rect:CGRect,
-    width:Float) :Void;
+	@:c public static function CGContextStrokeRectWithWidth(c:CGContextRef, rect:CGRect, width:Float) :Void;
 
 /* Clear `rect' (that is, set the region within the rect to transparent). */
 
@@ -347,11 +346,11 @@ extern class CGContext {
 
 /* Fill an ellipse (an oval) inside `rect'. */
 
-	@:c public static function CGContextFillEllipseInRect(c:CGContextRefontext, rect:CGRect) :Void;
+	@:c public static function CGContextFillEllipseInRect(c:CGContextRef, rect:CGRect) :Void;
 
 /* Stroke an ellipse (an oval) inside `rect'. */
 
-	@:c public static function CGContextStrokeEllipseInRect(c:CGContextRefontext, rect:CGRect) :Void;
+	@:c public static function CGContextStrokeEllipseInRect(c:CGContextRef, rect:CGRect) :Void;
 
 /* Stroke a sequence of line segments one after another in `context'. The
    line segments are specified by `points', an array of `count' CGPoints.
@@ -364,8 +363,7 @@ extern class CGContext {
      }
      CGContextStrokePath(context); */
 
-	@:c public static function CGContextStrokeLineSegments(c:CGContextRef,
-    const CGPoint points[], size_t count) :Void;
+	@:c public static function CGContextStrokeLineSegments(c:CGContextRef, points:Array<CGPoint>, count:Int) :Void;
 
 /** Clipping functions. **/
 
@@ -408,15 +406,13 @@ extern class CGContext {
    not have alpha, and may not be masked by an image mask or masking
    color. */
 
-	@:c public static function CGContextClipToMask(c:CGContextRef, rect:CGRect,
-    CGImageRef mask) :Void;
+	@:c public static function CGContextClipToMask(c:CGContextRef, rect:CGRect, mask:CGImageRef) :Void;
 
 /* Return the bounding box of the clip path of `c' in user space. The
    bounding box is the smallest rectangle completely enclosing all points in
    the clip. */
 
-	@:c public static function CGRect CGContextGetClipBoundingBox(c:CGContextRef)
-    CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
+	@:c public static function CGContextGetClipBoundingBox(c:CGContextRef) :CGRect;
 
 /** Clipping convenience functions. **/
 
@@ -429,19 +425,17 @@ extern class CGContext {
    creating a path consisting of all rects in `rects'. Note that this
    function resets the context's path to the empty path. */
 
-	@:c public static function CGContextClipToRects(c:CGContextRef, const rect:CGRects[],
-    size_t count) :Void;
+	@:c public static function CGContextClipToRects(c:CGContextRef, rect:Array<CGRect>, count:Int) :Void;
 
 /** Primitive color functions. **/
 
 /* Set the current fill color in the context `c' to `color'. */
 
-	@:c public static function CGContextSetFillColorWithColor(c:CGContextRef, CGColorRef color) :Void;
+	@:c public static function CGContextSetFillColorWithColor(c:CGContextRef, color:CGColorRef) :Void;
 
 /* Set the current stroke color in the context `c' to `color'. */
 
-	@:c public static function CGContextSetStrokeColorWithColor(c:CGContextRef,
-    CGColorRef color) :Void;
+	@:c public static function CGContextSetStrokeColorWithColor(c:CGContextRef, color:CGColorRef) :Void;
 
 /** Color space functions. **/
 
@@ -449,15 +443,13 @@ extern class CGContext {
    side-effect, set the fill color to a default value appropriate for the
    color space. */
 
-	@:c public static function CGContextSetFillColorSpace(c:CGContextRefontext,
-    CGColorSpaceRef space) :Void;
+	@:c public static function CGContextSetFillColorSpace(c:CGContextRef, space:CGColorSpaceRef) :Void;
 
 /* Set the current stroke color space in `context' to `space'. As a
    side-effect, set the stroke color to a default value appropriate for the
    color space. */
 
-	@:c public static function CGContextSetStrokeColorSpace(c:CGContextRefontext,
-    CGColorSpaceRef space) :Void;
+	@:c public static function CGContextSetStrokeColorSpace(c:CGContextRef, space:CGColorSpaceRef) :Void;
 
 /** Color functions. **/
 
@@ -467,8 +459,7 @@ extern class CGContext {
    (N color components + 1 alpha component). The current fill color space
    must not be a pattern color space. */
 
-	@:c public static function CGContextSetFillColor(c:CGContextRefontext,
-    const Float components[]) :Void;
+	@:c public static function CGContextSetFillColor(c:CGContextRef, components:Array<Float>) :Void;
 
 /* Set the components of the current stroke color in `context' to the values
    specifed by `components'. The number of elements in `components' must be
@@ -476,8 +467,7 @@ extern class CGContext {
    space (N color components + 1 alpha component). The current stroke color
    space must not be a pattern color space. */
 
-	@:c public static function CGContextSetStrokeColor(c:CGContextRefontext,
-    const Float components[]) :Void;
+	@:c public static function CGContextSetStrokeColor(c:CGContextRef, components:Array<Float>) :Void;
 
 /** Pattern functions. **/
 
@@ -488,8 +478,7 @@ extern class CGContext {
    + 1 alpha component). The current fill color space must be a pattern
    color space. */
 
-	@:c public static function CGContextSetFillPattern(c:CGContextRefontext,
-    CGPatternRef pattern, const Float components[]) :Void;
+	@:c public static function CGContextSetFillPattern(c:CGContextRef, pattern:CGPatternRef, components:Array<Float>) :Void;
 
 /* Set the components of the current stroke color in `context' to the values
    specifed by `components', and set the current stroke pattern to
@@ -498,64 +487,61 @@ extern class CGContext {
    components + 1 alpha component). The current stroke color space must be a
    pattern color space. */
 
-	@:c public static function CGContextSetStrokePattern(c:CGContextRefontext,
-    CGPatternRef pattern, const Float components[]) :Void;
+	@:c public static function CGContextSetStrokePattern(c:CGContextRef, pattern:CGPatternRef, components:Array<Float>) :Void;
 
 /* Set the pattern phase in the current graphics state of `context' to
    `phase'. */
 
-	@:c public static function CGContextSetPatternPhase(c:CGContextRefontext, CGSize phase) :Void;
+	@:c public static function CGContextSetPatternPhase(c:CGContextRef, phase:CGSize) :Void;
 
 /** Color convenience functions. **/
 
 /* Set the current fill color space in `context' to `DeviceGray' and set the
    components of the current fill color to `(gray, alpha)'. */
 
-	@:c public static function CGContextSetGrayFillColor(c:CGContextRefontext, Float gray, alpha:Float) :Void;
+	@:c public static function CGContextSetGrayFillColor(c:CGContextRef, gray:Float, alpha:Float) :Void;
 
 /* Set the current stroke color space in `context' to `DeviceGray' and set
    the components of the current stroke color to `(gray, alpha)'. */
 
-	@:c public static function CGContextSetGrayStrokeColor(c:CGContextRefontext, Float gray, alpha:Float) :Void;
+	@:c public static function CGContextSetGrayStrokeColor(c:CGContextRef, gray:Float, alpha:Float) :Void;
 
 /* Set the current fill color space in `context' to `DeviceRGB' and set the
    components of the current fill color to `(red, green, blue, alpha)'. */
 
-	@:c public static function CGContextSetRGBFillColor(c:CGContextRefontext, red:Float, green:Float, blue:Float, alpha:Float) :Void;
+	@:c public static function CGContextSetRGBFillColor(c:CGContextRef, red:Float, green:Float, blue:Float, alpha:Float) :Void;
 
 /* Set the current stroke color space in `context' to `DeviceRGB' and set
    the components of the current stroke color to `(red, green, blue,
    alpha)'. */
 
-	@:c public static function CGContextSetRGBStrokeColor(c:CGContextRefontext, red:Float, green:Float, blue:Float, alpha:Float) :Void;
+	@:c public static function CGContextSetRGBStrokeColor(c:CGContextRef, red:Float, green:Float, blue:Float, alpha:Float) :Void;
 
 /* Set the current fill color space in `context' to `DeviceCMYK' and set the
    components of the current fill color to `(cyan, magenta, yellow, black,
    alpha)'. */
 
-	@:c public static function CGContextSetCMYKFillColor(c:CGContextRefontext, cyan:Float, magenta:Float, y:Floatellow, black:Float, alpha:Float) :Void;
+	@:c public static function CGContextSetCMYKFillColor(c:CGContextRef, cyan:Float, magenta:Float, yellow:Float, black:Float, alpha:Float) :Void;
 
 /* Set the current stroke color space in `context' to `DeviceCMYK' and set
    the components of the current stroke color to `(cyan, magenta, yellow,
    black, alpha)'. */
 
-	@:c public static function CGContextSetCMYKStrokeColor(c:CGContextRefontext, cyan:Float, magenta:Float, y:Floatellow, black:Float, alpha:Float) :Void;
+	@:c public static function CGContextSetCMYKStrokeColor(c:CGContextRef, cyan:Float, magenta:Float, yellow:Float, black:Float, alpha:Float) :Void;
 
 /** Rendering intent. **/
 
 /* Set the rendering intent in the current graphics state of `context' to
    `intent'. */
 
-	@:c public static function CGContextSetRenderingIntent(c:CGContextRefontext,
-    CGColorRenderingIntent intent) :Void;
+	@:c public static function CGContextSetRenderingIntent(c:CGContextRef, intent:CGColorRenderingIntent) :Void;
 
 /** Image functions. **/
 
 /* Draw `image' in the rectangular area specified by `rect' in the context
    `c'. The image is scaled, if necessary, to fit into `rect'. */
 
-	@:c public static function CGContextDrawImage(c:CGContextRef, rect:CGRect,
-    CGImageRef image) :Void;
+	@:c public static function CGContextDrawImage(c:CGContextRef, rect:CGRect, image:CGImageRef) :Void;
 
 /* Draw `image' tiled in the context `c'. The image is scaled to the size
    specified by `rect' in user space, positioned at the origin of `rect' in
@@ -564,8 +550,7 @@ extern class CGContext {
    Unlike patterns, the image is tiled in user space, so transformations
    applied to the CTM affect the final result. */
 
-	@:c public static function CGContextDrawTiledImage(c:CGContextRef, rect:CGRect,
-    CGImageRef image) :Void;
+	@:c public static function CGContextDrawTiledImage(c:CGContextRef, rect:CGRect, image:CGImageRef) :Void;
 
 /* Return the interpolation quality for image rendering of `context'. The
    interpolation quality is a gstate parameter which controls the level of
@@ -573,16 +558,14 @@ extern class CGContext {
    scaling the image). Note that it is merely a hint to the context: not all
    contexts support all interpolation quality levels. */
 
-	@:c public static function CGInterpolationQuality CGContextGetInterpolationQuality(CGContextRef
-    context) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+	@:c public static function  CGContextGetInterpolationQuality(context:CGContextRef) :CGInterpolationQuality;
 
 /* Set the interpolation quality of `context' to `quality'. */
 
-	@:c public static function CGContextSetInterpolationQuality(c:CGContextRefontext,
-    CGInterpolationQuality quality) :Void;
+	@:c public static function CGContextSetInterpolationQuality(c:CGContextRef, quality:CGInterpolationQuality) :Void;
 
 /** Shadow support. **/
-
+#if nnnnnn
 /* Set the shadow parameters in `context'. `offset' specifies a translation
    in base-space; `blur' is a non-negative number specifying the amount of
    blur; `color' specifies the color of the shadow, which may contain a
@@ -592,7 +575,7 @@ extern class CGContext {
    turn off shadowing, set the shadow color to a fully transparent color (or
    pass NULL as the color), or use the standard gsave/grestore mechanism. */
 
-	@:c public static function CGContextSetShadowWithColor(c:CGContextRefontext, CGSize offset,
+	@:c public static function CGContextSetShadowWithColor(c:CGContextRef, CGSize offset,
     Float blur, CGColorRef color) :Void;
 
 /* Equivalent to calling
@@ -600,7 +583,7 @@ extern class CGContext {
    where color is black with 1/3 alpha (i.e., RGBA = {0, 0, 0, 1.0/3.0}) in
    the DeviceRGB color space. */
 
-	@:c public static function CGContextSetShadow(c:CGContextRefontext, CGSize offset,
+	@:c public static function CGContextSetShadow(c:CGContextRef, CGSize offset,
     Float blur) :Void;
 
 /** Gradient and shading functions. **/
@@ -612,7 +595,7 @@ extern class CGContext {
    values of the gradient's locations. The option flags control whether the
    gradient is drawn before the start point or after the end point. */
 
-	@:c public static function CGContextDrawLinearGradient(c:CGContextRefontext,
+	@:c public static function CGContextDrawLinearGradient(c:CGContextRef,
     CGGradientRef gradient, CGPoint startPoint, CGPoint endPoint,
     CGGradientDrawingOptions options) :Void;
 
@@ -625,13 +608,13 @@ extern class CGContext {
    values of the gradient's locations. The option flags control whether the
    gradient is drawn before the start circle or after the end circle. */
 
-	@:c public static function CGContextDrawRadialGradient(c:CGContextRefontext,
+	@:c public static function CGContextDrawRadialGradient(c:CGContextRef,
     CGGradientRef gradient, CGPoint startCenter, Float startRadius,
     CGPoint endCenter, Float endRadius, CGGradientDrawingOptions options) :Void;
 
 /* Fill the current clipping region of `context' with `shading'. */
 
-	@:c public static function CGContextDrawShading(c:CGContextRefontext, CGShadingRef shading) :Void;
+	@:c public static function CGContextDrawShading(c:CGContextRef, CGShadingRef shading) :Void;
 
 /** Text functions. **/
 
@@ -639,7 +622,7 @@ extern class CGContext {
    character spacing is added to the displacement between the origin of one
    character and the origin of the next. */
 
-	@:c public static function CGContextSetCharacterSpacing(c:CGContextRefontext, spacing:Float) :Void;
+	@:c public static function CGContextSetCharacterSpacing(c:CGContextRef, spacing:Float) :Void;
 
 /* Set the user-space point at which text will be drawn in the context `c'
    to `(x, y)'. */
@@ -648,7 +631,7 @@ extern class CGContext {
 
 /* Return the user-space point at which text will be drawn in `context'. */
 
-	@:c public static function CGPoint CGContextGetTextPosition(c:CGContextRefontext)
+	@:c public static function CGPoint CGContextGetTextPosition(c:CGContextRef)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Set the text matrix in the context `c' to `t'. */
@@ -688,7 +671,7 @@ extern class CGContext {
    `positions'. Each element of `positions' specifies the position from the
    associated glyph; the positions are specified in user space. */
 
-	@:c public static function CGContextShowGlyphsAtPositions(c:CGContextRefontext,
+	@:c public static function CGContextShowGlyphsAtPositions(c:CGContextRef,
     const CGGlyph glyphs[], const CGPoint positions[], size_t count) :Void;
 
 /** Text convenience functions. **/
@@ -718,7 +701,7 @@ extern class CGContext {
 /* Display the glyphs pointed to by `glyphs', an array of `count' glyphs, at
    the point `(x, y)', specified in user space, in `context'. */
 
-	@:c public static function CGContextShowGlyphsAtPoint(c:CGContextRefontext, x:Float,
+	@:c public static function CGContextShowGlyphsAtPoint(c:CGContextRef, x:Float,
     y:Float, const CGGlyph glyphs[], size_t count) :Void;
 
 /* Draw `glyphs', an array of `count' CGGlyphs, at the current point
@@ -769,7 +752,7 @@ extern class CGContext {
 /* Turn on antialiasing if `shouldAntialias' is true; turn it off otherwise.
    This parameter is part of the graphics state. */
 
-	@:c public static function CGContextSetShouldAntialias(c:CGContextRefontext,
+	@:c public static function CGContextSetShouldAntialias(c:CGContextRef,
     bool shouldAntialias) :Void;
 
 /* Allow antialiasing in `context' if `allowsAntialiasing' is true; don't
@@ -777,7 +760,7 @@ extern class CGContext {
    context will perform antialiasing if both `allowsAntialiasing' and the
    graphics state parameter `shouldAntialias' are true. */
 
-	@:c public static function CGContextSetAllowsAntialiasing(c:CGContextRefontext,
+	@:c public static function CGContextSetAllowsAntialiasing(c:CGContextRef,
     bool allowsAntialiasing) :Void;
 
 /** Font display functions. **/
@@ -787,7 +770,7 @@ extern class CGContext {
    doesn't guarantee that font smoothing will occur: not all destination
    contexts support font smoothing. */
 
-	@:c public static function CGContextSetShouldSmoothFonts(c:CGContextRefontext,
+	@:c public static function CGContextSetShouldSmoothFonts(c:CGContextRef,
     bool shouldSmoothFonts) :Void;
 
 /* If `allowsFontSmoothing' is true, then allow font smoothing when
@@ -796,7 +779,7 @@ extern class CGContext {
    they are antialiased when drawn and if both `allowsFontSmoothing' and the
    graphics state parameter `shouldSmoothFonts' are true. */
  
-	@:c public static function CGContextSetAllowsFontSmoothing(c:CGContextRefontext,
+	@:c public static function CGContextSetAllowsFontSmoothing(c:CGContextRef,
     bool allowsFontSmoothing) :Void;
 
 /* If `shouldSubpixelPositionFonts' is true, then glyphs may be placed at
@@ -804,7 +787,7 @@ extern class CGContext {
    otherwise, glyphs will be forced to integer pixel boundaries. This
    parameter is part of the graphics state. */
 
-	@:c public static function CGContextSetShouldSubpixelPositionFonts(c:CGContextRefontext,
+	@:c public static function CGContextSetShouldSubpixelPositionFonts(c:CGContextRef,
     bool shouldSubpixelPositionFonts) :Void;
 
 /* If `allowsFontSubpixelPositioning' is true, then allow font subpixel
@@ -814,7 +797,7 @@ extern class CGContext {
    antialiased when drawn and if both `allowsFontSubpixelPositioning' and
    the graphics state parameter `shouldSubpixelPositionFonts' are true. */
 
-	@:c public static function CGContextSetAllowsFontSubpixelPositioning(c:CGContextRefontext,
+	@:c public static function CGContextSetAllowsFontSubpixelPositioning(c:CGContextRef,
     bool allowsFontSubpixelPositioning) :Void;
 
 /* If `shouldSubpixelQuantizeFonts' is true, then quantize the subpixel
@@ -822,7 +805,7 @@ extern class CGContext {
    quantize the subpixel positions. This parameter is part of the graphics
    state. */
 
-	@:c public static function CGContextSetShouldSubpixelQuantizeFonts(c:CGContextRefontext,
+	@:c public static function CGContextSetShouldSubpixelQuantizeFonts(c:CGContextRef,
     bool shouldSubpixelQuantizeFonts) :Void;
 
 /* If `allowsFontSubpixelQuantization' is true, then allow font subpixel
@@ -832,7 +815,7 @@ extern class CGContext {
    subpixel positions and `allowsFontSubpixelQuantization' and the graphics
    state parameter `shouldSubpixelQuantizeFonts' are both true. */
 
-	@:c public static function CGContextSetAllowsFontSubpixelQuantization(c:CGContextRefontext,
+	@:c public static function CGContextSetAllowsFontSubpixelQuantization(c:CGContextRef,
     bool allowsFontSubpixelQuantization) :Void;
 
 /** Transparency layer support. **/
@@ -853,19 +836,19 @@ extern class CGContext {
    they had before `CGContextBeginTransparencyLayer' was called.
    Transparency layers may be nested. */
 
-	@:c public static function CGContextBeginTransparencyLayer(c:CGContextRefontext,
+	@:c public static function CGContextBeginTransparencyLayer(c:CGContextRef,
     CFDictionaryRef auxiliaryInfo) :Void;
 
 /* Begin a transparency layer in `context'. This function is identical to
   `CGContextBeginTransparencyLayer' except that the content of the
   transparency layer will be bounded by `rect' (specified in user space). */
 
-	@:c public static function CGContextBeginTransparencyLayerWithRect(c:CGContextRefontext,
+	@:c public static function CGContextBeginTransparencyLayerWithRect(c:CGContextRef,
     rect:CGRect, CFDictionaryRef auxiliaryInfo) :Void;
 
 /* End a tranparency layer. */
 
-	@:c public static function CGContextEndTransparencyLayer(c:CGContextRefontext) :Void;
+	@:c public static function CGContextEndTransparencyLayer(c:CGContextRef) :Void;
 
 /** User space to device space tranformations. **/
 
@@ -873,27 +856,27 @@ extern class CGContext {
    of `context' to device space (pixels). */
 
 	@:c public static function CGAffineTransform
-    CGContextGetUserSpaceToDeviceSpaceTransform(c:CGContextRefontext)
+    CGContextGetUserSpaceToDeviceSpaceTransform(c:CGContextRef)
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `point' from the user space of `context' to device space. */
 
-	@:c public static function CGPoint CGContextConvertPointToDeviceSpace(c:CGContextRefontext,
+	@:c public static function CGPoint CGContextConvertPointToDeviceSpace(c:CGContextRef,
     CGPoint point) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `point' from device space to the user space of `context'. */
 
-	@:c public static function CGPoint CGContextConvertPointToUserSpace(c:CGContextRefontext,
+	@:c public static function CGPoint CGContextConvertPointToUserSpace(c:CGContextRef,
     CGPoint point) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `size' from the user space of `context' to device space. */
 
-	@:c public static function CGSize CGContextConvertSizeToDeviceSpace(c:CGContextRefontext,
+	@:c public static function CGSize CGContextConvertSizeToDeviceSpace(c:CGContextRef,
     CGSize size) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `size' from device space to the user space of `context'. */
 
-	@:c public static function CGSize CGContextConvertSizeToUserSpace(c:CGContextRefontext,
+	@:c public static function CGSize CGContextConvertSizeToUserSpace(c:CGContextRef,
     CGSize size) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `rect' from the user space of `context' to device space. Since
@@ -901,7 +884,7 @@ extern class CGContext {
    returns the smallest rectangle which contains the transformed corner
    points of `rect'. */
 
-	@:c public static function CGRect CGContextConvertRectToDeviceSpace(c:CGContextRefontext,
+	@:c public static function CGRect CGContextConvertRectToDeviceSpace(c:CGContextRef,
     rect:CGRect) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Transform `rect' from device space to the user space of `context'. Since
@@ -909,7 +892,9 @@ extern class CGContext {
    returns the smallest rectangle which contains the transformed corner
    points of `rect'. */
 
-	@:c public static function CGRect CGContextConvertRectToUserSpace(c:CGContextRefontext,
+	@:c public static function CGRect CGContextConvertRectToUserSpace(c:CGContextRef,
     rect:CGRect) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
-#endif	/* CGCONTEXT_H_ */
+#end
+	
+}

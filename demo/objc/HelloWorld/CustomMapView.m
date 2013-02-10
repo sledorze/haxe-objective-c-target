@@ -10,9 +10,18 @@
 @implementation CustomMapView
 
 - (void) locateLondon{
-	[self locate:50.8 _long:-0.5 zoom:1.2];
+	[self locate:51.4788 _long:0.0106 zoom:1.2];
+}
+- (void) locateMe{
+	self.showsUserLocation = YES;
 }
 - (void) locate:(float)lat _long:(float)_long zoom:(float)zoom{
+	CLLocationCoordinate2D zoomLocation;
+	zoomLocation.latitude = lat;
+	zoomLocation.longitude = _long;
+	MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance (zoomLocation, 40000, 40000);
+	MKCoordinateRegion adjustedRegion = [self regionThatFits:viewRegion];
+	[self setRegion:adjustedRegion animated:YES];
 }
 
 @end

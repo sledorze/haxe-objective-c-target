@@ -1,18 +1,22 @@
 package objc.foundation;
+
 import objc.foundation.NSObjCRuntime;
 import objc.foundation.NSZone;
+
 typedef Protocol = Dynamic;
 typedef IMP = Dynamic;
 
 extern class NSObject {
+
+	public function new () :Void;// This is used by the compiler only, there's no 'new' method in objc
 	
 	// Sending Messages
 
 	@:overload( function (aSelector:SEL, withObject:Dynamic, waitUntilDone:Bool, modes:Array<String>) :Void {} )
-	public function performSelectorOnMainThread1 (aSelector:SEL, withObject:Dynamic, waitUntilDone:Bool):Void;
+	public function performSelectorOnMainThread (aSelector:SEL, withObject:Dynamic, waitUntilDone:Bool):Void;
 	
 	@:overload( function (aSelector:SEL, onThread:NSThread, withObject:Dynamic, waitUntilDone:Bool, modes:Array<String>):Void {} )
-	public function performSelector1 (aSelector:SEL, onThread:NSThread, withObject:Dynamic, waitUntilDone:Bool):Void;
+	public function performSelector (aSelector:SEL, onThread:NSThread, withObject:Dynamic, waitUntilDone:Bool):Void;
 	
 	public function performSelectorInBackground (aSelector:SEL, withObject:Dynamic):Void;
 	
@@ -38,8 +42,6 @@ extern class NSObject {
 	public static function initialize () :Void;
 	public function init () :NSObject;
 
-	public function new () :Void;// This is used by the compiler only
-	
 	public static function allocWithZone (zone:NSZone) :NSObject;
 	public static function alloc () :NSObject;
 	//public function dealloc () :Void;
@@ -126,9 +128,9 @@ extern interface NSDiscardableContent {
 }
 
 extern interface  NSCopying {
-
-	//public function copyWithZone (zone:NSZone) :NSObject;
-
+#if display
+	public function copyWithZone (zone:NSZone) :NSObject;
+#end
 }
 
 extern interface  NSMutableCopying {
