@@ -7,9 +7,9 @@
 
 
 
-#import "Bytes.h"
-#import "FileSeek.h"
-#import "Output.h"
+#import "../../haxe/io/Bytes.h"
+#import "../../sys/io/FileSeek.h"
+#import "../../haxe/io/Output.h"
 
 @interface FileOutput : Output 
 

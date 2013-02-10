@@ -22,9 +22,11 @@
 - (NSMutableString*) matchedLeft;
 - (NSMutableString*) matchedRight;
 - (id) matchedPos;
+- (BOOL) matchSub:(NSMutableString*)s pos:(int)pos len:(int)len;
 - (NSMutableArray*) split:(NSMutableString*)s;
 - (NSMutableString*) replace:(NSMutableString*)s by:(NSMutableString*)by;
 - (NSMutableString*) customReplace:(NSMutableString*)s f:(SEL)f;
+- (NSMutableString*) map:(NSMutableString*)s f:(SEL)f;
 - (id) init:(NSMutableString*)r opt:(NSMutableString*)opt;
 
 @end

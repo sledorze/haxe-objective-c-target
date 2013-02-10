@@ -31,6 +31,7 @@ import objc.location.CLLocation;
 class Lib {
 	
 	public static function log (v : Dynamic) : Void {
+		untyped __objc__("NSLog (@\"%@\", v)");
 	}
 	
 	public static function print (v : Dynamic) : Void {

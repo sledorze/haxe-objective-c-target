@@ -20,7 +20,7 @@
 	timer = [Timer delay:^- (void) {
 		[[_g objectAtIndex:0] testTimerLoop];
 	} time_ms:50];
-	[Timer measure:self testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestHaxePack.hx",@"22",@"TestHaxePack",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[Timer measure:self.testTimerLoop pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestHaxePack.hx",@"22",@"TestHaxePack",@"testTimer",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	float f = [Timer stamp];
 }
 - (void) testTimerLoop{
@@ -52,7 +52,7 @@
 	
 	NSMutableString *str = [Json stringify:struct {
 	a:(NSMutableString*)@"a"
-	} structName];
+	} structName replacer:nil];
 	id obj = [Json parse:str];
 	
 	Template *t = [[Template alloc] init:str];

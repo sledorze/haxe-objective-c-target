@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Array.h"
-#import "Resource.h"
-#import "String.h"
-#import "Bytes.h"
+#import "../Array.h"
+#import "../haxe/Resource.h"
+#import "../String.h"
+#import "../haxe/io/Bytes.h"
 
 @interface Resource : NSObject
 

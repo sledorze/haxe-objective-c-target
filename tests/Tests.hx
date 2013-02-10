@@ -69,7 +69,7 @@ class Tests/* implements Interface1 implements Interface2*/ {
 	
 	// For statements
 	
-/*	function testingFor(){
+	function testingFor(){
 		var aa = [1, 2, 3, 4, 5];
 		for (i in 0...5) aa.push ( i );
 		for (i in 0...aa.length) aa.push ( i );
@@ -251,7 +251,7 @@ class Tests/* implements Interface1 implements Interface2*/ {
 	function testLambda(){
 		var a :Array<Int> = Lambda.array ([0,1,2,3]);
 		var l = Lambda.concat ([0,1,2,3], [4,5]);
-		 count<A>(it : Iterable<A>, ?pred : A -> Bool) : Int
+/*		 count<A>(it : Iterable<A>, ?pred : A -> Bool) : Int
 		 empty(it : Iterable<Dynamic>) : Bool
 		 exists<A>(it : Iterable<A>, f : A -> Bool) : Bool
 		 filter<A>(it : Iterable<A>, f : A -> Bool) : List<A>
@@ -262,7 +262,7 @@ class Tests/* implements Interface1 implements Interface2*/ {
 		 iter<A>(it : Iterable<A>, f : A -> Void) : Void
 		 list<A>(it : Iterable<A>) : List<A>
 		 map<A, B>(it : Iterable<A>, f : A -> B) : List<B>
-		 mapi<A, B>(it : Iterable<A>, f : Int -> A -> B) : List<B>
+		 mapi<A, B>(it : Iterable<A>, f : Int -> A -> B) : List<B>*/
 	}
 	
 	
@@ -420,9 +420,10 @@ class Tests/* implements Interface1 implements Interface2*/ {
 		var sup = Type.getSuperClass ( objc.foundation.NSString );
 		var sups = Type.getClassName ( objc.foundation.NSString );
 		#end
+		
 		var cl = Type.resolveClass ( "ios.map.MKMapView" );
 		var inst = Type.createEmptyInstance ( objc.foundation.NSString );
-		
+	/*	
 		allEnums<T>(e : Enum<T>) : Array<T>
 		Returns the list of all enum values that dont take any parameter.
 		
@@ -461,7 +462,7 @@ class Tests/* implements Interface1 implements Interface2*/ {
 		Evaluates a class from a name. The class must have been compiled to be accessible.
 		static function resolveEnum(name : String) : Enum<Dynamic>
 		Evaluates an enum from a name. The enum must have been compiled to be accessible.
-		static function typeof(v : Dynamic) : ValueType
+		static function typeof(v : Dynamic) : ValueType*/
 	}
 	
 	
@@ -531,7 +532,7 @@ class Tests/* implements Interface1 implements Interface2*/ {
 		var x = 6;
 		s = "init";
 	}
-	*/
+	
 	// Trace is converted to NSLog, but Lib.print is converted to C printf
 	
 	public function printHello () :Void {

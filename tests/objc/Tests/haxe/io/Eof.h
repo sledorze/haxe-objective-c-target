@@ -7,7 +7,7 @@
 
 
 
-#import "String.h"
+#import "../../String.h"
 
 @interface Eof : NSObject
 

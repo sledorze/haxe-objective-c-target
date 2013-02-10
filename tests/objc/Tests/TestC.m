@@ -43,7 +43,7 @@
 	self = [super init];
 	float x = rand() * 50;
 	float y = cosf(x);
-	CGPoint p =  CGPointMake(x, y);
+	CGPoint p = .CGPointMake(x, y);
 	return self;
 }
 

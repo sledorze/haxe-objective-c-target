@@ -128,7 +128,7 @@ type context = {
 	mutable objc_owner : string option;
 	mutable objc_bundle_name : string option;
 	mutable objc_orientation : string option;
-	mutable objc_plist : string option;
+	mutable objc_supporting_files : string option;
 	(* typing *)
 	mutable basic : basic_types;
 }
@@ -453,7 +453,7 @@ let create v args =
 		objc_owner = None;
 		objc_bundle_name = None;
 		objc_orientation = None;
-		objc_plist = None;
+		objc_supporting_files = None;
 		load_extern_type = [];
 		defines_signature = None;
 		get_macros = (fun() -> None);
@@ -528,6 +528,18 @@ let flash_versions = List.map (fun v ->
 	let min = int_of_float (mod_float (v *. 10.) 10.) in
 	v, string_of_int maj ^ (if min = 0 then "" else "_" ^ string_of_int min)
 ) [9.;10.;10.1;10.2;10.3;11.;11.1;11.2;11.3;11.4;11.5]
+
+let objc_ios_versions = List.map (fun v ->
+	let maj = int_of_float v in
+	let min = int_of_float (mod_float (v *. 10.) 10.) in
+	v, string_of_int maj ^ (if min = 0 then "" else "_" ^ string_of_int min)
+) [4.2;5.0;6.0]
+
+let objc_osx_versions = List.map (fun v ->
+	let maj = int_of_float v in
+	let min = int_of_float (mod_float (v *. 10.) 10.) in
+	v, string_of_int maj ^ (if min = 0 then "" else "_" ^ string_of_int min)
+) [10.7;10.8]
 
 let raw_defined ctx v =
 	PMap.mem v ctx.defines

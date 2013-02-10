@@ -14,7 +14,7 @@
 	id c = [o __GetClass];
 	{
 		
-		NSMutableString *_g = FAnon[c toString];
+		NSMutableString *_g = [c toString];
 		switch (_g){
 			case (NSMutableString*)@"__Anon":{
 				return nil}break;
@@ -46,7 +46,7 @@
 }
 + (Enum*) resolveEnum:(NSMutableString*)name{
 	
-	Class *result = [Class Resolve:name];
+	Class *result = [TAbstractDecl Resolve:name];
 	if (result != nil && ![result __IsEnum]) return nil;
 	return result;
 }
@@ -83,8 +83,8 @@
 	return [e GetClassFields];
 }
 + (Type*) typeof:(id)v{
-	if (v == nil) return ValueType TNull;
-	return ValueType TNull;
+	if (v == nil) return  TNull;
+	return  TNull;
 }
 + (BOOL) enumEq:(id)a b:(id)b{
 	return a == b;

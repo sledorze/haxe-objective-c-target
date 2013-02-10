@@ -7,10 +7,10 @@
 
 
 
-#import "String.h"
-#import "Bytes.h"
-#import "Array.h"
-#import "Md5.h"
+#import "../../String.h"
+#import "../../haxe/io/Bytes.h"
+#import "../../Array.h"
+#import "../../haxe/crypto/Md5.h"
 
 @interface Md5 : NSObject
 

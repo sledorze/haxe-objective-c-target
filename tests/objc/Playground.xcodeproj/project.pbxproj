@@ -104,8 +104,6 @@
 		287530AB16957A1D0048F960 = {
 			isa = PBXGroup;
 			children = (
-				28F13CCB16B92B9600A69694 /* AVFoundation.framework */,
-				2839DCD816AFA44E00068D3B /* AudioToolbox.framework */,
 				287530C016957A1D0048F960 /* Playground */,
 				287530DE16957A1E0048F960 /* PlaygroundTests */,
 				287530B916957A1D0048F960 /* Frameworks */,
@@ -125,6 +123,8 @@
 		287530B916957A1D0048F960 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				28F13CCB16B92B9600A69694 /* AVFoundation.framework */,
+				2839DCD816AFA44E00068D3B /* AudioToolbox.framework */,
 				287530BA16957A1D0048F960 /* UIKit.framework */,
 				287530BC16957A1D0048F960 /* Foundation.framework */,
 				287530BE16957A1D0048F960 /* CoreGraphics.framework */,

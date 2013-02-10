@@ -353,6 +353,21 @@ static int length__;
 	twin->appearance = appearance;
 	return twin;
 }
+- (id) iterator{
+	typedef struct {
+		h:self.d1;
+		hasNext:^ (id) {
+			return self.d1 != nil;
+		};
+		next:^ (id) {
+			if (self.d1 == nil) return nil;
+//			id x = [self.h objectAtIndex:0];
+//			self.h = [self.h objectAtIndex:1];
+			return self.d1;
+		}
+	} IteratorStruct;
+	return IteratorStruct;
+}
 
 @end
 

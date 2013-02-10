@@ -16,15 +16,15 @@ typedef enum{
 } TemplateExpr;
 
 
-#import "EReg.h"
-#import "Template.h"
-#import "List.h"
-#import "StringBuf.h"
-#import "String.h"
-#import "Reflect.h"
-#import "Array.h"
-#import "TemplateExpr.h"
-#import "Std.h"
+#import "../EReg.h"
+#import "../haxe/Template.h"
+#import "../List.h"
+#import "../StringBuf.h"
+#import "../String.h"
+#import "../Reflect.h"
+#import "../Array.h"
+#import "../haxe/_Template/TemplateExpr.h"
+#import "../Std.h"
 
 @interface Template : NSObject
 

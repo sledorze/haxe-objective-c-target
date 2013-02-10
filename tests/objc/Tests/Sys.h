@@ -8,10 +8,10 @@
 
 
 #import "Sys.h"
-#import "Input.h"
-#import "FileInput.h"
-#import "Output.h"
-#import "FileOutput.h"
+#import "haxe/io/Input.h"
+#import "sys/io/FileInput.h"
+#import "haxe/io/Output.h"
+#import "sys/io/FileOutput.h"
 #import "Array.h"
 #import "String.h"
 #import "Hash.h"

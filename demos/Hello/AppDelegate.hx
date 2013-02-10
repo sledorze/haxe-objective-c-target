@@ -66,6 +66,9 @@ class AppDelegate extends UIResponder implements UIApplicationDelegate {
 		
 		trace("Great, it works!");
 		
+		var o = ["1","2","3"];
+		trace(o[1]);
+		
 		return true;
 	}
 	function locateLondon () {

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Timer.h"
-#import "Array.h"
-#import "T.h"
-#import "Log.h"
-#import "Sys.h"
+#import "../haxe/Timer.h"
+#import "../Array.h"
+#import "../measure/T.h"
+#import "../haxe/Log.h"
+#import "../Sys.h"
 
 @interface Timer : NSObject
 

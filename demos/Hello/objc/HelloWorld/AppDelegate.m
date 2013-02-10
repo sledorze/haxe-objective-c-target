@@ -47,6 +47,9 @@
 	self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];
 	[Log trace:(NSMutableString*)@"Great, it works!" infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"AppDelegate.hx",@"67",@"AppDelegate",@"application",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	
+	NSMutableArray *o = [[NSMutableArray alloc] initWithObjects:(NSMutableString*)@"1", (NSMutableString*)@"2", (NSMutableString*)@"3", nil];
+	[Log trace:[o objectAtIndex:1] infos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"AppDelegate.hx",@"70",@"AppDelegate",@"application",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	return YES;
 }
 - (void) locateLondon{

@@ -8,17 +8,17 @@
 
 
 #import "Array.h"
-#import "Timer.h"
+#import "haxe/Timer.h"
 #import "String.h"
-#import "Md5.h"
-#import "Sha1.h"
-#import "Resource.h"
-#import "Log.h"
-#import "CallStack.h"
-#import "Serializer.h"
-#import "Unserializer.h"
-#import "Json.h"
-#import "Template.h"
+#import "haxe/crypto/Md5.h"
+#import "haxe/crypto/Sha1.h"
+#import "haxe/Resource.h"
+#import "haxe/Log.h"
+#import "haxe/CallStack.h"
+#import "haxe/Serializer.h"
+#import "haxe/Unserializer.h"
+#import "haxe/Json.h"
+#import "haxe/Template.h"
 
 @interface TestHaxePack : NSObject
 

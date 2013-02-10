@@ -66,6 +66,21 @@
 			return null;//regexp_matched_pos(r,0);
 	}
 
+	/**
+		Tells if [this] regular expression matches a substring of String [s].
+		
+		This function expects [pos] and [len] to describe a valid substring of
+		[s], or else the result is unspecified. To get more robust behavior,
+		[this].matchSub(s.substr(pos,len)) can be used instead.
+		
+		This method modifies the internal state.
+		
+		If [s] is null, the result is unspecified.
+	**/
+	public function matchSub( s : String, pos : Int, len : Int = 0):Bool {
+		return false;
+	}
+
 	public function split( s : String ) : Array<String> {
 			var pos = 0;
 			var len = s.length;
@@ -153,5 +168,22 @@
 		buf.add(s);
 		return buf.toString();
 	}
-	
+
+	/**
+		For each occurence of the pattern in the string [s], the function [f] is called and
+		can return the string that needs to be replaced. All occurences are matched anyway,
+		and setting the [g] flag might cause some incorrect behavior on some platforms.
+	**/
+	public function map( s : String, f : EReg -> String ) : String {
+		var buf = new StringBuf();
+		while( true ) {
+			if( !match(s) )
+				break;
+			buf.add(matchedLeft());
+			buf.add(f(this));
+			s = matchedRight();
+		}
+		buf.add(s);
+		return buf.toString();
+	}
 }

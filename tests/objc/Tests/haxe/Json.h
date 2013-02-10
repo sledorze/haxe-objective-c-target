@@ -7,29 +7,30 @@
 
 
 
-#import "String.h"
-#import "Json.h"
-#import "StringBuf.h"
-#import "Array.h"
-#import "Reflect.h"
-#import "Type.h"
-#import "Std.h"
-#import "Math.h"
-#import "Class.h"
-#import "StringMap.h"
-#import "EnumValue.h"
+#import "../String.h"
+#import "../haxe/Json.h"
+#import "../StringBuf.h"
+#import "../Array.h"
+#import "../Reflect.h"
+#import "../Type.h"
+#import "../Std.h"
+#import "../Math.h"
+#import "../Class.h"
+#import "../haxe/ds/StringMap.h"
+#import "../EnumValue.h"
 
 @interface Json : NSObject
 
 + (id) parse:(NSMutableString*)text;
-+ (NSMutableString*) stringify:(id)value;
++ (NSMutableString*) stringify:(id)value replacer:(SEL)replacer;
 @property (nonatomic, strong) StringBuf *buf;
 @property (nonatomic, strong) NSMutableString *str;
 @property (nonatomic) int pos;
-- (NSMutableString*) toString:(id)v;
+
+- (NSMutableString*) toString:(id)v replacer:(SEL)replacer;
 - (void) fieldsString:(id)v fields:(NSMutableArray*)fields;
 - (void) objString:(id)v;
-- (void) toStringRec:(id)v;
+- (void) toStringRec:(id)k v:(id)v;
 - (void) quote:(NSMutableString*)s;
 - (id) doParse:(NSMutableString*)str;
 - (void) invalidChar;

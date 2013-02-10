@@ -37,15 +37,21 @@ static BOOL global__;
 }
 - (NSMutableString*) matchedLeft{
 	id p = nil;
-	return [self last substr:0 len:p pos];
+	return [self.last substr:0 len:p pos];
 }
 - (NSMutableString*) matchedRight{
 	id p = nil;
 	int sz = p pos + p len;
-	return [self last substr:sz len:self last.length - sz];
+	return [self.last substr:sz len:self.last.length - sz];
 }
 - (id) matchedPos{
 	return nil;
+}
+- (BOOL) matchSub:(NSMutableString*)s pos:(int)pos len:(int)len{
+	// Simulated optional arguments
+	if (len == nil) len = 0;
+	
+	return NO;
 }
 - (NSMutableArray*) split:(NSMutableString*)s{
 	int pos = 0;
@@ -132,7 +138,19 @@ static BOOL global__;
 	StringBuf *buf = [[StringBuf alloc] init];
 	while (YES) {
 		if (![self match:s]) break;
-		buf.b += [Std string:[self matchedLeft]];
+		buf.b += [Std string:[self.matchedLeft]];
+		buf.b += [Std string:[f:self]];
+		s = [self matchedRight];
+	}
+	buf.b += [Std string:s];
+	return buf.b;
+}
+- (NSMutableString*) map:(NSMutableString*)s f:(SEL)f{
+	
+	StringBuf *buf = [[StringBuf alloc] init];
+	while (YES) {
+		if (![self match:s]) break;
+		buf.b += [Std string:[self.matchedLeft]];
 		buf.b += [Std string:[f:self]];
 		s = [self matchedRight];
 	}

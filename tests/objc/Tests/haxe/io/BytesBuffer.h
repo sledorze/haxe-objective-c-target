@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Bytes.h"
-#import "Error.h"
+#import "../../haxe/io/Bytes.h"
+#import "../../haxe/io/Error.h"
 
 @interface BytesBuffer : NSObject
 

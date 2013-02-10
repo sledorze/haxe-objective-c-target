@@ -21,15 +21,7 @@ static int length__;
 	return [NSMutableArray arrayWithArray:self];
 }
 - (id) iterator{
-	return struct {
-	a:self; p:0; hasNext:^- (BOOL) {
-		return self.p < self.a length;
-	}; next:^- (id) {
-		id i = [self.a objectAtIndex:self.p];
-		self.p += 1;
-		return i;
-	}
-	} structName;
+	return nil;
 }
 - (void) insert:(int)pos x:(id)x{
 	[self insertObject:x atIndex:pos];
@@ -59,7 +51,7 @@ static int length__;
 	return containsObject;
 }
 - (void) reverse{
-	id reverseArray = FAnon[[self reverseObjectEnumerator] allObjects];
+	id reverseArray = [[self reverseObjectEnumerator] allObjects];
 }
 - (id) shift{
 	if ([self count] > 0) {

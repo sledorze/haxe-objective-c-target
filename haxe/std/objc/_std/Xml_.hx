@@ -44,9 +44,7 @@ enum XmlType {
 
 	function new() : Void {
 	}
-
-	private static var _parse = cpp.Lib.load("std","parse_xml",2);
-
+	
 	public static function parse( str : String ) : Xml {
 		var x = new Xml();
 		x._children = new Array();

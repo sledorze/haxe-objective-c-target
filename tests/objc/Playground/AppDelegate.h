@@ -35,5 +35,6 @@ id self_c;
 -(void)ttt;
 -(void)ttt2:(NSString*)str;
 - (void)login;
+-(id)iterator;
 
 @end

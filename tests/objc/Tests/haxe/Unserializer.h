@@ -7,21 +7,21 @@
 
 
 
-#import "Type.h"
-#import "String.h"
-#import "Array.h"
-#import "Unserializer.h"
-#import "Class.h"
-#import "Enum.h"
-#import "Std.h"
-#import "StringTools.h"
-#import "Math.h"
-#import "List.h"
-#import "StringMap.h"
-#import "IntMap.h"
-#import "ObjectMap.h"
-#import "Date.h"
-#import "Bytes.h"
+#import "../Type.h"
+#import "../String.h"
+#import "../Array.h"
+#import "../haxe/Unserializer.h"
+#import "../Class.h"
+#import "../Enum.h"
+#import "../Std.h"
+#import "../StringTools.h"
+#import "../Math.h"
+#import "../List.h"
+#import "../haxe/ds/StringMap.h"
+#import "../haxe/ds/IntMap.h"
+#import "../haxe/ds/ObjectMap.h"
+#import "../Date.h"
+#import "../haxe/io/Bytes.h"
 
 @interface Unserializer : NSObject
 

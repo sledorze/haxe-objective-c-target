@@ -45,7 +45,7 @@
 + (BOOL) compareMethods:(id)f1 f2:(id)f2{
 	if (f1 == f2) return YES;
 	if (![Reflect isFunction:f1] || ![Reflect isFunction:f2]) return NO;
-	return FAnon[__global__ __hxcpp_same_closure:f1 :f2];
+	return [__global__ __hxcpp_same_closure:f1 :f2];
 }
 + (BOOL) isObject:(id)v{
 	if (v == nil) return NO;
@@ -54,7 +54,7 @@
 }
 + (BOOL) deleteField:(id)o f:(NSMutableString*)f{
 	if (o == nil) return NO;
-	return FAnon[__global__ __hxcpp_anon_remove:o :f];
+	return [__global__ __hxcpp_anon_remove:o :f];
 }
 + (id) copy:(id)o{
 	if (o == nil) return nil;
@@ -76,7 +76,7 @@
 	return o2;
 }
 + (id) makeVarArgs:(SEL)f{
-	return FAnon[__global__ __hxcpp_create_var_args:f];
+	return [__global__ __hxcpp_create_var_args:f];
 }
 
 @end
