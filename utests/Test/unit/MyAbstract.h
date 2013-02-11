@@ -197,3 +197,16 @@
 
 @end
 
+
+
+#import "../String.h"
+#import "../Array.h"
+
+@interface MyAbstractClosureImpl : NSObject
+
++ (NSMutableString*) _new:(NSMutableString*)value;
++ (SEL) test:(NSMutableString*)this1;
++ (void) setVal:(NSMutableString*)this1 v:(NSMutableString*)v;
+
+@end
+

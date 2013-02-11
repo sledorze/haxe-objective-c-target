@@ -50,6 +50,7 @@
 #import "../haxe/ds/_HashMap/HashMapImpl.h"
 #import "../haxe/ds/ObjectMap.h"
 #import "../unit/_MyAbstract/MyInt2Impl.h"
+#import "../unit/_MyAbstract/MyAbstractClosureImpl.h"
 
 @interface TestType : Test 
 
@@ -99,6 +100,7 @@
 - (void) testAbstractUnop;
 - (void) testMapComprehension;
 - (void) testCustomArrayAccess;
+- (void) testAbstractClosure;
 - (id) init;
 
 @end

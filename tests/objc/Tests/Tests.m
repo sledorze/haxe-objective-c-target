@@ -381,7 +381,7 @@
 	int i = [Reflect compare:1 b:2];
 	BOOL cm = [Reflect compareMethods:self.testStd f2:self.testString];
 	BOOL isobj = [Reflect isObject:obj];
-	isobj = [Reflect isObject:^(){ [self testStd]; }];
+	isobj = [Reflect isObject:-FClosure-^(){ [self testStd]; }];
 	[Reflect deleteField:obj f:(NSMutableString*)@"a"];
 	id obj2 = [Reflect copy:obj];
 }
@@ -558,8 +558,8 @@
 	self.d1 = 34;
 	
 	Tests2 *test2 = [[Tests2 alloc] init];
-	test2.functionToRedefine = ^(){ [self functionToRedefine]; };
-	test2.functionToRedefine2 = ^(int param1, NSMutableString *param2){ [self functionToRedefine2:param1 param2:param2]; };
+	test2.functionToRedefine = -FClosure-^(){ [self functionToRedefine]; };
+	test2.functionToRedefine2 = -FClosure-^(int param1, NSMutableString *param2){ [self functionToRedefine2:param1 param2:param2]; };
 	[[TestC alloc] init];
 	[[TestHaxePack alloc] init];
 	return self;

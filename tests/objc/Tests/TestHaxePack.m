@@ -14,9 +14,9 @@
 	NSMutableArray *_g = [[NSMutableArray alloc] initWithObjects:self, nil];
 	
 	Timer *timer = [[Timer alloc] init:50];
-	timer.run = ^(){ [self testTimerLoop]; };
+	timer.run = -FClosure-^(){ [self testTimerLoop]; };
 	[timer stop];
-	timer = [Timer delay:^(){ [self testTimerLoop]; } time_ms:50];
+	timer = [Timer delay:-FClosure-^(){ [self testTimerLoop]; } time_ms:50];
 	timer = [Timer delay:^- (void) {
 		[[_g objectAtIndex:0] testTimerLoop];
 	} time_ms:50];

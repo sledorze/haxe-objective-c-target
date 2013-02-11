@@ -6,162 +6,162 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		JX2BZ7856S92IWOIVJOWB9VC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5Y0VVYZR8K0AOE42POXSCE9X; };
-		6D4554W5BCFYEDJ08WAATBEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = MJEVV7P7UK7NH2TZW3P6VCOP; };
-		45O49W3SM5NGJPO6QWBMJR9F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = PK13F2WKUAWPWGNLZ49QT7PP; };
-		AG9CU0YIHJ7RB1796E9334CY /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = RO19NY1KU9O41PP5NOPWFCKD; };
-		3L0NX0P6XQG6HW05DQUOV37I /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = RD1009POGZQ0Y01DGD739JG8; };
-		V6EKH2KZCVG8VPVL2KH3IPV2 /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = VPZMHN2ZLVSIWWZRSBLU1SRJ; };
-		M5ZEUMABOBN80WH4K5ZDB0SG /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = MT7R58RQ567UGW7H6FRRKT1C; };
-		GEF441AW18TGAHC51ZEN1LBJ /* HelloWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 9LXVIX0N2AIBCD8U1G2WOQ0Q; };
-		2Z3BZ6XOFW8IXXW5AYSX31YE /* String.m in Sources */ = {isa = PBXBuildFile; fileRef = REXIO2X28JFG7C1Y86U0M4RL; };
-		TEY5NIU4QGIKJF561NM1E0JJ /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = LEAXDX0WQ4B9M95SK7IKHFN1; };
-		WH5KAW62THIQ4WY915KRNQYN /* haxe in Resources */ = {isa = PBXBuildFile; fileRef = L0FX5D4WMZZAW4FCAL1B90BO; };
-		CVEKFMNOABUPOUGASEGI4RYP /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ICZ88VD1DUEGEF2DK97GGB9 /* InfoPlist.strings */; };
-		5LVR09YUTZORGZXLC06VJZ4V /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = HJE9QL1KIUX43NX709MI26BP /* InfoPlist.strings */; };
-		MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D8IZFOZUAN8UIDIPWOGLAJ /* main.m */; };
+		W7IMZ6A1MI57D94W7S8L5FYZ /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2RB1NY4OVP1BC3Y9Y9VGL7HP; };
+		TTV5H1DVTSDG0GI79A264UB8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AMAV6S6NC83XJTTD8ZV5XFIW; };
+		WN90RZJZHCDTF9KOXYRIPQ7P /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = O21AAE7119V6IABWPC7HUPEB; };
+		WF1LF3K8E1102UD8MXFZRH09 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = GMZ7QP5J76JFHUNXXOO3URTO; };
+		DZEKZPOPZOW4SR0GDY6QSE5Y /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = TJ1MKQ01LA66VYR3T5W6S1K4; };
+		7FAYU11QSSNWNLLCITUO1M2K /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = 2RE8H92ZD8O9S2KLUW1TGPA8; };
+		IZPD0MEPP3Y6NK8ZFJHA3TNN /* CustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7TKVVSW2TMOLKIAUU9LZTMKV; };
+		YBR2Y67TNTPTX2QSW3FO22IE /* HelloWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = D11TWCL64PX800AWF2FVYXFX; };
+		1AO56ARG9ROW24UFTIZQREGT /* String.m in Sources */ = {isa = PBXBuildFile; fileRef = I9UTUVDOROHL1S9UUCW42SJ9; };
+		MZ1YB3UFQ3L2LBHNJPFUM3R6 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = AO9OH3NCD9QOOP6R9Y1BIAYD; };
+		GTZS28S02KPZ5D2KDF3P5KEA /* haxe in Resources */ = {isa = PBXBuildFile; fileRef = K9JHJ2116AGTLRK3RGNWEP8Y; };
+		XQ5WS07ACV24DJE12FCA7EIN /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 894WAU6I6U1KBD2UCLND4QC5 /* InfoPlist.strings */; };
+		PJ936UYYRBH71ZMBFJXQCA0P /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = PCLUCIMY4CU47K4Y4OU8QJGI /* InfoPlist.strings */; };
+		YSRIHD1P1P8H1EVBTQ9UEM8U /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AFQIHMIP1UG74ZN2V3DURSN4 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		ECFPJBLW5Q770BWNAJZVYPVV /* PBXContainerItemProxy */ = {
+		1LM5YHMOYM5NO2G8VRIDWCF4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = KEO098H49K800BYQ5PU0MUTY /* Project object */;
+			containerPortal = XZNMD0ZJZFIHZMQEAC0B6KJB /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = YG7KOQ4ICQ5A5FW81P0D7DIW;
+			remoteGlobalIDString = DF7N7XQQ7B5O1ZXXGRG8DWWH;
 			remoteInfo = HelloWorld;
 		};
 /* End PBXContainerItemProxy section */
 
 
 /* Begin PBXFileReference section */
-		5Y0VVYZR8K0AOE42POXSCE9X /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		MJEVV7P7UK7NH2TZW3P6VCOP /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		PK13F2WKUAWPWGNLZ49QT7PP /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		RO19NY1KU9O41PP5NOPWFCKD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		RD1009POGZQ0Y01DGD739JG8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		HJUV2M9D2CQ7V0LZZ7DCV2I8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		VPZMHN2ZLVSIWWZRSBLU1SRJ /* Array.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Array.m; sourceTree = "<group>"; };
-		IS1D32RKI6502DLKK4HPDFUA /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
-		MT7R58RQ567UGW7H6FRRKT1C /* CustomMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomMapView.m; sourceTree = "<group>"; };
-		FQNIYXQN4031B0IMHNMRLWU1 /* CustomMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMapView.h; sourceTree = "<group>"; };
-		9LXVIX0N2AIBCD8U1G2WOQ0Q /* HelloWorld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorld.m; sourceTree = "<group>"; };
-		RRHB8LPS4CTI0QSOEDGLN0TY /* HelloWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorld.h; sourceTree = "<group>"; };
-		REXIO2X28JFG7C1Y86U0M4RL /* String.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = String.m; sourceTree = "<group>"; };
-		AECE9QILEWLA1NH76Q1B3AEI /* String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
-		LEAXDX0WQ4B9M95SK7IKHFN1 /* haxe/Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = HelloWorld/haxe/Log.m; sourceTree = SOURCE_ROOT; };
-		4OK4YZL3SLOK78383F1SOW9K /* haxe/Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Log.h; path = HelloWorld/haxe/Log.h; sourceTree = SOURCE_ROOT; };
-		L0FX5D4WMZZAW4FCAL1B90BO /* haxe/ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = haxe; sourceTree = "<group>"; };
-		WO5IBFJ8QPILLMKDLZBG57YB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CZVXT1NDQVF78GUET1KAX965 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		J1HO90BFNU0QZ8CCS5IKV3ME /* HelloWorld-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloWorld-Info.plist"; sourceTree = "<group>"; };
-		UR0PKCSRFTFZ3JV15GEYMCBK /* HelloWorld-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloWorld-Prefix.pch"; sourceTree = "<group>"; };
-		32D8IZFOZUAN8UIDIPWOGLAJ /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2GO7O56IZIKX00QH4J6FHJ9I /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		LHI94CVMSPXOB0PC0I5T0KT3 /* HelloWorldTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloWorldTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2RB1NY4OVP1BC3Y9Y9VGL7HP /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AMAV6S6NC83XJTTD8ZV5XFIW /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		O21AAE7119V6IABWPC7HUPEB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		GMZ7QP5J76JFHUNXXOO3URTO /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		TJ1MKQ01LA66VYR3T5W6S1K4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1VM4XZA2AJMQC80K6J2BKBIB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2RE8H92ZD8O9S2KLUW1TGPA8 /* Array.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Array.m; sourceTree = "<group>"; };
+		BFH14HRWF31RVSN5XGMB3AXK /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
+		7TKVVSW2TMOLKIAUU9LZTMKV /* CustomMapView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomMapView.m; sourceTree = "<group>"; };
+		V43EU617CBZQ0M87OAX7O794 /* CustomMapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomMapView.h; sourceTree = "<group>"; };
+		D11TWCL64PX800AWF2FVYXFX /* HelloWorld.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloWorld.m; sourceTree = "<group>"; };
+		2ZZ3W0JCZLX57SXP2A0SGJK0 /* HelloWorld.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelloWorld.h; sourceTree = "<group>"; };
+		I9UTUVDOROHL1S9UUCW42SJ9 /* String.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = String.m; sourceTree = "<group>"; };
+		77AVJHQJHKX1T25S4ZUZMWOB /* String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
+		AO9OH3NCD9QOOP6R9Y1BIAYD /* haxe/Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = HelloWorld/haxe/Log.m; sourceTree = SOURCE_ROOT; };
+		DO8YC9GUW7U896CLREN4KLY0 /* haxe/Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Log.h; path = HelloWorld/haxe/Log.h; sourceTree = SOURCE_ROOT; };
+		K9JHJ2116AGTLRK3RGNWEP8Y /* haxe/ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = haxe; sourceTree = "<group>"; };
+		I6W1VACO4UKCE34VO6KZ8O6U /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CDD3S7HG1CFNXB9KJ2T7PY22 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		IF202M824W70IBPF9T51S750 /* HelloWorld-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloWorld-Info.plist"; sourceTree = "<group>"; };
+		QT2ADFX1SLWW5DTB68MVCZWA /* HelloWorld-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloWorld-Prefix.pch"; sourceTree = "<group>"; };
+		AFQIHMIP1UG74ZN2V3DURSN4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		PNGA3RW29SATCBMUN7YCHLE1 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5KD5LDIRHJL3366P6M6APH1I /* HelloWorldTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloWorldTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 
 /* Begin PBXFrameworksBuildPhase section */
-		AX4FQ2TBOPUVKS6BKBW5XRX5 /* Frameworks */ = {
+		1CXBOWG4PD48WC8OPT554GDF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				JX2BZ7856S92IWOIVJOWB9VC /* UIKit.framework in Frameworks */,
-				6D4554W5BCFYEDJ08WAATBEC /* Foundation.framework in Frameworks */,
-				45O49W3SM5NGJPO6QWBMJR9F /* CoreGraphics.framework in Frameworks */,
-				AG9CU0YIHJ7RB1796E9334CY /* MapKit.framework in Frameworks */,
+				W7IMZ6A1MI57D94W7S8L5FYZ /* UIKit.framework in Frameworks */,
+				TTV5H1DVTSDG0GI79A264UB8 /* Foundation.framework in Frameworks */,
+				WN90RZJZHCDTF9KOXYRIPQ7P /* CoreGraphics.framework in Frameworks */,
+				WF1LF3K8E1102UD8MXFZRH09 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CCQWPO9ZG9CL80K2I2BRHHMX /* Frameworks */ = {
+		P33NF3SJFC4Z3VGCN62SN6MT /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				JX2BZ7856S92IWOIVJOWB9VC /* UIKit.framework in Frameworks */,
-				6D4554W5BCFYEDJ08WAATBEC /* Foundation.framework in Frameworks */,
-				45O49W3SM5NGJPO6QWBMJR9F /* CoreGraphics.framework in Frameworks */,
-				AG9CU0YIHJ7RB1796E9334CY /* MapKit.framework in Frameworks */,
+				W7IMZ6A1MI57D94W7S8L5FYZ /* UIKit.framework in Frameworks */,
+				TTV5H1DVTSDG0GI79A264UB8 /* Foundation.framework in Frameworks */,
+				WN90RZJZHCDTF9KOXYRIPQ7P /* CoreGraphics.framework in Frameworks */,
+				WF1LF3K8E1102UD8MXFZRH09 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		P4XT8OONZBMKFZAQG01OVKI3 = {
+		5G0S27SRQ017MOX27AX1IQ0D = {
 			isa = PBXGroup;
 			children = (
-				9H72OGNOTHME7YJ8OPRO8U2L /* HelloWorld */,
-				LHVZ6DOSEQ8UD8RYJNV4SM3V /* HelloWorldTests */,
-				65NR52TFKUFYA6EWX3ZE012R /* Frameworks */,
-				ET9W6SK2MNQE5LPC7GOFNA5T /* Products */,
+				TA9TLFX6BEZAKFZGUGRJB8NM /* HelloWorld */,
+				YOVDBHS12E4WZPMFHFYBDVX7 /* HelloWorldTests */,
+				5RBSVL1R0BIP4FVX3BLVDFL9 /* Frameworks */,
+				UYBUFICFJ0BQA2B6EVR01RY7 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		ET9W6SK2MNQE5LPC7GOFNA5T /* Products */ = {
+		UYBUFICFJ0BQA2B6EVR01RY7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2GO7O56IZIKX00QH4J6FHJ9I /* HelloWorld.app */,
-				LHI94CVMSPXOB0PC0I5T0KT3 /* HelloWorldTests.octest */,
+				PNGA3RW29SATCBMUN7YCHLE1 /* HelloWorld.app */,
+				5KD5LDIRHJL3366P6M6APH1I /* HelloWorldTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		65NR52TFKUFYA6EWX3ZE012R /* Frameworks */ = {
+		5RBSVL1R0BIP4FVX3BLVDFL9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5Y0VVYZR8K0AOE42POXSCE9X /* UIKit.framework in Frameworks */,
-				MJEVV7P7UK7NH2TZW3P6VCOP /* Foundation.framework in Frameworks */,
-				PK13F2WKUAWPWGNLZ49QT7PP /* CoreGraphics.framework in Frameworks */,
-				RO19NY1KU9O41PP5NOPWFCKD /* MapKit.framework in Frameworks */,
+				2RB1NY4OVP1BC3Y9Y9VGL7HP /* UIKit.framework in Frameworks */,
+				AMAV6S6NC83XJTTD8ZV5XFIW /* Foundation.framework in Frameworks */,
+				O21AAE7119V6IABWPC7HUPEB /* CoreGraphics.framework in Frameworks */,
+				GMZ7QP5J76JFHUNXXOO3URTO /* MapKit.framework in Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9H72OGNOTHME7YJ8OPRO8U2L /* HelloWorld */ = {
+		TA9TLFX6BEZAKFZGUGRJB8NM /* HelloWorld */ = {
 			isa = PBXGroup;
 			children = (
-				RD1009POGZQ0Y01DGD739JG8 /* AppDelegate.m */,
-				HJUV2M9D2CQ7V0LZZ7DCV2I8 /* AppDelegate.h */,
-				VPZMHN2ZLVSIWWZRSBLU1SRJ /* Array.m */,
-				IS1D32RKI6502DLKK4HPDFUA /* Array.h */,
-				MT7R58RQ567UGW7H6FRRKT1C /* CustomMapView.m */,
-				FQNIYXQN4031B0IMHNMRLWU1 /* CustomMapView.h */,
-				9LXVIX0N2AIBCD8U1G2WOQ0Q /* HelloWorld.m */,
-				RRHB8LPS4CTI0QSOEDGLN0TY /* HelloWorld.h */,
-				REXIO2X28JFG7C1Y86U0M4RL /* String.m */,
-				AECE9QILEWLA1NH76Q1B3AEI /* String.h */,
-				L0FX5D4WMZZAW4FCAL1B90BO /* haxe/ */,
-				1MRB8ELBNS6K8UI1BN7J84UW /* Supporting Files */,
+				TJ1MKQ01LA66VYR3T5W6S1K4 /* AppDelegate.m */,
+				1VM4XZA2AJMQC80K6J2BKBIB /* AppDelegate.h */,
+				2RE8H92ZD8O9S2KLUW1TGPA8 /* Array.m */,
+				BFH14HRWF31RVSN5XGMB3AXK /* Array.h */,
+				7TKVVSW2TMOLKIAUU9LZTMKV /* CustomMapView.m */,
+				V43EU617CBZQ0M87OAX7O794 /* CustomMapView.h */,
+				D11TWCL64PX800AWF2FVYXFX /* HelloWorld.m */,
+				2ZZ3W0JCZLX57SXP2A0SGJK0 /* HelloWorld.h */,
+				I9UTUVDOROHL1S9UUCW42SJ9 /* String.m */,
+				77AVJHQJHKX1T25S4ZUZMWOB /* String.h */,
+				K9JHJ2116AGTLRK3RGNWEP8Y /* haxe/ */,
+				8RDNN7LRSBMG5ASCZ2EMLUBF /* Supporting Files */,
 			);
 			path = HelloWorld;
 			sourceTree = "<group>";
 		};
-		1MRB8ELBNS6K8UI1BN7J84UW /* Supporting Files */ = {
+		8RDNN7LRSBMG5ASCZ2EMLUBF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				J1HO90BFNU0QZ8CCS5IKV3ME /* HelloWorld-Info.plist */,
-				4ICZ88VD1DUEGEF2DK97GGB9 /* InfoPlist.strings */,
-				32D8IZFOZUAN8UIDIPWOGLAJ /* main.m */,
-				UR0PKCSRFTFZ3JV15GEYMCBK /* HelloWorld-Prefix.pch */,
+				IF202M824W70IBPF9T51S750 /* HelloWorld-Info.plist */,
+				894WAU6I6U1KBD2UCLND4QC5 /* InfoPlist.strings */,
+				AFQIHMIP1UG74ZN2V3DURSN4 /* main.m */,
+				QT2ADFX1SLWW5DTB68MVCZWA /* HelloWorld-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		LHVZ6DOSEQ8UD8RYJNV4SM3V /* HelloWorldTests */ = {
+		YOVDBHS12E4WZPMFHFYBDVX7 /* HelloWorldTests */ = {
 			isa = PBXGroup;
 			children = (
 				/* 28BFDA091628A95900882B34 HelloWorldTests.h ,*/
 				/* 28BFDA0A1628A95900882B34 HelloWorldTests.m ,*/
-				5JJ4EJMG4MQW7K4WLC734ZED /* Supporting Files */,
+				INU10GX5S7HRKFYWOICOQI24 /* Supporting Files */,
 			);
 			path = HelloWorldTests;
 			sourceTree = "<group>";
 		};
-		5JJ4EJMG4MQW7K4WLC734ZED /* Supporting Files */ = {
+		INU10GX5S7HRKFYWOICOQI24 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				/* 28BFDA051628A95900882B34 HelloWorldTests-Info.plist ,*/
-				HJE9QL1KIUX43NX709MI26BP /* InfoPlist.strings */,
+				PCLUCIMY4CU47K4Y4OU8QJGI /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -169,13 +169,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		YG7KOQ4ICQ5A5FW81P0D7DIW /* HelloWorld */ = {
+		DF7N7XQQ7B5O1ZXXGRG8DWWH /* HelloWorld */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = H3N35JXV5G0BK27UXAW9FIHC /* Build configuration list for PBXNativeTarget "HelloWorld" */;
+			buildConfigurationList = 3U3WDVQAZB4DJAYEDTQ70WHB /* Build configuration list for PBXNativeTarget "HelloWorld" */;
 			buildPhases = (
-				708MTM74PPG8Y52PHMCBFLGW /* Sources */,
-				AX4FQ2TBOPUVKS6BKBW5XRX5 /* Frameworks */,
-				NXNJ7RS3PJ1OIK70FI1W4G3G /* Resources */,
+				M6RTV8KGR6JQPKLG8MRQAHFG /* Sources */,
+				1CXBOWG4PD48WC8OPT554GDF /* Frameworks */,
+				3S2RIIVW067S5YD9H4AVOJX4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -183,77 +183,77 @@
 			);
 			name = HelloWorld;
 			productName = HelloWorld;
-			productReference = 2GO7O56IZIKX00QH4J6FHJ9I /* HelloWorld.app */;
+			productReference = PNGA3RW29SATCBMUN7YCHLE1 /* HelloWorld.app */;
 			productType = "com.apple.product-type.application";
 		};
-		NHLWDCRA8ZIVFR85QKQKGQHR /* HelloWorldTests */ = {
+		IDA2IZVXKJHVPIPZJKN6VYYL /* HelloWorldTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DV3PW2R4LUOQ5Y03EQA8WC5 /* Build configuration list for PBXNativeTarget "HelloWorldTests" */;
+			buildConfigurationList = RAVHC0NV80AT4SUKE37RG379 /* Build configuration list for PBXNativeTarget "HelloWorldTests" */;
 			buildPhases = (
-				NQAGN4G2LVSPFRGK46XWA4EV /* Sources */,
-				CCQWPO9ZG9CL80K2I2BRHHMX /* Frameworks */,
-				NFDE7P61MW3GW4RL0ZBNLDEY /* Resources */,
-				XHG4MH600B4DIXYPKX9EPOM6 /* ShellScript */,
+				TJXJZRBZLFIN4VNCA8GR306U /* Sources */,
+				P33NF3SJFC4Z3VGCN62SN6MT /* Frameworks */,
+				UYJ7GGOV93AY2AJ1X7TZRK6U /* Resources */,
+				7JAILDCU8R9Y52RKF4T9IXY9 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DOV2XDC8TVALSKSSAKLLIGK9 /* PBXTargetDependency */,
+				VG5H9573T9DXY4HCDS318LC0 /* PBXTargetDependency */,
 			);
 			name = HelloWorldTests;
 			productName = HelloWorldTests;
-			productReference = LHI94CVMSPXOB0PC0I5T0KT3 /* HelloWorldTests.octest */;
+			productReference = 5KD5LDIRHJL3366P6M6APH1I /* HelloWorldTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		KEO098H49K800BYQ5PU0MUTY /* Project object */ = {
+		XZNMD0ZJZFIHZMQEAC0B6KJB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "You";
 			};
-			buildConfigurationList = GGID0ZKHA1JL1ZWBKQXU4V9A /* Build configuration list for PBXProject "HelloWorld" */;
+			buildConfigurationList = OOMB6IEN9E2XAVH03R37U8VU /* Build configuration list for PBXProject "HelloWorld" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = P4XT8OONZBMKFZAQG01OVKI3;
-			productRefGroup = ET9W6SK2MNQE5LPC7GOFNA5T /* Products */;
+			mainGroup = 5G0S27SRQ017MOX27AX1IQ0D;
+			productRefGroup = UYBUFICFJ0BQA2B6EVR01RY7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				YG7KOQ4ICQ5A5FW81P0D7DIW /* HelloWorld */,
-				NHLWDCRA8ZIVFR85QKQKGQHR /* HelloWorldTests */,
+				DF7N7XQQ7B5O1ZXXGRG8DWWH /* HelloWorld */,
+				IDA2IZVXKJHVPIPZJKN6VYYL /* HelloWorldTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		NXNJ7RS3PJ1OIK70FI1W4G3G /* Resources */ = {
+		3S2RIIVW067S5YD9H4AVOJX4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CVEKFMNOABUPOUGASEGI4RYP /* InfoPlist.strings in Resources */,
-		WH5KAW62THIQ4WY915KRNQYN /* haxe/ in Resoures */,
+				XQ5WS07ACV24DJE12FCA7EIN /* InfoPlist.strings in Resources */,
+		GTZS28S02KPZ5D2KDF3P5KEA /* haxe/ in Resoures */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		NFDE7P61MW3GW4RL0ZBNLDEY /* Resources */ = {
+		UYJ7GGOV93AY2AJ1X7TZRK6U /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5LVR09YUTZORGZXLC06VJZ4V /* InfoPlist.strings in Resources */,
+				PJ936UYYRBH71ZMBFJXQCA0P /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		XHG4MH600B4DIXYPKX9EPOM6 /* ShellScript */ = {
+		7JAILDCU8R9Y52RKF4T9IXY9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -271,21 +271,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		708MTM74PPG8Y52PHMCBFLGW /* Sources */ = {
+		M6RTV8KGR6JQPKLG8MRQAHFG /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
-				3L0NX0P6XQG6HW05DQUOV37I /* AppDelegate.m in Sources */,
-				V6EKH2KZCVG8VPVL2KH3IPV2 /* Array.m in Sources */,
-				M5ZEUMABOBN80WH4K5ZDB0SG /* CustomMapView.m in Sources */,
-				GEF441AW18TGAHC51ZEN1LBJ /* HelloWorld.m in Sources */,
-				2Z3BZ6XOFW8IXXW5AYSX31YE /* String.m in Sources */,
-				TEY5NIU4QGIKJF561NM1E0JJ /* haxe/Log.m in Sources */,
+YSRIHD1P1P8H1EVBTQ9UEM8U /* main.m in Sources */,
+				DZEKZPOPZOW4SR0GDY6QSE5Y /* AppDelegate.m in Sources */,
+				7FAYU11QSSNWNLLCITUO1M2K /* Array.m in Sources */,
+				IZPD0MEPP3Y6NK8ZFJHA3TNN /* CustomMapView.m in Sources */,
+				YBR2Y67TNTPTX2QSW3FO22IE /* HelloWorld.m in Sources */,
+				1AO56ARG9ROW24UFTIZQREGT /* String.m in Sources */,
+				MZ1YB3UFQ3L2LBHNJPFUM3R6 /* haxe/Log.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		NQAGN4G2LVSPFRGK46XWA4EV /* Sources */ = {
+		TJXJZRBZLFIN4VNCA8GR306U /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,26 +296,26 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DOV2XDC8TVALSKSSAKLLIGK9 /* PBXTargetDependency */ = {
+		VG5H9573T9DXY4HCDS318LC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = YG7KOQ4ICQ5A5FW81P0D7DIW /* HelloWorld */;
-			targetProxy = ECFPJBLW5Q770BWNAJZVYPVV /* PBXContainerItemProxy */;
+			target = DF7N7XQQ7B5O1ZXXGRG8DWWH /* HelloWorld */;
+			targetProxy = 1LM5YHMOYM5NO2G8VRIDWCF4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4ICZ88VD1DUEGEF2DK97GGB9 /* InfoPlist.strings */ = {
+		894WAU6I6U1KBD2UCLND4QC5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				WO5IBFJ8QPILLMKDLZBG57YB /* en */,
+				I6W1VACO4UKCE34VO6KZ8O6U /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		HJE9QL1KIUX43NX709MI26BP /* InfoPlist.strings */ = {
+		PCLUCIMY4CU47K4Y4OU8QJGI /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CZVXT1NDQVF78GUET1KAX965 /* en */,
+				CDD3S7HG1CFNXB9KJ2T7PY22 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1MAJ7J2EA5K5KEEXVXLSKVBK /* Debug */ = {
+		WJBOZI28U76KXKZDECCWB6JV /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -351,7 +351,7 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 			};
 			name = Debug;
 		};
-		40MFFE394Q7B5CETOZL1KBUT /* Release */ = {
+		FG0WMK0GIYWP3YKQJ3QOJX0W /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -373,7 +373,7 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 			};
 			name = Release;
 		};
-		4ZFPMKBV8WQGT2KZ5KSNP89I /* Debug */ = {
+		MQX6HIHNY93OAZKZ2S0TADYR /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -386,7 +386,7 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 			};
 			name = Debug;
 		};
-		R4M9NQVY417S8825KKPP6PTM /* Release */ = {
+		7GNTL9J86I1VSPKDB1V1XNQF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -397,7 +397,7 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 			};
 			name = Release;
 		};
-		PBI5267TPUVSDV1OYUNR2Y5K /* Debug */ = {
+		U9ID5ZQVLYH0MVLXGYPDRLNL /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HelloWorld.app/HelloWorld";
@@ -414,7 +414,7 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 			};
 			name = Debug;
 		};
-		RGH7GYJXBVW5FKZW0MC3LYCL /* Release */ = {
+		HOMFJR6S64TA1A2QF5OJ7WGG /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HelloWorld.app/HelloWorld";
@@ -434,34 +434,34 @@ MZ3NRVWYJW6BOOA2Y5JPPCLZ /* main.m in Sources */,
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		GGID0ZKHA1JL1ZWBKQXU4V9A /* Build configuration list for PBXProject "HelloWorld" */ = {
+		OOMB6IEN9E2XAVH03R37U8VU /* Build configuration list for PBXProject "HelloWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1MAJ7J2EA5K5KEEXVXLSKVBK /* Debug */,
-				40MFFE394Q7B5CETOZL1KBUT /* Release */,
+				WJBOZI28U76KXKZDECCWB6JV /* Debug */,
+				FG0WMK0GIYWP3YKQJ3QOJX0W /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		H3N35JXV5G0BK27UXAW9FIHC /* Build configuration list for PBXNativeTarget "HelloWorld" */ = {
+		3U3WDVQAZB4DJAYEDTQ70WHB /* Build configuration list for PBXNativeTarget "HelloWorld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4ZFPMKBV8WQGT2KZ5KSNP89I /* Debug */,
-				R4M9NQVY417S8825KKPP6PTM /* Release */,
+				MQX6HIHNY93OAZKZ2S0TADYR /* Debug */,
+				7GNTL9J86I1VSPKDB1V1XNQF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DV3PW2R4LUOQ5Y03EQA8WC5 /* Build configuration list for PBXNativeTarget "HelloWorldTests" */ = {
+		RAVHC0NV80AT4SUKE37RG379 /* Build configuration list for PBXNativeTarget "HelloWorldTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				PBI5267TPUVSDV1OYUNR2Y5K /* Debug */,
-				RGH7GYJXBVW5FKZW0MC3LYCL /* Release */,
+				U9ID5ZQVLYH0MVLXGYPDRLNL /* Debug */,
+				HOMFJR6S64TA1A2QF5OJ7WGG /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = KEO098H49K800BYQ5PU0MUTY /* Project object */;
+	rootObject = XZNMD0ZJZFIHZMQEAC0B6KJB /* Project object */;
 }

@@ -25,7 +25,7 @@
 
 - (id) init:(int)time_ms{
 	self = [super init];
-	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:MethDynamic userInfo:nil repeats:YES];
+	self.nstimer = [NSTimer timerWithTimeInterval:time_ms target:self selector:-FClosure--MethDynamic- userInfo:nil repeats:YES];
 	return self;
 }
 

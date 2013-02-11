@@ -272,7 +272,7 @@
 					default:{
 						{
 							[self.cache pop];
-							if (v hxSerialize != nil) {
+							if ([v hxSerialize] != nil) {
 								[self.buf.b appendString:(NSMutableString*)@"C"];
 								[self serializeString:[Type getClassName:_g_eTClass_0]];
 								[self.cache push:v];

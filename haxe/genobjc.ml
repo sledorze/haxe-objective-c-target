@@ -854,7 +854,22 @@ and generateExpression ctx e =
 	| TConst c ->
 		generateConstant ctx e.epos c
 	| TLocal v ->
-		ctx.writer#write (remapKeyword v.v_name)
+		ctx.writer#write (remapKeyword v.v_name);
+		(* (match v.v_type with
+		| TMono _ -> ctx.writer#write ">TMono<";
+		| TEnum _ -> ctx.writer#write ">TEnum<";
+		| TInst _ -> ctx.writer#write ">TInst<";
+		| TType _ -> ctx.writer#write ">TType<";
+		| TFun _ -> ctx.writer#write ">TFun<";
+		| TAnon _ -> ctx.writer#write ">TAnon<";
+		| TDynamic t -> 
+			ctx.writer#write ">TDynamic<[";
+			
+			ctx.writer#write "]";
+			
+		| TLazy _ -> ctx.writer#write ">TLazy<";
+		| TAbstract _ -> ctx.writer#write ">TAbstract<"); *)
+		
 	(* | TEnumField (en,s) ->
 		ctx.writer#write (Printf.sprintf "%s.%s" (remapHaxeTypeToObjc ctx true en.e_path e.epos) (s)) *)
 	(* | TArray ({ eexpr = TLocal { v_name = "__global__" } },{ eexpr = TConst (TString s) }) ->
@@ -917,11 +932,12 @@ and generateExpression ctx e =
 	| TField (e,fa) ->
 		if ctx.generating_right_side_of_operator then begin
 			(match fa with
-			(* | FInstance _ -> ctx.writer#write "-FInstance-";
-			| FStatic _ -> ctx.writer#write "-FStatic-";
-			| FAnon _ -> ctx.writer#write "-FAnon-";
-			| FDynamic _ -> ctx.writer#write "-FDynamic-"; *)
+			(* | FInstance _ -> ctx.writer#write "-FInstance-"; *)
+			(* | FStatic _ -> ctx.writer#write "-FStatic-"; *)
+			(* | FAnon _ -> ctx.writer#write "-FAnon-"; *)
+			(* | FDynamic _ -> ctx.writer#write "-FDynamic-"; *)
 			| FClosure (_,fa2) ->
+				ctx.writer#write "-FClosure-";
 				(match fa2.cf_expr, fa2.cf_kind with
 				| Some { eexpr = TFunction fd }, Method (MethNormal | MethInline) ->
 					
@@ -953,7 +969,7 @@ and generateExpression ctx e =
 					
 					
 				| Some { eexpr = TFunction fd }, Method (MethDynamic) ->
-					ctx.writer#write "MethDynamic";
+					ctx.writer#write "-MethDynamic-";
 				| _ -> ctx.writer#write "CCCCCCCCCCCCCCCC");
 			(* | FEnum _ -> ctx.writer#write "-FEnum-"; *)
 			| _ ->
@@ -964,8 +980,20 @@ and generateExpression ctx e =
 		end else begin
 			(* This is important, is generating a field access . *)
 			ctx.generating_fields <- ctx.generating_fields + 1;
-   			generateValue ctx e;
-			generateFieldAccess ctx e.etype (field_name fa);
+			
+			(match fa with
+			(* | FInstance _ -> ctx.writer#write "-FInstance-"; *)
+			(* | FStatic _ -> ctx.writer#write "-FStatic-"; *)
+			(* | FAnon _ -> ctx.writer#write "-FAnon-"; *)
+			| FDynamic name ->
+				if ctx.generating_calls = 0 then ctx.writer#write "[";
+				generateValue ctx e;
+				generateFieldAccess ctx e.etype name;
+				if ctx.generating_calls = 0 then ctx.writer#write "]";
+			(* | FClosure (_,fa2) -> ctx.writer#write "-FClosure-"; *)
+			| _ ->
+				generateValue ctx e;
+				generateFieldAccess ctx e.etype (field_name fa));
 		end
 	| TTypeExpr t ->
 		let p = t_path t in
@@ -1744,7 +1772,7 @@ let pbxproj common_ctx files_manager =
 			can_add_new_package := true;
 			List.iter ( fun (existing_path) -> 
 				if List.hd (fst existing_path) = List.hd (fst path) then can_add_new_package := false;
-				print_endline ((join_class_path existing_path "/")^" = "^(join_class_path path "/"));
+				(* print_endline ((join_class_path existing_path "/")^" = "^(join_class_path path "/")); *)
 			) !packages;
 			if (!can_add_new_package) then packages := List.append !packages [path];
 		end;
@@ -2537,7 +2565,7 @@ let generate common_ctx =
 				(* When we create a new module reset the 'frameworks' and 'imports' that where stored for the previous module *)
 				(* The frameworks are kept in a non-resetable variable for .pbxproj *)
 				imports_manager#reset;
-				print_endline ("> Generating class : "^(snd class_path)^" in module "^(snd module_path));
+				print_endline ("> Generating class : "^(snd class_path)^" in module "^(join_class_path module_path "/"));
 				
 				(* Generate implementation *)
 				(* If it's a new module close the old files and create new ones *)

@@ -61,7 +61,7 @@
 	// Simulated optional arguments
 	if (params == nil) params = nil;
 	
-	if (e mConstructEnum != nil) return [e mConstructEnum:constr :params];
+	if ([e mConstructEnum] != nil) return [e mConstructEnum:constr :params];
 	return nil;
 }
 + (id) createEnumIndex:(Enum*)e index:(int)index params:(NSMutableArray*)params{

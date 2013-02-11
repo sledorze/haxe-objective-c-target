@@ -63,7 +63,7 @@ new:nil
 	[self eq:[self.fields:m4 foo] v2:(NSMutableString*)@"_int#complex#empty" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestMeta.hx",@"45",@"unit.TestMeta",@"testMeta",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[self eq:m4 foo empty v2:nil pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestMeta.hx",@"46",@"unit.TestMeta",@"testMeta",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[self eq:[Std string:m4 foo _int] v2:(NSMutableString*)@"[-45]" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestMeta.hx",@"47",@"unit.TestMeta",@"testMeta",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
-	id c = [[m4 foo complex objectAtIndex:0] objectAtIndex:0];
+	id c = [[[[m4 foo] complex] objectAtIndex:0] objectAtIndex:0];
 	[self eq:[self.fields:c] v2:(NSMutableString*)@"b#k#x#y#z" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestMeta.hx",@"49",@"unit.TestMeta",@"testMeta",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[self eq:c x v2:0 pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestMeta.hx",@"50",@"unit.TestMeta",@"testMeta",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 	[self eq:c y v2:(NSMutableString*)@"hello" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestMeta.hx",@"51",@"unit.TestMeta",@"testMeta",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];

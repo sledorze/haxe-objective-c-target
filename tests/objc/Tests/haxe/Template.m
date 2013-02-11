@@ -417,12 +417,12 @@
 				id v = [e_eOpForeach_0];
 				@try {
 					id x = [v iterator];
-					if (x hasNext == nil) @throw nil;;
+					if ([x hasNext] == nil) @throw nil;;
 					v = x;
 				}
 				@catch (NSException *e1) {
 					@try {
-						if (v hasNext == nil) @throw nil;;
+						if ([v hasNext] == nil) @throw nil;;
 					}
 					@catch (NSException *e2) {
 						@throw [(NSMutableString*)@"Cannot iter on " stringByAppendingString:[Std string:v]];;

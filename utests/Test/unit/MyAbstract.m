@@ -252,3 +252,22 @@
 }
 
 @end
+
+@implementation MyAbstractClosureImpl
+
++ (NSMutableString*) _new:(NSMutableString*)value{
+	return value;
+}
++ (SEL) test:(NSMutableString*)this1{
+	
+	NSMutableArray *this2 = [[NSMutableArray alloc] initWithObjects:this1, nil];
+	SEL fn = ^+ (NSMutableString*) {
+		return [this2 objectAtIndex:0];
+	}
+	return fn;
+}
++ (void) setVal:(NSMutableString*)this1 v:(NSMutableString*)v{
+	this1 = v;
+}
+
+@end

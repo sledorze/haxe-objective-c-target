@@ -1255,6 +1255,15 @@
 	}
 	[self eq:[[Reflect field:mr field:(NSMutableString*)@"101"]-TDynamic-] v2:10 pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestType.hx",@"843",@"unit.TestType",@"testCustomArrayAccess",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
 }
+- (void) testAbstractClosure{
+	
+	MyAbstractClosure *s = [MyAbstractClosureImpl _new:(NSMutableString*)@"foo"];
+	SEL func1 = [MyAbstractClosureImpl test:s];
+	[self eq:[func1] v2:(NSMutableString*)@"foo" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestType.hx",@"849",@"unit.TestType",@"testAbstractClosure",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	s = (NSMutableString*)@"bar";
+	[self eq:[func1] v2:(NSMutableString*)@"foo" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestType.hx",@"851",@"unit.TestType",@"testAbstractClosure",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+	[self eq:[[MyAbstractClosureImpl test:s]] v2:(NSMutableString*)@"bar" pos:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:@"TestType.hx",@"852",@"unit.TestType",@"testAbstractClosure",nil] forKeys:[NSArray arrayWithObjects:@"fileName",@"lineNumber",@"className",@"methodName",nil]]];
+}
 - (id) init{
 	self = [super init];
 	[super];
