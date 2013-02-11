@@ -8,7 +8,7 @@
 
 
 
-@interface IntIterator : NSObject
+@interface IntIterator : HXObject
 
 @property (nonatomic) int min;
 @property (nonatomic) int max;

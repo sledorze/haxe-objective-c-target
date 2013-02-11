@@ -1,0 +1,23 @@
+# This will compile the Test.hx with the stable release of haxe
+#-cmd haxe -main Test -swf test/TestStable.swf -cp test
+
+# This will compile the Test.hx with the svn release of haxe
+#-cmd bin/haxe -main Text -swf test/Test.swf -cp test
+#-cmd open test/Test.swf
+
+# Test the new target, Objective-C
+-cmd ./haxe/haxe -main HelloWorld -cp test -objc test/objc
+
+# List of compiler flags for objc target
+-objc-version 6
+-objc-identifier com.ralcr.Tests
+-objc-platform ios
+-objc-lib ../Facebook/Facebook.pbjxproj
+-objc-bundle-version 1.0
+-objc-owner BalutaCristian
+-objc-bundle-name HaxeDemo
+-objc-orientation UIInterfaceOrientationPortrait
+-objc-orientation UIInterfaceOrientationLandscape
+-objc-plist PredefinedPlist.plist
+
+-lib ios

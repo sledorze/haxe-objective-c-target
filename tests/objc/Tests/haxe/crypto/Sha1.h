@@ -12,7 +12,7 @@
 #import "../../Array.h"
 #import "../../haxe/crypto/Sha1.h"
 
-@interface Sha1 : NSObject
+@interface Sha1 : HXObject
 
 + (NSMutableString*) encode:(NSMutableString*)s;
 + (Bytes*) make:(Bytes*)b;

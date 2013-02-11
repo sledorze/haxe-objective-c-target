@@ -26,7 +26,7 @@ typedef enum{
 #import "../haxe/_Template/TemplateExpr.h"
 #import "../Std.h"
 
-@interface Template : NSObject
+@interface Template : HXObject
 
 + (EReg*) splitter:(EReg*)val;
 + (EReg*) expr_splitter:(EReg*)val;

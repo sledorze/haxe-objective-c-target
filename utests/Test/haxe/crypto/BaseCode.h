@@ -12,7 +12,7 @@
 #import "../../Std.h"
 #import "../../String.h"
 
-@interface BaseCode : NSObject
+@interface BaseCode : HXObject
 
 @property (nonatomic, strong) Bytes *base;
 @property (nonatomic) int nbits;

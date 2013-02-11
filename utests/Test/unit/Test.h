@@ -19,7 +19,7 @@
 #import "../Lambda.h"
 #import "../Type.h"
 
-@interface Test : NSObject
+@interface Test : HXObject
 
 + (int) count:(int)val;
 + (NSMutableString*) reportInfos:(NSMutableString*)val;

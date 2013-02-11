@@ -8,7 +8,7 @@
 
 
 
-@interface HelloWorld : NSObject
+@interface HelloWorld : HXObject
 
 
 + (void) unusedMain;

@@ -9,7 +9,7 @@
 
 #import "../../haxe/ds/IntMap.h"
 
-@interface HashMapImpl : NSObject
+@interface HashMapImpl : HXObject
 
 + (id) _new;
 

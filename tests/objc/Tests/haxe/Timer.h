@@ -14,7 +14,7 @@
 #import "../haxe/Log.h"
 #import "../Sys.h"
 
-@interface Timer : NSObject
+@interface Timer : HXObject
 
 + (Timer*) delay:(SEL)f time_ms:(int)time_ms;
 + (id) measure:(SEL)f pos:(id)pos;

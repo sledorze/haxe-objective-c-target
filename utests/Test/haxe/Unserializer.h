@@ -23,7 +23,7 @@
 #import "../Date.h"
 #import "../haxe/io/Bytes.h"
 
-@interface Unserializer : NSObject
+@interface Unserializer : HXObject
 
 + (id) DEFAULT_RESOLVER:(id)val;
 + (NSMutableString*) BASE64:(NSMutableString*)val;

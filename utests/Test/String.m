@@ -11,7 +11,7 @@
 
 + (NSMutableString*) fromCharCode:(int)code{
 	return [NSString stringWithFormat: @"%C", code];
-}
+}UIView
 // Getters/setters for property length
 static int length__;
 - (int) length { return length__; }

@@ -25,7 +25,7 @@
 #import "../haxe/io/Bytes.h"
 #import "../Enum.h"
 
-@interface Serializer : NSObject
+@interface Serializer : HXObject
 
 + (BOOL) USE_CACHE:(BOOL)val;
 + (BOOL) USE_ENUM_INDEX:(BOOL)val;

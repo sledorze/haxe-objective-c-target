@@ -9,7 +9,7 @@
 
 #import "String.h"
 
-@interface StringBuf : NSObject
+@interface StringBuf : HXObject
 
 @property (nonatomic, strong) NSMutableString *b;
 - (id) init;

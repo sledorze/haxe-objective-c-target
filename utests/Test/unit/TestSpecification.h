@@ -10,7 +10,7 @@
 #import "../String.h"
 #import "../unit/C.h"
 
-@interface C : NSObject
+@interface C : HXObject
 
 + (void) staticFunc;
 + (NSMutableString*) staticVar:(NSMutableString*)val;
@@ -45,7 +45,7 @@
 
 
 
-@interface EmptyClass : NSObject
+@interface EmptyClass : HXObject
 
 - (id) init;
 
@@ -55,7 +55,7 @@
 
 #import "../String.h"
 
-@interface ClassWithToString : NSObject
+@interface ClassWithToString : HXObject
 
 - (NSMutableString*) toString;
 - (id) init;
@@ -88,7 +88,7 @@
 
 #import "../String.h"
 
-@interface ClassWithCtorDefaultValues : NSObject
+@interface ClassWithCtorDefaultValues : HXObject
 
 @property (nonatomic) int a;
 @property (nonatomic, strong) NSMutableString *b;
@@ -115,7 +115,7 @@ typedef enum{
 
 #import "../unit/TestSpecification.h"
 
-@interface IntWrap : NSObject
+@interface IntWrap : HXObject
 
 + (int) compare:(IntWrap*)a b:(IntWrap*)b;
 @property (nonatomic) int i;

@@ -12,7 +12,7 @@
 #import "../../Array.h"
 #import "../../haxe/crypto/Md5.h"
 
-@interface Md5 : NSObject
+@interface Md5 : HXObject
 
 + (NSMutableString*) encode:(NSMutableString*)s;
 + (Bytes*) make:(Bytes*)b;

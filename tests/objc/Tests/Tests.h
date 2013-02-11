@@ -44,7 +44,7 @@ typedef enum{
 #import "TestC.h"
 #import "TestHaxePack.h"
 
-@interface Tests : NSObject
+@interface Tests : HXObject
 
 + (NSMutableString*) staticVar1:(NSMutableString*)val;
 + (int) staticVar2:(int)val;
@@ -100,7 +100,7 @@ typedef enum{
 #import "String.h"
 #import "Array.h"
 
-@interface Tests2 : NSObject
+@interface Tests2 : HXObject
 
 @property (nonatomic) int d1;
 - (void) methodInTests2;

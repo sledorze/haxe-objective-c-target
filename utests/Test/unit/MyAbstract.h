@@ -8,7 +8,7 @@
 
 
 
-@interface MyAbstractImpl : NSObject
+@interface MyAbstractImpl : HXObject
 
 + (int) _new:(int)x;
 + (int) incr:(int)this1;
@@ -22,7 +22,7 @@
 #import "../String.h"
 #import "../unit/MyAbstract.h"
 
-@interface TemplateWrapImpl : NSObject
+@interface TemplateWrapImpl : HXObject
 
 + (Template*) _new:(NSMutableString*)x;
 + (Template*) get:(Template*)this1;
@@ -35,7 +35,7 @@
 
 #import "../String.h"
 
-@interface MeterImpl : NSObject
+@interface MeterImpl : HXObject
 
 + (float) _new:(float)f;
 + (float) get:(float)this1;
@@ -48,7 +48,7 @@
 #import "../String.h"
 #import "../unit/MyAbstract.h"
 
-@interface KilometerImpl : NSObject
+@interface KilometerImpl : HXObject
 
 + (float) _new:(float)f;
 + (NSMutableString*) toString:(float)this1;
@@ -64,7 +64,7 @@
 #import "../Array.h"
 #import "../Std.h"
 
-@interface MyHashImpl : NSObject
+@interface MyHashImpl : HXObject
 
 + (StringMap*) _new;
 + (void) set:(StringMap*)this1 k:(NSMutableString*)k v:(id)v;
@@ -78,7 +78,7 @@
 
 
 
-@interface AbstractBase : NSObject
+@interface AbstractBase : HXObject
 
 @property (nonatomic) id value;
 - (id) init:(id)value;
@@ -90,7 +90,7 @@
 #import "../unit/MyAbstract.h"
 #import "../String.h"
 
-@interface AbstractZImpl : NSObject
+@interface AbstractZImpl : HXObject
 
 + (int) toFoo:(AbstractBase*)a;
 + (NSMutableString*) toString:(AbstractBase*)a;
@@ -100,7 +100,7 @@
 
 
 
-@interface MyPoint3 : NSObject
+@interface MyPoint3 : HXObject
 
 @property (nonatomic) float x;
 @property (nonatomic) float y;
@@ -114,7 +114,7 @@
 #import "../unit/MyAbstract.h"
 #import "../String.h"
 
-@interface MyVectorImpl : NSObject
+@interface MyVectorImpl : HXObject
 
 + (MyVector*) add:(MyVector*)lhs rhs:(MyVector*)rhs;
 + (MyVector*) scalarAssign:(MyVector*)lhs rhs:(float)rhs;
@@ -132,7 +132,7 @@
 #import "../StringBuf.h"
 #import "../Std.h"
 
-@interface MyIntImpl : NSObject
+@interface MyIntImpl : HXObject
 
 
 + (NSMutableString*) repeat:(MyInt*)lhs rhs:(NSMutableString*)rhs;
@@ -143,7 +143,7 @@
 
 #import "../unit/MyAbstract.h"
 
-@interface MyInt2Impl : NSObject
+@interface MyInt2Impl : HXObject
 
 + (int) _new:(int)v;
 + (int) get:(int)this1;
@@ -155,7 +155,7 @@
 
 
 
-@interface MyStringImpl : NSObject
+@interface MyStringImpl : HXObject
 
 
 
@@ -167,7 +167,7 @@
 
 
 
-@interface ClassWithHashCode : NSObject
+@interface ClassWithHashCode : HXObject
 
 @property (nonatomic) int i;
 - (int) hashCode;
@@ -178,7 +178,7 @@
 
 
 
-@interface ClassWithoutHashCode : NSObject
+@interface ClassWithoutHashCode : HXObject
 
 @property (nonatomic) int i;
 - (id) init:(int)i;
@@ -190,7 +190,7 @@
 #import "../String.h"
 #import "../Reflect.h"
 
-@interface MyReflectImpl : NSObject
+@interface MyReflectImpl : HXObject
 
 + (id) arrayAccess:(id)this1 key:(NSMutableString*)key;
 + (id) arrayWrite:(id)this1 key:(NSMutableString*)key value:(id)value;
@@ -202,7 +202,7 @@
 #import "../String.h"
 #import "../Array.h"
 
-@interface MyAbstractClosureImpl : NSObject
+@interface MyAbstractClosureImpl : HXObject
 
 + (NSMutableString*) _new:(NSMutableString*)value;
 + (SEL) test:(NSMutableString*)this1;

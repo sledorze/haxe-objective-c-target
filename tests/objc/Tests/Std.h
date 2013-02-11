@@ -9,7 +9,7 @@
 
 #import "String.h"
 
-@interface Std : NSObject
+@interface Std : HXObject
 
 + (BOOL) is:(id)v t:(id)t;
 + (NSMutableString*) string:(id)s;

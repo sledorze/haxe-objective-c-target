@@ -9,7 +9,7 @@
 
 #import "Array.h"
 
-@interface List : NSObject
+@interface List : HXObject
 
 @property (nonatomic, strong) NSMutableArray *h;
 @property (nonatomic, strong) NSMutableArray *q;

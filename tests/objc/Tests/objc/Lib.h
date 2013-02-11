@@ -10,7 +10,7 @@
 
 #import "../objc/Lib.h"
 
-@interface Lib : NSObject
+@interface Lib : HXObject
 
 + (void) log:(id)v;
 + (void) print:(id)v;

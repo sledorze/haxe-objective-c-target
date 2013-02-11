@@ -10,7 +10,7 @@
 
 #import "../../haxe/io/Bytes.h"
 
-@interface BytesBuffer : NSObject
+@interface BytesBuffer : HXObject
 
 @property (nonatomic, strong) NSMutableData *b;
 - (Bytes*) getBytes;

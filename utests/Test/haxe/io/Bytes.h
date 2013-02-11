@@ -13,7 +13,7 @@
 #import "../../haxe/io/Error.h"
 #import "../../StringBuf.h"
 
-@interface Bytes : NSObject
+@interface Bytes : HXObject
 
 + (Bytes*) alloc:(int)length;
 + (Bytes*) ofString:(NSMutableString*)s;

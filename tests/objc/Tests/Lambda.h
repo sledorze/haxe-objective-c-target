@@ -10,7 +10,7 @@
 #import "Array.h"
 #import "List.h"
 
-@interface Lambda : NSObject
+@interface Lambda : HXObject
 
 + (NSMutableArray*) array:(id)it;
 + (List*) list:(id)it;

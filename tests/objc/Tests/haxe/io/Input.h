@@ -15,7 +15,7 @@
 #import "../../StringBuf.h"
 #import "../../Math.h"
 
-@interface Input : NSObject
+@interface Input : HXObject
 
 @property (nonatomic, setter=set_bigEndian) BOOL bigEndian;
 - (int) readByte;

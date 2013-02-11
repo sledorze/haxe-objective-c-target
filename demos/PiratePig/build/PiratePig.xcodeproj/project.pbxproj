@@ -1,0 +1,468 @@
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3MO5BHL9H2CFVV8FQTPW3TY6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0N83QSU3I9S0ILCW3ZEKA7E3; };
+		KYPSUL8QAZFHZOG4J2QDY3W6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0OB9BZ4G9L5RRHBVA132BKC5; };
+		PSDXGZ92UEPQDTX43I1RCTEH /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = Q52HZIXLQY4HJTPJ71XIMXTJ; };
+		XUB3VQBVKVXA95TOQ4YZGS5C /* Array.m in Sources */ = {isa = PBXBuildFile; fileRef = EQAJO4PC4P5S9DWB9TTWIPHG; };
+		LX65BG2W4X07BCTU2OOCT6BV /* PiratePig.m in Sources */ = {isa = PBXBuildFile; fileRef = NDJEUAOGLN3G7NY5QVM0P012; };
+		WPARLW9E4EEZRTV2KNMJIBB3 /* PiratePigGame.m in Sources */ = {isa = PBXBuildFile; fileRef = H79EP05LA98JH2AATAA6N3GM; };
+		QQMGND5Y8R39KMAHV9IQ3HVF /* Std.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F42YKNM3NOXJZFHD4ZJ05Y4; };
+		1HOBLJFMR6WAK5SBWXR0YCGF /* String.m in Sources */ = {isa = PBXBuildFile; fileRef = Y4DKSLLDIMXPZGLZTI47YB8H; };
+		HM6XPW3NG4BDATPKMF7N6XOC /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = 8R9HHKWNBDYENXAASG8P2ZIL; };
+		81YGK8YFZ77RSKGMJC9FZ2F4 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = RYAWN3TTIYSCOUK7JCQB2IFE; };
+		JQ8WSQKU3BST44G2R4JBHJ24 /* haxe in Resources */ = {isa = PBXBuildFile; fileRef = G6U9T5PEC9XCHTIJ3VMTWOIN; };
+		R774GJ8N3P1FYN2HC5QHWZBW /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29HPXLAEYM37ZFLP0GECFMRX /* InfoPlist.strings */; };
+		6M6UODRGBVXH8UTHLX5IYZWD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = MZZ7S6G06MC2XXZAFP4LL314 /* InfoPlist.strings */; };
+		CLY9703P87X4X179TMP81BIY /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = VRY8DPM7EO8WKW528ZN3KQ58 /* main.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABSZDWCJFKTNMKQM25KPC0BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = O6XC8YINP8YTXFVM7KTF52ZW /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70DL4J00TGAJ5DNM59HP3CU4;
+			remoteInfo = PiratePig;
+		};
+/* End PBXContainerItemProxy section */
+
+
+/* Begin PBXFileReference section */
+		0N83QSU3I9S0ILCW3ZEKA7E3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0OB9BZ4G9L5RRHBVA132BKC5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		Q52HZIXLQY4HJTPJ71XIMXTJ /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EQAJO4PC4P5S9DWB9TTWIPHG /* Array.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Array.m; sourceTree = "<group>"; };
+		3YW223OXMI2MUVRNA08L3605 /* Array.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Array.h; sourceTree = "<group>"; };
+		NDJEUAOGLN3G7NY5QVM0P012 /* PiratePig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiratePig.m; sourceTree = "<group>"; };
+		52VGQOVE7KMPKPO82VL8ONV6 /* PiratePig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiratePig.h; sourceTree = "<group>"; };
+		H79EP05LA98JH2AATAA6N3GM /* PiratePigGame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiratePigGame.m; sourceTree = "<group>"; };
+		9V4A4SL4GQ26U6TCS730OOVH /* PiratePigGame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiratePigGame.h; sourceTree = "<group>"; };
+		6F42YKNM3NOXJZFHD4ZJ05Y4 /* Std.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Std.m; sourceTree = "<group>"; };
+		K8AHQX8Q5VJL3KL1KXO0VM3G /* Std.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Std.h; sourceTree = "<group>"; };
+		Y4DKSLLDIMXPZGLZTI47YB8H /* String.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = String.m; sourceTree = "<group>"; };
+		VQ4C0RYE8DS53457GJEL9T6I /* String.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = "<group>"; };
+		8R9HHKWNBDYENXAASG8P2ZIL /* Tile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
+		H8VY3W2T1L9QHB2FR6H0PYCW /* Tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		RYAWN3TTIYSCOUK7JCQB2IFE /* haxe/Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Log.m; path = PiratePig/haxe/Log.m; sourceTree = SOURCE_ROOT; };
+		CX6RJFPIUDTQYDBF8NB6ETPY /* haxe/Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Log.h; path = PiratePig/haxe/Log.h; sourceTree = SOURCE_ROOT; };
+		G6U9T5PEC9XCHTIJ3VMTWOIN /* haxe/ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = haxe; sourceTree = "<group>"; };
+		CNS66UBRIWXV6N9N27X1B5B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		QO6DHB3PTLEZLAB46QP9UMBJ /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		PD3Z57USUY1CFMAO725CQVG0 /* PiratePig-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PiratePig-Info.plist"; sourceTree = "<group>"; };
+		JNF8KW1P05BHC5962680UOHH /* PiratePig-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PiratePig-Prefix.pch"; sourceTree = "<group>"; };
+		VRY8DPM7EO8WKW528ZN3KQ58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CTU3PTL0SD0BLSM605JJJLPI /* PiratePig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PiratePig.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		KD555DEPWE0TD7Q7XF9U0YMO /* PiratePigTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PiratePigTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+
+/* Begin PBXFrameworksBuildPhase section */
+		64C30YZX00VRWVSWY02NB5HK /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3MO5BHL9H2CFVV8FQTPW3TY6 /* UIKit.framework in Frameworks */,
+				KYPSUL8QAZFHZOG4J2QDY3W6 /* Foundation.framework in Frameworks */,
+				PSDXGZ92UEPQDTX43I1RCTEH /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		WU3TZM0TFU8BRRV6B99AMDB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3MO5BHL9H2CFVV8FQTPW3TY6 /* UIKit.framework in Frameworks */,
+				KYPSUL8QAZFHZOG4J2QDY3W6 /* Foundation.framework in Frameworks */,
+				PSDXGZ92UEPQDTX43I1RCTEH /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ZXLLLIDTAESEEWQF361AVLLZ = {
+			isa = PBXGroup;
+			children = (
+				XSUZBJUDZ3HTVZVNOO4XDHQG /* PiratePig */,
+				2H24QSKFWRNNYN29DGLVJR36 /* PiratePigTests */,
+				SX7GTDV360SPPWDZYBAMSX6M /* Frameworks */,
+				F1MX637OCMYY9HBMATBM9PS0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F1MX637OCMYY9HBMATBM9PS0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CTU3PTL0SD0BLSM605JJJLPI /* PiratePig.app */,
+				KD555DEPWE0TD7Q7XF9U0YMO /* PiratePigTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		SX7GTDV360SPPWDZYBAMSX6M /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0N83QSU3I9S0ILCW3ZEKA7E3 /* UIKit.framework in Frameworks */,
+				0OB9BZ4G9L5RRHBVA132BKC5 /* Foundation.framework in Frameworks */,
+				Q52HZIXLQY4HJTPJ71XIMXTJ /* CoreGraphics.framework in Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		XSUZBJUDZ3HTVZVNOO4XDHQG /* PiratePig */ = {
+			isa = PBXGroup;
+			children = (
+				EQAJO4PC4P5S9DWB9TTWIPHG /* Array.m */,
+				3YW223OXMI2MUVRNA08L3605 /* Array.h */,
+				NDJEUAOGLN3G7NY5QVM0P012 /* PiratePig.m */,
+				52VGQOVE7KMPKPO82VL8ONV6 /* PiratePig.h */,
+				H79EP05LA98JH2AATAA6N3GM /* PiratePigGame.m */,
+				9V4A4SL4GQ26U6TCS730OOVH /* PiratePigGame.h */,
+				6F42YKNM3NOXJZFHD4ZJ05Y4 /* Std.m */,
+				K8AHQX8Q5VJL3KL1KXO0VM3G /* Std.h */,
+				Y4DKSLLDIMXPZGLZTI47YB8H /* String.m */,
+				VQ4C0RYE8DS53457GJEL9T6I /* String.h */,
+				8R9HHKWNBDYENXAASG8P2ZIL /* Tile.m */,
+				H8VY3W2T1L9QHB2FR6H0PYCW /* Tile.h */,
+				G6U9T5PEC9XCHTIJ3VMTWOIN /* haxe/ */,
+				OYJX2CYE1W01M1RQUZ5QOMMI /* Supporting Files */,
+			);
+			path = PiratePig;
+			sourceTree = "<group>";
+		};
+		OYJX2CYE1W01M1RQUZ5QOMMI /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				PD3Z57USUY1CFMAO725CQVG0 /* PiratePig-Info.plist */,
+				29HPXLAEYM37ZFLP0GECFMRX /* InfoPlist.strings */,
+				VRY8DPM7EO8WKW528ZN3KQ58 /* main.m */,
+				JNF8KW1P05BHC5962680UOHH /* PiratePig-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2H24QSKFWRNNYN29DGLVJR36 /* PiratePigTests */ = {
+			isa = PBXGroup;
+			children = (
+				/* 28BFDA091628A95900882B34 PiratePigTests.h ,*/
+				/* 28BFDA0A1628A95900882B34 PiratePigTests.m ,*/
+				TN6CBPN4YZJ1BC1VDBFNBTLS /* Supporting Files */,
+			);
+			path = PiratePigTests;
+			sourceTree = "<group>";
+		};
+		TN6CBPN4YZJ1BC1VDBFNBTLS /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				/* 28BFDA051628A95900882B34 PiratePigTests-Info.plist ,*/
+				MZZ7S6G06MC2XXZAFP4LL314 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		70DL4J00TGAJ5DNM59HP3CU4 /* PiratePig */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20KR2ZWH5J7Y9PJ20Y5DQM5Q /* Build configuration list for PBXNativeTarget "PiratePig" */;
+			buildPhases = (
+				VUL9P3HEJUHEU7H5YSLM7JT6 /* Sources */,
+				64C30YZX00VRWVSWY02NB5HK /* Frameworks */,
+				M55A6G4VFDUJFD8N35SC3V4A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PiratePig;
+			productName = PiratePig;
+			productReference = CTU3PTL0SD0BLSM605JJJLPI /* PiratePig.app */;
+			productType = "com.apple.product-type.application";
+		};
+		P82YF6FIS6DEKMZOYTYVT31N /* PiratePigTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53AJ813R2Q3GD2WNSN3UJX7M /* Build configuration list for PBXNativeTarget "PiratePigTests" */;
+			buildPhases = (
+				9B4VM3EAMM77LTI13MDW0R05 /* Sources */,
+				WU3TZM0TFU8BRRV6B99AMDB1 /* Frameworks */,
+				EIW4T99GC91HDPCEJSGMLAUP /* Resources */,
+				PL1H5UUQFVOBCQJ0K3EWVQ2H /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				S6DWXP7RVGHSZ258M7UIBHN2 /* PBXTargetDependency */,
+			);
+			name = PiratePigTests;
+			productName = PiratePigTests;
+			productReference = KD555DEPWE0TD7Q7XF9U0YMO /* PiratePigTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		O6XC8YINP8YTXFVM7KTF52ZW /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "You";
+			};
+			buildConfigurationList = PIO77W0BIDTBKJQXUOESHTM0 /* Build configuration list for PBXProject "PiratePig" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ZXLLLIDTAESEEWQF361AVLLZ;
+			productRefGroup = F1MX637OCMYY9HBMATBM9PS0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				70DL4J00TGAJ5DNM59HP3CU4 /* PiratePig */,
+				P82YF6FIS6DEKMZOYTYVT31N /* PiratePigTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		M55A6G4VFDUJFD8N35SC3V4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				R774GJ8N3P1FYN2HC5QHWZBW /* InfoPlist.strings in Resources */,
+		JQ8WSQKU3BST44G2R4JBHJ24 /* haxe/ in Resoures */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EIW4T99GC91HDPCEJSGMLAUP /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6M6UODRGBVXH8UTHLX5IYZWD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		PL1H5UUQFVOBCQJ0K3EWVQ2H /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\
+\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\
+";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		VUL9P3HEJUHEU7H5YSLM7JT6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+CLY9703P87X4X179TMP81BIY /* main.m in Sources */,
+				XUB3VQBVKVXA95TOQ4YZGS5C /* Array.m in Sources */,
+				LX65BG2W4X07BCTU2OOCT6BV /* PiratePig.m in Sources */,
+				WPARLW9E4EEZRTV2KNMJIBB3 /* PiratePigGame.m in Sources */,
+				QQMGND5Y8R39KMAHV9IQ3HVF /* Std.m in Sources */,
+				1HOBLJFMR6WAK5SBWXR0YCGF /* String.m in Sources */,
+				HM6XPW3NG4BDATPKMF7N6XOC /* Tile.m in Sources */,
+				81YGK8YFZ77RSKGMJC9FZ2F4 /* haxe/Log.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9B4VM3EAMM77LTI13MDW0R05 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				/* 28BFDA0B1628A95900882B34  PiratePigTests.m in Sources ,*/
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		S6DWXP7RVGHSZ258M7UIBHN2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70DL4J00TGAJ5DNM59HP3CU4 /* PiratePig */;
+			targetProxy = ABSZDWCJFKTNMKQM25KPC0BA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		29HPXLAEYM37ZFLP0GECFMRX /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CNS66UBRIWXV6N9N27X1B5B2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		MZZ7S6G06MC2XXZAFP4LL314 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				QO6DHB3PTLEZLAB46QP9UMBJ /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		S97WLDP8FF5KHY1CIJBQYSHU /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ZC2TSQEYH12YGV9AV4OIWRE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7HBBPOMMLKN59H7ZG8AXC64I /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PiratePig/PiratePig-Prefix.pch";
+				INFOPLIST_FILE = "PiratePig/PiratePig-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FW5HHCFIMN1W2H3Z60QB0X86 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PiratePig/PiratePig-Prefix.pch";
+				INFOPLIST_FILE = "PiratePig/PiratePig-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		LD1T934A1H43WX09Q2MCJ6IP /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PiratePig.app/PiratePig";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PiratePig/PiratePig-Prefix.pch";
+				INFOPLIST_FILE = "PiratePigTests/PiratePigTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		QZY3I1NB0VDZBO0T7A1JHWZY /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PiratePig.app/PiratePig";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PiratePig/PiratePig-Prefix.pch";
+				INFOPLIST_FILE = "PiratePigTests/PiratePigTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		PIO77W0BIDTBKJQXUOESHTM0 /* Build configuration list for PBXProject "PiratePig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				S97WLDP8FF5KHY1CIJBQYSHU /* Debug */,
+				ZC2TSQEYH12YGV9AV4OIWRE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		20KR2ZWH5J7Y9PJ20Y5DQM5Q /* Build configuration list for PBXNativeTarget "PiratePig" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7HBBPOMMLKN59H7ZG8AXC64I /* Debug */,
+				FW5HHCFIMN1W2H3Z60QB0X86 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53AJ813R2Q3GD2WNSN3UJX7M /* Build configuration list for PBXNativeTarget "PiratePigTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				LD1T934A1H43WX09Q2MCJ6IP /* Debug */,
+				QZY3I1NB0VDZBO0T7A1JHWZY /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = O6XC8YINP8YTXFVM7KTF52ZW /* Project object */;
+}

@@ -11,7 +11,7 @@
 #import "../../haxe/io/Bytes.h"
 #import "../../haxe/io/Error.h"
 
-@interface BytesBuffer : NSObject
+@interface BytesBuffer : HXObject
 
 @property (nonatomic, strong) NSMutableData *b;
 - (void) addByte:(int)byte;

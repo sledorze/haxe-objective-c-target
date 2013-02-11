@@ -19,7 +19,7 @@
 #import "../haxe/ds/StringMap.h"
 #import "../EnumValue.h"
 
-@interface Json : NSObject
+@interface Json : HXObject
 
 + (id) parse:(NSMutableString*)text;
 + (NSMutableString*) stringify:(id)value replacer:(SEL)replacer;

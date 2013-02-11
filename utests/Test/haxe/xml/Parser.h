@@ -14,7 +14,7 @@
 #import "../../StringBuf.h"
 #import "../../Std.h"
 
-@interface Parser : NSObject
+@interface Parser : HXObject
 
 + (StringMap*) escapes:(StringMap*)val;
 + (Xml*) parse:(NSMutableString*)str;

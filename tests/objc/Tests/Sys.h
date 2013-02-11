@@ -16,7 +16,7 @@
 #import "String.h"
 #import "Hash.h"
 
-@interface Sys : NSObject
+@interface Sys : HXObject
 
 + (void) print:(id)v;
 + (void) println:(id)v;

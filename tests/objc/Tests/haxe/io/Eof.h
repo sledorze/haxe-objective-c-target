@@ -9,7 +9,7 @@
 
 #import "../../String.h"
 
-@interface Eof : NSObject
+@interface Eof : HXObject
 
 - (NSMutableString*) toString;
 - (id) init;

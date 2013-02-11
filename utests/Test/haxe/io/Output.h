@@ -14,7 +14,7 @@
 #import "../../haxe/io/Output.h"
 #import "../../String.h"
 
-@interface Output : NSObject
+@interface Output : HXObject
 
 + (float) LN2:(float)val;
 @property (nonatomic, setter=set_bigEndian) BOOL bigEndian;

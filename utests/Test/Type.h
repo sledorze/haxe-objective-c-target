@@ -27,7 +27,7 @@ typedef enum{
 #import "ValueType.h"
 #import <objc/runtime.h>
 
-@interface Type : NSObject
+@interface Type : HXObject
 
 + (Class*) getClass:(id)o;
 + (NSMutableString*) getClassName:(Class*)c;

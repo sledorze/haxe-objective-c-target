@@ -14,7 +14,7 @@
 #import "List.h"
 #import "List/T.h"
 
-@interface List : NSObject
+@interface List : HXObject
 
 @property (nonatomic, strong) NSMutableArray *h;
 @property (nonatomic, strong) NSMutableArray *q;

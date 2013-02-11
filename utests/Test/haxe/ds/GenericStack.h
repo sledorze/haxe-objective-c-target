@@ -8,7 +8,7 @@
 
 
 
-@interface GenericStack : NSObject
+@interface GenericStack : HXObject
 
 - (id) init;
 

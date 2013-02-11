@@ -22,7 +22,7 @@ typedef enum{
 #import "../Std.h"
 #import "../haxe/StackItem.h"
 
-@interface CallStack : NSObject
+@interface CallStack : HXObject
 
 + (NSMutableArray*) callStack;
 + (NSMutableArray*) exceptionStack;

@@ -15,7 +15,7 @@
 #import "StringBuf.h"
 #import "Array.h"
 
-@interface DateTools : NSObject
+@interface DateTools : HXObject
 
 + (NSMutableString*) __format_get:(NSDate*)d e:(NSMutableString*)e;
 + (NSMutableString*) __format:(NSDate*)d f:(NSMutableString*)f;

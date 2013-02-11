@@ -8,7 +8,7 @@
 
 
 
-@interface InterfWithProp : NSObject
+@interface InterfWithProp : HXObject
 
 @property (nonatomic) int x;
 
@@ -18,7 +18,7 @@
 
 #import "../unit/ClassWithProp.h"
 
-@interface ClassWithProp : NSObject<InterfWithProp>
+@interface ClassWithProp : HXObject<InterfWithProp>
 
 + (int) STAT_X:(int)val;
 + (int) set_STAT_X:(int)v;

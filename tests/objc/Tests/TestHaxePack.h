@@ -20,7 +20,7 @@
 #import "haxe/Json.h"
 #import "haxe/Template.h"
 
-@interface TestHaxePack : NSObject
+@interface TestHaxePack : HXObject
 
 - (void) testTimer;
 - (void) testTimerLoop;

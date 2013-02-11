@@ -10,7 +10,7 @@
 #import "../haxe/Int64.h"
 #import "../String.h"
 
-@interface Int64 : NSObject
+@interface Int64 : HXObject
 
 + (int) toInt:(Int64*)x;
 + (int) getLow:(Int64*)x;

@@ -9,7 +9,7 @@
 
 #import "../String.h"
 
-@interface Using1 : NSObject
+@interface Using1 : HXObject
 
 + (NSMutableString*) usingTest:(NSMutableString*)s;
 

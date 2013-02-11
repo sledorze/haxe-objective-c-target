@@ -8,7 +8,7 @@
 
 
 
-@interface MyInterface : NSObject
+@interface MyInterface : HXObject
 
 
 @end

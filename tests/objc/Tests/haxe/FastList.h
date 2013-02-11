@@ -9,7 +9,7 @@
 
 #import "../haxe/FastList.h"
 
-@interface FastCell : NSObject
+@interface FastCell : HXObject
 
 @property (nonatomic) id elt;
 @property (nonatomic, strong) FastCell *next;
@@ -24,7 +24,7 @@
 #import "../Array.h"
 #import "../String.h"
 
-@interface FastList : NSObject
+@interface FastList : HXObject
 
 @property (nonatomic, strong) FastCell *head;
 - (void) add:(id)item;

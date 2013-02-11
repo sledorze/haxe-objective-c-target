@@ -9,7 +9,7 @@
 
 #import "../unit/MyDynamicClass.h"
 
-@interface MyDynamicClass : NSObject
+@interface MyDynamicClass : HXObject
 
 + (int) Z:(int)val;
 // Defining a dynamic method
@@ -67,7 +67,7 @@
 
 
 
-@interface IDefArgs : NSObject
+@interface IDefArgs : HXObject
 
 
 
@@ -76,7 +76,7 @@
 
 
 
-@interface BaseDefArgs : NSObject
+@interface BaseDefArgs : HXObject
 
 - (int) get:(int)x;
 
@@ -97,7 +97,7 @@
 
 #import "../String.h"
 
-@interface BaseConstrOpt : NSObject
+@interface BaseConstrOpt : HXObject
 
 @property (nonatomic, strong) NSMutableString *s;
 @property (nonatomic) int i;

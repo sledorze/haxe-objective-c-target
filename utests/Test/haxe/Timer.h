@@ -10,7 +10,7 @@
 
 #import "../haxe/Log.h"
 
-@interface Timer : NSObject
+@interface Timer : HXObject
 
 @property (nonatomic, strong) NSTimer *nstimer;
 @property (nonatomic) int _id;
